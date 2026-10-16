@@ -1,6 +1,6 @@
 # 고정 엣지 센서의 전달 조건별 배치와 오래된 계획의 손실
 
-Status: ready-for-agent
+Status: ready-for-human — 수집·분석 완료; docs/experiments/edge-network-placement.md 참조
 
 ## Material Passport
 

@@ -1,0 +1,929 @@
+{
+  "settings": {
+    "edge-network-20261016t111955534665-b2-arm": {
+      "netns": "net:[4026532950]",
+      "destinations": [
+        "10.244.8.254",
+        "10.100.195.47"
+      ],
+      "mbps": 50,
+      "delay_ms": 0,
+      "before": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'noqueue')",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 148,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 4294967295,
+          "info": 2,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "after": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'prio')",
+            "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 172,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 261,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 65536,
+          "parent": 4294967295,
+          "info": 5,
+          "event": "RTM_NEWQDISC"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'tbf')",
+            "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 188,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 261,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 1048576,
+          "parent": 65537,
+          "info": 1,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "filters": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2147483648,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': -32967670, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2147483648), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}}), ('TCA_U32_PCNT', {'rcnt': 0, 'rhit': 0, 'kcnts': 0})]})"
+          ],
+          "header": {
+            "length": 144,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2147485696,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2148532224,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': 801334282, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2148532224), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}}), ('TCA_U32_PCNT', {'rcnt': 0, 'rhit': 0, 'kcnts': 0})]})"
+          ],
+          "header": {
+            "length": 144,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 14,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2148534272,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        }
+      ]
+    },
+    "edge-network-20261016t111955534665-b2-arm-client": {
+      "netns": "net:[4026533029]",
+      "destinations": [
+        "10.244.8.254",
+        "10.100.195.47"
+      ],
+      "mbps": 50,
+      "delay_ms": 0,
+      "before": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'noqueue')",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 148,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 4294967295,
+          "info": 2,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "after": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'prio')",
+            "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 172,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 261,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 65536,
+          "parent": 4294967295,
+          "info": 5,
+          "event": "RTM_NEWQDISC"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'tbf')",
+            "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 188,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 261,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 1048576,
+          "parent": 65537,
+          "info": 1,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "filters": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2147483648,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': -32967670, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2147483648), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}}), ('TCA_U32_PCNT', {'rcnt': 0, 'rhit': 0, 'kcnts': 0})]})"
+          ],
+          "header": {
+            "length": 144,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2147485696,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2148532224,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': 801334282, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2148532224), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}}), ('TCA_U32_PCNT', {'rcnt': 0, 'rhit': 0, 'kcnts': 0})]})"
+          ],
+          "header": {
+            "length": 144,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 12,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2148534272,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        }
+      ]
+    },
+    "edge-network-20261016t111955534665-b2-intel-npu": {
+      "netns": "net:[4026534257]",
+      "destinations": [
+        "10.244.4.138",
+        "10.244.4.139",
+        "10.104.191.151"
+      ],
+      "mbps": 50,
+      "delay_ms": 0,
+      "before": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'noqueue')",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 148,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 4294967295,
+          "info": 2,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "after": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'prio')",
+            "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 172,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 65536,
+          "parent": 4294967295,
+          "info": 25,
+          "event": "RTM_NEWQDISC"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'tbf')",
+            "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 188,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 262,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 1048576,
+          "parent": 65537,
+          "info": 1,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "filters": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2147483648,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': -1979386870, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2147483648), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}})]})"
+          ],
+          "header": {
+            "length": 116,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2147485696,
+          "parent": 65536,
+          "info": 65544,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2148532224,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': -1962609654, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2148532224), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}})]})"
+          ],
+          "header": {
+            "length": 116,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2148534272,
+          "parent": 65536,
+          "info": 131080,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+          ],
+          "header": {
+            "length": 52,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 65536,
+          "info": 196616,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+          ],
+          "header": {
+            "length": 64,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2149580800,
+          "parent": 65536,
+          "info": 196616,
+          "event": "RTM_NEWTFILTER"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'u32')",
+            "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+            "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': -1749063670, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2149580800), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}})]})"
+          ],
+          "header": {
+            "length": 116,
+            "type": 44,
+            "flags": 2,
+            "sequence_number": 263,
+            "pid": 13,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 2149582848,
+          "parent": 65536,
+          "info": 196616,
+          "event": "RTM_NEWTFILTER"
+        }
+      ]
+    }
+  },
+  "duration_seconds": 15.476618489978136
+}

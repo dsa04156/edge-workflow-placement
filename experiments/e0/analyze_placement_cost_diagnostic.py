@@ -5,6 +5,7 @@ import hashlib
 import itertools
 import json
 from pathlib import Path
+import sys
 import statistics
 
 from analyze_fresh_placement import describe
@@ -37,7 +38,11 @@ def summarize(rows):
 
 
 def main():
-    output=BASE/'results.json';assert not output.exists(),'Preserve existing analysis'
+    check='--check' in sys.argv
+    output=BASE/'results.json';assert check or not output.exists(),'Preserve existing analysis'
+    evidence_order=json.loads((BASE/'phase-order-evidence.json').read_text())
+    for name,evidence in evidence_order['files'].items():
+        assert hashlib.sha256((BASE/name).read_bytes()).hexdigest()==evidence['sha256']
     run=json.loads((BASE/'run.json').read_text());corpus=json.loads((BASE/'corpus.json').read_text())
     verification=json.loads((BASE/'verification.json').read_text())
     aliases=['arm','intel_npu'];all_rows=[];cases=[];pairs=[];policy_cases=[];plans=[];ordering=[]
@@ -81,7 +86,7 @@ def main():
                     assert row['completed_at']>=frozen['frozen_at']
             all_rows+=rows
         assert len(receipts)==len(seen)
-        times=[(BASE/f'calibration-b{b}-arm.log').stat().st_mtime_ns,(BASE/f'frozen-b{b}.json').stat().st_mtime_ns,(BASE/f'evaluation-b{b}-arm.input.json').stat().st_mtime_ns]
+        times=[evidence_order['files'][name]['original_host_mtime_ns'] for name in [f'calibration-b{b}-arm.log',f'frozen-b{b}.json',f'evaluation-b{b}-arm.input.json']]
         assert times[0]<times[1]<times[2];ordering.append({'block':b,'calibration_freeze_evaluation_mtime_ns':times})
         for key in corpus:
             profile=profiles['arm|'+key];state=state_costs(phases['calibration'],key)
@@ -132,7 +137,12 @@ def main():
             'phase_durations':verification,'runtime_source_count':len(run['source_sha256']),
             'scope':'Targeted descriptive follow-up; same hosts/date, two selected images, no dynamic intervention or inferential test.',
             'analysis_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
-    output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    if check:
+        previous=json.loads((BASE/'results.json').read_text())
+        assert {k:v for k,v in previous.items() if k!='analysis_sha256'}=={k:v for k,v in result.items() if k!='analysis_sha256'}
+        print('Archived analysis reproduced (analysis source revision tracked separately)')
+    else:
+        (BASE/'results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({k:v for k,v in result.items() if k not in ['cases','plans','policy_cases','paired_anchors','phase_order','phase_durations']},ensure_ascii=False))
 
 

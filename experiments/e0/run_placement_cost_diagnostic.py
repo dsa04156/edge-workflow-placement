@@ -18,6 +18,7 @@ import pandas as pd
 from fresh_placement import freeze_profiles,plan_cost, data_greedy, dag_enumeration
 from placement_cost_diagnostic import dag_with_state, state_costs, schedule
 from policy_runner import readonly
+from phase_capture import capture_phase
 
 
 def main():
@@ -105,7 +106,7 @@ def main():
          'scope':'Targeted two-input ARM-source crossover; warm static holdout; all eight plans audited.',
          'spec_sha256':hashlib.sha256(Path('.scratch/placement-cost-diagnostic/spec.md').read_bytes()).hexdigest()})
     write('implementation.json',{str(path):{'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'source':path.read_text()}
-          for path in [Path(__file__),Path('experiments/e0/placement_cost_diagnostic.py'),Path('experiments/e0/placement_diagnostic_client.py')]})
+          for path in [Path(__file__),Path('experiments/e0/phase_capture.py'),Path('experiments/e0/placement_cost_diagnostic.py'),Path('experiments/e0/placement_diagnostic_client.py')]})
     wheelhouse=base/'wheelhouse';wheelhouse.mkdir(exist_ok=True);mutations=False;identities=[];totals=[]
 
     def remove(items):
@@ -165,10 +166,9 @@ def main():
                 if profiles is not None:spec['profiles']=profiles
                 stem=f'{mode}-b{block}-{source}';write(stem+'.input.json',spec)
                 started=time.perf_counter()
-                result=subprocess.run([*cmd,'exec','-i',design['clients'][source],'--','python3','-u','-c',
+                result=capture_phase([*cmd,'exec','-i',design['clients'][source],'--','python3','-u','-c',
                     "import sys,runpy;sys.path.insert(0,'/config');runpy.run_path('/config/placement_diagnostic_client.py',run_name='__main__')"],
-                    input=json.dumps(spec),capture_output=True,text=True,timeout=180)
-                write(stem+'.log',result.stdout);write(stem+'.stderr',result.stderr)
+                    json.dumps(spec),base,stem,timeout=180)
                 assert result.returncode==0,f'Failed phase preserved: {stem}'
                 result_rows=records(result.stdout);assert result_rows[-1]['kind']=='client_complete'
                 print(json.dumps({'kind':'phase_complete','block':block,'mode':mode,'source':source,
@@ -270,12 +270,16 @@ def main():
             time.sleep(2)
         write('edge-snapshot.json',json.loads(call('logs',edge['metadata']['name'])))
     except BaseException as error:
+        # Preserve the initiating failure before optional diagnostics can fail.
+        write('failure.json',{'type':type(error).__name__,'message':str(error),'at':datetime.now(timezone.utc).isoformat()})
         for design in deployments:
             for alias,name in design['workers'].items():
-                diagnostic=subprocess.run([*cmd,'logs',name],capture_output=True,text=True,timeout=25)
-                if diagnostic.returncode==0:
-                    write(f"failure-worker-b{design['block']}-{alias}.log",diagnostic.stdout)
-        write('failure.json',{'type':type(error).__name__,'message':str(error),'at':datetime.now(timezone.utc).isoformat()})
+                try:
+                    diagnostic=capture_phase([*cmd,'logs',name],'',base,
+                        f"failure-worker-b{design['block']}-{alias}",timeout=25)
+                except Exception:
+                    # capture_phase retained timeout/error metadata; never mask original error.
+                    pass
         raise
     finally:
         if mutations:

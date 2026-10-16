@@ -1,0 +1,40 @@
+{
+  "timeout_test_red": {
+    "chunk": "09f9ed",
+    "reason": "new helper missing before implementation"
+  },
+  "timeout_test_green": {
+    "chunk": "ce3b3e",
+    "tests": 2,
+    "seconds": 0.516
+  },
+  "historical_analysis_reproduced": {
+    "chunk": "2b29e4",
+    "unchanged_results": true
+  },
+  "regression_environment_attempt": {
+    "chunk": "1a6ecc",
+    "outcome": "0 tests; system Python lacks numpy; no cluster experiment involved; rerun with documented pinned uv environment"
+  },
+  "frozen_collector_modified_during_run": false,
+  "actual_collection_timeouts": 0,
+  "regression_port_attempt": {
+    "chunk": "f5d120",
+    "outcome": "9 tests passed; second HTTP fixture setup failed EADDRINUSE. Reservation bound loopback while worker bound wildcard; changed reservation to wildcard matching worker and rtk-wrapped subprocess."
+  },
+  "regression_final": {
+    "chunk": "2a700b",
+    "tests": 17,
+    "seconds": 9.983,
+    "outcome": "PASS",
+    "command": "rtk proxy env PYTHONPATH=experiments/e0 uv run --python /usr/bin/python3 --no-build --with numpy==2.2.6 --with onnxruntime==1.23.2 --with Pillow==11.3.0 python -m unittest test_placement_cost_diagnostic.PlacementCostHTTP test_fresh_placement.FreshPlacementHTTP test_phase_capture.PhaseCaptureTest"
+  },
+  "secret_pattern_scan": {
+    "chunk": "d4ff5c",
+    "potential_files": 0
+  },
+  "analysis_check": {
+    "chunk": "f629e0",
+    "outcome": "PASS"
+  }
+}

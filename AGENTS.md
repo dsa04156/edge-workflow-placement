@@ -63,6 +63,9 @@
 - 최신 경로의 정적 비교는 `experiments/e0/fresh_placement.py`와 `docs/experiments/fresh-placement.md`를 따른다. 보정→입력별 품질 후보/비용표/계획 동결→별도 평가 순서를 지키고, 같은 계획은 관측을 공유한다. warm 고정 배치·선택시간 별도 측정을 동적 온라인 최적화 비교로 해석하지 않는다. 연결 오류로 중단한 첫 시도는 별도 보존하며 v2의 보정·평가에 합치지 않는다. runtime 소스가 바뀌면 새로 보정한다.
 - workflow 비용만 최소화한 계획을 관측·선택 위치의 state_validation까지 포함한 total_ms의 최적해로 부르지 않는다. fresh v2의 hubble 예측 순위 변화·chelsea total 역전은 보정 안정성과 비용 경계의 검증 과제다. 같은 정보의 단순 보완으로 해소 가능한지 확인하기 전에 선행 방법의 실패나 새 알고리즘 필요성으로 단정하지 않는다.
 
+- 고정 엣지·실제 전달 제약의 최신 결과는 `docs/experiments/edge-network-placement.md`다. 현재 regime의 사전 보정 표를 제공한 이상 정보 실험과 온라인 관측/재배치 전체를 구분한다. next step은 관측 지연·획득 비용·변화 지속시간 대조이며 큰 Task-fastest 손실만으로 새 알고리즘 필요성을 주장하지 않는다.
+- 새 수집은 phase 시작/종료 event와 timeout 부분 stdout/stderr를 보존한다. Git이 mtime을 보존하지 않으므로 분석에서 checkout 시각을 실행 순서의 근거로 쓰지 않는다. 기존 artifact/동결 소스를 덮어쓰지 않는다.
+
 ## Agent skills
 
 ### Issue tracker

@@ -8,6 +8,17 @@
 
 AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 최적화를 출발점으로 삼아, 네트워크·모델 실행환경이 동적으로 변할 때 기존 DAG 정책의 적용 경계와 실제 손실을 확인한다. AnchorDL은 공식 초록 확인 단계로 본문/코드는 아직 확보하지 못했다. 새 스케줄링 알고리즘이나 DRL의 필요성은 같은 정보를 제공한 비교 실험 결과를 보고 판단한다.
 
+## 최신 결과: 센서 입력을 엣지에 고정
+
+[실제 네트워크 제약 실험](docs/experiments/edge-network-placement.md)을 세 번 새 Pod 배포에서 완료했다. 총1,340회 실행(보정864/평가476, 평가 측정340)에서 실패·CPU reference Top5 순서 불일치0을 확인했다.
+
+- 큰 입력·20Mbps: Task-fastest239.12ms → 현재 비용표의 DAG63.05ms(73.63% 감소).
+- 중간 입력·20Mbps: native 고정 DAG112.25ms → 갱신 DAG51.75ms(53.89% 감소).
+- 중간 입력·50Mbps: 갱신 이득의 방향이 배포마다 달랐다. 작은 입력·native에서는 Task-fastest가 DAG보다 약간 빨랐다.
+- 저대역폭에서는 단순 greedy도 DAG와 같은 엣지 배치를 선택했다. 새 알고리즘의 필요성은 아직 입증되지 않았다.
+
+입력은 ARM 엣지 Pod의 JPEG 재생이며 실제 센서 스트림 검증은 아니다. 현재 비용표는 regime별 사전 보정 정보다. 다음 연구 질문은 온라인 관측 지연·보정 획득 비용·변화 지속시간을 포함해 기존 DAG 재최적화와 hysteresis 이후에도 손실이 남는지다. 논문 구현·kube-scheduler·Koordinator·DRL 본 비교는 남아 있다.
+
 ## 현재 작업 범위
 
 - Kubernetes에서 3~5개 Task의 실제 AI 추론 워크플로를 구성한다.
@@ -25,12 +36,14 @@ AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 �
 
 **실측 표·클러스터 연결:** [E2 비용표 연결 검증](docs/experiments/measured-policy-bridge.md)에서는 같은 snapshot의 여섯 정책 결정60건을 확인하고 고유 대표 배치10+준비2회를 ARM 엣지/Intel NPU 서버에서 실행했다. receipt36개·실제NPU8회·객체 재준비3회를 대조했고 전체22개 회귀를 통과했다. 과거 비용표의 결정/적용 호환성 검증이며 최신 profile·성능 우월성 비교는 아니다.
 
-**최신 보정·동결 평가 완료:** [8입력·3새 배포의 정적 비교](docs/experiments/fresh-placement.md)에서 보정1,536회 후 품질 후보·비용표·계획을 동결하고 평가679회/측정485회·receipt6,645개를 검증했다. camera는 입력을 유지하고 NPU 추론 후보만 사전 제외했다. 입력/source를 균등 집계한 평균 total은 Task-fastest51.64ms, greedy43.56ms, DAG38.59ms였다. greedy와 DAG는48조건 중35개에서 같은 배치, 다른13개 중2개에서 DAG의 관측 평균이 더 높았다. 작은 warm3Task chain의 기술 통계이며 AnchorDL 실패·새 알고리즘 필요성은 미확정이다. 다음은 hubble의 예측 순위 변화와 chelsea의 관측/상태 검사 비용에 따른 total 역전을 분리 검증하는 것이다. 첫 시도의 [idle 연결 오류·수정](docs/experiments/transport-idle-diagnosis.md)은 별도 보존했고 v2와 합치지 않았다.
+**최신 보정·동결 평가 완료:** [8입력·3새 배포의 정적 비교](docs/experiments/fresh-placement.md)에서 보정1,536회 후 품질 후보·비용표·계획을 동결하고 평가679회/측정485회·receipt6,645개를 검증했다. camera는 입력을 유지하고 NPU 추론 후보만 사전 제외했다. ARM 엣지 source만 집계한 평균 total은 Task-fastest67.24ms, greedy53.23ms, DAG50.00ms였다. 원 보고서의 양쪽 source 균등 집계는 역사적 진단으로만 유지하며 주 센서 연구 결과로 사용하지 않는다. greedy와 DAG는48조건 중35개에서 같은 배치, 다른13개 중2개에서 DAG의 관측 평균이 더 높았다. 작은 warm3Task chain의 기술 통계이며 AnchorDL 실패·새 알고리즘 필요성은 미확정이다. [비용 경계 후속](docs/experiments/placement-cost-diagnostic.md)960회를 완료했고, state 비용 보완이 선택계획을 바꾼 조건은0/6이었다. 이후 위의 고정 엣지·실제 네트워크 제약 실험으로 확장했다. 첫 시도의 [idle 연결 오류·수정](docs/experiments/transport-idle-diagnosis.md)은 별도 보존했고 v2와 합치지 않았다.
 
 ## 문서 안내
 
 | 문서 | 역할 |
 |---|---|
+| [고정 엣지·전달 제약 비교](docs/experiments/edge-network-placement.md) | 3배포·3입력·3네트워크 조건, 계획 전환과 차이/반례·1,340실행 |
+| [비용 경계 후속 진단](docs/experiments/placement-cost-diagnostic.md) | 두 입력960실행, paired anchor·state 비용과 제한 |
 | [프로젝트 지침](AGENTS.md) | 연구 범위와 에이전트 작업 원칙 |
 | [문제 정의](docs/research/problem-definition.md) | 현재 제목·RQ·제약·비용 경계의 기준 문서 |
 | [Task 데이터 전달·EdgeCore 관측](docs/experiments/e0-transport.md) | 네 Service 경로의 실행·무결성·시간과 엣지 제어 경로 관측 |

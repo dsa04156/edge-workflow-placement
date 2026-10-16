@@ -23,7 +23,7 @@ class DAGContract(unittest.TestCase):
         cls.directory=tempfile.TemporaryDirectory();cls.processes=[];cls.logs=[]
         cls.peers={};reservations={}
         for alias in cls.aliases:
-            sock=socket.socket();sock.bind(('127.0.0.1',0))
+            sock=socket.socket();sock.bind(('0.0.0.0',0))
             reservations[alias]=sock;port=sock.getsockname()[1]
             cls.peers[alias]={'alias':alias,'node':'local-'+alias,'backend':'cpu','url':f'http://127.0.0.1:{port}'}
         for alias,peer in cls.peers.items():
@@ -33,7 +33,7 @@ class DAGContract(unittest.TestCase):
                      PORT=peer['url'].rsplit(':',1)[1],WORKDIR=str(work),PEERS_JSON=json.dumps(cls.peers))
             env.update(cls.extra_env)
             reservations.pop(alias).close()
-            p=subprocess.Popen([sys.executable,'-u',str(Path(__file__).with_name('dag_profile.py'))],
+            p=subprocess.Popen(['rtk','proxy',sys.executable,'-u',str(Path(__file__).with_name('dag_profile.py'))],
                                env=env,stdout=subprocess.PIPE,stderr=error,text=True)
             cls.processes.append(p)
             selector=selectors.DefaultSelector();selector.register(p.stdout,selectors.EVENT_READ)

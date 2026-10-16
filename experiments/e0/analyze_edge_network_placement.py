@@ -4,6 +4,7 @@ import ast
 from collections import defaultdict
 import hashlib,json,itertools,statistics
 from pathlib import Path
+import sys
 
 from analyze_fresh_placement import describe
 from fresh_placement import freeze_profiles,plan_cost,data_greedy,dag_enumeration
@@ -35,8 +36,12 @@ def metrics(row):
 
 
 def main():
-    assert not (BASE/'results.json').exists()
+    check='--check' in sys.argv
+    assert check or not (BASE/'results.json').exists()
     run=read('run.json');corpus=read('corpus.json');aliases=['arm','intel_npu'];regimes=list(run['regimes'])
+    ordering=read('phase-order-evidence.json');assert ordering['run_id']==run['run_id']
+    for name, evidence in ordering['files'].items():
+        assert hashlib.sha256((BASE/name).read_bytes()).hexdigest()==evidence['sha256']
     all_rows=[];episodes=[];cases=[];comparisons=[];calibration_plans=[];network_audits=[];phase_order=[]
     for deployment in run['deployments']:
         b=deployment['block'];f=read(f'frozen-b{b}.json');ed=read(f'evaluation-design-b{b}.json')
@@ -121,9 +126,17 @@ def main():
                 assert a['node']==deployment['targets'][a['alias']]['node']
                 if a['stage']==1 and a['alias']=='intel_npu':assert a['device']['execution_devices']==['NPU']
                 else:assert a['device']['execution_device']=='CPU'
-        times=[max((BASE/f'calibration-b{b}-{x}.log').stat().st_mtime_ns for x in regimes),(BASE/f'frozen-b{b}.json').stat().st_mtime_ns,
-               min((BASE/f'evaluation-b{b}-{x}.input.json').stat().st_mtime_ns for x in regimes)]
+        stamps=ordering['files']
+        times=[max(stamps[f'calibration-b{b}-{x}.log']['original_host_mtime_ns'] for x in regimes),
+               stamps[f'frozen-b{b}.json']['original_host_mtime_ns'],
+               min(stamps[f'evaluation-b{b}-{x}.input.json']['original_host_mtime_ns'] for x in regimes)]
         assert times[0]<times[1]<times[2];phase_order.append(times);all_rows+=cr+er
+        restored=read(f'network-b{b}-restore-native.json')
+        assert len(restored['settings'])==3
+        for pod,state in restored['settings'].items():
+            assert all(attrs(q)['TCA_KIND']=='noqueue' for q in state['after'])
+            network_audits.append({'block':b,'mode':'restore','regime':'native','pod':pod,'netns':state['netns'],
+                'destinations':state['destinations'], 'previous_tbf_stats':[attrs(q)['TCA_STATS'] for q in state['before'] if attrs(q)['TCA_KIND']=='tbf']})
     assert len({r['request_id'] for r in all_rows})==len(all_rows)
     cm=read('configmap.json')
     for name,digest in run['source_sha256'].items():
@@ -144,7 +157,12 @@ def main():
             'limits':['Fixed edge source file replay, not live sensors','Three Pod deployments share hosts/date/cache',
                       'TBF per Pod/direction, not aggregate WAN contention','Current profile is pre-calibrated regime information, not online estimation',
                       'Small DAG enumeration is not a published-policy reproduction','No inferential or p95/SLO claim']}
-    (BASE/'results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    if check:
+        previous=json.loads((BASE/'results.json').read_text())
+        assert {k:v for k,v in previous.items() if k!='analysis_sha256'}=={k:v for k,v in result.items() if k!='analysis_sha256'}
+        print('Archived analysis reproduced (analysis source revision tracked separately)')
+    else:
+        (BASE/'results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({k:result[k] for k in ['run_id','all_workflows','calibration','evaluation','evaluation_measured','valid_complete','protocol_failures']}))
 
 

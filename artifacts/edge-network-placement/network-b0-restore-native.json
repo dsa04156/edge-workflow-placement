@@ -1,0 +1,324 @@
+{
+  "settings": {
+    "edge-network-20261016t111955534665-b0-arm": {
+      "netns": "net:[4026532950]",
+      "destinations": [
+        "10.244.8.246",
+        "10.105.154.8"
+      ],
+      "mbps": null,
+      "delay_ms": 0,
+      "before": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'prio')",
+            "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 90295, 'packets': 339}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 90295, 'packets': 339, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 172,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 61,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 65536,
+          "parent": 4294967295,
+          "info": 5,
+          "event": "RTM_NEWQDISC"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'tbf')",
+            "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 188,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 61,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 1048576,
+          "parent": 65537,
+          "info": 1,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "after": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'noqueue')",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 148,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 258,
+            "pid": 61,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 4294967295,
+          "info": 2,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "filters": []
+    },
+    "edge-network-20261016t111955534665-b0-arm-client": {
+      "netns": "net:[4026533041]",
+      "destinations": [
+        "10.244.8.246",
+        "10.105.154.8"
+      ],
+      "mbps": null,
+      "delay_ms": 0,
+      "before": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'prio')",
+            "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 14811924, 'packets': 11396}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 14811924, 'packets': 11396, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 172,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 61,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 65536,
+          "parent": 4294967295,
+          "info": 5,
+          "event": "RTM_NEWQDISC"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'tbf')",
+            "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 8292428, 'packets': 6350}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 11528})]})",
+            "('TCA_STATS', {'bytes': 8292428, 'packets': 6350, 'drop': 0, 'overlimits': 11528, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 188,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 61,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 1048576,
+          "parent": 65537,
+          "info": 1,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "after": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'noqueue')",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 148,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 258,
+            "pid": 61,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 4294967295,
+          "info": 2,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "filters": []
+    },
+    "edge-network-20261016t111955534665-b0-intel-npu": {
+      "netns": "net:[4026534257]",
+      "destinations": [
+        "10.244.4.134",
+        "10.244.4.135",
+        "10.96.1.249"
+      ],
+      "mbps": null,
+      "delay_ms": 0,
+      "before": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'prio')",
+            "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 311573, 'packets': 3011}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 311573, 'packets': 3011, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 172,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 60,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 65536,
+          "parent": 4294967295,
+          "info": 25,
+          "event": "RTM_NEWQDISC"
+        },
+        {
+          "attrs": [
+            "('TCA_KIND', 'tbf')",
+            "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 34111, 'packets': 51}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 34111, 'packets': 51, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 188,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 256,
+            "pid": 60,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 1048576,
+          "parent": 65537,
+          "info": 1,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "after": [
+        {
+          "attrs": [
+            "('TCA_KIND', 'noqueue')",
+            "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+            "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+            "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+          ],
+          "header": {
+            "length": 148,
+            "type": 36,
+            "flags": 2,
+            "sequence_number": 258,
+            "pid": 60,
+            "error": null,
+            "target": "localhost",
+            "stats": [
+              0,
+              0,
+              0
+            ]
+          },
+          "family": 0,
+          "pad1": 0,
+          "pad2": 0,
+          "index": 3,
+          "handle": 0,
+          "parent": 4294967295,
+          "info": 2,
+          "event": "RTM_NEWQDISC"
+        }
+      ],
+      "filters": []
+    }
+  },
+  "duration_seconds": 10.407330567017198
+}

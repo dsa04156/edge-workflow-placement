@@ -1,0 +1,1206 @@
+{
+  "run_id": "20261016t111955534665",
+  "block": 1,
+  "source": "arm",
+  "mode": "evaluation",
+  "conditions": [
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s0-p0",
+      "sweep": 0,
+      "position": 0,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s0-p1",
+      "sweep": 0,
+      "position": 1,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s0-p2",
+      "sweep": 0,
+      "position": 2,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s0-p0",
+      "sweep": 0,
+      "position": 0,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s0-p1",
+      "sweep": 0,
+      "position": 1,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s0-p0",
+      "sweep": 0,
+      "position": 0,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s0-p1",
+      "sweep": 0,
+      "position": 1,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s0-p2",
+      "sweep": 0,
+      "position": 2,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s1-p0",
+      "sweep": 1,
+      "position": 0,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s1-p1",
+      "sweep": 1,
+      "position": 1,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s1-p0",
+      "sweep": 1,
+      "position": 0,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s1-p1",
+      "sweep": 1,
+      "position": 1,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s1-p2",
+      "sweep": 1,
+      "position": 2,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s1-p0",
+      "sweep": 1,
+      "position": 0,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s1-p1",
+      "sweep": 1,
+      "position": 1,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s1-p2",
+      "sweep": 1,
+      "position": 2,
+      "warmup": true,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s2-p0",
+      "sweep": 2,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s2-p1",
+      "sweep": 2,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s2-p2",
+      "sweep": 2,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s2-p0",
+      "sweep": 2,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s2-p1",
+      "sweep": 2,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s2-p2",
+      "sweep": 2,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s2-p0",
+      "sweep": 2,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s2-p1",
+      "sweep": 2,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s3-p0",
+      "sweep": 3,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s3-p1",
+      "sweep": 3,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s3-p2",
+      "sweep": 3,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s3-p0",
+      "sweep": 3,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s3-p1",
+      "sweep": 3,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s3-p2",
+      "sweep": 3,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s3-p0",
+      "sweep": 3,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s3-p1",
+      "sweep": 3,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s4-p0",
+      "sweep": 4,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s4-p1",
+      "sweep": 4,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s4-p2",
+      "sweep": 4,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s4-p0",
+      "sweep": 4,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s4-p1",
+      "sweep": 4,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s4-p0",
+      "sweep": 4,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s4-p1",
+      "sweep": 4,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s4-p2",
+      "sweep": 4,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s5-p0",
+      "sweep": 5,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s5-p1",
+      "sweep": 5,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s5-p2",
+      "sweep": 5,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s5-p0",
+      "sweep": 5,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s5-p1",
+      "sweep": 5,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s5-p2",
+      "sweep": 5,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s5-p0",
+      "sweep": 5,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s5-p1",
+      "sweep": 5,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 1,
+      "id": "native-chelsea-s6-p0",
+      "sweep": 6,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-chelsea-s6-p1",
+      "sweep": 6,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "chelsea",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 3,
+      "id": "native-chelsea-s6-p2",
+      "sweep": 6,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy"
+      ],
+      "run_order": 1,
+      "id": "native-rocket-s6-p0",
+      "sweep": 6,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 2,
+      "id": "native-rocket-s6-p1",
+      "sweep": 6,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "rocket",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 3,
+      "id": "native-rocket-s6-p2",
+      "sweep": 6,
+      "position": 2,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 1,
+      "id": "native-hubble_deep_field-s6-p0",
+      "sweep": 6,
+      "position": 0,
+      "warmup": false,
+      "regime": "native"
+    },
+    {
+      "image_id": "hubble_deep_field",
+      "source": "arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "data_greedy",
+        "current_dag",
+        "fixed_native_dag"
+      ],
+      "run_order": 2,
+      "id": "native-hubble_deep_field-s6-p1",
+      "sweep": 6,
+      "position": 1,
+      "warmup": false,
+      "regime": "native"
+    }
+  ],
+  "regime": "native",
+  "profiles": {
+    "arm|chelsea": {
+      "id": "bd3d27c98ef3a73a31877c3fe6eb412ee5a1528d19b51661a2336d364de6ddce|native|arm|chelsea",
+      "provenance": "Fresh warm-only calibration bd3d27c98ef3a73a31877c3fe6eb412ee5a1528d19b51661a2336d364de6ddce|native; CPU-reference exact Top5 order gate",
+      "input_id": "chelsea",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 7.399520953185856,
+          "1|arm": 29.431274509988725,
+          "2|intel_npu": 0.2084175357595086,
+          "1|intel_npu": 3.2880649669095874,
+          "2|arm": 0.10226748418062925,
+          "0|arm": 8.906525559723377
+        },
+        "ingress": {
+          "intel_npu": 23.311761557124555,
+          "arm": 1.9999055075459182
+        },
+        "edges": [
+          {
+            "intel_npu|arm": 54.37992938095704,
+            "intel_npu|intel_npu": 0.31250843312591314,
+            "arm|intel_npu": 54.91617013467476,
+            "arm|arm": 0.781820563133806
+          },
+          {
+            "arm|intel_npu": 2.6261864695698023,
+            "intel_npu|arm": 1.4861624804325402,
+            "intel_npu|intel_npu": 0.05144835449755192,
+            "arm|arm": 0.07643498247489333
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|hubble_deep_field": {
+      "id": "bd3d27c98ef3a73a31877c3fe6eb412ee5a1528d19b51661a2336d364de6ddce|native|arm|hubble_deep_field",
+      "provenance": "Fresh warm-only calibration bd3d27c98ef3a73a31877c3fe6eb412ee5a1528d19b51661a2336d364de6ddce|native; CPU-reference exact Top5 order gate",
+      "input_id": "hubble_deep_field",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 20.31617594184354,
+          "1|arm": 29.566514014732093,
+          "2|arm": 0.0946015352383256,
+          "0|intel_npu": 11.597660486586392,
+          "2|intel_npu": 0.07156445644795895,
+          "1|intel_npu": 3.147089038975537
+        },
+        "ingress": {
+          "arm": 2.584448957350105,
+          "intel_npu": 48.065107490401715
+        },
+        "edges": [
+          {
+            "arm|arm": 0.7447644602507353,
+            "intel_npu|arm": 54.00863802060485,
+            "intel_npu|intel_npu": 0.30618731398135424,
+            "arm|intel_npu": 54.19208435341716
+          },
+          {
+            "arm|arm": 0.073536008130759,
+            "arm|intel_npu": 2.5729399640113115,
+            "intel_npu|intel_npu": 0.03586709499359131,
+            "intel_npu|arm": 1.8588440143503249
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|rocket": {
+      "id": "bd3d27c98ef3a73a31877c3fe6eb412ee5a1528d19b51661a2336d364de6ddce|native|arm|rocket",
+      "provenance": "Fresh warm-only calibration bd3d27c98ef3a73a31877c3fe6eb412ee5a1528d19b51661a2336d364de6ddce|native; CPU-reference exact Top5 order gate",
+      "input_id": "rocket",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 6.8159750662744045,
+          "1|intel_npu": 3.2970599131658673,
+          "2|arm": 0.09768502786755562,
+          "2|intel_npu": 0.22061041090637445,
+          "1|arm": 29.44582048803568,
+          "0|arm": 7.6580134918913245
+        },
+        "ingress": {
+          "intel_npu": 11.926187085919082,
+          "arm": 1.876813534181565
+        },
+        "edges": [
+          {
+            "intel_npu|intel_npu": 0.30850188340991735,
+            "intel_npu|arm": 53.997251437976956,
+            "arm|arm": 0.7497826009057462,
+            "arm|intel_npu": 54.49478927766904
+          },
+          {
+            "intel_npu|arm": 1.6634679632261395,
+            "intel_npu|intel_npu": 0.040325336158275604,
+            "arm|arm": 0.07486058166250587,
+            "arm|intel_npu": 2.776712935883552
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    }
+  }
+}
