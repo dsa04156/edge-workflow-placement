@@ -1,0 +1,170 @@
+{
+  "regime": "restored",
+  "control": {
+    "netns": "net:[4026532950]",
+    "destinations": [
+      "10.244.8.241"
+    ],
+    "mbps": null,
+    "delay_ms": 0,
+    "before": [
+      {
+        "attrs": [
+          "('TCA_KIND', 'prio')",
+          "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+          "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+          "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 3567352, 'packets': 2722}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+          "('TCA_STATS', {'bytes': 3567352, 'packets': 2722, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+        ],
+        "header": {
+          "length": 172,
+          "type": 36,
+          "flags": 2,
+          "sequence_number": 256,
+          "pid": 63,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 65536,
+        "parent": 4294967295,
+        "info": 5,
+        "event": "RTM_NEWQDISC"
+      },
+      {
+        "attrs": [
+          "('TCA_KIND', 'tbf')",
+          "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 2500000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 100000, 'mtu': 0})]})",
+          "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+          "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 3567310, 'packets': 2721}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 2220})]})",
+          "('TCA_STATS', {'bytes': 3567310, 'packets': 2721, 'drop': 0, 'overlimits': 2220, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+        ],
+        "header": {
+          "length": 188,
+          "type": 36,
+          "flags": 2,
+          "sequence_number": 256,
+          "pid": 63,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 1048576,
+        "parent": 65537,
+        "info": 1,
+        "event": "RTM_NEWQDISC"
+      }
+    ],
+    "after": [
+      {
+        "attrs": [
+          "('TCA_KIND', 'noqueue')",
+          "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+          "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+          "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+        ],
+        "header": {
+          "length": 148,
+          "type": 36,
+          "flags": 2,
+          "sequence_number": 258,
+          "pid": 63,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 0,
+        "parent": 4294967295,
+        "info": 2,
+        "event": "RTM_NEWQDISC"
+      }
+    ],
+    "filters": []
+  },
+  "requests": [
+    {
+      "bytes": 4000,
+      "iteration": 0,
+      "ms": 32.713584951125085
+    },
+    {
+      "bytes": 4000,
+      "iteration": 1,
+      "ms": 3.6198159214109182
+    },
+    {
+      "bytes": 4000,
+      "iteration": 2,
+      "ms": 3.4649090375751257
+    },
+    {
+      "bytes": 4000,
+      "iteration": 3,
+      "ms": 3.167724935337901
+    },
+    {
+      "bytes": 240512,
+      "iteration": 0,
+      "ms": 25.577933061867952
+    },
+    {
+      "bytes": 240512,
+      "iteration": 1,
+      "ms": 24.70710501074791
+    },
+    {
+      "bytes": 240512,
+      "iteration": 2,
+      "ms": 24.742122972384095
+    },
+    {
+      "bytes": 240512,
+      "iteration": 3,
+      "ms": 26.034172042272985
+    },
+    {
+      "bytes": 602112,
+      "iteration": 0,
+      "ms": 59.034775011241436
+    },
+    {
+      "bytes": 602112,
+      "iteration": 1,
+      "ms": 60.818322002887726
+    },
+    {
+      "bytes": 602112,
+      "iteration": 2,
+      "ms": 58.16066695842892
+    },
+    {
+      "bytes": 602112,
+      "iteration": 3,
+      "ms": 63.13320004846901
+    }
+  ]
+}

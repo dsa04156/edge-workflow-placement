@@ -1,0 +1,257 @@
+{
+  "regime": "cap50",
+  "control": {
+    "netns": "net:[4026532950]",
+    "destinations": [
+      "10.244.8.241"
+    ],
+    "mbps": 50,
+    "delay_ms": 0,
+    "before": [
+      {
+        "attrs": [
+          "('TCA_KIND', 'noqueue')",
+          "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+          "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+          "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+        ],
+        "header": {
+          "length": 148,
+          "type": 36,
+          "flags": 2,
+          "sequence_number": 256,
+          "pid": 35,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 0,
+        "parent": 4294967295,
+        "info": 2,
+        "event": "RTM_NEWQDISC"
+      }
+    ],
+    "after": [
+      {
+        "attrs": [
+          "('TCA_KIND', 'prio')",
+          "('TCA_OPTIONS', {'bands': 3, 'priomap': (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)})",
+          "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+          "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+          "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+        ],
+        "header": {
+          "length": 172,
+          "type": 36,
+          "flags": 2,
+          "sequence_number": 260,
+          "pid": 35,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 65536,
+        "parent": 4294967295,
+        "info": 5,
+        "event": "RTM_NEWQDISC"
+      },
+      {
+        "attrs": [
+          "('TCA_KIND', 'tbf')",
+          "('TCA_OPTIONS', {'attrs': [('TCA_TBF_PARMS', {'rate_cell_log': 0, 'rate___reserved': 1, 'rate_overhead': 0, 'rate_cell_align': 0, 'rate_mpu': 0, 'rate': 6250000, 'peak_cell_log': 0, 'peak___reserved': 0, 'peak_overhead': 0, 'peak_cell_align': 0, 'peak_mpu': 0, 'peak': 0, 'limit': 2000000, 'buffer': 40000, 'mtu': 0})]})",
+          "('UNKNOWN', {'header': {'length': 5, 'type': 12}})",
+          "('TCA_STATS2', {'attrs': [('TCA_STATS_BASIC', {'bytes': 0, 'packets': 0}), ('TCA_STATS_QUEUE', {'qlen': 0, 'backlog': 0, 'drops': 0, 'requeues': 0, 'overlimits': 0})]})",
+          "('TCA_STATS', {'bytes': 0, 'packets': 0, 'drop': 0, 'overlimits': 0, 'bps': 0, 'pps': 0, 'qlen': 0, 'backlog': 0})"
+        ],
+        "header": {
+          "length": 188,
+          "type": 36,
+          "flags": 2,
+          "sequence_number": 260,
+          "pid": 35,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 1048576,
+        "parent": 65537,
+        "info": 1,
+        "event": "RTM_NEWQDISC"
+      }
+    ],
+    "filters": [
+      {
+        "attrs": [
+          "('TCA_KIND', 'u32')",
+          "('UNKNOWN', {'header': {'length': 8, 'type': 11}})"
+        ],
+        "header": {
+          "length": 52,
+          "type": 44,
+          "flags": 2,
+          "sequence_number": 261,
+          "pid": 35,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 0,
+        "parent": 65536,
+        "info": 65544,
+        "event": "RTM_NEWTFILTER"
+      },
+      {
+        "attrs": [
+          "('TCA_KIND', 'u32')",
+          "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+          "('TCA_OPTIONS', {'attrs': [('TCA_U32_DIVISOR', 1)]})"
+        ],
+        "header": {
+          "length": 64,
+          "type": 44,
+          "flags": 2,
+          "sequence_number": 261,
+          "pid": 35,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 2147483648,
+        "parent": 65536,
+        "info": 65544,
+        "event": "RTM_NEWTFILTER"
+      },
+      {
+        "attrs": [
+          "('TCA_KIND', 'u32')",
+          "('UNKNOWN', {'header': {'length': 8, 'type': 11}})",
+          "('TCA_OPTIONS', {'attrs': [('TCA_U32_SEL', {'flags': 1, 'offshift': 0, 'nkeys': 1, '__align': (), 'offmask': 0, 'off': 0, 'offoff': 0, 'hoff': 0, 'hmask': 0, 'keys': [{'key_mask': 0, 'key_val': 4294967295, 'key_off': -251071478, 'key_offmask': 16}]}), ('TCA_U32_HASH', 2147483648), ('TCA_U32_CLASSID', 65537), ('UNKNOWN', {'header': {'length': 8, 'type': 11}}), ('TCA_U32_PCNT', {'rcnt': 0, 'rhit': 0, 'kcnts': 0})]})"
+        ],
+        "header": {
+          "length": 144,
+          "type": 44,
+          "flags": 2,
+          "sequence_number": 261,
+          "pid": 35,
+          "error": null,
+          "target": "localhost",
+          "stats": [
+            0,
+            0,
+            0
+          ]
+        },
+        "family": 0,
+        "pad1": 0,
+        "pad2": 0,
+        "index": 3,
+        "handle": 2147485696,
+        "parent": 65536,
+        "info": 65544,
+        "event": "RTM_NEWTFILTER"
+      }
+    ]
+  },
+  "requests": [
+    {
+      "bytes": 4000,
+      "iteration": 0,
+      "ms": 48.77913906238973
+    },
+    {
+      "bytes": 4000,
+      "iteration": 1,
+      "ms": 4.039481049403548
+    },
+    {
+      "bytes": 4000,
+      "iteration": 2,
+      "ms": 4.039832972921431
+    },
+    {
+      "bytes": 4000,
+      "iteration": 3,
+      "ms": 3.904054989106953
+    },
+    {
+      "bytes": 240512,
+      "iteration": 0,
+      "ms": 41.38595191761851
+    },
+    {
+      "bytes": 240512,
+      "iteration": 1,
+      "ms": 42.23102203104645
+    },
+    {
+      "bytes": 240512,
+      "iteration": 2,
+      "ms": 42.134781018830836
+    },
+    {
+      "bytes": 240512,
+      "iteration": 3,
+      "ms": 41.27226700074971
+    },
+    {
+      "bytes": 602112,
+      "iteration": 0,
+      "ms": 103.82985905744135
+    },
+    {
+      "bytes": 602112,
+      "iteration": 1,
+      "ms": 102.52286505419761
+    },
+    {
+      "bytes": 602112,
+      "iteration": 2,
+      "ms": 104.66944798827171
+    },
+    {
+      "bytes": 602112,
+      "iteration": 3,
+      "ms": 101.96090501267463
+    }
+  ]
+}

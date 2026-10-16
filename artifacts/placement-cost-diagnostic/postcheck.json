@@ -1,0 +1,93 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "place-diag-20261016t105712740044-edge-check",
+    "namespace": "scheduler-research",
+    "labels": {
+      "app.kubernetes.io/part-of": "scheduler-research",
+      "research.scheduler/stage": "placement-cost-diagnostic",
+      "research.scheduler/run": "20261016t105712740044"
+    }
+  },
+  "spec": {
+    "nodeSelector": {
+      "kubernetes.io/hostname": "etri-dev0003-raspi5"
+    },
+    "restartPolicy": "Never",
+    "activeDeadlineSeconds": 60,
+    "terminationGracePeriodSeconds": 2,
+    "automountServiceAccountToken": false,
+    "securityContext": {
+      "runAsUser": 0,
+      "seccompProfile": {
+        "type": "RuntimeDefault"
+      }
+    },
+    "containers": [
+      {
+        "name": "read-only-check",
+        "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "command": [
+          "python3",
+          "-u",
+          "-c",
+          "\"\"\"Post-measurement read-only EdgeCore/process and NIC link snapshot.\"\"\"\n\nfrom datetime import datetime,timezone\nimport json\nfrom pathlib import Path\n\nprocesses=[]\nfor directory in Path('/host/proc').glob('[0-9]*'):\n    try:\n        if (directory/'comm').read_text().strip()!='edgecore':continue\n        status=(directory/'status').read_text().splitlines()\n        processes.append({'pid':int(directory.name),**{line.split(':',1)[0]:line.split(':',1)[1].strip()\n                         for line in status if line.startswith(('State:','VmRSS:','Threads:'))}})\n    except (OSError,ValueError):continue\ninterfaces={}\nfor interface in Path('/host/sys/class/net').iterdir():\n    properties={}\n    for attribute in ['operstate','speed','duplex','carrier']:\n        try:properties[attribute]=(interface/attribute).read_text().strip()\n        except OSError:properties[attribute]=None\n    interfaces[interface.name]=properties\nprint(json.dumps({'observed_at':datetime.now(timezone.utc).isoformat(),'edgecore_processes':processes,\n                  'interfaces':interfaces,'scope':'post_measurement_link_negotiation_not_effective_throughput_or_packet_path'}),flush=True)\n"
+        ],
+        "env": [
+          {
+            "name": "PYTHONDONTWRITEBYTECODE",
+            "value": "1"
+          }
+        ],
+        "resources": {
+          "requests": {
+            "cpu": "50m",
+            "memory": "64Mi"
+          },
+          "limits": {
+            "cpu": "250m",
+            "memory": "256Mi"
+          }
+        },
+        "securityContext": {
+          "allowPrivilegeEscalation": false,
+          "readOnlyRootFilesystem": true,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          }
+        },
+        "volumeMounts": [
+          {
+            "name": "proc",
+            "mountPath": "/host/proc",
+            "readOnly": true
+          },
+          {
+            "name": "sys",
+            "mountPath": "/host/sys",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "volumes": [
+      {
+        "name": "proc",
+        "hostPath": {
+          "path": "/proc",
+          "type": "Directory"
+        }
+      },
+      {
+        "name": "sys",
+        "hostPath": {
+          "path": "/sys",
+          "type": "Directory"
+        }
+      }
+    ]
+  }
+}

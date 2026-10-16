@@ -1,0 +1,234 @@
+{
+  "profiles": {
+    "arm|chelsea": {
+      "id": "f70533d7aec3c8e8ec7e2fa41dc2e2a3405192d779e033591b16bbc5b898d09b|arm|chelsea",
+      "provenance": "Fresh warm-only calibration f70533d7aec3c8e8ec7e2fa41dc2e2a3405192d779e033591b16bbc5b898d09b; CPU-reference exact Top5 order gate",
+      "input_id": "chelsea",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 7.6835890067741275,
+          "1|intel_npu": 3.1916535226628184,
+          "2|intel_npu": 0.11105742305517197,
+          "0|arm": 8.968123001977801,
+          "1|arm": 29.484103491995484,
+          "2|arm": 0.10236055823042989
+        },
+        "ingress": {
+          "intel_npu": 23.24598649283871,
+          "arm": 2.2158215870149434
+        },
+        "edges": [
+          {
+            "intel_npu|intel_npu": 0.3098798915743828,
+            "arm|arm": 0.7535040494985878,
+            "intel_npu|arm": 54.22199907479808,
+            "arm|intel_npu": 54.57966297399253
+          },
+          {
+            "intel_npu|intel_npu": 0.03474485129117966,
+            "arm|arm": 0.07717497646808624,
+            "intel_npu|arm": 1.710235548671335,
+            "arm|intel_npu": 2.4839669349603355
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|hubble_deep_field": {
+      "id": "f70533d7aec3c8e8ec7e2fa41dc2e2a3405192d779e033591b16bbc5b898d09b|arm|hubble_deep_field",
+      "provenance": "Fresh warm-only calibration f70533d7aec3c8e8ec7e2fa41dc2e2a3405192d779e033591b16bbc5b898d09b; CPU-reference exact Top5 order gate",
+      "input_id": "hubble_deep_field",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 11.697823530994356,
+          "1|intel_npu": 3.2603065483272076,
+          "2|intel_npu": 0.16036408487707376,
+          "0|arm": 20.42704599443823,
+          "1|arm": 29.426344961393625,
+          "2|arm": 0.10390754323452711
+        },
+        "ingress": {
+          "intel_npu": 48.049188510049134,
+          "arm": 2.6726609794422984
+        },
+        "edges": [
+          {
+            "intel_npu|intel_npu": 0.3039129078388214,
+            "arm|arm": 0.7583470433019102,
+            "intel_npu|arm": 54.44921407615766,
+            "arm|intel_npu": 54.90666098194197
+          },
+          {
+            "intel_npu|intel_npu": 0.043135019950568676,
+            "arm|arm": 0.07288850611075759,
+            "arm|intel_npu": 2.59568402543664,
+            "intel_npu|arm": 1.6476684249937534
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    }
+  },
+  "quality": {
+    "chelsea": {
+      "arm": {
+        "observations": 32,
+        "matches": 32,
+        "eligible": true
+      },
+      "intel_npu": {
+        "observations": 32,
+        "matches": 32,
+        "eligible": true
+      }
+    },
+    "hubble_deep_field": {
+      "arm": {
+        "observations": 32,
+        "matches": 32,
+        "eligible": true
+      },
+      "intel_npu": {
+        "observations": 32,
+        "matches": 32,
+        "eligible": true
+      }
+    }
+  },
+  "state_ms": {
+    "chelsea": {
+      "arm": 0.4713584785349667,
+      "intel_npu": 1.5210469719022512
+    },
+    "hubble_deep_field": {
+      "arm": 0.42703445069491863,
+      "intel_npu": 1.7331285052932799
+    }
+  },
+  "selections": {
+    "arm|chelsea": {
+      "data_greedy": {
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "planning_ms": 0.007600989192724228,
+        "estimated_workflow_ms": 41.60108766518533,
+        "estimated_workflow_plus_state_ms": 42.0724461437203
+      },
+      "dag_enumeration": {
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "planning_ms": 0.012434000382199883,
+        "estimated_workflow_ms": 34.57691118819639,
+        "estimated_workflow_plus_state_ms": 36.09795816009864
+      },
+      "dag_with_state": {
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "planning_ms": 0.010921998182311654,
+        "estimated_workflow_ms": 34.57691118819639,
+        "estimated_workflow_plus_state_ms": 36.09795816009864
+      }
+    },
+    "arm|hubble_deep_field": {
+      "data_greedy": {
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "planning_ms": 0.003323017153888941,
+        "estimated_workflow_ms": 53.46119502792135,
+        "estimated_workflow_plus_state_ms": 53.88822947861627
+      },
+      "dag_enumeration": {
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "planning_ms": 0.011144002201035619,
+        "estimated_workflow_ms": 53.46119502792135,
+        "estimated_workflow_plus_state_ms": 53.88822947861627
+      },
+      "dag_with_state": {
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "planning_ms": 0.010339019354432821,
+        "estimated_workflow_ms": 53.46119502792135,
+        "estimated_workflow_plus_state_ms": 53.88822947861627
+      }
+    }
+  },
+  "calibration_log_sha256": {
+    "arm": "76449e6810c527c1303e2064e9de30f165ced8ec23a0b9dcf8e6e5aaa4af63f0"
+  },
+  "frozen_at": "2026-10-16T11:00:35.235758+00:00",
+  "preparation_seconds": 15.899453393009026,
+  "calibration_seconds": 32.89276711898856,
+  "source_sha256": {
+    "probe.py": "73bf81dc69d6dd095a669028c30a231dd32b16f2d99f386de3e0d54a4246a2a3",
+    "transport.py": "72322bc0f32afeaa5937c4125651bd9f0c37694747848c478cacbd87b8ce7a43",
+    "accelerator_inference.py": "bf1d76acfab210faa606fc417c29032a9485facc708f54f9f94a717636bd7ced",
+    "rpc_profile.py": "2f2663d92fcbfc033d3576aadae25cd6b7874631ba0e791059857ec14ddc34d0",
+    "dag_profile.py": "3058d46995d04cafce2ff83b0168a8de0f8184b2cb1d7271c580f8c0713c2f67",
+    "model_lifecycle.py": "e8b5212c55b62d1750469ec2265a34066449a7a6a07688ba16bb5e528cd41174",
+    "dynamic_client.py": "d30901ac587ff9fafeabdb0ffab2602657712e343b1558b0ba6578441d0ae42f",
+    "corpus_client.py": "f3a3a798626189b90b3096ac268becafda4530d093ba71dab6b9739e6eaed6e5",
+    "policy_runner.py": "3173d10a91be5edd905091622008945f25503424344fc63acea8b307e119ef92",
+    "measured_policy_bridge.py": "903d7e03771dbe1da86ee4483a6becf5e4ca34339cce7315da6c98187979dd7c",
+    "bridge_client.py": "5dd339ccdbec5ad75e286b913556c08c184dca6126daf139b8f54fa1931b5530",
+    "fresh_placement.py": "c72e3b8a918dcf195394a377b8a712bbeec5c5c78a9b475c1b5a8def1fcba087",
+    "placement_cost_diagnostic.py": "451920dec94143309e561ff8bc1a5246748540a19bd97e76eab6b58a46d37682",
+    "placement_diagnostic_client.py": "d314f18cf0464f8b389e299f35f859e99b5e2a1528afbb257e0a093be6fbe0ec"
+  }
+}

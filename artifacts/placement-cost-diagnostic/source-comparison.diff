@@ -1,0 +1,170 @@
+--- experiments/e0/fresh_client.py
++++ experiments/e0/placement_diagnostic_client.py
+@@ -1,4 +1,4 @@
+-"""Collect warm calibration or apply previously frozen, deduplicated plans."""
++"""Apply one request per preallocated crossover schedule row."""
+ 
+ from datetime import datetime,timezone
+ import hashlib
+@@ -46,14 +46,14 @@
+                     raise ValueError('Warm-only placement encountered an unready inference service')
+                 return plan
+ 
+-            for iteration in range(warmups+measured):
++            for iteration in [condition["sweep"]]:
+                 started=time.perf_counter()
+                 row=runner.run(request_id=f"{spec['run_id']}-b{spec['block']}-{mode}-{source}-{condition['id']}-{iteration}",
+                     input_id=key,body=images[key],source=source,profile=profile,
+                     policy_name='calibration-fixed-plan' if mode=='calibration' else 'frozen-plan-group',policy=apply_frozen)
+                 valid=row['status']=='ok' and row['result']['top5']==corpus[key]['reference_top5']
+                 emit('workflow',mode=mode,source=source,block=spec['block'],condition=condition,
+-                     iteration=iteration,warmup=iteration<warmups,valid_complete=valid,
++                     iteration=iteration,warmup=condition["warmup"],valid_complete=valid,
+                      completed_at=datetime.now(timezone.utc).isoformat(),
+                      pacing_overrun=(time.perf_counter()-started)>.25,**row)
+                 count+=1
+--- experiments/e0/run_fresh_placement.py
++++ experiments/e0/run_placement_cost_diagnostic.py
+@@ -1,4 +1,4 @@
+-"""Fresh warm calibration, immutable placement freeze, and temporal holdout."""
++"""Targeted crossover follow-up; isolated copy of the validated deployment lifecycle."""
+ 
+ from concurrent.futures import ThreadPoolExecutor
+ import copy
+@@ -15,16 +15,17 @@
+ 
+ import pandas as pd
+ 
+-from fresh_placement import POLICIES,freeze_profiles,plan_cost
++from fresh_placement import freeze_profiles,plan_cost, data_greedy, dag_enumeration
++from placement_cost_diagnostic import dag_with_state, state_costs, schedule
+ from policy_runner import readonly
+ 
+ 
+ def main():
+-    base=Path('artifacts/fresh-placement');base.mkdir(exist_ok=True)
++    base=Path('artifacts/placement-cost-diagnostic');base.mkdir(exist_ok=True)
+     assert not (base/'run.json').exists(),'Preserve all prior attempts'
+     began=time.perf_counter();namespace='scheduler-research'
+-    run_id=datetime.now(timezone.utc).strftime('%Y%m%dt%H%M%S%f');prefix='fresh-place-'+run_id
+-    labels={'app.kubernetes.io/part-of':'scheduler-research','research.scheduler/stage':'fresh-placement','research.scheduler/run':run_id}
++    run_id=datetime.now(timezone.utc).strftime('%Y%m%dt%H%M%S%f');prefix='place-diag-'+run_id
++    labels={'app.kubernetes.io/part-of':'scheduler-research','research.scheduler/stage':'placement-cost-diagnostic','research.scheduler/run':run_id}
+     meta=lambda name:{'name':name,'namespace':namespace,'labels':copy.deepcopy(labels)}
+     cmd=['rtk','proxy','kubectl','--request-timeout=20s','-n',namespace]
+     def call(*args):return subprocess.check_output([*cmd,*args],text=True)
+@@ -42,7 +43,7 @@
+     allocation=importlib.util.module_from_spec(loader);loader.loader.exec_module(allocation)
+     def assigned(rows,seed):return allocation.assign_factorial_runs(pd.DataFrame(rows),seed=seed).to_dict('records')
+     old=Path('artifacts/measured-policy-bridge');e3=Path('artifacts/e3-input-replication')
+-    corpus=json.loads((e3/'corpus.json').read_text());write('corpus.json',corpus)
++    corpus={k:v for k,v in json.loads((e3/'corpus.json').read_text()).items() if k in ['hubble_deep_field','chelsea']};write('corpus.json',corpus)
+     old_run=json.loads((old/'run.json').read_text());old_items=json.loads((old/'deployment.json').read_text())['items']
+     cache=json.loads((old/'cache.json').read_text())['items']
+     old_endpoint=next(e['value'] for p in old_items if p['kind']=='Pod' for e in p['spec']['containers'][0]['env'] if e['name']=='ASSET_BASE')
+@@ -54,7 +55,7 @@
+         else:item['spec']['selector']=copy.deepcopy(cache[0]['metadata']['labels'])
+     cm=json.loads((old/'configmap.json').read_text());cm['metadata']=meta(prefix)
+     cm['data'].pop('bridge-contract.json',None)
+-    for name in ['dag_profile.py','fresh_placement.py','fresh_client.py']:
++    for name in ['dag_profile.py','fresh_placement.py','placement_cost_diagnostic.py','placement_diagnostic_client.py']:
+         cm['data'][name]=Path('experiments/e0',name).read_text()
+     deployments=[];objects=[*cache,cm]
+     aliases=['arm','intel_npu']
+@@ -84,13 +85,11 @@
+             pod=next(p for p in items if p['metadata']['name']==name)
+             items.append({'apiVersion':'v1','kind':'Service','metadata':meta(name),
+                           'spec':{'selector':pod['metadata']['labels'],'ports':[{'port':8080,'targetPort':8080}]}})
+-        calibration={source:assigned([{'id':key+'-'+','.join(plan),'image_id':key,'plan':list(plan)}
+-            for key,plan in itertools.product(corpus,itertools.product(aliases,repeat=3))],20261111+10*block+i)
+-            for i,source in enumerate(aliases)}
++        calibration={'arm':schedule(corpus,aliases,6,20261201+block*100,assigned)}
++        evaluation={'arm':schedule(corpus,aliases,10,20261251+block*100,assigned)}
+         design={'block':block,'workers':workers,'clients':clients,'targets':peers,
+-                'calibration_source_order':[r['source'] for r in assigned([{'source':a} for a in aliases],20261101+block)],
+-                'evaluation_source_order':[r['source'] for r in assigned([{'source':a} for a in aliases],20261121+block)],
+-                'calibration':calibration}
++                'calibration_source_order':['arm'],'evaluation_source_order':['arm'],
++                'calibration':calibration,'evaluation':evaluation}
+         deployments.append(design);objects.extend(items)
+         write(f'deployment-b{block}.json',{'apiVersion':'v1','kind':'List','items':items})
+     edge=json.loads((old/'postcheck.json').read_text());edge['metadata']=meta(prefix+'-edge-check');objects.append(edge)
+@@ -100,10 +99,13 @@
+     manifest=json.loads((old/'wheel-manifest.json').read_text());write('wheel-manifest.json',manifest)
+     source_hashes={name:hashlib.sha256(data.encode()).hexdigest() for name,data in cm['data'].items() if name.endswith('.py')}
+     write('run.json',{'run_id':run_id,'namespace':namespace,'prefix':prefix,'design_frozen_at':datetime.now(timezone.utc).isoformat(),
+-         'deployments':deployments,'source_sha256':source_hashes,'calibration_workflows_per_block':512,
++         'deployments':deployments,'source_sha256':source_hashes,'calibration_workflows_per_block':128,'evaluation_workflows_per_block':192,
+          'corpus_sha256':hashlib.sha256((e3/'corpus.json').read_bytes()).hexdigest(),
+          'quality_rule':'exact CPU-reference Top5 order in every calibration observation',
+-         'scope':'Warm static placement with temporal holdout; shared plans share execution observations.'})
++         'scope':'Targeted two-input ARM-source crossover; warm static holdout; all eight plans audited.',
++         'spec_sha256':hashlib.sha256(Path('.scratch/placement-cost-diagnostic/spec.md').read_bytes()).hexdigest()})
++    write('implementation.json',{str(path):{'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'source':path.read_text()}
++          for path in [Path(__file__),Path('experiments/e0/placement_cost_diagnostic.py'),Path('experiments/e0/placement_diagnostic_client.py')]})
+     wheelhouse=base/'wheelhouse';wheelhouse.mkdir(exist_ok=True);mutations=False;identities=[];totals=[]
+ 
+     def remove(items):
+@@ -164,7 +166,7 @@
+                 stem=f'{mode}-b{block}-{source}';write(stem+'.input.json',spec)
+                 started=time.perf_counter()
+                 result=subprocess.run([*cmd,'exec','-i',design['clients'][source],'--','python3','-u','-c',
+-                    "import sys,runpy;sys.path.insert(0,'/config');runpy.run_path('/config/fresh_client.py',run_name='__main__')"],
++                    "import sys,runpy;sys.path.insert(0,'/config');runpy.run_path('/config/placement_diagnostic_client.py',run_name='__main__')"],
+                     input=json.dumps(spec),capture_output=True,text=True,timeout=180)
+                 write(stem+'.log',result.stdout);write(stem+'.stderr',result.stderr)
+                 assert result.returncode==0,f'Failed phase preserved: {stem}'
+@@ -176,22 +178,28 @@
+             calibration=[];calibration_seconds=0
+             for source in design['calibration_source_order']:
+                 rr,elapsed=phase('calibration',source,design['calibration'][source]);calibration+=rr;calibration_seconds+=elapsed
+-            assert len(calibration)==512
+-            hashes={source:hashlib.sha256((base/f'calibration-b{block}-{source}.log').read_bytes()).hexdigest() for source in aliases}
++            assert len(calibration)==128
++            hashes={source:hashlib.sha256((base/f'calibration-b{block}-{source}.log').read_bytes()).hexdigest() for source in ['arm']}
+             evidence_id=hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest()
+             profiles,quality=freeze_profiles(calibration,corpus,aliases,evidence_id)
++            assert all(q[a]['eligible'] for q in quality.values() for a in aliases),'Anchor excluded by quality gate'
++            states={key:state_costs(calibration,key) for key in corpus}
+             selections={};groups=[]
+             for key,profile in profiles.items():
+                 planning_input=readonly({'profile':profile});chosen={};grouped={}
+-                for name,policy in POLICIES.items():
++                policies={'data_greedy':data_greedy,'dag_enumeration':dag_enumeration,
++                          'dag_with_state':lambda s:dag_with_state(s,states[profile['input_id']])}
++                for name,policy in policies.items():
+                     t=time.perf_counter();plan=policy(planning_input);duration=(time.perf_counter()-t)*1000
+-                    chosen[name]={'plan':plan,'planning_ms':duration,'estimated_workflow_ms':plan_cost(profile,plan)}
++                    chosen[name]={'plan':plan,'planning_ms':duration,'estimated_workflow_ms':plan_cost(profile,plan),
++                                  'estimated_workflow_plus_state_ms':plan_cost(profile,plan)+states[profile['input_id']][plan[1]]}
+                     grouped.setdefault(tuple(plan),[]).append(name)
+                 selections[key]=chosen
+-                for plan,members in sorted(grouped.items()):
++                for plan in itertools.product(*profile["candidates"]):
++                    members=grouped.get(plan,[])
+                     groups.append({'id':profile['input_id']+'-'+','.join(plan),'image_id':profile['input_id'],
+                                    'source':profile['source'],'plan':list(plan),'members':members})
+-            frozen={'profiles':profiles,'quality':quality,'selections':selections,'calibration_log_sha256':hashes,
++            frozen={'profiles':profiles,'quality':quality,'state_ms':states,'selections':selections,'calibration_log_sha256':hashes,
+                     'frozen_at':datetime.now(timezone.utc).isoformat(),'preparation_seconds':prep_seconds,
+                     'calibration_seconds':calibration_seconds,'source_sha256':source_hashes}
+             write(f'frozen-b{block}.json',frozen)
+@@ -200,14 +208,16 @@
+             write(f'profile-configmap-b{block}.json',profile_cm)
+             subprocess.run([*cmd,'create','-f',str(base/f'profile-configmap-b{block}.json')],check=True)
+             frozen_digest=hashlib.sha256((base/f'frozen-b{block}.json').read_bytes()).hexdigest()
+-            schedules={source:assigned([g for g in groups if g['source']==source],20261131+10*block+i) for i,source in enumerate(aliases)}
++            schedules=design['evaluation']
++            for condition in schedules['arm']:
++                condition['members']=next(g['members'] for g in groups if g['image_id']==condition['image_id'] and g['plan']==condition['plan'])
+             write(f'evaluation-design-b{block}.json',{'groups':len(groups),'schedules':schedules,'frozen_sha256':frozen_digest})
+             print(json.dumps({'kind':'profiles_frozen','block':block,'unique_plans':len(groups),
+                               'excluded_inference_candidates':[(key,a) for key,q in quality.items() for a,e in q.items() if not e['eligible']]}),flush=True)
+             evaluation=[];evaluation_seconds=0
+             for source in design['evaluation_source_order']:
+                 rr,elapsed=phase('evaluation',source,schedules[source],profiles);evaluation+=rr;evaluation_seconds+=elapsed
+-            assert len(evaluation)==7*len(groups)
++            assert len(evaluation)==192
+             assert hashlib.sha256((base/f'frozen-b{block}.json').read_bytes()).hexdigest()==frozen_digest
+             live_profile=json.loads(call('get','configmap',profile_cm['metadata']['name'],'-o','json'))
+             assert live_profile['data']==profile_cm['data']
