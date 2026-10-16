@@ -1,0 +1,945 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"},\"name\":\"e0-accel-discover-gpu-20261016t063952\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":180,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"\\\"\\\"\\\"Inspect an allocated accelerator and the existing image's runtime stack.\\\"\\\"\\\"\\n\\nimport importlib.metadata as metadata\\nimport importlib.util\\nimport json\\nimport os\\nfrom pathlib import Path\\nimport platform\\nimport subprocess\\n\\n\\nresult = {\\\"node\\\": os.environ[\\\"NODE_NAME\\\"], \\\"backend\\\": os.environ[\\\"BACKEND\\\"],\\n          \\\"python\\\": platform.python_version(), \\\"architecture\\\": platform.machine(),\\n          \\\"packages\\\": {}, \\\"modules\\\": {}, \\\"devices\\\": {}}\\nfor package in [\\\"torch\\\", \\\"torchvision\\\", \\\"onnx\\\", \\\"onnxruntime\\\", \\\"onnxruntime-gpu\\\",\\n                \\\"openvino\\\", \\\"tensorrt\\\", \\\"onnx2torch\\\", \\\"numpy\\\", \\\"Pillow\\\"]:\\n    try:\\n        result[\\\"packages\\\"][package] = metadata.version(package)\\n    except metadata.PackageNotFoundError:\\n        pass\\nfor module in [\\\"torch\\\", \\\"torchvision\\\", \\\"onnx\\\", \\\"onnxruntime\\\", \\\"openvino\\\",\\n               \\\"tensorrt\\\", \\\"onnx2torch\\\", \\\"numpy\\\", \\\"PIL\\\"]:\\n    result[\\\"modules\\\"][module] = importlib.util.find_spec(module) is not None\\nresult[\\\"devices\\\"] = {\\\"nvidia\\\": len(list(Path(\\\"/dev\\\").glob(\\\"nvidia[0-9]*\\\"))),\\n                     \\\"accel\\\": len(list(Path(\\\"/dev/accel\\\").glob(\\\"accel*\\\")))}\\nif os.environ[\\\"BACKEND\\\"] == \\\"gpu\\\":\\n    try:\\n        import torch\\n        result[\\\"torch\\\"] = {\\\"cuda_build\\\": torch.version.cuda,\\n                           \\\"cuda_available\\\": torch.cuda.is_available()}\\n        if torch.cuda.is_available():\\n            result[\\\"torch\\\"].update(device_name=torch.cuda.get_device_name(0),\\n                                   capability=list(torch.cuda.get_device_capability(0)))\\n    except Exception as error:\\n        result[\\\"torch_error\\\"] = str(error)\\n    try:\\n        import onnxruntime as ort\\n        result[\\\"ort\\\"] = {\\\"version\\\": ort.__version__, \\\"providers\\\": ort.get_available_providers()}\\n    except ImportError:\\n        pass\\n    try:\\n        p = subprocess.run([\\\"nvidia-smi\\\", \\\"--query-gpu=name,driver_version,memory.total\\\",\\n                            \\\"--format=csv,noheader\\\"], capture_output=True, text=True, timeout=15)\\n        result[\\\"nvidia_smi\\\"] = {\\\"exit_code\\\": p.returncode, \\\"stdout\\\": p.stdout.strip()}\\n    except (OSError, subprocess.TimeoutExpired):\\n        result[\\\"nvidia_smi\\\"] = {\\\"available\\\": False}\\nelif os.environ[\\\"BACKEND\\\"] == \\\"intel_npu\\\":\\n    try:\\n        import openvino as ov\\n        core = ov.Core()\\n        result[\\\"openvino\\\"] = {\\\"version\\\": ov.__version__, \\\"available_devices\\\": core.available_devices}\\n        for prop in [\\\"FULL_DEVICE_NAME\\\", \\\"NPU_DRIVER_VERSION\\\", \\\"NPU_COMPILER_VERSION\\\"]:\\n            try:\\n                result[\\\"openvino\\\"][prop] = str(core.get_property(\\\"NPU\\\", prop))\\n            except Exception as error:\\n                result[\\\"openvino\\\"][prop] = {\\\"unavailable\\\": str(error)[:300]}\\n    except Exception as error:\\n        result[\\\"openvino_error\\\"] = str(error)\\nprint(json.dumps(result), flush=True)\\n\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"BACKEND\",\"value\":\"gpu\"},{\"name\":\"HOME\",\"value\":\"/work\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"}],\"image\":\"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"2\",\"memory\":\"3Gi\",\"nvidia.com/gpu\":\"1\"},\"requests\":{\"cpu\":\"250m\",\"memory\":\"256Mi\",\"nvidia.com/gpu\":\"1\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-ser0003-cg0ms0\"},\"restartPolicy\":\"Never\",\"runtimeClassName\":\"nvidia-spark\",\"securityContext\":{\"runAsUser\":0,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"512Mi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"512Mi\"},\"name\":\"tmp\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T06:39:53Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t063952",
+                    "research.scheduler/stage": "e0-accelerators"
+                },
+                "name": "e0-accel-discover-gpu-20261016t063952",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46599797",
+                "uid": "aa141ade-d8e1-4276-b3aa-214f42fb4d2b"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 180,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "aa141ade-d8e1-4276-b3aa-214f42fb4d2b"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "aa141ade-d8e1-4276-b3aa-214f42fb4d2b",
+                            "batch.kubernetes.io/job-name": "e0-accel-discover-gpu-20261016t063952",
+                            "controller-uid": "aa141ade-d8e1-4276-b3aa-214f42fb4d2b",
+                            "job-name": "e0-accel-discover-gpu-20261016t063952",
+                            "research.scheduler/run": "20261016t063952",
+                            "research.scheduler/stage": "e0-accelerators"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "\"\"\"Inspect an allocated accelerator and the existing image's runtime stack.\"\"\"\n\nimport importlib.metadata as metadata\nimport importlib.util\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\n\n\nresult = {\"node\": os.environ[\"NODE_NAME\"], \"backend\": os.environ[\"BACKEND\"],\n          \"python\": platform.python_version(), \"architecture\": platform.machine(),\n          \"packages\": {}, \"modules\": {}, \"devices\": {}}\nfor package in [\"torch\", \"torchvision\", \"onnx\", \"onnxruntime\", \"onnxruntime-gpu\",\n                \"openvino\", \"tensorrt\", \"onnx2torch\", \"numpy\", \"Pillow\"]:\n    try:\n        result[\"packages\"][package] = metadata.version(package)\n    except metadata.PackageNotFoundError:\n        pass\nfor module in [\"torch\", \"torchvision\", \"onnx\", \"onnxruntime\", \"openvino\",\n               \"tensorrt\", \"onnx2torch\", \"numpy\", \"PIL\"]:\n    result[\"modules\"][module] = importlib.util.find_spec(module) is not None\nresult[\"devices\"] = {\"nvidia\": len(list(Path(\"/dev\").glob(\"nvidia[0-9]*\"))),\n                     \"accel\": len(list(Path(\"/dev/accel\").glob(\"accel*\")))}\nif os.environ[\"BACKEND\"] == \"gpu\":\n    try:\n        import torch\n        result[\"torch\"] = {\"cuda_build\": torch.version.cuda,\n                           \"cuda_available\": torch.cuda.is_available()}\n        if torch.cuda.is_available():\n            result[\"torch\"].update(device_name=torch.cuda.get_device_name(0),\n                                   capability=list(torch.cuda.get_device_capability(0)))\n    except Exception as error:\n        result[\"torch_error\"] = str(error)\n    try:\n        import onnxruntime as ort\n        result[\"ort\"] = {\"version\": ort.__version__, \"providers\": ort.get_available_providers()}\n    except ImportError:\n        pass\n    try:\n        p = subprocess.run([\"nvidia-smi\", \"--query-gpu=name,driver_version,memory.total\",\n                            \"--format=csv,noheader\"], capture_output=True, text=True, timeout=15)\n        result[\"nvidia_smi\"] = {\"exit_code\": p.returncode, \"stdout\": p.stdout.strip()}\n    except (OSError, subprocess.TimeoutExpired):\n        result[\"nvidia_smi\"] = {\"available\": False}\nelif os.environ[\"BACKEND\"] == \"intel_npu\":\n    try:\n        import openvino as ov\n        core = ov.Core()\n        result[\"openvino\"] = {\"version\": ov.__version__, \"available_devices\": core.available_devices}\n        for prop in [\"FULL_DEVICE_NAME\", \"NPU_DRIVER_VERSION\", \"NPU_COMPILER_VERSION\"]:\n            try:\n                result[\"openvino\"][prop] = str(core.get_property(\"NPU\", prop))\n            except Exception as error:\n                result[\"openvino\"][prop] = {\"unavailable\": str(error)[:300]}\n    except Exception as error:\n        result[\"openvino_error\"] = str(error)\nprint(json.dumps(result), flush=True)\n"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "BACKEND",
+                                        "value": "gpu"
+                                    },
+                                    {
+                                        "name": "HOME",
+                                        "value": "/work"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "memory": "3Gi",
+                                        "nvidia.com/gpu": "1"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "memory": "256Mi",
+                                        "nvidia.com/gpu": "1"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+                        },
+                        "restartPolicy": "Never",
+                        "runtimeClassName": "nvidia-spark",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsUser": 0,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "512Mi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "512Mi"
+                                },
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "completionTime": "2026-10-16T06:39:56Z",
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T06:39:56Z",
+                        "lastTransitionTime": "2026-10-16T06:39:56Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "SuccessCriteriaMet"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T06:39:56Z",
+                        "lastTransitionTime": "2026-10-16T06:39:56Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "Complete"
+                    }
+                ],
+                "ready": 0,
+                "startTime": "2026-10-16T06:39:53Z",
+                "succeeded": 1,
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"},\"name\":\"e0-accel-discover-intel-npu-20261016t063952\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":180,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"\\\"\\\"\\\"Inspect an allocated accelerator and the existing image's runtime stack.\\\"\\\"\\\"\\n\\nimport importlib.metadata as metadata\\nimport importlib.util\\nimport json\\nimport os\\nfrom pathlib import Path\\nimport platform\\nimport subprocess\\n\\n\\nresult = {\\\"node\\\": os.environ[\\\"NODE_NAME\\\"], \\\"backend\\\": os.environ[\\\"BACKEND\\\"],\\n          \\\"python\\\": platform.python_version(), \\\"architecture\\\": platform.machine(),\\n          \\\"packages\\\": {}, \\\"modules\\\": {}, \\\"devices\\\": {}}\\nfor package in [\\\"torch\\\", \\\"torchvision\\\", \\\"onnx\\\", \\\"onnxruntime\\\", \\\"onnxruntime-gpu\\\",\\n                \\\"openvino\\\", \\\"tensorrt\\\", \\\"onnx2torch\\\", \\\"numpy\\\", \\\"Pillow\\\"]:\\n    try:\\n        result[\\\"packages\\\"][package] = metadata.version(package)\\n    except metadata.PackageNotFoundError:\\n        pass\\nfor module in [\\\"torch\\\", \\\"torchvision\\\", \\\"onnx\\\", \\\"onnxruntime\\\", \\\"openvino\\\",\\n               \\\"tensorrt\\\", \\\"onnx2torch\\\", \\\"numpy\\\", \\\"PIL\\\"]:\\n    result[\\\"modules\\\"][module] = importlib.util.find_spec(module) is not None\\nresult[\\\"devices\\\"] = {\\\"nvidia\\\": len(list(Path(\\\"/dev\\\").glob(\\\"nvidia[0-9]*\\\"))),\\n                     \\\"accel\\\": len(list(Path(\\\"/dev/accel\\\").glob(\\\"accel*\\\")))}\\nif os.environ[\\\"BACKEND\\\"] == \\\"gpu\\\":\\n    try:\\n        import torch\\n        result[\\\"torch\\\"] = {\\\"cuda_build\\\": torch.version.cuda,\\n                           \\\"cuda_available\\\": torch.cuda.is_available()}\\n        if torch.cuda.is_available():\\n            result[\\\"torch\\\"].update(device_name=torch.cuda.get_device_name(0),\\n                                   capability=list(torch.cuda.get_device_capability(0)))\\n    except Exception as error:\\n        result[\\\"torch_error\\\"] = str(error)\\n    try:\\n        import onnxruntime as ort\\n        result[\\\"ort\\\"] = {\\\"version\\\": ort.__version__, \\\"providers\\\": ort.get_available_providers()}\\n    except ImportError:\\n        pass\\n    try:\\n        p = subprocess.run([\\\"nvidia-smi\\\", \\\"--query-gpu=name,driver_version,memory.total\\\",\\n                            \\\"--format=csv,noheader\\\"], capture_output=True, text=True, timeout=15)\\n        result[\\\"nvidia_smi\\\"] = {\\\"exit_code\\\": p.returncode, \\\"stdout\\\": p.stdout.strip()}\\n    except (OSError, subprocess.TimeoutExpired):\\n        result[\\\"nvidia_smi\\\"] = {\\\"available\\\": False}\\nelif os.environ[\\\"BACKEND\\\"] == \\\"intel_npu\\\":\\n    try:\\n        import openvino as ov\\n        core = ov.Core()\\n        result[\\\"openvino\\\"] = {\\\"version\\\": ov.__version__, \\\"available_devices\\\": core.available_devices}\\n        for prop in [\\\"FULL_DEVICE_NAME\\\", \\\"NPU_DRIVER_VERSION\\\", \\\"NPU_COMPILER_VERSION\\\"]:\\n            try:\\n                result[\\\"openvino\\\"][prop] = str(core.get_property(\\\"NPU\\\", prop))\\n            except Exception as error:\\n                result[\\\"openvino\\\"][prop] = {\\\"unavailable\\\": str(error)[:300]}\\n    except Exception as error:\\n        result[\\\"openvino_error\\\"] = str(error)\\nprint(json.dumps(result), flush=True)\\n\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"BACKEND\",\"value\":\"intel_npu\"},{\"name\":\"HOME\",\"value\":\"/work\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"}],\"image\":\"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"2\",\"memory\":\"3Gi\",\"npu.intel.com/accel\":\"1\"},\"requests\":{\"cpu\":\"250m\",\"memory\":\"256Mi\",\"npu.intel.com/accel\":\"1\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-ser0002-cgnmsb\"},\"restartPolicy\":\"Never\",\"securityContext\":{\"runAsUser\":0,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"512Mi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"512Mi\"},\"name\":\"tmp\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T06:39:53Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t063952",
+                    "research.scheduler/stage": "e0-accelerators"
+                },
+                "name": "e0-accel-discover-intel-npu-20261016t063952",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46599810",
+                "uid": "4671727c-2eed-4a6a-b4ea-f412b7499190"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 180,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "4671727c-2eed-4a6a-b4ea-f412b7499190"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "4671727c-2eed-4a6a-b4ea-f412b7499190",
+                            "batch.kubernetes.io/job-name": "e0-accel-discover-intel-npu-20261016t063952",
+                            "controller-uid": "4671727c-2eed-4a6a-b4ea-f412b7499190",
+                            "job-name": "e0-accel-discover-intel-npu-20261016t063952",
+                            "research.scheduler/run": "20261016t063952",
+                            "research.scheduler/stage": "e0-accelerators"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "\"\"\"Inspect an allocated accelerator and the existing image's runtime stack.\"\"\"\n\nimport importlib.metadata as metadata\nimport importlib.util\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\n\n\nresult = {\"node\": os.environ[\"NODE_NAME\"], \"backend\": os.environ[\"BACKEND\"],\n          \"python\": platform.python_version(), \"architecture\": platform.machine(),\n          \"packages\": {}, \"modules\": {}, \"devices\": {}}\nfor package in [\"torch\", \"torchvision\", \"onnx\", \"onnxruntime\", \"onnxruntime-gpu\",\n                \"openvino\", \"tensorrt\", \"onnx2torch\", \"numpy\", \"Pillow\"]:\n    try:\n        result[\"packages\"][package] = metadata.version(package)\n    except metadata.PackageNotFoundError:\n        pass\nfor module in [\"torch\", \"torchvision\", \"onnx\", \"onnxruntime\", \"openvino\",\n               \"tensorrt\", \"onnx2torch\", \"numpy\", \"PIL\"]:\n    result[\"modules\"][module] = importlib.util.find_spec(module) is not None\nresult[\"devices\"] = {\"nvidia\": len(list(Path(\"/dev\").glob(\"nvidia[0-9]*\"))),\n                     \"accel\": len(list(Path(\"/dev/accel\").glob(\"accel*\")))}\nif os.environ[\"BACKEND\"] == \"gpu\":\n    try:\n        import torch\n        result[\"torch\"] = {\"cuda_build\": torch.version.cuda,\n                           \"cuda_available\": torch.cuda.is_available()}\n        if torch.cuda.is_available():\n            result[\"torch\"].update(device_name=torch.cuda.get_device_name(0),\n                                   capability=list(torch.cuda.get_device_capability(0)))\n    except Exception as error:\n        result[\"torch_error\"] = str(error)\n    try:\n        import onnxruntime as ort\n        result[\"ort\"] = {\"version\": ort.__version__, \"providers\": ort.get_available_providers()}\n    except ImportError:\n        pass\n    try:\n        p = subprocess.run([\"nvidia-smi\", \"--query-gpu=name,driver_version,memory.total\",\n                            \"--format=csv,noheader\"], capture_output=True, text=True, timeout=15)\n        result[\"nvidia_smi\"] = {\"exit_code\": p.returncode, \"stdout\": p.stdout.strip()}\n    except (OSError, subprocess.TimeoutExpired):\n        result[\"nvidia_smi\"] = {\"available\": False}\nelif os.environ[\"BACKEND\"] == \"intel_npu\":\n    try:\n        import openvino as ov\n        core = ov.Core()\n        result[\"openvino\"] = {\"version\": ov.__version__, \"available_devices\": core.available_devices}\n        for prop in [\"FULL_DEVICE_NAME\", \"NPU_DRIVER_VERSION\", \"NPU_COMPILER_VERSION\"]:\n            try:\n                result[\"openvino\"][prop] = str(core.get_property(\"NPU\", prop))\n            except Exception as error:\n                result[\"openvino\"][prop] = {\"unavailable\": str(error)[:300]}\n    except Exception as error:\n        result[\"openvino_error\"] = str(error)\nprint(json.dumps(result), flush=True)\n"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "BACKEND",
+                                        "value": "intel_npu"
+                                    },
+                                    {
+                                        "name": "HOME",
+                                        "value": "/work"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "memory": "3Gi",
+                                        "npu.intel.com/accel": "1"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "memory": "256Mi",
+                                        "npu.intel.com/accel": "1"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+                        },
+                        "restartPolicy": "Never",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsUser": 0,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "512Mi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "512Mi"
+                                },
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "completionTime": "2026-10-16T06:39:57Z",
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T06:39:57Z",
+                        "lastTransitionTime": "2026-10-16T06:39:57Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "SuccessCriteriaMet"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T06:39:57Z",
+                        "lastTransitionTime": "2026-10-16T06:39:57Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "Complete"
+                    }
+                ],
+                "ready": 0,
+                "startTime": "2026-10-16T06:39:53Z",
+                "succeeded": 1,
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"},\"name\":\"e0-accel-infer-gpu-20261016t063952\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":900,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import subprocess,sys,runpy,time,json,os; started=time.perf_counter(); print(json.dumps({'kind':'installation_started','backend':os.environ['BACKEND']}),flush=True); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-'+os.environ['BACKEND']+'.txt'],check=True); print(json.dumps({'kind':'installation_complete','elapsed_ms':(time.perf_counter()-started)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/accelerator_inference.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"BACKEND\",\"value\":\"gpu\"},{\"name\":\"HOME\",\"value\":\"/work\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"}],\"image\":\"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"2\",\"ephemeral-storage\":\"16Gi\",\"memory\":\"8Gi\",\"nvidia.com/gpu\":\"1\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"1Gi\",\"memory\":\"1Gi\",\"nvidia.com/gpu\":\"1\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-ser0003-cg0ms0\"},\"restartPolicy\":\"Never\",\"runtimeClassName\":\"nvidia-spark\",\"securityContext\":{\"runAsUser\":0,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"12Gi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"tmp\"},{\"configMap\":{\"name\":\"e0-accel-source-20261016t063952\"},\"name\":\"config\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T06:44:22Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t063952",
+                    "research.scheduler/stage": "e0-accelerators"
+                },
+                "name": "e0-accel-infer-gpu-20261016t063952",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46603805",
+                "uid": "7d7fd45c-5a37-4dec-998e-c9bc7a3ff4f5"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 900,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "7d7fd45c-5a37-4dec-998e-c9bc7a3ff4f5"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "7d7fd45c-5a37-4dec-998e-c9bc7a3ff4f5",
+                            "batch.kubernetes.io/job-name": "e0-accel-infer-gpu-20261016t063952",
+                            "controller-uid": "7d7fd45c-5a37-4dec-998e-c9bc7a3ff4f5",
+                            "job-name": "e0-accel-infer-gpu-20261016t063952",
+                            "research.scheduler/run": "20261016t063952",
+                            "research.scheduler/stage": "e0-accelerators"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "import subprocess,sys,runpy,time,json,os; started=time.perf_counter(); print(json.dumps({'kind':'installation_started','backend':os.environ['BACKEND']}),flush=True); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-'+os.environ['BACKEND']+'.txt'],check=True); print(json.dumps({'kind':'installation_complete','elapsed_ms':(time.perf_counter()-started)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/accelerator_inference.py',run_name='__main__')"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "BACKEND",
+                                        "value": "gpu"
+                                    },
+                                    {
+                                        "name": "HOME",
+                                        "value": "/work"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "ephemeral-storage": "16Gi",
+                                        "memory": "8Gi",
+                                        "nvidia.com/gpu": "1"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "ephemeral-storage": "1Gi",
+                                        "memory": "1Gi",
+                                        "nvidia.com/gpu": "1"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    },
+                                    {
+                                        "mountPath": "/config",
+                                        "name": "config",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+                        },
+                        "restartPolicy": "Never",
+                        "runtimeClassName": "nvidia-spark",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsUser": 0,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "12Gi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "8Gi"
+                                },
+                                "name": "tmp"
+                            },
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "e0-accel-source-20261016t063952"
+                                },
+                                "name": "config"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T06:46:26Z",
+                        "lastTransitionTime": "2026-10-16T06:46:26Z",
+                        "message": "Job has reached the specified backoff limit",
+                        "reason": "BackoffLimitExceeded",
+                        "status": "True",
+                        "type": "FailureTarget"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T06:46:26Z",
+                        "lastTransitionTime": "2026-10-16T06:46:26Z",
+                        "message": "Job has reached the specified backoff limit",
+                        "reason": "BackoffLimitExceeded",
+                        "status": "True",
+                        "type": "Failed"
+                    }
+                ],
+                "failed": 1,
+                "ready": 0,
+                "startTime": "2026-10-16T06:44:22Z",
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"},\"name\":\"e0-accel-infer-gpu-opset13-20261016t063952\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":900,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import subprocess,sys,runpy,time,json,os; started=time.perf_counter(); print(json.dumps({'kind':'installation_started','backend':os.environ['BACKEND']}),flush=True); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-'+os.environ['BACKEND']+'.txt'],check=True); print(json.dumps({'kind':'installation_complete','elapsed_ms':(time.perf_counter()-started)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/accelerator_inference.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"BACKEND\",\"value\":\"gpu\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"TORCH_HOME\",\"value\":\"/work/torch-cache\"}],\"image\":\"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"2\",\"ephemeral-storage\":\"16Gi\",\"memory\":\"8Gi\",\"nvidia.com/gpu\":\"1\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"1Gi\",\"memory\":\"1Gi\",\"nvidia.com/gpu\":\"1\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}],\"workingDir\":\"/work\"}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-ser0003-cg0ms0\"},\"restartPolicy\":\"Never\",\"runtimeClassName\":\"nvidia-spark\",\"securityContext\":{\"runAsUser\":0,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"12Gi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"tmp\"},{\"configMap\":{\"name\":\"e0-accel-source-opset13-20261016t063952\"},\"name\":\"config\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T06:50:46Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t063952",
+                    "research.scheduler/stage": "e0-accelerators"
+                },
+                "name": "e0-accel-infer-gpu-opset13-20261016t063952",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46606475",
+                "uid": "bc9f39d6-7eff-4718-85c2-d8c6705e9612"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 900,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "bc9f39d6-7eff-4718-85c2-d8c6705e9612"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "bc9f39d6-7eff-4718-85c2-d8c6705e9612",
+                            "batch.kubernetes.io/job-name": "e0-accel-infer-gpu-opset13-20261016t063952",
+                            "controller-uid": "bc9f39d6-7eff-4718-85c2-d8c6705e9612",
+                            "job-name": "e0-accel-infer-gpu-opset13-20261016t063952",
+                            "research.scheduler/run": "20261016t063952",
+                            "research.scheduler/stage": "e0-accelerators"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "import subprocess,sys,runpy,time,json,os; started=time.perf_counter(); print(json.dumps({'kind':'installation_started','backend':os.environ['BACKEND']}),flush=True); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-'+os.environ['BACKEND']+'.txt'],check=True); print(json.dumps({'kind':'installation_complete','elapsed_ms':(time.perf_counter()-started)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/accelerator_inference.py',run_name='__main__')"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "BACKEND",
+                                        "value": "gpu"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "TORCH_HOME",
+                                        "value": "/work/torch-cache"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "ephemeral-storage": "16Gi",
+                                        "memory": "8Gi",
+                                        "nvidia.com/gpu": "1"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "ephemeral-storage": "1Gi",
+                                        "memory": "1Gi",
+                                        "nvidia.com/gpu": "1"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    },
+                                    {
+                                        "mountPath": "/config",
+                                        "name": "config",
+                                        "readOnly": true
+                                    }
+                                ],
+                                "workingDir": "/work"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+                        },
+                        "restartPolicy": "Never",
+                        "runtimeClassName": "nvidia-spark",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsUser": 0,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "12Gi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "8Gi"
+                                },
+                                "name": "tmp"
+                            },
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "e0-accel-source-opset13-20261016t063952"
+                                },
+                                "name": "config"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "active": 1,
+                "ready": 1,
+                "startTime": "2026-10-16T06:50:46Z",
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"},\"name\":\"e0-accel-infer-intel-npu-20261016t063952\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":360,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t063952\",\"research.scheduler/stage\":\"e0-accelerators\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import subprocess,sys,runpy,time,json,os; started=time.perf_counter(); print(json.dumps({'kind':'installation_started','backend':os.environ['BACKEND']}),flush=True); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-'+os.environ['BACKEND']+'.txt'],check=True); print(json.dumps({'kind':'installation_complete','elapsed_ms':(time.perf_counter()-started)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/accelerator_inference.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"BACKEND\",\"value\":\"intel_npu\"},{\"name\":\"HOME\",\"value\":\"/work\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"}],\"image\":\"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"2\",\"ephemeral-storage\":\"3Gi\",\"memory\":\"3Gi\",\"npu.intel.com/accel\":\"1\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"1Gi\",\"memory\":\"1Gi\",\"npu.intel.com/accel\":\"1\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-ser0002-cgnmsb\"},\"restartPolicy\":\"Never\",\"securityContext\":{\"runAsUser\":0,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"2Gi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"2Gi\"},\"name\":\"tmp\"},{\"configMap\":{\"name\":\"e0-accel-source-20261016t063952\"},\"name\":\"config\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T06:44:22Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t063952",
+                    "research.scheduler/stage": "e0-accelerators"
+                },
+                "name": "e0-accel-infer-intel-npu-20261016t063952",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46602669",
+                "uid": "0ed59d98-2dc4-4534-9099-38a0e4dfb9a4"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 360,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "0ed59d98-2dc4-4534-9099-38a0e4dfb9a4"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "0ed59d98-2dc4-4534-9099-38a0e4dfb9a4",
+                            "batch.kubernetes.io/job-name": "e0-accel-infer-intel-npu-20261016t063952",
+                            "controller-uid": "0ed59d98-2dc4-4534-9099-38a0e4dfb9a4",
+                            "job-name": "e0-accel-infer-intel-npu-20261016t063952",
+                            "research.scheduler/run": "20261016t063952",
+                            "research.scheduler/stage": "e0-accelerators"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "import subprocess,sys,runpy,time,json,os; started=time.perf_counter(); print(json.dumps({'kind':'installation_started','backend':os.environ['BACKEND']}),flush=True); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-'+os.environ['BACKEND']+'.txt'],check=True); print(json.dumps({'kind':'installation_complete','elapsed_ms':(time.perf_counter()-started)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/accelerator_inference.py',run_name='__main__')"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "BACKEND",
+                                        "value": "intel_npu"
+                                    },
+                                    {
+                                        "name": "HOME",
+                                        "value": "/work"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "2",
+                                        "ephemeral-storage": "3Gi",
+                                        "memory": "3Gi",
+                                        "npu.intel.com/accel": "1"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "ephemeral-storage": "1Gi",
+                                        "memory": "1Gi",
+                                        "npu.intel.com/accel": "1"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    },
+                                    {
+                                        "mountPath": "/config",
+                                        "name": "config",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+                        },
+                        "restartPolicy": "Never",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsUser": 0,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "2Gi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "2Gi"
+                                },
+                                "name": "tmp"
+                            },
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "e0-accel-source-20261016t063952"
+                                },
+                                "name": "config"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "completionTime": "2026-10-16T06:44:36Z",
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T06:44:36Z",
+                        "lastTransitionTime": "2026-10-16T06:44:36Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "SuccessCriteriaMet"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T06:44:36Z",
+                        "lastTransitionTime": "2026-10-16T06:44:36Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "Complete"
+                    }
+                ],
+                "ready": 0,
+                "startTime": "2026-10-16T06:44:22Z",
+                "succeeded": 1,
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

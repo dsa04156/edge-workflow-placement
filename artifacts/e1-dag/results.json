@@ -1,0 +1,150 @@
+{
+  "run_id": "20261016t072946",
+  "workflow_requests": 520,
+  "stage_receipts": 1560,
+  "calibration_requests": 448,
+  "calibration_measured": 320,
+  "evaluation_measured": 60,
+  "unique_evaluation_plans": 2,
+  "pacing_overruns": 0,
+  "policies": {
+    "B2_fastest": {
+      "plan": [
+        "gpu",
+        "gpu",
+        "gpu"
+      ],
+      "workflow_ms": {
+        "n": 30,
+        "median": 73.58419097727165,
+        "mean": 73.68150356924161,
+        "sd": 0.5909339032613568,
+        "min": 72.79079698491842,
+        "max": 75.58383699506521
+      },
+      "block_median_ms": {
+        "0": 73.29410006059334,
+        "1": 73.47974798176438,
+        "2": 74.08153096912429
+      },
+      "predicted_ms": 73.55071348138154,
+      "same_plan_policies": [
+        "B2_fastest",
+        "anchor_all_gpu"
+      ]
+    },
+    "C1_data_greedy": {
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "workflow_ms": {
+        "n": 30,
+        "median": 69.81788948178291,
+        "mean": 72.68358955237393,
+        "sd": 7.483714940117614,
+        "min": 69.21331898774952,
+        "max": 100.07065697573125
+      },
+      "block_median_ms": {
+        "0": 69.96512797195464,
+        "1": 69.47315949946642,
+        "2": 70.41313603986055
+      },
+      "predicted_ms": 70.01408061478287,
+      "same_plan_policies": [
+        "C1_data_greedy",
+        "B3_joint_enumeration",
+        "anchor_all_arm"
+      ]
+    },
+    "B3_joint_enumeration": {
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "workflow_ms": {
+        "n": 30,
+        "median": 69.81788948178291,
+        "mean": 72.68358955237393,
+        "sd": 7.483714940117614,
+        "min": 69.21331898774952,
+        "max": 100.07065697573125
+      },
+      "block_median_ms": {
+        "0": 69.96512797195464,
+        "1": 69.47315949946642,
+        "2": 70.41313603986055
+      },
+      "predicted_ms": 70.01408061478287,
+      "same_plan_policies": [
+        "C1_data_greedy",
+        "B3_joint_enumeration",
+        "anchor_all_arm"
+      ]
+    },
+    "anchor_all_arm": {
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "workflow_ms": {
+        "n": 30,
+        "median": 69.81788948178291,
+        "mean": 72.68358955237393,
+        "sd": 7.483714940117614,
+        "min": 69.21331898774952,
+        "max": 100.07065697573125
+      },
+      "block_median_ms": {
+        "0": 69.96512797195464,
+        "1": 69.47315949946642,
+        "2": 70.41313603986055
+      },
+      "predicted_ms": 70.01408061478287,
+      "same_plan_policies": [
+        "C1_data_greedy",
+        "B3_joint_enumeration",
+        "anchor_all_arm"
+      ]
+    },
+    "anchor_all_gpu": {
+      "plan": [
+        "gpu",
+        "gpu",
+        "gpu"
+      ],
+      "workflow_ms": {
+        "n": 30,
+        "median": 73.58419097727165,
+        "mean": 73.68150356924161,
+        "sd": 0.5909339032613568,
+        "min": 72.79079698491842,
+        "max": 75.58383699506521
+      },
+      "block_median_ms": {
+        "0": 73.29410006059334,
+        "1": 73.47974798176438,
+        "2": 74.08153096912429
+      },
+      "predicted_ms": 73.55071348138154,
+      "same_plan_policies": [
+        "B2_fastest",
+        "anchor_all_gpu"
+      ]
+    }
+  },
+  "B2_minus_B3_median_ms": 3.766301495488733,
+  "C1_minus_B3_median_ms": 0.0,
+  "limitations": [
+    "Single image, same warm worker instance per backend, three sequential client evaluation blocks.",
+    "No CI, hypothesis tests, p95 or independent deployment replication.",
+    "Communication residual includes protocol, response trace, validation and executor costs; not pure network.",
+    "Diagnostic SDK preparation and model warmup are outside request timing; no dynamic transition net-benefit claim.",
+    "Exact small-DAG enumeration is not JellyBean/Atlas implementation or a new algorithm.",
+    "GPU support warning/kernel trace gap and cross-runtime dataset-quality validation remain unresolved."
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "e1-dag-20261016t072946-calibration",
+    "namespace": "scheduler-research",
+    "labels": {
+      "app.kubernetes.io/part-of": "scheduler-research",
+      "research.scheduler/stage": "e1-dag",
+      "research.scheduler/run": "20261016t072946"
+    }
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 600,
+    "ttlSecondsAfterFinished": 3600,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e1-dag",
+          "research.scheduler/run": "20261016t072946"
+        },
+        "annotations": {
+          "sidecar.istio.io/inject": "false"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0003-raspi5"
+        },
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "probe",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import sys,runpy;sys.path.insert(0,'/config');runpy.run_path('/config/dag_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "client"
+              },
+              {
+                "name": "BLOCK",
+                "value": "calibration"
+              },
+              {
+                "name": "RUN_ID",
+                "value": "20261016t072946"
+              },
+              {
+                "name": "PEERS_JSON",
+                "value": "{\"arm\": {\"alias\": \"arm\", \"node\": \"etri-dev0003-raspi5\", \"backend\": \"cpu\", \"url\": \"http://e1-dag-20261016t072946-arm.scheduler-research.svc.cluster.local:8080\"}, \"amd\": {\"alias\": \"amd\", \"node\": \"etri-ser0004-cgnms0\", \"backend\": \"cpu\", \"url\": \"http://e1-dag-20261016t072946-amd.scheduler-research.svc.cluster.local:8080\"}, \"gpu\": {\"alias\": \"gpu\", \"node\": \"etri-ser0003-cg0ms0\", \"image\": \"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\", \"resource\": \"nvidia.com/gpu\", \"runtimeClassName\": \"nvidia-spark\", \"backend\": \"gpu\", \"url\": \"http://e1-dag-20261016t072946-gpu.scheduler-research.svc.cluster.local:8080\"}, \"intel_npu\": {\"alias\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"image\": \"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\", \"resource\": \"npu.intel.com/accel\", \"backend\": \"intel_npu\", \"url\": \"http://e1-dag-20261016t072946-intel-npu.scheduler-research.svc.cluster.local:8080\"}}"
+              },
+              {
+                "name": "ASSET_BASE",
+                "value": "http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080"
+              },
+              {
+                "name": "NO_PROXY",
+                "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "no_proxy",
+                "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "SCHEDULE_JSON",
+                "value": "[{\"id\": \"intel_npu-gpu-intel_npu\", \"plan\": [\"intel_npu\", \"gpu\", \"intel_npu\"], \"run_order\": 1}, {\"id\": \"amd-amd-gpu\", \"plan\": [\"amd\", \"amd\", \"gpu\"], \"run_order\": 2}, {\"id\": \"amd-intel_npu-amd\", \"plan\": [\"amd\", \"intel_npu\", \"amd\"], \"run_order\": 3}, {\"id\": \"gpu-arm-intel_npu\", \"plan\": [\"gpu\", \"arm\", \"intel_npu\"], \"run_order\": 4}, {\"id\": \"gpu-arm-arm\", \"plan\": [\"gpu\", \"arm\", \"arm\"], \"run_order\": 5}, {\"id\": \"arm-amd-gpu\", \"plan\": [\"arm\", \"amd\", \"gpu\"], \"run_order\": 6}, {\"id\": \"gpu-amd-intel_npu\", \"plan\": [\"gpu\", \"amd\", \"intel_npu\"], \"run_order\": 7}, {\"id\": \"intel_npu-amd-amd\", \"plan\": [\"intel_npu\", \"amd\", \"amd\"], \"run_order\": 8}, {\"id\": \"arm-gpu-intel_npu\", \"plan\": [\"arm\", \"gpu\", \"intel_npu\"], \"run_order\": 9}, {\"id\": \"arm-gpu-amd\", \"plan\": [\"arm\", \"gpu\", \"amd\"], \"run_order\": 10}, {\"id\": \"arm-amd-intel_npu\", \"plan\": [\"arm\", \"amd\", \"intel_npu\"], \"run_order\": 11}, {\"id\": \"intel_npu-arm-amd\", \"plan\": [\"intel_npu\", \"arm\", \"amd\"], \"run_order\": 12}, {\"id\": \"gpu-gpu-amd\", \"plan\": [\"gpu\", \"gpu\", \"amd\"], \"run_order\": 13}, {\"id\": \"arm-arm-intel_npu\", \"plan\": [\"arm\", \"arm\", \"intel_npu\"], \"run_order\": 14}, {\"id\": \"amd-gpu-arm\", \"plan\": [\"amd\", \"gpu\", \"arm\"], \"run_order\": 15}, {\"id\": \"amd-amd-amd\", \"plan\": [\"amd\", \"amd\", \"amd\"], \"run_order\": 16}, {\"id\": \"arm-arm-gpu\", \"plan\": [\"arm\", \"arm\", \"gpu\"], \"run_order\": 17}, {\"id\": \"amd-gpu-amd\", \"plan\": [\"amd\", \"gpu\", \"amd\"], \"run_order\": 18}, {\"id\": \"amd-intel_npu-gpu\", \"plan\": [\"amd\", \"intel_npu\", \"gpu\"], \"run_order\": 19}, {\"id\": \"arm-intel_npu-gpu\", \"plan\": [\"arm\", \"intel_npu\", \"gpu\"], \"run_order\": 20}, {\"id\": \"amd-gpu-gpu\", \"plan\": [\"amd\", \"gpu\", \"gpu\"], \"run_order\": 21}, {\"id\": \"arm-gpu-gpu\", \"plan\": [\"arm\", \"gpu\", \"gpu\"], \"run_order\": 22}, {\"id\": \"intel_npu-intel_npu-intel_npu\", \"plan\": [\"intel_npu\", \"intel_npu\", \"intel_npu\"], \"run_order\": 23}, {\"id\": \"gpu-amd-amd\", \"plan\": [\"gpu\", \"amd\", \"amd\"], \"run_order\": 24}, {\"id\": \"intel_npu-amd-arm\", \"plan\": [\"intel_npu\", \"amd\", \"arm\"], \"run_order\": 25}, {\"id\": \"gpu-intel_npu-intel_npu\", \"plan\": [\"gpu\", \"intel_npu\", \"intel_npu\"], \"run_order\": 26}, {\"id\": \"gpu-gpu-intel_npu\", \"plan\": [\"gpu\", \"gpu\", \"intel_npu\"], \"run_order\": 27}, {\"id\": \"arm-gpu-arm\", \"plan\": [\"arm\", \"gpu\", \"arm\"], \"run_order\": 28}, {\"id\": \"gpu-intel_npu-arm\", \"plan\": [\"gpu\", \"intel_npu\", \"arm\"], \"run_order\": 29}, {\"id\": \"gpu-intel_npu-amd\", \"plan\": [\"gpu\", \"intel_npu\", \"amd\"], \"run_order\": 30}, {\"id\": \"gpu-gpu-arm\", \"plan\": [\"gpu\", \"gpu\", \"arm\"], \"run_order\": 31}, {\"id\": \"arm-arm-arm\", \"plan\": [\"arm\", \"arm\", \"arm\"], \"run_order\": 32}, {\"id\": \"intel_npu-amd-gpu\", \"plan\": [\"intel_npu\", \"amd\", \"gpu\"], \"run_order\": 33}, {\"id\": \"arm-intel_npu-arm\", \"plan\": [\"arm\", \"intel_npu\", \"arm\"], \"run_order\": 34}, {\"id\": \"intel_npu-gpu-gpu\", \"plan\": [\"intel_npu\", \"gpu\", \"gpu\"], \"run_order\": 35}, {\"id\": \"arm-amd-amd\", \"plan\": [\"arm\", \"amd\", \"amd\"], \"run_order\": 36}, {\"id\": \"gpu-intel_npu-gpu\", \"plan\": [\"gpu\", \"intel_npu\", \"gpu\"], \"run_order\": 37}, {\"id\": \"arm-arm-amd\", \"plan\": [\"arm\", \"arm\", \"amd\"], \"run_order\": 38}, {\"id\": \"intel_npu-arm-arm\", \"plan\": [\"intel_npu\", \"arm\", \"arm\"], \"run_order\": 39}, {\"id\": \"amd-arm-arm\", \"plan\": [\"amd\", \"arm\", \"arm\"], \"run_order\": 40}, {\"id\": \"intel_npu-gpu-arm\", \"plan\": [\"intel_npu\", \"gpu\", \"arm\"], \"run_order\": 41}, {\"id\": \"amd-arm-amd\", \"plan\": [\"amd\", \"arm\", \"amd\"], \"run_order\": 42}, {\"id\": \"gpu-amd-gpu\", \"plan\": [\"gpu\", \"amd\", \"gpu\"], \"run_order\": 43}, {\"id\": \"intel_npu-arm-intel_npu\", \"plan\": [\"intel_npu\", \"arm\", \"intel_npu\"], \"run_order\": 44}, {\"id\": \"intel_npu-gpu-amd\", \"plan\": [\"intel_npu\", \"gpu\", \"amd\"], \"run_order\": 45}, {\"id\": \"gpu-arm-gpu\", \"plan\": [\"gpu\", \"arm\", \"gpu\"], \"run_order\": 46}, {\"id\": \"intel_npu-intel_npu-amd\", \"plan\": [\"intel_npu\", \"intel_npu\", \"amd\"], \"run_order\": 47}, {\"id\": \"intel_npu-arm-gpu\", \"plan\": [\"intel_npu\", \"arm\", \"gpu\"], \"run_order\": 48}, {\"id\": \"arm-intel_npu-intel_npu\", \"plan\": [\"arm\", \"intel_npu\", \"intel_npu\"], \"run_order\": 49}, {\"id\": \"gpu-arm-amd\", \"plan\": [\"gpu\", \"arm\", \"amd\"], \"run_order\": 50}, {\"id\": \"arm-intel_npu-amd\", \"plan\": [\"arm\", \"intel_npu\", \"amd\"], \"run_order\": 51}, {\"id\": \"amd-arm-intel_npu\", \"plan\": [\"amd\", \"arm\", \"intel_npu\"], \"run_order\": 52}, {\"id\": \"amd-intel_npu-arm\", \"plan\": [\"amd\", \"intel_npu\", \"arm\"], \"run_order\": 53}, {\"id\": \"intel_npu-amd-intel_npu\", \"plan\": [\"intel_npu\", \"amd\", \"intel_npu\"], \"run_order\": 54}, {\"id\": \"amd-amd-arm\", \"plan\": [\"amd\", \"amd\", \"arm\"], \"run_order\": 55}, {\"id\": \"gpu-amd-arm\", \"plan\": [\"gpu\", \"amd\", \"arm\"], \"run_order\": 56}, {\"id\": \"gpu-gpu-gpu\", \"plan\": [\"gpu\", \"gpu\", \"gpu\"], \"run_order\": 57}, {\"id\": \"amd-arm-gpu\", \"plan\": [\"amd\", \"arm\", \"gpu\"], \"run_order\": 58}, {\"id\": \"amd-gpu-intel_npu\", \"plan\": [\"amd\", \"gpu\", \"intel_npu\"], \"run_order\": 59}, {\"id\": \"amd-intel_npu-intel_npu\", \"plan\": [\"amd\", \"intel_npu\", \"intel_npu\"], \"run_order\": 60}, {\"id\": \"arm-amd-arm\", \"plan\": [\"arm\", \"amd\", \"arm\"], \"run_order\": 61}, {\"id\": \"intel_npu-intel_npu-arm\", \"plan\": [\"intel_npu\", \"intel_npu\", \"arm\"], \"run_order\": 62}, {\"id\": \"intel_npu-intel_npu-gpu\", \"plan\": [\"intel_npu\", \"intel_npu\", \"gpu\"], \"run_order\": 63}, {\"id\": \"amd-amd-intel_npu\", \"plan\": [\"amd\", \"amd\", \"intel_npu\"], \"run_order\": 64}]"
+              },
+              {
+                "name": "MEASURED",
+                "value": "5"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi",
+                "ephemeral-storage": "256Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "768Mi",
+                "ephemeral-storage": "1Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              },
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "e1-dag-20261016t072946"
+            }
+          },
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "768Mi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            }
+          }
+        ],
+        "terminationGracePeriodSeconds": 2
+      }
+    }
+  }
+}

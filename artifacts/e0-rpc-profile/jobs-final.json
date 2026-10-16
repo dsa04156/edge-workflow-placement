@@ -1,0 +1,660 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-client-0\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":300,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-index','--find-links','http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080','--trusted-host','e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local','--require-hashes','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"MODE\",\"value\":\"client\"},{\"name\":\"BLOCK\",\"value\":\"0\"},{\"name\":\"RUN_ID\",\"value\":\"20261016t070607\"},{\"name\":\"TARGETS_JSON\",\"value\":\"[{\\\"alias\\\": \\\"arm\\\", \\\"node\\\": \\\"etri-dev0003-raspi5\\\", \\\"backend\\\": \\\"cpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"amd\\\", \\\"node\\\": \\\"etri-ser0004-cgnms0\\\", \\\"backend\\\": \\\"cpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"gpu\\\", \\\"node\\\": \\\"etri-ser0003-cg0ms0\\\", \\\"image\\\": \\\"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\\\", \\\"resource\\\": \\\"nvidia.com/gpu\\\", \\\"runtimeClassName\\\": \\\"nvidia-spark\\\", \\\"backend\\\": \\\"gpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"intel_npu\\\", \\\"node\\\": \\\"etri-ser0002-cgnmsb\\\", \\\"image\\\": \\\"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\\\", \\\"resource\\\": \\\"npu.intel.com/accel\\\", \\\"backend\\\": \\\"intel_npu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080\\\"}]\"},{\"name\":\"SCHEDULE_JSON\",\"value\":\"[{\\\"id\\\": \\\"amd-reuse-nd0\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 1}, {\\\"id\\\": \\\"arm-new-nd1\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 2}, {\\\"id\\\": \\\"amd-new-nd0\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 3}, {\\\"id\\\": \\\"amd-reuse-nd1\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 4}, {\\\"id\\\": \\\"intel_npu-reuse-nd0\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 5}, {\\\"id\\\": \\\"gpu-new-nd0\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 6}, {\\\"id\\\": \\\"intel_npu-reuse-nd1\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 7}, {\\\"id\\\": \\\"gpu-reuse-nd1\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 8}, {\\\"id\\\": \\\"intel_npu-new-nd1\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 9}, {\\\"id\\\": \\\"gpu-reuse-nd0\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 10}, {\\\"id\\\": \\\"arm-reuse-nd1\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 11}, {\\\"id\\\": \\\"arm-reuse-nd0\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 12}, {\\\"id\\\": \\\"amd-new-nd1\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 13}, {\\\"id\\\": \\\"gpu-new-nd1\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 14}, {\\\"id\\\": \\\"intel_npu-new-nd0\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 15}, {\\\"id\\\": \\\"arm-new-nd0\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 16}]\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"NO_PROXY\",\"value\":\"e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local\"},{\"name\":\"no_proxy\",\"value\":\"e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"1Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"256Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true},{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0003-raspi5\"},\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"configMap\":{\"name\":\"e0-rpc-20261016t070607-cache\"},\"name\":\"config\"},{\"emptyDir\":{\"sizeLimit\":\"768Mi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"128Mi\"},\"name\":\"tmp\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:18:07Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-client-0",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46624011",
+                "uid": "0cb5b640-0965-45a0-81f4-6f3567b3a7f5"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 300,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "0cb5b640-0965-45a0-81f4-6f3567b3a7f5"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "0cb5b640-0965-45a0-81f4-6f3567b3a7f5",
+                            "batch.kubernetes.io/job-name": "e0-rpc-20261016t070607-client-0",
+                            "controller-uid": "0cb5b640-0965-45a0-81f4-6f3567b3a7f5",
+                            "job-name": "e0-rpc-20261016t070607-client-0",
+                            "research.scheduler/run": "20261016t070607",
+                            "research.scheduler/stage": "e0-rpc-profile"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-index','--find-links','http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080','--trusted-host','e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local','--require-hashes','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MODE",
+                                        "value": "client"
+                                    },
+                                    {
+                                        "name": "BLOCK",
+                                        "value": "0"
+                                    },
+                                    {
+                                        "name": "RUN_ID",
+                                        "value": "20261016t070607"
+                                    },
+                                    {
+                                        "name": "TARGETS_JSON",
+                                        "value": "[{\"alias\": \"arm\", \"node\": \"etri-dev0003-raspi5\", \"backend\": \"cpu\", \"url\": \"http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"amd\", \"node\": \"etri-ser0004-cgnms0\", \"backend\": \"cpu\", \"url\": \"http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"gpu\", \"node\": \"etri-ser0003-cg0ms0\", \"image\": \"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\", \"resource\": \"nvidia.com/gpu\", \"runtimeClassName\": \"nvidia-spark\", \"backend\": \"gpu\", \"url\": \"http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"image\": \"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\", \"resource\": \"npu.intel.com/accel\", \"backend\": \"intel_npu\", \"url\": \"http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080\"}]"
+                                    },
+                                    {
+                                        "name": "SCHEDULE_JSON",
+                                        "value": "[{\"id\": \"amd-reuse-nd0\", \"target\": \"amd\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 1}, {\"id\": \"arm-new-nd1\", \"target\": \"arm\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 2}, {\"id\": \"amd-new-nd0\", \"target\": \"amd\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 3}, {\"id\": \"amd-reuse-nd1\", \"target\": \"amd\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 4}, {\"id\": \"intel_npu-reuse-nd0\", \"target\": \"intel_npu\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 5}, {\"id\": \"gpu-new-nd0\", \"target\": \"gpu\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 6}, {\"id\": \"intel_npu-reuse-nd1\", \"target\": \"intel_npu\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 7}, {\"id\": \"gpu-reuse-nd1\", \"target\": \"gpu\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 8}, {\"id\": \"intel_npu-new-nd1\", \"target\": \"intel_npu\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 9}, {\"id\": \"gpu-reuse-nd0\", \"target\": \"gpu\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 10}, {\"id\": \"arm-reuse-nd1\", \"target\": \"arm\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 11}, {\"id\": \"arm-reuse-nd0\", \"target\": \"arm\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 12}, {\"id\": \"amd-new-nd1\", \"target\": \"amd\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 13}, {\"id\": \"gpu-new-nd1\", \"target\": \"gpu\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 14}, {\"id\": \"intel_npu-new-nd0\", \"target\": \"intel_npu\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 15}, {\"id\": \"arm-new-nd0\", \"target\": \"arm\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 16}]"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "NO_PROXY",
+                                        "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+                                    },
+                                    {
+                                        "name": "no_proxy",
+                                        "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "1",
+                                        "ephemeral-storage": "1Gi",
+                                        "memory": "768Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "ephemeral-storage": "256Mi",
+                                        "memory": "256Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/config",
+                                        "name": "config",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-dev0003-raspi5"
+                        },
+                        "restartPolicy": "Never",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "fsGroup": 65532,
+                            "runAsGroup": 65532,
+                            "runAsNonRoot": true,
+                            "runAsUser": 65532,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "e0-rpc-20261016t070607-cache"
+                                },
+                                "name": "config"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "768Mi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "128Mi"
+                                },
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "completionTime": "2026-10-16T07:19:00Z",
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T07:19:00Z",
+                        "lastTransitionTime": "2026-10-16T07:19:00Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "SuccessCriteriaMet"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T07:19:00Z",
+                        "lastTransitionTime": "2026-10-16T07:19:00Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "Complete"
+                    }
+                ],
+                "ready": 0,
+                "startTime": "2026-10-16T07:18:07Z",
+                "succeeded": 1,
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-client-1\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":300,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-index','--find-links','http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080','--trusted-host','e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local','--require-hashes','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"MODE\",\"value\":\"client\"},{\"name\":\"BLOCK\",\"value\":\"1\"},{\"name\":\"RUN_ID\",\"value\":\"20261016t070607\"},{\"name\":\"TARGETS_JSON\",\"value\":\"[{\\\"alias\\\": \\\"arm\\\", \\\"node\\\": \\\"etri-dev0003-raspi5\\\", \\\"backend\\\": \\\"cpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"amd\\\", \\\"node\\\": \\\"etri-ser0004-cgnms0\\\", \\\"backend\\\": \\\"cpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"gpu\\\", \\\"node\\\": \\\"etri-ser0003-cg0ms0\\\", \\\"image\\\": \\\"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\\\", \\\"resource\\\": \\\"nvidia.com/gpu\\\", \\\"runtimeClassName\\\": \\\"nvidia-spark\\\", \\\"backend\\\": \\\"gpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"intel_npu\\\", \\\"node\\\": \\\"etri-ser0002-cgnmsb\\\", \\\"image\\\": \\\"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\\\", \\\"resource\\\": \\\"npu.intel.com/accel\\\", \\\"backend\\\": \\\"intel_npu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080\\\"}]\"},{\"name\":\"SCHEDULE_JSON\",\"value\":\"[{\\\"id\\\": \\\"intel_npu-new-nd0\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 1}, {\\\"id\\\": \\\"arm-reuse-nd0\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 2}, {\\\"id\\\": \\\"gpu-reuse-nd1\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 3}, {\\\"id\\\": \\\"amd-new-nd1\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 4}, {\\\"id\\\": \\\"arm-new-nd1\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 5}, {\\\"id\\\": \\\"gpu-new-nd1\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 6}, {\\\"id\\\": \\\"intel_npu-reuse-nd1\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 7}, {\\\"id\\\": \\\"amd-reuse-nd1\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 8}, {\\\"id\\\": \\\"gpu-reuse-nd0\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 9}, {\\\"id\\\": \\\"amd-new-nd0\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 10}, {\\\"id\\\": \\\"amd-reuse-nd0\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 11}, {\\\"id\\\": \\\"arm-reuse-nd1\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 12}, {\\\"id\\\": \\\"gpu-new-nd0\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 13}, {\\\"id\\\": \\\"intel_npu-new-nd1\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 14}, {\\\"id\\\": \\\"intel_npu-reuse-nd0\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 15}, {\\\"id\\\": \\\"arm-new-nd0\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 16}]\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"NO_PROXY\",\"value\":\"e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local\"},{\"name\":\"no_proxy\",\"value\":\"e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"1Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"256Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true},{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0003-raspi5\"},\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"configMap\":{\"name\":\"e0-rpc-20261016t070607-cache\"},\"name\":\"config\"},{\"emptyDir\":{\"sizeLimit\":\"768Mi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"128Mi\"},\"name\":\"tmp\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:19:08Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-client-1",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46624635",
+                "uid": "07919090-a31b-4ee2-bfb8-85d1531ef2f9"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 300,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "07919090-a31b-4ee2-bfb8-85d1531ef2f9"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "07919090-a31b-4ee2-bfb8-85d1531ef2f9",
+                            "batch.kubernetes.io/job-name": "e0-rpc-20261016t070607-client-1",
+                            "controller-uid": "07919090-a31b-4ee2-bfb8-85d1531ef2f9",
+                            "job-name": "e0-rpc-20261016t070607-client-1",
+                            "research.scheduler/run": "20261016t070607",
+                            "research.scheduler/stage": "e0-rpc-profile"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-index','--find-links','http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080','--trusted-host','e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local','--require-hashes','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MODE",
+                                        "value": "client"
+                                    },
+                                    {
+                                        "name": "BLOCK",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "RUN_ID",
+                                        "value": "20261016t070607"
+                                    },
+                                    {
+                                        "name": "TARGETS_JSON",
+                                        "value": "[{\"alias\": \"arm\", \"node\": \"etri-dev0003-raspi5\", \"backend\": \"cpu\", \"url\": \"http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"amd\", \"node\": \"etri-ser0004-cgnms0\", \"backend\": \"cpu\", \"url\": \"http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"gpu\", \"node\": \"etri-ser0003-cg0ms0\", \"image\": \"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\", \"resource\": \"nvidia.com/gpu\", \"runtimeClassName\": \"nvidia-spark\", \"backend\": \"gpu\", \"url\": \"http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"image\": \"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\", \"resource\": \"npu.intel.com/accel\", \"backend\": \"intel_npu\", \"url\": \"http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080\"}]"
+                                    },
+                                    {
+                                        "name": "SCHEDULE_JSON",
+                                        "value": "[{\"id\": \"intel_npu-new-nd0\", \"target\": \"intel_npu\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 1}, {\"id\": \"arm-reuse-nd0\", \"target\": \"arm\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 2}, {\"id\": \"gpu-reuse-nd1\", \"target\": \"gpu\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 3}, {\"id\": \"amd-new-nd1\", \"target\": \"amd\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 4}, {\"id\": \"arm-new-nd1\", \"target\": \"arm\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 5}, {\"id\": \"gpu-new-nd1\", \"target\": \"gpu\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 6}, {\"id\": \"intel_npu-reuse-nd1\", \"target\": \"intel_npu\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 7}, {\"id\": \"amd-reuse-nd1\", \"target\": \"amd\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 8}, {\"id\": \"gpu-reuse-nd0\", \"target\": \"gpu\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 9}, {\"id\": \"amd-new-nd0\", \"target\": \"amd\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 10}, {\"id\": \"amd-reuse-nd0\", \"target\": \"amd\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 11}, {\"id\": \"arm-reuse-nd1\", \"target\": \"arm\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 12}, {\"id\": \"gpu-new-nd0\", \"target\": \"gpu\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 13}, {\"id\": \"intel_npu-new-nd1\", \"target\": \"intel_npu\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 14}, {\"id\": \"intel_npu-reuse-nd0\", \"target\": \"intel_npu\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 15}, {\"id\": \"arm-new-nd0\", \"target\": \"arm\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 16}]"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "NO_PROXY",
+                                        "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+                                    },
+                                    {
+                                        "name": "no_proxy",
+                                        "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "1",
+                                        "ephemeral-storage": "1Gi",
+                                        "memory": "768Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "ephemeral-storage": "256Mi",
+                                        "memory": "256Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/config",
+                                        "name": "config",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-dev0003-raspi5"
+                        },
+                        "restartPolicy": "Never",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "fsGroup": 65532,
+                            "runAsGroup": 65532,
+                            "runAsNonRoot": true,
+                            "runAsUser": 65532,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "e0-rpc-20261016t070607-cache"
+                                },
+                                "name": "config"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "768Mi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "128Mi"
+                                },
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "completionTime": "2026-10-16T07:19:59Z",
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T07:19:59Z",
+                        "lastTransitionTime": "2026-10-16T07:19:59Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "SuccessCriteriaMet"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T07:19:59Z",
+                        "lastTransitionTime": "2026-10-16T07:19:59Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "Complete"
+                    }
+                ],
+                "ready": 0,
+                "startTime": "2026-10-16T07:19:08Z",
+                "succeeded": 1,
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        },
+        {
+            "apiVersion": "batch/v1",
+            "kind": "Job",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"batch/v1\",\"kind\":\"Job\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-client-2\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":300,\"backoffLimit\":0,\"template\":{\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-index','--find-links','http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080','--trusted-host','e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local','--require-hashes','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"MODE\",\"value\":\"client\"},{\"name\":\"BLOCK\",\"value\":\"2\"},{\"name\":\"RUN_ID\",\"value\":\"20261016t070607\"},{\"name\":\"TARGETS_JSON\",\"value\":\"[{\\\"alias\\\": \\\"arm\\\", \\\"node\\\": \\\"etri-dev0003-raspi5\\\", \\\"backend\\\": \\\"cpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"amd\\\", \\\"node\\\": \\\"etri-ser0004-cgnms0\\\", \\\"backend\\\": \\\"cpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"gpu\\\", \\\"node\\\": \\\"etri-ser0003-cg0ms0\\\", \\\"image\\\": \\\"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\\\", \\\"resource\\\": \\\"nvidia.com/gpu\\\", \\\"runtimeClassName\\\": \\\"nvidia-spark\\\", \\\"backend\\\": \\\"gpu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080\\\"}, {\\\"alias\\\": \\\"intel_npu\\\", \\\"node\\\": \\\"etri-ser0002-cgnmsb\\\", \\\"image\\\": \\\"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\\\", \\\"resource\\\": \\\"npu.intel.com/accel\\\", \\\"backend\\\": \\\"intel_npu\\\", \\\"url\\\": \\\"http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080\\\"}]\"},{\"name\":\"SCHEDULE_JSON\",\"value\":\"[{\\\"id\\\": \\\"gpu-reuse-nd0\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 1}, {\\\"id\\\": \\\"intel_npu-new-nd0\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 2}, {\\\"id\\\": \\\"gpu-new-nd0\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 3}, {\\\"id\\\": \\\"amd-reuse-nd0\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 4}, {\\\"id\\\": \\\"arm-new-nd0\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 5}, {\\\"id\\\": \\\"gpu-new-nd1\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 6}, {\\\"id\\\": \\\"gpu-reuse-nd1\\\", \\\"target\\\": \\\"gpu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 7}, {\\\"id\\\": \\\"amd-new-nd0\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 0, \\\"run_order\\\": 8}, {\\\"id\\\": \\\"arm-reuse-nd0\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 9}, {\\\"id\\\": \\\"amd-reuse-nd1\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 10}, {\\\"id\\\": \\\"arm-reuse-nd1\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 11}, {\\\"id\\\": \\\"intel_npu-reuse-nd1\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 1, \\\"run_order\\\": 12}, {\\\"id\\\": \\\"amd-new-nd1\\\", \\\"target\\\": \\\"amd\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 13}, {\\\"id\\\": \\\"intel_npu-reuse-nd0\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": true, \\\"nodelay\\\": 0, \\\"run_order\\\": 14}, {\\\"id\\\": \\\"arm-new-nd1\\\", \\\"target\\\": \\\"arm\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 15}, {\\\"id\\\": \\\"intel_npu-new-nd1\\\", \\\"target\\\": \\\"intel_npu\\\", \\\"reuse\\\": false, \\\"nodelay\\\": 1, \\\"run_order\\\": 16}]\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"XDG_CACHE_HOME\",\"value\":\"/work/cache\"},{\"name\":\"NO_PROXY\",\"value\":\"e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local\"},{\"name\":\"no_proxy\",\"value\":\"e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"1Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"256Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true},{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0003-raspi5\"},\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"configMap\":{\"name\":\"e0-rpc-20261016t070607-cache\"},\"name\":\"config\"},{\"emptyDir\":{\"sizeLimit\":\"768Mi\"},\"name\":\"work\"},{\"emptyDir\":{\"sizeLimit\":\"128Mi\"},\"name\":\"tmp\"}]}},\"ttlSecondsAfterFinished\":3600}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:20:08Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-client-2",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46625259",
+                "uid": "9b195c92-2c73-499f-98b0-29358ee26dd8"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 300,
+                "backoffLimit": 0,
+                "completionMode": "NonIndexed",
+                "completions": 1,
+                "manualSelector": false,
+                "parallelism": 1,
+                "podReplacementPolicy": "TerminatingOrFailed",
+                "selector": {
+                    "matchLabels": {
+                        "batch.kubernetes.io/controller-uid": "9b195c92-2c73-499f-98b0-29358ee26dd8"
+                    }
+                },
+                "suspend": false,
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "sidecar.istio.io/inject": "false"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/part-of": "scheduler-research",
+                            "batch.kubernetes.io/controller-uid": "9b195c92-2c73-499f-98b0-29358ee26dd8",
+                            "batch.kubernetes.io/job-name": "e0-rpc-20261016t070607-client-2",
+                            "controller-uid": "9b195c92-2c73-499f-98b0-29358ee26dd8",
+                            "job-name": "e0-rpc-20261016t070607-client-2",
+                            "research.scheduler/run": "20261016t070607",
+                            "research.scheduler/stage": "e0-rpc-profile"
+                        }
+                    },
+                    "spec": {
+                        "automountServiceAccountToken": false,
+                        "containers": [
+                            {
+                                "command": [
+                                    "python3",
+                                    "-u",
+                                    "-c",
+                                    "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-index','--find-links','http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080','--trusted-host','e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local','--require-hashes','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MODE",
+                                        "value": "client"
+                                    },
+                                    {
+                                        "name": "BLOCK",
+                                        "value": "2"
+                                    },
+                                    {
+                                        "name": "RUN_ID",
+                                        "value": "20261016t070607"
+                                    },
+                                    {
+                                        "name": "TARGETS_JSON",
+                                        "value": "[{\"alias\": \"arm\", \"node\": \"etri-dev0003-raspi5\", \"backend\": \"cpu\", \"url\": \"http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"amd\", \"node\": \"etri-ser0004-cgnms0\", \"backend\": \"cpu\", \"url\": \"http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"gpu\", \"node\": \"etri-ser0003-cg0ms0\", \"image\": \"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\", \"resource\": \"nvidia.com/gpu\", \"runtimeClassName\": \"nvidia-spark\", \"backend\": \"gpu\", \"url\": \"http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080\"}, {\"alias\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"image\": \"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\", \"resource\": \"npu.intel.com/accel\", \"backend\": \"intel_npu\", \"url\": \"http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080\"}]"
+                                    },
+                                    {
+                                        "name": "SCHEDULE_JSON",
+                                        "value": "[{\"id\": \"gpu-reuse-nd0\", \"target\": \"gpu\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 1}, {\"id\": \"intel_npu-new-nd0\", \"target\": \"intel_npu\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 2}, {\"id\": \"gpu-new-nd0\", \"target\": \"gpu\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 3}, {\"id\": \"amd-reuse-nd0\", \"target\": \"amd\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 4}, {\"id\": \"arm-new-nd0\", \"target\": \"arm\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 5}, {\"id\": \"gpu-new-nd1\", \"target\": \"gpu\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 6}, {\"id\": \"gpu-reuse-nd1\", \"target\": \"gpu\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 7}, {\"id\": \"amd-new-nd0\", \"target\": \"amd\", \"reuse\": false, \"nodelay\": 0, \"run_order\": 8}, {\"id\": \"arm-reuse-nd0\", \"target\": \"arm\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 9}, {\"id\": \"amd-reuse-nd1\", \"target\": \"amd\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 10}, {\"id\": \"arm-reuse-nd1\", \"target\": \"arm\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 11}, {\"id\": \"intel_npu-reuse-nd1\", \"target\": \"intel_npu\", \"reuse\": true, \"nodelay\": 1, \"run_order\": 12}, {\"id\": \"amd-new-nd1\", \"target\": \"amd\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 13}, {\"id\": \"intel_npu-reuse-nd0\", \"target\": \"intel_npu\", \"reuse\": true, \"nodelay\": 0, \"run_order\": 14}, {\"id\": \"arm-new-nd1\", \"target\": \"arm\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 15}, {\"id\": \"intel_npu-new-nd1\", \"target\": \"intel_npu\", \"reuse\": false, \"nodelay\": 1, \"run_order\": 16}]"
+                                    },
+                                    {
+                                        "name": "PYTHONDONTWRITEBYTECODE",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "name": "XDG_CACHE_HOME",
+                                        "value": "/work/cache"
+                                    },
+                                    {
+                                        "name": "NO_PROXY",
+                                        "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+                                    },
+                                    {
+                                        "name": "no_proxy",
+                                        "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+                                    }
+                                ],
+                                "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "probe",
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "1",
+                                        "ephemeral-storage": "1Gi",
+                                        "memory": "768Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "ephemeral-storage": "256Mi",
+                                        "memory": "256Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/config",
+                                        "name": "config",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/work",
+                                        "name": "work"
+                                    },
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "kubernetes.io/hostname": "etri-dev0003-raspi5"
+                        },
+                        "restartPolicy": "Never",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "fsGroup": 65532,
+                            "runAsGroup": 65532,
+                            "runAsNonRoot": true,
+                            "runAsUser": 65532,
+                            "seccompProfile": {
+                                "type": "RuntimeDefault"
+                            }
+                        },
+                        "terminationGracePeriodSeconds": 2,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "e0-rpc-20261016t070607-cache"
+                                },
+                                "name": "config"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "768Mi"
+                                },
+                                "name": "work"
+                            },
+                            {
+                                "emptyDir": {
+                                    "sizeLimit": "128Mi"
+                                },
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                },
+                "ttlSecondsAfterFinished": 3600
+            },
+            "status": {
+                "completionTime": "2026-10-16T07:20:58Z",
+                "conditions": [
+                    {
+                        "lastProbeTime": "2026-10-16T07:20:58Z",
+                        "lastTransitionTime": "2026-10-16T07:20:58Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "SuccessCriteriaMet"
+                    },
+                    {
+                        "lastProbeTime": "2026-10-16T07:20:58Z",
+                        "lastTransitionTime": "2026-10-16T07:20:58Z",
+                        "message": "Reached expected number of succeeded pods",
+                        "reason": "CompletionsReached",
+                        "status": "True",
+                        "type": "Complete"
+                    }
+                ],
+                "ready": 0,
+                "startTime": "2026-10-16T07:20:08Z",
+                "succeeded": 1,
+                "terminating": 0,
+                "uncountedTerminatedPods": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

@@ -1,0 +1,1062 @@
+{
+  "run_id": "20261016t102843070125",
+  "block": 1,
+  "source": "intel_npu",
+  "mode": "evaluation",
+  "conditions": [
+    {
+      "id": "retina-intel_npu,intel_npu,intel_npu",
+      "image_id": "retina",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 1
+    },
+    {
+      "id": "hubble_deep_field-intel_npu,intel_npu,intel_npu",
+      "image_id": "hubble_deep_field",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 2
+    },
+    {
+      "id": "hubble_deep_field-intel_npu,intel_npu,arm",
+      "image_id": "hubble_deep_field",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 3
+    },
+    {
+      "id": "rocket-intel_npu,intel_npu,arm",
+      "image_id": "rocket",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 4
+    },
+    {
+      "id": "chelsea-intel_npu,intel_npu,intel_npu",
+      "image_id": "chelsea",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 5
+    },
+    {
+      "id": "rocket-intel_npu,intel_npu,intel_npu",
+      "image_id": "rocket",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 6
+    },
+    {
+      "id": "coffee-intel_npu,intel_npu,arm",
+      "image_id": "coffee",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 7
+    },
+    {
+      "id": "retina-intel_npu,intel_npu,arm",
+      "image_id": "retina",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 8
+    },
+    {
+      "id": "coffee-intel_npu,intel_npu,intel_npu",
+      "image_id": "coffee",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 9
+    },
+    {
+      "id": "chelsea-intel_npu,intel_npu,arm",
+      "image_id": "chelsea",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "members": [
+        "task_fastest"
+      ],
+      "run_order": 10
+    },
+    {
+      "id": "camera-arm,arm,arm",
+      "image_id": "camera",
+      "source": "intel_npu",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "dag_enumeration"
+      ],
+      "run_order": 11
+    },
+    {
+      "id": "astronaut-intel_npu,intel_npu,intel_npu",
+      "image_id": "astronaut",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest",
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 12
+    },
+    {
+      "id": "camera-intel_npu,arm,arm",
+      "image_id": "camera",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "arm",
+        "arm"
+      ],
+      "members": [
+        "task_fastest",
+        "data_greedy"
+      ],
+      "run_order": 13
+    },
+    {
+      "id": "dog-intel_npu,intel_npu,intel_npu",
+      "image_id": "dog",
+      "source": "intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "members": [
+        "task_fastest",
+        "data_greedy",
+        "dag_enumeration"
+      ],
+      "run_order": 14
+    }
+  ],
+  "profiles": {
+    "arm|dog": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|dog",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "dog",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 34.77916441624984,
+          "1|arm": 29.280271497555077,
+          "2|arm": 0.10172149632126093,
+          "0|intel_npu": 17.77425897307694,
+          "1|intel_npu": 3.1395499827340245,
+          "2|intel_npu": 0.12609956320375204
+        },
+        "ingress": {
+          "arm": 2.7730949805118144,
+          "intel_npu": 61.08880339888856
+        },
+        "edges": [
+          {
+            "arm|arm": 0.7648194441571832,
+            "intel_npu|intel_npu": 0.3129785181954503,
+            "intel_npu|arm": 55.31505693215877,
+            "arm|intel_npu": 55.427544575650245
+          },
+          {
+            "arm|arm": 0.10546250268816948,
+            "intel_npu|intel_npu": 0.055974116548895836,
+            "intel_npu|arm": 2.034596516750753,
+            "arm|intel_npu": 4.252769926097244
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|astronaut": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|astronaut",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "astronaut",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 9.028817061334848,
+          "1|intel_npu": 3.2735230633988976,
+          "2|intel_npu": 0.23238197900354862,
+          "1|arm": 29.149180045351386,
+          "2|arm": 0.10336952982470393,
+          "0|intel_npu": 7.169955875724554
+        },
+        "ingress": {
+          "arm": 3.0626400257460773,
+          "intel_npu": 71.17046299390495
+        },
+        "edges": [
+          {
+            "arm|intel_npu": 55.00158783979714,
+            "arm|arm": 0.7473465520888567,
+            "intel_npu|intel_npu": 0.2952159848064184,
+            "intel_npu|arm": 54.92836295161396
+          },
+          {
+            "intel_npu|intel_npu": 0.04077644553035498,
+            "arm|arm": 0.07123098475858569,
+            "arm|intel_npu": 2.56143492879346,
+            "intel_npu|arm": 1.5364739811047912
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|camera": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|camera",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "camera",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 7.100226997863501,
+          "1|arm": 29.444326006341726,
+          "2|arm": 0.09563856292515993,
+          "2|intel_npu": 0.1201374689117074,
+          "1|intel_npu": 3.2359008910134435,
+          "0|intel_npu": 7.210507523268461
+        },
+        "ingress": {
+          "arm": 1.8575635040178895,
+          "intel_npu": 16.016067937016487
+        },
+        "edges": [
+          {
+            "arm|arm": 0.7565709529444575,
+            "arm|intel_npu": 55.079035519156605,
+            "intel_npu|arm": 59.47002553148195,
+            "intel_npu|intel_npu": 0.3060565795749426
+          },
+          {
+            "arm|arm": 0.08679600432515144,
+            "arm|intel_npu": 3.9716653991490602,
+            "intel_npu|arm": 1.6338991117663682,
+            "intel_npu|intel_npu": 0.03451947122812271
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|chelsea": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|chelsea",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "chelsea",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 7.965874043293297,
+          "1|intel_npu": 3.3834176138043404,
+          "2|intel_npu": 0.14323892537504435,
+          "0|arm": 8.973326999694109,
+          "1|arm": 29.21365201473236,
+          "2|arm": 0.0923415063880384
+        },
+        "ingress": {
+          "intel_npu": 25.985540996771306,
+          "arm": 1.9840349559672177
+        },
+        "edges": [
+          {
+            "intel_npu|intel_npu": 0.30069565400481224,
+            "arm|arm": 0.7536805351264775,
+            "arm|intel_npu": 54.98706683283672,
+            "intel_npu|arm": 58.147134026512504
+          },
+          {
+            "intel_npu|intel_npu": 0.05837052594870329,
+            "arm|arm": 0.10931451106444001,
+            "arm|intel_npu": 5.22351055406034,
+            "intel_npu|arm": 2.0134715596213937
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|coffee": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|coffee",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "coffee",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 8.559212903492153,
+          "1|arm": 29.364474932663143,
+          "2|intel_npu": 0.0711450120434165,
+          "2|arm": 0.10742555605247617,
+          "0|arm": 18.436558020766824,
+          "1|intel_npu": 3.172169905155897
+        },
+        "ingress": {
+          "intel_npu": 43.33824588684365,
+          "arm": 3.5092384787276387
+        },
+        "edges": [
+          {
+            "intel_npu|arm": 55.48866145545617,
+            "arm|intel_npu": 55.37134420592338,
+            "arm|arm": 0.7595134666189551,
+            "intel_npu|intel_npu": 0.2883286215364933
+          },
+          {
+            "arm|intel_npu": 5.871414497960359,
+            "arm|arm": 0.09835103992372751,
+            "intel_npu|intel_npu": 0.03766652662307024,
+            "intel_npu|arm": 2.163492375984788
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|hubble_deep_field": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|hubble_deep_field",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "hubble_deep_field",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 20.35994501784444,
+          "1|intel_npu": 3.1403310131281614,
+          "2|arm": 0.09290652815252542,
+          "2|intel_npu": 0.16174896154552698,
+          "0|intel_npu": 12.223987956531346,
+          "1|arm": 29.20291043119505
+        },
+        "ingress": {
+          "arm": 2.6363825891166925,
+          "intel_npu": 50.169726891908795
+        },
+        "edges": [
+          {
+            "arm|intel_npu": 55.08869152981788,
+            "intel_npu|intel_npu": 0.30495203100144863,
+            "intel_npu|arm": 55.29773002490401,
+            "arm|arm": 0.7473104633390903
+          },
+          {
+            "intel_npu|arm": 3.622689051553607,
+            "intel_npu|intel_npu": 0.035213190130889416,
+            "arm|arm": 0.07232395000755787,
+            "arm|intel_npu": 4.124385013710707
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|retina": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|retina",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "retina",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 14.07549751456827,
+          "1|arm": 29.292327526491135,
+          "2|arm": 0.09928649524226785,
+          "0|arm": 27.31465350370854,
+          "2|intel_npu": 0.09718502406030893,
+          "1|intel_npu": 3.210313501767814
+        },
+        "ingress": {
+          "intel_npu": 25.549182028044015,
+          "arm": 2.111376612447202
+        },
+        "edges": [
+          {
+            "intel_npu|arm": 54.70994010102004,
+            "arm|arm": 0.7618379895575345,
+            "arm|intel_npu": 54.524282983038574,
+            "intel_npu|intel_npu": 0.3149140393361449
+          },
+          {
+            "arm|arm": 0.07024052320048213,
+            "arm|intel_npu": 2.6840015198104084,
+            "intel_npu|intel_npu": 0.037949881516397,
+            "intel_npu|arm": 1.5828635660000145
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "arm|rocket": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|arm|rocket",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "rocket",
+      "source": "arm",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 7.648685947060585,
+          "1|arm": 29.4349190662615,
+          "2|arm": 0.09979592869058251,
+          "0|intel_npu": 7.162188063375652,
+          "1|intel_npu": 3.2044999534264207,
+          "2|intel_npu": 0.07924600504338741
+        },
+        "ingress": {
+          "arm": 1.8018599948845804,
+          "intel_npu": 13.888198940549046
+        },
+        "edges": [
+          {
+            "arm|arm": 0.7412179838865995,
+            "intel_npu|arm": 55.69299409398809,
+            "arm|intel_npu": 55.2088096155785,
+            "intel_npu|intel_npu": 0.3083875635638833
+          },
+          {
+            "arm|arm": 0.06887048948556185,
+            "intel_npu|arm": 3.702196467202157,
+            "arm|intel_npu": 3.3557674614712596,
+            "intel_npu|intel_npu": 0.04945998080074787
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|dog": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|dog",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "dog",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 17.40745746064931,
+          "1|intel_npu": 3.2075279159471393,
+          "2|arm": 0.10735145770013332,
+          "0|arm": 35.08739446988329,
+          "2|intel_npu": 0.10340847074985504,
+          "1|arm": 29.970276984386146
+        },
+        "ingress": {
+          "intel_npu": 2.8507845709100366,
+          "arm": 60.39393838727847
+        },
+        "edges": [
+          {
+            "intel_npu|intel_npu": 0.29978854581713676,
+            "arm|intel_npu": 56.132283876650035,
+            "intel_npu|arm": 56.613291322719306,
+            "arm|arm": 0.8722905186004937
+          },
+          {
+            "intel_npu|arm": 2.0375330932438374,
+            "intel_npu|intel_npu": 0.03545195795595646,
+            "arm|arm": 0.08477753726765513,
+            "arm|intel_npu": 3.1297989771701396
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|astronaut": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|astronaut",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "astronaut",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 6.000251625664532,
+          "1|arm": 29.9177024862729,
+          "2|arm": 0.11974002700299025,
+          "2|intel_npu": 0.119598931632936,
+          "0|arm": 11.999021517112851,
+          "1|intel_npu": 3.2340665347874165
+        },
+        "ingress": {
+          "intel_npu": 2.9608268523588777,
+          "arm": 73.32831958774477
+        },
+        "edges": [
+          {
+            "intel_npu|arm": 60.47019100515172,
+            "arm|intel_npu": 55.83297793054953,
+            "intel_npu|intel_npu": 0.26606151368469,
+            "arm|arm": 0.7600885001011193
+          },
+          {
+            "arm|arm": 0.07428653771057725,
+            "arm|intel_npu": 4.869933007284999,
+            "intel_npu|intel_npu": 0.055570038966834545,
+            "intel_npu|arm": 2.564758062362671
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|camera": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|camera",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "camera",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 7.0676805335097015,
+          "1|intel_npu": 3.26154800131917,
+          "2|arm": 0.09857350960373878,
+          "0|intel_npu": 6.400542333722115,
+          "1|arm": 30.23486799793318,
+          "2|intel_npu": 0.11135055683553219
+        },
+        "ingress": {
+          "arm": 16.223490005359054,
+          "intel_npu": 1.9460089970380068
+        },
+        "edges": [
+          {
+            "arm|intel_npu": 56.32521212100983,
+            "intel_npu|arm": 55.68963405676186,
+            "arm|arm": 0.7628671010024846,
+            "intel_npu|intel_npu": 0.30018959660083055
+          },
+          {
+            "intel_npu|arm": 1.6301535652019083,
+            "arm|arm": 0.07394351996481419,
+            "arm|intel_npu": 3.86984198121354,
+            "intel_npu|intel_npu": 0.058644916862249374
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|chelsea": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|chelsea",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "chelsea",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 7.632303051650524,
+          "1|intel_npu": 3.175996011123061,
+          "2|intel_npu": 0.21972344256937504,
+          "0|arm": 8.999354555271566,
+          "1|arm": 29.601288551930338,
+          "2|arm": 0.10831403778865933
+        },
+        "ingress": {
+          "intel_npu": 2.2442935733124614,
+          "arm": 24.19175364775583
+        },
+        "edges": [
+          {
+            "intel_npu|intel_npu": 0.29882893431931734,
+            "arm|arm": 0.7497909246012568,
+            "arm|intel_npu": 54.88578439690173,
+            "intel_npu|arm": 56.671937520150095
+          },
+          {
+            "intel_npu|intel_npu": 0.03760610707104206,
+            "arm|arm": 0.07508357521146536,
+            "intel_npu|arm": 1.6326255281455815,
+            "arm|intel_npu": 3.6635015858337283
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|coffee": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|coffee",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "coffee",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 11.90043892711401,
+          "1|intel_npu": 3.312364569865167,
+          "2|arm": 0.12467498891055584,
+          "0|intel_npu": 8.730203611776233,
+          "1|arm": 38.40697696432471,
+          "2|intel_npu": 0.16067957039922476
+        },
+        "ingress": {
+          "arm": 43.96071232622489,
+          "intel_npu": 3.0927625484764576
+        },
+        "edges": [
+          {
+            "arm|intel_npu": 55.41636882117018,
+            "intel_npu|arm": 54.95254852576181,
+            "intel_npu|intel_npu": 0.29386382084339857,
+            "arm|arm": 0.7756624836474657
+          },
+          {
+            "intel_npu|arm": 3.1801285804249346,
+            "arm|arm": 0.0741385156288743,
+            "arm|intel_npu": 3.406456031370908,
+            "intel_npu|intel_npu": 0.03431166987866163
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|hubble_deep_field": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|hubble_deep_field",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "hubble_deep_field",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 11.47876342292875,
+          "1|arm": 29.890018049627542,
+          "2|arm": 0.09834195952862501,
+          "0|arm": 20.52014699438587,
+          "2|intel_npu": 0.1130024902522564,
+          "1|intel_npu": 3.3093364909291267
+        },
+        "ingress": {
+          "intel_npu": 2.519334899261594,
+          "arm": 48.79623162560165
+        },
+        "edges": [
+          {
+            "intel_npu|arm": 56.63884844398126,
+            "arm|arm": 0.7638379465788603,
+            "intel_npu|intel_npu": 0.31075451988726854,
+            "arm|intel_npu": 55.48081116285175
+          },
+          {
+            "arm|arm": 0.10816636495292187,
+            "arm|intel_npu": 3.049044928047806,
+            "intel_npu|arm": 2.1876170649193227,
+            "intel_npu|intel_npu": 0.036430894397199154
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|retina": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|retina",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "retina",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|intel_npu": 13.765553128905594,
+          "1|arm": 29.500224045477808,
+          "2|arm": 0.10122149251401424,
+          "0|arm": 26.038365496788174,
+          "1|intel_npu": 3.2442135270684958,
+          "2|intel_npu": 0.21875754464417696
+        },
+        "ingress": {
+          "intel_npu": 2.584137604571879,
+          "arm": 26.562699873466045
+        },
+        "edges": [
+          {
+            "intel_npu|arm": 54.276559967547655,
+            "arm|intel_npu": 54.90911554079503,
+            "intel_npu|intel_npu": 0.2856164937838912,
+            "arm|arm": 0.759060145355761
+          },
+          {
+            "arm|arm": 0.07541652303189039,
+            "intel_npu|intel_npu": 0.03449397627264261,
+            "intel_npu|arm": 1.801547477953136,
+            "arm|intel_npu": 3.32080852240324
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    },
+    "intel_npu|rocket": {
+      "id": "cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996|intel_npu|rocket",
+      "provenance": "Fresh warm-only calibration cfbe6bf4b1c0f33fcbf7a38a5b1a5994732c639060e6b04855eac100f9b9d996; CPU-reference exact Top5 order gate",
+      "input_id": "rocket",
+      "source": "intel_npu",
+      "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+      "candidates": [
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ],
+        [
+          "arm",
+          "intel_npu"
+        ]
+      ],
+      "cost_ms": {
+        "task": {
+          "0|arm": 7.736565021332353,
+          "1|arm": 29.22783698886633,
+          "2|arm": 0.10293495142832398,
+          "1|intel_npu": 3.2026200788095593,
+          "2|intel_npu": 0.12125400826334953,
+          "0|intel_npu": 5.576621508225799
+        },
+        "ingress": {
+          "arm": 12.509960564784706,
+          "intel_npu": 1.9593365723267198
+        },
+        "edges": [
+          {
+            "arm|arm": 0.8240045281127095,
+            "arm|intel_npu": 54.31330547435209,
+            "intel_npu|arm": 55.634960473980755,
+            "intel_npu|intel_npu": 0.3055569250136614
+          },
+          {
+            "arm|arm": 0.0805555609986186,
+            "intel_npu|intel_npu": 0.02990500070154667,
+            "arm|intel_npu": 2.45899788569659,
+            "intel_npu|arm": 1.7473239568062127
+          }
+        ],
+        "service_prepare": {
+          "arm": null,
+          "intel_npu": null
+        }
+      }
+    }
+  }
+}

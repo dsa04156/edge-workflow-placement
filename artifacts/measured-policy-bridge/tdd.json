@@ -1,0 +1,70 @@
+{
+  "scope": "Three actual-HTTP red/green slices. Local logical E2 aliases run on CPU; live accelerator verification is recorded separately.",
+  "slices": [
+    {
+      "name": "measured profile / E2 warm DAG HTTP",
+      "red": {
+        "chunk_id": "1c5deb",
+        "wall_time_seconds": 0.000012524,
+        "exit_code": 1,
+        "original_token_count": 261,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 66.72271699062549}\nE\n======================================================================\nERROR: test_measured_profile_preserves_the_known_warm_dag_choice_through_http (test_measured_policy_bridge.MeasuredE2HTTP.test_measured_profile_preserves_the_known_warm_dag_choice_through_http)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_measured_policy_bridge.py\", line 17, in test_measured_profile_preserves_the_known_warm_dag_choice_through_http\n    from measured_policy_bridge import load_e2_contract,E2Policy\nModuleNotFoundError: No module named 'measured_policy_bridge'\n\n----------------------------------------------------------------------\nRan 1 test in 4.666s\n\nFAILED (errors=1)\n"
+      },
+      "green": {
+        "chunk_id": "999a07",
+        "wall_time_seconds": 0.000010959,
+        "exit_code": 0,
+        "original_token_count": 90,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 50.40543500217609}\n.\n----------------------------------------------------------------------\nRan 1 test in 4.267s\n\nOK\n"
+      }
+    },
+    {
+      "name": "Task-fastest mixed route",
+      "red": {
+        "chunk_id": "3ea697",
+        "wall_time_seconds": 0.000010682,
+        "exit_code": 1,
+        "original_token_count": 281,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 46.79425398353487}\nE\n======================================================================\nERROR: test_task_fastest_keeps_the_known_mixed_plan_and_actual_data_path (test_measured_policy_bridge.MeasuredE2HTTP.test_task_fastest_keeps_the_known_mixed_plan_and_actual_data_path)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_measured_policy_bridge.py\", line 34, in test_task_fastest_keeps_the_known_mixed_plan_and_actual_data_path\n    from measured_policy_bridge import load_e2_contract,task_fastest\nImportError: cannot import name 'task_fastest' from 'measured_policy_bridge' (/home/jinuk/codex-work/scheduler/experiments/e0/measured_policy_bridge.py)\n\n----------------------------------------------------------------------\nRan 1 test in 3.872s\n\nFAILED (errors=1)\n"
+      },
+      "green": {
+        "chunk_id": "a4cf49",
+        "wall_time_seconds": 0.000018364,
+        "exit_code": 0,
+        "original_token_count": 548,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 61.45002701669}\n..{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 33.685000002151355}\n...{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 35.21395102143288}\n...{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 35.5254519963637}\n.{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 41.981735004810616}\n..{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 49.48947599041276}\n.{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 51.257606013678014}\n......{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 33.17544297897257}\n...\n----------------------------------------------------------------------\nRan 21 tests in 35.106s\n\nOK\n"
+      }
+    },
+    {
+      "name": "Unknown cost must not be selected",
+      "red": {
+        "chunk_id": "d9ca44",
+        "wall_time_seconds": 0.000009328,
+        "exit_code": 1,
+        "original_token_count": 254,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 51.346233987715095}\nF\n======================================================================\nFAIL: test_task_fastest_does_not_treat_an_unknown_task_cost_as_a_valid_minimum (test_measured_policy_bridge.MeasuredE2HTTP.test_task_fastest_does_not_treat_an_unknown_task_cost_as_a_valid_minimum)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_measured_policy_bridge.py\", line 41, in test_task_fastest_does_not_treat_an_unknown_task_cost_as_a_valid_minimum\n    self.assertEqual(row['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n----------------------------------------------------------------------\nRan 1 test in 3.966s\n\nFAILED (failures=1)\n"
+      },
+      "intermediate_test_placement_error": {
+        "chunk_id": "933b23",
+        "wall_time_seconds": 0.000008362,
+        "exit_code": 1,
+        "original_token_count": 273,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 53.40577001334168}\nE\n======================================================================\nERROR: test_task_fastest_does_not_treat_an_unknown_task_cost_as_a_valid_minimum (test_measured_policy_bridge.MeasuredE2HTTP.test_task_fastest_does_not_treat_an_unknown_task_cost_as_a_valid_minimum)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_measured_policy_bridge.py\", line 44, in test_task_fastest_does_not_treat_an_unknown_task_cost_as_a_valid_minimum\n    self.assertEqual([t['worker_backend'] for t in row['result']['trace']],['cpu']*3)\n                                                   ~~~^^^^^^^^^^\nKeyError: 'result'\n\n----------------------------------------------------------------------\nRan 1 test in 3.846s\n\nFAILED (errors=1)\n"
+      },
+      "green": {
+        "chunk_id": "8e0bb1",
+        "wall_time_seconds": 0.000008525,
+        "exit_code": 0,
+        "original_token_count": 26,
+        "output": "..\n----------------------------------------------------------------------\nRan 22 tests in 35.099s\n\nOK\n"
+      }
+    }
+  ],
+  "final_regression": {
+    "chunk_id": "8e0bb1",
+    "wall_time_seconds": 0.000008525,
+    "exit_code": 0,
+    "original_token_count": 26,
+    "output": "..\n----------------------------------------------------------------------\nRan 22 tests in 35.099s\n\nOK\n"
+  }
+}

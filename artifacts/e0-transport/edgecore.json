@@ -1,0 +1,64 @@
+{
+  "node": "etri-dev0003-raspi5",
+  "observed_at": "2026-10-16T06:34:40.124205+00:00",
+  "processes": [
+    {
+      "pid": 2220339,
+      "state": "S",
+      "uptime_seconds": 99154.32000000007,
+      "rss_kib": 116096
+    }
+  ],
+  "journals": [
+    {
+      "storage": "runtime",
+      "window_seconds": 900,
+      "entry_count": 10000,
+      "count_limit_reached": true,
+      "priority_counts": {
+        "6": 10000
+      },
+      "message_level_counts": {
+        "I": 9877,
+        "other": 63,
+        "W": 41,
+        "E": 19
+      },
+      "first_realtime_usec": 1792131710471468,
+      "last_realtime_usec": 1792132479384412,
+      "experiment_mentions": 15,
+      "last_messages": [
+        "I1016 15:34:39.384331 2220339 communicate.go:127] CommModule deal confirm msgID 2dcc8784-ea28-4851-ba77-0a256d891670",
+        "I1016 15:34:39.384288 2220339 process.go:64] Send msg to the CommModule module in twin",
+        "I1016 15:34:39.384267 2220339 process.go:317] DeviceTwin receive msg",
+        "I1016 15:34:39.379399 2220339 eventbus.go:109] Success in pubMQTT with topic: $hw/events/device/edgeai-devices/sensehat-001-temp-humidity/state/update/result",
+        "I1016 15:34:39.371589 2220339 process.go:82] Send msg to the DeviceModule module in twin"
+      ],
+      "experiment_messages": [
+        "I1016 15:34:38.489826 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"run-log\\\" (UniqueName: \\\"kubernetes.io/host-path/490d24ce-4696-4af7-8eb9-47d1eeb742f3-run-log\\\") pod \\\"e0-edgecore-20261016t062702-errors\\\" (UID: \\\"490d24ce-4696-4af7-8eb9-47d1eeb742f3\\\") \" pod=\"scheduler-research/e0-edgecore-20261016t062702-errors\"",
+        "I1016 15:34:38.489795 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"log\\\" (UniqueName: \\\"kubernetes.io/host-path/490d24ce-4696-4af7-8eb9-47d1eeb742f3-log\\\") pod \\\"e0-edgecore-20261016t062702-errors\\\" (UID: \\\"490d24ce-4696-4af7-8eb9-47d1eeb742f3\\\") \" pod=\"scheduler-research/e0-edgecore-20261016t062702-errors\"",
+        "I1016 15:34:38.489743 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"proc\\\" (UniqueName: \\\"kubernetes.io/host-path/490d24ce-4696-4af7-8eb9-47d1eeb742f3-proc\\\") pod \\\"e0-edgecore-20261016t062702-errors\\\" (UID: \\\"490d24ce-4696-4af7-8eb9-47d1eeb742f3\\\") \" pod=\"scheduler-research/e0-edgecore-20261016t062702-errors\""
+      ],
+      "workflow_mentions": 6,
+      "workflow_messages": [
+        "I1016 15:27:53.915612 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"tmp\\\" (UniqueName: \\\"kubernetes.io/empty-dir/8c298835-d979-46d2-a28c-4923c5b14955-tmp\\\") pod \\\"e0-wire-20261016t062702-client-arm-4x5mt\\\" (UID: \\\"8c298835-d979-46d2-a28c-4923c5b14955\\\") \" pod=\"scheduler-research/e0-wire-20261016t062702-client-arm-4x5mt\"",
+        "I1016 15:27:53.915573 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"config\\\" (UniqueName: \\\"kubernetes.io/configmap/8c298835-d979-46d2-a28c-4923c5b14955-config\\\") pod \\\"e0-wire-20261016t062702-client-arm-4x5mt\\\" (UID: \\\"8c298835-d979-46d2-a28c-4923c5b14955\\\") \" pod=\"scheduler-research/e0-wire-20261016t062702-client-arm-4x5mt\"",
+        "I1016 15:27:53.915518 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"work\\\" (UniqueName: \\\"kubernetes.io/empty-dir/8c298835-d979-46d2-a28c-4923c5b14955-work\\\") pod \\\"e0-wire-20261016t062702-client-arm-4x5mt\\\" (UID: \\\"8c298835-d979-46d2-a28c-4923c5b14955\\\") \" pod=\"scheduler-research/e0-wire-20261016t062702-client-arm-4x5mt\""
+      ],
+      "error_samples": [
+        "E1016 15:34:22.345714 2220339 agent.go:210] failed to process watch apps: map[]",
+        "E1016 15:32:55.984736 2220339 agent.go:210] failed to process watch apps: map[]",
+        "E1016 15:32:40.375310 2220339 serviceaccount.go:114] query meta \"flannel\"/\"kube-system\"/[]string(nil)/3607/v1.BoundObjectReference{Kind:\"Pod\", APIVersion:\"v1\", Name:\"kube-flannel-edge-ds-sb4kv\", UID:\"86277edf-760e-430c-9d46-f9c6533b6fcd\"} length error",
+        "E1016 15:31:18.525005 2220339 agent.go:210] failed to process watch apps: map[]",
+        "E1016 15:31:01.862602 2220339 agent.go:210] failed to process watch apps: map[]"
+      ],
+      "warning_samples": [
+        "W1016 15:34:22.348254 2220339 watcher.go:188] get 10 obj in key /core/v1/nodes/null/null",
+        "W1016 15:34:22.346884 2220339 watcher.go:93] base storage now only support rev == 0, but get rev == 46595603, force set to 0!",
+        "W1016 15:32:55.990307 2220339 watcher.go:188] get 134 obj in key /core/v1/services/null/null",
+        "W1016 15:32:55.987751 2220339 watcher.go:93] base storage now only support rev == 0, but get rev == 46591845, force set to 0!",
+        "W1016 15:32:06.490643 2220339 sysinfo.go:227] Found node without any CPU, nodeDir: /sys/devices/system/node/node7, number of cpuDirs 0, err: <nil>"
+      ]
+    }
+  ]
+}

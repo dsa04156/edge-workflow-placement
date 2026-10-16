@@ -1,0 +1,154 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\"},\"name\":\"e2-dynamic-20261016t082220-arm\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\",\"research.scheduler/worker\":\"arm\"}}}\n"
+        },
+        "creationTimestamp": "2026-10-16T08:23:40Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic"
+        },
+        "name": "e2-dynamic-20261016t082220-arm",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46664243",
+        "uid": "9ce88ee1-5635-46e9-90d2-39ace60d9a75"
+      },
+      "spec": {
+        "clusterIP": "10.109.1.96",
+        "clusterIPs": [
+          "10.109.1.96"
+        ],
+        "internalTrafficPolicy": "Cluster",
+        "ipFamilies": [
+          "IPv4"
+        ],
+        "ipFamilyPolicy": "SingleStack",
+        "ports": [
+          {
+            "port": 8080,
+            "protocol": "TCP",
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic",
+          "research.scheduler/worker": "arm"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\",\"research.scheduler/worker\":\"cache\"},\"name\":\"e2-dynamic-20261016t082220-cache\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\",\"research.scheduler/worker\":\"cache\"}}}\n"
+        },
+        "creationTimestamp": "2026-10-16T08:23:36Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic",
+          "research.scheduler/worker": "cache"
+        },
+        "name": "e2-dynamic-20261016t082220-cache",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46664141",
+        "uid": "bd36d9ac-c04b-4bc8-86cc-db3eb6d95459"
+      },
+      "spec": {
+        "clusterIP": "10.110.204.227",
+        "clusterIPs": [
+          "10.110.204.227"
+        ],
+        "internalTrafficPolicy": "Cluster",
+        "ipFamilies": [
+          "IPv4"
+        ],
+        "ipFamilyPolicy": "SingleStack",
+        "ports": [
+          {
+            "port": 8080,
+            "protocol": "TCP",
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic",
+          "research.scheduler/worker": "cache"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\"},\"name\":\"e2-dynamic-20261016t082220-intel-npu\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\",\"research.scheduler/worker\":\"intel_npu\"}}}\n"
+        },
+        "creationTimestamp": "2026-10-16T08:23:41Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic"
+        },
+        "name": "e2-dynamic-20261016t082220-intel-npu",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46664264",
+        "uid": "e9374275-cae6-47ec-81e1-47d4a160e8eb"
+      },
+      "spec": {
+        "clusterIP": "10.106.1.32",
+        "clusterIPs": [
+          "10.106.1.32"
+        ],
+        "internalTrafficPolicy": "Cluster",
+        "ipFamilies": [
+          "IPv4"
+        ],
+        "ipFamilyPolicy": "SingleStack",
+        "ports": [
+          {
+            "port": 8080,
+            "protocol": "TCP",
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic",
+          "research.scheduler/worker": "intel_npu"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

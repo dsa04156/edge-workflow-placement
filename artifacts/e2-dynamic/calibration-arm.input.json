@@ -1,0 +1,80 @@
+{
+  "mode": "calibration",
+  "prefix": "20261016t082220-cal-arm",
+  "source": "arm",
+  "conditions": [
+    {
+      "id": "arm,intel_npu,arm",
+      "plan": [
+        "arm",
+        "intel_npu",
+        "arm"
+      ],
+      "run_order": 1
+    },
+    {
+      "id": "intel_npu,arm,arm",
+      "plan": [
+        "intel_npu",
+        "arm",
+        "arm"
+      ],
+      "run_order": 2
+    },
+    {
+      "id": "arm,intel_npu,intel_npu",
+      "plan": [
+        "arm",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "run_order": 3
+    },
+    {
+      "id": "intel_npu,intel_npu,intel_npu",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "intel_npu"
+      ],
+      "run_order": 4
+    },
+    {
+      "id": "arm,arm,intel_npu",
+      "plan": [
+        "arm",
+        "arm",
+        "intel_npu"
+      ],
+      "run_order": 5
+    },
+    {
+      "id": "intel_npu,intel_npu,arm",
+      "plan": [
+        "intel_npu",
+        "intel_npu",
+        "arm"
+      ],
+      "run_order": 6
+    },
+    {
+      "id": "arm,arm,arm",
+      "plan": [
+        "arm",
+        "arm",
+        "arm"
+      ],
+      "run_order": 7
+    },
+    {
+      "id": "intel_npu,arm,intel_npu",
+      "plan": [
+        "intel_npu",
+        "arm",
+        "intel_npu"
+      ],
+      "run_order": 8
+    }
+  ],
+  "prewarm": true
+}

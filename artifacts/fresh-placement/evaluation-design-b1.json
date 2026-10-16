@@ -1,0 +1,448 @@
+{
+  "groups": 30,
+  "schedules": {
+    "arm": [
+      {
+        "id": "retina-intel_npu,intel_npu,intel_npu",
+        "image_id": "retina",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "task_fastest",
+          "dag_enumeration"
+        ],
+        "run_order": 1
+      },
+      {
+        "id": "chelsea-arm,arm,arm",
+        "image_id": "chelsea",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy"
+        ],
+        "run_order": 2
+      },
+      {
+        "id": "hubble_deep_field-intel_npu,intel_npu,arm",
+        "image_id": "hubble_deep_field",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 3
+      },
+      {
+        "id": "astronaut-intel_npu,intel_npu,arm",
+        "image_id": "astronaut",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 4
+      },
+      {
+        "id": "rocket-intel_npu,intel_npu,intel_npu",
+        "image_id": "rocket",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "task_fastest",
+          "dag_enumeration"
+        ],
+        "run_order": 5
+      },
+      {
+        "id": "hubble_deep_field-arm,arm,arm",
+        "image_id": "hubble_deep_field",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 6
+      },
+      {
+        "id": "astronaut-arm,arm,arm",
+        "image_id": "astronaut",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 7
+      },
+      {
+        "id": "dog-arm,arm,arm",
+        "image_id": "dog",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 8
+      },
+      {
+        "id": "coffee-arm,arm,arm",
+        "image_id": "coffee",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 9
+      },
+      {
+        "id": "rocket-arm,arm,arm",
+        "image_id": "rocket",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy"
+        ],
+        "run_order": 10
+      },
+      {
+        "id": "chelsea-intel_npu,intel_npu,intel_npu",
+        "image_id": "chelsea",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "dag_enumeration"
+        ],
+        "run_order": 11
+      },
+      {
+        "id": "dog-intel_npu,intel_npu,arm",
+        "image_id": "dog",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 12
+      },
+      {
+        "id": "coffee-intel_npu,intel_npu,intel_npu",
+        "image_id": "coffee",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 13
+      },
+      {
+        "id": "chelsea-intel_npu,intel_npu,arm",
+        "image_id": "chelsea",
+        "source": "arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 14
+      },
+      {
+        "id": "camera-arm,arm,arm",
+        "image_id": "camera",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "task_fastest",
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 15
+      },
+      {
+        "id": "retina-arm,arm,arm",
+        "image_id": "retina",
+        "source": "arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "data_greedy"
+        ],
+        "run_order": 16
+      }
+    ],
+    "intel_npu": [
+      {
+        "id": "retina-intel_npu,intel_npu,intel_npu",
+        "image_id": "retina",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 1
+      },
+      {
+        "id": "hubble_deep_field-intel_npu,intel_npu,intel_npu",
+        "image_id": "hubble_deep_field",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 2
+      },
+      {
+        "id": "hubble_deep_field-intel_npu,intel_npu,arm",
+        "image_id": "hubble_deep_field",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 3
+      },
+      {
+        "id": "rocket-intel_npu,intel_npu,arm",
+        "image_id": "rocket",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 4
+      },
+      {
+        "id": "chelsea-intel_npu,intel_npu,intel_npu",
+        "image_id": "chelsea",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 5
+      },
+      {
+        "id": "rocket-intel_npu,intel_npu,intel_npu",
+        "image_id": "rocket",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 6
+      },
+      {
+        "id": "coffee-intel_npu,intel_npu,arm",
+        "image_id": "coffee",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 7
+      },
+      {
+        "id": "retina-intel_npu,intel_npu,arm",
+        "image_id": "retina",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 8
+      },
+      {
+        "id": "coffee-intel_npu,intel_npu,intel_npu",
+        "image_id": "coffee",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 9
+      },
+      {
+        "id": "chelsea-intel_npu,intel_npu,arm",
+        "image_id": "chelsea",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "members": [
+          "task_fastest"
+        ],
+        "run_order": 10
+      },
+      {
+        "id": "camera-arm,arm,arm",
+        "image_id": "camera",
+        "source": "intel_npu",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "dag_enumeration"
+        ],
+        "run_order": 11
+      },
+      {
+        "id": "astronaut-intel_npu,intel_npu,intel_npu",
+        "image_id": "astronaut",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "task_fastest",
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 12
+      },
+      {
+        "id": "camera-intel_npu,arm,arm",
+        "image_id": "camera",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "arm",
+          "arm"
+        ],
+        "members": [
+          "task_fastest",
+          "data_greedy"
+        ],
+        "run_order": 13
+      },
+      {
+        "id": "dog-intel_npu,intel_npu,intel_npu",
+        "image_id": "dog",
+        "source": "intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "members": [
+          "task_fastest",
+          "data_greedy",
+          "dag_enumeration"
+        ],
+        "run_order": 14
+      }
+    ]
+  },
+  "frozen_sha256": "8d62b9d6cfa296c56b833e85d5445799f30fd24b2a83d94223a87e572765db0e"
+}

@@ -1,0 +1,142 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "meas-bridge-20261016t100338960422-cache",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "measured-bridge",
+          "research.scheduler/run": "20261016t100338960422",
+          "research.scheduler/worker": "cache"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-ser0004-cgnms0"
+        },
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-m",
+              "http.server",
+              "8080",
+              "--bind",
+              "0.0.0.0",
+              "--directory",
+              "/work"
+            ],
+            "env": [
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "64Mi",
+                "ephemeral-storage": "256Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "256Mi",
+                "ephemeral-storage": "1Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ],
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "768Mi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            }
+          }
+        ],
+        "activeDeadlineSeconds": 900,
+        "terminationGracePeriodSeconds": 2
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "meas-bridge-20261016t100338960422-cache",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "measured-bridge",
+          "research.scheduler/run": "20261016t100338960422",
+          "research.scheduler/worker": "cache"
+        }
+      },
+      "spec": {
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "measured-bridge",
+          "research.scheduler/run": "20261016t100338960422",
+          "research.scheduler/worker": "cache"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    }
+  ]
+}

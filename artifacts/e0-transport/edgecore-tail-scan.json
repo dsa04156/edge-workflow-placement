@@ -1,0 +1,44 @@
+{
+  "node": "etri-dev0003-raspi5",
+  "observed_at": "2026-10-16T06:34:02.965712+00:00",
+  "processes": [
+    {
+      "pid": 2220339,
+      "state": "S",
+      "uptime_seconds": 99117.16000000003,
+      "rss_kib": 111936
+    }
+  ],
+  "journals": [
+    {
+      "storage": "runtime",
+      "window_seconds": 900,
+      "entry_count": 10000,
+      "count_limit_reached": true,
+      "priority_counts": {
+        "6": 10000
+      },
+      "message_level_counts": {
+        "I": 9862,
+        "other": 72,
+        "W": 45,
+        "E": 21
+      },
+      "first_realtime_usec": 1792131673768773,
+      "last_realtime_usec": 1792132441994193,
+      "experiment_mentions": 12,
+      "last_messages": [
+        "I1016 15:34:01.994127 2220339 communicate.go:127] CommModule deal confirm msgID 5fd481b6-20d1-4012-ae8c-4b5444f766ce",
+        "I1016 15:34:01.994107 2220339 process.go:64] Send msg to the CommModule module in twin",
+        "I1016 15:34:01.994092 2220339 process.go:317] DeviceTwin receive msg",
+        "I1016 15:34:01.984730 2220339 eventbus.go:109] Success in pubMQTT with topic: $hw/events/device/edgeai-devices/sensehat-001-temp-humidity/twin/update/document",
+        "I1016 15:34:01.984526 2220339 eventbus.go:109] Success in pubMQTT with topic: $hw/events/device/edgeai-devices/sensehat-001-temp-humidity/twin/update/result"
+      ],
+      "experiment_messages": [
+        "I1016 15:34:01.288806 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"proc\\\" (UniqueName: \\\"kubernetes.io/host-path/3082cb4b-308f-4727-b1e1-2f59932d5008-proc\\\") pod \\\"e0-edgecore-20261016t062702-tail\\\" (UID: \\\"3082cb4b-308f-4727-b1e1-2f59932d5008\\\") \" pod=\"scheduler-research/e0-edgecore-20261016t062702-tail\"",
+        "I1016 15:34:01.288777 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"run-log\\\" (UniqueName: \\\"kubernetes.io/host-path/3082cb4b-308f-4727-b1e1-2f59932d5008-run-log\\\") pod \\\"e0-edgecore-20261016t062702-tail\\\" (UID: \\\"3082cb4b-308f-4727-b1e1-2f59932d5008\\\") \" pod=\"scheduler-research/e0-edgecore-20261016t062702-tail\"",
+        "I1016 15:34:01.288726 2220339 reconciler_common.go:251] \"operationExecutor.VerifyControllerAttachedVolume started for volume \\\"log\\\" (UniqueName: \\\"kubernetes.io/host-path/3082cb4b-308f-4727-b1e1-2f59932d5008-log\\\") pod \\\"e0-edgecore-20261016t062702-tail\\\" (UID: \\\"3082cb4b-308f-4727-b1e1-2f59932d5008\\\") \" pod=\"scheduler-research/e0-edgecore-20261016t062702-tail\""
+      ]
+    }
+  ]
+}

@@ -1,0 +1,349 @@
+{
+  "source_phases": [
+    [
+      "arm",
+      8
+    ],
+    [
+      "intel_npu",
+      1
+    ],
+    [
+      "arm",
+      4
+    ],
+    [
+      "intel_npu",
+      12
+    ],
+    [
+      "arm",
+      4
+    ],
+    [
+      "intel_npu",
+      1
+    ],
+    [
+      "arm",
+      4
+    ],
+    [
+      "intel_npu",
+      12
+    ]
+  ],
+  "blocks": [
+    [
+      {
+        "scenario": "warm",
+        "policy": "credit_hysteresis",
+        "run_order": 1
+      },
+      {
+        "scenario": "eviction",
+        "policy": "fixed",
+        "run_order": 2
+      },
+      {
+        "scenario": "warm",
+        "policy": "ready_dag",
+        "run_order": 3
+      },
+      {
+        "scenario": "warm",
+        "policy": "fixed",
+        "run_order": 4
+      },
+      {
+        "scenario": "warm",
+        "policy": "ready_greedy",
+        "run_order": 5
+      },
+      {
+        "scenario": "eviction",
+        "policy": "credit_hysteresis",
+        "run_order": 6
+      },
+      {
+        "scenario": "eviction",
+        "policy": "warm_dag",
+        "run_order": 7
+      },
+      {
+        "scenario": "warm",
+        "policy": "warm_dag",
+        "run_order": 8
+      },
+      {
+        "scenario": "eviction",
+        "policy": "ready_dag",
+        "run_order": 9
+      },
+      {
+        "scenario": "eviction",
+        "policy": "ready_greedy",
+        "run_order": 10
+      }
+    ],
+    [
+      {
+        "scenario": "warm",
+        "policy": "warm_dag",
+        "run_order": 1
+      },
+      {
+        "scenario": "eviction",
+        "policy": "fixed",
+        "run_order": 2
+      },
+      {
+        "scenario": "warm",
+        "policy": "fixed",
+        "run_order": 3
+      },
+      {
+        "scenario": "eviction",
+        "policy": "ready_dag",
+        "run_order": 4
+      },
+      {
+        "scenario": "eviction",
+        "policy": "ready_greedy",
+        "run_order": 5
+      },
+      {
+        "scenario": "eviction",
+        "policy": "credit_hysteresis",
+        "run_order": 6
+      },
+      {
+        "scenario": "eviction",
+        "policy": "warm_dag",
+        "run_order": 7
+      },
+      {
+        "scenario": "warm",
+        "policy": "ready_greedy",
+        "run_order": 8
+      },
+      {
+        "scenario": "warm",
+        "policy": "ready_dag",
+        "run_order": 9
+      },
+      {
+        "scenario": "warm",
+        "policy": "credit_hysteresis",
+        "run_order": 10
+      }
+    ],
+    [
+      {
+        "scenario": "warm",
+        "policy": "credit_hysteresis",
+        "run_order": 1
+      },
+      {
+        "scenario": "warm",
+        "policy": "warm_dag",
+        "run_order": 2
+      },
+      {
+        "scenario": "eviction",
+        "policy": "ready_dag",
+        "run_order": 3
+      },
+      {
+        "scenario": "warm",
+        "policy": "ready_dag",
+        "run_order": 4
+      },
+      {
+        "scenario": "eviction",
+        "policy": "credit_hysteresis",
+        "run_order": 5
+      },
+      {
+        "scenario": "warm",
+        "policy": "fixed",
+        "run_order": 6
+      },
+      {
+        "scenario": "warm",
+        "policy": "ready_greedy",
+        "run_order": 7
+      },
+      {
+        "scenario": "eviction",
+        "policy": "warm_dag",
+        "run_order": 8
+      },
+      {
+        "scenario": "eviction",
+        "policy": "fixed",
+        "run_order": 9
+      },
+      {
+        "scenario": "eviction",
+        "policy": "ready_greedy",
+        "run_order": 10
+      }
+    ]
+  ],
+  "calibration": {
+    "arm": [
+      {
+        "id": "arm,intel_npu,arm",
+        "plan": [
+          "arm",
+          "intel_npu",
+          "arm"
+        ],
+        "run_order": 1
+      },
+      {
+        "id": "intel_npu,arm,arm",
+        "plan": [
+          "intel_npu",
+          "arm",
+          "arm"
+        ],
+        "run_order": 2
+      },
+      {
+        "id": "arm,intel_npu,intel_npu",
+        "plan": [
+          "arm",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "run_order": 3
+      },
+      {
+        "id": "intel_npu,intel_npu,intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "run_order": 4
+      },
+      {
+        "id": "arm,arm,intel_npu",
+        "plan": [
+          "arm",
+          "arm",
+          "intel_npu"
+        ],
+        "run_order": 5
+      },
+      {
+        "id": "intel_npu,intel_npu,arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "run_order": 6
+      },
+      {
+        "id": "arm,arm,arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "run_order": 7
+      },
+      {
+        "id": "intel_npu,arm,intel_npu",
+        "plan": [
+          "intel_npu",
+          "arm",
+          "intel_npu"
+        ],
+        "run_order": 8
+      }
+    ],
+    "intel_npu": [
+      {
+        "id": "arm,intel_npu,intel_npu",
+        "plan": [
+          "arm",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "run_order": 1
+      },
+      {
+        "id": "intel_npu,arm,arm",
+        "plan": [
+          "intel_npu",
+          "arm",
+          "arm"
+        ],
+        "run_order": 2
+      },
+      {
+        "id": "arm,arm,intel_npu",
+        "plan": [
+          "arm",
+          "arm",
+          "intel_npu"
+        ],
+        "run_order": 3
+      },
+      {
+        "id": "arm,intel_npu,arm",
+        "plan": [
+          "arm",
+          "intel_npu",
+          "arm"
+        ],
+        "run_order": 4
+      },
+      {
+        "id": "arm,arm,arm",
+        "plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "run_order": 5
+      },
+      {
+        "id": "intel_npu,intel_npu,intel_npu",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "run_order": 6
+      },
+      {
+        "id": "intel_npu,intel_npu,arm",
+        "plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "run_order": 7
+      },
+      {
+        "id": "intel_npu,arm,intel_npu",
+        "plan": [
+          "intel_npu",
+          "arm",
+          "intel_npu"
+        ],
+        "run_order": 8
+      }
+    ]
+  },
+  "horizon_requests": 4,
+  "cycle_s": 0.25,
+  "preparation_calibration_requests": 5,
+  "evaluation_requests": 1380,
+  "spec": ".scratch/e2-dynamic/spec.md"
+}

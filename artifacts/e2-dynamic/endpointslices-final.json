@@ -1,0 +1,190 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "addressType": "IPv4",
+      "apiVersion": "discovery.k8s.io/v1",
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.4.104"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "etri-dev0003-raspi5",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "e2-dynamic-20261016t082220-arm",
+            "namespace": "scheduler-research",
+            "uid": "9250b16e-e697-490e-9697-4b7125544410"
+          }
+        }
+      ],
+      "kind": "EndpointSlice",
+      "metadata": {
+        "annotations": {
+          "endpoints.kubernetes.io/last-change-trigger-time": "2026-10-16T08:23:42Z"
+        },
+        "creationTimestamp": "2026-10-16T08:23:40Z",
+        "generateName": "e2-dynamic-20261016t082220-arm-",
+        "generation": 2,
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "endpointslice.kubernetes.io/managed-by": "endpointslice-controller.k8s.io",
+          "kubernetes.io/service-name": "e2-dynamic-20261016t082220-arm",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic"
+        },
+        "name": "e2-dynamic-20261016t082220-arm-6gf55",
+        "namespace": "scheduler-research",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Service",
+            "name": "e2-dynamic-20261016t082220-arm",
+            "uid": "9ce88ee1-5635-46e9-90d2-39ace60d9a75"
+          }
+        ],
+        "resourceVersion": "46664392",
+        "uid": "cb275a4f-24fb-48e3-a78e-b44af7f19154"
+      },
+      "ports": [
+        {
+          "name": "",
+          "port": 8080,
+          "protocol": "TCP"
+        }
+      ]
+    },
+    {
+      "addressType": "IPv4",
+      "apiVersion": "discovery.k8s.io/v1",
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.5.76"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "etri-ser0004-cgnms0",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "e2-dynamic-20261016t082220-cache",
+            "namespace": "scheduler-research",
+            "uid": "bb3c4f50-68f3-49bb-9ff8-ea6df3954385"
+          }
+        }
+      ],
+      "kind": "EndpointSlice",
+      "metadata": {
+        "annotations": {
+          "endpoints.kubernetes.io/last-change-trigger-time": "2026-10-16T08:23:37Z"
+        },
+        "creationTimestamp": "2026-10-16T08:23:36Z",
+        "generateName": "e2-dynamic-20261016t082220-cache-",
+        "generation": 2,
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "endpointslice.kubernetes.io/managed-by": "endpointslice-controller.k8s.io",
+          "kubernetes.io/service-name": "e2-dynamic-20261016t082220-cache",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic",
+          "research.scheduler/worker": "cache"
+        },
+        "name": "e2-dynamic-20261016t082220-cache-cjhmq",
+        "namespace": "scheduler-research",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Service",
+            "name": "e2-dynamic-20261016t082220-cache",
+            "uid": "bd36d9ac-c04b-4bc8-86cc-db3eb6d95459"
+          }
+        ],
+        "resourceVersion": "46664193",
+        "uid": "e16aa39b-4db5-4f72-a343-aef1926c743c"
+      },
+      "ports": [
+        {
+          "name": "",
+          "port": 8080,
+          "protocol": "TCP"
+        }
+      ]
+    },
+    {
+      "addressType": "IPv4",
+      "apiVersion": "discovery.k8s.io/v1",
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.8.208"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "etri-ser0002-cgnmsb",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "e2-dynamic-20261016t082220-intel-npu",
+            "namespace": "scheduler-research",
+            "uid": "44a1424d-4f5c-44e4-bccb-db18cf13bbca"
+          }
+        }
+      ],
+      "kind": "EndpointSlice",
+      "metadata": {
+        "annotations": {
+          "endpoints.kubernetes.io/last-change-trigger-time": "2026-10-16T08:23:42Z"
+        },
+        "creationTimestamp": "2026-10-16T08:23:41Z",
+        "generateName": "e2-dynamic-20261016t082220-intel-npu-",
+        "generation": 2,
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "endpointslice.kubernetes.io/managed-by": "endpointslice-controller.k8s.io",
+          "kubernetes.io/service-name": "e2-dynamic-20261016t082220-intel-npu",
+          "research.scheduler/run": "20261016t082220",
+          "research.scheduler/stage": "e2-dynamic"
+        },
+        "name": "e2-dynamic-20261016t082220-intel-npu-7qq2b",
+        "namespace": "scheduler-research",
+        "ownerReferences": [
+          {
+            "apiVersion": "v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "Service",
+            "name": "e2-dynamic-20261016t082220-intel-npu",
+            "uid": "e9374275-cae6-47ec-81e1-47d4a160e8eb"
+          }
+        ],
+        "resourceVersion": "46664357",
+        "uid": "0f505687-f6ea-4921-adb8-65f8c37ddf5e"
+      },
+      "ports": [
+        {
+          "name": "",
+          "port": 8080,
+          "protocol": "TCP"
+        }
+      ]
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

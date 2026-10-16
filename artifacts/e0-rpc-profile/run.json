@@ -1,0 +1,96 @@
+{
+  "run_id": "20261016t070607",
+  "namespace": "scheduler-research",
+  "configmap": "e0-rpc-20261016t070607",
+  "worker_pods": [
+    "e0-rpc-20261016t070607-arm",
+    "e0-rpc-20261016t070607-amd-a2",
+    "e0-rpc-20261016t070607-gpu-a2",
+    "e0-rpc-20261016t070607-intel-npu"
+  ],
+  "services": [
+    "e0-rpc-20261016t070607-arm",
+    "e0-rpc-20261016t070607-amd",
+    "e0-rpc-20261016t070607-gpu",
+    "e0-rpc-20261016t070607-intel-npu"
+  ],
+  "client_jobs": [
+    "e0-rpc-20261016t070607-client-0",
+    "e0-rpc-20261016t070607-client-1",
+    "e0-rpc-20261016t070607-client-2"
+  ],
+  "targets": [
+    {
+      "alias": "arm",
+      "node": "etri-dev0003-raspi5",
+      "backend": "cpu",
+      "url": "http://e0-rpc-20261016t070607-arm.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "amd",
+      "node": "etri-ser0004-cgnms0",
+      "backend": "cpu",
+      "url": "http://e0-rpc-20261016t070607-amd.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "gpu",
+      "node": "etri-ser0003-cg0ms0",
+      "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+      "resource": "nvidia.com/gpu",
+      "runtimeClassName": "nvidia-spark",
+      "backend": "gpu",
+      "url": "http://e0-rpc-20261016t070607-gpu.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "intel_npu",
+      "node": "etri-ser0002-cgnmsb",
+      "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+      "resource": "npu.intel.com/accel",
+      "backend": "intel_npu",
+      "url": "http://e0-rpc-20261016t070607-intel-npu.scheduler-research.svc.cluster.local:8080"
+    }
+  ],
+  "design": {
+    "blocks": 3,
+    "seed_base": 20261016,
+    "conditions_per_block": 16,
+    "warmup_per_condition": 2,
+    "measured_per_condition": 10,
+    "cycle_interval_s": 0.2,
+    "shared_warm_worker_instances": true,
+    "scope": "single_fixture_paced_profile_not_policy_or_independent_deployment_comparison"
+  },
+  "failed_worker_pods": [
+    "e0-rpc-20261016t070607-amd"
+  ],
+  "preparation_retries": [
+    {
+      "alias": "amd",
+      "attempt1": "e0-rpc-20261016t070607-amd",
+      "failure": "pip public package download read timeout before model preparation or measured requests",
+      "attempt2": "e0-rpc-20261016t070607-amd-a2",
+      "change": "diagnostic installer read timeout60s to120s; runtime/transport/source unchanged"
+    }
+  ],
+  "auxiliary_pods": [
+    "e0-wheel-cache-20261016t070607"
+  ],
+  "auxiliary_services": [
+    "e0-wheel-cache-20261016t070607"
+  ],
+  "aborted_worker_pods": [
+    "e0-rpc-20261016t070607-gpu"
+  ],
+  "configmaps": [
+    "e0-rpc-20261016t070607",
+    "e0-rpc-20261016t070607-cache"
+  ],
+  "artifact_cache": {
+    "pod": "e0-wheel-cache-20261016t070607",
+    "service": "e0-wheel-cache-20261016t070607",
+    "manifest": "wheel-manifest.json",
+    "upstream_sha256_verified": true,
+    "runtime_and_measured_source_unchanged": true,
+    "reason": "slow public package downloads before measured requests"
+  }
+}

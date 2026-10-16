@@ -1,0 +1,279 @@
+{
+  "observed_at": "2026-10-16T06:37:36.858340+00:00",
+  "nodes": [
+    {
+      "node": "etri-dev0001-jetorn",
+      "devices": {
+        "nvidia.com/gpu.shared": "2"
+      },
+      "ready": "True",
+      "allocated": [],
+      "cached_images": []
+    },
+    {
+      "node": "etri-dev0002-raspi5",
+      "devices": {
+        "hailo.ai/h8": "1"
+      },
+      "ready": "True",
+      "allocated": [],
+      "cached_images": []
+    },
+    {
+      "node": "etri-dev0004-tedger",
+      "devices": {
+        "rockchip.com/rk3399pro": "1"
+      },
+      "ready": "True",
+      "allocated": [],
+      "cached_images": []
+    },
+    {
+      "node": "etri-dev0005-jetagx",
+      "devices": {
+        "nvidia.com/gpu.shared": "2"
+      },
+      "ready": "True",
+      "allocated": [],
+      "cached_images": []
+    },
+    {
+      "node": "etri-dev0006-raspi5",
+      "devices": {
+        "hailo.ai/h8": "1"
+      },
+      "ready": "True",
+      "allocated": [
+        {
+          "namespace": "resource-advisor-lab",
+          "pod": "ra-infer-hailo-v1-5cb5f6685d-24brl",
+          "devices": {
+            "hailo.ai/h8": "1"
+          }
+        }
+      ],
+      "cached_images": []
+    },
+    {
+      "node": "etri-ser0001-cg0msb",
+      "devices": {
+        "nvidia.com/gpu": "1"
+      },
+      "ready": "True",
+      "allocated": [
+        {
+          "namespace": "ai-scientist",
+          "pod": "ai-scientist-955f7d5f7-6hfcl",
+          "devices": {
+            "nvidia.com/gpu": "1"
+          }
+        }
+      ],
+      "cached_images": [
+        "192.168.0.56:5000/ra-candy-cuda@sha256:29012d0aea4548c27852090fe5a38db22374e0b3298f840fd3177f23d5b638ea"
+      ]
+    },
+    {
+      "node": "etri-ser0002-cgnmsb",
+      "devices": {
+        "npu.intel.com/accel": "1",
+        "nvidia.com/gpu": "1"
+      },
+      "ready": "True",
+      "allocated": [
+        {
+          "namespace": "resource-advisor-lab",
+          "pod": "ra-infer-cuda-v1-68b55f98fb-t7cg5",
+          "devices": {
+            "nvidia.com/gpu": "1"
+          }
+        }
+      ],
+      "cached_images": [
+        "docker.io/nvidia/cuda@sha256:da6791294b0b04d7e65d87b7451d6f2390b4d36225ab0701ee7dfec5769829f5",
+        "docker.io/nvidia/cuda:12.4.1-devel-ubuntu22.04",
+        "nvcr.io/nvidia/cuda@sha256:c4e81887e4aa9f13b1119337323cba89601319ecb282383b879c4ba50510fd17",
+        "nvcr.io/nvidia/cuda:12.2.0-devel-ubuntu22.04",
+        "192.168.0.56:5000/resource-advisor/inference-cuda@sha256:0e0498c82b7442e9b69c54785ebf099e853d76af927780817d7bcedd35c94adf",
+        "192.168.0.56:5000/ra-pool-cuda@sha256:21cf10aef3f5360f95e4d6e9ef46b2a6aaa06d8660b0cc3738e408666811fddc",
+        "192.168.0.56:5000/ra-candy-cuda@sha256:29012d0aea4548c27852090fe5a38db22374e0b3298f840fd3177f23d5b638ea",
+        "192.168.0.56:5000/ra-candy-cuda@sha256:862aa71e29c3a3f46545fc177d3e2bd5c3ad0aefaa96c457018fbde9e5ec8f3b",
+        "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+        "192.168.0.56:5000/ra-npu-intel@sha256:09dedfc5150d8e67a310e7213862e04ffb6a696421945921ccd26cf3e7077d26",
+        "192.168.0.56:5000/ra-npu-intel@sha256:07d94ebdab7bd2138ed44c95af607c1a922a41e6e5d460165dc5083bf40141df",
+        "192.168.0.56:5000/ra-npu-intel@sha256:3f58dc0d5e217481451d4787fd4ea5f11678a2b47d4eb30f75cfa4407b000828"
+      ]
+    },
+    {
+      "node": "etri-ser0003-cg0ms0",
+      "devices": {
+        "nvidia.com/gpu": "1"
+      },
+      "ready": "True",
+      "allocated": [],
+      "cached_images": [
+        "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+        "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:0ef6c159496b37a657613214faab49989df9051fb8b6aa29d08fcdce5c8643f3"
+      ]
+    },
+    {
+      "node": "etri-ser0004-cgnms0",
+      "devices": {
+        "mobilint.com/npu": "1"
+      },
+      "ready": "True",
+      "allocated": [],
+      "cached_images": []
+    }
+  ],
+  "candidate_images": [
+    {
+      "image": "192.168.0.56:5000/ra-pool-cuda@sha256:21cf10aef3f5360f95e4d6e9ef46b2a6aaa06d8660b0cc3738e408666811fddc",
+      "node": "etri-ser0002-cgnmsb",
+      "phase": "Succeeded"
+    },
+    {
+      "image": "192.168.0.56:5000/resource-advisor/inference-cuda@sha256:0e0498c82b7442e9b69c54785ebf099e853d76af927780817d7bcedd35c94adf",
+      "node": "etri-ser0002-cgnmsb",
+      "phase": "Running"
+    },
+    {
+      "image": "192.168.0.56:5000/resource-advisor/inference-hailo@sha256:43a4271c8d3440d71458b97881742f440fc7540a26800ff8e383245c2508d641",
+      "node": "etri-dev0006-raspi5",
+      "phase": "Running"
+    },
+    {
+      "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:eccb4ba1dcfee01ffa5eeca481bf71247b24c12f733f785c58110b2b733c8194",
+      "node": "etri-ser0002-cgnmsb",
+      "phase": "Succeeded"
+    },
+    {
+      "image": "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1",
+      "node": "etri-dev0006-raspi5",
+      "phase": "Succeeded"
+    }
+  ],
+  "past_jobs": [
+    {
+      "pod": "ra-mx-cal-20261014-v1-b-npu-0-gcp8n",
+      "node": "etri-dev0006-raspi5",
+      "images": [
+        "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    },
+    {
+      "pod": "ra-mx-cal-20261014-v1-b-npu-1-62759",
+      "node": "etri-dev0006-raspi5",
+      "images": [
+        "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    },
+    {
+      "pod": "ra-mx-cal-20261014-v1-b-npu-2-8bzkv",
+      "node": "etri-dev0006-raspi5",
+      "images": [
+        "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    },
+    {
+      "pod": "ra-pool-pilot-20261013-v3-hailo-01-qdzj9",
+      "node": "etri-dev0006-raspi5",
+      "images": [
+        "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    },
+    {
+      "pod": "ra-pool-pilot-20261013-v3-hailo-02-r26jm",
+      "node": "etri-dev0006-raspi5",
+      "images": [
+        "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    },
+    {
+      "pod": "ra-pool-pilot-20261013-v4-cuda-03-pjzqq",
+      "node": "etri-ser0002-cgnmsb",
+      "images": [
+        "192.168.0.56:5000/ra-pool-cuda@sha256:21cf10aef3f5360f95e4d6e9ef46b2a6aaa06d8660b0cc3738e408666811fddc"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    },
+    {
+      "pod": "ra-pool-pilot-20261013-v4-hailo-03-kq4lc",
+      "node": "etri-dev0006-raspi5",
+      "images": [
+        "192.168.0.56:5000/ra-pool-hailo@sha256:7f70d7b9cb0e8bdc6403bba41bd763180d1faee3179a9522c8b99870344012d1"
+      ],
+      "volumes": [
+        {
+          "name": "tmp"
+        }
+      ]
+    }
+  ],
+  "candidate_configmaps": [
+    {
+      "name": "profile-pool-20261008-v2-source",
+      "keys": [
+        "fixture.json",
+        "workload.py"
+      ]
+    },
+    {
+      "name": "ra-all-intel-mlp-micro-20261008-source",
+      "keys": [
+        "fixture.json",
+        "pool_inference_openvino.py"
+      ]
+    },
+    {
+      "name": "ra-all-intel-mlp-micro2-20261008-source",
+      "keys": [
+        "fixture.json",
+        "pool_inference_openvino.py"
+      ]
+    },
+    {
+      "name": "ra-train-input-092617",
+      "keys": [
+        "checkpoint.json",
+        "input.json"
+      ]
+    },
+    {
+      "name": "ra-train-input-092617-bad",
+      "keys": [
+        "checkpoint.json",
+        "input.json"
+      ]
+    }
+  ]
+}

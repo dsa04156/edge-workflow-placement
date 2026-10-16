@@ -1,0 +1,97 @@
+{
+  "observed_at": "2026-10-16T06:28:13.031832+00:00",
+  "services": [
+    {
+      "name": "e0-wire-20261016t062702-amd",
+      "cluster_ip": "10.106.70.232",
+      "selector": {
+        "research.scheduler/run": "20261016t062702",
+        "research.scheduler/worker": "amd"
+      },
+      "ports": [
+        {
+          "name": "http-0",
+          "port": 8080,
+          "protocol": "TCP",
+          "targetPort": 8080
+        }
+      ]
+    },
+    {
+      "name": "e0-wire-20261016t062702-arm",
+      "cluster_ip": "10.97.170.113",
+      "selector": {
+        "research.scheduler/run": "20261016t062702",
+        "research.scheduler/worker": "arm"
+      },
+      "ports": [
+        {
+          "name": "http-0",
+          "port": 8080,
+          "protocol": "TCP",
+          "targetPort": 8080
+        }
+      ]
+    }
+  ],
+  "workers": [
+    {
+      "name": "e0-wire-20261016t062702-amd",
+      "node": "etri-ser0004-cgnms0",
+      "pod_ip": "10.244.5.70",
+      "image_id": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f"
+    },
+    {
+      "name": "e0-wire-20261016t062702-arm",
+      "node": "etri-dev0003-raspi5",
+      "pod_ip": "10.244.4.88",
+      "image_id": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f"
+    }
+  ],
+  "endpoints": [
+    {
+      "service": "e0-wire-20261016t062702-amd",
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.5.70"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "etri-ser0004-cgnms0",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "e0-wire-20261016t062702-amd",
+            "namespace": "scheduler-research",
+            "uid": "8e784334-0a90-45e2-9f2f-85e0f2014a8a"
+          }
+        }
+      ]
+    },
+    {
+      "service": "e0-wire-20261016t062702-arm",
+      "endpoints": [
+        {
+          "addresses": [
+            "10.244.4.88"
+          ],
+          "conditions": {
+            "ready": true,
+            "serving": true,
+            "terminating": false
+          },
+          "nodeName": "etri-dev0003-raspi5",
+          "targetRef": {
+            "kind": "Pod",
+            "name": "e0-wire-20261016t062702-arm",
+            "namespace": "scheduler-research",
+            "uid": "d58a6180-a56d-4296-ba08-4503386e8fcd"
+          }
+        }
+      ]
+    }
+  ]
+}

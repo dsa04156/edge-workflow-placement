@@ -1,0 +1,1128 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-16T10:36:27Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/alias": "arm",
+          "research.scheduler/block": "2",
+          "research.scheduler/role": "worker",
+          "research.scheduler/run": "20261016t102843070125",
+          "research.scheduler/stage": "fresh-placement"
+        },
+        "name": "fresh-place-20261016t102843070125-b2-arm",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46747224",
+        "uid": "a76b1349-9caf-4d4d-a6a7-e13d46d30b51"
+      },
+      "spec": {
+        "activeDeadlineSeconds": 900,
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import subprocess,sys,runpy;subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--no-index','--find-links','http://fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local:8080','--trusted-host','fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local','--require-hashes','--target','/work/site','-r','/config/requirements-cpu-cache.txt'],check=True);sys.path[:0]=['/work/site','/config'];runpy.run_path('/config/dag_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "ALIAS",
+                "value": "arm"
+              },
+              {
+                "name": "BACKEND",
+                "value": "cpu"
+              },
+              {
+                "name": "PEERS_JSON",
+                "value": "{\"arm\": {\"alias\": \"arm\", \"backend\": \"cpu\", \"node\": \"etri-dev0003-raspi5\", \"url\": \"http://fresh-place-20261016t102843070125-b2-arm.scheduler-research.svc.cluster.local:8080\"}, \"intel_npu\": {\"alias\": \"intel_npu\", \"backend\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"url\": \"http://fresh-place-20261016t102843070125-b2-intel-npu.scheduler-research.svc.cluster.local:8080\"}}"
+              },
+              {
+                "name": "ASSET_BASE",
+                "value": "http://fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local:8080"
+              },
+              {
+                "name": "NO_PROXY",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "no_proxy",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "DYNAMIC_LIFECYCLE",
+                "value": "1"
+              },
+              {
+                "name": "CORPUS_FILE",
+                "value": "/config/corpus.json"
+              }
+            ],
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "worker",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "1",
+                "ephemeral-storage": "1Gi",
+                "memory": "768Mi"
+              },
+              "requests": {
+                "cpu": "250m",
+                "ephemeral-storage": "256Mi",
+                "memory": "256Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0003-raspi5",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0003-raspi5"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "fsGroup": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 2,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "fresh-place-20261016t102843070125"
+            },
+            "name": "config"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "768Mi"
+            },
+            "name": "work"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            },
+            "name": "tmp"
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://ab43eca95e67e694b533ad144ca67a9bcfeab0cc283be2def0df86fab9cd90ff",
+            "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+            "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "lastState": {},
+            "name": "worker",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T10:36:27Z"
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.77.0.6",
+        "hostIPs": [
+          {
+            "ip": "10.77.0.6"
+          }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.4.122",
+        "podIPs": [
+          {
+            "ip": "10.244.4.122"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-16T10:36:27Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-16T10:36:27Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/alias": "arm",
+          "research.scheduler/block": "2",
+          "research.scheduler/role": "client",
+          "research.scheduler/run": "20261016t102843070125",
+          "research.scheduler/stage": "fresh-placement"
+        },
+        "name": "fresh-place-20261016t102843070125-b2-arm-client",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46747248",
+        "uid": "b7b5cf19-790c-4e31-8829-c70205fd0ef4"
+      },
+      "spec": {
+        "activeDeadlineSeconds": 900,
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import time;time.sleep(3500)"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "ALIAS",
+                "value": "arm"
+              },
+              {
+                "name": "BACKEND",
+                "value": "cpu"
+              },
+              {
+                "name": "PEERS_JSON",
+                "value": "{\"arm\": {\"alias\": \"arm\", \"backend\": \"cpu\", \"node\": \"etri-dev0003-raspi5\", \"url\": \"http://fresh-place-20261016t102843070125-b2-arm.scheduler-research.svc.cluster.local:8080\"}, \"intel_npu\": {\"alias\": \"intel_npu\", \"backend\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"url\": \"http://fresh-place-20261016t102843070125-b2-intel-npu.scheduler-research.svc.cluster.local:8080\"}}"
+              },
+              {
+                "name": "ASSET_BASE",
+                "value": "http://fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local:8080"
+              },
+              {
+                "name": "NO_PROXY",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "no_proxy",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "DYNAMIC_LIFECYCLE",
+                "value": "1"
+              },
+              {
+                "name": "CORPUS_FILE",
+                "value": "/config/corpus.json"
+              }
+            ],
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "worker",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "1",
+                "ephemeral-storage": "256Mi",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "ephemeral-storage": "64Mi",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0003-raspi5",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0003-raspi5"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "fsGroup": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 2,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "fresh-place-20261016t102843070125"
+            },
+            "name": "config"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            },
+            "name": "work"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "64Mi"
+            },
+            "name": "tmp"
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://abda3c8f88f0a886ebdaeedfd352f57b17036ded5ff64dc9d597e74ea39a5763",
+            "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+            "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "lastState": {},
+            "name": "worker",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T10:36:27Z"
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.77.0.6",
+        "hostIPs": [
+          {
+            "ip": "10.77.0.6"
+          }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.4.123",
+        "podIPs": [
+          {
+            "ip": "10.244.4.123"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-16T10:36:27Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-16T10:36:27Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/alias": "intel_npu",
+          "research.scheduler/block": "2",
+          "research.scheduler/role": "worker",
+          "research.scheduler/run": "20261016t102843070125",
+          "research.scheduler/stage": "fresh-placement"
+        },
+        "name": "fresh-place-20261016t102843070125-b2-intel-npu",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46747239",
+        "uid": "58bfb1a8-4d17-44f7-83d6-2ba4001d3065"
+      },
+      "spec": {
+        "activeDeadlineSeconds": 900,
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import subprocess,sys,runpy;subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--no-index','--find-links','http://fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local:8080','--trusted-host','fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local','--require-hashes','--target','/work/site','-r','/config/requirements-npu-cache.txt'],check=True);sys.path[:0]=['/work/site','/config'];runpy.run_path('/config/dag_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "ALIAS",
+                "value": "intel_npu"
+              },
+              {
+                "name": "BACKEND",
+                "value": "intel_npu"
+              },
+              {
+                "name": "PEERS_JSON",
+                "value": "{\"arm\": {\"alias\": \"arm\", \"backend\": \"cpu\", \"node\": \"etri-dev0003-raspi5\", \"url\": \"http://fresh-place-20261016t102843070125-b2-arm.scheduler-research.svc.cluster.local:8080\"}, \"intel_npu\": {\"alias\": \"intel_npu\", \"backend\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"url\": \"http://fresh-place-20261016t102843070125-b2-intel-npu.scheduler-research.svc.cluster.local:8080\"}}"
+              },
+              {
+                "name": "ASSET_BASE",
+                "value": "http://fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local:8080"
+              },
+              {
+                "name": "NO_PROXY",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "no_proxy",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "DYNAMIC_LIFECYCLE",
+                "value": "1"
+              },
+              {
+                "name": "CORPUS_FILE",
+                "value": "/config/corpus.json"
+              }
+            ],
+            "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "worker",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "2",
+                "ephemeral-storage": "16Gi",
+                "memory": "3Gi",
+                "npu.intel.com/accel": "1"
+              },
+              "requests": {
+                "cpu": "250m",
+                "ephemeral-storage": "1Gi",
+                "memory": "1Gi",
+                "npu.intel.com/accel": "1"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-ser0002-cgnmsb",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "runAsUser": 0,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 2,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "fresh-place-20261016t102843070125"
+            },
+            "name": "config"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "12Gi"
+            },
+            "name": "work"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            },
+            "name": "tmp"
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://d8a3619be952a27122034989f1009da3f09878a20084605bd711e4cd2104f733",
+            "image": "sha256:d7a37a09f1358788180efc87715b95e0c70a214352b054cd57678a0cebd30742",
+            "imageID": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+            "lastState": {},
+            "name": "worker",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T10:36:27Z"
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.77.0.5",
+        "hostIPs": [
+          {
+            "ip": "10.77.0.5"
+          }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.8.224",
+        "podIPs": [
+          {
+            "ip": "10.244.8.224"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-16T10:36:27Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-16T10:36:27Z",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/alias": "intel_npu",
+          "research.scheduler/block": "2",
+          "research.scheduler/role": "client",
+          "research.scheduler/run": "20261016t102843070125",
+          "research.scheduler/stage": "fresh-placement"
+        },
+        "name": "fresh-place-20261016t102843070125-b2-intel-npu-client",
+        "namespace": "scheduler-research",
+        "resourceVersion": "46747238",
+        "uid": "ce2b81fd-5343-4c05-bf74-3886375c43e3"
+      },
+      "spec": {
+        "activeDeadlineSeconds": 900,
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import time;time.sleep(3500)"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "apiVersion": "v1",
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "ALIAS",
+                "value": "intel_npu"
+              },
+              {
+                "name": "BACKEND",
+                "value": "intel_npu"
+              },
+              {
+                "name": "PEERS_JSON",
+                "value": "{\"arm\": {\"alias\": \"arm\", \"backend\": \"cpu\", \"node\": \"etri-dev0003-raspi5\", \"url\": \"http://fresh-place-20261016t102843070125-b2-arm.scheduler-research.svc.cluster.local:8080\"}, \"intel_npu\": {\"alias\": \"intel_npu\", \"backend\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"url\": \"http://fresh-place-20261016t102843070125-b2-intel-npu.scheduler-research.svc.cluster.local:8080\"}}"
+              },
+              {
+                "name": "ASSET_BASE",
+                "value": "http://fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local:8080"
+              },
+              {
+                "name": "NO_PROXY",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "no_proxy",
+                "value": "fresh-place-20261016t102843070125-cache.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "DYNAMIC_LIFECYCLE",
+                "value": "1"
+              },
+              {
+                "name": "CORPUS_FILE",
+                "value": "/config/corpus.json"
+              }
+            ],
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "worker",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "name": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "1",
+                "ephemeral-storage": "256Mi",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "ephemeral-storage": "64Mi",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-ser0002-cgnmsb",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "fsGroup": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 2,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "fresh-place-20261016t102843070125"
+            },
+            "name": "config"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            },
+            "name": "work"
+          },
+          {
+            "emptyDir": {
+              "sizeLimit": "64Mi"
+            },
+            "name": "tmp"
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:28Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T10:36:27Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://4aefe44ea9e0e9b7977bd7924a4f4a6d38d06963434c93675205fbe3481528ec",
+            "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+            "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "lastState": {},
+            "name": "worker",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T10:36:27Z"
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              },
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.77.0.5",
+        "hostIPs": [
+          {
+            "ip": "10.77.0.5"
+          }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.8.225",
+        "podIPs": [
+          {
+            "ip": "10.244.8.225"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-16T10:36:27Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

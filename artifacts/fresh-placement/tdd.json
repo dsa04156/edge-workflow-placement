@@ -1,0 +1,62 @@
+{
+  "recorded_at": "2026-10-16",
+  "scope": "Actual local CPU HTTP seam. Output entries are retained tool-output chunks; regression footer is authoritative for totals. Inherited tests included, not independent experimental runs.",
+  "steps": {
+    "fresh_red1_complete": {
+      "chunk_id": "83ab33",
+      "wall_time_seconds": 0.000008629,
+      "exit_code": 1,
+      "original_token_count": 254,
+      "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 46.30530902068131}\nE\n======================================================================\nERROR: test_dag_avoids_the_worked_greedy_trap_and_executes_the_chosen_route (test_fresh_placement.FreshPlacementHTTP.test_dag_avoids_the_worked_greedy_trap_and_executes_the_chosen_route)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_fresh_placement.py\", line 9, in test_dag_avoids_the_worked_greedy_trap_and_executes_the_chosen_route\n    from fresh_placement import data_greedy,dag_enumeration\nModuleNotFoundError: No module named 'fresh_placement'\n\n----------------------------------------------------------------------\nRan 1 test in 4.277s\n\nFAILED (errors=1)\n"
+    },
+    "fresh_green1_complete": {
+      "chunk_id": "e9d6df",
+      "wall_time_seconds": 0.000011049,
+      "exit_code": 0,
+      "original_token_count": 90,
+      "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 53.08625099132769}\n.\n----------------------------------------------------------------------\nRan 1 test in 4.074s\n\nOK\n"
+    },
+    "fresh_red2_complete": {
+      "chunk_id": "0561b0",
+      "wall_time_seconds": 0.000012427,
+      "exit_code": 1,
+      "original_token_count": 284,
+      "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 76.38950200635009}\nE\n======================================================================\nERROR: test_http_calibration_freezes_candidates_and_refuses_an_unmet_quality_contract (test_fresh_placement.FreshPlacementHTTP.test_http_calibration_freezes_candidates_and_refuses_an_unmet_quality_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_fresh_placement.py\", line 34, in test_http_calibration_freezes_candidates_and_refuses_an_unmet_quality_contract\n    from fresh_placement import freeze_profiles,dag_enumeration\nImportError: cannot import name 'freeze_profiles' from 'fresh_placement' (/home/jinuk/codex-work/scheduler/experiments/e0/fresh_placement.py)\n\n----------------------------------------------------------------------\nRan 1 test in 4.200s\n\nFAILED (errors=1)\n"
+    },
+    "fresh_green2_complete": {
+      "chunk_id": "15252c",
+      "wall_time_seconds": 0.000013289,
+      "exit_code": 0,
+      "original_token_count": 90,
+      "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 65.57890100521035}\n.\n----------------------------------------------------------------------\nRan 1 test in 4.300s\n\nOK\n"
+    },
+    "idle_red_complete": {
+      "chunk_id": "e5a4d6",
+      "wall_time_seconds": 0.000009019,
+      "exit_code": 1,
+      "original_token_count": 208,
+      "output": "F\n======================================================================\nFAIL: test_nested_route_survives_idle_without_retrying_the_post (test_idle_forwarding.IdleForwardingHTTP.test_nested_route_survives_idle_without_retrying_the_post)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_idle_forwarding.py\", line 24, in test_nested_route_survives_idle_without_retrying_the_post\n    self.assertEqual(after['status'],'ok',after.get('error'))\nAssertionError: 'error' != 'ok'\n- error\n+ ok\n : {'phase': 'workflow', 'type': 'RemoteDisconnected', 'message': 'Remote end closed connection without response'}\n\n----------------------------------------------------------------------\nRan 1 test in 20.539s\n\nFAILED (failures=1)\n"
+    },
+    "idle_green_complete": {
+      "chunk_id": "972ec8",
+      "wall_time_seconds": 0.000009607,
+      "exit_code": 0,
+      "original_token_count": 90,
+      "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 55.67870399681851}\n.\n----------------------------------------------------------------------\nRan 1 test in 20.140s\n\nOK\n"
+    },
+    "fresh_after_idle_full_tests_complete": {
+      "chunk_id": "e0ef7d",
+      "wall_time_seconds": 0.000011599,
+      "exit_code": 1,
+      "original_token_count": 467,
+      "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 30.34235301311128}\n......{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 43.60313501092605}\n...\n======================================================================\nERROR: setUpClass (test_dag_profile.DAGContract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_dag_profile.py\", line 49, in setUpClass\n    raise AssertionError(message)\nAssertionError: Traceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/dag_profile.py\", line 224, in <module>\n    if os.environ['MODE']=='server':serve()\n                                    ^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/dag_profile.py\", line 186, in serve\n    server=ThreadingHTTPServer(('0.0.0.0',int(os.environ.get('PORT','8080'))),Handler)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/socketserver.py\", line 457, in __init__\n    self.server_bind()\n  File \"/usr/lib/python3.12/http/server.py\", line 136, in server_bind\n    socketserver.TCPServer.server_bind(self)\n  File \"/usr/lib/python3.12/socketserver.py\", line 473, in server_bind\n    self.socket.bind(self.server_address)\nOSError: [Errno 98] Address already in use\n\n\n----------------------------------------------------------------------\nRan 37 tests in 66.104s\n\nFAILED (errors=1)\n"
+    },
+    "fresh_after_port_full_tests_complete": {
+      "chunk_id": "1417c5",
+      "wall_time_seconds": 0.000009483,
+      "exit_code": 0,
+      "original_token_count": 26,
+      "output": "..\n----------------------------------------------------------------------\nRan 38 tests in 73.540s\n\nOK\n"
+    }
+  }
+}

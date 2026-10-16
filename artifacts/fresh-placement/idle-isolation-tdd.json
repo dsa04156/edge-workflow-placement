@@ -1,0 +1,24 @@
+{
+  "scope": "Stronger actual HTTP isolation: A\u2192B remains active every 4s via A\u2192B\u2192B, while only B\u2192A is idle for 16s. Historical frozen executor reproduces RemoteDisconnected; current executor retains outer connection and replaces inner connection before POST. No experiment/runtime code changed during active v2 collection.",
+  "historical_source": "../fresh-placement-attempt1/configmap.json:data.dag_profile.py",
+  "fixture_error": {
+    "exit_code": 5,
+    "cause": "Temporary historical-source fixture lacked relative artifacts path; zero tests ran; this is not the intended red."
+  },
+  "red": {
+    "chunk_id": "4cf4db",
+    "wall_time_seconds": 1.1736e-05,
+    "exit_code": 1,
+    "original_token_count": 204,
+    "output": "F\n======================================================================\nFAIL: test_nested_route_survives_idle_without_retrying_the_post (test_idle_forwarding.IdleForwardingHTTP.test_nested_route_survives_idle_without_retrying_the_post)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/tmp/fresh-idle-red-8ddqhrp7/test_idle_forwarding.py\", line 24, in test_nested_route_survives_idle_without_retrying_the_post\n    self.assertEqual(after['status'],'ok',after.get('error'))\nAssertionError: 'error' != 'ok'\n- error\n+ ok\n : {'phase': 'workflow', 'type': 'RemoteDisconnected', 'message': 'Remote end closed connection without response'}\n\n----------------------------------------------------------------------\nRan 1 test in 20.481s\n\nFAILED (failures=1)\n"
+  },
+  "green": {
+    "chunk_id": "e74caf",
+    "wall_time_seconds": 8.312e-06,
+    "exit_code": 0,
+    "original_token_count": 90,
+    "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 71.05336402310058}\n.\n----------------------------------------------------------------------\nRan 1 test in 20.537s\n\nOK\n"
+  },
+  "test_source": "\"\"\"Keep client health connections active while only nested forwarding becomes idle.\"\"\"\n\nimport time\n\nfrom policy_runner import PolicyRunner\nimport test_policy_runner as fixtures\n\n\nclass IdleForwardingHTTP(fixtures.DAGContract):\n    extra_env=fixtures.PolicyWorkflowHTTP.extra_env\n    profile=fixtures.PolicyWorkflowHTTP.profile\n\n    def test_nested_route_survives_idle_without_retrying_the_post(self):\n        with PolicyRunner(self.peers) as runner:\n            def run(name,plan):\n                return runner.run(request_id=name,input_id='dog',body=self.body,source='a',\n                                  profile=self.profile(),policy_name='idle-route',policy=lambda s:plan)\n            self.assertEqual(run('idle-before',['a','b','a'])['status'],'ok')\n            for index in range(4):\n                time.sleep(4)\n                row=run(f'idle-parent-active-{index}',['a','b','b'])\n                self.assertEqual(row['status'],'ok',row.get('error'))\n            after=run('idle-after',['a','b','a'])\n            self.assertEqual(after['status'],'ok',after.get('error'))\n            self.assertEqual(after['result']['top5'],[258,259,157,279,152])\n            self.assertTrue(after['result']['trace'][0]['next_connection_reused'])\n            self.assertFalse(after['result']['trace'][1]['next_connection_reused'])\n",
+  "test_sha256": "79d67f648f4fb0b2339f9f8900de7cd8d3aaef22ca7173a5ee403c6c9dc8059e"
+}

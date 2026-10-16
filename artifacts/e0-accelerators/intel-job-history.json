@@ -1,0 +1,538 @@
+[
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "a-e8450b3d3319411d9dc2b3f75c849018",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:09dedfc5150d8e67a310e7213862e04ffb6a696421945921ccd26cf3e7077d26",
+    "status": {
+      "completionTime": "2026-10-08T07:29:18Z",
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T07:29:14Z",
+          "lastTransitionTime": "2026-10-08T07:29:14Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:29:18Z",
+          "lastTransitionTime": "2026-10-08T07:29:18Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "SuccessCriteriaMet"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:29:18Z",
+          "lastTransitionTime": "2026-10-08T07:29:18Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "Complete"
+        }
+      ],
+      "ready": 0,
+      "startTime": "2026-10-08T07:29:14Z",
+      "succeeded": 1,
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/arch": "amd64",
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "profile-all-20261008-v3-mlp-baseline-6",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+    "status": {
+      "completionTime": "2026-10-08T11:39:28Z",
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T11:39:21Z",
+          "lastTransitionTime": "2026-10-08T11:39:21Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T11:39:28Z",
+          "lastTransitionTime": "2026-10-08T11:39:28Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "SuccessCriteriaMet"
+        },
+        {
+          "lastProbeTime": "2026-10-08T11:39:28Z",
+          "lastTransitionTime": "2026-10-08T11:39:28Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "Complete"
+        }
+      ],
+      "ready": 0,
+      "startTime": "2026-10-08T11:39:21Z",
+      "succeeded": 1,
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-all-intel-mlp-micro-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T11:27:15Z",
+          "lastTransitionTime": "2026-10-08T11:27:15Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T11:27:34Z",
+          "lastTransitionTime": "2026-10-08T11:27:34Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "FailureTarget"
+        },
+        {
+          "lastProbeTime": "2026-10-08T11:27:34Z",
+          "lastTransitionTime": "2026-10-08T11:27:34Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "Failed"
+        }
+      ],
+      "failed": 1,
+      "ready": 0,
+      "startTime": "2026-10-08T11:27:15Z",
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-all-intel-mlp-micro2-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+    "status": {
+      "completionTime": "2026-10-08T11:28:53Z",
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T11:28:50Z",
+          "lastTransitionTime": "2026-10-08T11:28:50Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T11:28:53Z",
+          "lastTransitionTime": "2026-10-08T11:28:53Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "SuccessCriteriaMet"
+        },
+        {
+          "lastProbeTime": "2026-10-08T11:28:53Z",
+          "lastTransitionTime": "2026-10-08T11:28:53Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "Complete"
+        }
+      ],
+      "ready": 0,
+      "startTime": "2026-10-08T11:28:50Z",
+      "succeeded": 1,
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-intel-conv-fixed-qual-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:07d94ebdab7bd2138ed44c95af607c1a922a41e6e5d460165dc5083bf40141df",
+    "status": {
+      "completionTime": "2026-10-08T07:26:47Z",
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T07:26:44Z",
+          "lastTransitionTime": "2026-10-08T07:26:44Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:26:47Z",
+          "lastTransitionTime": "2026-10-08T07:26:47Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "SuccessCriteriaMet"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:26:47Z",
+          "lastTransitionTime": "2026-10-08T07:26:47Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "Complete"
+        }
+      ],
+      "ready": 0,
+      "startTime": "2026-10-08T07:26:44Z",
+      "succeeded": 1,
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-intel-conv-qual-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:3f58dc0d5e217481451d4787fd4ea5f11678a2b47d4eb30f75cfa4407b000828",
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T07:17:41Z",
+          "lastTransitionTime": "2026-10-08T07:17:41Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:17:52Z",
+          "lastTransitionTime": "2026-10-08T07:17:52Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "FailureTarget"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:17:52Z",
+          "lastTransitionTime": "2026-10-08T07:17:52Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "Failed"
+        }
+      ],
+      "failed": 1,
+      "ready": 0,
+      "startTime": "2026-10-08T07:17:41Z",
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-intel-conv-root-qual-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:e2e9a25c97e9d3ece4bdcb7457015cbac3f4bc3e28068f5bffa8d263c9122df0",
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T07:20:43Z",
+          "lastTransitionTime": "2026-10-08T07:20:43Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:20:46Z",
+          "lastTransitionTime": "2026-10-08T07:20:46Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "FailureTarget"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:20:46Z",
+          "lastTransitionTime": "2026-10-08T07:20:46Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "Failed"
+        }
+      ],
+      "failed": 1,
+      "ready": 0,
+      "startTime": "2026-10-08T07:20:43Z",
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-intel-device-property-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:e2e9a25c97e9d3ece4bdcb7457015cbac3f4bc3e28068f5bffa8d263c9122df0",
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T07:22:10Z",
+          "lastTransitionTime": "2026-10-08T07:22:10Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:22:13Z",
+          "lastTransitionTime": "2026-10-08T07:22:13Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "FailureTarget"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:22:13Z",
+          "lastTransitionTime": "2026-10-08T07:22:13Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "Failed"
+        }
+      ],
+      "failed": 1,
+      "ready": 0,
+      "startTime": "2026-10-08T07:22:10Z",
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-intel-runtime-diagnosis-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:3f58dc0d5e217481451d4787fd4ea5f11678a2b47d4eb30f75cfa4407b000828",
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T07:18:46Z",
+          "lastTransitionTime": "2026-10-08T07:18:46Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:18:49Z",
+          "lastTransitionTime": "2026-10-08T07:18:49Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "FailureTarget"
+        },
+        {
+          "lastProbeTime": "2026-10-08T07:18:49Z",
+          "lastTransitionTime": "2026-10-08T07:18:49Z",
+          "message": "Job has reached the specified backoff limit",
+          "reason": "BackoffLimitExceeded",
+          "status": "True",
+          "type": "Failed"
+        }
+      ],
+      "failed": 1,
+      "ready": 0,
+      "startTime": "2026-10-08T07:18:46Z",
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  },
+  {
+    "namespace": "resource-advisor-lab",
+    "name": "ra-intel-stack-qual-20261008",
+    "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+    "status": {
+      "completionTime": "2026-10-08T08:40:30Z",
+      "conditions": [
+        {
+          "lastProbeTime": "2026-10-08T08:40:27Z",
+          "lastTransitionTime": "2026-10-08T08:40:27Z",
+          "message": "Job resumed",
+          "reason": "JobResumed",
+          "status": "False",
+          "type": "Suspended"
+        },
+        {
+          "lastProbeTime": "2026-10-08T08:40:30Z",
+          "lastTransitionTime": "2026-10-08T08:40:30Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "SuccessCriteriaMet"
+        },
+        {
+          "lastProbeTime": "2026-10-08T08:40:30Z",
+          "lastTransitionTime": "2026-10-08T08:40:30Z",
+          "message": "Reached expected number of succeeded pods",
+          "reason": "CompletionsReached",
+          "status": "True",
+          "type": "Complete"
+        }
+      ],
+      "ready": 0,
+      "startTime": "2026-10-08T08:40:27Z",
+      "succeeded": 1,
+      "terminating": 0,
+      "uncountedTerminatedPods": {}
+    },
+    "node_selector": {
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      },
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "npu.intel.com/accel": "1"
+      }
+    }
+  }
+]

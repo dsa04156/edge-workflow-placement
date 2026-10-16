@@ -1,0 +1,1105 @@
+[
+  {
+    "request_id": "route-warm",
+    "input_id": "dog",
+    "policy": "route-warm",
+    "status": "ok",
+    "timings_ms": {
+      "validation": 0.05027299630455673,
+      "observation": 1.6008820093702525,
+      "decision": 0.0018079881556332111,
+      "plan_validation": 0.006129004759714007,
+      "state_validation": 0.23051598691381514,
+      "workflow": 22.411908023059368,
+      "receipt_validation": 0.01119397347792983
+    },
+    "snapshot_id": "afc768006bbcc8b3fc5d9dda3c5ddb4eadfee397056d9ac73bae5c02adc7bb20",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "route-warm",
+        "input_id": "dog",
+        "source": "a",
+        "bytes": 661378,
+        "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a"
+      },
+      "profile": {
+        "id": "http-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "dog",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705696669206
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705697228669
+        }
+      },
+      "snapshot_id": "afc768006bbcc8b3fc5d9dda3c5ddb4eadfee397056d9ac73bae5c02adc7bb20"
+    },
+    "plan": [
+      "a",
+      "b",
+      "a"
+    ],
+    "preflight": {
+      "alias": "b",
+      "node": "local-b",
+      "backend": "cpu",
+      "service_object_ready": true,
+      "service_generation": 1,
+      "weight_memory_resident": "unknown",
+      "received_monotonic_ns": 190705697793348
+    },
+    "result": {
+      "request_id": "route-warm",
+      "plan": [
+        "a",
+        "b",
+        "a"
+      ],
+      "top5": [
+        258,
+        259,
+        157,
+        279,
+        152
+      ],
+      "trace": [
+        {
+          "stage": 0,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 12.895155989099294,
+          "input_bytes": 661378,
+          "output_bytes": 602112,
+          "input_sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a",
+          "output_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 7.9412929771933705,
+          "input_id": "dog",
+          "next_mode": "http"
+        },
+        {
+          "stage": 1,
+          "alias": "b",
+          "node": "local-b",
+          "worker_backend": "cpu",
+          "task_ms": 5.288818007102236,
+          "input_bytes": 602112,
+          "output_bytes": 4000,
+          "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+          "output_sha256": "72353723fd475e8b64ab8fe42926a4de32ce04254ee0f4c1437a3163ad972c55",
+          "device": {
+            "execution_device": "CPU",
+            "was_cold": false,
+            "generation": 1,
+            "preparation_ms": 0.0,
+            "preparation_details": {},
+            "max_abs_error_vs_cpu": 0.0,
+            "rmse_vs_cpu": 0.0,
+            "top1_agrees_with_cpu": true,
+            "top5_overlap_with_cpu": 5,
+            "top5_order_agrees_with_cpu": true
+          },
+          "rpc_next_ms": 0.8784710080362856,
+          "input_id": "dog",
+          "next_mode": "http"
+        },
+        {
+          "stage": 2,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 0.08475501090288162,
+          "input_bytes": 4000,
+          "output_bytes": 25,
+          "input_sha256": "72353723fd475e8b64ab8fe42926a4de32ce04254ee0f4c1437a3163ad972c55",
+          "output_sha256": "ed198ada143eaee4642ea977b55a61368be1a67bc0cb5fadd195c6f53d340bcb",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 0.0,
+          "input_id": "dog"
+        }
+      ],
+      "input_id": "dog"
+    },
+    "total_ms": 24.31270998204127
+  },
+  {
+    "request_id": "route-cold",
+    "input_id": "dog",
+    "policy": "route-cold",
+    "status": "ok",
+    "timings_ms": {
+      "validation": 0.046618981286883354,
+      "observation": 0.6590200064238161,
+      "decision": 0.0011590018402785063,
+      "plan_validation": 0.0030840164981782436,
+      "state_validation": 0.11643799371086061,
+      "workflow": 42.677656980231404,
+      "receipt_validation": 0.007054011803120375
+    },
+    "snapshot_id": "9b295b05b162d0e12508fa566cd953a62b32d81b581ec3faa21d3f0764621e66",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "route-cold",
+        "input_id": "dog",
+        "source": "a",
+        "bytes": 661378,
+        "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a"
+      },
+      "profile": {
+        "id": "http-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "dog",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705725591543
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": false,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705725732726
+        }
+      },
+      "snapshot_id": "9b295b05b162d0e12508fa566cd953a62b32d81b581ec3faa21d3f0764621e66"
+    },
+    "plan": [
+      "a",
+      "b",
+      "a"
+    ],
+    "preflight": {
+      "alias": "b",
+      "node": "local-b",
+      "backend": "cpu",
+      "service_object_ready": false,
+      "service_generation": 1,
+      "weight_memory_resident": "unknown",
+      "received_monotonic_ns": 190705726164013
+    },
+    "result": {
+      "request_id": "route-cold",
+      "plan": [
+        "a",
+        "b",
+        "a"
+      ],
+      "top5": [
+        258,
+        259,
+        157,
+        279,
+        152
+      ],
+      "trace": [
+        {
+          "stage": 0,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 14.558222988853231,
+          "input_bytes": 661378,
+          "output_bytes": 602112,
+          "input_sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a",
+          "output_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 26.742037007352337,
+          "input_id": "dog",
+          "next_mode": "http"
+        },
+        {
+          "stage": 1,
+          "alias": "b",
+          "node": "local-b",
+          "worker_backend": "cpu",
+          "task_ms": 25.124934007180855,
+          "input_bytes": 602112,
+          "output_bytes": 4000,
+          "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+          "output_sha256": "72353723fd475e8b64ab8fe42926a4de32ce04254ee0f4c1437a3163ad972c55",
+          "device": {
+            "execution_device": "CPU",
+            "was_cold": true,
+            "generation": 2,
+            "preparation_ms": 20.155064994469285,
+            "preparation_details": {
+              "session_load_ms": 8.717559976503253,
+              "warmup_ms": 11.430798011133447
+            },
+            "max_abs_error_vs_cpu": 0.0,
+            "rmse_vs_cpu": 0.0,
+            "top1_agrees_with_cpu": true,
+            "top5_overlap_with_cpu": 5,
+            "top5_order_agrees_with_cpu": true
+          },
+          "rpc_next_ms": 0.4997329961042851,
+          "input_id": "dog",
+          "next_mode": "http"
+        },
+        {
+          "stage": 2,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 0.04126498242840171,
+          "input_bytes": 4000,
+          "output_bytes": 25,
+          "input_sha256": "72353723fd475e8b64ab8fe42926a4de32ce04254ee0f4c1437a3163ad972c55",
+          "output_sha256": "ed198ada143eaee4642ea977b55a61368be1a67bc0cb5fadd195c6f53d340bcb",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 0.0,
+          "input_id": "dog"
+        }
+      ],
+      "input_id": "dog"
+    },
+    "total_ms": 43.51103099179454
+  },
+  {
+    "request_id": "route-reused",
+    "input_id": "dog",
+    "policy": "route-reused",
+    "status": "ok",
+    "timings_ms": {
+      "validation": 0.04146600258536637,
+      "observation": 0.7125639822334051,
+      "decision": 0.0011360098142176867,
+      "plan_validation": 0.0024799956008791924,
+      "state_validation": 0.11141100549139082,
+      "workflow": 21.2490190169774,
+      "receipt_validation": 0.006033980753272772
+    },
+    "snapshot_id": "74dbb0aa00a8411558dcfe08cadaba2c8a259a18d1e4897f4efc2ec71b4229f2",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "route-reused",
+        "input_id": "dog",
+        "source": "a",
+        "bytes": 661378,
+        "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a"
+      },
+      "profile": {
+        "id": "http-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "dog",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705769079666
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 2,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705769287887
+        }
+      },
+      "snapshot_id": "74dbb0aa00a8411558dcfe08cadaba2c8a259a18d1e4897f4efc2ec71b4229f2"
+    },
+    "plan": [
+      "a",
+      "b",
+      "a"
+    ],
+    "preflight": {
+      "alias": "b",
+      "node": "local-b",
+      "backend": "cpu",
+      "service_object_ready": true,
+      "service_generation": 2,
+      "weight_memory_resident": "unknown",
+      "received_monotonic_ns": 190705769724340
+    },
+    "result": {
+      "request_id": "route-reused",
+      "plan": [
+        "a",
+        "b",
+        "a"
+      ],
+      "top5": [
+        258,
+        259,
+        157,
+        279,
+        152
+      ],
+      "trace": [
+        {
+          "stage": 0,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 13.072303001536056,
+          "input_bytes": 661378,
+          "output_bytes": 602112,
+          "input_sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a",
+          "output_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 6.814427993958816,
+          "input_id": "dog",
+          "next_mode": "http"
+        },
+        {
+          "stage": 1,
+          "alias": "b",
+          "node": "local-b",
+          "worker_backend": "cpu",
+          "task_ms": 5.230068985838443,
+          "input_bytes": 602112,
+          "output_bytes": 4000,
+          "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+          "output_sha256": "72353723fd475e8b64ab8fe42926a4de32ce04254ee0f4c1437a3163ad972c55",
+          "device": {
+            "execution_device": "CPU",
+            "was_cold": false,
+            "generation": 2,
+            "preparation_ms": 0.0,
+            "preparation_details": {},
+            "max_abs_error_vs_cpu": 0.0,
+            "rmse_vs_cpu": 0.0,
+            "top1_agrees_with_cpu": true,
+            "top5_overlap_with_cpu": 5,
+            "top5_order_agrees_with_cpu": true
+          },
+          "rpc_next_ms": 0.38640902494080365,
+          "input_id": "dog",
+          "next_mode": "http"
+        },
+        {
+          "stage": 2,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 0.04186001024208963,
+          "input_bytes": 4000,
+          "output_bytes": 25,
+          "input_sha256": "72353723fd475e8b64ab8fe42926a4de32ce04254ee0f4c1437a3163ad972c55",
+          "output_sha256": "ed198ada143eaee4642ea977b55a61368be1a67bc0cb5fadd195c6f53d340bcb",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 0.0,
+          "input_id": "dog"
+        }
+      ],
+      "input_id": "dog"
+    },
+    "total_ms": 22.12410999345593
+  },
+  {
+    "request_id": "excluded-candidate",
+    "input_id": "dog",
+    "policy": "excluded-candidate",
+    "status": "error",
+    "timings_ms": {
+      "validation": 0.05184099427424371,
+      "observation": 0.7658700051251799,
+      "decision": 0.0009239884093403816,
+      "plan_validation": 0.005854002665728331
+    },
+    "snapshot_id": "3eaf8097dd6ec632b30a0175061a96111d125f419b7c882f7a0dfd781b95b436",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "excluded-candidate",
+        "input_id": "dog",
+        "source": "a",
+        "bytes": 661378,
+        "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a"
+      },
+      "profile": {
+        "id": "http-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "dog",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705791284526
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 2,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705791506395
+        }
+      },
+      "snapshot_id": "3eaf8097dd6ec632b30a0175061a96111d125f419b7c882f7a0dfd781b95b436"
+    },
+    "plan": [
+      "a",
+      "b",
+      "a"
+    ],
+    "error": {
+      "phase": "plan_validation",
+      "type": "ValueError",
+      "message": "Policy plan contains a task candidate outside the common feasible set"
+    },
+    "total_ms": 0.8244889904744923
+  },
+  {
+    "request_id": "state-changed",
+    "input_id": "dog",
+    "policy": "state-changed",
+    "status": "error",
+    "timings_ms": {
+      "validation": 0.03506900975480676,
+      "observation": 0.6809750047978014,
+      "decision": 4.777122987434268,
+      "plan_validation": 0.004110013833269477,
+      "state_validation": 0.17198000568896532
+    },
+    "snapshot_id": "7798b8f3e97001a01bb4c96b612abeffe5b5c1b0a6d6feaa8e90e2029596c475",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "state-changed",
+        "input_id": "dog",
+        "source": "a",
+        "bytes": 661378,
+        "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a"
+      },
+      "profile": {
+        "id": "http-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "dog",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705791989583
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 2,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705792241494
+        }
+      },
+      "snapshot_id": "7798b8f3e97001a01bb4c96b612abeffe5b5c1b0a6d6feaa8e90e2029596c475"
+    },
+    "plan": [
+      "a",
+      "b",
+      "a"
+    ],
+    "preflight": {
+      "alias": "b",
+      "node": "local-b",
+      "backend": "cpu",
+      "service_object_ready": false,
+      "service_generation": 2,
+      "weight_memory_resident": "unknown",
+      "received_monotonic_ns": 190705797488239
+    },
+    "error": {
+      "phase": "state_validation",
+      "type": "ValueError",
+      "message": "Selected inference service state changed after observation"
+    },
+    "total_ms": 5.669257021509111
+  },
+  {
+    "request_id": "wrong-profile",
+    "input_id": "dog",
+    "policy": "wrong-profile",
+    "status": "error",
+    "timings_ms": {
+      "validation": 0.024237000616267323
+    },
+    "error": {
+      "phase": "validation",
+      "type": "ValueError",
+      "message": "Profile input/source/provenance does not match this request"
+    },
+    "total_ms": 0.024237000616267323
+  },
+  {
+    "request_id": "malformed-policy",
+    "input_id": "dog",
+    "policy": "malformed-policy",
+    "status": "error",
+    "timings_ms": {
+      "validation": 0.027871981728821993,
+      "observation": 0.5729449912905693,
+      "decision": 0.0012430245988070965,
+      "plan_validation": 0.0030599767342209816
+    },
+    "snapshot_id": "93e7c8a12d5391d990252bfd724b4dc15fa86ae975a0bc767218e81bbe572c30",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "malformed-policy",
+        "input_id": "dog",
+        "source": "a",
+        "bytes": 661378,
+        "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a"
+      },
+      "profile": {
+        "id": "http-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "dog",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705797713965
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": false,
+          "service_generation": 2,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705797806386
+        }
+      },
+      "snapshot_id": "93e7c8a12d5391d990252bfd724b4dc15fa86ae975a0bc767218e81bbe572c30"
+    },
+    "error": {
+      "phase": "plan_validation",
+      "type": "ValueError",
+      "message": "Policy must return a list or tuple of worker alias strings"
+    },
+    "total_ms": 0.6051199743524194
+  },
+  {
+    "request_id": "camera-route",
+    "input_id": "camera",
+    "policy": "camera-route",
+    "status": "ok",
+    "timings_ms": {
+      "validation": 0.035563018172979355,
+      "observation": 0.33636298030614853,
+      "decision": 0.0008210190571844578,
+      "plan_validation": 0.002116983523592353,
+      "state_validation": 0.09198201587423682,
+      "workflow": 26.674825989175588,
+      "receipt_validation": 0.005195004632696509
+    },
+    "snapshot_id": "6cd295e58fac4c5d63c958c0878c8a6e2bf8ddfa56b5202696f86691fabeeb88",
+    "snapshot": {
+      "schema_version": 1,
+      "request": {
+        "request_id": "camera-route",
+        "input_id": "camera",
+        "source": "a",
+        "bytes": 139512,
+        "sha256": "b0793d2adda0fa6ae899c03989482bff9a42d3d5690fc7e3648f2795d730c23a"
+      },
+      "profile": {
+        "id": "camera-interface-fixture-v1",
+        "provenance": "synthetic interface fixture",
+        "input_id": "camera",
+        "source": "a",
+        "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+        "candidates": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ],
+          [
+            "a",
+            "b"
+          ]
+        ],
+        "cost_ms": {
+          "task": {
+            "0|a": 1,
+            "0|b": 1,
+            "1|a": 1,
+            "1|b": 1,
+            "2|a": 1,
+            "2|b": 1
+          },
+          "ingress": {
+            "a": 0,
+            "b": 2
+          },
+          "edges": [
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            },
+            {
+              "a|a": 0,
+              "a|b": 2,
+              "b|a": 2,
+              "b|b": 0
+            }
+          ],
+          "service_prepare": {
+            "a": null,
+            "b": null
+          }
+        }
+      },
+      "workers": {
+        "a": {
+          "node": "local-a",
+          "backend": "cpu",
+          "service_object_ready": true,
+          "service_generation": 1,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705799666853
+        },
+        "b": {
+          "node": "local-b",
+          "backend": "cpu",
+          "service_object_ready": false,
+          "service_generation": 2,
+          "weight_memory_resident": "unknown",
+          "received_monotonic_ns": 190705799763697
+        }
+      },
+      "snapshot_id": "6cd295e58fac4c5d63c958c0878c8a6e2bf8ddfa56b5202696f86691fabeeb88"
+    },
+    "plan": [
+      "a",
+      "b",
+      "a"
+    ],
+    "preflight": {
+      "alias": "b",
+      "node": "local-b",
+      "backend": "cpu",
+      "service_object_ready": false,
+      "service_generation": 2,
+      "weight_memory_resident": "unknown",
+      "received_monotonic_ns": 190705799949098
+    },
+    "result": {
+      "request_id": "camera-route",
+      "plan": [
+        "a",
+        "b",
+        "a"
+      ],
+      "top5": [
+        872,
+        523,
+        875,
+        486,
+        889
+      ],
+      "trace": [
+        {
+          "stage": 0,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 3.3988599898293614,
+          "input_bytes": 139512,
+          "output_bytes": 602112,
+          "input_sha256": "b0793d2adda0fa6ae899c03989482bff9a42d3d5690fc7e3648f2795d730c23a",
+          "output_sha256": "78a686a2c680816462913c5c32400a513e0d3f777c3bb503a9a19f3c9f06dc3c",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 22.40327699109912,
+          "input_id": "camera",
+          "next_mode": "http"
+        },
+        {
+          "stage": 1,
+          "alias": "b",
+          "node": "local-b",
+          "worker_backend": "cpu",
+          "task_ms": 20.905259996652603,
+          "input_bytes": 602112,
+          "output_bytes": 4000,
+          "input_sha256": "78a686a2c680816462913c5c32400a513e0d3f777c3bb503a9a19f3c9f06dc3c",
+          "output_sha256": "2667f1e7fafcefd3660ff51f4afc5bca2f6869cb1a9ad4d8b3888affd9e8447b",
+          "device": {
+            "execution_device": "CPU",
+            "was_cold": true,
+            "generation": 3,
+            "preparation_ms": 15.974147012457252,
+            "preparation_details": {
+              "session_load_ms": 5.035144014982507,
+              "warmup_ms": 10.934786987490952
+            },
+            "max_abs_error_vs_cpu": 0.0,
+            "rmse_vs_cpu": 0.0,
+            "top1_agrees_with_cpu": true,
+            "top5_overlap_with_cpu": 5,
+            "top5_order_agrees_with_cpu": true
+          },
+          "rpc_next_ms": 0.5088429898023605,
+          "input_id": "camera",
+          "next_mode": "http"
+        },
+        {
+          "stage": 2,
+          "alias": "a",
+          "node": "local-a",
+          "worker_backend": "cpu",
+          "task_ms": 0.054764997912570834,
+          "input_bytes": 4000,
+          "output_bytes": 25,
+          "input_sha256": "2667f1e7fafcefd3660ff51f4afc5bca2f6869cb1a9ad4d8b3888affd9e8447b",
+          "output_sha256": "7638d1c207be9631f658e8c83c77b49a4be016a8eb59b2effcaee2089198f29c",
+          "device": {
+            "execution_device": "CPU"
+          },
+          "rpc_next_ms": 0.0,
+          "input_id": "camera"
+        }
+      ],
+      "input_id": "camera"
+    },
+    "total_ms": 27.146867010742426
+  }
+]

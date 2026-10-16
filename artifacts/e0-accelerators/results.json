@@ -1,0 +1,236 @@
+{
+  "observed_at": "2026-10-16T06:56:08.062274+00:00",
+  "run_id": "20261016t063952",
+  "scope": "single_fixture_accelerator_qualification_not_policy_or_independent_repeat_benchmark",
+  "source_model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+  "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+  "normalization_check": {
+    "original_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+    "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "environment": {
+      "python": "3.12.3",
+      "onnx": "1.17.0",
+      "onnxruntime": "1.23.2",
+      "numpy": "2.2.6"
+    },
+    "derived_sha256": "5846b40aca708f9e817e19caa3d49e49e81b9bd9ba2fffc70a175a8558904857",
+    "original_opsets": [
+      {
+        "domain": "",
+        "version": 7
+      }
+    ],
+    "derived_opsets": [
+      {
+        "domain": "",
+        "version": 13
+      }
+    ],
+    "original_initializers_unchanged": 53,
+    "cpu_fixture_output_bitwise_equal": true,
+    "max_abs_difference": 0.0,
+    "scope": "one_fixture_not_general_semantic_equivalence_proof"
+  },
+  "backends": {
+    "gpu": {
+      "status": "single_fixture_passed",
+      "environment": {
+        "kind": "environment",
+        "node": "etri-ser0003-cg0ms0",
+        "backend": "gpu",
+        "python": "3.11.16",
+        "architecture": "aarch64"
+      },
+      "packages": {
+        "numpy": "2.2.6",
+        "Pillow": "11.3.0",
+        "onnxruntime": "1.23.2",
+        "torch": "2.9.1+cu130",
+        "torchvision": "0.24.1",
+        "onnx": "1.17.0",
+        "onnx2torch": "1.5.15"
+      },
+      "preparation": {
+        "kind": "prepared",
+        "backend": "onnx2torch_cuda",
+        "conversion_and_device_load_ms": 242.7417020080611,
+        "device_name": "NVIDIA GB10",
+        "capability": [
+          12,
+          1
+        ],
+        "cuda_build": "13.0",
+        "all_model_parameters_cuda": true,
+        "parameter_elements": 1235496
+      },
+      "diagnostic_install_ms": 258281.26806998625,
+      "measured_host_ms": [
+        1.1358889751136303,
+        1.106897951103747,
+        2.219810034148395,
+        1.786520006135106,
+        1.5455479733645916
+      ],
+      "median_host_ms": 1.5455479733645916,
+      "max_abs_error_vs_local_original_cpu": 1.52587890625e-05,
+      "max_rmse_vs_local_original_cpu": 2.974498119991724e-06,
+      "execution_evidence": {
+        "tensor_device": "cuda:0",
+        "positive_cuda_timing_events": 7,
+        "kernel_trace": {
+          "kind": "gpu_profile",
+          "cuda_event_count": 0,
+          "kernel_names": []
+        },
+        "graph": {
+          "kind": "gpu_graph_normalized",
+          "source_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+          "derived_sha256": "5846b40aca708f9e817e19caa3d49e49e81b9bd9ba2fffc70a175a8558904857",
+          "target_opset": 13,
+          "original_initializers_unchanged": 53,
+          "normalization_ms": 41.033292072825134
+        },
+        "architecture_warning_observed": true
+      },
+      "warmup": 2,
+      "measured": 5,
+      "pod": {
+        "name": "e0-accel-infer-gpu-opset13-20261016t063952-l4lqt",
+        "node": "etri-ser0003-cg0ms0",
+        "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+        "image_id": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+        "phase": "Succeeded",
+        "resources": {
+          "limits": {
+            "cpu": "2",
+            "ephemeral-storage": "16Gi",
+            "memory": "8Gi",
+            "nvidia.com/gpu": "1"
+          },
+          "requests": {
+            "cpu": "250m",
+            "ephemeral-storage": "1Gi",
+            "memory": "1Gi",
+            "nvidia.com/gpu": "1"
+          }
+        }
+      }
+    },
+    "intel_npu": {
+      "status": "single_fixture_passed",
+      "environment": {
+        "kind": "environment",
+        "node": "etri-ser0002-cgnmsb",
+        "backend": "intel_npu",
+        "python": "3.12.3",
+        "architecture": "x86_64"
+      },
+      "packages": {
+        "numpy": "1.26.4",
+        "Pillow": "11.3.0",
+        "onnxruntime": "1.23.2"
+      },
+      "preparation": {
+        "kind": "prepared",
+        "backend": "openvino_direct_npu",
+        "model_read_ms": 18.187008099630475,
+        "compile_ms": 149.55819817259908,
+        "execution_devices": [
+          "NPU"
+        ],
+        "precision": "FP32 model and I/O; NPU internal precision is device-dependent",
+        "cache_bytes": 2809938
+      },
+      "diagnostic_install_ms": 7112.501801922917,
+      "measured_host_ms": [
+        1.4419041108340025,
+        1.422317000105977,
+        1.4015480410307646,
+        1.4983050059527159,
+        1.391023863106966
+      ],
+      "median_host_ms": 1.422317000105977,
+      "max_abs_error_vs_local_original_cpu": 0.02548980712890625,
+      "max_rmse_vs_local_original_cpu": 0.0054803543925181645,
+      "execution_evidence": {
+        "execution_devices": [
+          "NPU"
+        ],
+        "runtime": {
+          "kind": "npu_available",
+          "version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+          "devices": [
+            "CPU",
+            "NPU"
+          ],
+          "device_name": "Intel(R) AI Boost"
+        }
+      },
+      "warmup": 2,
+      "measured": 5,
+      "pod": {
+        "name": "e0-accel-infer-intel-npu-20261016t063952-s8prs",
+        "node": "etri-ser0002-cgnmsb",
+        "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+        "image_id": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+        "phase": "Succeeded",
+        "resources": {
+          "limits": {
+            "cpu": "2",
+            "ephemeral-storage": "3Gi",
+            "memory": "3Gi",
+            "npu.intel.com/accel": "1"
+          },
+          "requests": {
+            "cpu": "250m",
+            "ephemeral-storage": "1Gi",
+            "memory": "1Gi",
+            "npu.intel.com/accel": "1"
+          }
+        }
+      }
+    }
+  },
+  "excluded_attempts": [
+    {
+      "backend": "gpu",
+      "job": "e0-accel-infer-gpu-20261016t063952",
+      "outcome": "failed_at_onnx2torch_conversion_MaxPool_schema1",
+      "artifact": "gpu-attempt1.log"
+    }
+  ],
+  "limitations": [
+    "One image; top5 smoke success is not dataset accuracy equivalence.",
+    "Both selected accelerators are server devices, not EdgeCore edge accelerators.",
+    "No independent repetitions, policy comparison, RPC or deployment transition benchmark.",
+    "GPU profiler returned zero CUDA trace events; reason unconfirmed. CUDA tensor device and timing events were verified.",
+    "PyTorch warned that GB10 capability12.1 is above its reported max12.0. This fixture passed; broader build/device support is unverified.",
+    "Diagnostic pip installs start from unequal base images and are not production cold-start comparisons.",
+    "Fresh NPU workdir cache does not prove driver-global compiler caches were cleared."
+  ],
+  "source_checks": [
+    {
+      "path": "experiments/e0/accelerator_inference.py",
+      "sha256": "498ee3065591dc19a3f62a8617cc51b5ffbaf0fa6b89fcf3fcebc7e1e35ca961",
+      "ast_valid": true
+    },
+    {
+      "path": "experiments/e0/accelerator_discovery.py",
+      "sha256": "5c2b7cc6cfad9a6265acda492ea83d35b38201a12dd83d3f7d0daee083aa0156",
+      "ast_valid": true
+    },
+    {
+      "path": "experiments/e0/check_opset.py",
+      "sha256": "743cfa0026f82d7b3530c7b74a417bc200c3d1981ac2f93d82cad5bdc5f3ce84",
+      "ast_valid": true
+    }
+  ],
+  "review": "Source and frozen manifests inspected; commit-based code-review skill precondition unavailable because workspace has no Git repository."
+}

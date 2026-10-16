@@ -1,0 +1,43 @@
+{
+  "run_id": "20261016t062702",
+  "namespace": "scheduler-research",
+  "configmap": "e0-wire-20261016t062702",
+  "worker_pods": [
+    "e0-wire-20261016t062702-arm",
+    "e0-wire-20261016t062702-amd"
+  ],
+  "services": [
+    "e0-wire-20261016t062702-arm",
+    "e0-wire-20261016t062702-amd"
+  ],
+  "client_jobs": [
+    "e0-wire-20261016t062702-client-arm",
+    "e0-wire-20261016t062702-client-amd"
+  ],
+  "targets": [
+    {
+      "alias": "arm",
+      "node": "etri-dev0003-raspi5",
+      "url": "http://e0-wire-20261016t062702-arm.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "amd",
+      "node": "etri-ser0004-cgnms0",
+      "url": "http://e0-wire-20261016t062702-amd.scheduler-research.svc.cluster.local:8080"
+    }
+  ],
+  "design": {
+    "warmup_per_path": 2,
+    "measured_per_path": 5,
+    "client_execution_order": [
+      "arm",
+      "amd"
+    ],
+    "target_order_alternates": true,
+    "http_connection_reuse": false,
+    "primary_scope": "transport_feasibility_pilot_not_policy_benchmark"
+  },
+  "edgecore_check_pod": "e0-edgecore-20261016t062702-errors",
+  "edgecore_initial_check_pod": "e0-edgecore-20261016t062702",
+  "edgecore_tail_check_pod": "e0-edgecore-20261016t062702-tail"
+}

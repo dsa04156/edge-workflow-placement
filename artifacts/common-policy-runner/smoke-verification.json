@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-10-16T09:44:18.703580+00:00",
+  "scope": "Local loopback HTTP integration; two real ORT CPU worker processes on one host. Synthetic profile costs, no policy performance comparison or new cluster run.",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "packages": {
+    "numpy": "2.2.6",
+    "onnxruntime": "1.23.2",
+    "Pillow": "11.3.0"
+  },
+  "attempts": 8,
+  "successful_workflows": 4,
+  "intentional_rejections": 4,
+  "matched_stage_receipts": 12,
+  "expected_error_phases": {
+    "plan_validation": 2,
+    "state_validation": 1,
+    "validation": 1
+  },
+  "workers_terminated": [
+    {
+      "alias": "a",
+      "pid": 2921831,
+      "returncode": -15
+    },
+    {
+      "alias": "b",
+      "pid": 2922995,
+      "returncode": -15
+    }
+  ],
+  "source_sha256": {
+    "policy_runner.py": "3173d10a91be5edd905091622008945f25503424344fc63acea8b307e119ef92",
+    "test_policy_runner.py": "30ea71ecd6879eee5f6c35162a1de97a5eacb1a2d2050e00aaccc64ce36afd1c",
+    "dag_profile.py": "6e92294d66028dd6d06f2adc80af3bf69b8c37b41084cdf94ad5836b5bda4887",
+    "model_lifecycle.py": "e8b5212c55b62d1750469ec2265a34066449a7a6a07688ba16bb5e528cd41174"
+  }
+}

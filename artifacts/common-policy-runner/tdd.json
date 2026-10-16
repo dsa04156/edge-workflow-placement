@@ -1,0 +1,97 @@
+{
+  "purpose": "Actual HTTP seam red/green records; synthetic profile costs are not policy performance measurements.",
+  "loops": [
+    {
+      "slice": 1,
+      "red": {
+        "chunk_id": "607fec",
+        "wall_time_seconds": 0.000010979,
+        "exit_code": 1,
+        "original_token_count": 320,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 213.18020799662918}\n.{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 37.335266009904444}\n.E\n======================================================================\nERROR: test_policy_snapshot_drives_real_forwarding_without_mutable_or_future_fields (test_policy_runner.PolicyWorkflowHTTP.test_policy_snapshot_drives_real_forwarding_without_mutable_or_future_fields)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 27, in test_policy_snapshot_drives_real_forwarding_without_mutable_or_future_fields\n    from policy_runner import PolicyRunner\nModuleNotFoundError: No module named 'policy_runner'\n\n----------------------------------------------------------------------\nRan 3 tests in 9.115s\n\nFAILED (errors=1)\n"
+      },
+      "green": {
+        "chunk_id": "d5bf9c",
+        "wall_time_seconds": 3.756795,
+        "exit_code": 0,
+        "original_token_count": 155,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 54.11916199955158}\n.{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 40.546595002524555}\n..\n----------------------------------------------------------------------\nRan 3 tests in 7.900s\n\nOK\n"
+      }
+    },
+    {
+      "slice": 2,
+      "red": {
+        "chunk_id": "887a68",
+        "wall_time_seconds": 0.000008424,
+        "exit_code": 1,
+        "original_token_count": 244,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 54.52330599655397}\nF\n======================================================================\nFAIL: test_excluded_candidate_is_rejected_before_cold_model_execution (test_policy_runner.PolicyWorkflowHTTP.test_excluded_candidate_is_rejected_before_cold_model_execution)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 79, in test_excluded_candidate_is_rejected_before_cold_model_execution\n    self.assertEqual(record['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n----------------------------------------------------------------------\nRan 1 test in 4.092s\n\nFAILED (failures=1)\n"
+      },
+      "green": {
+        "chunk_id": "39ad7d",
+        "wall_time_seconds": 0.276532489,
+        "exit_code": 0,
+        "original_token_count": 89,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 45.7390800002031}\n.\n----------------------------------------------------------------------\nRan 1 test in 4.000s\n\nOK\n"
+      }
+    },
+    {
+      "slice": 3,
+      "red": {
+        "chunk_id": "4c0efc",
+        "wall_time_seconds": 0.000011975,
+        "exit_code": 1,
+        "original_token_count": 242,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 47.68233100185171}\nF\n======================================================================\nFAIL: test_state_change_after_decision_is_rejected_before_workflow (test_policy_runner.PolicyWorkflowHTTP.test_state_change_after_decision_is_rejected_before_workflow)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 97, in test_state_change_after_decision_is_rejected_before_workflow\n    self.assertEqual(record['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n----------------------------------------------------------------------\nRan 1 test in 3.966s\n\nFAILED (failures=1)\n"
+      },
+      "green": {
+        "chunk_id": "4e0c77",
+        "wall_time_seconds": 0.000008645,
+        "exit_code": 0,
+        "original_token_count": 90,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 57.70196800585836}\n.\n----------------------------------------------------------------------\nRan 1 test in 4.094s\n\nOK\n"
+      }
+    },
+    {
+      "slice": 4,
+      "red": {
+        "chunk_id": "d2ba1b",
+        "wall_time_seconds": 0.000012077,
+        "exit_code": 1,
+        "original_token_count": 750,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 66.67044499772601}\nFFFF\n======================================================================\nFAIL: test_profiles_for_other_inputs_sources_or_future_fields_are_rejected (test_policy_runner.PolicyWorkflowHTTP.test_profiles_for_other_inputs_sources_or_future_fields_are_rejected) (changes={'input_id': 'camera'})\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 124, in test_profiles_for_other_inputs_sources_or_future_fields_are_rejected\n    self.assertEqual(record['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n======================================================================\nFAIL: test_profiles_for_other_inputs_sources_or_future_fields_are_rejected (test_policy_runner.PolicyWorkflowHTTP.test_profiles_for_other_inputs_sources_or_future_fields_are_rejected) (changes={'source': 'b'})\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 124, in test_profiles_for_other_inputs_sources_or_future_fields_are_rejected\n    self.assertEqual(record['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n======================================================================\nFAIL: test_profiles_for_other_inputs_sources_or_future_fields_are_rejected (test_policy_runner.PolicyWorkflowHTTP.test_profiles_for_other_inputs_sources_or_future_fields_are_rejected) (changes={'future_sources': ['b', 'a']})\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 124, in test_profiles_for_other_inputs_sources_or_future_fields_are_rejected\n    self.assertEqual(record['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n======================================================================\nFAIL: test_profiles_for_other_inputs_sources_or_future_fields_are_rejected (test_policy_runner.PolicyWorkflowHTTP.test_profiles_for_other_inputs_sources_or_future_fields_are_rejected) (changes={'cost_ms': {'future_latencies': [0, 1]}})\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 124, in test_profiles_for_other_inputs_sources_or_future_fields_are_rejected\n    self.assertEqual(record['status'],'error')\nAssertionError: 'ok' != 'error'\n- ok\n+ error\n\n\n----------------------------------------------------------------------\nRan 1 test in 4.163s\n\nFAILED (failures=4)\n"
+      },
+      "green": {
+        "chunk_id": "792e53",
+        "wall_time_seconds": 0.000010872,
+        "exit_code": 0,
+        "original_token_count": 90,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 45.903863006969914}\n.\n----------------------------------------------------------------------\nRan 1 test in 4.042s\n\nOK\n"
+      }
+    },
+    {
+      "slice": 5,
+      "red": {
+        "chunk_id": "5fb3fe",
+        "wall_time_seconds": 0.000011583,
+        "exit_code": 1,
+        "original_token_count": 383,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 48.81430900422856}\nE\n======================================================================\nERROR: test_malformed_policy_output_still_produces_a_serializable_error_record (test_policy_runner.PolicyWorkflowHTTP.test_malformed_policy_output_still_produces_a_serializable_error_record)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/e0/test_policy_runner.py\", line 138, in test_malformed_policy_output_still_produces_a_serializable_error_record\n    json.dumps(record,allow_nan=False)\n  File \"/usr/lib/python3.12/json/__init__.py\", line 238, in dumps\n    **kw).encode(obj)\n          ^^^^^^^^^^^\n  File \"/usr/lib/python3.12/json/encoder.py\", line 200, in encode\n    chunks = self.iterencode(o, _one_shot=True)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/json/encoder.py\", line 258, in iterencode\n    return _iterencode(o, 0)\n           ^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/json/encoder.py\", line 180, in default\n    raise TypeError(f'Object of type {o.__class__.__name__} '\nTypeError: Object of type object is not JSON serializable\n\n----------------------------------------------------------------------\nRan 1 test in 4.193s\n\nFAILED (errors=1)\n"
+      },
+      "green": {
+        "chunk_id": "2ba4ca",
+        "wall_time_seconds": 0.000010793,
+        "exit_code": 0,
+        "original_token_count": 419,
+        "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 47.65245001181029}\n..{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 43.90663400408812}\n...{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 31.198919023154303}\n..{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 42.790342995431274}\n.{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 35.643982992041856}\n......{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 43.72321898699738}\n...\n----------------------------------------------------------------------\nRan 17 tests in 26.986s\n\nOK\n"
+      }
+    }
+  ],
+  "full_regression": {
+    "chunk_id": "2ba4ca",
+    "wall_time_seconds": 0.000010793,
+    "exit_code": 0,
+    "original_token_count": 419,
+    "output": "{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 47.65245001181029}\n..{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 43.90663400408812}\n...{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 31.198919023154303}\n..{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 42.790342995431274}\n.{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 35.643982992041856}\n......{\"kind\": \"asset\", \"url\": \"https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\", \"bytes\": 661378, \"sha256\": \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\", \"download_ms\": 43.72321898699738}\n...\n----------------------------------------------------------------------\nRan 17 tests in 26.986s\n\nOK\n"
+  }
+}

@@ -1,0 +1,1163 @@
+{
+  "scope": "Exploratory descriptive diagnostics of retained observations; no refitting or rerunning evaluation.",
+  "negative_observed_comparisons": [
+    {
+      "comparison": {
+        "block": 0,
+        "source": "arm",
+        "input_id": "hubble_deep_field",
+        "baseline": "data_greedy",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -23.873981251381338,
+        "relative_reduction_percent": -39.291983493825775
+      },
+      "details": [
+        {
+          "policy": "data_greedy",
+          "episode": {
+            "id": "b0|arm|hubble_deep_field|arm,arm,arm",
+            "block": 0,
+            "source": "arm",
+            "input_id": "hubble_deep_field",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "members": [
+              "data_greedy"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 60.76043795328587,
+              "median": 60.80308591481298,
+              "sd": 0.6695171217227767,
+              "min": 60.019793920218945,
+              "max": 61.48097093682736
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 53.65663522388786,
+              "median": 53.29857405740768,
+              "sd": 0.6601623446534587,
+              "min": 53.136538015678525,
+              "max": 54.63095603045076
+            },
+            "request_ids": [
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-arm,arm,arm-2",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-arm,arm,arm-3",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-arm,arm,arm-4",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-arm,arm,arm-5",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-arm,arm,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 65.8816029317677,
+          "mean_components_ms": {
+            "validation": 0.16742520965635777,
+            "observation": 6.438835966400802,
+            "decision": 0.0033891992643475533,
+            "plan_validation": 0.005903211422264576,
+            "state_validation": 0.4718455718830228,
+            "workflow": 53.65663522388786,
+            "receipt_validation": 0.016403570771217346
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b0|arm|hubble_deep_field|intel_npu,intel_npu,intel_npu",
+            "block": 0,
+            "source": "arm",
+            "input_id": "hubble_deep_field",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "task_fastest",
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 84.63441920466721,
+              "median": 78.05741007905453,
+              "sd": 12.335607699134567,
+              "min": 72.45820190291852,
+              "max": 100.61855497770011
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 74.69094078987837,
+              "median": 67.24167801439762,
+              "sd": 12.696867529408017,
+              "min": 62.97753599938005,
+              "max": 88.5064589092508
+            },
+            "request_ids": [
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b0-evaluation-arm-hubble_deep_field-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 64.06282598618418,
+          "mean_components_ms": {
+            "validation": 0.1972248312085867,
+            "observation": 5.700873560272157,
+            "decision": 0.004252232611179352,
+            "plan_validation": 0.007388601079583168,
+            "state_validation": 4.013595008291304,
+            "workflow": 74.69094078987837,
+            "receipt_validation": 0.020144181326031685
+          }
+        }
+      ]
+    },
+    {
+      "comparison": {
+        "block": 0,
+        "source": "intel_npu",
+        "input_id": "chelsea",
+        "baseline": "task_fastest",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -1.5708057675510645,
+        "relative_reduction_percent": -7.897468621906212
+      },
+      "details": [
+        {
+          "policy": "task_fastest",
+          "episode": {
+            "id": "b0|intel_npu|chelsea|intel_npu,intel_npu,arm",
+            "block": 0,
+            "source": "intel_npu",
+            "input_id": "chelsea",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            "members": [
+              "task_fastest"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 19.889990612864494,
+              "median": 20.139839965850115,
+              "sd": 2.553252152135451,
+              "min": 15.573140000924468,
+              "max": 21.854870952665806
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 14.188340865075588,
+              "median": 14.119330095127225,
+              "sd": 0.9040315930121738,
+              "min": 13.002566993236542,
+              "max": 15.207645017653704
+            },
+            "request_ids": [
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,arm-2",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,arm-3",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,arm-4",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,arm-5",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 15.920064353849739,
+          "mean_components_ms": {
+            "validation": 0.32159904949367046,
+            "observation": 4.0860040578991175,
+            "decision": 0.004962785169482231,
+            "plan_validation": 0.010141357779502869,
+            "state_validation": 1.2723434250801802,
+            "workflow": 14.188340865075588,
+            "receipt_validation": 0.006599072366952896
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b0|intel_npu|chelsea|intel_npu,intel_npu,intel_npu",
+            "block": 0,
+            "source": "intel_npu",
+            "input_id": "chelsea",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "data_greedy",
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 21.46079638041556,
+              "median": 22.07085001282394,
+              "sd": 3.6335538844458415,
+              "min": 15.905529959127307,
+              "max": 26.02227497845888
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 12.975034955888987,
+              "median": 13.692338950932026,
+              "sd": 2.1945610707838603,
+              "min": 9.110732935369015,
+              "max": 14.513107016682625
+            },
+            "request_ids": [
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b0-evaluation-intel_npu-chelsea-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 14.240540214814246,
+          "mean_components_ms": {
+            "validation": 0.4176661837846041,
+            "observation": 6.724936747923493,
+            "decision": 0.005975831300020218,
+            "plan_validation": 0.011590216308832169,
+            "state_validation": 1.3191502075642347,
+            "workflow": 12.975034955888987,
+            "receipt_validation": 0.0064422376453876495
+          }
+        }
+      ]
+    },
+    {
+      "comparison": {
+        "block": 0,
+        "source": "intel_npu",
+        "input_id": "retina",
+        "baseline": "task_fastest",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -0.5696310196071863,
+        "relative_reduction_percent": -2.1242793585748427
+      },
+      "details": [
+        {
+          "policy": "task_fastest",
+          "episode": {
+            "id": "b0|intel_npu|retina|intel_npu,intel_npu,arm",
+            "block": 0,
+            "source": "intel_npu",
+            "input_id": "retina",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            "members": [
+              "task_fastest"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 26.815259363502264,
+              "median": 25.90873115696013,
+              "sd": 3.693373660824473,
+              "min": 21.85206883586943,
+              "max": 31.569527927786112
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 21.647072630003095,
+              "median": 21.45549701526761,
+              "sd": 2.2123162837283967,
+              "min": 19.409875152632594,
+              "max": 24.903232930228114
+            },
+            "request_ids": [
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,arm-2",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,arm-3",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,arm-4",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,arm-5",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 22.258747601881623,
+          "mean_components_ms": {
+            "validation": 0.28724679723381996,
+            "observation": 3.6552521865814924,
+            "decision": 0.004790583625435829,
+            "plan_validation": 0.009417207911610603,
+            "state_validation": 1.1904587969183922,
+            "workflow": 21.647072630003095,
+            "receipt_validation": 0.02102116122841835
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b0|intel_npu|retina|intel_npu,intel_npu,intel_npu",
+            "block": 0,
+            "source": "intel_npu",
+            "input_id": "retina",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "data_greedy",
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 27.38489038310945,
+              "median": 27.557746041566133,
+              "sd": 1.0320955749497671,
+              "min": 25.992664974182844,
+              "max": 28.783611953258514
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 21.276797261089087,
+              "median": 21.239259047433734,
+              "sd": 1.0283798992846387,
+              "min": 20.130125107243657,
+              "max": 22.422160021960735
+            },
+            "request_ids": [
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b0-evaluation-intel_npu-retina-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 18.422340042889118,
+          "mean_components_ms": {
+            "validation": 0.31855092383921146,
+            "observation": 4.23137336038053,
+            "decision": 0.006183469668030739,
+            "plan_validation": 0.012432178482413292,
+            "state_validation": 1.5322737395763397,
+            "workflow": 21.276797261089087,
+            "receipt_validation": 0.007279450073838234
+          }
+        }
+      ]
+    },
+    {
+      "comparison": {
+        "block": 1,
+        "source": "arm",
+        "input_id": "chelsea",
+        "baseline": "task_fastest",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -5.6012446526438,
+        "relative_reduction_percent": -13.204890226374042
+      },
+      "details": [
+        {
+          "policy": "task_fastest",
+          "episode": {
+            "id": "b1|arm|chelsea|intel_npu,intel_npu,arm",
+            "block": 1,
+            "source": "arm",
+            "input_id": "chelsea",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            "members": [
+              "task_fastest"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 42.41795695852488,
+              "median": 42.28952794801444,
+              "sd": 1.139402332693549,
+              "min": 41.24953399877995,
+              "max": 43.856129981577396
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 36.593261803500354,
+              "median": 36.487989011220634,
+              "sd": 0.9992459012316137,
+              "min": 35.46036500483751,
+              "max": 37.65875892713666
+            },
+            "request_ids": [
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,arm-2",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,arm-3",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,arm-4",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,arm-5",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 39.74134137388319,
+          "mean_components_ms": {
+            "validation": 0.22025778889656067,
+            "observation": 3.654652601107955,
+            "decision": 0.004022405482828617,
+            "plan_validation": 0.00801116693764925,
+            "state_validation": 1.9169698236510158,
+            "workflow": 36.593261803500354,
+            "receipt_validation": 0.02078136894851923
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b1|arm|chelsea|intel_npu,intel_npu,intel_npu",
+            "block": 1,
+            "source": "arm",
+            "input_id": "chelsea",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 48.01920161116868,
+              "median": 49.338913056999445,
+              "sd": 2.5187011334367555,
+              "min": 44.96425297111273,
+              "max": 50.28757301624864
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 36.327748419716954,
+              "median": 36.31808201316744,
+              "sd": 2.378824808394082,
+              "min": 33.81100401747972,
+              "max": 39.20499107334763
+            },
+            "request_ids": [
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 37.8371377591975,
+          "mean_components_ms": {
+            "validation": 0.1630989834666252,
+            "observation": 6.391547597013414,
+            "decision": 0.0032590003684163094,
+            "plan_validation": 0.005489005707204342,
+            "state_validation": 5.11396259535104,
+            "workflow": 36.327748419716954,
+            "receipt_validation": 0.01409600954502821
+          }
+        }
+      ]
+    },
+    {
+      "comparison": {
+        "block": 1,
+        "source": "arm",
+        "input_id": "chelsea",
+        "baseline": "data_greedy",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "arm",
+          "arm",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -3.012085845693946,
+        "relative_reduction_percent": -6.692465834490415
+      },
+      "details": [
+        {
+          "policy": "data_greedy",
+          "episode": {
+            "id": "b1|arm|chelsea|arm,arm,arm",
+            "block": 1,
+            "source": "arm",
+            "input_id": "chelsea",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "members": [
+              "data_greedy"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 45.00711576547474,
+              "median": 44.9125119484961,
+              "sd": 0.9545515699424457,
+              "min": 43.71727898251265,
+              "max": 46.24652396887541
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 41.66250585112721,
+              "median": 41.5995130315423,
+              "sd": 0.8102288761283392,
+              "min": 40.88429606053978,
+              "max": 42.75604407303035
+            },
+            "request_ids": [
+              "20261016t102843070125-b1-evaluation-arm-chelsea-arm,arm,arm-2",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-arm,arm,arm-3",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-arm,arm,arm-4",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-arm,arm,arm-5",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-arm,arm,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 41.12635052297264,
+          "mean_components_ms": {
+            "validation": 0.17092495691031218,
+            "observation": 2.7393502416089177,
+            "decision": 0.003300374373793602,
+            "plan_validation": 0.005351612344384193,
+            "state_validation": 0.41005697567015886,
+            "workflow": 41.66250585112721,
+            "receipt_validation": 0.015625753439962864
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b1|arm|chelsea|intel_npu,intel_npu,intel_npu",
+            "block": 1,
+            "source": "arm",
+            "input_id": "chelsea",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 48.01920161116868,
+              "median": 49.338913056999445,
+              "sd": 2.5187011334367555,
+              "min": 44.96425297111273,
+              "max": 50.28757301624864
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 36.327748419716954,
+              "median": 36.31808201316744,
+              "sd": 2.378824808394082,
+              "min": 33.81100401747972,
+              "max": 39.20499107334763
+            },
+            "request_ids": [
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b1-evaluation-arm-chelsea-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 37.8371377591975,
+          "mean_components_ms": {
+            "validation": 0.1630989834666252,
+            "observation": 6.391547597013414,
+            "decision": 0.0032590003684163094,
+            "plan_validation": 0.005489005707204342,
+            "state_validation": 5.11396259535104,
+            "workflow": 36.327748419716954,
+            "receipt_validation": 0.01409600954502821
+          }
+        }
+      ]
+    },
+    {
+      "comparison": {
+        "block": 2,
+        "source": "arm",
+        "input_id": "retina",
+        "baseline": "task_fastest",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -3.382665361277759,
+        "relative_reduction_percent": -6.776824509561685
+      },
+      "details": [
+        {
+          "policy": "task_fastest",
+          "episode": {
+            "id": "b2|arm|retina|intel_npu,intel_npu,arm",
+            "block": 2,
+            "source": "arm",
+            "input_id": "retina",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            "members": [
+              "task_fastest"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 49.91519784089178,
+              "median": 50.76345906127244,
+              "sd": 2.3275398165246064,
+              "min": 45.9725430700928,
+              "max": 51.94569402374327
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 44.94341982062906,
+              "median": 46.09300603624433,
+              "sd": 2.43363078500803,
+              "min": 40.95442499965429,
+              "max": 46.87031602952629
+            },
+            "request_ids": [
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,arm-2",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,arm-3",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,arm-4",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,arm-5",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 48.70608338387683,
+          "mean_components_ms": {
+            "validation": 0.16919521149247885,
+            "observation": 2.9969229828566313,
+            "decision": 0.0032260315492749214,
+            "plan_validation": 0.005788798443973064,
+            "state_validation": 1.7803523922339082,
+            "workflow": 44.94341982062906,
+            "receipt_validation": 0.016292603686451912
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b2|arm|retina|intel_npu,intel_npu,intel_npu",
+            "block": 2,
+            "source": "arm",
+            "input_id": "retina",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 53.29786320216954,
+              "median": 52.82983591314405,
+              "sd": 2.7341028183184646,
+              "min": 50.13474100269377,
+              "max": 57.55045707337558
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 44.41696738358587,
+              "median": 44.19781290926039,
+              "sd": 2.0787022414296414,
+              "min": 41.99301195330918,
+              "max": 47.7457920787856
+            },
+            "request_ids": [
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b2-evaluation-arm-retina-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 45.631949964445084,
+          "mean_components_ms": {
+            "validation": 0.2173100132495165,
+            "observation": 5.086910771206021,
+            "decision": 0.004299823194742203,
+            "plan_validation": 0.010100030340254307,
+            "state_validation": 3.538982989266515,
+            "workflow": 44.41696738358587,
+            "receipt_validation": 0.023292191326618195
+          }
+        }
+      ]
+    },
+    {
+      "comparison": {
+        "block": 2,
+        "source": "arm",
+        "input_id": "rocket",
+        "baseline": "task_fastest",
+        "same_plan": false,
+        "quality_controlled": true,
+        "baseline_plan": [
+          "intel_npu",
+          "intel_npu",
+          "arm"
+        ],
+        "dag_plan": [
+          "intel_npu",
+          "intel_npu",
+          "intel_npu"
+        ],
+        "baseline_minus_dag_ms": -0.355701195076108,
+        "relative_reduction_percent": -1.2717661764459978
+      },
+      "details": [
+        {
+          "policy": "task_fastest",
+          "episode": {
+            "id": "b2|arm|rocket|intel_npu,intel_npu,arm",
+            "block": 2,
+            "source": "arm",
+            "input_id": "rocket",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            "members": [
+              "task_fastest"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 27.96907180454582,
+              "median": 27.86618797108531,
+              "sd": 0.682660795677297,
+              "min": 27.21215400379151,
+              "max": 29.068143106997013
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 23.193029640242457,
+              "median": 23.348992108367383,
+              "sd": 0.7293778936392754,
+              "min": 22.083703079260886,
+              "max": 24.05454299878329
+            },
+            "request_ids": [
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,arm-2",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,arm-3",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,arm-4",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,arm-5",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,arm-6"
+            ]
+          },
+          "predicted_workflow_ms": 25.90846619568765,
+          "mean_components_ms": {
+            "validation": 0.17135844100266695,
+            "observation": 2.8377499897032976,
+            "decision": 0.0033185817301273346,
+            "plan_validation": 0.005933013744652271,
+            "state_validation": 1.7415675800293684,
+            "workflow": 23.193029640242457,
+            "receipt_validation": 0.016114558093249798
+          }
+        },
+        {
+          "policy": "dag_enumeration",
+          "episode": {
+            "id": "b2|arm|rocket|intel_npu,intel_npu,intel_npu",
+            "block": 2,
+            "source": "arm",
+            "input_id": "rocket",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "members": [
+              "dag_enumeration"
+            ],
+            "attempts": 5,
+            "valid_complete": 5,
+            "workflow_failures": 0,
+            "quality_failures": 0,
+            "total_ms": {
+              "n": 5,
+              "mean": 28.324772999621928,
+              "median": 28.26346200890839,
+              "sd": 0.742485311531636,
+              "min": 27.48481894377619,
+              "max": 29.441789025440812
+            },
+            "workflow_ms": {
+              "n": 5,
+              "mean": 22.80245036818087,
+              "median": 22.959511959925294,
+              "sd": 0.5783537056347088,
+              "min": 22.115961997769773,
+              "max": 23.54250894859433
+            },
+            "request_ids": [
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,intel_npu-2",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,intel_npu-3",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,intel_npu-4",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,intel_npu-5",
+              "20261016t102843070125-b2-evaluation-arm-rocket-intel_npu,intel_npu,intel_npu-6"
+            ]
+          },
+          "predicted_workflow_ms": 24.471380340401083,
+          "mean_components_ms": {
+            "validation": 0.22613182663917542,
+            "observation": 3.4291720017790794,
+            "decision": 0.004299962893128395,
+            "plan_validation": 0.00822960864752531,
+            "state_validation": 1.8356190295889974,
+            "workflow": 22.80245036818087,
+            "receipt_validation": 0.018870201893150806
+          }
+        }
+      ]
+    }
+  ],
+  "selection_stability": {
+    "task_fastest": {
+      "stable_across_three_deployments": 5,
+      "total_source_input_cases": 16,
+      "varying_cases": [
+        {
+          "source": "arm",
+          "input_id": "dog",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "arm",
+          "input_id": "camera",
+          "plans": [
+            [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "arm",
+              "arm"
+            ]
+          ]
+        },
+        {
+          "source": "arm",
+          "input_id": "chelsea",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "arm",
+          "input_id": "coffee",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "arm",
+          "input_id": "hubble_deep_field",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "arm",
+          "input_id": "retina",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "arm",
+          "input_id": "rocket",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "intel_npu",
+          "input_id": "dog",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "intel_npu",
+          "input_id": "astronaut",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "intel_npu",
+          "input_id": "camera",
+          "plans": [
+            [
+              "intel_npu",
+              "arm",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "arm",
+              "intel_npu"
+            ]
+          ]
+        },
+        {
+          "source": "intel_npu",
+          "input_id": "retina",
+          "plans": [
+            [
+              "intel_npu",
+              "intel_npu",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        }
+      ]
+    },
+    "data_greedy": {
+      "stable_across_three_deployments": 16,
+      "total_source_input_cases": 16,
+      "varying_cases": []
+    },
+    "dag_enumeration": {
+      "stable_across_three_deployments": 15,
+      "total_source_input_cases": 16,
+      "varying_cases": [
+        {
+          "source": "arm",
+          "input_id": "hubble_deep_field",
+          "plans": [
+            [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "actual_npu_workflows": 1216,
+  "actual_arm_cpu_workflows": 999,
+  "pacing_overruns": [
+    {
+      "request_id": "20261016t102843070125-b0-calibration-intel_npu-hubble_deep_field-arm,arm,arm-0",
+      "mode": "calibration",
+      "warmup": true,
+      "total_ms": 322.611385025084
+    }
+  ],
+  "design_freeze_to_cleanup_seconds": 686.255619,
+  "analysis_environment": {
+    "python": "3.12.3",
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "analysis_source_sha256": {
+    "analyze_fresh_placement.py": "ba76a81c5cec478da9d36ebda32b42fd04dd4a835120244cffe4dc61c9c81082",
+    "plot_fresh_placement.py": "ad1a9f0784e1f3acd6955497af6831f1b6bacf35ae24659d9b011bf4c5015c63"
+  }
+}

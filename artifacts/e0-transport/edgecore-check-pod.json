@@ -1,0 +1,120 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "e0-edgecore-20261016t062702-errors",
+    "namespace": "scheduler-research",
+    "labels": {
+      "app.kubernetes.io/part-of": "scheduler-research",
+      "research.scheduler/stage": "e0-transport",
+      "research.scheduler/run": "20261016t062702"
+    },
+    "annotations": {
+      "sidecar.istio.io/inject": "false"
+    }
+  },
+  "spec": {
+    "nodeSelector": {
+      "kubernetes.io/hostname": "etri-dev0003-raspi5"
+    },
+    "restartPolicy": "Never",
+    "activeDeadlineSeconds": 120,
+    "terminationGracePeriodSeconds": 2,
+    "automountServiceAccountToken": false,
+    "securityContext": {
+      "runAsUser": 0,
+      "seccompProfile": {
+        "type": "RuntimeDefault"
+      }
+    },
+    "containers": [
+      {
+        "name": "read-only-check",
+        "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "command": [
+          "python",
+          "-u",
+          "-c",
+          "\"\"\"Read only host EdgeCore process metadata and its recent system journal.\n\nNever reads process environments, command lines, keys, or other service logs.\n\"\"\"\n\nfrom collections import Counter\nimport ctypes as c\nimport ctypes.util\nimport datetime\nimport json\nimport os\nfrom pathlib import Path\nimport re\nimport time\n\n\ndef main():\n    result = {\"node\": os.environ[\"NODE_NAME\"],\n              \"observed_at\": datetime.datetime.now(datetime.timezone.utc).isoformat(),\n              \"processes\": [], \"journals\": []}\n    uptime = float(Path(\"/host/proc/uptime\").read_text().split()[0])\n    for directory in Path(\"/host/proc\").iterdir():\n        if not directory.name.isdigit():\n            continue\n        try:\n            if (directory / \"comm\").read_text().strip() != \"edgecore\":\n                continue\n            stat = (directory / \"stat\").read_text().rsplit(\")\", 1)[1].split()\n            rss = next(line for line in (directory / \"status\").read_text().splitlines()\n                       if line.startswith(\"VmRSS:\"))\n            result[\"processes\"].append({\"pid\": int(directory.name), \"state\": stat[0],\n                                       \"uptime_seconds\": uptime - int(stat[19]) / os.sysconf(\"SC_CLK_TCK\"),\n                                       \"rss_kib\": int(rss.split()[1])})\n        except (OSError, StopIteration):\n            continue\n    lib = c.CDLL(ctypes.util.find_library(\"systemd\"))\n    ptr = c.c_void_p\n    lib.sd_journal_open_directory.argtypes = [c.POINTER(ptr), c.c_char_p, c.c_int]\n    lib.sd_journal_add_match.argtypes = [ptr, c.c_char_p, c.c_size_t]\n    lib.sd_journal_seek_tail.argtypes = [ptr]\n    lib.sd_journal_previous.argtypes = [ptr]\n    lib.sd_journal_get_data.argtypes = [ptr, c.c_char_p, c.POINTER(ptr), c.POINTER(c.c_size_t)]\n    lib.sd_journal_get_realtime_usec.argtypes = [ptr, c.POINTER(c.c_uint64)]\n    lib.sd_journal_close.argtypes = [ptr]\n    lib.sd_journal_close.restype = None\n\n    def field(journal, name):\n        data, size = ptr(), c.c_size_t()\n        if lib.sd_journal_get_data(journal, name.encode(), c.byref(data), c.byref(size)) < 0:\n            return \"\"\n        return c.string_at(data, size.value).decode(errors=\"replace\").split(\"=\", 1)[1]\n\n    since = int((time.time() - 900) * 1_000_000)\n    for label, root in [(\"persistent\", Path(\"/host/log/journal\")),\n                        (\"runtime\", Path(\"/host/run-log/journal\"))]:\n        directories = sorted({p.parent for p in root.glob(\"**/*.journal\")})\n        for directory in directories:\n            journal = ptr()\n            opened = lib.sd_journal_open_directory(c.byref(journal), str(directory).encode(), 0)\n            if opened < 0:\n                result[\"journals\"].append({\"storage\": label, \"open_errno\": -opened})\n                continue\n            try:\n                assert lib.sd_journal_add_match(journal, b\"_SYSTEMD_UNIT=edgecore.service\", 0) >= 0\n                assert lib.sd_journal_seek_tail(journal) >= 0\n                count, severity, samples, timestamps, mentions = 0, Counter(), [], [], 0\n                levels, experiment_samples = Counter(), []\n                errors, warnings, workflow_samples, workflow_mentions = [], [], [], 0\n                while count < 10000 and lib.sd_journal_previous(journal) > 0:\n                    stamp = c.c_uint64()\n                    lib.sd_journal_get_realtime_usec(journal, c.byref(stamp))\n                    if stamp.value < since:\n                        break\n                    count += 1\n                    severity[field(journal, \"PRIORITY\")] += 1\n                    text = field(journal, \"MESSAGE\")\n                    timestamps.append(stamp.value)\n                    is_experiment = os.environ[\"RUN_ID\"] in text\n                    mentions += is_experiment\n                    is_workflow = (\"e0-wire-\" + os.environ[\"RUN_ID\"]) in text\n                    workflow_mentions += is_workflow\n                    match = re.match(r\"([IWEF])\\d{4}\", text)\n                    levels[match[1] if match else \"other\"] += 1\n                    text = re.sub(r\"https?://\\S+\", \"[url]\", text)\n                    text = re.sub(r\"(?i)(bearer\\s+|token[=: ]+|password[=: ]+)\\S+\", r\"\\1[redacted]\", text)\n                    if len(samples) < 5:\n                        samples.append(text[:500])\n                    if is_experiment and len(experiment_samples) < 3:\n                        experiment_samples.append(text[:500])\n                    if is_workflow and len(workflow_samples) < 3:\n                        workflow_samples.append(text[:500])\n                    if match and match[1] in \"EF\" and len(errors) < 5:\n                        errors.append(text[:500])\n                    if match and match[1] == \"W\" and len(warnings) < 5:\n                        warnings.append(text[:500])\n                result[\"journals\"].append({\"storage\": label, \"window_seconds\": 900,\n                                           \"entry_count\": count, \"count_limit_reached\": count == 10000,\n                                           \"priority_counts\": dict(severity),\n                                           \"message_level_counts\": dict(levels),\n                                           \"first_realtime_usec\": min(timestamps, default=None),\n                                           \"last_realtime_usec\": max(timestamps, default=None),\n                                           \"experiment_mentions\": mentions, \"last_messages\": samples,\n                                           \"experiment_messages\": experiment_samples,\n                                           \"workflow_mentions\": workflow_mentions,\n                                           \"workflow_messages\": workflow_samples,\n                                           \"error_samples\": errors, \"warning_samples\": warnings})\n            finally:\n                lib.sd_journal_close(journal)\n    print(json.dumps(result), flush=True)\n\n\nif __name__ == \"__main__\":\n    main()\n"
+        ],
+        "env": [
+          {
+            "name": "NODE_NAME",
+            "valueFrom": {
+              "fieldRef": {
+                "fieldPath": "spec.nodeName"
+              }
+            }
+          },
+          {
+            "name": "RUN_ID",
+            "value": "20261016t062702"
+          },
+          {
+            "name": "PYTHONDONTWRITEBYTECODE",
+            "value": "1"
+          }
+        ],
+        "resources": {
+          "requests": {
+            "cpu": "50m",
+            "memory": "64Mi"
+          },
+          "limits": {
+            "cpu": "250m",
+            "memory": "256Mi"
+          }
+        },
+        "securityContext": {
+          "allowPrivilegeEscalation": false,
+          "readOnlyRootFilesystem": true,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          }
+        },
+        "volumeMounts": [
+          {
+            "name": "proc",
+            "mountPath": "/host/proc",
+            "readOnly": true
+          },
+          {
+            "name": "log",
+            "mountPath": "/host/log",
+            "readOnly": true
+          },
+          {
+            "name": "run-log",
+            "mountPath": "/host/run-log",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "volumes": [
+      {
+        "name": "proc",
+        "hostPath": {
+          "path": "/proc",
+          "type": "Directory"
+        }
+      },
+      {
+        "name": "log",
+        "hostPath": {
+          "path": "/var/log",
+          "type": "Directory"
+        }
+      },
+      {
+        "name": "run-log",
+        "hostPath": {
+          "path": "/run/log",
+          "type": "Directory"
+        }
+      }
+    ]
+  }
+}

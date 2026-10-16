@@ -1,0 +1,98 @@
+{
+  "frozen_at": "2026-10-16T07:32:55.605767+00:00",
+  "calibration_log_sha256": "0c28781014c56c76dc09f51ed51f62fef69fb40186eab5695ba6ede2a139cfc9",
+  "policies": {
+    "B2_fastest": [
+      "gpu",
+      "gpu",
+      "gpu"
+    ],
+    "C1_data_greedy": [
+      "arm",
+      "arm",
+      "arm"
+    ],
+    "B3_joint_enumeration": [
+      "arm",
+      "arm",
+      "arm"
+    ],
+    "anchor_all_arm": [
+      "arm",
+      "arm",
+      "arm"
+    ],
+    "anchor_all_gpu": [
+      "gpu",
+      "gpu",
+      "gpu"
+    ]
+  },
+  "predicted_ms": {
+    "B2_fastest": 73.55071348138154,
+    "C1_data_greedy": 70.01408061478287,
+    "B3_joint_enumeration": 70.01408061478287,
+    "anchor_all_arm": 70.01408061478287,
+    "anchor_all_gpu": 73.55071348138154
+  },
+  "profile_aggregation_and_selection_ms": 0.9880860161501914,
+  "task_ms": {
+    "0|intel_npu": 18.501552054658532,
+    "1|gpu": 1.739208004437387,
+    "2|intel_npu": 0.19134592730551958,
+    "0|amd": 32.31940802652389,
+    "1|amd": 14.403408509679139,
+    "2|gpu": 0.059935497120022774,
+    "1|intel_npu": 3.2840794883668423,
+    "2|amd": 0.1710074720904231,
+    "0|gpu": 11.55526947695762,
+    "1|arm": 29.351819481234998,
+    "2|arm": 0.11298997560516,
+    "0|arm": 36.78146953461692
+  },
+  "ingress_residual_ms": {
+    "intel_npu": 59.79873886099085,
+    "amd": 61.79796950891614,
+    "gpu": 59.75763953756541,
+    "arm": 3.049296443350613
+  },
+  "edge_residual_ms": [
+    {
+      "intel_npu|gpu": 7.847216096706688,
+      "amd|amd": 0.6290065357461572,
+      "amd|intel_npu": 16.88396360259503,
+      "gpu|arm": 59.48664352763444,
+      "arm|amd": 55.520415015053004,
+      "gpu|amd": 21.235369436908513,
+      "intel_npu|amd": 8.573224418796599,
+      "arm|gpu": 54.062163981143385,
+      "intel_npu|arm": 54.21228246996179,
+      "gpu|gpu": 0.39229303365573287,
+      "arm|arm": 0.6449311040341854,
+      "amd|gpu": 10.965467896312475,
+      "arm|intel_npu": 54.59100904408842,
+      "intel_npu|intel_npu": 0.2631359966471791,
+      "gpu|intel_npu": 15.361271682195365,
+      "amd|arm": 59.01888449443504
+    },
+    {
+      "gpu|intel_npu": 3.4930325928144157,
+      "amd|gpu": 3.0699975322932005,
+      "intel_npu|amd": 2.211628539953381,
+      "arm|intel_npu": 2.633081458043307,
+      "arm|arm": 0.07357407594099641,
+      "amd|intel_npu": 2.617464866489172,
+      "amd|amd": 0.052022573072463274,
+      "gpu|amd": 2.91111838305369,
+      "arm|amd": 2.618369006086141,
+      "gpu|arm": 2.6926760911010206,
+      "arm|gpu": 2.2874429705552757,
+      "intel_npu|gpu": 1.8970229430124164,
+      "gpu|gpu": 0.04636793164536357,
+      "intel_npu|intel_npu": 0.04514108877629042,
+      "amd|arm": 2.531430043745786,
+      "intel_npu|arm": 1.7850850708782673
+    }
+  ],
+  "scope": "common median component table; exact enumeration of 64 static assignments; not a published DAG policy reproduction"
+}

@@ -1,0 +1,32 @@
+{
+  "node": "etri-dev0003-raspi5",
+  "observed_at": "2026-10-16T06:33:12.078912+00:00",
+  "processes": [
+    {
+      "pid": 2220339,
+      "state": "S",
+      "uptime_seconds": 99066.28000000003,
+      "rss_kib": 114368
+    }
+  ],
+  "journals": [
+    {
+      "storage": "runtime",
+      "window_seconds": 900,
+      "entry_count": 10000,
+      "count_limit_reached": true,
+      "priority_counts": {
+        "6": 10000
+      },
+      "last_realtime_usec": 1792132261572217,
+      "experiment_mentions": 6,
+      "last_messages": [
+        "I1016 15:31:00.482646 2220339 process.go:64] Send msg to the CommModule module in twin",
+        "I1016 15:31:00.482671 2220339 communicate.go:127] CommModule deal confirm msgID 78ef38f6-3791-435d-91b2-ae036fa24b41",
+        "I1016 15:31:01.571002 2220339 process.go:317] DeviceTwin receive msg",
+        "I1016 15:31:01.571218 2220339 process.go:216] classify the msg with the topic $hw/events/device/edgeai-devices/sensehat-001-temp-pressure/state/update",
+        "I1016 15:31:01.571299 2220339 process.go:236] $hw/events/device/ /state/update"
+      ]
+    }
+  ]
+}

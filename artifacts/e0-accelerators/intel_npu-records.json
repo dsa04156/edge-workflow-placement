@@ -1,0 +1,211 @@
+[
+  {
+    "kind": "installation_started",
+    "backend": "intel_npu"
+  },
+  {
+    "kind": "installation_complete",
+    "elapsed_ms": 7112.501801922917
+  },
+  {
+    "kind": "environment",
+    "node": "etri-ser0002-cgnmsb",
+    "backend": "intel_npu",
+    "python": "3.12.3",
+    "architecture": "x86_64"
+  },
+  {
+    "kind": "packages",
+    "versions": {
+      "numpy": "1.26.4",
+      "Pillow": "11.3.0",
+      "onnxruntime": "1.23.2"
+    }
+  },
+  {
+    "kind": "asset",
+    "url": "https://huggingface.co/onnxmodelzoo/squeezenet1.1-7/resolve/61e525224ad479521059f4586bcacf50ad3627ca/squeezenet1.1-7.onnx",
+    "bytes": 4956208,
+    "sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+    "download_ms": 2812.707323115319
+  },
+  {
+    "kind": "asset",
+    "url": "https://raw.githubusercontent.com/pytorch/hub/c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg",
+    "bytes": 661378,
+    "sha256": "f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a",
+    "download_ms": 487.6638858113438
+  },
+  {
+    "kind": "cpu_reference",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+    "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "output_bytes": 4000
+  },
+  {
+    "kind": "npu_available",
+    "version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+    "devices": [
+      "CPU",
+      "NPU"
+    ],
+    "device_name": "Intel(R) AI Boost"
+  },
+  {
+    "kind": "prepared",
+    "backend": "openvino_direct_npu",
+    "model_read_ms": 18.187008099630475,
+    "compile_ms": 149.55819817259908,
+    "execution_devices": [
+      "NPU"
+    ],
+    "precision": "FP32 model and I/O; NPU internal precision is device-dependent",
+    "cache_bytes": 2809938
+  },
+  {
+    "kind": "inference",
+    "iteration": 0,
+    "warmup": true,
+    "blocking_host_input_to_host_output_ms": 10.484715923666954,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "inference",
+    "iteration": 1,
+    "warmup": true,
+    "blocking_host_input_to_host_output_ms": 1.5208851546049118,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "inference",
+    "iteration": 2,
+    "warmup": false,
+    "blocking_host_input_to_host_output_ms": 1.4419041108340025,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "inference",
+    "iteration": 3,
+    "warmup": false,
+    "blocking_host_input_to_host_output_ms": 1.422317000105977,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "inference",
+    "iteration": 4,
+    "warmup": false,
+    "blocking_host_input_to_host_output_ms": 1.4015480410307646,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "inference",
+    "iteration": 5,
+    "warmup": false,
+    "blocking_host_input_to_host_output_ms": 1.4983050059527159,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "inference",
+    "iteration": 6,
+    "warmup": false,
+    "blocking_host_input_to_host_output_ms": 1.391023863106966,
+    "top5": [
+      258,
+      259,
+      157,
+      279,
+      152
+    ],
+    "max_abs_error_vs_cpu": 0.02548980712890625,
+    "rmse_vs_cpu": 0.0054803543925181645,
+    "execution_devices": [
+      "NPU"
+    ]
+  },
+  {
+    "kind": "complete",
+    "backend": "intel_npu",
+    "status": "classification_fixture_passed",
+    "warmup": 2,
+    "measured": 5,
+    "model_sha256": "1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088",
+    "input_sha256": "791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d",
+    "scope": "single_fixture_accelerator_qualification_not_policy_benchmark"
+  }
+]

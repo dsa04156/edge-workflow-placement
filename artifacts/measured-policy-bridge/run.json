@@ -1,0 +1,45 @@
+{
+  "run_id": "20261016t100338960422",
+  "namespace": "scheduler-research",
+  "prefix": "meas-bridge-20261016t100338960422",
+  "targets": {
+    "arm": {
+      "alias": "arm",
+      "backend": "cpu",
+      "node": "etri-dev0003-raspi5",
+      "url": "http://meas-bridge-20261016t100338960422-arm.scheduler-research.svc.cluster.local:8080"
+    },
+    "intel_npu": {
+      "alias": "intel_npu",
+      "backend": "intel_npu",
+      "node": "etri-ser0002-cgnmsb",
+      "url": "http://meas-bridge-20261016t100338960422-intel-npu.scheduler-research.svc.cluster.local:8080"
+    }
+  },
+  "workers": {
+    "arm": "meas-bridge-20261016t100338960422-arm",
+    "intel_npu": "meas-bridge-20261016t100338960422-intel-npu"
+  },
+  "clients": {
+    "arm": "meas-bridge-20261016t100338960422-arm-client",
+    "intel_npu": "meas-bridge-20261016t100338960422-intel-npu-client"
+  },
+  "design_frozen_at": "2026-10-16T10:03:38.964485+00:00",
+  "application_workflows": 10,
+  "setup_workflows": 2,
+  "policy_decisions": 60,
+  "source_sha256": {
+    "probe.py": "73bf81dc69d6dd095a669028c30a231dd32b16f2d99f386de3e0d54a4246a2a3",
+    "transport.py": "72322bc0f32afeaa5937c4125651bd9f0c37694747848c478cacbd87b8ce7a43",
+    "accelerator_inference.py": "bf1d76acfab210faa606fc417c29032a9485facc708f54f9f94a717636bd7ced",
+    "rpc_profile.py": "2f2663d92fcbfc033d3576aadae25cd6b7874631ba0e791059857ec14ddc34d0",
+    "dag_profile.py": "6e92294d66028dd6d06f2adc80af3bf69b8c37b41084cdf94ad5836b5bda4887",
+    "model_lifecycle.py": "e8b5212c55b62d1750469ec2265a34066449a7a6a07688ba16bb5e528cd41174",
+    "dynamic_client.py": "d30901ac587ff9fafeabdb0ffab2602657712e343b1558b0ba6578441d0ae42f",
+    "corpus_client.py": "f3a3a798626189b90b3096ac268becafda4530d093ba71dab6b9739e6eaed6e5",
+    "policy_runner.py": "3173d10a91be5edd905091622008945f25503424344fc63acea8b307e119ef92",
+    "measured_policy_bridge.py": "903d7e03771dbe1da86ee4483a6becf5e4ca34339cce7315da6c98187979dd7c",
+    "bridge_client.py": "5dd339ccdbec5ad75e286b913556c08c184dca6126daf139b8f54fa1931b5530"
+  },
+  "original_selection_sha256": "b7882f7f0bd7a68b5052d77ec9ea9b9986fba83528b6773a6abb946e25bbd373"
+}

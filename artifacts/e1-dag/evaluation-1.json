@@ -1,0 +1,166 @@
+{
+  "apiVersion": "batch/v1",
+  "kind": "Job",
+  "metadata": {
+    "name": "e1-dag-20261016t072946-eval-1",
+    "namespace": "scheduler-research",
+    "labels": {
+      "app.kubernetes.io/part-of": "scheduler-research",
+      "research.scheduler/stage": "e1-dag",
+      "research.scheduler/run": "20261016t072946"
+    }
+  },
+  "spec": {
+    "backoffLimit": 0,
+    "activeDeadlineSeconds": 600,
+    "ttlSecondsAfterFinished": 3600,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e1-dag",
+          "research.scheduler/run": "20261016t072946"
+        },
+        "annotations": {
+          "sidecar.istio.io/inject": "false"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0003-raspi5"
+        },
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "probe",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import sys,runpy;sys.path.insert(0,'/config');runpy.run_path('/config/dag_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "client"
+              },
+              {
+                "name": "BLOCK",
+                "value": "eval-1"
+              },
+              {
+                "name": "RUN_ID",
+                "value": "20261016t072946"
+              },
+              {
+                "name": "PEERS_JSON",
+                "value": "{\"arm\": {\"alias\": \"arm\", \"node\": \"etri-dev0003-raspi5\", \"backend\": \"cpu\", \"url\": \"http://e1-dag-20261016t072946-arm.scheduler-research.svc.cluster.local:8080\"}, \"amd\": {\"alias\": \"amd\", \"node\": \"etri-ser0004-cgnms0\", \"backend\": \"cpu\", \"url\": \"http://e1-dag-20261016t072946-amd.scheduler-research.svc.cluster.local:8080\"}, \"gpu\": {\"alias\": \"gpu\", \"node\": \"etri-ser0003-cg0ms0\", \"image\": \"192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a\", \"resource\": \"nvidia.com/gpu\", \"runtimeClassName\": \"nvidia-spark\", \"backend\": \"gpu\", \"url\": \"http://e1-dag-20261016t072946-gpu.scheduler-research.svc.cluster.local:8080\"}, \"intel_npu\": {\"alias\": \"intel_npu\", \"node\": \"etri-ser0002-cgnmsb\", \"image\": \"192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a\", \"resource\": \"npu.intel.com/accel\", \"backend\": \"intel_npu\", \"url\": \"http://e1-dag-20261016t072946-intel-npu.scheduler-research.svc.cluster.local:8080\"}}"
+              },
+              {
+                "name": "ASSET_BASE",
+                "value": "http://e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local:8080"
+              },
+              {
+                "name": "NO_PROXY",
+                "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "no_proxy",
+                "value": "e0-wheel-cache-20261016t070607.scheduler-research.svc.cluster.local"
+              },
+              {
+                "name": "SCHEDULE_JSON",
+                "value": "[{\"id\": \"gpu-gpu-gpu\", \"plan\": [\"gpu\", \"gpu\", \"gpu\"], \"policies\": [\"B2_fastest\", \"anchor_all_gpu\"], \"run_order\": 1}, {\"id\": \"arm-arm-arm\", \"plan\": [\"arm\", \"arm\", \"arm\"], \"policies\": [\"C1_data_greedy\", \"B3_joint_enumeration\", \"anchor_all_arm\"], \"run_order\": 2}]"
+              },
+              {
+                "name": "MEASURED",
+                "value": "10"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi",
+                "ephemeral-storage": "256Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "768Mi",
+                "ephemeral-storage": "1Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              },
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "e1-dag-20261016t072946"
+            }
+          },
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "768Mi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            }
+          }
+        ],
+        "terminationGracePeriodSeconds": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,700 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607"
+        }
+      },
+      "immutable": true,
+      "data": {
+        "probe.py": "\"\"\"E0 CPU compatibility probe; three sequential tasks inside one Pod.\n\nThis measures execution feasibility, not distributed placement performance.\n\"\"\"\n\nimport hashlib\nimport importlib.metadata\nimport io\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport time\nimport urllib.request\n\n\nMODEL_URL = (\n    \"https://huggingface.co/onnxmodelzoo/squeezenet1.1-7/resolve/\"\n    \"61e525224ad479521059f4586bcacf50ad3627ca/squeezenet1.1-7.onnx\"\n)\nMODEL_SHA256 = \"1eeff551a67ae8d565ca33b572fc4b66e3ef357b0eb2863bb9ff47a918cc4088\"\nIMAGE_URL = (\n    \"https://raw.githubusercontent.com/pytorch/hub/\"\n    \"c3beaae7d32fca2a23fec30aa7938ef5c9b6e5d5/images/dog.jpg\"\n)\nIMAGE_SHA256 = \"f3f87bb8ab3c26c7ecfd3ac60421d7f32b0503d1d6c5baf8bac42ed93d86351a\"\n\n\ndef emit(kind, **data):\n    print(json.dumps({\"kind\": kind, **data}, allow_nan=False), flush=True)\n\n\ndef fetch(url, expected):\n    started = time.perf_counter()\n    with urllib.request.urlopen(url, timeout=60) as response:\n        data = response.read(10 * 1024 * 1024 + 1)\n    if len(data) > 10 * 1024 * 1024:\n        raise ValueError(\"Asset exceeds E0 download limit\")\n    digest = hashlib.sha256(data).hexdigest()\n    if digest != expected:\n        raise ValueError(f\"Asset SHA256 mismatch: {digest}\")\n    emit(\"asset\", url=url, bytes=len(data), sha256=digest,\n         download_ms=(time.perf_counter() - started) * 1000)\n    return data\n\n\ndef main():\n    import numpy as np\n    import onnxruntime as ort\n    from PIL import Image\n\n    started = time.perf_counter()\n    emit(\"environment\", node=os.environ.get(\"NODE_NAME\"),\n         architecture=platform.machine(), python=platform.python_version(),\n         packages={name: importlib.metadata.version(name) for name in\n                   (\"numpy\", \"onnxruntime\", \"Pillow\")},\n         available_providers=ort.get_available_providers())\n    work = Path(os.environ.get(\"E0_WORKDIR\", \"/work\"))\n    work.mkdir(parents=True, exist_ok=True)\n    model_bytes = fetch(MODEL_URL, MODEL_SHA256)\n    image_bytes = fetch(IMAGE_URL, IMAGE_SHA256)\n    model_path = work / \"squeezenet1.1-7.onnx\"\n    model_path.write_bytes(model_bytes)\n    options = ort.SessionOptions()\n    options.intra_op_num_threads = 1\n    options.inter_op_num_threads = 1\n    loaded = time.perf_counter()\n    session = ort.InferenceSession(str(model_path), sess_options=options,\n                                   providers=[\"CPUExecutionProvider\"])\n    emit(\"model\", providers=session.get_providers(),\n         load_ms=(time.perf_counter() - loaded) * 1000,\n         inputs=[{\"name\": x.name, \"shape\": x.shape, \"type\": x.type}\n                 for x in session.get_inputs()],\n         outputs=[{\"name\": x.name, \"shape\": x.shape, \"type\": x.type}\n                  for x in session.get_outputs()])\n\n    pipeline_started = time.perf_counter()\n    image = Image.open(io.BytesIO(image_bytes)).convert(\"RGB\")\n    width, height = image.size\n    scale = 256 / min(width, height)\n    image = image.resize((round(width * scale), round(height * scale)),\n                         Image.Resampling.BILINEAR)\n    left, top = (image.width - 224) // 2, (image.height - 224) // 2\n    image = image.crop((left, top, left + 224, top + 224))\n    tensor = np.asarray(image, dtype=np.float32).transpose(2, 0, 1) / 255\n    tensor = (tensor - np.array([.485, .456, .406], dtype=np.float32)[:, None, None])\n    tensor /= np.array([.229, .224, .225], dtype=np.float32)[:, None, None]\n    tensor = np.ascontiguousarray(tensor[None], dtype=np.float32)\n    if tensor.shape != (1, 3, 224, 224) or not np.isfinite(tensor).all():\n        raise ValueError(\"Invalid preprocessed tensor\")\n    emit(\"task\", task=\"T1_preprocess\", bytes=tensor.nbytes,\n         tensor_sha256=hashlib.sha256(tensor.tobytes()).hexdigest(),\n         elapsed_ms=(time.perf_counter() - pipeline_started) * 1000)\n\n    inference_started = time.perf_counter()\n    outputs = session.run(None, {session.get_inputs()[0].name: tensor})\n    scores = np.asarray(outputs[0]).reshape(-1)\n    if scores.size != 1000 or not np.isfinite(scores).all():\n        raise ValueError(\"Invalid classifier output\")\n    emit(\"task\", task=\"T2_inference\", bytes=scores.nbytes,\n         elapsed_ms=(time.perf_counter() - inference_started) * 1000)\n\n    postprocess_started = time.perf_counter()\n    top5 = np.argsort(scores)[-5:][::-1]\n    result = [{\"class_index\": int(i), \"raw_score\": float(scores[i])} for i in top5]\n    emit(\"task\", task=\"T3_postprocess\", top5=result,\n         elapsed_ms=(time.perf_counter() - postprocess_started) * 1000)\n    if int(top5[0]) != 258:\n        raise ValueError(f\"Dog fixture smoke check failed: expected Samoyed (258), got {int(top5[0])}\")\n    emit(\"result\", status=\"fixture_smoke_passed\", node=os.environ.get(\"NODE_NAME\"),\n         architecture=platform.machine(), top1=int(top5[0]), top5=result,\n         pipeline_ms=(time.perf_counter() - pipeline_started) * 1000,\n         total_after_import_ms=(time.perf_counter() - started) * 1000,\n         scope=\"single_pod_cpu_feasibility_not_placement_benchmark\")\n\n\nif __name__ == \"__main__\":\n    main()\n",
+        "transport.py": "\"\"\"Three-task CPU fixture across two Pods using an internal HTTP Service.\n\nHTTP wall time is an application round trip, never one-way network latency.\n\"\"\"\n\nimport hashlib\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\nimport io\nimport json\nimport os\nfrom pathlib import Path\nimport socket\nimport time\nimport urllib.parse\nimport urllib.request\n\nfrom probe import MODEL_URL, MODEL_SHA256, IMAGE_URL, IMAGE_SHA256, fetch, emit\n\n\nTENSOR_BYTES = 602112\nOUTPUT_BYTES = 4000\nTENSOR_SHA256 = \"791a0f0caae0b9e4a81d7ad9fe3db67514bc2f67fbff71fb4d29f6cd66ff011d\"\nNODE = os.environ.get(\"NODE_NAME\", \"unknown\")\n\n\ndef preprocess(image_bytes):\n    import numpy as np\n    from PIL import Image\n\n    image = Image.open(io.BytesIO(image_bytes)).convert(\"RGB\")\n    scale = 256 / min(image.size)\n    image = image.resize((round(image.width * scale), round(image.height * scale)),\n                         Image.Resampling.BILINEAR)\n    left, top = (image.width - 224) // 2, (image.height - 224) // 2\n    image = image.crop((left, top, left + 224, top + 224))\n    tensor = np.asarray(image, dtype=np.float32).transpose(2, 0, 1) / 255\n    tensor = (tensor - np.array([.485, .456, .406], dtype=np.float32)[:, None, None])\n    tensor /= np.array([.229, .224, .225], dtype=np.float32)[:, None, None]\n    return np.ascontiguousarray(tensor[None], dtype=\"<f4\")\n\n\ndef serve():\n    import numpy as np\n    import onnxruntime as ort\n\n    model = Path(\"/work/model.onnx\")\n    model.write_bytes(fetch(MODEL_URL, MODEL_SHA256))\n    options = ort.SessionOptions()\n    options.intra_op_num_threads = options.inter_op_num_threads = 1\n    session = ort.InferenceSession(str(model), sess_options=options,\n                                   providers=[\"CPUExecutionProvider\"])\n    assert session.get_providers() == [\"CPUExecutionProvider\"]\n\n    class Handler(BaseHTTPRequestHandler):\n        def log_message(self, *_):\n            pass\n\n        def do_GET(self):\n            if self.path != \"/healthz\":\n                self.send_error(404)\n                return\n            body = json.dumps({\"node\": NODE, \"model_sha256\": MODEL_SHA256,\n                               \"providers\": session.get_providers()}).encode()\n            self.send_response(200)\n            self.send_header(\"Content-Length\", str(len(body)))\n            self.end_headers()\n            self.wfile.write(body)\n\n        def do_POST(self):\n            if self.path != \"/infer\":\n                self.send_error(404)\n                return\n            self.connection.settimeout(15)\n            try:\n                if int(self.headers.get(\"Content-Length\", \"0\")) != TENSOR_BYTES:\n                    raise ValueError(\"Unexpected payload length\")\n                read_started = time.perf_counter()\n                data = self.rfile.read(TENSOR_BYTES)\n                read_ms = (time.perf_counter() - read_started) * 1000\n                validation_started = time.perf_counter()\n                if len(data) != TENSOR_BYTES:\n                    raise ValueError(\"Truncated tensor\")\n                digest = hashlib.sha256(data).hexdigest()\n                if digest != TENSOR_SHA256 or self.headers.get(\"X-Tensor-SHA256\") != digest:\n                    raise ValueError(\"Tensor integrity check failed\")\n                tensor = np.frombuffer(data, dtype=\"<f4\").reshape(1, 3, 224, 224)\n                if not np.isfinite(tensor).all():\n                    raise ValueError(\"Non-finite tensor\")\n                validation_ms = (time.perf_counter() - validation_started) * 1000\n                inference_started = time.perf_counter()\n                output = session.run(None, {session.get_inputs()[0].name: tensor})[0]\n                inference_ms = (time.perf_counter() - inference_started) * 1000\n                encode_started = time.perf_counter()\n                scores = np.asarray(output, dtype=\"<f4\").reshape(-1)\n                if scores.size != 1000 or not np.isfinite(scores).all():\n                    raise ValueError(\"Invalid inference output\")\n                body = scores.tobytes()\n                output_digest = hashlib.sha256(body).hexdigest()\n                encode_ms = (time.perf_counter() - encode_started) * 1000\n                headers = {\"Content-Type\": \"application/octet-stream\",\n                           \"Content-Length\": str(len(body)), \"X-Server-Node\": NODE,\n                           \"X-Request-ID\": self.headers.get(\"X-Request-ID\", \"\"),\n                           \"X-Model-SHA256\": MODEL_SHA256, \"X-Input-SHA256\": digest,\n                           \"X-Output-SHA256\": output_digest, \"X-Read-Ms\": str(read_ms),\n                           \"X-Validation-Ms\": str(validation_ms),\n                           \"X-Infer-Ms\": str(inference_ms), \"X-Encode-Ms\": str(encode_ms)}\n                self.send_response(200)\n                for key, value in headers.items():\n                    self.send_header(key, value)\n                self.end_headers()\n                self.wfile.write(body)\n                emit(\"served\", request_id=self.headers.get(\"X-Request-ID\"),\n                     node=NODE, input_bytes=len(data), input_sha256=digest,\n                     output_bytes=len(body), output_sha256=output_digest,\n                     read_ms=read_ms, validation_ms=validation_ms,\n                     inference_ms=inference_ms, encode_ms=encode_ms)\n            except (ValueError, TimeoutError) as error:\n                emit(\"request_error\", error=str(error))\n                self.send_error(400, \"Invalid E0 request\")\n\n    server = HTTPServer((\"0.0.0.0\", 8080), Handler)\n    emit(\"server_ready\", node=NODE, model_sha256=MODEL_SHA256,\n         providers=session.get_providers())\n    server.serve_forever()\n\n\ndef client():\n    import numpy as np\n\n    # Internal Service traffic must not be redirected to an ambient HTTP proxy.\n    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))\n    image_bytes = fetch(IMAGE_URL, IMAGE_SHA256)\n    targets = json.loads(os.environ[\"TARGETS_JSON\"])\n    warmup, measured = 2, 5\n    for target in targets:\n        hostname = urllib.parse.urlparse(target[\"url\"]).hostname\n        addresses = sorted({x[4][0] for x in socket.getaddrinfo(hostname, 8080)})\n        with opener.open(target[\"url\"] + \"/healthz\", timeout=15) as response:\n            health = json.load(response)\n        assert health[\"node\"] == target[\"node\"]\n        assert health[\"model_sha256\"] == MODEL_SHA256\n        assert health[\"providers\"] == [\"CPUExecutionProvider\"]\n        emit(\"route\", source_node=NODE, target=target, resolved_addresses=addresses)\n    for iteration in range(warmup + measured):\n        order = targets if iteration % 2 == 0 else list(reversed(targets))\n        for target in order:\n            request_id = f\"{os.environ['RUN_ID']}-{os.environ['CLIENT_ALIAS']}-{iteration}-{target['alias']}\"\n            started = time.perf_counter()\n            tensor = preprocess(image_bytes)\n            preprocessed = time.perf_counter()\n            body = tensor.tobytes()\n            digest = hashlib.sha256(body).hexdigest()\n            assert len(body) == TENSOR_BYTES and digest == TENSOR_SHA256\n            serialized = time.perf_counter()\n            request = urllib.request.Request(\n                target[\"url\"] + \"/infer\", data=body, method=\"POST\",\n                headers={\"Content-Type\": \"application/octet-stream\",\n                         \"X-Tensor-SHA256\": digest, \"X-Request-ID\": request_id})\n            rpc_started = time.perf_counter()\n            with opener.open(request, timeout=15) as response:\n                output = response.read(OUTPUT_BYTES + 1)\n                headers = response.headers\n            rpc_finished = time.perf_counter()\n            assert len(output) == OUTPUT_BYTES\n            assert headers[\"X-Server-Node\"] == target[\"node\"]\n            assert headers[\"X-Request-ID\"] == request_id\n            assert headers[\"X-Model-SHA256\"] == MODEL_SHA256\n            assert headers[\"X-Input-SHA256\"] == digest\n            assert hashlib.sha256(output).hexdigest() == headers[\"X-Output-SHA256\"]\n            scores = np.frombuffer(output, dtype=\"<f4\")\n            assert np.isfinite(scores).all()\n            top5 = np.argsort(scores)[-5:][::-1].tolist()\n            assert top5 == [258, 259, 157, 279, 152]\n            finished = time.perf_counter()\n            emit(\"request\", request_id=request_id, iteration=iteration,\n                 warmup=iteration < warmup, source_node=NODE,\n                 inference_node=target[\"node\"], same_node=NODE == target[\"node\"],\n                 input_bytes=len(body), input_sha256=digest,\n                 output_bytes=len(output), output_sha256=headers[\"X-Output-SHA256\"],\n                 top5=top5, preprocess_ms=(preprocessed - started) * 1000,\n                 serialization_and_hash_ms=(serialized - preprocessed) * 1000,\n                 rpc_wall_ms=(rpc_finished - rpc_started) * 1000,\n                 server_read_ms=float(headers[\"X-Read-Ms\"]),\n                 server_validation_ms=float(headers[\"X-Validation-Ms\"]),\n                 server_inference_ms=float(headers[\"X-Infer-Ms\"]),\n                 server_encode_ms=float(headers[\"X-Encode-Ms\"]),\n                 response_validation_and_postprocess_ms=(finished - rpc_finished) * 1000,\n                 workflow_wall_ms=(finished - started) * 1000)\n    emit(\"client_complete\", node=NODE, warmup_requests=warmup * len(targets),\n         measured_requests=measured * len(targets),\n         scope=\"two_pod_cpu_service_transport_pilot\")\n\n\nif __name__ == \"__main__\":\n    if os.environ[\"MODE\"] == \"server\":\n        serve()\n    elif os.environ[\"MODE\"] == \"client\":\n        client()\n    else:\n        raise ValueError(\"Unknown E0 mode\")\n",
+        "accelerator_inference.py": "\"\"\"Qualify the same ONNX classifier on an allocated GPU or Intel NPU.\n\nCUDA uses a recorded ONNX-to-PyTorch conversion because ORT 1.23.2 has no\nofficial ARM64 GPU wheel. Quality comparisons use local ORT CPU reference.\n\"\"\"\n\nimport hashlib\nimport importlib.metadata as metadata\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport re\nimport time\n\nfrom probe import MODEL_URL, MODEL_SHA256, IMAGE_URL, IMAGE_SHA256, fetch, emit\nfrom transport import preprocess, TENSOR_SHA256\n\n\ndef gpu_backend(model_path, tensor):\n    import numpy as np\n    import onnx\n    from onnx import numpy_helper, version_converter\n    import torch\n    from onnx2torch import convert\n\n    assert torch.cuda.is_available(), \"CUDA unavailable; CPU execution forbidden\"\n    torch.backends.cuda.matmul.allow_tf32 = False\n    torch.backends.cudnn.allow_tf32 = False\n    torch.set_num_threads(1)\n    started = time.perf_counter()\n    original = onnx.load(str(model_path))\n    normalized = version_converter.convert_version(original, 13)\n    onnx.checker.check_model(normalized)\n    weights = {v.name: numpy_helper.to_array(v) for v in normalized.graph.initializer}\n    for value in original.graph.initializer:\n        before, after = numpy_helper.to_array(value), weights[value.name]\n        assert before.dtype == after.dtype and before.shape == after.shape\n        assert np.array_equal(before, after), value.name\n    derived_path = model_path.with_name(\"squeezenet1.1-derived-opset13.onnx\")\n    onnx.save(normalized, str(derived_path))\n    derived_sha256 = hashlib.sha256(derived_path.read_bytes()).hexdigest()\n    assert derived_sha256 == \"5846b40aca708f9e817e19caa3d49e49e81b9bd9ba2fffc70a175a8558904857\"\n    emit(\"gpu_graph_normalized\", source_sha256=MODEL_SHA256, derived_sha256=derived_sha256,\n         target_opset=13, original_initializers_unchanged=len(original.graph.initializer),\n         normalization_ms=(time.perf_counter()-started)*1000)\n    model = convert(normalized).eval().to(\"cuda\")\n    torch.cuda.synchronize()\n    parameters = list(model.parameters())\n    assert parameters and all(p.is_cuda for p in parameters)\n    emit(\"prepared\", backend=\"onnx2torch_cuda\", conversion_and_device_load_ms=(time.perf_counter()-started)*1000,\n         device_name=torch.cuda.get_device_name(0), capability=list(torch.cuda.get_device_capability(0)),\n         cuda_build=torch.version.cuda, all_model_parameters_cuda=True,\n         parameter_elements=sum(p.numel() for p in parameters))\n\n    def infer(input_tensor=None):\n        with torch.inference_mode():\n            copied = time.perf_counter()\n            inputs = torch.from_numpy(tensor if input_tensor is None else input_tensor).to(\"cuda\")\n            torch.cuda.synchronize()\n            h2d_ms = (time.perf_counter() - copied) * 1000\n            start, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)\n            start.record()\n            output = model(inputs)\n            end.record()\n            torch.cuda.synchronize()\n            assert output.is_cuda\n            cuda_ms = start.elapsed_time(end)\n            assert cuda_ms > 0\n            copied = time.perf_counter()\n            scores = output.detach().cpu().numpy().reshape(-1).copy()\n            d2h_ms = (time.perf_counter() - copied) * 1000\n            return scores, {\"cuda_event_ms\": cuda_ms, \"output_device\": str(output.device),\n                            \"h2d_blocking_wall_ms\": h2d_ms, \"d2h_blocking_wall_ms\": d2h_ms}\n\n    try:\n        with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU,\n                                               torch.profiler.ProfilerActivity.CUDA]) as profiler:\n            infer()\n        events = [e for e in profiler.events() if \"cuda\" in str(e.device_type).lower()]\n        emit(\"gpu_profile\", cuda_event_count=len(events), kernel_names=[e.name for e in events[:8]])\n    except Exception as error:\n        emit(\"gpu_profile_unavailable\", error=str(error)[:400])\n    return infer\n\n\ndef npu_backend(model_path, tensor):\n    import openvino as ov\n\n    core = ov.Core()\n    assert any(re.fullmatch(r\"NPU(?:\\.\\d+)?\", d) for d in core.available_devices)\n    emit(\"npu_available\", version=ov.__version__, devices=core.available_devices,\n         device_name=str(core.get_property(\"NPU\", \"FULL_DEVICE_NAME\")))\n    started = time.perf_counter()\n    model = core.read_model(str(model_path))\n    read_ms = (time.perf_counter() - started) * 1000\n    cache = Path(\"/work/ov-cache\")\n    cache.mkdir()\n    core.set_property({\"CACHE_DIR\": str(cache)})\n    started = time.perf_counter()\n    compiled = core.compile_model(model, \"NPU\", {\"PERFORMANCE_HINT\": \"LATENCY\"})\n    compile_ms = (time.perf_counter() - started) * 1000\n    devices = compiled.get_property(\"EXECUTION_DEVICES\")\n    if isinstance(devices, str):\n        devices = [devices]\n    assert devices and all(re.fullmatch(r\"NPU(?:\\.\\d+)?\", d) for d in devices), devices\n    request = compiled.create_infer_request()\n    emit(\"prepared\", backend=\"openvino_direct_npu\", model_read_ms=read_ms,\n         compile_ms=compile_ms, execution_devices=list(devices),\n         precision=\"FP32 model and I/O; NPU internal precision is device-dependent\",\n         cache_bytes=sum(p.stat().st_size for p in cache.rglob(\"*\") if p.is_file()))\n\n    def infer(input_tensor=None):\n        request.infer({compiled.input(0): tensor if input_tensor is None else input_tensor})\n        return request.get_output_tensor(0).data.reshape(-1).copy(), {\"execution_devices\": list(devices)}\n\n    return infer\n\n\ndef main():\n    import numpy as np\n    import onnxruntime as ort\n\n    backend = os.environ[\"BACKEND\"]\n    emit(\"environment\", node=os.environ[\"NODE_NAME\"], backend=backend,\n         python=platform.python_version(), architecture=platform.machine())\n    packages = {}\n    for name in [\"numpy\", \"Pillow\", \"onnxruntime\", \"torch\", \"torchvision\", \"onnx\", \"onnx2torch\", \"openvino\"]:\n        try:\n            packages[name] = metadata.version(name)\n        except metadata.PackageNotFoundError:\n            pass\n    emit(\"packages\", versions=packages)\n    model_path = Path(\"/work/squeezenet1.1-7.onnx\")\n    model_path.write_bytes(fetch(MODEL_URL, MODEL_SHA256))\n    tensor = preprocess(fetch(IMAGE_URL, IMAGE_SHA256))\n    digest = hashlib.sha256(tensor.tobytes()).hexdigest()\n    assert digest == TENSOR_SHA256\n    opts = ort.SessionOptions()\n    opts.intra_op_num_threads = opts.inter_op_num_threads = 1\n    reference_session = ort.InferenceSession(str(model_path), opts, providers=[\"CPUExecutionProvider\"])\n    reference = reference_session.run(None, {reference_session.get_inputs()[0].name: tensor})[0].reshape(-1)\n    expected_top5 = np.argsort(reference)[-5:][::-1].tolist()\n    assert expected_top5 == [258, 259, 157, 279, 152]\n    emit(\"cpu_reference\", providers=reference_session.get_providers(), model_sha256=MODEL_SHA256,\n         input_sha256=digest, top5=expected_top5, output_bytes=reference.nbytes)\n    assert backend in {\"gpu\", \"intel_npu\"}, backend\n    infer = gpu_backend(model_path, tensor) if backend == \"gpu\" else npu_backend(model_path, tensor)\n    for iteration in range(7):\n        started = time.perf_counter()\n        scores, evidence = infer()\n        elapsed_ms = (time.perf_counter() - started) * 1000\n        assert scores.shape == (1000,) and np.isfinite(scores).all()\n        top5 = np.argsort(scores)[-5:][::-1].tolist()\n        assert top5 == expected_top5, (top5, expected_top5)\n        difference = np.asarray(scores, dtype=np.float64) - reference\n        emit(\"inference\", iteration=iteration, warmup=iteration < 2,\n             blocking_host_input_to_host_output_ms=elapsed_ms, top5=top5,\n             max_abs_error_vs_cpu=float(np.max(np.abs(difference))),\n             rmse_vs_cpu=float(np.sqrt(np.mean(difference**2))), **evidence)\n    emit(\"complete\", backend=backend, status=\"classification_fixture_passed\",\n         warmup=2, measured=5, model_sha256=MODEL_SHA256, input_sha256=digest,\n         scope=\"single_fixture_accelerator_qualification_not_policy_benchmark\")\n\n\nif __name__ == \"__main__\":\n    main()\n",
+        "rpc_profile.py": "\"\"\"Bounded E0 profiling: actual received tensors, common HTTP/1.1 contract.\"\"\"\n\nimport hashlib\nimport http.client\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nimport json\nimport os\nfrom pathlib import Path\nimport socket\nimport threading\nimport time\nimport uuid\nfrom urllib.parse import urlparse\n\nfrom probe import MODEL_URL, MODEL_SHA256, IMAGE_URL, IMAGE_SHA256, fetch, emit\nfrom transport import preprocess, TENSOR_BYTES, TENSOR_SHA256, OUTPUT_BYTES\n\n\ndef serve():\n    import numpy as np\n    import onnxruntime as ort\n\n    backend, node = os.environ[\"BACKEND\"], os.environ[\"NODE_NAME\"]\n    assert backend in {\"cpu\", \"gpu\", \"intel_npu\"}\n    work = Path(os.environ.get(\"WORKDIR\", \"/work\"))\n    model_path = work / \"model.onnx\"\n    model_path.write_bytes(fetch(MODEL_URL, MODEL_SHA256))\n    fixture = preprocess(fetch(IMAGE_URL, IMAGE_SHA256))\n    assert hashlib.sha256(fixture.tobytes()).hexdigest() == TENSOR_SHA256\n    options = ort.SessionOptions()\n    options.intra_op_num_threads = options.inter_op_num_threads = 1\n    session = ort.InferenceSession(str(model_path), options, providers=[\"CPUExecutionProvider\"])\n    reference = session.run(None, {session.get_inputs()[0].name: fixture})[0].reshape(-1)\n    if backend == \"gpu\":\n        from accelerator_inference import gpu_backend\n        infer = gpu_backend(model_path, fixture)\n    elif backend == \"intel_npu\":\n        from accelerator_inference import npu_backend\n        infer = npu_backend(model_path, fixture)\n    else:\n        def infer(tensor):\n            return session.run(None, {session.get_inputs()[0].name: tensor})[0].reshape(-1), {\"execution_device\": \"CPU\"}\n    for _ in range(2):\n        scores, evidence = infer(fixture)\n        assert np.argsort(scores)[-5:][::-1].tolist() == [258, 259, 157, 279, 152]\n    lock = threading.Lock()\n\n    class Handler(BaseHTTPRequestHandler):\n        protocol_version = \"HTTP/1.1\"\n\n        def setup(self):\n            super().setup()\n            self.connection.settimeout(15)\n            self.connection_id = uuid.uuid4().hex\n\n        def log_message(self, *_):\n            pass\n\n        def do_GET(self):\n            if self.path != \"/healthz\":\n                self.send_error(404)\n                return\n            body = json.dumps({\"node\": node, \"backend\": backend,\n                               \"model_sha256\": MODEL_SHA256, \"evidence\": evidence}).encode()\n            self.send_response(200)\n            self.send_header(\"Content-Length\", str(len(body)))\n            self.end_headers()\n            self.wfile.write(body)\n\n        def do_POST(self):\n            if self.path != \"/infer\":\n                self.send_error(404)\n                return\n            try:\n                nodelay = int(self.headers.get(\"X-TCP-NoDelay\", \"1\"))\n                if nodelay not in {0, 1} or int(self.headers.get(\"Content-Length\", \"0\")) != TENSOR_BYTES:\n                    raise ValueError(\"Invalid transport setting or payload length\")\n                self.connection.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, nodelay)\n                actual_nodelay = self.connection.getsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY)\n                read_started = time.perf_counter()\n                data = self.rfile.read(TENSOR_BYTES)\n                read_ms = (time.perf_counter() - read_started) * 1000\n                validated = time.perf_counter()\n                digest = hashlib.sha256(data).hexdigest()\n                if len(data) != TENSOR_BYTES or digest != TENSOR_SHA256 or self.headers.get(\"X-Tensor-SHA256\") != digest:\n                    raise ValueError(\"Tensor integrity check failed\")\n                tensor = np.frombuffer(data, dtype=\"<f4\").reshape(1, 3, 224, 224).copy()\n                if not np.isfinite(tensor).all():\n                    raise ValueError(\"Non-finite tensor\")\n                decode_ms = (time.perf_counter() - validated) * 1000\n                queued = time.perf_counter()\n                with lock:\n                    queue_ms = (time.perf_counter() - queued) * 1000\n                    started = time.perf_counter()\n                    scores, device_evidence = infer(tensor)\n                    infer_ms = (time.perf_counter() - started) * 1000\n                encoded = time.perf_counter()\n                scores = np.asarray(scores, dtype=\"<f4\").reshape(-1)\n                assert scores.shape == (1000,) and np.isfinite(scores).all()\n                assert np.argsort(scores)[-5:][::-1].tolist() == [258, 259, 157, 279, 152]\n                difference = scores.astype(np.float64) - reference\n                body = scores.tobytes()\n                output_digest = hashlib.sha256(body).hexdigest()\n                encode_ms = (time.perf_counter() - encoded) * 1000\n                metrics = {\"read_ms\": read_ms, \"decode_validate_ms\": decode_ms,\n                           \"queue_ms\": queue_ms, \"backend_blocking_ms\": infer_ms,\n                           \"encode_validate_ms\": encode_ms, **device_evidence}\n                request_id = self.headers.get(\"X-Request-ID\", \"\")\n                headers = {\"Content-Length\": str(len(body)), \"Content-Type\": \"application/octet-stream\",\n                           \"X-Request-ID\": request_id, \"X-Server-Node\": node, \"X-Backend\": backend,\n                           \"X-Model-SHA256\": MODEL_SHA256, \"X-Input-SHA256\": digest,\n                           \"X-Output-SHA256\": output_digest, \"X-Connection-ID\": self.connection_id,\n                           \"X-Server-NoDelay\": str(actual_nodelay), \"X-Metrics\": json.dumps(metrics),\n                           \"X-Max-Error\": str(float(np.max(np.abs(difference))))}\n                self.send_response(200)\n                for key, value in headers.items():\n                    self.send_header(key, value)\n                self.end_headers()\n                self.wfile.write(body)\n                emit(\"served\", request_id=request_id, connection_id=self.connection_id,\n                     node=node, backend=backend, server_nodelay=actual_nodelay,\n                     input_sha256=digest, output_sha256=output_digest,\n                     input_bytes=len(data), output_bytes=len(body), metrics=metrics)\n            except (ValueError, TimeoutError) as error:\n                emit(\"request_error\", error=str(error))\n                self.send_error(400, \"Invalid fixture request\")\n\n    server = ThreadingHTTPServer((\"0.0.0.0\", int(os.environ.get(\"PORT\", \"8080\"))), Handler)\n    emit(\"server_ready\", node=node, backend=backend, port=server.server_address[1],\n         model_sha256=MODEL_SHA256, evidence=evidence)\n    server.serve_forever()\n\n\ndef client():\n    import numpy as np\n\n    targets = {t[\"alias\"]: t for t in json.loads(os.environ[\"TARGETS_JSON\"])}\n    schedule = json.loads(os.environ[\"SCHEDULE_JSON\"])\n    image = fetch(IMAGE_URL, IMAGE_SHA256)\n    node, block = os.environ[\"NODE_NAME\"], int(os.environ[\"BLOCK\"])\n    emit(\"client_environment\", node=node, block=block, numpy=np.__version__,\n         schedule=schedule, interval_seconds=0.2, warmup=2, measured=10)\n    for target in targets.values():\n        url = urlparse(target[\"url\"])\n        connection = http.client.HTTPConnection(url.hostname, url.port, timeout=15)\n        connection.request(\"GET\", \"/healthz\", headers={\"Connection\": \"close\"})\n        response = connection.getresponse()\n        health = json.loads(response.read())\n        connection.close()\n        assert response.status == 200 and health[\"node\"] == target[\"node\"]\n        assert health[\"backend\"] == target[\"backend\"] and health[\"model_sha256\"] == MODEL_SHA256\n        emit(\"route\", target=target, health=health)\n    total = 0\n    for condition in schedule:\n        target = targets[condition[\"target\"]]\n        reuse, nodelay = condition[\"reuse\"], condition[\"nodelay\"]\n        url = urlparse(target[\"url\"])\n        connection, reused_id, previous_id = None, None, None\n        for iteration in range(12):\n            request_id = f\"{os.environ['RUN_ID']}-b{block}-{condition['id']}-{iteration}\"\n            started = time.perf_counter()\n            tensor = preprocess(image)\n            preprocessed = time.perf_counter()\n            body = tensor.tobytes()\n            digest = hashlib.sha256(body).hexdigest()\n            assert digest == TENSOR_SHA256 and len(body) == TENSOR_BYTES\n            serialized = time.perf_counter()\n            connect_ms = 0.0\n            if connection is None:\n                connecting = time.perf_counter()\n                connection = http.client.HTTPConnection(url.hostname, url.port, timeout=15)\n                connection.connect()\n                connection.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, nodelay)\n                connect_ms = (time.perf_counter() - connecting) * 1000\n            active_socket = connection.sock\n            actual_nodelay = active_socket.getsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY)\n            local_address, peer_address = active_socket.getsockname(), active_socket.getpeername()\n            assert actual_nodelay == nodelay\n            rpc_started = time.perf_counter()\n            connection.request(\"POST\", \"/infer\", body,\n                               {\"X-Request-ID\": request_id, \"X-Tensor-SHA256\": digest,\n                                \"X-TCP-NoDelay\": str(nodelay),\n                                \"Connection\": \"keep-alive\" if reuse else \"close\"})\n            response = connection.getresponse()\n            assert response.status == 200 and int(response.getheader(\"Content-Length\")) == OUTPUT_BYTES\n            output = response.read()\n            rpc_ended = time.perf_counter()\n            assert len(output) == OUTPUT_BYTES\n            assert response.getheader(\"X-Request-ID\") == request_id\n            assert response.getheader(\"X-Server-Node\") == target[\"node\"]\n            assert response.getheader(\"X-Backend\") == target[\"backend\"]\n            assert response.getheader(\"X-Model-SHA256\") == MODEL_SHA256\n            assert response.getheader(\"X-Input-SHA256\") == digest\n            assert response.getheader(\"X-Output-SHA256\") == hashlib.sha256(output).hexdigest()\n            assert int(response.getheader(\"X-Server-NoDelay\")) == nodelay\n            connection_id = response.getheader(\"X-Connection-ID\")\n            assert connection_id\n            if reuse:\n                assert connection.sock is active_socket\n                reused_id = reused_id or connection_id\n                assert connection_id == reused_id\n            else:\n                assert connection_id != previous_id\n            previous_id = connection_id\n            scores = np.frombuffer(output, dtype=\"<f4\")\n            assert np.isfinite(scores).all()\n            top5 = np.argsort(scores)[-5:][::-1].tolist()\n            assert top5 == [258, 259, 157, 279, 152]\n            metrics = json.loads(response.getheader(\"X-Metrics\"))\n            finished = time.perf_counter()\n            emit(\"request\", request_id=request_id, block=block, condition=condition,\n                 iteration=iteration, warmup=iteration < 2, source_node=node,\n                 inference_node=target[\"node\"], backend=target[\"backend\"],\n                 input_bytes=len(body), output_bytes=len(output), input_sha256=digest,\n                 output_sha256=hashlib.sha256(output).hexdigest(), top5=top5,\n                 client_nodelay=actual_nodelay, server_nodelay=int(response.getheader(\"X-Server-NoDelay\")),\n                 connection_id=connection_id, local_address=local_address, peer_address=peer_address,\n                 preprocess_ms=(preprocessed-started)*1000,\n                 serialization_hash_ms=(serialized-preprocessed)*1000,\n                 connect_ms=connect_ms, rpc_wall_ms=(rpc_ended-rpc_started)*1000,\n                 postprocess_validate_ms=(finished-rpc_ended)*1000,\n                 workflow_wall_ms=(finished-started)*1000, server_metrics=metrics,\n                 max_abs_error_vs_server_cpu=float(response.getheader(\"X-Max-Error\")),\n                 pacing_overrun=(finished-started)>0.2)\n            total += 1\n            if not reuse:\n                connection.close()\n                connection = None\n            time.sleep(max(0, 0.2-(time.perf_counter()-started)))\n        if connection is not None:\n            connection.close()\n    emit(\"client_complete\", block=block, requests=total, measured=total*10//12,\n         scope=\"paced_single_fixture_transport_profile_not_policy_benchmark\")\n\n\nif __name__ == \"__main__\":\n    if os.environ[\"MODE\"] == \"server\":\n        serve()\n    elif os.environ[\"MODE\"] == \"client\":\n        client()\n    else:\n        raise ValueError(\"Invalid MODE\")\n",
+        "requirements-cpu.txt": "Pillow==11.3.0\ncoloredlogs==15.0.1\nflatbuffers==25.12.19\nhumanfriendly==10.0\nmpmath==1.3.0\nnumpy==2.2.6\nonnxruntime==1.23.2\npackaging==26.3\nprotobuf==7.36.2\nsympy==1.14.0\n",
+        "requirements-intel_npu.txt": "numpy==1.26.4\nonnxruntime==1.23.2\nPillow==11.3.0\n",
+        "requirements-gpu.txt": "https://download-r2.pytorch.org/whl/cu130/torch-2.9.1%2Bcu130-cp311-cp311-manylinux_2_28_aarch64.whl#sha256=fd6c7d297e21758a7fa07624f2b5bb15607ee3b1dcc52519e8e796c6d4fcf960\nhttps://download-r2.pytorch.org/whl/cu130/torchvision-0.24.1-cp311-cp311-manylinux_2_28_aarch64.whl#sha256=d4ba2532440a93c23a99c41423a765a0cdd47556afa3acf7c318dd1d3d6793e9\nMarkupSafe==3.0.4\nPillow==11.3.0\ncoloredlogs==15.0.1\nfilelock==4.2.0\nflatbuffers==25.12.19\nfsspec==2026.9.0\nhumanfriendly==10.0\njinja2==3.1.6\nmpmath==1.3.0\nnetworkx==3.6.1\nnumpy==2.2.6\nnvidia-cublas==13.0.0.19\nnvidia-cuda-cupti==13.0.48\nnvidia-cuda-nvrtc==13.0.48\nnvidia-cuda-runtime==13.0.48\nnvidia-cudnn-cu13==9.13.0.50\nnvidia-cufft==12.0.0.15\nnvidia-cufile==1.15.0.42\nnvidia-curand==10.4.0.35\nnvidia-cusolver==12.0.3.29\nnvidia-cusparse==12.6.2.49\nnvidia-cusparselt-cu13==0.8.0\nnvidia-nccl-cu13==2.27.7\nnvidia-nvjitlink==13.0.39\nnvidia-nvshmem-cu13==3.3.24\nnvidia-nvtx==13.0.39\nonnx==1.17.0\nonnx2torch==1.5.15\nonnxruntime==1.23.2\npackaging==26.3\nprotobuf==7.36.2\nsympy==1.14.0\ntriton==3.5.1\ntyping-extensions==4.16.0\n"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-arm",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "arm"
+        },
+        "annotations": {
+          "sidecar.istio.io/inject": "false"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0003-raspi5"
+        },
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "BACKEND",
+                "value": "cpu"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi",
+                "ephemeral-storage": "256Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "768Mi",
+                "ephemeral-storage": "1Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              },
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ],
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "e0-rpc-20261016t070607"
+            }
+          },
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "768Mi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            }
+          }
+        ],
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 2
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-arm",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607"
+        }
+      },
+      "spec": {
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "arm"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-amd",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "amd"
+        },
+        "annotations": {
+          "sidecar.istio.io/inject": "false"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-ser0004-cgnms0"
+        },
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-cpu.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "BACKEND",
+                "value": "cpu"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi",
+                "ephemeral-storage": "256Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "768Mi",
+                "ephemeral-storage": "1Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              },
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ],
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "e0-rpc-20261016t070607"
+            }
+          },
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "768Mi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "128Mi"
+            }
+          }
+        ],
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 2
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-amd",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607"
+        }
+      },
+      "spec": {
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "amd"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-gpu",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "gpu"
+        },
+        "annotations": {
+          "sidecar.istio.io/inject": "false"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+        },
+        "securityContext": {
+          "runAsUser": 0,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-gpu.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "BACKEND",
+                "value": "gpu"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "1Gi",
+                "nvidia.com/gpu": "1",
+                "ephemeral-storage": "1Gi"
+              },
+              "limits": {
+                "cpu": "2",
+                "memory": "8Gi",
+                "nvidia.com/gpu": "1",
+                "ephemeral-storage": "16Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              },
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ],
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "e0-rpc-20261016t070607"
+            }
+          },
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "12Gi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          }
+        ],
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 2,
+        "runtimeClassName": "nvidia-spark"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-gpu",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607"
+        }
+      },
+      "spec": {
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "gpu"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-intel-npu",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "intel_npu"
+        },
+        "annotations": {
+          "sidecar.istio.io/inject": "false"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-ser0002-cgnmsb"
+        },
+        "securityContext": {
+          "runAsUser": 0,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import subprocess,sys,runpy,time,json; t=time.perf_counter(); subprocess.run([sys.executable,'-m','pip','install','--disable-pip-version-check','--no-cache-dir','--no-compile','--retries','0','--timeout','60','--target','/work/site','-r','/config/requirements-intel_npu.txt'],check=True); print(json.dumps({'kind':'diagnostic_install','ms':(time.perf_counter()-t)*1000}),flush=True); sys.path[:0]=['/work/site','/config']; runpy.run_path('/config/rpc_profile.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "MODE",
+                "value": "server"
+              },
+              {
+                "name": "BACKEND",
+                "value": "intel_npu"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "XDG_CACHE_HOME",
+                "value": "/work/cache"
+              },
+              {
+                "name": "TORCH_HOME",
+                "value": "/work/torch-cache"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "1Gi",
+                "npu.intel.com/accel": "1",
+                "ephemeral-storage": "1Gi"
+              },
+              "limits": {
+                "cpu": "2",
+                "memory": "3Gi",
+                "npu.intel.com/accel": "1",
+                "ephemeral-storage": "16Gi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              },
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              }
+            ],
+            "ports": [
+              {
+                "name": "http",
+                "containerPort": 8080
+              }
+            ],
+            "workingDir": "/work"
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "e0-rpc-20261016t070607"
+            }
+          },
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "12Gi"
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          }
+        ],
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 2
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "e0-rpc-20261016t070607-intel-npu",
+        "namespace": "scheduler-research",
+        "labels": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607"
+        }
+      },
+      "spec": {
+        "selector": {
+          "app.kubernetes.io/part-of": "scheduler-research",
+          "research.scheduler/stage": "e0-rpc-profile",
+          "research.scheduler/run": "20261016t070607",
+          "research.scheduler/worker": "intel_npu"
+        },
+        "ports": [
+          {
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ]
+      }
+    }
+  ]
+}

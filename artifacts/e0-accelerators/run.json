@@ -1,0 +1,37 @@
+{
+  "run_id": "20261016t063952",
+  "namespace": "scheduler-research",
+  "targets": [
+    {
+      "alias": "gpu",
+      "node": "etri-ser0003-cg0ms0",
+      "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+      "resource": "nvidia.com/gpu",
+      "runtimeClassName": "nvidia-spark"
+    },
+    {
+      "alias": "intel_npu",
+      "node": "etri-ser0002-cgnmsb",
+      "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+      "resource": "npu.intel.com/accel"
+    }
+  ],
+  "discovery_jobs": [
+    "e0-accel-discover-gpu-20261016t063952",
+    "e0-accel-discover-intel-npu-20261016t063952"
+  ],
+  "inference_jobs": [
+    "e0-accel-infer-gpu-20261016t063952",
+    "e0-accel-infer-intel-npu-20261016t063952",
+    "e0-accel-infer-gpu-opset13-20261016t063952"
+  ],
+  "configmap": "e0-accel-source-20261016t063952",
+  "gpu_preparation_path": "source ONNX opset7 -> official opset13 normalization -> onnx2torch -> CUDA; original weights preserved, original ORT CPU reference",
+  "warmup_per_backend": 2,
+  "measured_per_backend": 5,
+  "gpu_extra_profile_inference": 1,
+  "configmaps": [
+    "e0-accel-source-20261016t063952",
+    "e0-accel-source-opset13-20261016t063952"
+  ]
+}

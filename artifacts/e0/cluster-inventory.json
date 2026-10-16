@@ -1,0 +1,264 @@
+{
+  "observed_at": "2026-10-16T06:16:55.674643+00:00",
+  "nodes": [
+    {
+      "name": "etri-dev0001-jetorn",
+      "architecture": "arm64",
+      "class": "jetson",
+      "edge": true,
+      "ready": "True",
+      "cpu": "6",
+      "memory": "7700340Ki",
+      "devices": {
+        "nvidia.com/gpu.shared": "2"
+      },
+      "kubelet": "v1.32.10-kubeedge-v1.23.0",
+      "runtime": "containerd://2.2.1",
+      "running_pods": 8,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-dev0002-raspi5",
+      "architecture": "arm64",
+      "class": "raspi",
+      "edge": true,
+      "ready": "True",
+      "cpu": "4",
+      "memory": "16501680Ki",
+      "devices": {
+        "hailo.ai/h8": "1"
+      },
+      "kubelet": "v1.32.10-kubeedge-v1.23.0",
+      "runtime": "containerd://1.7.18",
+      "running_pods": 8,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-dev0003-raspi5",
+      "architecture": "arm64",
+      "class": "raspi",
+      "edge": true,
+      "ready": "True",
+      "cpu": "4",
+      "memory": "8154048Ki",
+      "devices": {},
+      "kubelet": "v1.32.10-kubeedge-v1.23.0",
+      "runtime": "containerd://1.7.24",
+      "running_pods": 7,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-dev0004-tedger",
+      "architecture": "arm64",
+      "class": "tinker-edge-r",
+      "edge": true,
+      "ready": "True",
+      "cpu": "6",
+      "memory": "3835236Ki",
+      "devices": {
+        "rockchip.com/rk3399pro": "1"
+      },
+      "kubelet": "v1.32.10-kubeedge-v1.23.0",
+      "runtime": "containerd://1.7.32",
+      "running_pods": 11,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-dev0005-jetagx",
+      "architecture": "arm64",
+      "class": "jetagx",
+      "edge": true,
+      "ready": "True",
+      "cpu": "12",
+      "memory": "64284984Ki",
+      "devices": {
+        "nvidia.com/gpu.shared": "2"
+      },
+      "kubelet": "v1.32.10-kubeedge-v1.23.0",
+      "runtime": "containerd://2.3.4",
+      "running_pods": 7,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-dev0006-raspi5",
+      "architecture": "arm64",
+      "class": "raspi",
+      "edge": true,
+      "ready": "True",
+      "cpu": "4",
+      "memory": "4043920Ki",
+      "devices": {
+        "hailo.ai/h8": "1"
+      },
+      "kubelet": "v1.32.10-kubeedge-v1.23.0",
+      "runtime": "containerd://1.7.24",
+      "running_pods": 8,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-ser0001-cg0msb",
+      "architecture": "amd64",
+      "class": "server",
+      "edge": false,
+      "ready": "True",
+      "cpu": "24",
+      "memory": "131496744Ki",
+      "devices": {
+        "nvidia.com/gpu": "1"
+      },
+      "kubelet": "v1.31.14",
+      "runtime": "containerd://1.7.18",
+      "running_pods": 88,
+      "cached_python_images": [
+        "public.ecr.aws/docker/library/python@sha256:3528d5830ec8b7c8729a2a9961154061c7d34e114089ab5c6b1da707ed581c87",
+        "public.ecr.aws/docker/library/python:3.12"
+      ]
+    },
+    {
+      "name": "etri-ser0002-cgnmsb",
+      "architecture": "amd64",
+      "class": "server",
+      "edge": false,
+      "ready": "True",
+      "cpu": "24",
+      "memory": "32000272Ki",
+      "devices": {
+        "npu.intel.com/accel": "1",
+        "nvidia.com/gpu": "1"
+      },
+      "kubelet": "v1.31.14",
+      "runtime": "containerd://2.2.4",
+      "running_pods": 33,
+      "cached_python_images": []
+    },
+    {
+      "name": "etri-ser0003-cg0ms0",
+      "architecture": "arm64",
+      "class": "server",
+      "edge": false,
+      "ready": "True",
+      "cpu": "20",
+      "memory": "127498348Ki",
+      "devices": {
+        "nvidia.com/gpu": "1"
+      },
+      "kubelet": "v1.31.14",
+      "runtime": "containerd://2.2.1",
+      "running_pods": 13,
+      "cached_python_images": [
+        "docker.io/library/python@sha256:6c5ae9d998f4cc06f892f428d7af53a566c24ad0dc29fa572696b647cf2762a7",
+        "docker.io/library/python@sha256:9534e5a8e315485d4061ed659af0fd78a284c015f9b73661b41d6bab25604534",
+        "docker.io/library/python:3.11-slim",
+        "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "docker.io/library/python@sha256:782412e85d0f0984994c290652577d4018aff08145c85b262bb63dc0c7522254"
+      ]
+    },
+    {
+      "name": "etri-ser0004-cgnms0",
+      "architecture": "amd64",
+      "class": "server",
+      "edge": false,
+      "ready": "True",
+      "cpu": "16",
+      "memory": "32532748Ki",
+      "devices": {
+        "mobilint.com/npu": "1"
+      },
+      "kubelet": "v1.31.14",
+      "runtime": "containerd://2.2.1",
+      "running_pods": 12,
+      "cached_python_images": []
+    }
+  ],
+  "components": [
+    {
+      "namespace": "kubeedge",
+      "name": "cloudcore",
+      "available": 1,
+      "images": [
+        "192.168.0.56:5000/cloudcore@sha256:474b4495c2b69a1c0556436c53a06458977fe7fd7b2e25471e84b042e55e77d4"
+      ]
+    },
+    {
+      "namespace": "kubeflow",
+      "name": "workflow-controller",
+      "available": 1,
+      "images": [
+        "quay.io/argoproj/workflow-controller:v3.5.14"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "hailo-device-plugin",
+      "available": 2,
+      "images": [
+        "192.168.0.56:5000/hailo-device-plugin-recovery@sha256:63d783293c339545e9eebf5adb7705fc2dc162df66e6c7db1e12c6109d32cbf4"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "mobilint-device-plugin",
+      "available": 1,
+      "images": [
+        "ghcr.io/mobilint/mobilint-device-plugin:v1.1.1@sha256:4da52f77ba9f2f6607c5639053fa8d292c42872fb82d32b4f2389a551d11844c"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "nvidia-device-plugin-daemonset",
+      "available": 2,
+      "images": [
+        "nvcr.io/nvidia/k8s-device-plugin:v0.19.0"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "nvidia-jetson-device-plugin",
+      "available": 1,
+      "images": [
+        "nvcr.io/nvidia/k8s-device-plugin@sha256:d2569d771ea77b94371b58e430fbf4a36ac7d2a79874cd0c5617ebd9cb1da220"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "nvidia-jetson-device-plugin-nano",
+      "available": 1,
+      "images": [
+        "nvcr.io/nvidia/k8s-device-plugin@sha256:d2569d771ea77b94371b58e430fbf4a36ac7d2a79874cd0c5617ebd9cb1da220"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "nvidia-spark-device-plugin",
+      "available": 1,
+      "images": [
+        "nvcr.io/nvidia/k8s-device-plugin:v0.19.0"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "ra-intel-npu-plugin",
+      "available": 1,
+      "images": [
+        "intel/intel-npu-plugin@sha256:aba92b11c1d9714e454fe6f3d5c5471d275a71446d39ee9478fafd765ac0922b"
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "ra-rockchip-device-plugin",
+      "available": 1,
+      "images": [
+        "ghcr.io/squat/generic-device-plugin@sha256:ecad50564fac0d8559053b149e3a738db50ec5d3f932b811bb90c4595edb275b"
+      ]
+    },
+    {
+      "namespace": "kubeedge",
+      "name": "edgemesh-agent",
+      "available": 10,
+      "images": [
+        "192.168.0.56:5000/edgemesh-agent@sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a"
+      ]
+    }
+  ],
+  "experiment_namespace_exists": false
+}

@@ -1,0 +1,183 @@
+{
+  "run_id": "20261016t062702",
+  "collected_at": "2026-10-16T06:29:37.662165+00:00",
+  "status": "four_service_paths_verified",
+  "successful_requests": 28,
+  "measured_requests": 20,
+  "warmup_requests": 8,
+  "checked_request_server_receipt_pairs": 28,
+  "payload_bytes_each_way": {
+    "request": 602112,
+    "response": 4000
+  },
+  "paths": [
+    {
+      "path": "arm->arm",
+      "source_node": "etri-dev0003-raspi5",
+      "inference_node": "etri-dev0003-raspi5",
+      "same_node": true,
+      "measured_requests": 5,
+      "metrics": {
+        "workflow_wall_ms": {
+          "median": 68.87591595295817,
+          "min": 67.76379200164229,
+          "max": 69.05897101387382
+        },
+        "rpc_wall_ms": {
+          "median": 32.64091198798269,
+          "min": 32.18230395577848,
+          "max": 33.58455502893776
+        },
+        "server_inference_ms": {
+          "median": 29.186819912865758,
+          "min": 29.0212839609012,
+          "max": 30.448479927144945
+        },
+        "server_read_ms": {
+          "median": 0.24094292894005775,
+          "min": 0.20909204613417387,
+          "max": 0.32055401243269444
+        },
+        "preprocess_ms": {
+          "median": 34.98262190259993,
+          "min": 34.72417895682156,
+          "max": 35.686359042301774
+        },
+        "rpc_non_inference_wall_ms": {
+          "median": 3.2207410549744964,
+          "min": 3.1360751017928123,
+          "max": 3.4540920751169324
+        }
+      }
+    },
+    {
+      "path": "arm->amd",
+      "source_node": "etri-dev0003-raspi5",
+      "inference_node": "etri-ser0004-cgnms0",
+      "same_node": false,
+      "measured_requests": 5,
+      "metrics": {
+        "workflow_wall_ms": {
+          "median": 110.81803601700813,
+          "min": 108.10710699297488,
+          "max": 119.95193094480783
+        },
+        "rpc_wall_ms": {
+          "median": 75.46423200983554,
+          "min": 72.59343308396637,
+          "max": 83.78620399162173
+        },
+        "server_inference_ms": {
+          "median": 17.284495988860726,
+          "min": 14.616027940064669,
+          "max": 25.762795004993677
+        },
+        "server_read_ms": {
+          "median": 48.18586295004934,
+          "min": 48.005745047703385,
+          "max": 48.3972979709506
+        },
+        "preprocess_ms": {
+          "median": 34.795326995663345,
+          "min": 34.67864205595106,
+          "max": 36.85651801060885
+        },
+        "rpc_non_inference_wall_ms": {
+          "median": 58.023408986628056,
+          "min": 57.49873607419431,
+          "max": 58.54194308631122
+        }
+      }
+    },
+    {
+      "path": "amd->arm",
+      "source_node": "etri-ser0004-cgnms0",
+      "inference_node": "etri-dev0003-raspi5",
+      "same_node": false,
+      "measured_requests": 5,
+      "metrics": {
+        "workflow_wall_ms": {
+          "median": 128.71515797451138,
+          "min": 123.99101792834699,
+          "max": 136.5834940224886
+        },
+        "rpc_wall_ms": {
+          "median": 94.68841797206551,
+          "min": 91.22613398358226,
+          "max": 101.20954900048673
+        },
+        "server_inference_ms": {
+          "median": 29.096820973791182,
+          "min": 28.708490077406168,
+          "max": 31.435900018550456
+        },
+        "server_read_ms": {
+          "median": 55.62822998035699,
+          "min": 55.463416036218405,
+          "max": 61.18501292075962
+        },
+        "preprocess_ms": {
+          "median": 32.43588795885444,
+          "min": 29.538742965087295,
+          "max": 35.57582898065448
+        },
+        "rpc_non_inference_wall_ms": {
+          "median": 63.25251795351505,
+          "min": 62.129313009791076,
+          "max": 72.19659793190658
+        }
+      }
+    },
+    {
+      "path": "amd->amd",
+      "source_node": "etri-ser0004-cgnms0",
+      "inference_node": "etri-ser0004-cgnms0",
+      "same_node": true,
+      "measured_requests": 5,
+      "metrics": {
+        "workflow_wall_ms": {
+          "median": 51.57576396595687,
+          "min": 46.327154035679996,
+          "max": 55.31991890165955
+        },
+        "rpc_wall_ms": {
+          "median": 15.560025000013411,
+          "min": 15.31401404645294,
+          "max": 16.48906199261546
+        },
+        "server_inference_ms": {
+          "median": 10.37640799768269,
+          "min": 10.006832075305283,
+          "max": 10.808213031850755
+        },
+        "server_read_ms": {
+          "median": 0.14839507639408112,
+          "min": 0.14640705194324255,
+          "max": 0.3313670167699456
+        },
+        "preprocess_ms": {
+          "median": 35.18836200237274,
+          "min": 30.089732026681304,
+          "max": 38.10640599112958
+        },
+        "rpc_non_inference_wall_ms": {
+          "median": 5.421507987193763,
+          "min": 4.924022941850126,
+          "max": 6.085352972149849
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    "probe.py": "73bf81dc69d6dd095a669028c30a231dd32b16f2d99f386de3e0d54a4246a2a3",
+    "transport.py": "72322bc0f32afeaa5937c4125651bd9f0c37694747848c478cacbd87b8ce7a43",
+    "requirements.txt": "2fe5e9c2d9d0be043e061b34293061abdd038894aa429d0012c7f60048b2a862"
+  },
+  "limitations": [
+    "five requests per path within one run, not independent repetitions",
+    "CPU only, one fixture, warm model",
+    "HTTP application RTT includes server and protocol overhead",
+    "no packet trace to distinguish EdgeMesh from CNI per request",
+    "no scheduler algorithm comparison"
+  ]
+}

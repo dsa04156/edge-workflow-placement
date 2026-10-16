@@ -1,0 +1,70 @@
+{
+  "run_id": "20261016t072946",
+  "namespace": "scheduler-research",
+  "configmap": "e1-dag-20261016t072946",
+  "worker_pods": [
+    "e1-dag-20261016t072946-arm",
+    "e1-dag-20261016t072946-amd",
+    "e1-dag-20261016t072946-gpu",
+    "e1-dag-20261016t072946-intel-npu"
+  ],
+  "services": [
+    "e1-dag-20261016t072946-arm",
+    "e1-dag-20261016t072946-amd",
+    "e1-dag-20261016t072946-gpu",
+    "e1-dag-20261016t072946-intel-npu"
+  ],
+  "targets": [
+    {
+      "alias": "arm",
+      "node": "etri-dev0003-raspi5",
+      "backend": "cpu",
+      "url": "http://e1-dag-20261016t072946-arm.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "amd",
+      "node": "etri-ser0004-cgnms0",
+      "backend": "cpu",
+      "url": "http://e1-dag-20261016t072946-amd.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "gpu",
+      "node": "etri-ser0003-cg0ms0",
+      "image": "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a",
+      "resource": "nvidia.com/gpu",
+      "runtimeClassName": "nvidia-spark",
+      "backend": "gpu",
+      "url": "http://e1-dag-20261016t072946-gpu.scheduler-research.svc.cluster.local:8080"
+    },
+    {
+      "alias": "intel_npu",
+      "node": "etri-ser0002-cgnmsb",
+      "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+      "resource": "npu.intel.com/accel",
+      "backend": "intel_npu",
+      "url": "http://e1-dag-20261016t072946-intel-npu.scheduler-research.svc.cluster.local:8080"
+    }
+  ],
+  "client_jobs": [
+    "e1-dag-20261016t072946-calibration",
+    "e1-dag-20261016t072946-eval-0",
+    "e1-dag-20261016t072946-eval-1",
+    "e1-dag-20261016t072946-eval-2"
+  ],
+  "shared_cache_run": "20261016t070607",
+  "shared_cache_pod": "e0-wheel-cache-20261016t070607",
+  "design": {
+    "calibration_placements": 64,
+    "warmup_per_condition": 2,
+    "calibration_measured": 5,
+    "evaluation_blocks": 3,
+    "evaluation_measured": 10,
+    "cycle_interval_s": 0.25,
+    "single_fixture": true,
+    "workers_shared": true,
+    "policy_information": "identical per-task and per-hop residual profiles from calibration"
+  },
+  "diagnostic_pods": [
+    "e1-edge-snapshot-20261016t072946"
+  ]
+}

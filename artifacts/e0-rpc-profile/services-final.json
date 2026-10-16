@@ -1,0 +1,250 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-amd\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\",\"research.scheduler/worker\":\"amd\"}}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:06:29Z",
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-amd",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46616141",
+                "uid": "d4de8e0f-e6a2-4352-a2c9-261ef040882a"
+            },
+            "spec": {
+                "clusterIP": "10.99.4.127",
+                "clusterIPs": [
+                    "10.99.4.127"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile",
+                    "research.scheduler/worker": "amd"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-arm\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\",\"research.scheduler/worker\":\"arm\"}}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:06:29Z",
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-arm",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46616121",
+                "uid": "80579c71-9fe7-499c-b311-6098a7897d49"
+            },
+            "spec": {
+                "clusterIP": "10.107.175.178",
+                "clusterIPs": [
+                    "10.107.175.178"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile",
+                    "research.scheduler/worker": "arm"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-gpu\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\",\"research.scheduler/worker\":\"gpu\"}}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:06:30Z",
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-gpu",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46616172",
+                "uid": "cddb7ed0-6e3d-4b24-b564-eb2bc8bc735f"
+            },
+            "spec": {
+                "clusterIP": "10.105.56.45",
+                "clusterIPs": [
+                    "10.105.56.45"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile",
+                    "research.scheduler/worker": "gpu"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\"},\"name\":\"e0-rpc-20261016t070607-intel-npu\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\",\"research.scheduler/worker\":\"intel_npu\"}}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:06:30Z",
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile"
+                },
+                "name": "e0-rpc-20261016t070607-intel-npu",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46616189",
+                "uid": "fb8b310d-0c25-4ab6-8a38-c5aea4c5eb8f"
+            },
+            "spec": {
+                "clusterIP": "10.98.35.48",
+                "clusterIPs": [
+                    "10.98.35.48"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile",
+                    "research.scheduler/worker": "intel_npu"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\",\"research.scheduler/worker\":\"wheel-cache\"},\"name\":\"e0-wheel-cache-20261016t070607\",\"namespace\":\"scheduler-research\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t070607\",\"research.scheduler/stage\":\"e0-rpc-profile\",\"research.scheduler/worker\":\"wheel-cache\"}}}\n"
+                },
+                "creationTimestamp": "2026-10-16T07:14:31Z",
+                "labels": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile",
+                    "research.scheduler/worker": "wheel-cache"
+                },
+                "name": "e0-wheel-cache-20261016t070607",
+                "namespace": "scheduler-research",
+                "resourceVersion": "46621285",
+                "uid": "7fd87f19-2516-4b20-8905-fbf8cea03cec"
+            },
+            "spec": {
+                "clusterIP": "10.107.249.90",
+                "clusterIPs": [
+                    "10.107.249.90"
+                ],
+                "internalTrafficPolicy": "Cluster",
+                "ipFamilies": [
+                    "IPv4"
+                ],
+                "ipFamilyPolicy": "SingleStack",
+                "ports": [
+                    {
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "app.kubernetes.io/part-of": "scheduler-research",
+                    "research.scheduler/run": "20261016t070607",
+                    "research.scheduler/stage": "e0-rpc-profile",
+                    "research.scheduler/worker": "wheel-cache"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

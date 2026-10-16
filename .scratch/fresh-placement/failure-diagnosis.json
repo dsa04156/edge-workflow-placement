@@ -1,0 +1,14 @@
+{
+  "scope": "Failed pre-evaluation calibration, preserved without reuse",
+  "original_directory": "artifacts/fresh-placement",
+  "archived_directory": "artifacts/fresh-placement-attempt1",
+  "attempts": 413,
+  "protocol_successes": 412,
+  "protocol_failures": 1,
+  "calibration_quality_disagreements": 28,
+  "evaluation_started": false,
+  "root_cause": "Nested forwarding connection reused after peer 15-second idle timeout; original A-B-A grandchild gap26.2648s, outer forwarding gap4.294557s.",
+  "fixed_contract": "Proactively close/reconnect nested connections idle>=10s before sending. Never retry an already sent POST.",
+  "fixed_executor_sha256": "3058d46995d04cafce2ff83b0168a8de0f8184b2cb1d7271c580f8c0713c2f67",
+  "unchanged_design": "Same corpus, quality rule, seeds, calibration/evaluation counts and three deployments; fresh calibration after execution-path change."
+}

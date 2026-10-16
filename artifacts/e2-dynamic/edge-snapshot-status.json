@@ -1,0 +1,212 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{\"sidecar.istio.io/inject\":\"false\"},\"labels\":{\"app.kubernetes.io/part-of\":\"scheduler-research\",\"research.scheduler/run\":\"20261016t082220\",\"research.scheduler/stage\":\"e2-dynamic\"},\"name\":\"e2-dynamic-20261016t082220-edge-check\",\"namespace\":\"scheduler-research\"},\"spec\":{\"activeDeadlineSeconds\":60,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"\\\"\\\"\\\"Post-measurement read-only EdgeCore/process and NIC link snapshot.\\\"\\\"\\\"\\n\\nfrom datetime import datetime,timezone\\nimport json\\nfrom pathlib import Path\\n\\nprocesses=[]\\nfor directory in Path('/host/proc').glob('[0-9]*'):\\n    try:\\n        if (directory/'comm').read_text().strip()!='edgecore':continue\\n        status=(directory/'status').read_text().splitlines()\\n        processes.append({'pid':int(directory.name),**{line.split(':',1)[0]:line.split(':',1)[1].strip()\\n                         for line in status if line.startswith(('State:','VmRSS:','Threads:'))}})\\n    except (OSError,ValueError):continue\\ninterfaces={}\\nfor interface in Path('/host/sys/class/net').iterdir():\\n    properties={}\\n    for attribute in ['operstate','speed','duplex','carrier']:\\n        try:properties[attribute]=(interface/attribute).read_text().strip()\\n        except OSError:properties[attribute]=None\\n    interfaces[interface.name]=properties\\nprint(json.dumps({'observed_at':datetime.now(timezone.utc).isoformat(),'edgecore_processes':processes,\\n                  'interfaces':interfaces,'scope':'post_measurement_link_negotiation_not_effective_throughput_or_packet_path'}),flush=True)\\n\"],\"env\":[{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"read-only-check\",\"resources\":{\"limits\":{\"cpu\":\"250m\",\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"50m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/host/proc\",\"name\":\"proc\",\"readOnly\":true},{\"mountPath\":\"/host/sys\",\"name\":\"sys\",\"readOnly\":true}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0003-raspi5\"},\"restartPolicy\":\"Never\",\"securityContext\":{\"runAsUser\":0,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":2,\"volumes\":[{\"hostPath\":{\"path\":\"/proc\",\"type\":\"Directory\"},\"name\":\"proc\"},{\"hostPath\":{\"path\":\"/sys\",\"type\":\"Directory\"},\"name\":\"sys\"}]}}\n",
+      "sidecar.istio.io/inject": "false"
+    },
+    "creationTimestamp": "2026-10-16T08:32:43Z",
+    "labels": {
+      "app.kubernetes.io/part-of": "scheduler-research",
+      "research.scheduler/run": "20261016t082220",
+      "research.scheduler/stage": "e2-dynamic"
+    },
+    "name": "e2-dynamic-20261016t082220-edge-check",
+    "namespace": "scheduler-research",
+    "resourceVersion": "46669952",
+    "uid": "e8fbbfb8-851c-4e4b-9f33-37378ccbc551"
+  },
+  "spec": {
+    "activeDeadlineSeconds": 60,
+    "automountServiceAccountToken": false,
+    "containers": [
+      {
+        "command": [
+          "python3",
+          "-u",
+          "-c",
+          "\"\"\"Post-measurement read-only EdgeCore/process and NIC link snapshot.\"\"\"\n\nfrom datetime import datetime,timezone\nimport json\nfrom pathlib import Path\n\nprocesses=[]\nfor directory in Path('/host/proc').glob('[0-9]*'):\n    try:\n        if (directory/'comm').read_text().strip()!='edgecore':continue\n        status=(directory/'status').read_text().splitlines()\n        processes.append({'pid':int(directory.name),**{line.split(':',1)[0]:line.split(':',1)[1].strip()\n                         for line in status if line.startswith(('State:','VmRSS:','Threads:'))}})\n    except (OSError,ValueError):continue\ninterfaces={}\nfor interface in Path('/host/sys/class/net').iterdir():\n    properties={}\n    for attribute in ['operstate','speed','duplex','carrier']:\n        try:properties[attribute]=(interface/attribute).read_text().strip()\n        except OSError:properties[attribute]=None\n    interfaces[interface.name]=properties\nprint(json.dumps({'observed_at':datetime.now(timezone.utc).isoformat(),'edgecore_processes':processes,\n                  'interfaces':interfaces,'scope':'post_measurement_link_negotiation_not_effective_throughput_or_packet_path'}),flush=True)\n"
+        ],
+        "env": [
+          {
+            "name": "PYTHONDONTWRITEBYTECODE",
+            "value": "1"
+          }
+        ],
+        "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "imagePullPolicy": "IfNotPresent",
+        "name": "read-only-check",
+        "resources": {
+          "limits": {
+            "cpu": "250m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "64Mi"
+          }
+        },
+        "securityContext": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true
+        },
+        "terminationMessagePath": "/dev/termination-log",
+        "terminationMessagePolicy": "File",
+        "volumeMounts": [
+          {
+            "mountPath": "/host/proc",
+            "name": "proc",
+            "readOnly": true
+          },
+          {
+            "mountPath": "/host/sys",
+            "name": "sys",
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "dnsPolicy": "ClusterFirst",
+    "enableServiceLinks": true,
+    "nodeName": "etri-dev0003-raspi5",
+    "nodeSelector": {
+      "kubernetes.io/hostname": "etri-dev0003-raspi5"
+    },
+    "preemptionPolicy": "PreemptLowerPriority",
+    "priority": 0,
+    "restartPolicy": "Never",
+    "schedulerName": "default-scheduler",
+    "securityContext": {
+      "runAsUser": 0,
+      "seccompProfile": {
+        "type": "RuntimeDefault"
+      }
+    },
+    "serviceAccount": "default",
+    "serviceAccountName": "default",
+    "terminationGracePeriodSeconds": 2,
+    "tolerations": [
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/not-ready",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      },
+      {
+        "effect": "NoExecute",
+        "key": "node.kubernetes.io/unreachable",
+        "operator": "Exists",
+        "tolerationSeconds": 300
+      }
+    ],
+    "volumes": [
+      {
+        "hostPath": {
+          "path": "/proc",
+          "type": "Directory"
+        },
+        "name": "proc"
+      },
+      {
+        "hostPath": {
+          "path": "/sys",
+          "type": "Directory"
+        },
+        "name": "sys"
+      }
+    ]
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-16T08:32:46Z",
+        "status": "False",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-16T08:32:43Z",
+        "reason": "PodCompleted",
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-16T08:32:43Z",
+        "reason": "PodCompleted",
+        "status": "False",
+        "type": "Ready"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-16T08:32:43Z",
+        "reason": "PodCompleted",
+        "status": "False",
+        "type": "ContainersReady"
+      },
+      {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-16T08:32:43Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containerStatuses": [
+      {
+        "containerID": "containerd://7842a70dd970dcc4bedd75780c23515fa7792b3c50aca20785e2e8677e103f94",
+        "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+        "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "lastState": {},
+        "name": "read-only-check",
+        "ready": false,
+        "restartCount": 0,
+        "started": false,
+        "state": {
+          "terminated": {
+            "containerID": "containerd://7842a70dd970dcc4bedd75780c23515fa7792b3c50aca20785e2e8677e103f94",
+            "exitCode": 0,
+            "finishedAt": "2026-10-16T08:32:45Z",
+            "reason": "Completed",
+            "startedAt": "2026-10-16T08:32:44Z"
+          }
+        },
+        "volumeMounts": [
+          {
+            "mountPath": "/host/proc",
+            "name": "proc",
+            "readOnly": true,
+            "recursiveReadOnly": "Disabled"
+          },
+          {
+            "mountPath": "/host/sys",
+            "name": "sys",
+            "readOnly": true,
+            "recursiveReadOnly": "Disabled"
+          }
+        ]
+      }
+    ],
+    "hostIP": "10.77.0.6",
+    "hostIPs": [
+      {
+        "ip": "10.77.0.6"
+      }
+    ],
+    "phase": "Succeeded",
+    "podIP": "10.244.4.105",
+    "podIPs": [
+      {
+        "ip": "10.244.4.105"
+      }
+    ],
+    "qosClass": "Burstable",
+    "startTime": "2026-10-16T08:32:43Z"
+  }
+}

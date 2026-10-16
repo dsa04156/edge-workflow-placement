@@ -1,0 +1,2628 @@
+{
+  "run_id": "20261016t085016",
+  "namespace": "scheduler-research",
+  "prefix": "e3-repl-20261016t085016",
+  "cache": "e3-repl-20261016t085016-cache",
+  "configmap": "e3-repl-20261016t085016",
+  "deployments": [
+    {
+      "block": 0,
+      "manifest": "deployment-0.json",
+      "worker_pods": [
+        "e3-repl-20261016t085016-b0-arm",
+        "e3-repl-20261016t085016-b0-intel-npu"
+      ],
+      "client_pods": [
+        "e3-repl-20261016t085016-b0-arm-client",
+        "e3-repl-20261016t085016-b0-intel-npu-client"
+      ],
+      "targets": {
+        "arm": {
+          "alias": "arm",
+          "backend": "cpu",
+          "node": "etri-dev0003-raspi5",
+          "url": "http://e3-repl-20261016t085016-b0-arm.scheduler-research.svc.cluster.local:8080"
+        },
+        "intel_npu": {
+          "alias": "intel_npu",
+          "backend": "intel_npu",
+          "node": "etri-ser0002-cgnmsb",
+          "url": "http://e3-repl-20261016t085016-b0-intel-npu.scheduler-research.svc.cluster.local:8080"
+        }
+      },
+      "source_order": [
+        "arm",
+        "intel_npu"
+      ],
+      "schedules": {
+        "arm": [
+          {
+            "id": "coffee-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 1
+          },
+          {
+            "id": "astronaut-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 4
+          },
+          {
+            "id": "chelsea-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 8
+          },
+          {
+            "id": "retina-arm-arm-warm",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 12
+          },
+          {
+            "id": "chelsea-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 13
+          },
+          {
+            "id": "dog-arm-arm-warm",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 14
+          },
+          {
+            "id": "hubble_deep_field-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 16
+          },
+          {
+            "id": "dog-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 17
+          },
+          {
+            "id": "hubble_deep_field-arm-arm-warm",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 20
+          },
+          {
+            "id": "hubble_deep_field-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 22
+          },
+          {
+            "id": "astronaut-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 23
+          },
+          {
+            "id": "camera-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 24
+          },
+          {
+            "id": "coffee-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 25
+          },
+          {
+            "id": "coffee-arm-arm-warm",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 28
+          },
+          {
+            "id": "camera-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 30
+          },
+          {
+            "id": "retina-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 34
+          },
+          {
+            "id": "rocket-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 35
+          },
+          {
+            "id": "astronaut-arm-arm-warm",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 36
+          },
+          {
+            "id": "rocket-arm-arm-warm",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 38
+          },
+          {
+            "id": "camera-arm-arm-warm",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 40
+          },
+          {
+            "id": "chelsea-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 42
+          },
+          {
+            "id": "chelsea-arm-arm-warm",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 45
+          },
+          {
+            "id": "retina-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 47
+          },
+          {
+            "id": "retina-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 49
+          },
+          {
+            "id": "astronaut-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 50
+          },
+          {
+            "id": "rocket-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 51
+          },
+          {
+            "id": "dog-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 52
+          },
+          {
+            "id": "hubble_deep_field-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 53
+          },
+          {
+            "id": "camera-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 54
+          },
+          {
+            "id": "coffee-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 57
+          },
+          {
+            "id": "rocket-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 61
+          },
+          {
+            "id": "dog-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 63
+          }
+        ],
+        "intel_npu": [
+          {
+            "id": "dog-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 2
+          },
+          {
+            "id": "coffee-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 3
+          },
+          {
+            "id": "rocket-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 5
+          },
+          {
+            "id": "coffee-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 6
+          },
+          {
+            "id": "astronaut-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 7
+          },
+          {
+            "id": "retina-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 9
+          },
+          {
+            "id": "camera-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 10
+          },
+          {
+            "id": "camera-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 11
+          },
+          {
+            "id": "chelsea-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 15
+          },
+          {
+            "id": "astronaut-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 18
+          },
+          {
+            "id": "chelsea-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 19
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 21
+          },
+          {
+            "id": "rocket-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 26
+          },
+          {
+            "id": "coffee-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 27
+          },
+          {
+            "id": "astronaut-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 29
+          },
+          {
+            "id": "retina-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 31
+          },
+          {
+            "id": "rocket-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 32
+          },
+          {
+            "id": "astronaut-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 33
+          },
+          {
+            "id": "rocket-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 37
+          },
+          {
+            "id": "chelsea-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 39
+          },
+          {
+            "id": "camera-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 41
+          },
+          {
+            "id": "retina-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 43
+          },
+          {
+            "id": "dog-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 44
+          },
+          {
+            "id": "retina-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 46
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 48
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 55
+          },
+          {
+            "id": "coffee-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 56
+          },
+          {
+            "id": "dog-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 58
+          },
+          {
+            "id": "dog-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 59
+          },
+          {
+            "id": "chelsea-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 60
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 62
+          },
+          {
+            "id": "camera-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 64
+          }
+        ]
+      }
+    },
+    {
+      "block": 1,
+      "manifest": "deployment-1.json",
+      "worker_pods": [
+        "e3-repl-20261016t085016-b1-arm",
+        "e3-repl-20261016t085016-b1-intel-npu"
+      ],
+      "client_pods": [
+        "e3-repl-20261016t085016-b1-arm-client",
+        "e3-repl-20261016t085016-b1-intel-npu-client"
+      ],
+      "targets": {
+        "arm": {
+          "alias": "arm",
+          "backend": "cpu",
+          "node": "etri-dev0003-raspi5",
+          "url": "http://e3-repl-20261016t085016-b1-arm.scheduler-research.svc.cluster.local:8080"
+        },
+        "intel_npu": {
+          "alias": "intel_npu",
+          "backend": "intel_npu",
+          "node": "etri-ser0002-cgnmsb",
+          "url": "http://e3-repl-20261016t085016-b1-intel-npu.scheduler-research.svc.cluster.local:8080"
+        }
+      },
+      "source_order": [
+        "intel_npu",
+        "arm"
+      ],
+      "schedules": {
+        "intel_npu": [
+          {
+            "id": "camera-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 2
+          },
+          {
+            "id": "rocket-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 7
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 8
+          },
+          {
+            "id": "astronaut-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 9
+          },
+          {
+            "id": "coffee-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 12
+          },
+          {
+            "id": "coffee-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 13
+          },
+          {
+            "id": "retina-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 14
+          },
+          {
+            "id": "camera-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 15
+          },
+          {
+            "id": "chelsea-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 16
+          },
+          {
+            "id": "astronaut-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 17
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 18
+          },
+          {
+            "id": "coffee-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 19
+          },
+          {
+            "id": "rocket-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 20
+          },
+          {
+            "id": "chelsea-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 24
+          },
+          {
+            "id": "chelsea-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 27
+          },
+          {
+            "id": "coffee-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 28
+          },
+          {
+            "id": "dog-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 31
+          },
+          {
+            "id": "retina-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 35
+          },
+          {
+            "id": "dog-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 36
+          },
+          {
+            "id": "astronaut-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 38
+          },
+          {
+            "id": "retina-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 39
+          },
+          {
+            "id": "chelsea-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 40
+          },
+          {
+            "id": "camera-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 41
+          },
+          {
+            "id": "rocket-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 43
+          },
+          {
+            "id": "astronaut-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 44
+          },
+          {
+            "id": "dog-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 45
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 46
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 52
+          },
+          {
+            "id": "dog-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 54
+          },
+          {
+            "id": "rocket-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 61
+          },
+          {
+            "id": "camera-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 62
+          },
+          {
+            "id": "retina-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 63
+          }
+        ],
+        "arm": [
+          {
+            "id": "coffee-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 1
+          },
+          {
+            "id": "astronaut-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 3
+          },
+          {
+            "id": "dog-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 4
+          },
+          {
+            "id": "retina-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 5
+          },
+          {
+            "id": "astronaut-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 6
+          },
+          {
+            "id": "hubble_deep_field-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 10
+          },
+          {
+            "id": "coffee-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 11
+          },
+          {
+            "id": "chelsea-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 21
+          },
+          {
+            "id": "chelsea-arm-arm-warm",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 22
+          },
+          {
+            "id": "chelsea-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 23
+          },
+          {
+            "id": "dog-arm-arm-warm",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 25
+          },
+          {
+            "id": "retina-arm-arm-warm",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 26
+          },
+          {
+            "id": "astronaut-arm-arm-warm",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 29
+          },
+          {
+            "id": "rocket-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 30
+          },
+          {
+            "id": "retina-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 32
+          },
+          {
+            "id": "hubble_deep_field-arm-arm-warm",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 33
+          },
+          {
+            "id": "rocket-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 34
+          },
+          {
+            "id": "rocket-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 37
+          },
+          {
+            "id": "retina-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 42
+          },
+          {
+            "id": "hubble_deep_field-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 47
+          },
+          {
+            "id": "camera-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 48
+          },
+          {
+            "id": "dog-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 49
+          },
+          {
+            "id": "dog-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 50
+          },
+          {
+            "id": "coffee-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 51
+          },
+          {
+            "id": "camera-arm-arm-warm",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 53
+          },
+          {
+            "id": "chelsea-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 55
+          },
+          {
+            "id": "coffee-arm-arm-warm",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 56
+          },
+          {
+            "id": "camera-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 57
+          },
+          {
+            "id": "rocket-arm-arm-warm",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 58
+          },
+          {
+            "id": "astronaut-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 59
+          },
+          {
+            "id": "camera-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 60
+          },
+          {
+            "id": "hubble_deep_field-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 64
+          }
+        ]
+      }
+    },
+    {
+      "block": 2,
+      "manifest": "deployment-2.json",
+      "worker_pods": [
+        "e3-repl-20261016t085016-b2-arm",
+        "e3-repl-20261016t085016-b2-intel-npu"
+      ],
+      "client_pods": [
+        "e3-repl-20261016t085016-b2-arm-client",
+        "e3-repl-20261016t085016-b2-intel-npu-client"
+      ],
+      "targets": {
+        "arm": {
+          "alias": "arm",
+          "backend": "cpu",
+          "node": "etri-dev0003-raspi5",
+          "url": "http://e3-repl-20261016t085016-b2-arm.scheduler-research.svc.cluster.local:8080"
+        },
+        "intel_npu": {
+          "alias": "intel_npu",
+          "backend": "intel_npu",
+          "node": "etri-ser0002-cgnmsb",
+          "url": "http://e3-repl-20261016t085016-b2-intel-npu.scheduler-research.svc.cluster.local:8080"
+        }
+      },
+      "source_order": [
+        "intel_npu",
+        "arm"
+      ],
+      "schedules": {
+        "intel_npu": [
+          {
+            "id": "camera-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 2
+          },
+          {
+            "id": "retina-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 3
+          },
+          {
+            "id": "camera-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 6
+          },
+          {
+            "id": "dog-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 7
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 10
+          },
+          {
+            "id": "coffee-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 12
+          },
+          {
+            "id": "astronaut-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 16
+          },
+          {
+            "id": "dog-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 17
+          },
+          {
+            "id": "camera-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 18
+          },
+          {
+            "id": "astronaut-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 19
+          },
+          {
+            "id": "dog-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 21
+          },
+          {
+            "id": "rocket-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 23
+          },
+          {
+            "id": "astronaut-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 24
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 25
+          },
+          {
+            "id": "astronaut-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 31
+          },
+          {
+            "id": "chelsea-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 36
+          },
+          {
+            "id": "dog-intel_npu-arm-eviction",
+            "source": "intel_npu",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 38
+          },
+          {
+            "id": "rocket-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 41
+          },
+          {
+            "id": "retina-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 45
+          },
+          {
+            "id": "retina-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 47
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 48
+          },
+          {
+            "id": "chelsea-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 53
+          },
+          {
+            "id": "chelsea-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 54
+          },
+          {
+            "id": "retina-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 55
+          },
+          {
+            "id": "hubble_deep_field-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 56
+          },
+          {
+            "id": "rocket-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 57
+          },
+          {
+            "id": "coffee-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 58
+          },
+          {
+            "id": "coffee-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 60
+          },
+          {
+            "id": "rocket-intel_npu-intel_npu-eviction",
+            "source": "intel_npu",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 61
+          },
+          {
+            "id": "chelsea-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 62
+          },
+          {
+            "id": "coffee-intel_npu-arm-warm",
+            "source": "intel_npu",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 63
+          },
+          {
+            "id": "camera-intel_npu-intel_npu-warm",
+            "source": "intel_npu",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 64
+          }
+        ],
+        "arm": [
+          {
+            "id": "rocket-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 1
+          },
+          {
+            "id": "coffee-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 4
+          },
+          {
+            "id": "dog-arm-arm-warm",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 5
+          },
+          {
+            "id": "retina-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 8
+          },
+          {
+            "id": "dog-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 9
+          },
+          {
+            "id": "chelsea-arm-arm-warm",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 11
+          },
+          {
+            "id": "dog-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 13
+          },
+          {
+            "id": "astronaut-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 14
+          },
+          {
+            "id": "rocket-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 15
+          },
+          {
+            "id": "chelsea-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 20
+          },
+          {
+            "id": "hubble_deep_field-arm-arm-warm",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 22
+          },
+          {
+            "id": "dog-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "dog",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 26
+          },
+          {
+            "id": "coffee-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 27
+          },
+          {
+            "id": "coffee-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 28
+          },
+          {
+            "id": "chelsea-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 29
+          },
+          {
+            "id": "camera-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 30
+          },
+          {
+            "id": "hubble_deep_field-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 32
+          },
+          {
+            "id": "camera-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 33
+          },
+          {
+            "id": "astronaut-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 34
+          },
+          {
+            "id": "retina-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 35
+          },
+          {
+            "id": "chelsea-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "chelsea",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 37
+          },
+          {
+            "id": "rocket-arm-arm-warm",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 39
+          },
+          {
+            "id": "retina-arm-arm-warm",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 40
+          },
+          {
+            "id": "astronaut-arm-arm-warm",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 42
+          },
+          {
+            "id": "hubble_deep_field-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 43
+          },
+          {
+            "id": "hubble_deep_field-arm-intel_npu-warm",
+            "source": "arm",
+            "image_id": "hubble_deep_field",
+            "anchor": "intel_npu",
+            "state": "warm",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 44
+          },
+          {
+            "id": "camera-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 46
+          },
+          {
+            "id": "coffee-arm-arm-warm",
+            "source": "arm",
+            "image_id": "coffee",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 49
+          },
+          {
+            "id": "camera-arm-arm-warm",
+            "source": "arm",
+            "image_id": "camera",
+            "anchor": "arm",
+            "state": "warm",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 50
+          },
+          {
+            "id": "astronaut-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "astronaut",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 51
+          },
+          {
+            "id": "retina-arm-arm-eviction",
+            "source": "arm",
+            "image_id": "retina",
+            "anchor": "arm",
+            "state": "eviction",
+            "plan": [
+              "arm",
+              "arm",
+              "arm"
+            ],
+            "run_order": 52
+          },
+          {
+            "id": "rocket-arm-intel_npu-eviction",
+            "source": "arm",
+            "image_id": "rocket",
+            "anchor": "intel_npu",
+            "state": "eviction",
+            "plan": [
+              "intel_npu",
+              "intel_npu",
+              "intel_npu"
+            ],
+            "run_order": 59
+          }
+        ]
+      }
+    }
+  ],
+  "design_frozen_at": "2026-10-16T08:50:17.554052+00:00",
+  "total_workflows": 1344,
+  "measured_workflows": 960,
+  "corpus_sha256": "2dd7ce3cd45c8df3b0a48324f66c7da58634c3c8433d225b84306dd7a2ba9200",
+  "source_sha256": {
+    "probe.py": "73bf81dc69d6dd095a669028c30a231dd32b16f2d99f386de3e0d54a4246a2a3",
+    "transport.py": "72322bc0f32afeaa5937c4125651bd9f0c37694747848c478cacbd87b8ce7a43",
+    "accelerator_inference.py": "bf1d76acfab210faa606fc417c29032a9485facc708f54f9f94a717636bd7ced",
+    "rpc_profile.py": "2f2663d92fcbfc033d3576aadae25cd6b7874631ba0e791059857ec14ddc34d0",
+    "dag_profile.py": "6e92294d66028dd6d06f2adc80af3bf69b8c37b41084cdf94ad5836b5bda4887",
+    "model_lifecycle.py": "e8b5212c55b62d1750469ec2265a34066449a7a6a07688ba16bb5e528cd41174",
+    "dynamic_client.py": "d30901ac587ff9fafeabdb0ffab2602657712e343b1558b0ba6578441d0ae42f",
+    "corpus_client.py": "f3a3a798626189b90b3096ac268becafda4530d093ba71dab6b9739e6eaed6e5"
+  },
+  "frozen_E2_selection_sha256": "b7882f7f0bd7a68b5052d77ec9ea9b9986fba83528b6773a6abb946e25bbd373"
+}
