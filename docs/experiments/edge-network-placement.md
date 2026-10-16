@@ -93,7 +93,7 @@ rtk proxy python experiments/e0/analyze_placement_cost_diagnostic.py --check
 rtk proxy python -m unittest discover -s experiments/e0 -p test_phase_capture.py
 ```
 
-분석은 표준 Python으로 실행된다. 원래 collector는 `uv run --python /usr/bin/python3 --no-build --with numpy==2.2.6 --with pandas==2.2.3 python experiments/e0/run_edge_network_placement.py`로 실행했고 모든 셸 호출에rtk를 사용했다. 그림은matplotlib3.10.1이다. collector는 기존 artifact를 덮어쓰지 않으므로 같은 경로에서 재실행하면 중단한다. 새로운 수집은 별도 run 경로와 명세가 필요하다.
+[새 Git clone 검증](../../artifacts/edge-network-placement/clone-verification.json)에서 두 분석의 `--check`가 모두 통과했다. 분석은 표준 Python으로 실행된다. 원래 collector는 `uv run --python /usr/bin/python3 --no-build --with numpy==2.2.6 --with pandas==2.2.3 python experiments/e0/run_edge_network_placement.py`로 실행했고 모든 셸 호출에rtk를 사용했다. 그림은matplotlib3.10.1이다. collector는 기존 artifact를 덮어쓰지 않으므로 같은 경로에서 재실행하면 중단한다. 새로운 수집은 별도 run 경로와 명세가 필요하다.
 
 [실행 당시 collector 소스](../../artifacts/edge-network-placement/implementation.json)와 [runtime ConfigMap](../../artifacts/edge-network-placement/configmap.json)은 그대로 보존했다. 수집 후 검토에서 timeout 부분 출력 보존을 개선했다. 이번 수집에는 timeout이 없었으며 개선 후 collector를 이번 측정에 사용했다고 주장하지 않는다. 실제 child process timeout의 stdout/stderr 보존 테스트를 통과했다. 고정 numpy2.2.6/onnxruntime1.23.2/Pillow11.3.0 환경의 관련 HTTP·정책·timeout 회귀17개도 통과했다. 최초 system Python 실행은 numpy 부재로, 다음 실행은 기존 HTTP fixture의 loopback 예약/wildcard bind 불일치에 따른 포트 충돌로 실패했다. 테스트 예약 주소를 worker와 맞춰 수정했으며 실패·최종 명령은 review-validation.json에 보존했다. 클러스터 runtime은 바꾸지 않았다.
 
