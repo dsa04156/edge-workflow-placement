@@ -115,10 +115,33 @@ class Session:
     def net(self,key,spec,stem):
         return json.loads(self.execute(key,"import runpy;runpy.run_path('/config/net_control.py',run_name='__main__')",stem,container='netctl',stdin=json.dumps(spec)))
 
-    def rpc(self,key,url,body,stem='rpc',timeout=150):
-        code="import sys,json;sys.path.insert(0,'/config');from http_runtime import request;print(json.dumps(request("+repr(url)+','+repr(body)+',timeout='+str(timeout-10)+')))'
-        if key == 'cache':
-            code="import urllib.request,json;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));req=urllib.request.Request("+repr(url)+",json.dumps("+repr(body)+").encode(),{'Content-Type':'application/json'});print(op.open(req,timeout=15).read().decode())"
+    def rpc(self,url,body,stem='rpc',timeout=150,retain=True):
+        # Control only: input payloads are read/transmitted by owned edge sources.
+        from http_runtime import request
+        import urllib.error
+        for attempt in range(3):
+            self.counter+=1
+            tag=f'{self.counter:03d}-{stem}-http-{attempt}'
+            event=dict(started_at=datetime.now(timezone.utc).isoformat(),method='POST',url=url,timeout_s=timeout,control=body)
+            try:
+                result=request(url,body,timeout=timeout)
+                if retain:self.save(tag+'.response.json',result)
+                event.update(status='completed',response_json_sha256=hashlib.sha256(json.dumps(result,sort_keys=True).encode()).hexdigest())
+                return result
+            except urllib.error.HTTPError as error:
+                event.update(status='http_error',code=error.code,error=str(error),body=error.read().decode(errors='replace'))
+                raise
+            except (OSError, TimeoutError) as error:
+                event.update(status='transport_error',error=repr(error))
+                if attempt==2:raise
+                time.sleep(1)
+            finally:
+                event['finished_at']=datetime.now(timezone.utc).isoformat()
+                self.save(tag+'.event.json',event)
+
+    def pod_rpc(self,key,url,body,stem,timeout=20):
+        # Bypass/restore proof must originate in each guarded Pod, not collector.
+        code="import sys,json;sys.path.insert(0,'/config');from http_runtime import request;print(json.dumps(request("+repr(url)+','+repr(body)+',timeout='+str(timeout-5)+')))'
         return json.loads(self.execute(key,code,stem,timeout))
 
     def deploy(self):
@@ -178,11 +201,11 @@ class Session:
                 result=json.loads(self.execute(key,code,'bypass-'+key,timeout=10))
                 self.save('bypass-'+key+'.json',result)
                 if not result['blocked']:raise RuntimeError('Direct route bypass remains')
-                self.rpc(key,self.urls['gateway']+'/to/'+target+'/health',{},'relay-probe-'+key)
+                self.pod_rpc(key,self.urls['gateway']+'/to/'+target+'/health',{},'relay-probe-'+key)
         else:
             for key,zone in self.zones.items():
                 target='fusion' if zone=='edge' else 'source-e0'
-                restored=self.rpc(key,self.urls[target]+'/health',{},'restored-probe-'+key)
+                restored=self.pod_rpc(key,self.urls[target]+'/health',{},'restored-probe-'+key)
                 if restored['status']!='ready':raise RuntimeError('Direct connectivity not restored')
                 self.save('restored-'+key+'.json',restored)
 
@@ -236,15 +259,16 @@ class Session:
         """Raw decoding must preserve reference quality for all60 inputs on each branch candidate."""
         refs={r['question_id']:r for r in map(json.loads,(ASSETS/'reference-v1/results.jsonl').read_text().splitlines())}
         records=[]
-        self.save('source-input-readiness.json',{key:self.rpc(key,self.urls[key]+'/health',{},'source-prepared-'+key) for key in ('source-e0','source-e1')})
+        self.save('source-input-readiness.json',{key:self.rpc(self.urls[key]+'/health',{},'source-prepared-'+key) for key in ('source-e0','source-e1')})
         for pair in self.pairs:
             qid=pair['question_id']
             expected=(ASSETS/'reference-v1'/f'{qid}.npy').read_bytes()
             values=struct.unpack('<512f',expected[-2048:])
             for key,kind,task in [('v-edge','image','vision'),('v-cloud','image','vision'),('s-edge','audio','speech'),('s-cloud','audio','speech')]:
                 source='source-e0' if kind=='image' else 'source-e1'
-                code="import sys,json;sys.path.insert(0,'/config');from pathlib import Path;from http_runtime import request;print(json.dumps(request("+repr(self.urls[key]+'/infer')+",{'run_id':"+repr(self.run)+",'request_id':"+repr('quality-'+str(qid)+'-'+key)+",'data':Path("+repr(pair['raw_'+kind+'_path'])+").read_bytes()},timeout=60)))"
-                reply=json.loads(self.execute(source,code,'quality-'+str(qid)+'-'+key,timeout=80))
+                reply=self.rpc(self.urls[source]+'/profile',dict(run_id=self.run,request_id='quality-'+str(qid)+'-'+key,
+                    question_id=qid,kind=kind,operator_url=self.urls[key],representation='raw',remaining_s=60),
+                    'quality-'+str(qid)+'-'+key,timeout=65)
                 body=__import__('base64').b64decode(reply['data'])
                 if task=='vision':
                     observed=struct.unpack('<512f',body[-2048:])
@@ -269,17 +293,28 @@ class Session:
             remote_source=self.urls['source-e1'],representation=representation,deadline_s=120,max_inflight=32,
             placement=placement,mbps=mbps,oneway_delay_ms=delay,rate_rps=rate)
         self.save(label+'.config.json',config)
-        code="from pathlib import Path;Path('/work/trace.json').write_text("+repr(json.dumps(config))+");import sys,runpy;sys.path.insert(0,'/config');sys.argv=['load_trace.py','--config','/work/trace.json'];runpy.run_path('/config/load_trace.py',run_name='__main__')"
         print('phase',label,flush=True)
-        raw=self.execute('source-e0',code,'trace-'+label,timeout=(count-1)/rate+270)
-        events=[json.loads(line) for line in raw.splitlines() if line.startswith('{')]
+        self.rpc(self.urls['source-e0']+'/start_trace',config,'start-'+label,timeout=15)
+        stop=time.monotonic()+(count-1)/rate+270
+        events=[]
+        with (self.out/(label+'.events.jsonl')).open('x') as handle:
+            while True:
+                status=self.rpc(self.urls['source-e0']+'/trace_status',{'phase':label},'poll-'+label,timeout=15,retain=False)
+                new=status['events'][len(events):]
+                for row in new:handle.write(json.dumps(row)+'\n')
+                handle.flush()
+                events=status['events']
+                if status['status']=='complete':break
+                if status['status']=='failed':raise RuntimeError('Source trace failed: '+str(status.get('error')))
+                if time.monotonic()>stop:raise TimeoutError('Source trace control deadline exceeded')
+                time.sleep(2)
         rows=[e for e in events if e['event']=='terminal']
         if len(rows)!=count or not any(e['event']=='phase_end' for e in events):raise RuntimeError('Missing terminal ledger')
         self.save(label+'.rows.json',rows)
         self.verify_rows(rows,placement,representation)
         self.drain(label)
         self.save(label+'.qdisc.json',self.net('gateway',dict(action='snapshot'),'snapshot-'+label))
-        self.save(label+'.relay-counters.json',self.rpc('cache',self.urls['gateway']+'/health',{},'relay-counters-'+label))
+        self.save(label+'.relay-counters.json',self.rpc(self.urls['gateway']+'/health',{},'relay-counters-'+label))
         return rows
 
     def verify_rows(self,rows,placement,representation):
@@ -305,7 +340,7 @@ class Session:
         stable=0
         ledger=[]
         for attempt in range(100):
-            states={key:self.rpc('cache',self.urls[key]+'/health',{},'drain-'+label+'-'+key,timeout=20)
+            states={key:self.rpc(self.urls[key]+'/health',{},'drain-'+label+'-'+key,timeout=20)
                 for key in ('v-edge','s-edge','v-cloud','s-cloud','fusion','source-e0','source-e1','gateway')}
             network=self.net('gateway',dict(action='snapshot'),'drain-qdisc-'+label)
             idle=all(states[k]['serving_queue']==0 and not states[k]['serving_active'] and states[k]['http_active']==0 and states[k]['pending_joins']==0

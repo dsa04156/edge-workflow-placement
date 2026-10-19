@@ -12,6 +12,9 @@ import json
 import os
 from pathlib import Path
 import time
+import threading
+import re
+import sys
 from functools import lru_cache
 
 from http_runtime import request, decode_body, payload, digest
@@ -96,18 +99,50 @@ def validate_result(pair, result, reference, representation='compressed'):
     return result
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--root', required=True)
-    ap.add_argument('--port', type=int, default=8080)
-    args = ap.parse_args()
-    root = Path(args.root)
+def source_server(root, host='0.0.0.0', port=8080):
+    root = Path(root)
     pairs = {p['question_id']: p for p in json.loads((root / 'pairs.json').read_text())['pairs']}
     references = {r['question_id']: r for r in map(json.loads, (root / 'reference.jsonl').read_text().splitlines())}
     # Both edge sources are raw-ready before their readiness probe can pass.
     for pair in pairs.values():
         if 'raw_audio_path' in pair:
             read_input(pair, 'audio', 'raw')
+
+    def start_trace(server, config):
+        phase = config['phase']
+        if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,79}', phase):
+            raise ValueError('Invalid trace phase')
+        with server.trace_lock:
+            if phase in server.traces:
+                if server.traces[phase]['config'] != config:
+                    raise ValueError('Conflicting trace configuration')
+                return dict(status=server.traces[phase]['status'], phase=phase)
+            if any(s['status']=='running' for s in server.traces.values()):
+                raise ValueError('Another trace is active')
+            state = dict(status='running', config=config, events=[])
+            server.traces[phase] = state
+
+        def task():
+            try:
+                from load_trace import run_trace
+                with (root / ('trace-'+phase+'.jsonl')).open('x') as handle:
+                    def emit(row):
+                        handle.write(json.dumps(row)+'\n')
+                        handle.flush()
+                        with server.trace_lock:
+                            state['events'].append(row)
+                        print(json.dumps(row), flush=True)
+                    for qid in set(config['question_ids']):
+                        read_input(pairs[qid], 'image', config['representation'])
+                    run_trace(config, pairs, references, emit)
+                with server.trace_lock:
+                    state['status']='complete'
+            except Exception as error:
+                with server.trace_lock:
+                    state.update(status='failed', error=repr(error))
+                print(json.dumps(dict(event='trace_error', phase=phase, error=repr(error))), flush=True)
+        threading.Thread(target=task, daemon=True).start()
+        return dict(status='running', phase=phase)
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -134,6 +169,19 @@ def main():
                 if size < 1 or size > 16 * 1024 * 1024:
                     raise ValueError('Invalid control body')
                 data = decode_body(self.rfile.read(size), self.headers.get('Content-Type'))
+                if self.path in ('/start_trace', '/trace_status'):
+                    if self.path == '/start_trace':
+                        result = start_trace(self.server, data)
+                    else:
+                        with self.server.trace_lock:
+                            state = self.server.traces[data['phase']]
+                            result = dict(status=state['status'], events=list(state['events']), error=state.get('error'))
+                    raw = json.dumps(result).encode()
+                    self.send_response(200)
+                    self.send_header('Content-Length', str(len(raw)))
+                    self.end_headers()
+                    self.wfile.write(raw)
+                    return
                 if self.path == '/health':
                     raw = json.dumps(dict(status='ready', node=os.environ['NODE_NAME'], active_requests=self.server.active_requests, raw_audio_ready=sum('raw_audio_path' in p for p in pairs.values()))).encode()
                     self.send_response(200)
@@ -158,6 +206,9 @@ def main():
                         data=read_input(pair, 'audio', representation), fusion_url=data['fusion_url'], remaining_s=remaining), timeout=remaining)
                     result['source_node'] = os.environ['NODE_NAME']
                     result['source_payload_sha256'] = pair[('raw_' if representation == 'raw' else '') + 'audio_sha256']
+                elif self.path == '/profile':
+                    result = request(data['operator_url']+'/infer', dict(identity,
+                        data=read_input(pair, data['kind'], representation), remaining_s=remaining), timeout=remaining)
                 elif self.path == '/run':
                     result = run_once(pair, identity, data['endpoints'], data['remote_source'], representation, remaining)
                     result = validate_result(pair, result, references[pair['question_id']], representation)
@@ -174,11 +225,24 @@ def main():
         def log_message(self, *args):
             pass
 
-    print(json.dumps({'event': 'source_ready', 'node': os.environ['NODE_NAME'], 'pairs': len(pairs)}), flush=True)
-    server = ThreadingHTTPServer(('0.0.0.0', args.port), Handler)
+    server = ThreadingHTTPServer((host, port), Handler)
     server.active_requests = 0
+    server.traces = {}
+    server.trace_lock = threading.Lock()
+    return server
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--root', required=True)
+    ap.add_argument('--port', type=int, default=8080)
+    args = ap.parse_args()
+    server = source_server(args.root, port=args.port)
+    print(json.dumps({'event': 'source_ready', 'node': os.environ['NODE_NAME']}), flush=True)
     server.serve_forever()
 
 
 if __name__ == '__main__':
+    # load_trace imports edge_client. Reuse this module and its prepared cache.
+    sys.modules['edge_client'] = sys.modules[__name__]
     main()
