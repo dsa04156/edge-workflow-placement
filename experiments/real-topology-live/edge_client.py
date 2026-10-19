@@ -67,7 +67,7 @@ def run_once(pair, identity, endpoints, remote_source, representation='compresse
             pass
         raise
     finally:
-        pool.shutdown(wait=False, cancel_futures=True)
+        pool.shutdown(wait=True, cancel_futures=True)
 
 
 def validate_result(pair, result, reference, representation='compressed'):
@@ -104,6 +104,10 @@ def main():
     root = Path(args.root)
     pairs = {p['question_id']: p for p in json.loads((root / 'pairs.json').read_text())['pairs']}
     references = {r['question_id']: r for r in map(json.loads, (root / 'reference.jsonl').read_text().splitlines())}
+    # Both edge sources are raw-ready before their readiness probe can pass.
+    for pair in pairs.values():
+        if 'raw_audio_path' in pair:
+            read_input(pair, 'audio', 'raw')
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -117,6 +121,13 @@ def main():
             self.wfile.write(raw)
 
         def do_POST(self):
+            counted = self.path != '/health'
+            if counted: self.server.active_requests += 1
+            try: self._post()
+            finally:
+                if counted: self.server.active_requests -= 1
+
+        def _post(self):
             status = 200
             try:
                 size = int(self.headers.get('Content-Length', 0))
@@ -124,7 +135,7 @@ def main():
                     raise ValueError('Invalid control body')
                 data = decode_body(self.rfile.read(size), self.headers.get('Content-Type'))
                 if self.path == '/health':
-                    raw = json.dumps(dict(status='ready', node=os.environ['NODE_NAME'])).encode()
+                    raw = json.dumps(dict(status='ready', node=os.environ['NODE_NAME'], active_requests=self.server.active_requests, raw_audio_ready=sum('raw_audio_path' in p for p in pairs.values()))).encode()
                     self.send_response(200)
                     self.send_header('Content-Length', str(len(raw)))
                     self.end_headers()
@@ -164,7 +175,9 @@ def main():
             pass
 
     print(json.dumps({'event': 'source_ready', 'node': os.environ['NODE_NAME'], 'pairs': len(pairs)}), flush=True)
-    ThreadingHTTPServer(('0.0.0.0', args.port), Handler).serve_forever()
+    server = ThreadingHTTPServer(('0.0.0.0', args.port), Handler)
+    server.active_requests = 0
+    server.serve_forever()
 
 
 if __name__ == '__main__':

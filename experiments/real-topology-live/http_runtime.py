@@ -83,6 +83,7 @@ class OperatorServer(ThreadingHTTPServer):
         self.worker.start()
         self.tombstones = {}
         self.active = False
+        self.http_active = 0
 
     def receipt(self, inputs, output, compute_ms, queue_ms):
         return dict(self.metadata, input_bytes={k: len(v) for k, v in inputs.items()},
@@ -127,7 +128,11 @@ class OperatorServer(ThreadingHTTPServer):
 
     def operate(self, path, data):
         if path == '/health':
-            return dict(self.metadata, status='ready', serving_queue=self.jobs.qsize(), serving_active=self.active)
+            with self.lock:
+                now = time.monotonic()
+                self.entries = {k:v for k,v in self.entries.items() if now-v['created'] <= self.ttl}
+                pending = sum('result' not in v for v in self.entries.values())
+            return dict(self.metadata, status='ready', serving_queue=self.jobs.qsize(), serving_active=self.active, http_active=self.http_active, pending_joins=pending)
         if path == '/sink':
             content = payload(data['data'])
             return dict(status='ok', bytes=len(content), sha256=digest(content))
@@ -229,6 +234,13 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(raw)
 
     def do_POST(self):
+        counted = self.path != '/health'
+        if counted: self.server.http_active += 1
+        try: self._post()
+        finally:
+            if counted: self.server.http_active -= 1
+
+    def _post(self):
         status = 200
         try:
             size = int(self.headers.get('Content-Length', '0'))

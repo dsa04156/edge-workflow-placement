@@ -179,6 +179,12 @@ class Session:
                 self.save('bypass-'+key+'.json',result)
                 if not result['blocked']:raise RuntimeError('Direct route bypass remains')
                 self.rpc(key,self.urls['gateway']+'/to/'+target+'/health',{},'relay-probe-'+key)
+        else:
+            for key,zone in self.zones.items():
+                target='fusion' if zone=='edge' else 'source-e0'
+                restored=self.rpc(key,self.urls[target]+'/health',{},'restored-probe-'+key)
+                if restored['status']!='ready':raise RuntimeError('Direct connectivity not restored')
+                self.save('restored-'+key+'.json',restored)
 
     def network_preflight(self):
         """Actual corpus upload probes; application payload counts plus kernel dumps."""
@@ -230,6 +236,7 @@ class Session:
         """Raw decoding must preserve reference quality for all60 inputs on each branch candidate."""
         refs={r['question_id']:r for r in map(json.loads,(ASSETS/'reference-v1/results.jsonl').read_text().splitlines())}
         records=[]
+        self.save('source-input-readiness.json',{key:self.rpc(key,self.urls[key]+'/health',{},'source-prepared-'+key) for key in ('source-e0','source-e1')})
         for pair in self.pairs:
             qid=pair['question_id']
             expected=(ASSETS/'reference-v1'/f'{qid}.npy').read_bytes()
@@ -271,6 +278,7 @@ class Session:
         self.verify_rows(rows,placement,representation)
         self.drain(label)
         self.save(label+'.qdisc.json',self.net('gateway',dict(action='snapshot'),'snapshot-'+label))
+        self.save(label+'.relay-counters.json',self.rpc('cache',self.urls['gateway']+'/health',{},'relay-counters-'+label))
         return rows
 
     def verify_rows(self,rows,placement,representation):
@@ -291,12 +299,24 @@ class Session:
                 raise RuntimeError('Input source moved')
 
     def drain(self,label):
-        # No unfinished model work is carried into a different condition.
-        for attempt in range(90):
-            states=[self.rpc('cache',self.urls[key]+'/health',{},'drain-'+label+'-'+key,timeout=20) for key in ('v-edge','s-edge','v-cloud','s-cloud','fusion')]
-            if all(s['serving_queue']==0 and not s['serving_active'] for s in states):return
+        # Entire data path must be stably idle before a qdisc can be replaced.
+        stable=0
+        ledger=[]
+        for attempt in range(100):
+            states={key:self.rpc('cache',self.urls[key]+'/health',{},'drain-'+label+'-'+key,timeout=20)
+                for key in ('v-edge','s-edge','v-cloud','s-cloud','fusion','source-e0','source-e1','gateway')}
+            network=self.net('gateway',dict(action='snapshot'),'drain-qdisc-'+label)
+            idle=all(states[k]['serving_queue']==0 and not states[k]['serving_active'] and states[k]['http_active']==0 and states[k]['pending_joins']==0
+                for k in ('v-edge','s-edge','v-cloud','s-cloud','fusion'))
+            idle=idle and all(states[k]['active_requests']==0 for k in ('source-e0','source-e1','gateway')) and network['backlog_bytes']==0
+            ledger.append(dict(attempt=attempt,idle=idle,states=states,backlog_bytes=network['backlog_bytes']))
+            stable=stable+1 if idle else 0
+            if stable>=2:
+                self.save(label+'.drain.json',ledger)
+                return
             time.sleep(2)
-        raise RuntimeError('Serving queues failed to drain')
+        self.save(label+'.drain-failed.json',ledger)
+        raise RuntimeError('Data path did not drain; abort before changing network condition')
 
     def close(self):
         errors=[]
@@ -348,6 +368,9 @@ def main():
             session.trace(f'low-{mbps}-{label}',placements[label],mbps,delay,.1,6)
         session.shape(2,0,'delay-zero')
         for label,placement in placements.items():session.trace('delay-zero-'+label,placement,2,0,.1,6)
+        session.shape(2,20,'compressed-control')
+        for label,placement in placements.items():
+            session.trace('compressed-2-'+label,placement,2,20,.1,6,representation='compressed')
         # Higher arrival rates are a finite-window stress experiment, with stop/drain.
         high=[(b,r,p) for b in (10,2) for r in (.5,1) for p in ('cloud','edge','mixed')]
         random.Random(20261020).shuffle(high)

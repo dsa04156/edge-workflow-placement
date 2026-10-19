@@ -14,17 +14,28 @@ import urllib.request
 slots = threading.BoundedSemaphore(96)
 lock = threading.Lock()
 counters = {}
+active = 0
 
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        raw = json.dumps({'status': 'ready', 'counters': counters}).encode()
+        raw = json.dumps({'status': 'ready', 'counters': counters, 'active_requests': active}).encode()
         self.send_response(200)
         self.send_header('Content-Length', str(len(raw)))
         self.end_headers()
         self.wfile.write(raw)
 
     def do_POST(self):
+        global active
+        if self.path == '/health':
+            self.do_GET()
+            return
+        with lock: active += 1
+        try: self._post()
+        finally:
+            with lock: active -= 1
+
+    def _post(self):
         if not slots.acquire(blocking=False):
             self.send_error(429)
             return

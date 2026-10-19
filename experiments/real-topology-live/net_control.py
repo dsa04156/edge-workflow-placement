@@ -44,8 +44,15 @@ def configure(spec):
                               target=f'1:{band}', keys=[f'{hex(int(ipaddress.IPv4Address(destination)))}/0xffffffff+16'])
         elif spec['action'] != 'snapshot':
             raise ValueError('Unknown netns operation')
-        return dict(netns=os.readlink('/proc/self/ns/net'), spec=spec,
-            qdiscs=[dict(x) for x in ip.get_qdiscs(index=index)],
+        qdiscs=[dict(x) for x in ip.get_qdiscs(index=index)]
+        def backlog(value):
+            if isinstance(value, dict):
+                return sum((v if k == 'backlog' and isinstance(v, int) else backlog(v)) for k,v in value.items())
+            if isinstance(value, (list, tuple)):
+                return sum(backlog(v) for v in value)
+            return 0
+        return dict(backlog_bytes=backlog(qdiscs), netns=os.readlink('/proc/self/ns/net'), spec=spec,
+            qdiscs=qdiscs,
             filters=[dict(x) for x in ip.get_filters(index=index, parent=0x10000)],
             routes=[dict(x) for x in ip.get_routes(family=2, table=254)],
             links=[dict(x) for x in ip.get_links(index)])

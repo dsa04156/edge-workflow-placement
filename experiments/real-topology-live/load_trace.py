@@ -25,6 +25,8 @@ def run_trace(config, pairs, references, emit):
 
     def attempt(index, qid, released):
         row = dict(event='terminal', index=index, question_id=qid, scheduled_s=offsets[index], actual_release_s=released)
+        row['dispatch_s'] = time.monotonic() - start
+        row['driver_queue_ms'] = (row['dispatch_s'] - released) * 1000
         identity = dict(run_id=config['run_id'], request_id=config['phase'] + '-' + str(index))
         try:
             pair = pairs[qid]
@@ -39,6 +41,9 @@ def run_trace(config, pairs, references, emit):
         finally:
             row['finished_s'] = time.monotonic() - start
             row['scheduled_to_terminal_ms'] = (row['finished_s'] - offsets[index]) * 1000
+            row['deadline_exceeded'] = row['scheduled_to_terminal_ms'] > config['deadline_s'] * 1000
+            if row['deadline_exceeded'] and row['status'] == 'ok':
+                row.update(status='deadline_error', quality_ok=False)
             with lock:
                 terminals.append(row)
             log(row)
