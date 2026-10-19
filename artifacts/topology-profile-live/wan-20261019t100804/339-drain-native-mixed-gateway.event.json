@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-19T10:20:06.593858+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t100804-cache",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import urllib.request,json;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));req=urllib.request.Request('http://10.244.8.64:8080/health',json.dumps({}).encode(),{'Content-Type':'application/json'});print(op.open(req,timeout=15).read().decode())"
+  ],
+  "timeout_s": 20,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-19T10:20:06.807921+00:00"
+}

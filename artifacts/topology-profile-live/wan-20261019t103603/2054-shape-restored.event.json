@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-19T11:17:00.163770+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t103603-gateway",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import runpy;runpy.run_path('/config/net_control.py',run_name='__main__')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-19T11:17:00.528195+00:00"
+}

@@ -1,0 +1,4968 @@
+[
+  {
+    "event": "terminal",
+    "index": 0,
+    "question_id": 3506790,
+    "scheduled_s": 0.0,
+    "actual_release_s": 0.00029601692222058773,
+    "dispatch_s": 0.0005437380168586969,
+    "driver_queue_ms": 0.2477210946381092,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-0",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 821888
+        },
+        "input_sha256": {
+          "source": "a68b6ff201bee5089b1b1a321ea66ec1b5a6693e2b24fa8022d0d0cdea5541b3"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "fa76958cc225b9820891b99681d17ef48e33679c5d54bea8c230824364a4992b",
+        "compute_ms": 123.13493699912215,
+        "queue_ms": 0.0631160000921227
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 108796
+        },
+        "input_sha256": {
+          "source": "8815b03f7be2038229e8ef373abe5d12ae951db03170b5d848b3e11953a51d09"
+        },
+        "output_bytes": 30,
+        "output_sha256": "a82986ac8f1da579cd747ea1a4ea3ebd53b4d3305c47c87aa5ed619464cbe355",
+        "compute_ms": 187.11789100052556,
+        "queue_ms": 0.12646400136873126
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 30,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "a82986ac8f1da579cd747ea1a4ea3ebd53b4d3305c47c87aa5ed619464cbe355",
+          "vision": "fa76958cc225b9820891b99681d17ef48e33679c5d54bea8c230824364a4992b"
+        },
+        "output_bytes": 200,
+        "output_sha256": "d6e37c295db099869487e8d32b2c7b46983af03f138c6361a024b91a90e44933",
+        "compute_ms": 13.812909000989748,
+        "queue_ms": 0.1926949989865534
+      }
+    ],
+    "e2e_ms": 5297.502096975222,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "8815b03f7be2038229e8ef373abe5d12ae951db03170b5d848b3e11953a51d09",
+    "source_total_ms": 7221.588440006599,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "no",
+        "yes",
+        "unknown",
+        "0",
+        "i don't know"
+      ],
+      "answer_ids": [
+        1,
+        0,
+        493,
+        23,
+        689
+      ],
+      "scores": [
+        0.8677098155021667,
+        0.13216662406921387,
+        2.9965747671667486e-05,
+        1.58179991558427e-05,
+        1.1964604709646665e-05
+      ]
+    },
+    "reference_answer_id": 1,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "a68b6ff201bee5089b1b1a321ea66ec1b5a6693e2b24fa8022d0d0cdea5541b3",
+    "quality_ok": true,
+    "finished_s": 7.222428453969769,
+    "scheduled_to_terminal_ms": 7222.428453969769,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 4,
+    "question_id": 2748690,
+    "scheduled_s": 4.0,
+    "actual_release_s": 4.000066326931119,
+    "dispatch_s": 4.0006336939986795,
+    "driver_queue_ms": 0.5673670675605536,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-4",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 334208
+        },
+        "input_sha256": {
+          "source": "2830e578d03d9373fccc6f7b78b99949a43a637b0a68f9f2411d75179ce984fd"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "07eb3972daa83de59283411c622a5462e40e54508b8636e8ea14e37671938b04",
+        "compute_ms": 125.96371399922646,
+        "queue_ms": 0.18159899991587736
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 112140
+        },
+        "input_sha256": {
+          "source": "ceff3fc8f695248cec5de6b11e8c23977a0a584ce85700e0fece2509f61379cf"
+        },
+        "output_bytes": 33,
+        "output_sha256": "e0189eab09f0b6bd8493a4fb1dd873417b830c68d6de1ebc4f77e365cea86685",
+        "compute_ms": 192.95179300024756,
+        "queue_ms": 0.12167299792054109
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 33,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "e0189eab09f0b6bd8493a4fb1dd873417b830c68d6de1ebc4f77e365cea86685",
+          "vision": "07eb3972daa83de59283411c622a5462e40e54508b8636e8ea14e37671938b04"
+        },
+        "output_bytes": 209,
+        "output_sha256": "619168008ab9cedcd7c964d9d0f57055973756bdba31dde16a8d83b1e6807c5c",
+        "compute_ms": 19.125209000776522,
+        "queue_ms": 0.2048499991360586
+      }
+    ],
+    "e2e_ms": 23648.300444940105,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "ceff3fc8f695248cec5de6b11e8c23977a0a584ce85700e0fece2509f61379cf",
+    "source_total_ms": 26014.71820299048,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "no",
+        "yes",
+        "unknown",
+        "don't know",
+        "i don't know"
+      ],
+      "answer_ids": [
+        1,
+        0,
+        493,
+        1428,
+        689
+      ],
+      "scores": [
+        0.779033362865448,
+        0.22031264007091522,
+        0.000257214269367978,
+        0.00013286778994370252,
+        6.959753227420151e-05
+      ]
+    },
+    "reference_answer_id": 1,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "2830e578d03d9373fccc6f7b78b99949a43a637b0a68f9f2411d75179ce984fd",
+    "quality_ok": true,
+    "finished_s": 30.01565335795749,
+    "scheduled_to_terminal_ms": 26015.65335795749,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 34,
+    "question_id": 2431340,
+    "scheduled_s": 34.0,
+    "actual_release_s": 34.00006561493501,
+    "finished_s": 34.00006561493501,
+    "status": "driver_capacity",
+    "quality_ok": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 35,
+    "question_id": 3206120,
+    "scheduled_s": 35.0,
+    "actual_release_s": 35.0000723869307,
+    "finished_s": 35.0000723869307,
+    "status": "driver_capacity",
+    "quality_ok": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 36,
+    "question_id": 4081030,
+    "scheduled_s": 36.0,
+    "actual_release_s": 36.00006562098861,
+    "finished_s": 36.00006562098861,
+    "status": "driver_capacity",
+    "quality_ok": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 37,
+    "question_id": 2899430,
+    "scheduled_s": 37.0,
+    "actual_release_s": 37.000068817986175,
+    "finished_s": 37.000068817986175,
+    "status": "driver_capacity",
+    "quality_ok": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 38,
+    "question_id": 3008140,
+    "scheduled_s": 38.0,
+    "actual_release_s": 38.000067032990046,
+    "finished_s": 38.000067032990046,
+    "status": "driver_capacity",
+    "quality_ok": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 39,
+    "question_id": 1701290,
+    "scheduled_s": 39.0,
+    "actual_release_s": 39.00007489696145,
+    "finished_s": 39.00007489696145,
+    "status": "driver_capacity",
+    "quality_ok": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 2,
+    "question_id": 787710,
+    "scheduled_s": 2.0,
+    "actual_release_s": 2.000063949963078,
+    "dispatch_s": 2.0003872259985656,
+    "driver_queue_ms": 0.3232760354876518,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-2",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 917888
+        },
+        "input_sha256": {
+          "source": "6debefa026e6041eab8c2f2c156dbe69ee8ccea3b25c98a7a43563784a0a8379"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "3098dd9379731796e0f49a0ceea48a1a98df0c168b4482e0c96484ec7b30de14",
+        "compute_ms": 125.23083799896995,
+        "queue_ms": 0.20706900249933824
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 125516
+        },
+        "input_sha256": {
+          "source": "fac3e42a74788c72274231e571600edf7a4283b51a7198eb724b245d588f46c2"
+        },
+        "output_bytes": 36,
+        "output_sha256": "c4aa6c13b7ec71a553aede9d662bf9bc8cdad334f3b175b29a2ecea17e4021ad",
+        "compute_ms": 215.67499499724363,
+        "queue_ms": 0.16162800238817
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 36,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "c4aa6c13b7ec71a553aede9d662bf9bc8cdad334f3b175b29a2ecea17e4021ad",
+          "vision": "3098dd9379731796e0f49a0ceea48a1a98df0c168b4482e0c96484ec7b30de14"
+        },
+        "output_bytes": 213,
+        "output_sha256": "fef2f645617f7320e0c6d6e4081c9ee7dab3035de9e09bed5152799e23b516ef",
+        "compute_ms": 16.083418002381222,
+        "queue_ms": 0.1637659988773521
+      }
+    ],
+    "e2e_ms": 51339.338929974474,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "fac3e42a74788c72274231e571600edf7a4283b51a7198eb724b245d588f46c2",
+    "source_total_ms": 53677.75912792422,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "laptop",
+        "computer",
+        "cell phone",
+        "laptops",
+        "phone"
+      ],
+      "answer_ids": [
+        62,
+        332,
+        136,
+        785,
+        51
+      ],
+      "scores": [
+        0.9509401321411133,
+        0.04309896379709244,
+        0.0017953466158360243,
+        0.0012747764121741056,
+        0.0009717059438116848
+      ]
+    },
+    "reference_answer_id": 62,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "6debefa026e6041eab8c2f2c156dbe69ee8ccea3b25c98a7a43563784a0a8379",
+    "quality_ok": true,
+    "finished_s": 55.67844942701049,
+    "scheduled_to_terminal_ms": 53678.44942701049,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 3,
+    "question_id": 3344170,
+    "scheduled_s": 3.0,
+    "actual_release_s": 3.0000728329177946,
+    "dispatch_s": 3.0005103489384055,
+    "driver_queue_ms": 0.43751602061092854,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-3",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 812288
+        },
+        "input_sha256": {
+          "source": "2a37d130d68a9a9ccdcd969df72feb23b665565e87b2f3c094edc38ee9ec0cac"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "96904e4c81c3447082818b1637d9ef3700185bc5f78d8d1beb9a1b608133f46f",
+        "compute_ms": 124.03262599764275,
+        "queue_ms": 0.14831299995421432
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 72016
+        },
+        "input_sha256": {
+          "source": "e5bf0c9019fc12f438d936921bb04acf4108371dcb998a0b2c97e360ceab39f4"
+        },
+        "output_bytes": 22,
+        "output_sha256": "405dae939ff7413d244a25e2d1add9ed203da52c4b9a837fa55c4b2cbdbb8dac",
+        "compute_ms": 129.20567999753985,
+        "queue_ms": 0.19848100055241957
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 22,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "405dae939ff7413d244a25e2d1add9ed203da52c4b9a837fa55c4b2cbdbb8dac",
+          "vision": "96904e4c81c3447082818b1637d9ef3700185bc5f78d8d1beb9a1b608133f46f"
+        },
+        "output_bytes": 206,
+        "output_sha256": "2bea1386df78e41c93392b51eafc1cf0f16e5556af93f4a89773c3d2797f741a",
+        "compute_ms": 13.98284400056582,
+        "queue_ms": 0.15776699729030952
+      }
+    ],
+    "e2e_ms": 71605.08807899896,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "e5bf0c9019fc12f438d936921bb04acf4108371dcb998a0b2c97e360ceab39f4",
+    "source_total_ms": 75512.25877192337,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "pizza",
+        "sandwich",
+        "donut",
+        "doughnut",
+        "hot dog"
+      ],
+      "answer_ids": [
+        25,
+        126,
+        103,
+        1923,
+        87
+      ],
+      "scores": [
+        0.7042160034179688,
+        0.07774799317121506,
+        0.043175458908081055,
+        0.04254355654120445,
+        0.03856473043560982
+      ]
+    },
+    "reference_answer_id": 25,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "2a37d130d68a9a9ccdcd969df72feb23b665565e87b2f3c094edc38ee9ec0cac",
+    "quality_ok": true,
+    "finished_s": 78.51306871196721,
+    "scheduled_to_terminal_ms": 75513.06871196721,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 6,
+    "question_id": 1291130,
+    "scheduled_s": 6.0,
+    "actual_release_s": 6.000072980998084,
+    "dispatch_s": 6.000556682003662,
+    "driver_queue_ms": 0.4837010055780411,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-6",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "aaf257bca5235a8ff4c3ef0f2ae23a727a53b73845251bb30c0914f3bdfe2ee3"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "146f94f7e62e6d8950a0d4903521f614580edcc2083a8831bc2d0c99727c5318",
+        "compute_ms": 122.36380399917834,
+        "queue_ms": 0.11353499940014444
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 110468
+        },
+        "input_sha256": {
+          "source": "d4c61b78748f4d4bed378baff6711e52a4d3ca1839608f25a392df038c5aab95"
+        },
+        "output_bytes": 30,
+        "output_sha256": "14cdb0d43335a9e2b9c3f14217530be0b1e221407fc5259edc1eb79bb271ca73",
+        "compute_ms": 189.87682099759695,
+        "queue_ms": 0.1388179989589844
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 30,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "14cdb0d43335a9e2b9c3f14217530be0b1e221407fc5259edc1eb79bb271ca73",
+          "vision": "146f94f7e62e6d8950a0d4903521f614580edcc2083a8831bc2d0c99727c5318"
+        },
+        "output_bytes": 190,
+        "output_sha256": "e9b253e7ccf5ce0c4bb5bb859e907f9d328ad7595757bd9c275115fbb04144f6",
+        "compute_ms": 18.71374999973341,
+        "queue_ms": 0.038467998820124194
+      }
+    ],
+    "e2e_ms": 73875.56062592193,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "d4c61b78748f4d4bed378baff6711e52a4d3ca1839608f25a392df038c5aab95",
+    "source_total_ms": 75302.39694693591,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "no",
+        "yes",
+        "0",
+        "n",
+        "unknown"
+      ],
+      "answer_ids": [
+        1,
+        0,
+        23,
+        1394,
+        493
+      ],
+      "scores": [
+        0.5691894888877869,
+        0.43062716722488403,
+        3.302075856481679e-05,
+        1.7594753444427624e-05,
+        1.637924651731737e-05
+      ]
+    },
+    "reference_answer_id": 1,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "aaf257bca5235a8ff4c3ef0f2ae23a727a53b73845251bb30c0914f3bdfe2ee3",
+    "quality_ok": true,
+    "finished_s": 81.30330621998291,
+    "scheduled_to_terminal_ms": 75303.30621998291,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 24,
+    "question_id": 300340,
+    "scheduled_s": 24.0,
+    "actual_release_s": 24.00007312593516,
+    "dispatch_s": 24.000776973902248,
+    "driver_queue_ms": 0.7038479670882225,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-24",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 562628
+        },
+        "input_sha256": {
+          "source": "0227683b1c488fb8342f1e28a8bcaf274f81d3314a65c28a88b6e93ffdb51a7a"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "21b11ad27d7338d3ba63c1079389e497c2f98a190c19ea7c7d783e6455b335bd",
+        "compute_ms": 121.5116700004728,
+        "queue_ms": 0.15611499838996679
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 78704
+        },
+        "input_sha256": {
+          "source": "152d4c242cf369e660eb747e77d24988bf51e7e371b54c1e95dbf34167a75a54"
+        },
+        "output_bytes": 22,
+        "output_sha256": "27cdf2f926412de8e7d1422a86870a1a2dfce29302bb3fcdb58468c28cf78a04",
+        "compute_ms": 138.10832600211143,
+        "queue_ms": 0.1964739967661444
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 22,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "27cdf2f926412de8e7d1422a86870a1a2dfce29302bb3fcdb58468c28cf78a04",
+          "vision": "21b11ad27d7338d3ba63c1079389e497c2f98a190c19ea7c7d783e6455b335bd"
+        },
+        "output_bytes": 192,
+        "output_sha256": "f3fad8b4835a6af90bc6ea12e4347d84118b66d3e1df58258c5c3c47912059cb",
+        "compute_ms": 13.821820000885054,
+        "queue_ms": 0.158203998580575
+      }
+    ],
+    "e2e_ms": 62942.97547102906,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "152d4c242cf369e660eb747e77d24988bf51e7e371b54c1e95dbf34167a75a54",
+    "source_total_ms": 65057.685566018336,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "blonde",
+        "brown",
+        "black",
+        "red",
+        "orange"
+      ],
+      "answer_ids": [
+        131,
+        12,
+        10,
+        6,
+        17
+      ],
+      "scores": [
+        0.5053374171257019,
+        0.2787567675113678,
+        0.11786745488643646,
+        0.0687016025185585,
+        0.010975254699587822
+      ]
+    },
+    "reference_answer_id": 131,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "0227683b1c488fb8342f1e28a8bcaf274f81d3314a65c28a88b6e93ffdb51a7a",
+    "quality_ok": true,
+    "finished_s": 89.05885429691989,
+    "scheduled_to_terminal_ms": 65058.85429691989,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 1,
+    "question_id": 5341940,
+    "scheduled_s": 1.0,
+    "actual_release_s": 1.0000755299115553,
+    "dispatch_s": 1.0005450459429994,
+    "driver_queue_ms": 0.4695160314440727,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-1",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 819968
+        },
+        "input_sha256": {
+          "source": "01e53ba5cfed15dc844659bf3e285d9566ac329cca617f74070d3e8d84e22287"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "d83f1f5ccff79514f05908c989dfe181e99b10d254c821f8ba5e2bd700712f73",
+        "compute_ms": 125.58134500068263,
+        "queue_ms": 0.07848099994589575
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 75360
+        },
+        "input_sha256": {
+          "source": "60189ec189d33c2f26ca69bfe38085a283669ef78805bfa905bcedc34e0bfa41"
+        },
+        "output_bytes": 21,
+        "output_sha256": "6c37bff692fab33ebd693480b93d3e84911bce4daa1541f566fd00c14ef20742",
+        "compute_ms": 137.3197379980411,
+        "queue_ms": 0.19606700152507983
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 21,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "6c37bff692fab33ebd693480b93d3e84911bce4daa1541f566fd00c14ef20742",
+          "vision": "d83f1f5ccff79514f05908c989dfe181e99b10d254c821f8ba5e2bd700712f73"
+        },
+        "output_bytes": 200,
+        "output_sha256": "5bb9be54ccce3e50c5f62528a56f22428e435abc5605c4ae2b9911d9f5350a1a",
+        "compute_ms": 13.837575999787077,
+        "queue_ms": 0.14598399866372347
+      }
+    ],
+    "e2e_ms": 88631.37139601167,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "60189ec189d33c2f26ca69bfe38085a283669ef78805bfa905bcedc34e0bfa41",
+    "source_total_ms": 89659.82218598947,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "water",
+        "sand",
+        "boat",
+        "bench",
+        "skateboard"
+      ],
+      "answer_ids": [
+        36,
+        142,
+        128,
+        79,
+        38
+      ],
+      "scores": [
+        0.603125274181366,
+        0.09668838232755661,
+        0.022951774299144745,
+        0.022048786282539368,
+        0.018397754058241844
+      ]
+    },
+    "reference_answer_id": 36,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "01e53ba5cfed15dc844659bf3e285d9566ac329cca617f74070d3e8d84e22287",
+    "quality_ok": true,
+    "finished_s": 90.6607235269621,
+    "scheduled_to_terminal_ms": 89660.7235269621,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 28,
+    "question_id": 749200,
+    "scheduled_s": 28.0,
+    "actual_release_s": 28.000072135939263,
+    "dispatch_s": 28.000512781902216,
+    "driver_queue_ms": 0.4406459629535675,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-28",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 562628
+        },
+        "input_sha256": {
+          "source": "fa76061af5b100ffc01df4f1a3acf7b73f0e4f0e9a82c0fc9b17478de2c5fe79"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "425135f542b149e718b558f01ab07ce54e4697c8b4de130f57dc50d606163314",
+        "compute_ms": 125.07993300096132,
+        "queue_ms": 0.18891299987444654
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 137220
+        },
+        "input_sha256": {
+          "source": "4bd6d1782be60e3714a170e8c7bb7af79efef1b6886252dc049db62ba169172c"
+        },
+        "output_bytes": 38,
+        "output_sha256": "129f352dfa0181c189309534c0db6423c63b2c1acc04a3c786d5ee493b6e1f13",
+        "compute_ms": 229.55756399824168,
+        "queue_ms": 0.12403300206642598
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 38,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "129f352dfa0181c189309534c0db6423c63b2c1acc04a3c786d5ee493b6e1f13",
+          "vision": "425135f542b149e718b558f01ab07ce54e4697c8b4de130f57dc50d606163314"
+        },
+        "output_bytes": 199,
+        "output_sha256": "10c028c44f3d437b21372f127df7a2b7878fe099ea63b9003a133a97484ab34f",
+        "compute_ms": 20.94317700175452,
+        "queue_ms": 0.1481609979236964
+      }
+    ],
+    "e2e_ms": 77096.07999701984,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "4bd6d1782be60e3714a170e8c7bb7af79efef1b6886252dc049db62ba169172c",
+    "source_total_ms": 78095.45252891257,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "laptop",
+        "computer",
+        "guitar",
+        "cat",
+        "mouse"
+      ],
+      "answer_ids": [
+        62,
+        332,
+        381,
+        29,
+        364
+      ],
+      "scores": [
+        0.3327382802963257,
+        0.19660206139087677,
+        0.12390244752168655,
+        0.11536484956741333,
+        0.04156466946005821
+      ]
+    },
+    "reference_answer_id": 62,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "fa76061af5b100ffc01df4f1a3acf7b73f0e4f0e9a82c0fc9b17478de2c5fe79",
+    "quality_ok": true,
+    "finished_s": 106.09628221695311,
+    "scheduled_to_terminal_ms": 78096.28221695311,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 8,
+    "question_id": 3448780,
+    "scheduled_s": 8.0,
+    "actual_release_s": 8.000076523981988,
+    "dispatch_s": 8.000307966955006,
+    "driver_queue_ms": 0.23144297301769257,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-8",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "7fff8e5eb03de6b9a6d81a26c1e9b17fad980a17b3fd8567c998eee182ea91e3"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "734d47289277d908c40e85578f568393512e4e22684c1a6456ff15f41c92a282",
+        "compute_ms": 124.86022899975069,
+        "queue_ms": 0.14451999959419481
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 110468
+        },
+        "input_sha256": {
+          "source": "e69b4b7f9f12b555a46908dcc2a84f9f017ddc2beebf6576f650311296a4964b"
+        },
+        "output_bytes": 32,
+        "output_sha256": "d6b3515d64f49daff26cbc038e3136f6e98550d3ea099bc687f14b6ce578c6cc",
+        "compute_ms": 188.91496099968208,
+        "queue_ms": 0.17194899919559248
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 32,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "d6b3515d64f49daff26cbc038e3136f6e98550d3ea099bc687f14b6ce578c6cc",
+          "vision": "734d47289277d908c40e85578f568393512e4e22684c1a6456ff15f41c92a282"
+        },
+        "output_bytes": 225,
+        "output_sha256": "57af3199b74ee360f6a7ef1f02b3df3772f002170610684343bb3dc760dedd40",
+        "compute_ms": 16.115295999043155,
+        "queue_ms": 0.15901900042081252
+      }
+    ],
+    "e2e_ms": 102889.26431792788,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "e69b4b7f9f12b555a46908dcc2a84f9f017ddc2beebf6576f650311296a4964b",
+    "source_total_ms": 103878.72186501045,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "bank of america",
+        "chase",
+        "state farm",
+        "hsbc",
+        "sony"
+      ],
+      "answer_ids": [
+        1115,
+        1749,
+        1822,
+        1898,
+        837
+      ],
+      "scores": [
+        0.9999796152114868,
+        1.3117476555635221e-05,
+        4.057559635839425e-06,
+        4.4883654481964186e-07,
+        3.418383869302488e-07
+      ]
+    },
+    "reference_answer_id": 1115,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "7fff8e5eb03de6b9a6d81a26c1e9b17fad980a17b3fd8567c998eee182ea91e3",
+    "quality_ok": true,
+    "finished_s": 111.87938949698582,
+    "scheduled_to_terminal_ms": 103879.38949698582,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 16,
+    "question_id": 4833520,
+    "scheduled_s": 16.0,
+    "actual_release_s": 16.000064843916334,
+    "dispatch_s": 16.000511377933435,
+    "driver_queue_ms": 0.4465340171009302,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-16",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 562628
+        },
+        "input_sha256": {
+          "source": "1eb9496fbf4c8224b607a57b5b7a24d8f2736bb050a50d2c7403cc1399f3954f"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "35fac7fb5ebeaf80485905e83440194f9203f57160cac26ee73e58adc35dd90d",
+        "compute_ms": 126.256478997675,
+        "queue_ms": 0.198998000996653
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 108796
+        },
+        "input_sha256": {
+          "source": "d323f1adc206cfae435748394e8134ab9e6d31013641880e121811af5ba60372"
+        },
+        "output_bytes": 35,
+        "output_sha256": "db59221ae0a5ce29e8d76cf52f17c8e9f7572f3ed2de283d6a47160e0d6785bc",
+        "compute_ms": 186.68247800087556,
+        "queue_ms": 0.17838900021160953
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 35,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "db59221ae0a5ce29e8d76cf52f17c8e9f7572f3ed2de283d6a47160e0d6785bc",
+          "vision": "35fac7fb5ebeaf80485905e83440194f9203f57160cac26ee73e58adc35dd90d"
+        },
+        "output_bytes": 168,
+        "output_sha256": "24a307e3ae5f103280be06c1a31a1b9913d28b56d901be5d96e2f5baae3fb0ea",
+        "compute_ms": 18.453552002029028,
+        "queue_ms": 0.1452270007575862
+      }
+    ],
+    "e2e_ms": 98097.35439904034,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "d323f1adc206cfae435748394e8134ab9e6d31013641880e121811af5ba60372",
+    "source_total_ms": 99180.49481301568,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "2",
+        "3",
+        "1",
+        "4",
+        "5"
+      ],
+      "answer_ids": [
+        2,
+        5,
+        3,
+        8,
+        13
+      ],
+      "scores": [
+        0.5849037170410156,
+        0.1483638733625412,
+        0.08458703011274338,
+        0.05476406589150429,
+        0.05210113525390625
+      ]
+    },
+    "reference_answer_id": 2,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "1eb9496fbf4c8224b607a57b5b7a24d8f2736bb050a50d2c7403cc1399f3954f",
+    "quality_ok": true,
+    "finished_s": 115.18131183797959,
+    "scheduled_to_terminal_ms": 99181.31183797959,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 5,
+    "question_id": 2196320,
+    "scheduled_s": 5.0,
+    "actual_release_s": 5.000071171903983,
+    "dispatch_s": 5.000557077000849,
+    "driver_queue_ms": 0.48590509686619043,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-5",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 818048
+        },
+        "input_sha256": {
+          "source": "2f5d834bb2396cc8c597843689936fd1e9b1998ae20aadf78542854f5276b348"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "aab9681abae8716eb622b0096c6efaf3f6360a787199a2077ac68ab4843a5bbc",
+        "compute_ms": 125.64402199859614,
+        "queue_ms": 0.16158699872903526
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 85392
+        },
+        "input_sha256": {
+          "source": "aca62b9654d1f9835ff9888ff9a385230252f942bf2788cd6d2d514f5ab54aa1"
+        },
+        "output_bytes": 24,
+        "output_sha256": "9c38e7a36f5059c0e1c2df57410d7a31d6ba975605a6b540fd9fb527f12edd11",
+        "compute_ms": 155.30107299855445,
+        "queue_ms": 0.15807100135134533
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 24,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "9c38e7a36f5059c0e1c2df57410d7a31d6ba975605a6b540fd9fb527f12edd11",
+          "vision": "aab9681abae8716eb622b0096c6efaf3f6360a787199a2077ac68ab4843a5bbc"
+        },
+        "output_bytes": 211,
+        "output_sha256": "d9dde72ec808e92fdebb256220cce2da197123e96bc70617d16396d40613b14c",
+        "compute_ms": 13.65933099805261,
+        "queue_ms": 0.14073599959374405
+      }
+    ],
+    "e2e_ms": 108373.78840707242,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "aca62b9654d1f9835ff9888ff9a385230252f942bf2788cd6d2d514f5ab54aa1",
+    "source_total_ms": 115208.50093103945,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "frisbee",
+        "happy birthday",
+        "apples",
+        "soccer",
+        "fruit"
+      ],
+      "answer_ids": [
+        22,
+        1315,
+        280,
+        76,
+        148
+      ],
+      "scores": [
+        0.13450677692890167,
+        0.11380066722631454,
+        0.10950382053852081,
+        0.05809817090630531,
+        0.05670882761478424
+      ]
+    },
+    "reference_answer_id": 22,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "2f5d834bb2396cc8c597843689936fd1e9b1998ae20aadf78542854f5276b348",
+    "quality_ok": true,
+    "finished_s": 120.20936732098926,
+    "scheduled_to_terminal_ms": 115209.36732098926,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 7,
+    "question_id": 3706570,
+    "scheduled_s": 7.0,
+    "actual_release_s": 7.000162233016454,
+    "dispatch_s": 7.000802636961453,
+    "driver_queue_ms": 0.6404039449989796,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-7",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "07ac63abba4256736742e11165f15e6a9d7bac22892cccab17387c64aecdccc5"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "5b44730334819a54dcf23c10b53455812f50b0509f64b50734201a42a8d8d7dc",
+        "compute_ms": 128.486908000923,
+        "queue_ms": 0.22289799744612537
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 100440
+        },
+        "input_sha256": {
+          "source": "ad5fcf9819222ab920c2e0cd7f4ca1c7870a0d470b9e1e719ab619a2fcc9e7c9"
+        },
+        "output_bytes": 29,
+        "output_sha256": "128bdc9027f379c3583cc7480f2ad3141d87bf386a3a279aad6cd7633e8791d0",
+        "compute_ms": 176.37550600193208,
+        "queue_ms": 0.19901500127161853
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 29,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "128bdc9027f379c3583cc7480f2ad3141d87bf386a3a279aad6cd7633e8791d0",
+          "vision": "5b44730334819a54dcf23c10b53455812f50b0509f64b50734201a42a8d8d7dc"
+        },
+        "output_bytes": 199,
+        "output_sha256": "1e374a14d7e2f6e5136f0fdddf0a4a55d8fbc0359ae9b8794f9e8893c17f10eb",
+        "compute_ms": 16.40970200242009,
+        "queue_ms": 0.14374899910762906
+      }
+    ],
+    "e2e_ms": 112662.62334201019,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "ad5fcf9819222ab920c2e0cd7f4ca1c7870a0d470b9e1e719ab619a2fcc9e7c9",
+    "source_total_ms": 114632.45972292498,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "pink",
+        "pink and white",
+        "red",
+        "purple",
+        "blue"
+      ],
+      "answer_ids": [
+        24,
+        1143,
+        6,
+        45,
+        7
+      ],
+      "scores": [
+        0.30366724729537964,
+        0.0916939303278923,
+        0.07319546490907669,
+        0.05928143113851547,
+        0.05374787747859955
+      ]
+    },
+    "reference_answer_id": 24,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "07ac63abba4256736742e11165f15e6a9d7bac22892cccab17387c64aecdccc5",
+    "quality_ok": true,
+    "finished_s": 121.63357037701644,
+    "scheduled_to_terminal_ms": 114633.57037701644,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 22,
+    "question_id": 719180,
+    "scheduled_s": 22.0,
+    "actual_release_s": 22.00007058295887,
+    "dispatch_s": 22.00052226590924,
+    "driver_queue_ms": 0.4516829503700137,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-22",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 821888
+        },
+        "input_sha256": {
+          "source": "015b383f3f265f935fdc41d3c40ce1b87f04f0fbe6a458872a509e02c7ae1f81"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "de4e14538533da45b70cd66d6bcb299524c61a4eb9ce4b55e512c6a3bf33279f",
+        "compute_ms": 122.01384999934817,
+        "queue_ms": 33.048083998437505
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 135548
+        },
+        "input_sha256": {
+          "source": "39bade590dc69eb45e4cf10b8a6c6f3f695a5b59c8456e44132f7f5322e96f25"
+        },
+        "output_bytes": 43,
+        "output_sha256": "7a5100f6ffbee2378b03fdfb7f84df24c21e4da83ba0ad61f327592aa1a1a718",
+        "compute_ms": 224.452939000912,
+        "queue_ms": 0.146874001075048
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 43,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "7a5100f6ffbee2378b03fdfb7f84df24c21e4da83ba0ad61f327592aa1a1a718",
+          "vision": "de4e14538533da45b70cd66d6bcb299524c61a4eb9ce4b55e512c6a3bf33279f"
+        },
+        "output_bytes": 213,
+        "output_sha256": "99cf0821feb9cdef8bbb61669c5a7874f3123b8a899a643b3a911175bccb2dc5",
+        "compute_ms": 24.42696200159844,
+        "queue_ms": 0.12246599726495333
+      }
+    ],
+    "e2e_ms": 99572.13938899804,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "39bade590dc69eb45e4cf10b8a6c6f3f695a5b59c8456e44132f7f5322e96f25",
+    "source_total_ms": 100504.14291908965,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "long time",
+        "2 hours",
+        "1 hour",
+        "2 feet",
+        "3 feet"
+      ],
+      "answer_ids": [
+        1697,
+        1983,
+        1989,
+        550,
+        635
+      ],
+      "scores": [
+        0.8826280236244202,
+        0.037051212042570114,
+        0.019151778891682625,
+        0.01084225159138441,
+        0.008756942115724087
+      ]
+    },
+    "reference_answer_id": 1697,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "015b383f3f265f935fdc41d3c40ce1b87f04f0fbe6a458872a509e02c7ae1f81",
+    "quality_ok": true,
+    "finished_s": 122.50496959092561,
+    "scheduled_to_terminal_ms": 100504.96959092561,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 11,
+    "question_id": 1154590,
+    "scheduled_s": 11.0,
+    "actual_release_s": 11.000055375974625,
+    "dispatch_s": 11.000684760976583,
+    "driver_queue_ms": 0.6293850019574165,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-11",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 912128
+        },
+        "input_sha256": {
+          "source": "c22199bba66503669053e30e5c9fdc7ae774ccb5d1738c8812dc070346892635"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "c9f4f8faa90458e82e91d9f6c48938048b55b41c4064d84a968b2da94dc068c0",
+        "compute_ms": 128.408902000956,
+        "queue_ms": 0.19127599807688966
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 82048
+        },
+        "input_sha256": {
+          "source": "a8b5a44378879500f2ed667296a27aa734200a50dbdd1678d57f80d45a80c07e"
+        },
+        "output_bytes": 24,
+        "output_sha256": "1cf90db4d030206ab95c0b8aa80d74c7c61a1fc4644f55daad06d985068966a3",
+        "compute_ms": 151.82726700004423,
+        "queue_ms": 0.15969499872880988
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 24,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "1cf90db4d030206ab95c0b8aa80d74c7c61a1fc4644f55daad06d985068966a3",
+          "vision": "c9f4f8faa90458e82e91d9f6c48938048b55b41c4064d84a968b2da94dc068c0"
+        },
+        "output_bytes": 229,
+        "output_sha256": "5f97cd5101ee0787a9b70b793842456da09f78931b0f2f7422b32191bd76da54",
+        "compute_ms": 13.883386996894842,
+        "queue_ms": 0.15045899999677204
+      }
+    ],
+    "e2e_ms": 112321.71856309287,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "a8b5a44378879500f2ed667296a27aa734200a50dbdd1678d57f80d45a80c07e",
+    "source_total_ms": 113195.11148799211,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "flying kite",
+        "flying kites",
+        "playing",
+        "running",
+        "playing baseball"
+      ],
+      "answer_ids": [
+        214,
+        529,
+        361,
+        483,
+        747
+      ],
+      "scores": [
+        0.8714701533317566,
+        0.023187443614006042,
+        0.02125690132379532,
+        0.016038253903388977,
+        0.014484173618257046
+      ]
+    },
+    "reference_answer_id": 214,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "c22199bba66503669053e30e5c9fdc7ae774ccb5d1738c8812dc070346892635",
+    "quality_ok": true,
+    "finished_s": 124.19612545100972,
+    "scheduled_to_terminal_ms": 113196.12545100972,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 14,
+    "question_id": 2069220,
+    "scheduled_s": 14.0,
+    "actual_release_s": 14.000067004933953,
+    "dispatch_s": 14.000446039950475,
+    "driver_queue_ms": 0.3790350165218115,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-14",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "cccc6ab82de0b318dd09dbf47ca49723bf15e100500dc8d13834a8d41ed41a11"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "0badf62b4b96627b12a652c593eb3ac79e5ed17d07ab3fa533b6f184a86903e2",
+        "compute_ms": 130.34254500234965,
+        "queue_ms": 0.20003800091217272
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 77032
+        },
+        "input_sha256": {
+          "source": "a7216809b266d34af31733242725495d90ea19dbc32ecfbf28e044b895f918eb"
+        },
+        "output_bytes": 25,
+        "output_sha256": "561f9eb9e6d89a3a55d763f8c2a0eb7a09818203affe27c8d421b853c8c8c300",
+        "compute_ms": 141.79578299808782,
+        "queue_ms": 0.16926600073929876
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 25,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "561f9eb9e6d89a3a55d763f8c2a0eb7a09818203affe27c8d421b853c8c8c300",
+          "vision": "0badf62b4b96627b12a652c593eb3ac79e5ed17d07ab3fa533b6f184a86903e2"
+        },
+        "output_bytes": 198,
+        "output_sha256": "916d6c55f2993155bfb37ad34cb2e87b372d88c05fd98c276288f6bde6625306",
+        "compute_ms": 17.621070001041517,
+        "queue_ms": 0.16985299953375943
+      }
+    ],
+    "e2e_ms": 109354.38776493538,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "a7216809b266d34af31733242725495d90ea19dbc32ecfbf28e044b895f918eb",
+    "source_total_ms": 110245.3069878975,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "no one",
+        "man",
+        "nobody",
+        "people",
+        "woman"
+      ],
+      "answer_ids": [
+        200,
+        42,
+        1393,
+        185,
+        68
+      ],
+      "scores": [
+        0.5811358094215393,
+        0.15715204179286957,
+        0.09105711430311203,
+        0.07030218094587326,
+        0.01708553172647953
+      ]
+    },
+    "reference_answer_id": 200,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "cccc6ab82de0b318dd09dbf47ca49723bf15e100500dc8d13834a8d41ed41a11",
+    "quality_ok": true,
+    "finished_s": 124.24602047097869,
+    "scheduled_to_terminal_ms": 110246.02047097869,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 9,
+    "question_id": 256850,
+    "scheduled_s": 9.0,
+    "actual_release_s": 9.000073017901741,
+    "dispatch_s": 9.00053116295021,
+    "driver_queue_ms": 0.45814504846930504,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-9",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 639128
+        },
+        "input_sha256": {
+          "source": "2de7029320071fdda405840396915b7c9951802d9c64ddd87315868e26dd87e8"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "a073dfb96135062799bf2a48e5ba255e7b01518ab6c28fcfd83e4c116f7d5f18",
+        "compute_ms": 120.99271599799977,
+        "queue_ms": 0.14827300037723035
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 168984
+        },
+        "input_sha256": {
+          "source": "c582f07b17508c12d5dbf16a71da6bda4627e93e35cf67f5fc7bac346bbab594"
+        },
+        "output_bytes": 45,
+        "output_sha256": "34bfa0b4a223ff2f5966d037b162e1693c68783e015886c1883ccde83f936a11",
+        "compute_ms": 284.5544669980882,
+        "queue_ms": 0.211923001188552
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 45,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "34bfa0b4a223ff2f5966d037b162e1693c68783e015886c1883ccde83f936a11",
+          "vision": "a073dfb96135062799bf2a48e5ba255e7b01518ab6c28fcfd83e4c116f7d5f18"
+        },
+        "output_bytes": 201,
+        "output_sha256": "5998369e32396a9199ea3955bfe270d58937334bcb6c07c98ac411c8e1c3d99e",
+        "compute_ms": 23.812740997527726,
+        "queue_ms": 0.14872500105411746
+      }
+    ],
+    "e2e_ms": 112544.25532207824,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "c582f07b17508c12d5dbf16a71da6bda4627e93e35cf67f5fc7bac346bbab594",
+    "source_total_ms": 115425.24961801246,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "water",
+        "rain",
+        "cars",
+        "ocean",
+        "mountains"
+      ],
+      "answer_ids": [
+        36,
+        299,
+        366,
+        152,
+        147
+      ],
+      "scores": [
+        0.7957192659378052,
+        0.03971540927886963,
+        0.036233339458703995,
+        0.012716745026409626,
+        0.01080181822180748
+      ]
+    },
+    "reference_answer_id": 36,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "2de7029320071fdda405840396915b7c9951802d9c64ddd87315868e26dd87e8",
+    "quality_ok": true,
+    "finished_s": 124.4261178720044,
+    "scheduled_to_terminal_ms": 115426.1178720044,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 32,
+    "question_id": 1467420,
+    "scheduled_s": 32.0,
+    "actual_release_s": 32.000067739980295,
+    "dispatch_s": 32.00051708891988,
+    "driver_queue_ms": 0.4493489395827055,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-32",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 837248
+        },
+        "input_sha256": {
+          "source": "b76783aacd5cb5632b5a24c9e67a9738a6f6e051ecefa37e8c939d2b633c2b74"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "5d609d0b89b7097ac0fd6694dfea4205a85cd9b1d3672524c736beea31276093",
+        "compute_ms": 126.8851300010283,
+        "queue_ms": 0.19335700199007988
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 103780
+        },
+        "input_sha256": {
+          "source": "d7fdec8573f3d71ff4c6d814f8c93fdf7b96485afa1d73e03b3c577b58886ac8"
+        },
+        "output_bytes": 30,
+        "output_sha256": "495c8a4bb1a83544133f547bba106f36907c509253c7ad24aeb1f9c88d6619f4",
+        "compute_ms": 176.5329859990743,
+        "queue_ms": 0.14093200297793373
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 30,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "495c8a4bb1a83544133f547bba106f36907c509253c7ad24aeb1f9c88d6619f4",
+          "vision": "5d609d0b89b7097ac0fd6694dfea4205a85cd9b1d3672524c736beea31276093"
+        },
+        "output_bytes": 192,
+        "output_sha256": "5cb1b82b1e00cc3d873c5e60b51cdde5732dc66186a2693a6df867f2b11eef62",
+        "compute_ms": 16.185814998607384,
+        "queue_ms": 0.20243700055289082
+      }
+    ],
+    "e2e_ms": 92857.67010296695,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "d7fdec8573f3d71ff4c6d814f8c93fdf7b96485afa1d73e03b3c577b58886ac8",
+    "source_total_ms": 93858.38042502292,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "blonde",
+        "brown",
+        "black",
+        "red",
+        "gray"
+      ],
+      "answer_ids": [
+        131,
+        12,
+        10,
+        6,
+        26
+      ],
+      "scores": [
+        0.49192094802856445,
+        0.20963139832019806,
+        0.20126821100711823,
+        0.06946694105863571,
+        0.01016259379684925
+      ]
+    },
+    "reference_answer_id": 131,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "b76783aacd5cb5632b5a24c9e67a9738a6f6e051ecefa37e8c939d2b633c2b74",
+    "quality_ok": true,
+    "finished_s": 125.85922697500791,
+    "scheduled_to_terminal_ms": 93859.22697500791,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 12,
+    "question_id": 662630,
+    "scheduled_s": 12.0,
+    "actual_release_s": 12.000038961996324,
+    "dispatch_s": 12.000580421998166,
+    "driver_queue_ms": 0.5414600018411875,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-12",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 814208
+        },
+        "input_sha256": {
+          "source": "5cb3b9d68211ef76422959e255f5c0f23e78892516f9060ae944906c224b4292"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "be1060511b5b3b357078bde4d25a031fbf62aae8287ce569788e3ba2047bb648",
+        "compute_ms": 126.65736300186836,
+        "queue_ms": 137.6632139981666
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 95424
+        },
+        "input_sha256": {
+          "source": "fe7ac20edf4fcd26a8999d5dc37d6cd736f31cc28f3a3fa58b6fb08140ab3d3b"
+        },
+        "output_bytes": 30,
+        "output_sha256": "bb9964e82010400cbf4746a7ea5478bb1815111551f8943a572c59002b39c59b",
+        "compute_ms": 165.7921760015597,
+        "queue_ms": 130.88175499797217
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 30,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "bb9964e82010400cbf4746a7ea5478bb1815111551f8943a572c59002b39c59b",
+          "vision": "be1060511b5b3b357078bde4d25a031fbf62aae8287ce569788e3ba2047bb648"
+        },
+        "output_bytes": 181,
+        "output_sha256": "b937f6e8e8f2871540234c7e3543b141da4d472a5559cfa336f212d8c20e5500",
+        "compute_ms": 18.534872997406637,
+        "queue_ms": 0.1772089999576565
+      }
+    ],
+    "e2e_ms": 110697.98948196694,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "fe7ac20edf4fcd26a8999d5dc37d6cd736f31cc28f3a3fa58b6fb08140ab3d3b",
+    "source_total_ms": 114119.48150000535,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "no",
+        "yes",
+        "0",
+        "none",
+        "1"
+      ],
+      "answer_ids": [
+        1,
+        0,
+        23,
+        249,
+        3
+      ],
+      "scores": [
+        0.7889560461044312,
+        0.20568746328353882,
+        0.004292560741305351,
+        0.0004138176154810935,
+        0.000271749246167019
+      ]
+    },
+    "reference_answer_id": 1,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "5cb3b9d68211ef76422959e255f5c0f23e78892516f9060ae944906c224b4292",
+    "quality_ok": true,
+    "finished_s": 126.12037649401464,
+    "scheduled_to_terminal_ms": 114120.37649401464,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 10,
+    "question_id": 3448970,
+    "scheduled_s": 10.0,
+    "actual_release_s": 10.000073195900768,
+    "dispatch_s": 10.000463638920337,
+    "driver_queue_ms": 0.39044301956892014,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-10",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 816128
+        },
+        "input_sha256": {
+          "source": "50b5ad17fb90c2e553e6f966a30e456511ba00a5f9482cdc45a9dc12822ad4e7"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "dd49d0913a4ef507cc41fbb0efa6d705282df6203d47c066b19e03e838f0ff6a",
+        "compute_ms": 125.68810700031463,
+        "queue_ms": 0.24661900170031004
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 118828
+        },
+        "input_sha256": {
+          "source": "8a644837195066337bfbc0655f02ce053c85afd740eeba94f8d517e331dc6481"
+        },
+        "output_bytes": 30,
+        "output_sha256": "13c8b6fb3e992f18f82bdb1cd747c1288c7a5c41d158b223a44ed2a76096162b",
+        "compute_ms": 195.81577099961578,
+        "queue_ms": 0.15425400124513544
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 30,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "13c8b6fb3e992f18f82bdb1cd747c1288c7a5c41d158b223a44ed2a76096162b",
+          "vision": "dd49d0913a4ef507cc41fbb0efa6d705282df6203d47c066b19e03e838f0ff6a"
+        },
+        "output_bytes": 212,
+        "output_sha256": "32b74543d77b21429fa1210c906ba5eab605f0e9a2c91367d4d2ae8be78f080b",
+        "compute_ms": 19.42152400079067,
+        "queue_ms": 0.15273199824150652
+      }
+    ],
+    "e2e_ms": 112544.18511595577,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "8a644837195066337bfbc0655f02ce053c85afd740eeba94f8d517e331dc6481",
+    "source_total_ms": 116168.70086197741,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "standing",
+        "grazing",
+        "color",
+        "black and white",
+        "walking"
+      ],
+      "answer_ids": [
+        97,
+        311,
+        500,
+        31,
+        140
+      ],
+      "scores": [
+        0.23757074773311615,
+        0.16545869410037994,
+        0.1277119666337967,
+        0.07895052433013916,
+        0.0779748186469078
+      ]
+    },
+    "reference_answer_id": 97,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "50b5ad17fb90c2e553e6f966a30e456511ba00a5f9482cdc45a9dc12822ad4e7",
+    "quality_ok": true,
+    "finished_s": 126.16943740693387,
+    "scheduled_to_terminal_ms": 116169.43740693387,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 21,
+    "question_id": 1941380,
+    "scheduled_s": 21.0,
+    "actual_release_s": 21.000070329988375,
+    "dispatch_s": 21.00051332800649,
+    "driver_queue_ms": 0.4429980181157589,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-21",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 818048
+        },
+        "input_sha256": {
+          "source": "f855022f626ec92852ad286e9595207fce2201a15ecd7ed98e8009367a22c8db"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "b8d731a6620230889ba0b0f17b15efe18a76d53cb32ca9dbc84bf5745eecfe8e",
+        "compute_ms": 125.62447099844576,
+        "queue_ms": 0.1517450000392273
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 95424
+        },
+        "input_sha256": {
+          "source": "08522e9d4c2913cc059ca6ff02786cbf0f2b8487b15e17244c97780cc9da6650"
+        },
+        "output_bytes": 26,
+        "output_sha256": "f3965c447cb1a53d66abd07a892751e3be5a7416f57bb4ed9c72b8c86b639e08",
+        "compute_ms": 169.71852799906628,
+        "queue_ms": 8.296947999042459
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 26,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "f3965c447cb1a53d66abd07a892751e3be5a7416f57bb4ed9c72b8c86b639e08",
+          "vision": "b8d731a6620230889ba0b0f17b15efe18a76d53cb32ca9dbc84bf5745eecfe8e"
+        },
+        "output_bytes": 210,
+        "output_sha256": "722df8f90f624bad54081e26f00b31cdb307ad25b84824ae8fa423ec12557fb7",
+        "compute_ms": 14.165735003189184,
+        "queue_ms": 0.18971199824591167
+      }
+    ],
+    "e2e_ms": 105457.96554698609,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "08522e9d4c2913cc059ca6ff02786cbf0f2b8487b15e17244c97780cc9da6650",
+    "source_total_ms": 106507.38982006442,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "yes",
+        "no",
+        "unknown",
+        "i don't know",
+        "don't know"
+      ],
+      "answer_ids": [
+        0,
+        1,
+        493,
+        689,
+        1428
+      ],
+      "scores": [
+        0.6309048533439636,
+        0.36851736903190613,
+        0.00023681357561144978,
+        7.225223089335486e-05,
+        6.51090158498846e-05
+      ]
+    },
+    "reference_answer_id": 0,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "f855022f626ec92852ad286e9595207fce2201a15ecd7ed98e8009367a22c8db",
+    "quality_ok": true,
+    "finished_s": 127.50821338698734,
+    "scheduled_to_terminal_ms": 106508.21338698734,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 17,
+    "question_id": 3907310,
+    "scheduled_s": 17.0,
+    "actual_release_s": 17.000072540948167,
+    "dispatch_s": 17.000548576004803,
+    "driver_queue_ms": 0.4760350566357374,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-17",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "d07a978c05f9c9d60a13419bcd04e23524a6c581ff063967e67d4bfaa6e636cd"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "fba0df4002ee162196895a317dcba895f22fcd1b25e9f4632c2570120019b7c1",
+        "compute_ms": 127.17777900252258,
+        "queue_ms": 0.1760339982865844
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 113812
+        },
+        "input_sha256": {
+          "source": "a21da1b2fb646df76f24cb2e88d650428285b2491c1773a5ee8c5053d0ef8e21"
+        },
+        "output_bytes": 38,
+        "output_sha256": "5dc0b2c4b1d5719dad9eb7eaaec9862e384f90f03f7230f9c254e212afd3579f",
+        "compute_ms": 197.16947600318235,
+        "queue_ms": 0.1667259966779966
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 38,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "5dc0b2c4b1d5719dad9eb7eaaec9862e384f90f03f7230f9c254e212afd3579f",
+          "vision": "fba0df4002ee162196895a317dcba895f22fcd1b25e9f4632c2570120019b7c1"
+        },
+        "output_bytes": 209,
+        "output_sha256": "cc9264fb66bde1b949d8dfedb6526a0a0270676d30383ae52edd405f470d390f",
+        "compute_ms": 21.344335000321735,
+        "queue_ms": 0.1668190016061999
+      }
+    ],
+    "e2e_ms": 110457.64845900703,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "a21da1b2fb646df76f24cb2e88d650428285b2491c1773a5ee8c5053d0ef8e21",
+    "source_total_ms": 111501.05315295514,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "birthday",
+        "wedding",
+        "ocean",
+        "baseball",
+        "rainbow"
+      ],
+      "answer_ids": [
+        146,
+        175,
+        152,
+        15,
+        288
+      ],
+      "scores": [
+        0.33074894547462463,
+        0.06370104849338531,
+        0.038827069103717804,
+        0.03287045285105705,
+        0.03184117004275322
+      ]
+    },
+    "reference_answer_id": 146,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "d07a978c05f9c9d60a13419bcd04e23524a6c581ff063967e67d4bfaa6e636cd",
+    "quality_ok": true,
+    "finished_s": 128.50192059692927,
+    "scheduled_to_terminal_ms": 111501.92059692927,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 30,
+    "question_id": 3454990,
+    "scheduled_s": 30.0,
+    "actual_release_s": 30.00007101194933,
+    "dispatch_s": 30.000533305923454,
+    "driver_queue_ms": 0.46229397412389517,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-30",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 816128
+        },
+        "input_sha256": {
+          "source": "1535cb53bd2b2eb7d132602a2eed6cd4273102296180fefd9cf046f68124caf3"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "3fda029a8e9a0b1aaa2f0e141d437c3d755609a39eb896322f99c5737256afd3",
+        "compute_ms": 127.36791799761704,
+        "queue_ms": 0.19985700055258349
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 92080
+        },
+        "input_sha256": {
+          "source": "e9dace0213da3d6db617ff2e30424d2bb5c238c9c0d1a3e620201a3404ec46eb"
+        },
+        "output_bytes": 30,
+        "output_sha256": "defa4094c0b3b7734833c89c13f137b544edf6672df8eff8c2e6f7e1461ed897",
+        "compute_ms": 160.88243999911356,
+        "queue_ms": 0.18093600010615773
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 30,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "defa4094c0b3b7734833c89c13f137b544edf6672df8eff8c2e6f7e1461ed897",
+          "vision": "3fda029a8e9a0b1aaa2f0e141d437c3d755609a39eb896322f99c5737256afd3"
+        },
+        "output_bytes": 195,
+        "output_sha256": "ed68d79688179c3a467c008b048cd150fe6a2cb6db1af8c45e25b3c7a77e927f",
+        "compute_ms": 16.586178997386014,
+        "queue_ms": 0.1743060020089615
+      }
+    ],
+    "e2e_ms": 98693.64114804193,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "e9dace0213da3d6db617ff2e30424d2bb5c238c9c0d1a3e620201a3404ec46eb",
+    "source_total_ms": 99692.15951801743,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "elephant",
+        "water",
+        "wet",
+        "duck",
+        "bear"
+      ],
+      "answer_ids": [
+        50,
+        36,
+        678,
+        558,
+        71
+      ],
+      "scores": [
+        0.6276262998580933,
+        0.13017040491104126,
+        0.09886917471885681,
+        0.01735083945095539,
+        0.010636708699166775
+      ]
+    },
+    "reference_answer_id": 50,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "1535cb53bd2b2eb7d132602a2eed6cd4273102296180fefd9cf046f68124caf3",
+    "quality_ok": true,
+    "finished_s": 129.69301285897382,
+    "scheduled_to_terminal_ms": 99693.01285897382,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 26,
+    "question_id": 3567870,
+    "scheduled_s": 26.0,
+    "actual_release_s": 26.000073798000813,
+    "dispatch_s": 26.00052118394524,
+    "driver_queue_ms": 0.4473859444260597,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-26",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 819968
+        },
+        "input_sha256": {
+          "source": "f27cbdca8a10ef360d537b21855765d635c19f1ed31346ebed78613e5f4d54a5"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "304df5a2bf1d7d73018905fc8773b14074204f0622744f60b9a6a754c1332085",
+        "compute_ms": 125.78473499888787,
+        "queue_ms": 0.20948800010955893
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 80376
+        },
+        "input_sha256": {
+          "source": "8f48f976d8baae46610f407429ad1f897f99acb8b2e43fb694de7550dd3b3777"
+        },
+        "output_bytes": 23,
+        "output_sha256": "9c0c6e04e18748576b39b2c1425027f2d57d2cfe4cc62a9614e69635cf831703",
+        "compute_ms": 143.90001200081315,
+        "queue_ms": 0.22727000032318756
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 23,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "9c0c6e04e18748576b39b2c1425027f2d57d2cfe4cc62a9614e69635cf831703",
+          "vision": "304df5a2bf1d7d73018905fc8773b14074204f0622744f60b9a6a754c1332085"
+        },
+        "output_bytes": 205,
+        "output_sha256": "7bf2eee7042ff879a1067e1dc9fe732c7b987ca24eeb2cfe4d1b7548eed90919",
+        "compute_ms": 13.714310000068508,
+        "queue_ms": 0.14572899817721918
+      }
+    ],
+    "e2e_ms": 103028.82298000623,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "8f48f976d8baae46610f407429ad1f897f99acb8b2e43fb694de7550dd3b3777",
+    "source_total_ms": 104984.29921304341,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "paper",
+        "papers",
+        "books",
+        "book",
+        "scissors"
+      ],
+      "answer_ids": [
+        189,
+        1514,
+        272,
+        357,
+        151
+      ],
+      "scores": [
+        0.052999112755060196,
+        0.049251437187194824,
+        0.04448361694812775,
+        0.04046378284692764,
+        0.03988135978579521
+      ]
+    },
+    "reference_answer_id": 189,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "f27cbdca8a10ef360d537b21855765d635c19f1ed31346ebed78613e5f4d54a5",
+    "quality_ok": true,
+    "finished_s": 130.985155024915,
+    "scheduled_to_terminal_ms": 104985.155024915,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 18,
+    "question_id": 228610,
+    "scheduled_s": 18.0,
+    "actual_release_s": 18.000072293914855,
+    "dispatch_s": 18.000487939920276,
+    "driver_queue_ms": 0.4156460054218769,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-18",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "a4ffd0be96c0997ec0c61d7063b85ec04c066a3389e775cc8c4a9cf2190dc595"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "266827050c362131561a5472f80bf5d359121787770b72179240dfe56b93b422",
+        "compute_ms": 125.80564500240143,
+        "queue_ms": 0.21756099886260927
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 68672
+        },
+        "input_sha256": {
+          "source": "10a4335e764e2d9be875a765632fe21650b404a821bf4bcd4b26e094bbd3f713"
+        },
+        "output_bytes": 17,
+        "output_sha256": "accaa62288b77f5e03124615e0ab7ca329daa36033f13a9062b7a5264c35a0e3",
+        "compute_ms": 121.89792299977853,
+        "queue_ms": 0.1387490010529291
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 17,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "accaa62288b77f5e03124615e0ab7ca329daa36033f13a9062b7a5264c35a0e3",
+          "vision": "266827050c362131561a5472f80bf5d359121787770b72179240dfe56b93b422"
+        },
+        "output_bytes": 204,
+        "output_sha256": "de63b83e1ce4ec5bdb7b930852e3151f384d96e9a908ac6e9333124ef15d38a8",
+        "compute_ms": 12.232750999828568,
+        "queue_ms": 0.16726199828553945
+      }
+    ],
+    "e2e_ms": 111620.16325700097,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "10a4335e764e2d9be875a765632fe21650b404a821bf4bcd4b26e094bbd3f713",
+    "source_total_ms": 113028.1524900347,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "pizza",
+        "cheese",
+        "pepperoni",
+        "chicken",
+        "brown"
+      ],
+      "answer_ids": [
+        25,
+        110,
+        267,
+        205,
+        12
+      ],
+      "scores": [
+        0.4310958683490753,
+        0.26593780517578125,
+        0.03684593737125397,
+        0.01606116071343422,
+        0.015390037558972836
+      ]
+    },
+    "reference_answer_id": 25,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "a4ffd0be96c0997ec0c61d7063b85ec04c066a3389e775cc8c4a9cf2190dc595",
+    "quality_ok": true,
+    "finished_s": 131.02898876101244,
+    "scheduled_to_terminal_ms": 113028.98876101244,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 27,
+    "question_id": 1822130,
+    "scheduled_s": 27.0,
+    "actual_release_s": 27.000071420916356,
+    "dispatch_s": 27.00048295594752,
+    "driver_queue_ms": 0.41153503116220236,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-27",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 827648
+        },
+        "input_sha256": {
+          "source": "77dde1a5b0253a1a21fd60a6d3bb7264ca993f186eb5f45006c8edd50287078b"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "83c850ba25a9d782d0b23fe7d704ee54ff181f66ac3fefcbb7feb89f5b31a9d2",
+        "compute_ms": 119.6674829989206,
+        "queue_ms": 110.56186100177001
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 128860
+        },
+        "input_sha256": {
+          "source": "0ea2e99dee95b7f1f960cf2c8e1e05562e8622e8f4040b9442b4cf1b9d33a0ba"
+        },
+        "output_bytes": 40,
+        "output_sha256": "228da55a2fd57c4644f6a8298dade76418cfb762418701fca14fcb14365976ae",
+        "compute_ms": 215.0957539997762,
+        "queue_ms": 0.15957499999785796
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 40,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "228da55a2fd57c4644f6a8298dade76418cfb762418701fca14fcb14365976ae",
+          "vision": "83c850ba25a9d782d0b23fe7d704ee54ff181f66ac3fefcbb7feb89f5b31a9d2"
+        },
+        "output_bytes": 200,
+        "output_sha256": "8a83c06003cdb195027cd99f6e5a23b14e614d5831efe5445cf4bdf7261c1322",
+        "compute_ms": 21.101189999171766,
+        "queue_ms": 0.17188300262205303
+      }
+    ],
+    "e2e_ms": 102731.79951601196,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "0ea2e99dee95b7f1f960cf2c8e1e05562e8622e8f4040b9442b4cf1b9d33a0ba",
+    "source_total_ms": 104093.18261907902,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "apple",
+        "hp",
+        "dell",
+        "mac",
+        "toshiba"
+      ],
+      "answer_ids": [
+        52,
+        1216,
+        349,
+        1880,
+        1802
+      ],
+      "scores": [
+        0.9497667551040649,
+        0.026564059779047966,
+        0.016091570258140564,
+        0.00204302161000669,
+        0.0018526061903685331
+      ]
+    },
+    "reference_answer_id": 52,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "77dde1a5b0253a1a21fd60a6d3bb7264ca993f186eb5f45006c8edd50287078b",
+    "quality_ok": true,
+    "finished_s": 131.09395838796627,
+    "scheduled_to_terminal_ms": 104093.95838796627,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 25,
+    "question_id": 5602720,
+    "scheduled_s": 25.0,
+    "actual_release_s": 25.000442598946393,
+    "dispatch_s": 25.000929354922846,
+    "driver_queue_ms": 0.4867559764534235,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-25",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 806528
+        },
+        "input_sha256": {
+          "source": "da4b5cad699e5aa6c61d6931ed91c86c47e714b48b1a19c10f124335314c9075"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "6d125b3f3bff9bbc491edbd214e816f98105af3b47a566fbf3cca6d8f5c947af",
+        "compute_ms": 128.86704100310453,
+        "queue_ms": 0.22382399765774608
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 133876
+        },
+        "input_sha256": {
+          "source": "816c90bd25ae330362fd52e7bb3ed2e4e9413ed2402d6127e23f5ebbc8d0196f"
+        },
+        "output_bytes": 46,
+        "output_sha256": "38fd949e59916f0de9492d1799b4854a27ed956a31a90d17324683211c551bcd",
+        "compute_ms": 226.90665800109855,
+        "queue_ms": 0.21653899966622703
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 46,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "38fd949e59916f0de9492d1799b4854a27ed956a31a90d17324683211c551bcd",
+          "vision": "6d125b3f3bff9bbc491edbd214e816f98105af3b47a566fbf3cca6d8f5c947af"
+        },
+        "output_bytes": 171,
+        "output_sha256": "0c28fd74c416c78586be669f53aa483581e3766b311f87ae63c9deb0c6434e8b",
+        "compute_ms": 25.916237002093112,
+        "queue_ms": 0.19527099721017294
+      }
+    ],
+    "e2e_ms": 105804.77591301315,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "816c90bd25ae330362fd52e7bb3ed2e4e9413ed2402d6127e23f5ebbc8d0196f",
+    "source_total_ms": 106698.01108702086,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "5",
+        "6",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer_ids": [
+        13,
+        20,
+        5,
+        8,
+        2
+      ],
+      "scores": [
+        0.14158391952514648,
+        0.11439307779073715,
+        0.11389973014593124,
+        0.10688547790050507,
+        0.06605647504329681
+      ]
+    },
+    "reference_answer_id": 13,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "da4b5cad699e5aa6c61d6931ed91c86c47e714b48b1a19c10f124335314c9075",
+    "quality_ok": true,
+    "finished_s": 131.69925381196663,
+    "scheduled_to_terminal_ms": 106699.25381196663,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 23,
+    "question_id": 3148640,
+    "scheduled_s": 23.0,
+    "actual_release_s": 23.000075187999755,
+    "dispatch_s": 23.000552629935555,
+    "driver_queue_ms": 0.4774419358000159,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-23",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 819968
+        },
+        "input_sha256": {
+          "source": "096549a1c8c88d43fc272a45b0abf58be97e429591a416118393886e7f64f523"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "60d4249a7cab999dde3f0fa3a50c14e94c78c9eaaa91a00285b65129e1994960",
+        "compute_ms": 122.317387998919,
+        "queue_ms": 0.223102997551905
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 90408
+        },
+        "input_sha256": {
+          "source": "eec79839e6d541b46fb40ec41a589d20016a1b187299006a3eed280668ffa704"
+        },
+        "output_bytes": 27,
+        "output_sha256": "a33a39ea7a70271132985f284131aaf2d345d40778aebb1f5399c5f11cd11f1f",
+        "compute_ms": 159.642659000383,
+        "queue_ms": 0.1654819971008692
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 27,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "a33a39ea7a70271132985f284131aaf2d345d40778aebb1f5399c5f11cd11f1f",
+          "vision": "60d4249a7cab999dde3f0fa3a50c14e94c78c9eaaa91a00285b65129e1994960"
+        },
+        "output_bytes": 170,
+        "output_sha256": "1bc72e8eab956e9660c8f6d0e1c2269b75f4a37c453c27eeb49ae585303bb189",
+        "compute_ms": 14.380019001691835,
+        "queue_ms": 0.15075899864314124
+      }
+    ],
+    "e2e_ms": 108819.17892908677,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "eec79839e6d541b46fb40ec41a589d20016a1b187299006a3eed280668ffa704",
+    "source_total_ms": 109649.63329804596,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer_ids": [
+        3,
+        2,
+        5,
+        8,
+        13
+      ],
+      "scores": [
+        0.31905966997146606,
+        0.20907866954803467,
+        0.1325199455022812,
+        0.06513532996177673,
+        0.053327083587646484
+      ]
+    },
+    "reference_answer_id": 3,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "096549a1c8c88d43fc272a45b0abf58be97e429591a416118393886e7f64f523",
+    "quality_ok": true,
+    "finished_s": 132.65054229600355,
+    "scheduled_to_terminal_ms": 109650.54229600355,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 20,
+    "question_id": 1235850,
+    "scheduled_s": 20.0,
+    "actual_release_s": 20.00007457693573,
+    "dispatch_s": 20.00055631599389,
+    "driver_queue_ms": 0.48173905815929174,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-20",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "040344769699713954b026129098ca76a48628de46255e863859140c7b1cba9a"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "8eb064c817b36ce4eaf9e4332e77403ad8dd03fc3d577d8564a8113f8cf14dc0",
+        "compute_ms": 128.6722139993799,
+        "queue_ms": 0.16811100067570806
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 148920
+        },
+        "input_sha256": {
+          "source": "fde35b9f47ed96fc3f5bd78269447ef38f73ef44f07c5e19d69719377ba77dbb"
+        },
+        "output_bytes": 38,
+        "output_sha256": "fe3b35762d4d6f4d996ccece9fcec903247d519c8d3242c09fb789563504fb63",
+        "compute_ms": 248.93960299959872,
+        "queue_ms": 145.19557899984648
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 38,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "fe3b35762d4d6f4d996ccece9fcec903247d519c8d3242c09fb789563504fb63",
+          "vision": "8eb064c817b36ce4eaf9e4332e77403ad8dd03fc3d577d8564a8113f8cf14dc0"
+        },
+        "output_bytes": 197,
+        "output_sha256": "8d10035e66b935497cf94659a1e8aab08c872a7a3e594970c05f2e85895f9e79",
+        "compute_ms": 16.18312199934735,
+        "queue_ms": 0.22355599867296405
+      }
+    ],
+    "e2e_ms": 112459.20819102321,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "fde35b9f47ed96fc3f5bd78269447ef38f73ef44f07c5e19d69719377ba77dbb",
+    "source_total_ms": 113308.15435305703,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "fork",
+        "knife",
+        "spoon",
+        "cup",
+        "plate"
+      ],
+      "answer_ids": [
+        115,
+        177,
+        217,
+        413,
+        188
+      ],
+      "scores": [
+        0.5590479373931885,
+        0.2804517149925232,
+        0.12730534374713898,
+        0.003096560249105096,
+        0.0025059410836547613
+      ]
+    },
+    "reference_answer_id": 115,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "040344769699713954b026129098ca76a48628de46255e863859140c7b1cba9a",
+    "quality_ok": true,
+    "finished_s": 133.30905912991147,
+    "scheduled_to_terminal_ms": 113309.05912991147,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 13,
+    "question_id": 650570,
+    "scheduled_s": 13.0,
+    "actual_release_s": 13.000068306922913,
+    "dispatch_s": 13.000419675954618,
+    "driver_queue_ms": 0.35136903170496225,
+    "status": "error",
+    "error": "TimeoutError('Absolute workflow deadline elapsed waiting for branches')",
+    "quality_ok": false,
+    "finished_s": 133.67475740390364,
+    "scheduled_to_terminal_ms": 120674.75740390364,
+    "deadline_exceeded": true,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 19,
+    "question_id": 5030810,
+    "scheduled_s": 19.0,
+    "actual_release_s": 19.000070823938586,
+    "dispatch_s": 19.000551100005396,
+    "driver_queue_ms": 0.48027606680989265,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-19",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 869888
+        },
+        "input_sha256": {
+          "source": "0119c21b6b8c15e019fcaa695bec03cb498a538d67afaa9ad1f159aa60479088"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "75c162b811de14ba091834ff3ef676ce4e4a737475cb635cec12293cc11a02ca",
+        "compute_ms": 126.25796599968453,
+        "queue_ms": 0.21674200252164155
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 90408
+        },
+        "input_sha256": {
+          "source": "72f388784aa070952048db1a9754656100a9ffbe8d818998435005dbc5b52dfb"
+        },
+        "output_bytes": 28,
+        "output_sha256": "8cf5abd9227af0447c12cce613773b900388a5d7e029758dbe25f469ba27bdfe",
+        "compute_ms": 155.54813299968373,
+        "queue_ms": 0.18006300160777755
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 28,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "8cf5abd9227af0447c12cce613773b900388a5d7e029758dbe25f469ba27bdfe",
+          "vision": "75c162b811de14ba091834ff3ef676ce4e4a737475cb635cec12293cc11a02ca"
+        },
+        "output_bytes": 198,
+        "output_sha256": "f71da8c7943111e3b9fd8146fc81986bb16d73a598f801b6a39dfbdd27ae7f20",
+        "compute_ms": 19.381145997613203,
+        "queue_ms": 0.13897700046072714
+      }
+    ],
+    "e2e_ms": 114035.58864595834,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "72f388784aa070952048db1a9754656100a9ffbe8d818998435005dbc5b52dfb",
+    "source_total_ms": 114679.35570399277,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "1:30",
+        "12:00",
+        "2:55",
+        "night",
+        "1000"
+      ],
+      "answer_ids": [
+        1779,
+        1009,
+        1979,
+        91,
+        1466
+      ],
+      "scores": [
+        0.24108077585697174,
+        0.08626195788383484,
+        0.08403956145048141,
+        0.05365794897079468,
+        0.0521986186504364
+      ]
+    },
+    "reference_answer_id": 1779,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "0119c21b6b8c15e019fcaa695bec03cb498a538d67afaa9ad1f159aa60479088",
+    "quality_ok": true,
+    "finished_s": 133.6802388759097,
+    "scheduled_to_terminal_ms": 114680.23887590971,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 15,
+    "question_id": 2254940,
+    "scheduled_s": 15.0,
+    "actual_release_s": 15.00007042393554,
+    "dispatch_s": 15.00039731094148,
+    "driver_queue_ms": 0.3268870059400797,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-15",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 818048
+        },
+        "input_sha256": {
+          "source": "c0d924afec9bd436a88dd32077177748100a42653eb60d5c4e7b127e2f534fc2"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "529a480e0691b9788a881a4336df76c9f894304c94bd99bc9a65af5dbb156f54",
+        "compute_ms": 124.19648899958702,
+        "queue_ms": 0.18627299868967384
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 83720
+        },
+        "input_sha256": {
+          "source": "a24d9b0811b2d80e516983b2d89617d5a7540fd03e38398447e8ef74343127fd"
+        },
+        "output_bytes": 21,
+        "output_sha256": "2c522e62b2e6a5a461fbc91e04124de1e5e507e8b9b99219a29bd2a6e36a9357",
+        "compute_ms": 150.84174200092093,
+        "queue_ms": 0.1913029991555959
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 21,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "2c522e62b2e6a5a461fbc91e04124de1e5e507e8b9b99219a29bd2a6e36a9357",
+          "vision": "529a480e0691b9788a881a4336df76c9f894304c94bd99bc9a65af5dbb156f54"
+        },
+        "output_bytes": 217,
+        "output_sha256": "a484a2f0a5a5f12c1c5692387e8b591a55330b45639b5cb9d85abc5fa93fafdb",
+        "compute_ms": 14.047919001313858,
+        "queue_ms": 0.1832879970606882
+      }
+    ],
+    "e2e_ms": 118395.41253598873,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "a24d9b0811b2d80e516983b2d89617d5a7540fd03e38398447e8ef74343127fd",
+    "source_total_ms": 118731.24181688763,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "skate park",
+        "park",
+        "tennis court",
+        "parking lot",
+        "street"
+      ],
+      "answer_ids": [
+        350,
+        219,
+        406,
+        526,
+        164
+      ],
+      "scores": [
+        0.5774856209754944,
+        0.2931250035762787,
+        0.02497933991253376,
+        0.017892271280288696,
+        0.016974346712231636
+      ]
+    },
+    "reference_answer_id": 350,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "c0d924afec9bd436a88dd32077177748100a42653eb60d5c4e7b127e2f534fc2",
+    "quality_ok": true,
+    "finished_s": 133.73193618201185,
+    "scheduled_to_terminal_ms": 118731.93618201185,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 29,
+    "question_id": 5042970,
+    "scheduled_s": 29.0,
+    "actual_release_s": 29.000070777954534,
+    "dispatch_s": 29.00054055301007,
+    "driver_queue_ms": 0.46977505553513765,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-29",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 850688
+        },
+        "input_sha256": {
+          "source": "a49940b76ede02cea9c87ccd46bab4aa359479a032d828b408c2737befaf37e9"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "20bf15e3023696780c9331bba8bb3611523c1d478bc7fec521d039e6878088a4",
+        "compute_ms": 118.59301599906757,
+        "queue_ms": 0.16697799946996383
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 92080
+        },
+        "input_sha256": {
+          "source": "4850b53522e4fd414f9a906c1af7f3b6a6b5d35cf9a727a289ce6f8d50604e24"
+        },
+        "output_bytes": 24,
+        "output_sha256": "32c2d5cc16a977f4a8cb35e5f886504b20bc7f40346dffb9160eb329fb80b115",
+        "compute_ms": 162.6564190009958,
+        "queue_ms": 0.19267999959993176
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 24,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "32c2d5cc16a977f4a8cb35e5f886504b20bc7f40346dffb9160eb329fb80b115",
+          "vision": "20bf15e3023696780c9331bba8bb3611523c1d478bc7fec521d039e6878088a4"
+        },
+        "output_bytes": 201,
+        "output_sha256": "51e3901b58f7665f271ecbff8f6dd154497f880280e3473f58690a2fd54d18ba",
+        "compute_ms": 16.206467000301927,
+        "queue_ms": 0.16986400078167208
+      }
+    ],
+    "e2e_ms": 104528.5015309928,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "4850b53522e4fd414f9a906c1af7f3b6a6b5d35cf9a727a289ce6f8d50604e24",
+    "source_total_ms": 104744.13115601055,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "broccoli",
+        "fruit",
+        "vegetable",
+        "green",
+        "food"
+      ],
+      "answer_ids": [
+        48,
+        148,
+        959,
+        9,
+        73
+      ],
+      "scores": [
+        0.1416076421737671,
+        0.06333339214324951,
+        0.04887460172176361,
+        0.04376428946852684,
+        0.032294515520334244
+      ]
+    },
+    "reference_answer_id": 48,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "a49940b76ede02cea9c87ccd46bab4aa359479a032d828b408c2737befaf37e9",
+    "quality_ok": true,
+    "finished_s": 133.74493463290855,
+    "scheduled_to_terminal_ms": 104744.93463290855,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 31,
+    "question_id": 491330,
+    "scheduled_s": 31.0,
+    "actual_release_s": 31.00007241300773,
+    "dispatch_s": 31.00029730098322,
+    "driver_queue_ms": 0.22488797549158335,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-31",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 1228928
+        },
+        "input_sha256": {
+          "source": "49dd276066d38b9648abf40b3eb09de1537230292f4b29d1ecf9660f14ab5ffe"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "92258bb9ec4e3c2696c93f0a7bd328b636295f4a563769a98446a456f6500e3c",
+        "compute_ms": 126.60902799689211,
+        "queue_ms": 0.1556310016894713
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 75360
+        },
+        "input_sha256": {
+          "source": "106fc46f472ade16f3015c07ccc8eda47e653b2f3717b708c32b431ef5adfca2"
+        },
+        "output_bytes": 23,
+        "output_sha256": "6179107d243b391d2a0f324163a47a6fbf6baad5ed3e701a18e50e77429edffe",
+        "compute_ms": 132.91350199870067,
+        "queue_ms": 0.12263399912626483
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 23,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "6179107d243b391d2a0f324163a47a6fbf6baad5ed3e701a18e50e77429edffe",
+          "vision": "92258bb9ec4e3c2696c93f0a7bd328b636295f4a563769a98446a456f6500e3c"
+        },
+        "output_bytes": 204,
+        "output_sha256": "14848086bbc4c4e323927cdd1401212316900f61ae54949d2f2f5ece46bae0b7",
+        "compute_ms": 12.244759000168415,
+        "queue_ms": 0.19594200057326816
+      }
+    ],
+    "e2e_ms": 102929.9050780246,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "106fc46f472ade16f3015c07ccc8eda47e653b2f3717b708c32b431ef5adfca2",
+    "source_total_ms": 103013.04323994555,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "yes",
+        "no",
+        "unknown",
+        "i don't know",
+        "unsure"
+      ],
+      "answer_ids": [
+        0,
+        1,
+        493,
+        689,
+        1264
+      ],
+      "scores": [
+        0.5741898417472839,
+        0.4255499541759491,
+        4.37619055446703e-05,
+        3.552016642061062e-05,
+        3.535032374202274e-05
+      ]
+    },
+    "reference_answer_id": 0,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "49dd276066d38b9648abf40b3eb09de1537230292f4b29d1ecf9660f14ab5ffe",
+    "quality_ok": true,
+    "finished_s": 134.01367159490474,
+    "scheduled_to_terminal_ms": 103013.67159490474,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  },
+  {
+    "event": "terminal",
+    "index": 33,
+    "question_id": 3003300,
+    "scheduled_s": 33.0,
+    "actual_release_s": 33.000066399923526,
+    "dispatch_s": 33.00053667498287,
+    "driver_queue_ms": 0.47027505934238434,
+    "status": "ok",
+    "run_id": "wan-20261019t103603",
+    "request_id": "load-2-1-cloud-33",
+    "receipts": [
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 1477.4515669996617,
+        "task": "vision",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "7e03cdf9-3705-49a5-85a9-e5b43e2bb5d7",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:29Z",
+        "input_bytes": {
+          "source": 921728
+        },
+        "input_sha256": {
+          "source": "f5bd772f47ba74d72ab0dfef7a7d3ec9ca2d0f8a6601e6dab855cc9a277b37ba"
+        },
+        "output_bytes": 2176,
+        "output_sha256": "060f53ab201c0e5fada9a032c943247b8fae6c68316440a8767ce25216c85638",
+        "compute_ms": 125.67161699917051,
+        "queue_ms": 89.27540500008035
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2235.157541999797,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e00de40b-2a38-43f8-b889-e16dcf54977d",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:33Z",
+        "input_bytes": {
+          "source": 202420
+        },
+        "input_sha256": {
+          "source": "19d3c72adafaee7e53a10a38ebed164b6b0edf16095259b8c3bf5b7538ad90fc"
+        },
+        "output_bytes": 52,
+        "output_sha256": "a64bd0d5a497723f6b2193d94e4f3a067321a72d58f8f5e9422591c232d9a916",
+        "compute_ms": 342.78831299889134,
+        "queue_ms": 0.21482300144270994
+      },
+      {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1650.2681970014237,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "e890a292-fe0e-43f6-a6cf-73bed77a57f2",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-19T10:36:30Z",
+        "input_bytes": {
+          "speech": 52,
+          "vision": 2176
+        },
+        "input_sha256": {
+          "speech": "a64bd0d5a497723f6b2193d94e4f3a067321a72d58f8f5e9422591c232d9a916",
+          "vision": "060f53ab201c0e5fada9a032c943247b8fae6c68316440a8767ce25216c85638"
+        },
+        "output_bytes": 190,
+        "output_sha256": "cbe1c19e658ae0cffdb199ea2c4a1a9ad4ef44fbbbf9920a05d2845014445d17",
+        "compute_ms": 28.354345999105135,
+        "queue_ms": 0.16514099843334407
+      }
+    ],
+    "e2e_ms": 101010.43576700613,
+    "speech_source_node": "etri-dev0002-raspi5",
+    "speech_source_payload_sha256": "19d3c72adafaee7e53a10a38ebed164b6b0edf16095259b8c3bf5b7538ad90fc",
+    "source_total_ms": 101094.14316702168,
+    "split": "evaluation",
+    "source_node": "etri-dev0003-raspi5",
+    "scope": "real_ai_file_replay",
+    "representation": "raw",
+    "output": {
+      "answers": [
+        "both",
+        "yes",
+        "on",
+        "play",
+        "work"
+      ],
+      "answer_ids": [
+        420,
+        0,
+        290,
+        1082,
+        704
+      ],
+      "scores": [
+        0.15639328956604004,
+        0.08171413093805313,
+        0.07964731752872467,
+        0.07871320098638535,
+        0.06433519721031189
+      ]
+    },
+    "reference_answer_id": 420,
+    "answer_id_matches": true,
+    "top5_order_matches": true,
+    "max_score_abs_error": 0.0,
+    "source_payload_sha256": "f5bd772f47ba74d72ab0dfef7a7d3ec9ca2d0f8a6601e6dab855cc9a277b37ba",
+    "quality_ok": true,
+    "finished_s": 134.09500361792743,
+    "scheduled_to_terminal_ms": 101095.00361792743,
+    "deadline_exceeded": false,
+    "phase": "load-2-1-cloud"
+  }
+]

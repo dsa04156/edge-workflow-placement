@@ -32,3 +32,5 @@ Status: ready-for-agent
 - worker-context audit 후 실제 servingthread에서 intraop1을한번설정하고 intraop/inter op1을확인한뒤readiness를연다. 이근거가없던첫시도wan-20261019t100804는별도보존하고합치지않는다.
 
 - 재실행wan-20261019t102234는187번째quality-call의KubeEdgeexecunexpectedEOF로중단. 모델불일치로세지않고별도보존. 원인미확정. 이후source-localHTTP start/status(동일phase시작idempotent)/로컬JSONL지속저장과직접HTTP profile·health로제어를분리한다. inputpayload는계속edge에서발생하며collector는제어/작은결과만받는다. HTTP재시도는시작동일config/조회와기록된transportfailure에한한다. 보호Pod상태변화는함께기록하고실험인과로단정하지않는다.
+
+- 사용자2026-10-19추가요청: 완료시code/결과/실패보존artifact를검증하고현재experiment/topology-profile-live브랜치를origin에일반push한다. 큰모델/데이터/wheel/tar는제외하고manifest/hash를보존한다.

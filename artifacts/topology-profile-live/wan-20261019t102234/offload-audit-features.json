@@ -1,0 +1,284 @@
+{
+  "started_utc": "2026-10-19T10:26:44.962641+00:00",
+  "ended_utc": "2026-10-19T10:26:49.876498+00:00",
+  "command_argv": [
+    "kubectl",
+    "-n",
+    "topology-profile-lab",
+    "exec",
+    "-i",
+    "wan-20261019t102234-gateway",
+    "-c",
+    "netctl",
+    "--",
+    "python",
+    "-"
+  ],
+  "stdin_python": "import datetime,json,os,platform,traceback\nfrom pathlib import Path\nfrom pyroute2 import IPRoute,Ethtool\nout={\"utc\":datetime.datetime.now(datetime.timezone.utc).isoformat(),\"interface\":\"eth0\",\"netns\":os.readlink(\"/proc/self/ns/net\"),\"kernel\":platform.release(),\"mtu\":int(Path(\"/sys/class/net/eth0/mtu\").read_text()),\"read_only\":True}\nwith IPRoute() as ipr:\n link=ipr.get_links(ipr.link_lookup(ifname=\"eth0\")[0])[0]\n out[\"limits\"]={k:link.get_attr(k) for k in [\"IFLA_MTU\",\"IFLA_GSO_MAX_SEGS\",\"IFLA_GSO_MAX_SIZE\",\"IFLA_GRO_MAX_SIZE\",\"IFLA_TSO_MAX_SIZE\",\"IFLA_TSO_MAX_SEGS\"]}\ntry:\n tool=Ethtool()\n fs=tool.get_features(\"eth0\").features\n out[\"features\"]={name:{\"enabled\":bool(f.enable),\"available\":bool(f.available)} for name,f in fs.items()}\n tool.close()\nexcept Exception:\n out[\"features_error\"]=traceback.format_exc()\nprint(json.dumps(out,sort_keys=True))\n",
+  "exit_code": 0,
+  "stdout": "{\"features\": {\"\": {\"available\": false, \"enabled\": false}, \"esp-hw-offload\": {\"available\": false, \"enabled\": false}, \"esp-tx-csum-hw-offload\": {\"available\": false, \"enabled\": false}, \"highdma\": {\"available\": true, \"enabled\": true}, \"hsr-dup-offload\": {\"available\": false, \"enabled\": false}, \"hsr-fwd-offload\": {\"available\": false, \"enabled\": false}, \"hsr-tag-ins-offload\": {\"available\": false, \"enabled\": false}, \"hsr-tag-rm-offload\": {\"available\": false, \"enabled\": false}, \"hw-tc-offload\": {\"available\": false, \"enabled\": false}, \"l2-fwd-offload\": {\"available\": false, \"enabled\": false}, \"loopback\": {\"available\": false, \"enabled\": false}, \"macsec-hw-offload\": {\"available\": false, \"enabled\": false}, \"rx-all\": {\"available\": false, \"enabled\": false}, \"rx-checksum\": {\"available\": true, \"enabled\": true}, \"rx-fcs\": {\"available\": false, \"enabled\": false}, \"rx-gro\": {\"available\": true, \"enabled\": false}, \"rx-gro-hw\": {\"available\": false, \"enabled\": false}, \"rx-gro-list\": {\"available\": true, \"enabled\": false}, \"rx-hashing\": {\"available\": false, \"enabled\": false}, \"rx-lro\": {\"available\": false, \"enabled\": false}, \"rx-ntuple-filter\": {\"available\": false, \"enabled\": false}, \"rx-udp-gro-forwarding\": {\"available\": true, \"enabled\": false}, \"rx-udp_tunnel-port-offload\": {\"available\": false, \"enabled\": false}, \"rx-vlan-filter\": {\"available\": false, \"enabled\": false}, \"rx-vlan-hw-parse\": {\"available\": true, \"enabled\": true}, \"rx-vlan-stag-filter\": {\"available\": false, \"enabled\": false}, \"rx-vlan-stag-hw-parse\": {\"available\": true, \"enabled\": true}, \"tls-hw-record\": {\"available\": false, \"enabled\": false}, \"tls-hw-rx-offload\": {\"available\": false, \"enabled\": false}, \"tls-hw-tx-offload\": {\"available\": false, \"enabled\": false}, \"tx-checksum-fcoe-crc\": {\"available\": false, \"enabled\": false}, \"tx-checksum-ip-generic\": {\"available\": true, \"enabled\": true}, \"tx-checksum-ipv4\": {\"available\": false, \"enabled\": false}, \"tx-checksum-ipv6\": {\"available\": false, \"enabled\": false}, \"tx-checksum-sctp\": {\"available\": true, \"enabled\": true}, \"tx-esp-segmentation\": {\"available\": false, \"enabled\": false}, \"tx-fcoe-segmentation\": {\"available\": false, \"enabled\": false}, \"tx-generic-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-gre-csum-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-gre-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-gso-list\": {\"available\": true, \"enabled\": true}, \"tx-gso-partial\": {\"available\": false, \"enabled\": false}, \"tx-gso-robust\": {\"available\": false, \"enabled\": false}, \"tx-ipxip4-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-ipxip6-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-nocache-copy\": {\"available\": true, \"enabled\": false}, \"tx-scatter-gather\": {\"available\": true, \"enabled\": true}, \"tx-scatter-gather-fraglist\": {\"available\": true, \"enabled\": true}, \"tx-sctp-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-tcp-accecn-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-tcp-ecn-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-tcp-mangleid-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-tcp-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-tcp6-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-tunnel-remcsum-segmentation\": {\"available\": false, \"enabled\": false}, \"tx-udp-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-udp_tnl-csum-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-udp_tnl-segmentation\": {\"available\": true, \"enabled\": true}, \"tx-vlan-hw-insert\": {\"available\": true, \"enabled\": true}, \"tx-vlan-stag-hw-insert\": {\"available\": true, \"enabled\": true}, \"vlan-challenged\": {\"available\": false, \"enabled\": false}}, \"interface\": \"eth0\", \"kernel\": \"7.0.0-38-generic\", \"limits\": {\"IFLA_GRO_MAX_SIZE\": 65536, \"IFLA_GSO_MAX_SEGS\": 65535, \"IFLA_GSO_MAX_SIZE\": 65536, \"IFLA_MTU\": 1330, \"IFLA_TSO_MAX_SEGS\": 65535, \"IFLA_TSO_MAX_SIZE\": 524280}, \"mtu\": 1330, \"netns\": \"net:[4026535620]\", \"read_only\": true, \"utc\": \"2026-10-19T10:26:49.656331+00:00\"}\n",
+  "stderr": "",
+  "read_only": true,
+  "observation": {
+    "features": {
+      "": {
+        "available": false,
+        "enabled": false
+      },
+      "esp-hw-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "esp-tx-csum-hw-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "highdma": {
+        "available": true,
+        "enabled": true
+      },
+      "hsr-dup-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "hsr-fwd-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "hsr-tag-ins-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "hsr-tag-rm-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "hw-tc-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "l2-fwd-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "loopback": {
+        "available": false,
+        "enabled": false
+      },
+      "macsec-hw-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-all": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-checksum": {
+        "available": true,
+        "enabled": true
+      },
+      "rx-fcs": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-gro": {
+        "available": true,
+        "enabled": false
+      },
+      "rx-gro-hw": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-gro-list": {
+        "available": true,
+        "enabled": false
+      },
+      "rx-hashing": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-lro": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-ntuple-filter": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-udp-gro-forwarding": {
+        "available": true,
+        "enabled": false
+      },
+      "rx-udp_tunnel-port-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-vlan-filter": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-vlan-hw-parse": {
+        "available": true,
+        "enabled": true
+      },
+      "rx-vlan-stag-filter": {
+        "available": false,
+        "enabled": false
+      },
+      "rx-vlan-stag-hw-parse": {
+        "available": true,
+        "enabled": true
+      },
+      "tls-hw-record": {
+        "available": false,
+        "enabled": false
+      },
+      "tls-hw-rx-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "tls-hw-tx-offload": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-checksum-fcoe-crc": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-checksum-ip-generic": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-checksum-ipv4": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-checksum-ipv6": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-checksum-sctp": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-esp-segmentation": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-fcoe-segmentation": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-generic-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-gre-csum-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-gre-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-gso-list": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-gso-partial": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-gso-robust": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-ipxip4-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-ipxip6-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-nocache-copy": {
+        "available": true,
+        "enabled": false
+      },
+      "tx-scatter-gather": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-scatter-gather-fraglist": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-sctp-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-tcp-accecn-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-tcp-ecn-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-tcp-mangleid-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-tcp-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-tcp6-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-tunnel-remcsum-segmentation": {
+        "available": false,
+        "enabled": false
+      },
+      "tx-udp-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-udp_tnl-csum-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-udp_tnl-segmentation": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-vlan-hw-insert": {
+        "available": true,
+        "enabled": true
+      },
+      "tx-vlan-stag-hw-insert": {
+        "available": true,
+        "enabled": true
+      },
+      "vlan-challenged": {
+        "available": false,
+        "enabled": false
+      }
+    },
+    "interface": "eth0",
+    "kernel": "7.0.0-38-generic",
+    "limits": {
+      "IFLA_GRO_MAX_SIZE": 65536,
+      "IFLA_GSO_MAX_SEGS": 65535,
+      "IFLA_GSO_MAX_SIZE": 65536,
+      "IFLA_MTU": 1330,
+      "IFLA_TSO_MAX_SEGS": 65535,
+      "IFLA_TSO_MAX_SIZE": 524280
+    },
+    "mtu": 1330,
+    "netns": "net:[4026535620]",
+    "read_only": true,
+    "utc": "2026-10-19T10:26:49.656331+00:00"
+  }
+}

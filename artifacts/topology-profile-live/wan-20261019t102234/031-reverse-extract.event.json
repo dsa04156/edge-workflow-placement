@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-19T10:25:14.907144+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t102234-cache",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import tarfile;tarfile.open('/work/source.tar').extract('corpus/1713820-image.npy','/work',filter='data')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-19T10:25:15.121772+00:00"
+}

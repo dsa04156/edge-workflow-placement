@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-19T11:12:43.424040+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t103603-gateway",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-c",
+    "import hashlib;from pathlib import Path;print(hashlib.sha256(Path('/config/net_control.py').read_bytes()).hexdigest())"
+  ],
+  "stdout": "2ee6c6841f10753859ac032d3ad41e073503bb31cca358a10c908f2a27eea209\n",
+  "stderr": "",
+  "returncode": 0,
+  "expected_sha256": "192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6",
+  "applied": false
+}

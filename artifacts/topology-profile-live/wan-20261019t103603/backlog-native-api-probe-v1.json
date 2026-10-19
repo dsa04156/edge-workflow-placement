@@ -1,0 +1,83 @@
+{
+  "started_utc": "2026-10-19T11:12:51.826148+00:00",
+  "ended_utc": "2026-10-19T11:12:52.185189+00:00",
+  "command_argv": [
+    "kubectl",
+    "-n",
+    "topology-profile-lab",
+    "exec",
+    "-i",
+    "wan-20261019t103603-gateway",
+    "-c",
+    "netctl",
+    "--",
+    "python",
+    "-"
+  ],
+  "stdin_python": "import datetime,json\nfrom pyroute2 import IPRoute\nout={\"utc\":datetime.datetime.now(datetime.timezone.utc).isoformat(),\"read_only\":True,\"qdiscs\":[]}\nwith IPRoute() as ipr:\n idx=ipr.link_lookup(ifname=\"eth0\")[0]\n for q in ipr.get_qdiscs(index=idx):\n  stats=q.get_attr(\"TCA_STATS\")\n  s2=q.get_attr(\"TCA_STATS2\")\n  queue=s2.get_attr(\"TCA_STATS_QUEUE\") if s2 is not None else None\n  out[\"qdiscs\"].append({\"handle\":q[\"handle\"],\"kind\":q.get_attr(\"TCA_KIND\"),\"stats_type\":str(type(stats)),\"stats_backlog\":stats[\"backlog\"] if stats is not None else None,\"stats_qlen\":stats[\"qlen\"] if stats is not None else None,\"stats2_type\":str(type(s2)),\"queue_type\":str(type(queue)),\"queue_backlog\":queue[\"backlog\"] if queue is not None else None,\"queue_qlen\":queue[\"qlen\"] if queue is not None else None})\nprint(json.dumps(out))\n",
+  "exit_code": 0,
+  "stdout": "{\"utc\": \"2026-10-19T11:12:52.176204+00:00\", \"read_only\": true, \"qdiscs\": [{\"handle\": 65536, \"kind\": \"prio\", \"stats_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>\", \"stats_backlog\": 0, \"stats_qlen\": 0, \"stats2_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>\", \"queue_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>\", \"queue_backlog\": 0, \"queue_qlen\": 0}, {\"handle\": 2162688, \"kind\": \"netem\", \"stats_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>\", \"stats_backlog\": 0, \"stats_qlen\": 0, \"stats2_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>\", \"queue_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>\", \"queue_backlog\": 0, \"queue_qlen\": 0}, {\"handle\": 1048576, \"kind\": \"tbf\", \"stats_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>\", \"stats_backlog\": 0, \"stats_qlen\": 0, \"stats2_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>\", \"queue_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>\", \"queue_backlog\": 0, \"queue_qlen\": 0}, {\"handle\": 2097152, \"kind\": \"tbf\", \"stats_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>\", \"stats_backlog\": 0, \"stats_qlen\": 0, \"stats2_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>\", \"queue_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>\", \"queue_backlog\": 0, \"queue_qlen\": 0}, {\"handle\": 1114112, \"kind\": \"netem\", \"stats_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>\", \"stats_backlog\": 0, \"stats_qlen\": 0, \"stats2_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>\", \"queue_type\": \"<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>\", \"queue_backlog\": 0, \"queue_qlen\": 0}]}\n",
+  "stderr": "",
+  "read_only": true,
+  "observation": {
+    "utc": "2026-10-19T11:12:52.176204+00:00",
+    "read_only": true,
+    "qdiscs": [
+      {
+        "handle": 65536,
+        "kind": "prio",
+        "stats_type": "<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>",
+        "stats_backlog": 0,
+        "stats_qlen": 0,
+        "stats2_type": "<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>",
+        "queue_type": "<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>",
+        "queue_backlog": 0,
+        "queue_qlen": 0
+      },
+      {
+        "handle": 2162688,
+        "kind": "netem",
+        "stats_type": "<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>",
+        "stats_backlog": 0,
+        "stats_qlen": 0,
+        "stats2_type": "<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>",
+        "queue_type": "<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>",
+        "queue_backlog": 0,
+        "queue_qlen": 0
+      },
+      {
+        "handle": 1048576,
+        "kind": "tbf",
+        "stats_type": "<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>",
+        "stats_backlog": 0,
+        "stats_qlen": 0,
+        "stats2_type": "<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>",
+        "queue_type": "<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>",
+        "queue_backlog": 0,
+        "queue_qlen": 0
+      },
+      {
+        "handle": 2097152,
+        "kind": "tbf",
+        "stats_type": "<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>",
+        "stats_backlog": 0,
+        "stats_qlen": 0,
+        "stats2_type": "<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>",
+        "queue_type": "<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>",
+        "queue_backlog": 0,
+        "queue_qlen": 0
+      },
+      {
+        "handle": 1114112,
+        "kind": "netem",
+        "stats_type": "<class 'pyroute2.netlink.rtnl.tcmsg.tcmsg.stats'>",
+        "stats_backlog": 0,
+        "stats_qlen": 0,
+        "stats2_type": "<class 'pyroute2.netlink.rtnl.tcmsg.sched_template.stats2'>",
+        "queue_type": "<class 'pyroute2.netlink.rtnl.tcmsg.common.stats2.queue'>",
+        "queue_backlog": 0,
+        "queue_qlen": 0
+      }
+    ]
+  }
+}

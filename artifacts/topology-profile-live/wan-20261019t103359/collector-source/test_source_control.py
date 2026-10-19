@@ -1,0 +1,45 @@
+"""Source HTTP seam: async trace survives polling and retries, no exec stream."""
+from contextlib import ExitStack
+import json
+import hashlib
+import os
+from pathlib import Path
+import tempfile
+import threading
+import time
+import unittest
+
+from edge_client import source_server
+from http_runtime import request, serve
+
+
+class SourceControlTests(unittest.TestCase):
+    def test_started_trace_is_idempotent_and_preserves_one_terminal_per_release(self):
+        os.environ.setdefault('NODE_NAME', 'protocol-fixture')
+        with tempfile.TemporaryDirectory() as folder, ExitStack() as stack:
+            root = Path(folder)
+            (root/'image.bin').write_bytes(b'image')
+            (root/'pairs.json').write_text(json.dumps({'pairs':[dict(question_id=1,split='evaluation',
+                image_path=str(root/'image.bin'),image_sha256=hashlib.sha256(b'image').hexdigest())]}))
+            (root/'reference.jsonl').write_text('{"question_id":1}\n')
+            source = source_server(root, host='127.0.0.1', port=0)
+            thread = threading.Thread(target=source.serve_forever, daemon=True); thread.start()
+            fusion = stack.enter_context(serve('fusion',lambda x:b'fixture'))
+            url = 'http://127.0.0.1:'+str(source.server_port)
+            config = dict(run_id='control',phase='one',question_ids=[1,1],offsets_s=[0,.05],
+                endpoints={'fusion':fusion},remote_source='',representation='compressed',deadline_s=1,max_inflight=4)
+            try:
+                first=request(url+'/start_trace',config)
+                again=request(url+'/start_trace',config)
+                self.assertEqual(first['phase'],again['phase'])
+                for _ in range(40):
+                    result=request(url+'/trace_status',{'phase':'one'})
+                    if result['status']=='complete':break
+                    time.sleep(.05)
+                self.assertEqual(result['status'],'complete')
+                terminals=[r for r in result['events'] if r['event']=='terminal']
+                self.assertEqual(len(terminals),2)
+                self.assertEqual(sorted(r['index'] for r in terminals),[0,1])
+                self.assertEqual(len(list(root.glob('trace-*.jsonl'))),1)
+            finally:
+                source.shutdown();source.server_close();thread.join()

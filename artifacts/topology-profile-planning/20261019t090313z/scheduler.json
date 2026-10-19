@@ -1,0 +1,40 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=15s",
+    "get",
+    "pods",
+    "-n",
+    "kube-system",
+    "-l",
+    "component=kube-scheduler",
+    "-o",
+    "json"
+  ],
+  "started_at": "2026-10-19T09:03:13.998861+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "data": [
+    {
+      "name": "kube-scheduler-etri-ser0001-cg0msb",
+      "node": "etri-ser0001-cg0msb",
+      "containers": [
+        {
+          "name": "kube-scheduler",
+          "image": "registry.k8s.io/kube-scheduler:v1.31.14",
+          "command": [
+            "kube-scheduler",
+            "--authentication-kubeconfig=/etc/kubernetes/scheduler.conf",
+            "--authorization-kubeconfig=/etc/kubernetes/scheduler.conf",
+            "--bind-address=127.0.0.1",
+            "--kubeconfig=/etc/kubernetes/scheduler.conf",
+            "--leader-elect=true"
+          ]
+        }
+      ]
+    }
+  ],
+  "finished_at": "2026-10-19T09:03:14.028234+00:00"
+}

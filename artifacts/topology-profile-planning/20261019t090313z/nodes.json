@@ -1,0 +1,384 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=15s",
+    "get",
+    "nodes",
+    "-o",
+    "json"
+  ],
+  "started_at": "2026-10-19T09:03:13.601115+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "data": [
+    {
+      "name": "etri-dev0001-jetorn",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-dev0001-jetorn",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/agent": "",
+        "node-role.kubernetes.io/edge": ""
+      },
+      "taints": [
+        {
+          "effect": "NoSchedule",
+          "key": "node.kubernetes.io/unreachable",
+          "timeAdded": "2026-10-19T08:20:02Z"
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "timeAdded": "2026-10-19T08:20:07Z"
+        }
+      ],
+      "unschedulable": false,
+      "ready": "Unknown",
+      "allocatable": {
+        "cpu": "6",
+        "ephemeral-storage": "451876913224",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "hugepages-32Mi": "0",
+        "hugepages-64Ki": "0",
+        "memory": "7700336Ki",
+        "nvidia.com/gpu.shared": "2",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "343e2502-c92b-4012-9250-ee530860b430",
+        "containerRuntimeVersion": "containerd://2.2.1",
+        "kernelVersion": "5.15.148-tegra",
+        "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+        "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+        "machineID": "5dbfb12414a3456d9014d88183e338b1",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 22.04.5 LTS",
+        "systemUUID": "5dbfb12414a3456d9014d88183e338b1"
+      }
+    },
+    {
+      "name": "etri-dev0002-raspi5",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-dev0002-raspi5",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/agent": "",
+        "node-role.kubernetes.io/edge": ""
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "4",
+        "ephemeral-storage": "452888019014",
+        "hailo.ai/h8": "1",
+        "memory": "16501680Ki",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "8ced8ac2-8d13-4d54-aa4d-638971ac248f",
+        "containerRuntimeVersion": "containerd://1.7.18",
+        "kernelVersion": "6.12.75+rpt-rpi-2712",
+        "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+        "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+        "machineID": "1df2520cf04e466091a56304fa6b8049",
+        "operatingSystem": "linux",
+        "osImage": "Debian GNU/Linux 13 (trixie)",
+        "systemUUID": "1df2520cf04e466091a56304fa6b8049"
+      }
+    },
+    {
+      "name": "etri-dev0003-raspi5",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-dev0003-raspi5",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/agent": "",
+        "node-role.kubernetes.io/edge": ""
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "4",
+        "ephemeral-storage": "226587133987",
+        "memory": "8154048Ki",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "4a052b91-08a7-4aeb-9ec6-001d1ce24d6c",
+        "containerRuntimeVersion": "containerd://1.7.24",
+        "kernelVersion": "6.12.75+rpt-rpi-2712",
+        "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+        "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+        "machineID": "e50d7f1c4944474a944cfc9de88a85e8",
+        "operatingSystem": "linux",
+        "osImage": "Debian GNU/Linux 13 (trixie)",
+        "systemUUID": "e50d7f1c4944474a944cfc9de88a85e8"
+      }
+    },
+    {
+      "name": "etri-dev0004-tedger",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-dev0004-tedger",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/agent": "",
+        "node-role.kubernetes.io/edge": ""
+      },
+      "taints": [
+        {
+          "effect": "NoSchedule",
+          "key": "node.kubernetes.io/unreachable",
+          "timeAdded": "2026-10-19T04:15:37Z"
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "timeAdded": "2026-10-19T06:05:40Z"
+        }
+      ],
+      "unschedulable": false,
+      "ready": "Unknown",
+      "allocatable": {
+        "cpu": "6",
+        "ephemeral-storage": "114836878351",
+        "memory": "3835236Ki",
+        "pods": "110",
+        "rockchip.com/rk3399pro": "1"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "9500a9ea-a04d-4575-a275-606a595bf856",
+        "containerRuntimeVersion": "containerd://1.7.32",
+        "kernelVersion": "4.4.194",
+        "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+        "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+        "machineID": "41cfdc5bfd5749068b63aa0cf08c96e4",
+        "operatingSystem": "linux",
+        "osImage": "Debian GNU/Linux 10 (buster)",
+        "systemUUID": "41cfdc5bfd5749068b63aa0cf08c96e4"
+      }
+    },
+    {
+      "name": "etri-dev0006-raspi5",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-dev0006-raspi5",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/agent": "",
+        "node-role.kubernetes.io/edge": ""
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "4",
+        "ephemeral-storage": "27720570425",
+        "hailo.ai/h8": "1",
+        "memory": "4043920Ki",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "d4a9e212-9c38-4c68-a438-23056a16372d",
+        "containerRuntimeVersion": "containerd://1.7.24",
+        "kernelVersion": "6.18.39+rpt-rpi-2712",
+        "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+        "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+        "machineID": "f952242c7b1840e1a1d9555e7bf6c0a7",
+        "operatingSystem": "linux",
+        "osImage": "Debian GNU/Linux 13 (trixie)",
+        "systemUUID": "f952242c7b1840e1a1d9555e7bf6c0a7"
+      }
+    },
+    {
+      "name": "etri-dev0007-jetagx",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-dev0007-jetagx",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/agent": "",
+        "node-role.kubernetes.io/edge": ""
+      },
+      "taints": [
+        {
+          "effect": "NoSchedule",
+          "key": "node.kubernetes.io/unreachable",
+          "timeAdded": "2026-10-19T08:20:07Z"
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "timeAdded": "2026-10-19T08:20:17Z"
+        }
+      ],
+      "unschedulable": false,
+      "ready": "Unknown",
+      "allocatable": {
+        "cpu": "12",
+        "ephemeral-storage": "52025455326",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "hugepages-32Mi": "0",
+        "hugepages-64Ki": "0",
+        "memory": "64284988Ki",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "214aef28-6fe5-4dd4-af2d-45e85a520af9",
+        "containerRuntimeVersion": "containerd://2.3.4",
+        "kernelVersion": "6.8.12-1021-tegra",
+        "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+        "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+        "machineID": "bd09d9c96ca849e68c556c350a671ad7",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.4 LTS",
+        "systemUUID": "7eeefb33-b09b-50bc-9884-19a1f4edfc6e"
+      }
+    },
+    {
+      "name": "etri-ser0001-cg0msb",
+      "labels": {
+        "kubernetes.io/arch": "amd64",
+        "kubernetes.io/hostname": "etri-ser0001-cg0msb",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/control-plane": ""
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "24",
+        "ephemeral-storage": "451628671048",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "131496736Ki",
+        "nvidia.com/gpu": "1",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "amd64",
+        "bootID": "15676387-001c-4e68-8259-d89d1dcfde2c",
+        "containerRuntimeVersion": "containerd://1.7.18",
+        "kernelVersion": "7.0.0-38-generic",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "b90ae4e13f8643d6ab8ac4a3e5ebaa90",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.3 LTS",
+        "systemUUID": "6f1e60e6-c84a-6cd3-91d3-50ebf6ee5939"
+      }
+    },
+    {
+      "name": "etri-ser0002-cgnmsb",
+      "labels": {
+        "kubernetes.io/arch": "amd64",
+        "kubernetes.io/hostname": "etri-ser0002-cgnmsb",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/worker": "worker"
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "24",
+        "ephemeral-storage": "927870306816",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "31998504Ki",
+        "npu.intel.com/accel": "1",
+        "nvidia.com/gpu": "1",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "amd64",
+        "bootID": "d0b17d24-d6c2-468b-b8cb-6b2a13a25914",
+        "containerRuntimeVersion": "containerd://2.2.4",
+        "kernelVersion": "7.0.0-38-generic",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "86f7842cea214f42825d0de1caeca950",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.4 LTS",
+        "systemUUID": "4f2bdbd3-f8a3-5123-73fe-60cf84aa3a75"
+      }
+    },
+    {
+      "name": "etri-ser0003-cg0ms0",
+      "labels": {
+        "kubernetes.io/arch": "arm64",
+        "kubernetes.io/hostname": "etri-ser0003-cg0ms0",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/worker": ""
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "20",
+        "ephemeral-storage": "3628684392175",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "hugepages-32Mi": "0",
+        "hugepages-64Ki": "0",
+        "memory": "127498348Ki",
+        "nvidia.com/gpu": "1",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "arm64",
+        "bootID": "b35055b9-72bc-49ae-8ae9-49ffc38584e3",
+        "containerRuntimeVersion": "containerd://2.2.1",
+        "kernelVersion": "6.17.0-1032-nvidia",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "7af66f30966a49b6886e00e2fce4b42f",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 24.04.3 LTS",
+        "systemUUID": "d3c4fa1c-bfde-11d3-8000-4cbb477ff4a0"
+      }
+    },
+    {
+      "name": "etri-ser0004-cgnms0",
+      "labels": {
+        "kubernetes.io/arch": "amd64",
+        "kubernetes.io/hostname": "etri-ser0004-cgnms0",
+        "kubernetes.io/os": "linux",
+        "node-role.kubernetes.io/worker": ""
+      },
+      "taints": [],
+      "unschedulable": false,
+      "ready": "True",
+      "allocatable": {
+        "cpu": "16",
+        "ephemeral-storage": "423276679287",
+        "hugepages-1Gi": "0",
+        "hugepages-2Mi": "0",
+        "memory": "32532748Ki",
+        "mobilint.com/npu": "1",
+        "pods": "110"
+      },
+      "nodeInfo": {
+        "architecture": "amd64",
+        "bootID": "069fb011-c13a-4f17-9f91-69a5f1691d4a",
+        "containerRuntimeVersion": "containerd://2.2.1",
+        "kernelVersion": "6.8.0-138-generic",
+        "kubeProxyVersion": "v1.31.14",
+        "kubeletVersion": "v1.31.14",
+        "machineID": "87397e3c273140e6a2fcbc1f22d80a23",
+        "operatingSystem": "linux",
+        "osImage": "Ubuntu 22.04.5 LTS",
+        "systemUUID": "2f8be700-4c29-11eb-987b-933563722000"
+      }
+    }
+  ],
+  "finished_at": "2026-10-19T09:03:13.642093+00:00"
+}

@@ -44,15 +44,19 @@ def configure(spec):
                               target=f'1:{band}', keys=[f'{hex(int(ipaddress.IPv4Address(destination)))}/0xffffffff+16'])
         elif spec['action'] != 'snapshot':
             raise ValueError('Unknown netns operation')
-        qdiscs=[dict(x) for x in ip.get_qdiscs(index=index)]
-        def backlog(value):
-            if isinstance(value, dict):
-                return sum((v if k == 'backlog' and isinstance(v, int) else backlog(v)) for k,v in value.items())
-            if isinstance(value, (list, tuple)):
-                return sum(backlog(v) for v in value)
-            return 0
-        return dict(backlog_bytes=backlog(qdiscs), netns=os.readlink('/proc/self/ns/net'), spec=spec,
-            qdiscs=qdiscs,
+        native=list(ip.get_qdiscs(index=index))
+        summaries=[]
+        for q in native:
+            stats=q.get_attr('TCA_STATS')
+            if stats is None:
+                raise RuntimeError('Kernel queue stats unavailable; refuse false idle')
+            summaries.append(dict(handle=q['handle'],parent=q['parent'],kind=q.get_attr('TCA_KIND'),
+                bytes=int(stats['bytes']),packets=int(stats['packets']),drops=int(stats['drop']),
+                overlimits=int(stats['overlimits']),qlen=int(stats['qlen']),backlog=int(stats['backlog'])))
+        # Parent/child stats may overlap; summed positivity is used only as a zero gate.
+        return dict(backlog_bytes=sum(q['backlog'] for q in summaries),
+            qdisc_summary=summaries,observer='native-TCA_STATS-v2',
+            netns=os.readlink('/proc/self/ns/net'),spec=spec,qdiscs=[dict(q) for q in native],
             filters=[dict(x) for x in ip.get_filters(index=index, parent=0x10000)],
             routes=[dict(x) for x in ip.get_routes(family=2, table=254)],
             links=[dict(x) for x in ip.get_links(index)])
