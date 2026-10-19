@@ -46,7 +46,13 @@ def load(task):
                                         transforms.ToTensor(), transforms.Normalize([.485, .456, .406], [.229, .224, .225])])
 
         def operator(data):
-            image = Image.open(io.BytesIO(data)).convert('RGB')
+            if data.startswith(b'\x93NUMPY'):
+                pixels = np.load(io.BytesIO(data), allow_pickle=False)
+                if pixels.dtype != np.uint8 or pixels.ndim != 3 or pixels.shape[2] != 3:
+                    raise ValueError('Expected decoded uint8 RGB pixels')
+                image = Image.fromarray(pixels, 'RGB')
+            else:
+                image = Image.open(io.BytesIO(data)).convert('RGB')
             value = transform(image).unsqueeze(0)
             with torch.inference_mode():
                 feature = model(value)
@@ -63,7 +69,13 @@ def load(task):
         model = Wav2Vec2ForCTC.from_pretrained(root / 'asr', local_files_only=True).eval()
 
         def operator(data):
-            audio, rate = sf.read(io.BytesIO(data), dtype='float32')
+            if data.startswith(b'\x93NUMPY'):
+                audio = np.load(io.BytesIO(data), allow_pickle=False)
+                if audio.dtype != np.float32 or not np.isfinite(audio).all():
+                    raise ValueError('Expected float32 PCM')
+                rate = 16000
+            else:
+                audio, rate = sf.read(io.BytesIO(data), dtype='float32')
             if rate != 16000 or audio.ndim != 1:
                 raise ValueError('Expected mono 16kHz fixture')
             inputs = processor(audio, sampling_rate=16000, return_tensors='pt', padding='longest')

@@ -5,38 +5,94 @@ to fusion. This smoke is closed-loop and never labelled fixed-RPS evaluation.
 """
 import argparse
 import base64
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, wait
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
 import time
+from functools import lru_cache
 
-from http_runtime import request
+from http_runtime import request, decode_body, payload, digest
 
 
-def read_input(pair, kind):
-    data = Path(pair[kind + '_path']).read_bytes()
-    if hashlib.sha256(data).hexdigest() != pair[kind + '_sha256']:
+@lru_cache(maxsize=120)
+def read_file(path, expected):
+    data = Path(path).read_bytes()
+    if hashlib.sha256(data).hexdigest() != expected:
         raise ValueError('Input hash changed')
-    return base64.b64encode(data).decode()
+    return data
 
 
-def run_once(pair, identity, endpoints, remote_source):
-    start = time.perf_counter()
-    request(endpoints['fusion'] + '/open', identity)
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        vision = pool.submit(request, endpoints['vision'] + '/execute', dict(identity,
-            data=read_input(pair, 'image'), fusion_url=endpoints['fusion']))
-        speech = pool.submit(request, remote_source + '/branch', dict(identity,
-            question_id=pair['question_id'], speech_url=endpoints['speech'], fusion_url=endpoints['fusion']))
+def read_input(pair, kind, representation='compressed'):
+    prefix = 'raw_' if representation == 'raw' else ''
+    return read_file(pair[prefix + kind + '_path'], pair[prefix + kind + '_sha256'])
+
+
+def run_once(pair, identity, endpoints, remote_source, representation='compressed', deadline_s=120):
+    start = time.monotonic()
+    deadline = start + deadline_s
+    def rpc(url, body):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError('Absolute workflow deadline elapsed')
+        return request(url, dict(body, remaining_s=remaining), timeout=remaining)
+    rpc(endpoints['fusion'] + '/open', identity)
+    pool = ThreadPoolExecutor(max_workers=2)
+    try:
+        vision = pool.submit(rpc, endpoints['vision'] + '/execute', dict(identity,
+            data=read_input(pair, 'image', representation),
+            fusion_url=endpoints.get('vision_fusion', endpoints['fusion'])))
+        speech = pool.submit(rpc, remote_source + '/branch', dict(identity,
+            representation=representation, question_id=pair['question_id'],
+            speech_url=endpoints['speech'], fusion_url=endpoints.get('speech_fusion', endpoints['fusion'])))
+        done, pending = wait([vision, speech], timeout=max(0, deadline - time.monotonic()))
+        if pending:
+            raise TimeoutError('Absolute workflow deadline elapsed waiting for branches')
         vision.result()
         speech_source = speech.result()
-    result = request(endpoints['fusion'] + '/result', identity)
-    result['e2e_ms'] = (time.perf_counter() - start) * 1000
-    result['speech_source_node'] = speech_source['source_node']
-    result['speech_source_payload_sha256'] = speech_source['source_payload_sha256']
+        result = rpc(endpoints['fusion'] + '/result', identity)
+        result['e2e_ms'] = (time.monotonic() - start) * 1000
+        result['speech_source_node'] = speech_source['source_node']
+        result['speech_source_payload_sha256'] = speech_source['source_payload_sha256']
+        # Ack is lifecycle/control overhead, separately included in source_total_ms.
+        rpc(endpoints['fusion'] + '/ack', identity)
+        result['source_total_ms'] = (time.monotonic() - start) * 1000
+        return result
+    except Exception:
+        try:
+            request(endpoints['fusion'] + '/cancel', identity, timeout=3)
+        except Exception:
+            pass
+        raise
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
+
+
+def validate_result(pair, result, reference, representation='compressed'):
+    raw_output = base64.b64decode(result.pop('data'), validate=True)
+    final = next(r for r in result['receipts'] if r['task'] == 'fusion')
+    if hashlib.sha256(raw_output).hexdigest() != final['output_sha256'] or len(raw_output) != final['output_bytes']:
+        raise ValueError('Fusion output receipt mismatch')
+    output = json.loads(raw_output)
+    prefix = 'raw_' if representation == 'raw' else ''
+    result.update(question_id=pair['question_id'], split=pair['split'],
+        source_node=os.environ['NODE_NAME'], scope='real_ai_file_replay', representation=representation,
+        output=output, reference_answer_id=reference['answer_ids'][0],
+        answer_id_matches=output['answer_ids'][0] == reference['answer_ids'][0],
+        top5_order_matches=output['answer_ids'] == reference['answer_ids'],
+        max_score_abs_error=max(abs(a-b) for a,b in zip(output['scores'], reference['scores'])),
+        source_payload_sha256=pair[prefix + 'image_sha256'])
+    receipts = {r['task']: r for r in result['receipts']}
+    if receipts['vision']['input_sha256']['source'] != pair[prefix + 'image_sha256'] or receipts['speech']['input_sha256']['source'] != pair[prefix + 'audio_sha256']:
+        raise ValueError('Source-to-operator hash mismatch')
+    for task in ('vision', 'speech'):
+        if receipts['fusion']['input_sha256'][task] != receipts[task]['output_sha256']:
+            raise ValueError('Branch-to-fusion hash mismatch')
+    if result['speech_source_payload_sha256'] != pair[prefix + 'audio_sha256']:
+        raise ValueError('Remote source hash mismatch')
+    result['quality_ok'] = result['answer_id_matches'] and result['max_score_abs_error'] <= 1e-4
     return result
 
 
@@ -64,31 +120,36 @@ def main():
             status = 200
             try:
                 size = int(self.headers.get('Content-Length', 0))
-                if size < 1 or size > 1024 * 1024:
+                if size < 1 or size > 16 * 1024 * 1024:
                     raise ValueError('Invalid control body')
-                data = json.loads(self.rfile.read(size))
+                data = decode_body(self.rfile.read(size), self.headers.get('Content-Type'))
+                if self.path == '/health':
+                    raw = json.dumps(dict(status='ready', node=os.environ['NODE_NAME'])).encode()
+                    self.send_response(200)
+                    self.send_header('Content-Length', str(len(raw)))
+                    self.end_headers()
+                    self.wfile.write(raw)
+                    return
+                if self.path == '/sink':
+                    content = payload(data['data'])
+                    raw = json.dumps(dict(status='ok', bytes=len(content), sha256=digest(content))).encode()
+                    self.send_response(200)
+                    self.send_header('Content-Length', str(len(raw)))
+                    self.end_headers()
+                    self.wfile.write(raw)
+                    return
                 pair = pairs[data['question_id']]
+                representation = data.get('representation', 'compressed')
+                remaining = data.get('remaining_s', 120)
                 identity = {k: data[k] for k in ('run_id', 'request_id')}
                 if self.path == '/branch':
                     result = request(data['speech_url'] + '/execute', dict(identity,
-                        data=read_input(pair, 'audio'), fusion_url=data['fusion_url']))
+                        data=read_input(pair, 'audio', representation), fusion_url=data['fusion_url'], remaining_s=remaining), timeout=remaining)
                     result['source_node'] = os.environ['NODE_NAME']
-                    result['source_payload_sha256'] = pair['audio_sha256']
+                    result['source_payload_sha256'] = pair[('raw_' if representation == 'raw' else '') + 'audio_sha256']
                 elif self.path == '/run':
-                    result = run_once(pair, identity, data['endpoints'], data['remote_source'])
-                    raw_output = base64.b64decode(result.pop('data'), validate=True)
-                    final_receipt = next(r for r in result['receipts'] if r['task'] == 'fusion')
-                    if hashlib.sha256(raw_output).hexdigest() != final_receipt['output_sha256'] or len(raw_output) != final_receipt['output_bytes']:
-                        raise ValueError('Fusion output receipt mismatch')
-                    output = json.loads(raw_output)
-                    ref = references[pair['question_id']]
-                    result.update(question_id=pair['question_id'], split=pair['split'],
-                                  source_node=os.environ['NODE_NAME'], scope='real_ai_file_replay',
-                                  output=output, reference_answer_id=ref['answer_ids'][0],
-                                  answer_id_matches=output['answer_ids'][0] == ref['answer_ids'][0],
-                                  top5_order_matches=output['answer_ids'] == ref['answer_ids'],
-                                  max_score_abs_error=max(abs(a-b) for a,b in zip(output['scores'], ref['scores'])),
-                                  source_payload_sha256=pair['image_sha256'])
+                    result = run_once(pair, identity, data['endpoints'], data['remote_source'], representation, remaining)
+                    result = validate_result(pair, result, references[pair['question_id']], representation)
                 else:
                     raise ValueError('Unknown endpoint')
             except Exception as error:
