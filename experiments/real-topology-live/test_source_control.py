@@ -14,6 +14,27 @@ from http_runtime import request, serve
 
 
 class SourceControlTests(unittest.TestCase):
+    def test_repeated_profile_identity_returns_same_observation(self):
+        os.environ.setdefault('NODE_NAME', 'protocol-fixture')
+        with tempfile.TemporaryDirectory() as folder, ExitStack() as stack:
+            root = Path(folder)
+            (root/'image.bin').write_bytes(b'image')
+            (root/'pairs.json').write_text(json.dumps({'pairs':[dict(question_id=1,split='calibration',
+                image_path=str(root/'image.bin'),image_sha256=hashlib.sha256(b'image').hexdigest())]}))
+            (root/'reference.jsonl').write_text('{"question_id":1}\n')
+            source = source_server(root, host='127.0.0.1', port=0)
+            thread = threading.Thread(target=source.serve_forever, daemon=True); thread.start()
+            outputs=iter([b'first observation', b'additional observation'])
+            operator=stack.enter_context(serve('vision', lambda _:next(outputs)))
+            body=dict(run_id='profile', request_id='one', question_id=1, kind='image', operator_url=operator)
+            try:
+                url='http://127.0.0.1:'+str(source.server_port)+'/profile'
+                first=request(url,body)
+                second=request(url,body)
+                self.assertEqual(first,second)
+            finally:
+                source.shutdown();source.server_close();thread.join()
+
     def test_started_trace_is_idempotent_and_preserves_one_terminal_per_release(self):
         os.environ.setdefault('NODE_NAME', 'protocol-fixture')
         with tempfile.TemporaryDirectory() as folder, ExitStack() as stack:

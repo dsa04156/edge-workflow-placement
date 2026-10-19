@@ -144,6 +144,35 @@ def source_server(root, host='0.0.0.0', port=8080):
         threading.Thread(target=task, daemon=True).start()
         return dict(status='running', phase=phase)
 
+    def profile(server, data, pair, representation, remaining):
+        key = (data['run_id'], data['request_id'])
+        signature = (pair['question_id'], data['kind'], data['operator_url'], representation)
+        with server.trace_lock:
+            entry = server.profiles.get(key)
+            owner = entry is None
+            if owner:
+                if len(server.profiles) >= 512:
+                    raise ValueError('Profile observation capacity reached')
+                entry = dict(signature=signature, done=threading.Event())
+                server.profiles[key] = entry
+            elif entry['signature'] != signature:
+                raise ValueError('Conflicting profile identity')
+        if owner:
+            try:
+                entry['result'] = request(data['operator_url']+'/infer', dict(
+                    run_id=key[0],request_id=key[1],data=read_input(pair,data['kind'],representation),
+                    remaining_s=remaining), timeout=remaining)
+            except Exception as error:
+                entry['error'] = repr(error)
+                raise
+            finally:
+                entry['done'].set()
+        if not entry['done'].wait(remaining):
+            raise TimeoutError('Profile observation pending')
+        if 'error' in entry:
+            raise ValueError('Original profile observation failed: '+entry['error'])
+        return entry['result']
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path != '/health':
@@ -207,8 +236,7 @@ def source_server(root, host='0.0.0.0', port=8080):
                     result['source_node'] = os.environ['NODE_NAME']
                     result['source_payload_sha256'] = pair[('raw_' if representation == 'raw' else '') + 'audio_sha256']
                 elif self.path == '/profile':
-                    result = request(data['operator_url']+'/infer', dict(identity,
-                        data=read_input(pair, data['kind'], representation), remaining_s=remaining), timeout=remaining)
+                    result = profile(self.server, data, pair, representation, remaining)
                 elif self.path == '/run':
                     result = run_once(pair, identity, data['endpoints'], data['remote_source'], representation, remaining)
                     result = validate_result(pair, result, references[pair['question_id']], representation)
@@ -228,6 +256,7 @@ def source_server(root, host='0.0.0.0', port=8080):
     server = ThreadingHTTPServer((host, port), Handler)
     server.active_requests = 0
     server.traces = {}
+    server.profiles = {}
     server.trace_lock = threading.Lock()
     return server
 

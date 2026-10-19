@@ -98,7 +98,7 @@ class Session:
             setup="import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open("+repr(cache_url+'/'+wheel)+").read();assert hashlib.sha256(b).hexdigest()=="+repr(wheelhash)+";zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
             containers.append(dict(name='netctl',image=IMAGE,command=['python3','-u','-c',setup],
                 env=[dict(name='RESEARCH_LINK_CONTROL',value='owned-pod-netns'),dict(name='PYTHONPATH',value='/work/net:/config')],
-                volumeMounts=mounts,resources={'requests':{'cpu':'10m','memory':'32Mi'},'limits':{'cpu':'100m','memory':'96Mi'}},
+                volumeMounts=mounts,resources={'requests':{'cpu':'10m','memory':'32Mi'},'limits':{'cpu':'1','memory':'96Mi'}},
                 securityContext={'runAsUser':0,'runAsNonRoot':False,'allowPrivilegeEscalation':False,'readOnlyRootFilesystem':True,
                                  'capabilities':{'drop':['ALL'],'add':['NET_ADMIN']}}))
         spec=dict(schedulerName='default-scheduler',automountServiceAccountToken=False,restartPolicy='Never',
