@@ -28,3 +28,5 @@ Status: ready-for-agent
 - native, unlimitedrelay 각3배치; B100/10/2+delay20ms 각3배치 at.1rps/6requests; B2delay0 각3배치. lowfactor9조건 순서는seed20261019.
 - B10/2 × .5/1rps ×3배치 각40requests. high순서seed20261020. deadline120s, boundedsource32, stop/drain, terminal실패포함. B2/1rps를stationary성능으로해석하지 않는다.
 - 각조건이 끝나면 모든 servingqueue/active0를확인. 기존artifact및초기실패별도보존; 종료시소유Pod/CM0, protected상태대조.
+
+- worker-context audit 후 실제 servingthread에서 intraop1을한번설정하고 intraop/inter op1을확인한뒤readiness를연다. 이근거가없던첫시도wan-20261019t100804는별도보존하고합치지않는다.

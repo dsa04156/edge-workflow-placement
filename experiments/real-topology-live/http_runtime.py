@@ -79,11 +79,15 @@ class OperatorServer(ThreadingHTTPServer):
         self.entries = {}
         self.lock = threading.Lock()
         self.jobs = queue.Queue(maxsize=capacity)
-        self.worker = threading.Thread(target=self._work, daemon=True)
-        self.worker.start()
-        self.tombstones = {}
         self.active = False
         self.http_active = 0
+        self.worker_ready = threading.Event()
+        self.worker_error = None
+        self.worker = threading.Thread(target=self._work, daemon=True)
+        self.worker.start()
+        if not self.worker_ready.wait(60) or self.worker_error:
+            raise RuntimeError('Serving worker initialization failed: ' + str(self.worker_error))
+        self.tombstones = {}
 
     def receipt(self, inputs, output, compute_ms, queue_ms):
         return dict(self.metadata, input_bytes={k: len(v) for k, v in inputs.items()},
@@ -91,6 +95,22 @@ class OperatorServer(ThreadingHTTPServer):
                     output_sha256=digest(output), compute_ms=compute_ms, queue_ms=queue_ms)
 
     def _work(self):
+        try:
+            if self.metadata.get('scope') == 'real_ai_file_replay':
+                import torch
+                # Apply OpenMP settings in the thread that actually calls models.
+                torch.set_num_threads(1)
+                self.metadata['serving_torch_threads'] = torch.get_num_threads()
+                self.metadata['serving_torch_interop_threads'] = torch.get_num_interop_threads()
+                self.metadata['serving_native_thread_id'] = threading.get_native_id()
+                self.metadata['serving_thread_initialized_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+                if self.metadata['serving_torch_threads'] != 1 or self.metadata['serving_torch_interop_threads'] != 1:
+                    raise RuntimeError('Serving thread configuration failed')
+        except Exception as error:
+            self.worker_error = repr(error)
+            self.worker_ready.set()
+            return
+        self.worker_ready.set()
         while True:
             job = self.jobs.get()
             if job is None:

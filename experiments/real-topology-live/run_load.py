@@ -252,6 +252,7 @@ class Session:
                     error=max(abs(a-b) for a,b in zip(observed,values))
                 else:ok=body.decode()==refs[qid]['transcript'];error=None
                 row=dict(question_id=qid,split=pair['split'],candidate=key,quality_ok=ok,feature_max_abs_error=error,receipt=reply['receipt'],output_sha256=hashlib.sha256(body).hexdigest())
+                if reply['receipt'].get('serving_torch_threads')!=1:raise RuntimeError('Worker thread contract unverified')
                 records.append(row)
                 if not ok:
                     self.save('qualification-failed.json',records)
@@ -291,6 +292,7 @@ class Session:
                 r=receipt[task];p=self.actual[key]
                 if r['pod_uid']!=p['metadata']['uid'] or r['node']!=p['spec']['nodeName'] or r['model_sha256']!=expected_models[task]['model_sha256']:
                     raise RuntimeError('Runtime identity/model hash mismatch')
+                if r.get('serving_torch_threads')!=1:raise RuntimeError('Worker thread contract unverified')
             prefix='raw_' if representation=='raw' else ''
             pair=byid[row['question_id']]
             if receipt['vision']['input_sha256']['source']!=pair[prefix+'image_sha256'] or receipt['speech']['input_sha256']['source']!=pair[prefix+'audio_sha256']:
