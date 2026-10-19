@@ -1,0 +1,29 @@
+{
+  "run_id": "tp-20261019t092957",
+  "scope": "real-AI native fixed-placement closed-loop smoke; not policy comparison",
+  "nodes": {
+    "e0": "etri-dev0003-raspi5",
+    "e1": "etri-dev0002-raspi5",
+    "c": "etri-ser0002-cgnmsb"
+  },
+  "warmups": 2,
+  "evaluation_inputs": 5,
+  "repeats": 2,
+  "input_selection": "first calibration pair; first5evaluation pairs, fixed before deployment",
+  "quality": {
+    "feature_atol": 1e-05,
+    "feature_rtol": 0.0001,
+    "transcript": "exact",
+    "answer_id": "exact",
+    "score_atol": 0.0001
+  },
+  "source_sha256": {
+    "run_smoke.py": "f4dc32cffbdad662351826c428bbe4aba47d96a68b064c32298741d2118c5f4f",
+    "test_http_runtime.py": "a72a5458768d2b4ab6fccfda465711d2c96d2831f6a876f03f224f9db34fa30a",
+    "model_adapter.py": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+    "reference.py": "665b3fffc7864070d1734b93e90bce5700e7025f6786ef6894fd4218ee2b78ce",
+    "edge_client.py": "64de883b0fcfafd0d5b20ee0566a6ad6138ed5682d558da8de3b948413be7ca3",
+    "http_runtime.py": "963c7bdbdf7a4d730df9af8690d669f9c21269003e17d94fdbf948ada89d5f3c",
+    "bootstrap.py": "839bbb366fb0ab18b7f3c98bb881cf47268037f85133bd916b035adffce5cd3a"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-19T09:35:02.922730+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "tp-20261019t093419-source-e0",
+    "--",
+    "python3",
+    "-c",
+    "import sys,json,base64;sys.path.insert(0,\"/config\");from http_runtime import request;from pathlib import Path;print(json.dumps({'vision':request('http://10.244.8.59:8080/infer',{\"run_id\":'tp-20261019t093419',\"request_id\":'q-787710-vision',\"data\":base64.b64encode(Path('/work/corpus/COCO_val2014_000000078771.jpg').read_bytes()).decode()}),'speech':request('http://10.244.8.60:8080/infer',{\"run_id\":'tp-20261019t093419',\"request_id\":'q-787710-speech',\"data\":base64.b64encode(Path('/work/corpus/787710.flac').read_bytes()).decode()})}))"
+  ],
+  "timeout_s": 120,
+  "status": "completed",
+  "returncode": 0,
+  "finished_at": "2026-10-19T09:35:04.090420+00:00"
+}

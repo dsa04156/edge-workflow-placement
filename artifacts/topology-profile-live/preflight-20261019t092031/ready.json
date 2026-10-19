@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-19T09:20:32.270552+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=15s",
+    "wait",
+    "-n",
+    "topology-profile-lab",
+    "--for=condition=Ready",
+    "pods",
+    "-l",
+    "run-id=preflight-20261019t092031",
+    "--timeout=90s"
+  ],
+  "returncode": 0,
+  "stdout": "pod/preflight-20261019t092031-c condition met\npod/preflight-20261019t092031-e0 condition met\npod/preflight-20261019t092031-e1 condition met\n",
+  "stderr": "",
+  "finished_at": "2026-10-19T09:20:34.077062+00:00"
+}
