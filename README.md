@@ -1,5 +1,9 @@
 # 이종 엣지 AI 워크플로 배치 연구
 
+## 2026-10-19 실제 모델 분기·합류 실행 완료
+
+[실제 실행 결과](docs/experiments/topology-profile-smoke.md): Pi2대의 이미지·음성 파일 재생과 ResNet18/wav2vec2/MUTAN을 연결했다. CPU reference60쌍, 두 클러스터 배포24workflow/72receipt에서 실행 오류·reference 대비 최종 답변/Top5순서 불일치0을 확인했다. 엣지 분기 고정 평균1237.69ms, 실제 default-scheduler 서버 배치723.43ms는 순차 smoke 기술 통계이며 제안 정책의 개선 결과가 아니다. 소유 Pod/ConfigMap0개, 보호 Running194개 상태 변화0을 확인했다. 아래 PREPARED 인계 기록은 당시 상태로 보존한다.
+
 ## 2026-10-19: DAG·토폴로지·노드 성능 프로파일 실험 인계
 
 현재 사용자 지정 실험 축은 **고정 센서의 DAG를 네트워크 토폴로지와 작업×노드 성능 프로파일로 배치**하는 정적 비교다. 기존 동적 연구·실측 기록은 아래에 보존한다.

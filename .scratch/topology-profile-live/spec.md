@@ -2,6 +2,8 @@
 
 Status: ready-for-agent
 
+Execution: completed — CPU reference60, edge/default-scheduler 두 배포24workflow/72receipt. [결과](../../docs/experiments/topology-profile-smoke.md). 네트워크·6정책 본 비교는 후속 범위다.
+
 사용자가 2026-10-19 실제 실험 실행을 요청했다. 첫 수집 범위는 모델 자산/reference gate와 고정 세 노드 분산 실행 smoke다. 배치 정책 비교·네트워크 제약 파일럿 전체와 구분한다.
 
 - 실제 JellyBean ResNet18 no-att + wav2vec2-base + 대응 MUTAN CPU batch1.

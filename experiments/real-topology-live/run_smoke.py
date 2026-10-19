@@ -5,6 +5,7 @@ All phase events and partial stdout/stderr survive timeouts. No old artifacts
 are overwritten. Resources are removed in finally, namespace retained.
 """
 import base64
+import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -23,9 +24,15 @@ NS = 'topology-profile-lab'
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--placement', choices=['edge', 'default_scheduler'], default='edge')
+    mode = parser.parse_args().placement
     run = datetime.now(timezone.utc).strftime('tp-%Y%m%dt%H%M%S')
     out = ASSETS / run
     out.mkdir(exist_ok=False)
+    (out / 'collector-source').mkdir()
+    for source in HERE.glob('*.py'):
+        (out / 'collector-source' / source.name).write_bytes(source.read_bytes())
     counter = 0
     resources = []
 
@@ -57,9 +64,10 @@ def main():
             save(tag + '.event.json', event)
 
     def apply(stem, items):
-        resources.extend(items)
         value = {'apiVersion': 'v1', 'kind': 'List', 'items': items}
         save(stem + '.manifest.json', value)
+        call(stem + '-dry-run', ['apply', '--dry-run=server', '-f', '-'], json.dumps(value))
+        resources.extend(items)
         call(stem, ['apply', '-f', '-'], json.dumps(value))
 
     def meta(name):
@@ -92,11 +100,14 @@ def main():
         if not cache:
             container['command'] = ['python3', '-u', '-c',
                 "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"]
+        candidates = [node]
+        if mode == 'default_scheduler' and role in ['vision', 'speech']:
+            candidates = [NODES['e0' if role == 'vision' else 'e1'], NODES['c']]
         spec = {'schedulerName': 'default-scheduler', 'automountServiceAccountToken': False, 'restartPolicy': 'Never',
                 'activeDeadlineSeconds': 1800, 'terminationGracePeriodSeconds': 3,
                 'securityContext': {'runAsUser': 65532, 'runAsGroup': 65532, 'runAsNonRoot': True, 'fsGroup': 65532},
                 'affinity': {'nodeAffinity': {'requiredDuringSchedulingIgnoredDuringExecution': {'nodeSelectorTerms': [
-                    {'matchFields': [{'key': 'metadata.name', 'operator': 'In', 'values': [node]}]}]}}},
+                    {'matchFields': [{'key': 'metadata.name', 'operator': 'In', 'values': [candidate]}]} for candidate in candidates]}}},
                 'containers': [container], 'volumes': [{'name': 'work', 'emptyDir': {'sizeLimit': '8Gi'}}]}
         if not cache:
             spec['volumes'].append({'name': 'config', 'configMap': {'name': run}})
@@ -109,14 +120,14 @@ def main():
         raw = call('edge-operation', ['exec', '-n', NS, run + '-source-e0', '--', 'python3', '-c', code], timeout=120)
         return json.loads(raw)
 
-    before = json.loads(call('before', ['get', 'pods', '-A', '-o', 'json']))
+    # Capture only selected status fields, never broad Pod env/secret data.
+    before = json.loads(subprocess.check_output(['rtk', 'proxy', 'kubectl', '--request-timeout=15s',
+                                                'get', 'pods', '-A', '-o', 'json'], text=True, timeout=25))
     protected = {p['metadata']['uid']: {'name': p['metadata']['name'], 'namespace': p['metadata']['namespace'],
                   'phase': p['status'].get('phase'), 'ready': next((c['status'] for c in p['status'].get('conditions', []) if c['type'] == 'Ready'), None)}
                  for p in before['items'] if p['status'].get('phase') == 'Running'}
-    # Replace broad snapshot immediately with selected status fields; no env/secrets retained.
-    for path in out.glob('*-before.stdout'):
-        path.write_text(json.dumps(protected, indent=2) + '\n')
-    save('design.json', {'run_id': run, 'scope': 'real-AI native fixed-placement closed-loop smoke; not policy comparison',
+    save('protected-before.json', protected)
+    save('design.json', {'run_id': run, 'placement_mode': mode, 'scope': 'real-AI native deployment smoke; sequential placements, not controlled policy benchmark',
                         'nodes': NODES, 'warmups': 2, 'evaluation_inputs': 5, 'repeats': 2,
                         'input_selection': 'first calibration pair; first5evaluation pairs, fixed before deployment',
                         'quality': {'feature_atol': 1e-5, 'feature_rtol': 1e-4, 'transcript': 'exact',
@@ -161,6 +172,7 @@ def main():
         cal = next(p for p in corpus if p['split'] == 'calibration')
         selected = [p for p in corpus if p['split'] == 'evaluation'][:5]
         refs = {r['question_id']: r for r in map(json.loads, (ASSETS / 'reference-v1/results.jsonl').read_text().splitlines())}
+        reference_models = json.loads((ASSETS / 'reference-v1/metadata.json').read_text())['stages']
         qualifications = []
         for pair in [cal, *selected]:
             q = pair['question_id']
@@ -197,8 +209,11 @@ def main():
                         assert receipt['pod_uid'] == actual[role]['metadata']['uid']
                         assert receipt['node'] == actual[role]['spec']['nodeName']
                         assert receipt['scope'] == 'real_ai_file_replay' and receipt['device'] == 'cpu'
+                        assert receipt['model_sha256'] == reference_models[role]['model_sha256']
                     assert receipts['vision']['input_sha256']['source'] == pair['image_sha256']
                     assert receipts['speech']['input_sha256']['source'] == pair['audio_sha256']
+                    assert result['source_node'] == NODES['e0'] and result['speech_source_node'] == NODES['e1']
+                    assert result['speech_source_payload_sha256'] == pair['audio_sha256']
                     for role in ['vision', 'speech']:
                         assert receipts['fusion']['input_sha256'][role] == receipts[role]['output_sha256']
                         assert receipts[role]['output_sha256'] == qualifies[pair['question_id']][role + '_output_sha256']
@@ -212,7 +227,9 @@ def main():
                 print('attempt', i, row['status'], row.get('e2e_ms'), row.get('quality_ok'), flush=True)
         measured = [r for r in attempts if not r['warmup']]
         valid = [r for r in measured if r['status'] == 'ok' and r['quality_ok']]
-        summary = {'run_id': run, 'scope': 'real-AI fixed three-node native closed-loop smoke, not placement policy comparison',
+        summary = {'run_id': run, 'placement_mode': mode,
+                   'actual_placement': {r: actual[r]['spec']['nodeName'] for r in endpoints},
+                   'scope': 'real-AI native deployment smoke; sequential placements, not controlled policy benchmark',
                    'attempts': len(attempts), 'measured': len(measured), 'valid_measured': len(valid),
                    'failures': sum(r['status'] != 'ok' for r in attempts),
                    'quality_failures': sum(not r.get('quality_ok', False) for r in attempts),
@@ -222,7 +239,11 @@ def main():
         save('summary.json', summary)
         print(json.dumps(summary), flush=True)
     finally:
-        call('events', ['get', 'events', '-n', NS, '-o', 'json'])
+        cleanup_errors = []
+        try:
+            call('events', ['get', 'events', '-n', NS, '-o', 'json'])
+        except Exception as error:
+            cleanup_errors.append('events: ' + repr(error))
         for item in resources:
             if item['kind'] == 'Pod':
                 try:
@@ -230,12 +251,31 @@ def main():
                 except Exception:
                     pass  # Failure captured in its phase files; cleanup continues.
         if resources:
-            call('cleanup', ['delete', '-f', '-', '--ignore-not-found=true', '--wait=false'],
-                 json.dumps({'apiVersion': 'v1', 'kind': 'List', 'items': resources}))
-        remaining = json.loads(call('remaining', ['get', 'pods', '-n', NS, '-l', 'run-id=' + run, '-o', 'json']))
-        save('cleanup.json', {'delete_requested': True, 'remaining_at_request': len(remaining['items']),
-                              'note': 'Asynchronous deletion; follow-up final check required'})
+            try:
+                call('cleanup', ['delete', '-f', '-', '--ignore-not-found=true', '--wait=false'],
+                     json.dumps({'apiVersion': 'v1', 'kind': 'List', 'items': resources}))
+                call('deleted', ['wait', '--for=delete', 'pod', '-n', NS, '-l', 'run-id=' + run, '--timeout=60s'], timeout=70)
+            except Exception as error:
+                cleanup_errors.append('delete: ' + repr(error))
+        remaining = None
+        try:
+            left = json.loads(call('remaining', ['get', 'pods,configmaps', '-n', NS, '-l', 'run-id=' + run, '-o', 'json']))
+            remaining = len(left['items'])
+        except Exception as error:
+            cleanup_errors.append('verify: ' + repr(error))
+        try:
+            raw = subprocess.check_output(['rtk', 'proxy', 'kubectl', '--request-timeout=15s', 'get', 'pods', '-A', '-o', 'json'], text=True, timeout=25)
+            after = {p['metadata']['uid']: {'phase': p['status'].get('phase'), 'ready': next((c['status'] for c in p['status'].get('conditions', []) if c['type'] == 'Ready'), None)} for p in json.loads(raw)['items']}
+            changes = [{'uid': uid, 'before': before, 'after': after.get(uid)} for uid, before in protected.items()
+                       if uid not in after or before['phase'] != after[uid]['phase'] or before['ready'] != after[uid]['ready']]
+            save('protected-after.json', {'protected_count': len(protected), 'changes': changes,
+                                         'note': 'Changes are observations; do not infer this experiment caused them'})
+        except Exception as error:
+            cleanup_errors.append('protected-after: ' + repr(error))
+        save('cleanup.json', {'remaining_owned_pods_and_configmaps': remaining, 'diagnostic_or_cleanup_errors': cleanup_errors})
         print('evidence', out, flush=True)
+        if remaining != 0:
+            raise RuntimeError('Owned resource cleanup not verified; inspect cleanup evidence')
 
 
 if __name__ == '__main__':

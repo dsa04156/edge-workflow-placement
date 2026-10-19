@@ -32,9 +32,11 @@ def run_once(pair, identity, endpoints, remote_source):
         speech = pool.submit(request, remote_source + '/branch', dict(identity,
             question_id=pair['question_id'], speech_url=endpoints['speech'], fusion_url=endpoints['fusion']))
         vision.result()
-        speech.result()
+        speech_source = speech.result()
     result = request(endpoints['fusion'] + '/result', identity)
     result['e2e_ms'] = (time.perf_counter() - start) * 1000
+    result['speech_source_node'] = speech_source['source_node']
+    result['speech_source_payload_sha256'] = speech_source['source_payload_sha256']
     return result
 
 
@@ -74,7 +76,11 @@ def main():
                     result['source_payload_sha256'] = pair['audio_sha256']
                 elif self.path == '/run':
                     result = run_once(pair, identity, data['endpoints'], data['remote_source'])
-                    output = json.loads(base64.b64decode(result.pop('data')))
+                    raw_output = base64.b64decode(result.pop('data'), validate=True)
+                    final_receipt = next(r for r in result['receipts'] if r['task'] == 'fusion')
+                    if hashlib.sha256(raw_output).hexdigest() != final_receipt['output_sha256'] or len(raw_output) != final_receipt['output_bytes']:
+                        raise ValueError('Fusion output receipt mismatch')
+                    output = json.loads(raw_output)
                     ref = references[pair['question_id']]
                     result.update(question_id=pair['question_id'], split=pair['split'],
                                   source_node=os.environ['NODE_NAME'], scope='real_ai_file_replay',
