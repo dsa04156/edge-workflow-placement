@@ -1,0 +1,302 @@
+{
+  "utc": "2026-10-18T18:06:53.507300+00:00",
+  "environments": [
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "reference"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 1,
+      "drift": false,
+      "name": "light_cloud"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 12,
+      "drift": false,
+      "name": "medium_cloud"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": false,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "steady"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "burst",
+      "burst": true
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": false,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "steady_burst",
+      "burst": true
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "slow_edges",
+      "edge_scale": 4
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "fast_edges",
+      "edge_scale": 0.25
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "slow_cloud_feature",
+      "cloud_scale": 4
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "large_raw",
+      "payload_scale": 8
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "small_raw",
+      "payload_scale": 0.125
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "large_features",
+      "feature_scale": 8
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "small_features",
+      "feature_scale": 0.125
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 25,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "slow_wan"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 160,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "high_rtt"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 25,
+      "rtt": 160,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "slow_wan_high_rtt"
+    },
+    {
+      "model": "resnet18",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "resnet18"
+    },
+    {
+      "model": "resnet101",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "resnet101"
+    },
+    {
+      "model": "resnet152",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "resnet152"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": true,
+      "name": "edge_drift"
+    },
+    {
+      "model": "resnet50",
+      "rate": 0.5,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "low_rate"
+    },
+    {
+      "model": "resnet50",
+      "rate": 4,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "overload"
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "split_cloud",
+      "split": true
+    },
+    {
+      "model": "resnet50",
+      "rate": 2,
+      "bw": 300,
+      "rtt": 40,
+      "dynamic": true,
+      "vqa_scale": 50,
+      "drift": false,
+      "name": "split_cloud_burst",
+      "split": true,
+      "burst": true
+    }
+  ],
+  "arms": [
+    "original",
+    "links",
+    "queue",
+    "both"
+  ],
+  "seeds": [
+    601,
+    602,
+    603,
+    604,
+    605,
+    606,
+    607,
+    608,
+    609,
+    610,
+    611,
+    612
+  ],
+  "duration_s": 90,
+  "prior": "default",
+  "independent_unit": "seed; paired exogenous arrivals/background within environment",
+  "analysis": "Per-environment both-vs-original mean paired percentage reduction; seed bootstrap10000 pointwise95CI; two-sided paired t-test on ratios, Holm24. Secondary p95, SLO, WAN, completed within90s. Equal-weight aggregate over24chosen scenarios with seed-block bootstrap, not deployment-weighted.",
+  "success": "mean improvement>=5%, pointwiseCI lower>0 and Holm p<.05; negative conditions retained",
+  "design": "24 prespecified diagnostic scenarios, mostly one-factor contrasts about reference; not full factorial.12seeds fixed budget, no power claim. No adaptive tuning/early stopping.",
+  "limitations": [
+    "Synthetic resource multipliers, burst/background, and separate worker topology; public offline service profiles; no hardware execution.",
+    "Split adds one co-located cloud worker and its independent background. Both arms know topology; not resource-matched topology performance comparison.",
+    "90s arrivals/background then drain, not stationary stability proof. Overload retained.",
+    "Link specs known; no external link traffic, scheduling overhead excluded from simulated E2E; one fixed feature model perenv, no accuracy optimization.",
+    "Four model comparisons are distinct fixed-quality scenarios, not equal-accuracy substitutions."
+  ],
+  "python": "3.12.14",
+  "code_sha256": {
+    "revised.py": "dc413751939f0e97605c1b321a509d62a8e62ffff5f2b4c2c59dc042c801241f",
+    "verify_suite.py": "3679fd254a53d0bbe5f249e97d6d77d16619fd164b2c1ccf72abeab48e7582ee",
+    "scenarios.py": "0321e162604a5f871618b283c38cb61e3d17b1eb1286e0493d49f82f9940cc43",
+    "run_suite.py": "00b249d0bb1f0dd0f6646b36b2fffb889bbfe43ead7fc503a881c02352e8bc60",
+    "serial.py": "cba247136b6e213d65d60100c3c888b573f69653cce5f0dbc3915b5bb94e0b4b",
+    "improved.py": "c50975e3c7b416905e19d05128812add76bd3d8fb4a9ad1baed3e26a3ada00ca",
+    "trials.py": "b33ab792565dd572046339642f360dfebb64fd26ee6108e7297c55f68957b8ce",
+    "components.py": "141887566610c6cb0b79b50dda3f2c1535f831f60fceb48971f9e7428ecb01aa",
+    "legacy.py": "8a99ef967eeaf8005a0c61e6c105e5afe7c5a1d1b69241cd19f512fded7c8617"
+  }
+}
