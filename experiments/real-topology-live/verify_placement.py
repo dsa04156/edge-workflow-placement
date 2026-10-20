@@ -58,6 +58,18 @@ def verify(run):
     baseline=None if budget_mode else read(run/'baseline-placement.json')
     active=read(run/'active-conditions.json')['active']
     if budget_mode:
+        origin_path=run/'calibration-origin.json'
+        if origin_path.exists():
+            origin=read(origin_path);source=Path(origin['run'])
+            for name,digest in origin['copied'].items():
+                check(hashlib.sha256((run/name).read_bytes()).hexdigest()==digest,'copied calibration hash '+name)
+                check(hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,'source calibration hash '+name)
+            for name,digest in origin['source_files'].items():check(hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,'frozen calibration source '+name)
+            current_source=read(run/'git-source.json')['files']
+            check(all(current_source[n]==v for n,v in origin['runtime_sha256'].items()),'unchanged runtime for calibration reuse')
+            check(not list(source.glob('eval-*.rows.json')),'no pooled previous evaluation')
+            for name in ['profile-calibration-10.json','profile-calibration-2.json','transfer-calibration-10.json','transfer-calibration-2.json']:
+                check(read(run/name)==read(source/name),'unchanged reused calibration '+name)
         from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
         check(design['evaluation_ids']==[p['question_id'] for p in pairs.values() if p['split']=='evaluation'][6:12],'evaluation split entries7-12')
         check(design['server_slots']==2 and design['blocks']==2,'declared two-slot two-block design')
@@ -76,7 +88,9 @@ def verify(run):
             check(set(plans[condition])=={'greedy','heft','ours','greedy-swap'},'primary policy set '+condition)
             for policy,plan in plans[condition].items():
                 check(plan['placement']==selected[policy]['placement'],'recomputed selection '+condition+'/'+policy)
-                try:validate_placement(profile,plan['placement'])
+                try:
+                    validate_placement(profile,plan['placement'])
+                    if origin_path.exists():validate_placement(with_server_budget(dict(profile,nodes=read(run/'capacity-current.json')),NODES['c'],2),plan['placement'])
                 except ValueError:check(False,'budget violation '+condition+'/'+policy)
             check(alternatives[condition]==simple_alternatives(profile,plans[condition]['greedy']['placement']),'simple repair audit '+condition)
     for condition,_,_,_ in active:

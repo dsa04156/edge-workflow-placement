@@ -1,25 +1,73 @@
 """Two-block measured pilot with an explicit workflow-only server slot budget."""
 import random
+import argparse
+import hashlib
+import json
+from datetime import datetime,timezone
+from pathlib import Path
 import statistics
 import time
 from run_placement import Pilot, HERE, NODES, TASKS
+from run_smoke import ASSETS, NS
 from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
 
 POLICIES=('greedy','heft','ours','greedy-swap')
 
 class BudgetPilot(Pilot):
-    def __init__(self):
+    def __init__(self,calibration_run=None):
+        self.calibration_run=calibration_run
         super().__init__(HERE.parents[1]/'.scratch/greedy-joint-budget/spec.md')
         calibration=[p for p in self.pairs if p['split']=='calibration']
         evaluation=[p for p in self.pairs if p['split']=='evaluation']
         self.pairs=calibration+evaluation[6:]+evaluation[:6]
         self.active_profile=None
+        if calibration_run is not None:
+            frozen=json.loads((calibration_run/'git-source.json').read_text())['files']
+            names=['http_runtime.py','edge_client.py','model_adapter.py','bootstrap.py','load_trace.py','net_control.py','wan_gateway.py']
+            if any(hashlib.sha256((HERE/n).read_bytes()).hexdigest()!=frozen[n] for n in names):raise ValueError('Runtime changed: fresh calibration required')
+            if not (calibration_run/'plans-frozen.json').is_file():raise ValueError('Complete frozen calibration required')
+            if list(calibration_run.glob('eval-*.rows.json')):raise ValueError('Resume only an attempt with no evaluation observations')
+            helper_manifest=json.loads((calibration_run/'helpers.manifest.json').read_text())
+            bundle_text=next(x['data']['bundles.json'] for x in helper_manifest['items'] if x['kind']=='ConfigMap')
+            if bundle_text!=(ASSETS/'load-bundles.json').read_text():raise ValueError('Asset bundles changed')
+            files=[p for p in calibration_run.iterdir() if p.is_file() and ('-qualify-' in p.name or p.name.startswith('qualify-') or p.name in ('qualification-all.json','compute-p75.json'))]
+            for p in files:(self.out/p.name).write_bytes(p.read_bytes())
+            source_names=['git-source.json','helpers.manifest.json','capacity-frozen.json','design.json','plans-frozen.json']+[prefix+condition+'.json' for prefix in ['profile-','transfer-'] for condition in ['calibration-10','calibration-2']]
+            times=[json.loads(p.read_text())['finished_at'] for p in calibration_run.glob('*.event.json') if ('-qualify-' in p.name or '-calibration-' in p.name) and 'finished_at' in json.loads(p.read_text())]
+            self.save('calibration-origin.json',dict(run=str(calibration_run),reused_at=datetime.now(timezone.utc).isoformat(),calibration_finished_at=max(times),
+                source_files={n:hashlib.sha256((calibration_run/n).read_bytes()).hexdigest() for n in source_names},runtime_sha256={n:frozen[n] for n in names},
+                copied={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
+                scope='reused complete calibration from interrupted attempt; no prior evaluation observations'))
+
+    def qualify_all(self):
+        if self.calibration_run is None:return super().qualify_all()
+        rows=json.loads((self.out/'qualification-all.json').read_text())
+        if len(rows)!=585 or not all(r['quality_ok'] for r in rows):raise ValueError('Incomplete qualification')
+        self.compute=json.loads((self.out/'compute-p75.json').read_text())
+        print('reuse-frozen-qualification',self.calibration_run,flush=True)
+
+    def capacity(self):
+        self.current_capacity=super().capacity()
+        if self.calibration_run is None:return self.current_capacity
+        self.save('capacity-current.json',self.current_capacity)
+        return json.loads((self.calibration_run/'capacity-frozen.json').read_text())
+
+    def transfer_profiles(self,condition,mbps,delay,representation,capacity):
+        if self.calibration_run is None:return super().transfer_profiles(condition,mbps,delay,representation,capacity)
+        profile=json.loads((self.calibration_run/('profile-'+condition+'.json')).read_text())
+        self.save('profile-'+condition+'.json',profile)
+        self.save('transfer-'+condition+'.json',json.loads((self.calibration_run/('transfer-'+condition+'.json')).read_text()))
+        return profile
 
     def execute(self,key,code,stem='operation',timeout=60,container='worker',stdin=None):
         readonly=container=='worker' and stdin is None and stem.startswith(('bypass-','restore-','relay-'))
         for attempt in range(3):
             tag=stem if attempt==0 else stem+'-retry-'+str(attempt)
-            try:return super().execute(key,code,tag,timeout,container,stdin)
+            try:
+                if readonly:
+                    code=code.replace("sys.path.insert(0,'/config')", "sys.path.insert(0,'/work/config')")
+                    return self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],timeout=timeout)
+                return super().execute(key,code,tag,timeout,container,stdin)
             except RuntimeError:
                 if not readonly:raise
                 stderr=(self.out/f'{self.counter:03d}-{tag}.stderr').read_text()
@@ -28,16 +76,20 @@ class BudgetPilot(Pilot):
                 time.sleep(1)
 
     def deploy_operators(self,placement,label):
-        if self.active_profile is not None:validate_placement(self.active_profile,placement)
+        if self.active_profile is not None:
+            validate_placement(self.active_profile,placement)
+            current=dict(self.active_profile,nodes=self.current_capacity)
+            validate_placement(with_server_budget(current,NODES['c'],2),placement)
         return super().deploy_operators(placement,label)
 
 
 def main():
-    session=BudgetPilot()
+    parser=argparse.ArgumentParser();parser.add_argument('--calibration-run',type=Path);args=parser.parse_args()
+    session=BudgetPilot(args.calibration_run)
     session.save('design.json',dict(comparison='server-admission-budget-v1',server_slots=2,blocks=2,
         seed=20261022,policies=POLICIES,warmup=2,evaluation_count=6,rate_rps=.1,
         evaluation_ids=[p['question_id'] for p in session.pairs if p['split']=='evaluation'][:6],
-        calibration='fresh compute and transfer; shared frozen profiles for two temporal blocks',
+        calibration='fresh compute and transfer' if args.calibration_run is None else 'reused frozen calibration from '+str(args.calibration_run),
         scope='workflow admission-budget mechanism pilot; no physical saturation or independent-environment claim'))
     try:
         session.deploy();session.network_preflight();session.qualify_all()
