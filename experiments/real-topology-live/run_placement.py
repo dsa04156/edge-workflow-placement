@@ -162,7 +162,7 @@ class Pilot(Session):
             pod=self.pod(task,reverse[node] if node else 'c',task,self.cache_url)
             if node is None:
                 pod['spec']['affinity']['nodeAffinity']['requiredDuringSchedulingIgnoredDuringExecution']['nodeSelectorTerms']=[
-                    {'matchFields':[{'key':'metadata.name','operator':'In','values':list(NODES.values())}]}]
+                    {'matchFields':[{'key':'metadata.name','operator':'In','values':[candidate]}]} for candidate in NODES.values()]
             items.append(pod)
         self.apply(label,items)
         self.operators=list(placement)

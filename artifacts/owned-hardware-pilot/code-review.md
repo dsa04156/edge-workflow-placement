@@ -15,3 +15,6 @@ Totals on initial review: Standards1, Spec1; both fixed before deployment. No al
 
 ## Incremental frozen-evidence review (b42dcca...3669c8b)
 Standards reported3 findings; Spec reported4, with two shared findings. Fixed before using the audit/report: require every warmup phase; distinguish zero-success execution from infeasible planning; audit per-condition configuration and forbid cross-condition label reuse; reconcile summary means/counts/failure ledgers with raw rows; validate every bypass/restore output and expected per-deployment coverage. Report now refuses a non-passing audit.
+
+## Config lifetime mitigation review (c514f41...72078d3)
+Both reviewers found no blocking startup syntax or bootstrap compatibility defects. Two P2 gaps were corrected in cfca3dc: inherited control snippets now import from the frozen worker directory, and netctl readiness requires a marker written only after code verification and dependency extraction. Five generated Pod manifests compiled locally; all12 runtime tests passed. The missing ConfigMap file root cause remains unconfirmed.
