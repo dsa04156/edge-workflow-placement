@@ -12,6 +12,7 @@ def read(path):
 
 def report(run, output):
     audit=read(run/'placement-verification-v1.json')
+    if audit['status']!='passed':raise ValueError('Report requires a passing frozen-evidence audit')
     summary=read(run/'pilot-summary.json')
     plans=read(run/'plans-frozen.json')
     baseline=read(run/'baseline-placement.json')
@@ -30,7 +31,7 @@ def report(run, output):
         for policy in policies:
             label=mapping.get(policy)
             value=summary['observations'][label]['mean_ms'] if label else None
-            cells.append(f'{value:.2f}' if value is not None else 'infeasible')
+            cells.append(f'{value:.2f}' if value is not None else ('성공0건' if label else 'infeasible'))
         lines.append('| '+condition+' | '+' | '.join(cells)+' |')
     lines+=['','## 실제 고유 배치와 성공률','','배치 표기는 V/S/F 순서다. C는 보유 CPU 서버이며 외부 클라우드가 아니다.','','| 조건 | 정책 | V/S/F | 실행 관측 | 성공/계획 |','|---|---|---|---|---|']
     for condition,mapping in summary['mapping'].items():

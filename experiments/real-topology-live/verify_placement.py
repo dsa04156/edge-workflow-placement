@@ -42,12 +42,17 @@ def verify(run):
                 # For20 values the linear75th percentile interpolates indices14/15.
                 check(abs(value-(times[14]*.75+times[15]*.25))<1e-8,condition+': p75 uses calibration only')
     check(set(mapping)=={c[0] for c in active},'all active conditions represented')
-    expected_groups=set()
+    expected_groups=set();label_conditions={}
+    conditions={c[0]:c[1:] for c in active}
     for condition,policies in mapping.items():
         check(set(policies)=={'kube-default'}|{p for p,v in plans[condition].items() if v['status']=='ok'},condition+': policies accounted')
         placements={}
         for policy,label in policies.items():
             config=read(run/(label+'.config.json'))
+            rate,delay,representation=conditions[condition]
+            check((config['mbps'],config['oneway_delay_ms'],config['representation'])==(rate,delay,representation),condition+': actual condition '+policy)
+            check(label not in label_conditions or label_conditions[label]==condition,condition+': cross-condition observation reuse')
+            label_conditions[label]=condition
             placement=baseline if policy=='kube-default' else plans[condition][policy]['placement']
             check(config['placement']==placement,condition+': selected placement applied '+policy)
             key=tuple(sorted(placement.items()))
@@ -100,13 +105,30 @@ def verify(run):
         phases.append(dict(phase=name,warmup=warm,attempts=len(rows),successes=len(valid),
             mean_ms=statistics.mean(valid) if valid else None,failures=len(rows)-len(valid)))
     check({p['phase'] for p in phases if not p['warmup']}==expected_groups,'exact evaluated group set')
+    check({p['phase'] for p in phases if p['warmup']}=={g+'-warm' for g in expected_groups},'exact warmup phase set')
+    summary=read(run/'pilot-summary.json')
+    check(summary['mapping']==mapping,'summary mapping matches frozen observation map')
+    check(set(summary['observations'])==expected_groups,'summary observation coverage')
+    for phase in phases:
+        if phase['warmup']:continue
+        stored=summary['observations'][phase['phase']]
+        check(stored['attempts']==phase['attempts'] and stored['success']==phase['successes'],'summary counts '+phase['phase'])
+        check(stored['mean_ms']==phase['mean_ms'],'summary mean '+phase['phase'])
+        raw_failures=[r for r in read(run/(phase['phase']+'.rows.json')) if r['status']!='ok']
+        check(stored['failures']==raw_failures,'summary failure ledger '+phase['phase'])
     check(read(run/'network-preflight.json')['status']=='passed','shared WAN preflight')
     cleanup=read(run/'cleanup.json')
     check(cleanup['remaining_owned']==0 and not cleanup['errors'],'clean owned resource removal')
     check((run/'completed.json').exists(),'pilot completion marker')
-    # Check actual successful guard/restore command outcomes, not just summaries.
-    restores=[read(p) for p in run.glob('*-restore-*.event.json')]
-    check(bool(restores) and all(e.get('returncode')==0 for e in restores),'restoration probes succeeded')
+    # One helper-only calibration guard/restore plus one per fresh evaluation.
+    expected_probes=6+9*len(expected_groups)
+    for prefix,field,expected in [('bypass','blocked',True),('restore','status','ready')]:
+        captures=list(run.glob('*-'+prefix+'-*.stdout'))
+        check(len(captures)==expected_probes,prefix+': full calibration/deployment coverage')
+        for capture in captures:
+            check(read(capture).get(field)==expected,prefix+': probe result '+capture.name)
+            event=read(capture.with_suffix('.event.json'))
+            check(event.get('returncode')==0,prefix+': probe command completed')
     result=dict(status='passed' if not errors else 'needs_review',errors=errors,phases=phases,
         evaluation_attempts=sum(p['attempts'] for p in phases if not p['warmup']),
         evaluation_successes=sum(p['successes'] for p in phases if not p['warmup']),
