@@ -1,5 +1,7 @@
 """Read-only audit of a completed automatic-placement pilot's frozen evidence."""
 import argparse
+import base64
+import struct
 import hashlib
 import json
 from pathlib import Path
@@ -28,6 +30,28 @@ def verify(run):
             check(len(rows)==60 and {r['question_id'] for r in rows}==set(pairs),f'qualification coverage {task}/{node}')
             check(all(r['quality_ok'] for r in rows),f'qualification quality {task}/{node}')
             check(sum(r['split']=='calibration' for r in rows)==20,f'calibration separation {task}/{node}')
+    for task in ('vision','speech','fusion'):
+        for alias,node in NODES.items():
+            label='qualify-'+task+'-'+alias
+            entries=[r for r in qualifications if r['task']==task and r['node']==node]
+            pod=read(run/(label+'-deployment.json'))['pods'][task]
+            for index,entry in enumerate(entries):
+                paths=list(run.glob('*-'+label+'-'+str(index)+'-http-*.response.json'))
+                check(len(paths)==1,label+': preserved successful response '+str(index))
+                if len(paths)!=1:continue
+                response=read(paths[0]);body=base64.b64decode(response['data']);receipt=response['receipt']
+                check(receipt==entry['receipt'],label+': qualification receipt matches RPC')
+                check(receipt['model_sha256']==models[task]['model_sha256'] and receipt['pod_uid']==pod['metadata']['uid'] and receipt['node']==node,label+': qualification identity')
+                check(hashlib.sha256(body).hexdigest()==receipt['output_sha256'],label+': qualification output hash')
+                qid=entry['question_id'];reference=refs[qid]
+                if task=='vision':
+                    expected=struct.unpack('<512f',(ASSETS/'reference-v1'/f'{qid}.npy').read_bytes()[-2048:])
+                    observed=struct.unpack('<512f',body[-2048:])
+                    check(all(abs(a-b)<=1e-5+1e-4*abs(b) for a,b in zip(observed,expected)),label+': reference feature tolerance')
+                elif task=='speech':check(body.decode()==reference['transcript'],label+': reference transcript')
+                else:
+                    output=json.loads(body)
+                    check(output['answer_ids']==reference['answer_ids'] and len(output['scores'])==5 and max(abs(a-b) for a,b in zip(output['scores'],reference['scores']))<=1e-4,label+': reference fusion output')
     plans=read(run/'plans-frozen.json');mapping=read(run/'policy-observation-map.json')
     baseline=read(run/'baseline-placement.json');active=read(run/'active-conditions.json')['active']
     for condition,_,_,_ in active:

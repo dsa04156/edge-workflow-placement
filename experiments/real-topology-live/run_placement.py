@@ -47,6 +47,31 @@ class Pilot(Session):
             ['rtk','proxy','git','rev-parse','HEAD'],text=True).strip(),
             files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in HERE.glob('*.py')}))
 
+    def pod(self,key,zone,task,cache_url=None):
+        pod=super().pod(key,zone,task,cache_url)
+        if task=='cache':return pod
+        names=['http_runtime.py','edge_client.py','model_adapter.py','bootstrap.py','load_trace.py','net_control.py','wan_gateway.py']
+        expected={name:hashlib.sha256((HERE/name).read_bytes()).hexdigest() for name in names}
+        expected['bundles.json']=hashlib.sha256((ASSETS/'load-bundles.json').read_bytes()).hexdigest()
+        freezer=(HERE/'freeze_config.py').read_text()
+        for container in pod['spec']['containers']:
+            destination='/work/config' if container['name']=='worker' else '/work/net-config'
+            prefix="exec(compile("+repr(freezer)+",'frozen-config-copier','exec'));freeze_config('/config',"+repr(destination)+","+repr(expected)+");"
+            container['command'][-1]=prefix+container['command'][-1].replace("/config/",destination+'/')
+            if container['name']=='worker':
+                container['env'].extend([dict(name='CONFIG_ROOT',value=destination),dict(name='PYTHONPATH',value=destination)])
+            else:
+                container['env'].extend([dict(name='POD_UID',valueFrom={'fieldRef':{'fieldPath':'metadata.uid'}}),
+                    dict(name='NODE_NAME',valueFrom={'fieldRef':{'fieldPath':'spec.nodeName'}})])
+                for entry in container['env']:
+                    if entry['name']=='PYTHONPATH':entry['value']='/work/net:'+destination
+        return pod
+
+    def net(self,key,spec,stem):
+        expected=hashlib.sha256((HERE/'net_control.py').read_bytes()).hexdigest()
+        code="import runpy,hashlib,os;from pathlib import Path;assert os.environ['POD_UID']=="+repr(self.actual[key]['metadata']['uid'])+";p=Path('/work/net-config/net_control.py');assert hashlib.sha256(p.read_bytes()).hexdigest()=="+repr(expected)+";runpy.run_path(str(p),run_name='__main__')"
+        return json.loads(self.execute(key,code,stem,container='netctl',stdin=json.dumps(spec)))
+
     def deploy(self):
         self.apply('cache', [self.pod('cache','c','cache')])
         self.call('cache-ready',['wait','pod','-n',NS,self.run+'-cache','--for=condition=Ready','--timeout=90s'],timeout=100)

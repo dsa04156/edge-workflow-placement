@@ -10,7 +10,8 @@ import tarfile
 import urllib.request
 
 root = Path('/work')
-manifest = json.loads(Path('/config/bundles.json').read_text())
+config = Path(os.environ.get('CONFIG_ROOT', '/config'))
+manifest = json.loads((config / 'bundles.json').read_text())
 role = os.environ['TASK_ID']
 arch = platform.machine()
 names = ['source.tar'] if role == 'source' else ['wheels-' + arch + '.tar', role + '.tar']
@@ -31,7 +32,7 @@ if role != 'source':
     subprocess.run([sys.executable, '-m', 'pip', 'install', '--disable-pip-version-check', '--no-compile',
                     '--no-cache-dir', '--no-index', '--require-hashes', '--find-links', '/work/wheels',
                     '--target', '/work/site', '-r', '/work/requirements.txt'], check=True)
-    os.environ.update(PYTHONPATH='/work/site:/config', MODEL_ROOT='/work/models',
+    os.environ.update(PYTHONPATH='/work/site:'+str(config), MODEL_ROOT='/work/models',
                       JELLYBEAN_SOURCE='/work/jellybean', ADAPTER_MODULE='model_adapter')
-    os.execv(sys.executable, [sys.executable, '-u', '/config/http_runtime.py'])
-os.execv(sys.executable, [sys.executable, '-u', '/config/edge_client.py', '--root', '/work/corpus'])
+    os.execv(sys.executable, [sys.executable, '-u', str(config / 'http_runtime.py')])
+os.execv(sys.executable, [sys.executable, '-u', str(config / 'edge_client.py'), '--root', '/work/corpus'])
