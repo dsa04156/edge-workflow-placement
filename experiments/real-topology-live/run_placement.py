@@ -30,7 +30,7 @@ def quantile(values, q=.75):
 
 
 class Pilot(Session):
-    def __init__(self):
+    def __init__(self,spec_path=None):
         super().__init__()
         self.pairs = json.loads((ASSETS/'load-pairs.json').read_text())['pairs']
         self.refs = {r['question_id']: r for r in map(json.loads,
@@ -41,7 +41,7 @@ class Pilot(Session):
         self.guarded = False
         self.compute = {task: {} for task in TASKS}
         self.cal_outputs = {}
-        self.spec = (HERE.parents[1]/'.scratch/owned-hardware-pilot/spec.md').read_text()
+        self.spec = (spec_path or HERE.parents[1]/'.scratch/owned-hardware-pilot/spec.md').read_text()
         (self.out/'spec-frozen.md').write_text(self.spec)
         planner = Path(prepare.__file__)
         (self.out/'planner-source.py').write_bytes(planner.read_bytes())

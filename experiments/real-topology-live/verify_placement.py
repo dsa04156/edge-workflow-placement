@@ -17,6 +17,8 @@ def read(path):
 
 def verify(run):
     errors=[]
+    design=read(run/'design.json')
+    budget_mode=design.get('comparison')=='server-admission-budget-v1'
     def check(condition,message):
         if not condition: errors.append(message)
     pairs={p['question_id']:p for p in read(ASSETS/'load-pairs.json')['pairs']}
@@ -53,7 +55,29 @@ def verify(run):
                     output=json.loads(body)
                     check(output['answer_ids']==reference['answer_ids'] and len(output['scores'])==5 and max(abs(a-b) for a,b in zip(output['scores'],reference['scores']))<=1e-4,label+': reference fusion output')
     plans=read(run/'plans-frozen.json');mapping=read(run/'policy-observation-map.json')
-    baseline=read(run/'baseline-placement.json');active=read(run/'active-conditions.json')['active']
+    baseline=None if budget_mode else read(run/'baseline-placement.json')
+    active=read(run/'active-conditions.json')['active']
+    if budget_mode:
+        from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
+        check(design['server_slots']==2 and design['blocks']==2,'declared two-slot two-block design')
+        check({c[0] for c in active}=={f'b{b}-compressed-{r}' for b in range(2) for r in (10,2)},'exact budget block/condition set')
+        sources=read(run/'active-conditions.json')['profile_sources']
+        alternatives=read(run/'simple-alternatives-frozen.json')
+        capacity=read(run/'capacity-frozen.json')
+        for condition,rate,delay,representation in active:
+            check((rate,delay,representation)==(int(condition.rsplit('-',1)[1]),20,'compressed'),'budget condition contract')
+            physical=read(run/('profile-'+sources[condition]+'.json'))
+            check(physical['nodes']==capacity,'physical capacity retained')
+            expected=with_server_budget(physical,NODES['c'],2);expected['condition']=condition
+            profile=read(run/('profile-'+condition+'.json'))
+            check(profile==expected,'only declared admission constraint changes calibration '+condition)
+            selected=select_budget_policies(profile,NODES['c'])
+            check(set(plans[condition])=={'greedy','heft','ours','greedy-swap'},'primary policy set '+condition)
+            for policy,plan in plans[condition].items():
+                check(plan['placement']==selected[policy]['placement'],'recomputed selection '+condition+'/'+policy)
+                try:validate_placement(profile,plan['placement'])
+                except ValueError:check(False,'budget violation '+condition+'/'+policy)
+            check(alternatives[condition]==simple_alternatives(profile,plans[condition]['greedy']['placement']),'simple repair audit '+condition)
     for condition,_,_,_ in active:
         profile=read(run/('profile-'+condition+'.json'))
         digest=hashlib.sha256(json.dumps(profile,sort_keys=True,separators=(',',':')).encode()).hexdigest()
@@ -69,7 +93,7 @@ def verify(run):
     expected_groups=set();label_conditions={}
     conditions={c[0]:c[1:] for c in active}
     for condition,policies in mapping.items():
-        check(set(policies)=={'kube-default'}|{p for p,v in plans[condition].items() if v['status']=='ok'},condition+': policies accounted')
+        check(set(policies)==(set() if budget_mode else {'kube-default'})|{p for p,v in plans[condition].items() if v['status']=='ok'},condition+': policies accounted')
         placements={}
         for policy,label in policies.items():
             config=read(run/(label+'.config.json'))
@@ -90,6 +114,7 @@ def verify(run):
         check(group in expected_groups,name+': expected execution group')
         config=read(run/(name+'.config.json'));rows=read(path)
         actual=read(run/(group+'-deployment.json'))['pods']
+        if budget_mode and not warm:check(config['question_ids']==design['evaluation_ids'],name+': preregistered evaluation IDs')
         check(sorted(r['index'] for r in rows)==list(range(len(config['question_ids']))),name+': terminal ledger')
         check(len(rows)==(2 if warm else 6),name+': requested pilot size')
         for row in rows:
@@ -157,7 +182,7 @@ def verify(run):
         evaluation_attempts=sum(p['attempts'] for p in phases if not p['warmup']),
         evaluation_successes=sum(p['successes'] for p in phases if not p['warmup']),
         successes_including_warmup=successes,receipts=receipts_count,max_score_abs_error=max_error,
-        protected=read(run/'protected-after.json'),scope='one-block compressed S1/S2 pilot',
+        protected=read(run/'protected-after.json'),scope='two temporal blocks with workflow server admission budget' if budget_mode else 'one-block compressed S1/S2 pilot',
         verifier_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
     with (run/'placement-verification-v1.json').open('x') as handle:json.dump(result,handle,indent=2)
     print(json.dumps({k:v for k,v in result.items() if k not in ('phases','protected')}))

@@ -1,0 +1,1061 @@
+{
+  "scope": "counterfactual admission budgets on historical measured costs; not new performance measurements",
+  "rows": [
+    {
+      "condition": "compressed-10",
+      "slots": 1,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-10.json",
+      "source_digest": "4e011fed1d2dbf58fa9c265ba4715d0cb57b52f497d229bb815c948c476d4e80",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.007219001417979598
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2051.2319059926085,
+          "profile_sha256": "d8ee286f4b76df546e9c97ad5dc102d0551228af73da9aa5e2c349c3d03c1069",
+          "decision_ms": 0.22633798653259873
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0278139123693,
+          "profile_sha256": "d8ee286f4b76df546e9c97ad5dc102d0551228af73da9aa5e2c349c3d03c1069",
+          "decision_ms": 0.1572190085425973
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0278139123693,
+          "profile_sha256": "d8ee286f4b76df546e9c97ad5dc102d0551228af73da9aa5e2c349c3d03c1069",
+          "decision_ms": 0.1342939940514043
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1301.1471671052277,
+          "profile_sha256": "d8ee286f4b76df546e9c97ad5dc102d0551228af73da9aa5e2c349c3d03c1069",
+          "decision_ms": 0.1189680042443797
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2095.931915391702,
+          "profile_sha256": "d8ee286f4b76df546e9c97ad5dc102d0551228af73da9aa5e2c349c3d03c1069",
+          "decision_ms": 0.13350200606510043
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0278139123693
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0278139123693
+        }
+      }
+    },
+    {
+      "condition": "compressed-10",
+      "slots": 2,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-10.json",
+      "source_digest": "4e011fed1d2dbf58fa9c265ba4715d0cb57b52f497d229bb815c948c476d4e80",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.0041099992813542485
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1191.2355284039222,
+          "profile_sha256": "9efa9bea5fc633413eb43d028aaf4ee540f9c5aa48deee37744a0d0af703ec46",
+          "decision_ms": 0.15377000090666115
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1191.2355284039222,
+          "profile_sha256": "9efa9bea5fc633413eb43d028aaf4ee540f9c5aa48deee37744a0d0af703ec46",
+          "decision_ms": 0.14734099386259913
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 957.7920015472046,
+          "profile_sha256": "9efa9bea5fc633413eb43d028aaf4ee540f9c5aa48deee37744a0d0af703ec46",
+          "decision_ms": 0.13674001093022525
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 965.2203412879317,
+          "profile_sha256": "9efa9bea5fc633413eb43d028aaf4ee540f9c5aa48deee37744a0d0af703ec46",
+          "decision_ms": 0.12743599654641002
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2095.931915391702,
+          "profile_sha256": "9efa9bea5fc633413eb43d028aaf4ee540f9c5aa48deee37744a0d0af703ec46",
+          "decision_ms": 0.1505699910921976
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1191.2355284039222
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 965.2203412879317
+        }
+      }
+    },
+    {
+      "condition": "compressed-10",
+      "slots": 3,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-10.json",
+      "source_digest": "4e011fed1d2dbf58fa9c265ba4715d0cb57b52f497d229bb815c948c476d4e80",
+      "plans": {
+        "server-only": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634,
+          "profile_sha256": "46f6d6912f2910d6b8b5486128c9ba5c78b521b86f9794ec52685c582387bf76",
+          "decision_ms": 0.037044010241515934
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634,
+          "profile_sha256": "46f6d6912f2910d6b8b5486128c9ba5c78b521b86f9794ec52685c582387bf76",
+          "decision_ms": 0.1494679891038686
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634,
+          "profile_sha256": "46f6d6912f2910d6b8b5486128c9ba5c78b521b86f9794ec52685c582387bf76",
+          "decision_ms": 0.14730700058862567
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634,
+          "profile_sha256": "46f6d6912f2910d6b8b5486128c9ba5c78b521b86f9794ec52685c582387bf76",
+          "decision_ms": 0.13820899766869843
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634,
+          "profile_sha256": "46f6d6912f2910d6b8b5486128c9ba5c78b521b86f9794ec52685c582387bf76",
+          "decision_ms": 0.12789200991392136
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2095.931915391702,
+          "profile_sha256": "46f6d6912f2910d6b8b5486128c9ba5c78b521b86f9794ec52685c582387bf76",
+          "decision_ms": 0.1528169959783554
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 692.6668642190634
+        }
+      }
+    },
+    {
+      "condition": "compressed-100",
+      "slots": 1,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-100.json",
+      "source_digest": "75b65e3d8e207518fc186c61481486cac027dcc6f5161f39e29f19847ce74027",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.003812994691543281
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2051.4312098384835,
+          "profile_sha256": "c94f809a67d7a661754cf7c180be91046d7714aa589c38d5e94be488e34172ba",
+          "decision_ms": 0.1519130019005388
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.7324172509834,
+          "profile_sha256": "c94f809a67d7a661754cf7c180be91046d7714aa589c38d5e94be488e34172ba",
+          "decision_ms": 0.1409539981978014
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.7324172509834,
+          "profile_sha256": "c94f809a67d7a661754cf7c180be91046d7714aa589c38d5e94be488e34172ba",
+          "decision_ms": 0.12623400834854692
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1300.951082201209,
+          "profile_sha256": "c94f809a67d7a661754cf7c180be91046d7714aa589c38d5e94be488e34172ba",
+          "decision_ms": 0.11798599734902382
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2096.0974864428863,
+          "profile_sha256": "c94f809a67d7a661754cf7c180be91046d7714aa589c38d5e94be488e34172ba",
+          "decision_ms": 0.13572500029113144
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.7324172509834
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.7324172509834
+        }
+      }
+    },
+    {
+      "condition": "compressed-100",
+      "slots": 2,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-100.json",
+      "source_digest": "75b65e3d8e207518fc186c61481486cac027dcc6f5161f39e29f19847ce74027",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.003620996722020209
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1115.5038837750908,
+          "profile_sha256": "61cc04182c98a7b2e42df6b8b468623cef7b6654034af14cd916bfe7abe00d10",
+          "decision_ms": 0.1612639898667112
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1115.5038837750908,
+          "profile_sha256": "61cc04182c98a7b2e42df6b8b468623cef7b6654034af14cd916bfe7abe00d10",
+          "decision_ms": 0.15071898815222085
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.6061690311471,
+          "profile_sha256": "61cc04182c98a7b2e42df6b8b468623cef7b6654034af14cd916bfe7abe00d10",
+          "decision_ms": 0.1435390004189685
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 965.6060255110788,
+          "profile_sha256": "61cc04182c98a7b2e42df6b8b468623cef7b6654034af14cd916bfe7abe00d10",
+          "decision_ms": 0.13155800115782768
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2096.0974864428863,
+          "profile_sha256": "61cc04182c98a7b2e42df6b8b468623cef7b6654034af14cd916bfe7abe00d10",
+          "decision_ms": 0.1554729969939217
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1115.5038837750908
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 965.6060255110788
+        }
+      }
+    },
+    {
+      "condition": "compressed-100",
+      "slots": 3,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-100.json",
+      "source_digest": "75b65e3d8e207518fc186c61481486cac027dcc6f5161f39e29f19847ce74027",
+      "plans": {
+        "server-only": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219,
+          "profile_sha256": "af12329a5e73fc2b4c8bead0c1c4de37fbba25a476177ab3a5ca73ae2fcf69de",
+          "decision_ms": 0.03713001206051558
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219,
+          "profile_sha256": "af12329a5e73fc2b4c8bead0c1c4de37fbba25a476177ab3a5ca73ae2fcf69de",
+          "decision_ms": 0.15522299509029835
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219,
+          "profile_sha256": "af12329a5e73fc2b4c8bead0c1c4de37fbba25a476177ab3a5ca73ae2fcf69de",
+          "decision_ms": 0.1481810031691566
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219,
+          "profile_sha256": "af12329a5e73fc2b4c8bead0c1c4de37fbba25a476177ab3a5ca73ae2fcf69de",
+          "decision_ms": 0.1418730098521337
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219,
+          "profile_sha256": "af12329a5e73fc2b4c8bead0c1c4de37fbba25a476177ab3a5ca73ae2fcf69de",
+          "decision_ms": 0.13115699402987957
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2096.0974864428863,
+          "profile_sha256": "af12329a5e73fc2b4c8bead0c1c4de37fbba25a476177ab3a5ca73ae2fcf69de",
+          "decision_ms": 0.15952400281094015
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 614.638994786219
+        }
+      }
+    },
+    {
+      "condition": "compressed-2",
+      "slots": 1,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-2.json",
+      "source_digest": "0e4e71e84c8963f99efca6d878deb0e0903982fb9f3068732dd8d878eeccd1fc",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.0038059952203184366
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.3775590774603,
+          "profile_sha256": "dc69fc0c1f4502138f2e2e156693fef3674cc7b7b413cd770bb761af94642c60",
+          "decision_ms": 0.14768399705644697
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.3775590774603,
+          "profile_sha256": "dc69fc0c1f4502138f2e2e156693fef3674cc7b7b413cd770bb761af94642c60",
+          "decision_ms": 0.14295399887487292
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.3775590774603,
+          "profile_sha256": "dc69fc0c1f4502138f2e2e156693fef3674cc7b7b413cd770bb761af94642c60",
+          "decision_ms": 0.12932000390719622
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1300.9729989571497,
+          "profile_sha256": "dc69fc0c1f4502138f2e2e156693fef3674cc7b7b413cd770bb761af94642c60",
+          "decision_ms": 0.12168601097073406
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2095.390268252231,
+          "profile_sha256": "dc69fc0c1f4502138f2e2e156693fef3674cc7b7b413cd770bb761af94642c60",
+          "decision_ms": 0.14051499601919204
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.3775590774603
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1285.3775590774603
+        }
+      }
+    },
+    {
+      "condition": "compressed-2",
+      "slots": 2,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-2.json",
+      "source_digest": "0e4e71e84c8963f99efca6d878deb0e0903982fb9f3068732dd8d878eeccd1fc",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.0034900003811344504
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598,
+          "profile_sha256": "1f03bada18d4af68ee7e8540e39cb16f71f38f27121372bf7628e2f6dd3f15af",
+          "decision_ms": 0.14384200039785355
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598,
+          "profile_sha256": "1f03bada18d4af68ee7e8540e39cb16f71f38f27121372bf7628e2f6dd3f15af",
+          "decision_ms": 0.14177299453876913
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598,
+          "profile_sha256": "1f03bada18d4af68ee7e8540e39cb16f71f38f27121372bf7628e2f6dd3f15af",
+          "decision_ms": 0.14216999989002943
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 967.0214744364785,
+          "profile_sha256": "1f03bada18d4af68ee7e8540e39cb16f71f38f27121372bf7628e2f6dd3f15af",
+          "decision_ms": 0.13031199341639876
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2095.390268252231,
+          "profile_sha256": "1f03bada18d4af68ee7e8540e39cb16f71f38f27121372bf7628e2f6dd3f15af",
+          "decision_ms": 0.15452700608875602
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598
+        }
+      }
+    },
+    {
+      "condition": "compressed-2",
+      "slots": 3,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-compressed-2.json",
+      "source_digest": "0e4e71e84c8963f99efca6d878deb0e0903982fb9f3068732dd8d878eeccd1fc",
+      "plans": {
+        "server-only": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 1419.0511258129845,
+          "profile_sha256": "2f021e142dc8d073dac2f4d882fdffd03f91eb37ad09cfb68485ce8a2c11c145",
+          "decision_ms": 0.03551100962795317
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598,
+          "profile_sha256": "2f021e142dc8d073dac2f4d882fdffd03f91eb37ad09cfb68485ce8a2c11c145",
+          "decision_ms": 0.13909500557929277
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598,
+          "profile_sha256": "2f021e142dc8d073dac2f4d882fdffd03f91eb37ad09cfb68485ce8a2c11c145",
+          "decision_ms": 0.13825600035488605
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598,
+          "profile_sha256": "2f021e142dc8d073dac2f4d882fdffd03f91eb37ad09cfb68485ce8a2c11c145",
+          "decision_ms": 0.13890399714000523
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 1419.0511258129845,
+          "profile_sha256": "2f021e142dc8d073dac2f4d882fdffd03f91eb37ad09cfb68485ce8a2c11c145",
+          "decision_ms": 0.13049200060777366
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2095.390268252231,
+          "profile_sha256": "2f021e142dc8d073dac2f4d882fdffd03f91eb37ad09cfb68485ce8a2c11c145",
+          "decision_ms": 0.15436700778082013
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 956.500914060598
+        }
+      }
+    },
+    {
+      "condition": "unlimited",
+      "slots": 1,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-unlimited.json",
+      "source_digest": "45c38655e8f1f11efd9834d7f68b3a83d93c35d9166713a9be2d1364a1574c21",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.0039019942050799727
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2050.4580812412314,
+          "profile_sha256": "1c4487be0178c9abf81e34a7fddbeae9037dfc89468892709f5400ea04a71238",
+          "decision_ms": 0.15761599934194237
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0900209052488,
+          "profile_sha256": "1c4487be0178c9abf81e34a7fddbeae9037dfc89468892709f5400ea04a71238",
+          "decision_ms": 0.14263599587138742
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0900209052488,
+          "profile_sha256": "1c4487be0178c9abf81e34a7fddbeae9037dfc89468892709f5400ea04a71238",
+          "decision_ms": 0.13490000856108963
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1300.6952541181818,
+          "profile_sha256": "1c4487be0178c9abf81e34a7fddbeae9037dfc89468892709f5400ea04a71238",
+          "decision_ms": 0.1209270121762529
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2096.0441143251956,
+          "profile_sha256": "1c4487be0178c9abf81e34a7fddbeae9037dfc89468892709f5400ea04a71238",
+          "decision_ms": 0.13934100570622832
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-dev0003-raspi5",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0900209052488
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 1286.0900209052488
+        }
+      }
+    },
+    {
+      "condition": "unlimited",
+      "slots": 2,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-unlimited.json",
+      "source_digest": "45c38655e8f1f11efd9834d7f68b3a83d93c35d9166713a9be2d1364a1574c21",
+      "plans": {
+        "server-only": {
+          "status": "infeasible",
+          "error": "Server-only is infeasible",
+          "decision_ms": 0.003444001777097583
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 826.0496301918465,
+          "profile_sha256": "f396aa56df322c634c2883078a17bf56ca94659e11f783da4b1d84e092f41f66",
+          "decision_ms": 0.1536839990876615
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 826.0496301918465,
+          "profile_sha256": "f396aa56df322c634c2883078a17bf56ca94659e11f783da4b1d84e092f41f66",
+          "decision_ms": 0.14411199663300067
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 712.6222604783834,
+          "profile_sha256": "f396aa56df322c634c2883078a17bf56ca94659e11f783da4b1d84e092f41f66",
+          "decision_ms": 0.13802500325255096
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 719.7720660260529,
+          "profile_sha256": "f396aa56df322c634c2883078a17bf56ca94659e11f783da4b1d84e092f41f66",
+          "decision_ms": 0.1296419941354543
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2096.0441143251956,
+          "profile_sha256": "f396aa56df322c634c2883078a17bf56ca94659e11f783da4b1d84e092f41f66",
+          "decision_ms": 0.1554649934405461
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-dev0002-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 826.0496301918465
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-dev0002-raspi5",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 719.7720660260529
+        }
+      }
+    },
+    {
+      "condition": "unlimited",
+      "slots": 3,
+      "source": "artifacts/topology-profile-live/wan-20261020t024540/profile-unlimited.json",
+      "source_digest": "45c38655e8f1f11efd9834d7f68b3a83d93c35d9166713a9be2d1364a1574c21",
+      "plans": {
+        "server-only": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322,
+          "profile_sha256": "defae64d2de1b630e3b9954fdf868a49f7d8dc0a17eb698f791eb8c10fa0addb",
+          "decision_ms": 0.0382839934900403
+        },
+        "greedy": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322,
+          "profile_sha256": "defae64d2de1b630e3b9954fdf868a49f7d8dc0a17eb698f791eb8c10fa0addb",
+          "decision_ms": 0.15184500080067664
+        },
+        "heft": {
+          "status": "ok",
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322,
+          "profile_sha256": "defae64d2de1b630e3b9954fdf868a49f7d8dc0a17eb698f791eb8c10fa0addb",
+          "decision_ms": 0.14734899741597474
+        },
+        "ours": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322,
+          "profile_sha256": "defae64d2de1b630e3b9954fdf868a49f7d8dc0a17eb698f791eb8c10fa0addb",
+          "decision_ms": 0.1393409911543131
+        },
+        "no-network": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322,
+          "profile_sha256": "defae64d2de1b630e3b9954fdf868a49f7d8dc0a17eb698f791eb8c10fa0addb",
+          "decision_ms": 0.13051400310359895
+        },
+        "no-node-profile": {
+          "status": "ok",
+          "placement": {
+            "vision": "etri-dev0003-raspi5",
+            "speech": "etri-dev0002-raspi5",
+            "fusion": "etri-dev0003-raspi5"
+          },
+          "predicted_e2e_proxy_ms": 2096.0441143251956,
+          "profile_sha256": "defae64d2de1b630e3b9954fdf868a49f7d8dc0a17eb698f791eb8c10fa0addb",
+          "decision_ms": 0.16420800238847733
+        }
+      },
+      "simple_alternatives": {
+        "speech-first-greedy": {
+          "placement": {
+            "speech": "etri-ser0002-cgnmsb",
+            "vision": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322
+        },
+        "greedy-one-pair-swap": {
+          "placement": {
+            "vision": "etri-ser0002-cgnmsb",
+            "speech": "etri-ser0002-cgnmsb",
+            "fusion": "etri-ser0002-cgnmsb"
+          },
+          "predicted_e2e_proxy_ms": 246.1247105966322
+        }
+      }
+    }
+  ]
+}
