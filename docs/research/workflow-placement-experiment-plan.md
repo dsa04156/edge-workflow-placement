@@ -1,3 +1,5 @@
+> **2026-10-20 22시대 설계 변경:** 현재 실험 기준은 [다중 엣지 재설계](../experiments/edge-continuum-redesign-20261020.md)다. 아래 내용은 이전 계획/이력으로 보존한다. Pi2대 중심 본 실험, 임의 서버2슬롯, DRL/Koordinator/동적 재배치 필수 비교는 현재 범위에서 대체됐다.
+
 # 동적 워크플로 배치: 첫 비교 실험 계획
 
 ## Material Passport
