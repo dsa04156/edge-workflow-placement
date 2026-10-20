@@ -1,0 +1,218 @@
+diff --git a/experiments/real-topology-live/probe_control_receipts.py b/experiments/real-topology-live/probe_control_receipts.py
+index 1076d96..b5cd201 100644
+--- a/experiments/real-topology-live/probe_control_receipts.py
++++ b/experiments/real-topology-live/probe_control_receipts.py
+@@ -1,6 +1,18 @@
+ """Owned-Pod route recovery diagnostic; no AI performance observations."""
+ import json
+ from run_budget_placement import BudgetPilot
++from run_smoke import NS
++
++
++def worker_probe(session, cycle, blocked):
++    key='source-e1'
++    uid=session.actual[key]['metadata']['uid']
++    url=session.urls['source-c']+'/health'
++    code="import os,json,urllib.request;assert os.environ['POD_UID']=="+repr(uid)+";op=urllib.request.build_opener(urllib.request.ProxyHandler({}));\ntry:\n r=op.open("+repr(url)+",timeout=2);print(json.dumps({'blocked':False,'health':json.loads(r.read())}))\nexcept Exception as e:print(json.dumps({'blocked':True,'error':repr(e)}))"
++    result=json.loads(session.call(f'worker-proof-{cycle}-{blocked}',
++        ['exec','-n',NS,session.run+'-'+key,'-c','worker','--','python3','-u','-c',code],timeout=10))
++    assert result['blocked']==blocked
++    if not blocked:assert result['health']['status']=='ready'
+ 
+ 
+ def replay(session, stem):
+@@ -24,16 +36,18 @@ def main():
+         session.deploy()
+         for cycle in range(3):
+             session.guard(True)
++            worker_probe(session,cycle,True)
+             if cycle == 0:
+                 replay(session, 'guard-True-source-e0')
+                 replay(session, 'guard-True-source-e1')
+             session.guard(False)
++            worker_probe(session,cycle,False)
+             if cycle == 0:
+                 replay(session, 'guard-False-source-e0')
+                 replay(session, 'guard-False-source-e1')
+         session.shape(None, 0, 'diagnostic-restored')
+         session.save('control-diagnostic.json', dict(status='passed', cycles=3,
+-            completed_receipt_replays=4, restored_connectivity=True))
++            completed_receipt_replays=4, worker_same_pod_proofs=6, restored_connectivity=True))
+     finally:
+         session.close()
+ 
+diff --git a/experiments/real-topology-live/report_budget.py b/experiments/real-topology-live/report_budget.py
+index 4c75740..75b38f2 100644
+--- a/experiments/real-topology-live/report_budget.py
++++ b/experiments/real-topology-live/report_budget.py
+@@ -17,7 +17,8 @@ def report(run,out):
+     if origin:
+         from datetime import datetime
+         age=(datetime.fromisoformat(origin['reused_at'])-datetime.fromisoformat(origin['calibration_finished_at'])).total_seconds()/60
+-        lines[7:7]=[f"보정 원본은 `{origin['run']}`이며 이 실행은 평가만 재개했다. 마지막 보정 이벤트에서 재개까지 {age:.2f}분 경과했다. 실행 코드7개·bundle·원본 hash를 확인했고 재개 시작 시점의 물리 자원 snapshot으로 계획을 다시 검증했다. 각 Pod의 실제 admission은 Kubernetes가 수행한다. 이전 시도는 평가0건이며, 재개 실행의 새 보정으로 주장하지 않는다.",'']
++        excluded=origin.get('excluded_evaluation_attempts',0)
++        lines[7:7]=[f"보정 원본은 `{origin['run']}`이며 이 실행은 평가를 다시 수행했다. 마지막 보정 이벤트에서 재개까지 {age:.2f}분 경과했다. 실행 코드7개·bundle·원본 hash를 확인했고 재개 시작 시점의 물리 자원 snapshot으로 계획을 다시 검증했다. 각 Pod의 실제 admission은 Kubernetes가 수행한다. 이전 시도의 평가{excluded}건은 별도 보존하고 이번 결과에 합치지 않았다. 재개 실행의 새 보정으로 주장하지 않는다.",'']
+     policy_names=('greedy','heft','ours','greedy-swap')
+     effects=[]
+     for condition,policies in sorted(summary['mapping'].items()):
+diff --git a/experiments/real-topology-live/run_budget_placement.py b/experiments/real-topology-live/run_budget_placement.py
+index a532521..6b82258 100644
+--- a/experiments/real-topology-live/run_budget_placement.py
++++ b/experiments/real-topology-live/run_budget_placement.py
+@@ -16,7 +16,7 @@ from budget_placement import with_server_budget, validate_placement, simple_alte
+ POLICIES=('greedy','heft','ours','greedy-swap')
+ 
+ class BudgetPilot(Pilot):
+-    def __init__(self,calibration_run=None):
++    def __init__(self,calibration_run=None,reuse_observed_calibration=False):
+         self.calibration_run=calibration_run
+         super().__init__(HERE.parents[1]/'.scratch/greedy-joint-budget/spec.md')
+         calibration=[p for p in self.pairs if p['split']=='calibration']
+@@ -28,7 +28,8 @@ class BudgetPilot(Pilot):
+             names=['http_runtime.py','edge_client.py','model_adapter.py','bootstrap.py','load_trace.py','net_control.py','wan_gateway.py']
+             if any(hashlib.sha256((HERE/n).read_bytes()).hexdigest()!=frozen[n] for n in names):raise ValueError('Runtime changed: fresh calibration required')
+             if not (calibration_run/'plans-frozen.json').is_file():raise ValueError('Complete frozen calibration required')
+-            if any(list(calibration_run.glob(pattern)) for pattern in ['eval-*.rows.json','eval-*.events.jsonl','eval-*.config.json','*-start-eval-*.event.json']):raise ValueError('Resume only an attempt with no evaluation observations')
++            excluded=sorted(set(p for pattern in ['eval-*.rows.json','eval-*.events.jsonl','eval-*.config.json','*-start-eval-*.event.json'] for p in calibration_run.glob(pattern)))
++            if excluded and not reuse_observed_calibration:raise ValueError('Explicit observed-calibration reuse flag required; prior evaluations remain excluded')
+             helper_manifest=json.loads((calibration_run/'helpers.manifest.json').read_text())
+             bundle_text=next(x['data']['bundles.json'] for x in helper_manifest['items'] if x['kind']=='ConfigMap')
+             if bundle_text!=(ASSETS/'load-bundles.json').read_text():raise ValueError('Asset bundles changed')
+@@ -39,7 +40,9 @@ class BudgetPilot(Pilot):
+             self.save('calibration-origin.json',dict(run=str(calibration_run),reused_at=datetime.now(timezone.utc).isoformat(),calibration_finished_at=max(times),
+                 source_files={n:hashlib.sha256((calibration_run/n).read_bytes()).hexdigest() for n in source_names},runtime_sha256={n:frozen[n] for n in names},
+                 copied={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
+-                scope='reused complete calibration from interrupted attempt; no prior evaluation observations'))
++                excluded_evaluation_files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in excluded},
++                excluded_evaluation_attempts=sum(len(json.loads(p.read_text())) for p in excluded if p.name.endswith('.rows.json') and '-warm.' not in p.name),
++                scope='reused frozen calibration; previous evaluation observations, if any, excluded; all planned groups rerun'))
+ 
+     def qualify_all(self):
+         if self.calibration_run is None:return super().qualify_all()
+@@ -63,19 +66,21 @@ class BudgetPilot(Pilot):
+ 
+     def execute(self,key,code,stem='operation',timeout=60,container='worker',stdin=None):
+         readonly=container=='worker' and stdin is None and stem.startswith(('bypass-','restore-','relay-'))
+-        for attempt in range(3):
+-            tag=stem if attempt==0 else stem+'-retry-'+str(attempt)
++        for attempt in range(4 if readonly else 1):
++            tag=stem if attempt==0 else stem+'-retry-'+(str(attempt) if attempt<3 else '3-worker')
+             try:
+                 if readonly:
+-                    probe=code.replace("sys.path.insert(0,'/config')", "sys.path.insert(0,'/work/net-config')")
++                    target_container='netctl' if attempt<3 else 'worker'
++                    config_root='/work/net-config' if attempt<3 else '/work/config'
++                    probe=code.replace("sys.path.insert(0,'/config')", "sys.path.insert(0,"+repr(config_root)+")")
+                     probe="import os;assert os.environ['POD_UID']=="+repr(self.actual[key]['metadata']['uid'])+";"+probe
+-                    return self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c','netctl','--','python3','-u','-c',probe],timeout=timeout)
++                    return self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c',target_container,'--','python3','-u','-c',probe],timeout=timeout)
+                 return super().execute(key,code,tag,timeout,container,stdin)
+             except RuntimeError:
+                 if not readonly:raise
+                 stderr=(self.out/f'{self.counter:03d}-{tag}.stderr').read_text()
+                 transport_eof='error sending request:' in stderr and 'unexpected EOF' in stderr
+-                if not transport_eof or attempt==2:raise
++                if not transport_eof or attempt==3:raise
+                 time.sleep(1)
+ 
+     def net(self,key,spec,stem):
+@@ -111,8 +116,10 @@ class BudgetPilot(Pilot):
+ 
+ 
+ def main():
+-    parser=argparse.ArgumentParser();parser.add_argument('--calibration-run',type=Path);args=parser.parse_args()
+-    session=BudgetPilot(args.calibration_run)
++    parser=argparse.ArgumentParser();parser.add_argument('--calibration-run',type=Path)
++    parser.add_argument('--reuse-observed-calibration',action='store_true')
++    args=parser.parse_args()
++    session=BudgetPilot(args.calibration_run,args.reuse_observed_calibration)
+     session.save('design.json',dict(comparison='server-admission-budget-v1',server_slots=2,blocks=2,
+         seed=20261022,policies=POLICIES,warmup=2,evaluation_count=6,rate_rps=.1,
+         evaluation_ids=[p['question_id'] for p in session.pairs if p['split']=='evaluation'][:6],
+diff --git a/experiments/real-topology-live/test_budget_placement.py b/experiments/real-topology-live/test_budget_placement.py
+index 32978f1..d78c9cc 100644
+--- a/experiments/real-topology-live/test_budget_placement.py
++++ b/experiments/real-topology-live/test_budget_placement.py
+@@ -10,6 +10,25 @@ from placement_policies import select_policies
+ from budget_placement import with_server_budget, validate_placement
+ 
+ class BudgetTests(unittest.TestCase):
++    def test_read_only_probe_can_use_same_pod_worker_after_three_netctl_eofs(self):
++        with tempfile.TemporaryDirectory() as temp:
++            pilot=BudgetPilot.__new__(BudgetPilot);pilot.run='fixture';pilot.out=Path(temp);pilot.counter=0
++            pilot.actual={'source-e1':{'metadata':{'uid':'fixture-uid'}}}
++            attempts=[]
++            def external_command(command,**kwargs):
++                attempts.append(command)
++                if command[command.index('-c')+1]=='netctl':
++                    kwargs['stderr'].write(b'error sending request: unexpected EOF\n')
++                    return subprocess.CompletedProcess(command,1)
++                self.assertIn("os.environ['POD_UID']=='fixture-uid'",command[-1])
++                self.assertIn('/work/config',command[-1])
++                kwargs['stdout'].write(b'{"status":"ready"}\n')
++                return subprocess.CompletedProcess(command,0)
++            with patch('subprocess.run',side_effect=external_command),patch('time.sleep'):
++                result=pilot.execute('source-e1',"import sys;sys.path.insert(0,'/config');print('probe')",'restore-source-e1')
++            self.assertIn('ready',result)
++            self.assertEqual(len(attempts),4)
++
+     def test_two_slots_preserve_measured_costs_and_reserve_join_with_joint_plan(self):
+         original=fixture()
+         for n in original['nodes'].values():n.update(cpu_free_m=9000,memory_free_mib=16000)
+diff --git a/experiments/real-topology-live/verify_placement.py b/experiments/real-topology-live/verify_placement.py
+index e84a198..b2aa8cb 100644
+--- a/experiments/real-topology-live/verify_placement.py
++++ b/experiments/real-topology-live/verify_placement.py
+@@ -67,7 +67,10 @@ def verify(run):
+             for name,digest in origin['source_files'].items():check(hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,'frozen calibration source '+name)
+             current_source=read(run/'git-source.json')['files']
+             check(all(current_source[n]==v for n,v in origin['runtime_sha256'].items()),'unchanged runtime for calibration reuse')
+-            check(not any(list(source.glob(pattern)) for pattern in ['eval-*.rows.json','eval-*.events.jsonl','eval-*.config.json','*-start-eval-*.event.json']),'no pooled previous evaluation')
++            previous=sorted(set(p for pattern in ['eval-*.rows.json','eval-*.events.jsonl','eval-*.config.json','*-start-eval-*.event.json'] for p in source.glob(pattern)))
++            excluded={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in previous}
++            check(excluded==origin.get('excluded_evaluation_files',{}),'excluded previous evaluation evidence accounted for')
++            check(sum(len(read(p)) for p in previous if p.name.endswith('.rows.json') and '-warm.' not in p.name)==origin.get('excluded_evaluation_attempts',0),'excluded evaluation count')
+             old_design=read(source/'design.json')
+             for key in ['seed','policies','evaluation_ids','server_slots','blocks','warmup','evaluation_count','rate_rps']:check(design[key]==old_design[key],'unchanged resumed design '+key)
+             check(read(run/'active-conditions.json')['active']==read(source/'active-conditions.json')['active'],'unchanged resumed conditions')
+@@ -140,6 +143,7 @@ def verify(run):
+         check(sorted(r['index'] for r in rows)==list(range(len(config['question_ids']))),name+': terminal ledger')
+         check(len(rows)==(2 if warm else 6),name+': requested pilot size')
+         for row in rows:
++            if row['status']=='ok':check(row['run_id']==config['run_id'] and config['run_id']==read(run/'helpers.manifest.json')['items'][0]['metadata']['name'],name+': fresh evaluation run identity')
+             check(row['question_id']==config['question_ids'][row['index']],name+': input trace')
+             check(pairs[row['question_id']]['split']==('calibration' if warm else 'evaluation'),name+': heldout split')
+             if row['status']!='ok':continue
+@@ -200,7 +204,7 @@ def verify(run):
+         for capture in sorted(captures,key=lambda p:int(p.name.split('-')[0])):
+             event=read(capture.with_suffix('.event.json'))
+             stem=capture.stem.split('-',1)[1]
+-            base=re.sub(r'-retry-[12]$','',stem)
++            base=re.sub(r'-retry-(?:[12]|3-worker)$','',stem)
+             histories.setdefault(base,[]).append(event.get('returncode'))
+             if event.get('returncode')==0:
+                 successful.append(capture)
+@@ -210,14 +214,20 @@ def verify(run):
+                 check(budget_mode and 'error sending request:' in stderr and 'unexpected EOF' in stderr,prefix+': only preserved control EOF may retry')
+         check(len(successful)==expected_probes,prefix+': full calibration/deployment coverage')
+         # Repeated deployments reuse stems; each failed attempt must eventually
+-        # be followed by a success, with no more than two consecutive retries.
++        # be followed by a success; the fourth attempt may use same-Pod worker.
++        # verify_control_receipts additionally anchors argv/UID and ordinals.
+         for stem,codes in histories.items():
+             failures=0
+             for code in codes:
+                 failures=0 if code==0 else failures+1
+-                check(failures<=2,prefix+': bounded retries '+stem)
++                check(failures<=3,prefix+': bounded retries '+stem)
+             check(failures==0,prefix+': terminal successful proof '+stem)
+-    result=dict(status='passed' if not errors else 'needs_review',errors=errors,phases=phases,
++    control_audit=None
++    if budget_mode and (run/'collector-source/control_receipt.py').exists():
++        from verify_control_receipts import verify as verify_controls
++        try:control_audit=verify_controls(run)
++        except (AssertionError,ValueError,KeyError) as error:check(False,'control recovery: '+str(error))
++    result=dict(status='passed' if not errors else 'needs_review',errors=errors,phases=phases,control_audit=control_audit,
+         evaluation_attempts=sum(p['attempts'] for p in phases if not p['warmup']),
+         evaluation_successes=sum(p['successes'] for p in phases if not p['warmup']),
+         successes_including_warmup=successes,receipts=receipts_count,max_score_abs_error=max_error,

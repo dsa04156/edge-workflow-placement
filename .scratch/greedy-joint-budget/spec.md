@@ -36,3 +36,29 @@ kernel snapshot, bypass, relay, direct-restore and drain gates remain required.
 The receipt guarantees tested here concern process/transport failures, not
 machine power loss or filesystem corruption. New local and live diagnostic
 evidence is separate from AI performance observations.
+
+## Read-only container fallback and calibration reuse amendment
+**Candidate not activated:** live085217 failed before completing the diagnostic.
+The following candidate was archived as a patch and removed from the default
+collector. Current collector remains45fce51; no calibration-reuse rerun occurred.
+
+The fresh run `wan-20261020t082011` qualified585/585 and completed the first
+block's24 evaluations before restore-sink-e1 encountered three consecutive
+netctl exec EOFs. Cleanup was0/errors[]. Preserve this whole run, including
+unverified final restore; do not merge its evaluations into a completed rerun.
+
+For read-only bypass/relay/restore probes only, after the existing three netctl
+attempts, allow one worker-container attempt in the same actual Pod with UID
+assertion and frozen worker config. Four total attempts, no retry of application
+errors, no inference or network-mutation fallback. Both containers share the
+Pod network namespace. Add local failure injection and live worker guard/restore
+proof before the rerun. This is an alternate control entrypoint, not an EOF
+root-cause fix.
+
+Because AI runtime and all7 frozen runtime hashes remain unchanged, the new
+rerun may explicitly reuse082011's full frozen calibration despite its partial
+evaluation. Record excluded prior evaluation files/hashes/count and calibration
+age; revalidate current capacity. Rerun all8 groups in both original blocks,
+unchanged plans/seed/inputs, and require every successful evaluation run_id to
+match the new run. This is calibration reuse, not new qualification or fresh
+calibration. Do not relabel previous observations as new.

@@ -1,5 +1,5 @@
 # Complete the static server-budget comparison
-Status: ready-for-agent
+Status: ready-for-human
 
 User authorized proceeding with the static comparison on 2026-10-20.
 Review base: 992b85e. Preserve all prior partial observations.
@@ -28,3 +28,8 @@ checked by the existing guard/restore/drain gates.
 
 Semantica discovery failed (unsupported tool call); durable outcomes go in the
 experiment documentation and this issue until the service is available.
+
+Outcome: first block24/24 and fresh qualification585/585 verified, but readonly
+restore exec failed3times; later control diagnostic also failed3times.
+Secondblock and final restore incomplete. Unvalidated fallback candidate removed
+from default code; owned resources0. See docs/experiments/budget-completion-attempt.md.
