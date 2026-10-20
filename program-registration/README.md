@@ -1,23 +1,16 @@
-# EdgeFlow Plan 1.0
+# EdgeFlow 프로그램 등록 준비본
 
-**이종 엣지 AI 워크플로 배치 계획·비교 프로그램**
+- [복사해서 입력할 의뢰서](submission/프로그램등록의뢰서_최종.md)
+- [일반 텍스트](submission/등록입력문구.txt)
+- [최신 전체 소스 ZIP](submission/EdgeFlow_ready_source.zip): 39개 파이썬 파일, 4,195줄, 106,719바이트
+- [상세 실행 안내](ready-source/README.md)
+- [별도 실행 자료](runtime-assets/EdgeFlow_runtime_assets.tar): 모델·입력·기준 출력·설치 패키지, 약 1.05 GB
+- [파일별 행 수와 해시](submission/ready-source-inventory.json)
+- [검증 결과](submission/ready-validation.json)
+- [윈도우 재압축 스크립트](submission/Repack-Ready-On-Windows.ps1)
 
-실측 작업 실행시간과 데이터 전달 비용, 실행 가능 노드와 자원 제약을 입력받아 DAG 전체의 배치를 계획하고 Kubernetes Pod 명세를 생성하는 Python 프로그램이다. 기존 검증 코드를 수정 없이 추출했다. 외부 Python 패키지 설치나 클러스터 연결 없이 제공 예제로 실행할 수 있다.
+소스 ZIP과 실행 자료를 함께 사용한다. 실행 자료는 등록 소스 첨부란이나 공개 Git에 올리지 않는다. 클러스터 접근 설정과 접근 가능한 컨테이너 이미지는 실행 환경에 맞게 준비한다.
 
-```bash
-cd program-registration
-python3 src/prepare.py --config examples/measured-compressed-2.json --policy topology_profile --run-id edgeflow-demo --out output-plan
-python3 src/analyze.py examples/observed-attempts.jsonl --out output-comparison.json
-python3 -m unittest discover -s src -p 'test_*.py'
-```
+실제 모델을 사용한 로컬 입력 두 건·실행 기록 여섯 건을 검증하고 정상 종료를 확인했다. 클러스터에서는 읽기 전용 사전 검사를 수행했으며 이번 패키징에서 전체 성능 비교를 새로 실행하지 않았다.
 
-`output-plan/`에 동결 입력 `profile-frozen.json`, 배치 `plan.json`, Pod 명세 `pods.json`이 생성된다. 기존 출력은 덮어쓰지 않는다. 다시 실행할 때 새 출력 이름을 지정한다. Pod 명세 생성까지가 이 패키지의 기능이며, 실제 모델 서비스·데이터 전달·배포는 별도 실행기가 필요하다.
-
-완주 실험의 2Mbps 조건에서 서버 집중1271.25ms 대비 선택 배치917.44ms로 평균 지연27.83% 감소를 관측했다. 각6건의 단일 블록 비교다. greedy·HEFT도 같은 배치를 선택했으므로 정확 열거만의 우월성을 뜻하지 않는다. 자세한 전체 조건과 제한은 [성능 근거](docs/성능검증.md)에 기록했다.
-
-- [등록 설명 초안](docs/프로그램등록설명서.md)
-- [사용설명서](docs/사용설명서.md)
-- [소스 출처 및 구성](docs/소스구성.md)
-- [검증 결과](verification/validation.json)
-
-이 폴더는 등록 준비용 소스·설명자료 묶음이다. 등록 접수나 등록 완료를 의미하지 않는다. 저작자·권리자·실제 창작일·공표일은 임의로 정하지 않았다.
+이전 `EdgeFlowPlan_source.zip`과 `EdgeFlow_full_source.zip`은 과거 준비본으로 보존한다. 최신 제출 준비본은 `EdgeFlow_ready_source.zip`이다. 현재 ZIP은 리눅스에서 생성했다. 신청 화면의 윈도우 생성 조건에 따라 재압축하고 최종 바이트 크기를 의뢰서에 입력한다.
