@@ -1,0 +1,116 @@
+{
+  "provenance": "synthetic-interface-fixture",
+  "evidence_id": "fixture-not-experimental-evidence",
+  "namespace": "topology-profile-lab",
+  "nodes": {
+    "edge-a": {
+      "cpu_free_m": 4000,
+      "memory_free_mib": 8192
+    },
+    "edge-b": {
+      "cpu_free_m": 4000,
+      "memory_free_mib": 8192
+    },
+    "cloud-c": {
+      "cpu_free_m": 4000,
+      "memory_free_mib": 8192
+    }
+  },
+  "tasks": [
+    {
+      "id": "vision",
+      "candidates": [
+        "edge-a",
+        "edge-b",
+        "cloud-c"
+      ],
+      "image": "example.invalid/research/vision:replace-me",
+      "cpu_m": 1000,
+      "memory_mib": 1024,
+      "compute_ms": {
+        "edge-a": 80,
+        "edge-b": 30,
+        "cloud-c": 10
+      },
+      "inputs": [
+        {
+          "source_node": "edge-a",
+          "bytes": 800000,
+          "transfer_ms": {
+            "edge-a|edge-a": 0.2,
+            "edge-a|edge-b": 650.0,
+            "edge-a|cloud-c": 650.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "speech",
+      "candidates": [
+        "edge-a",
+        "edge-b",
+        "cloud-c"
+      ],
+      "image": "example.invalid/research/speech:replace-me",
+      "cpu_m": 1000,
+      "memory_mib": 1024,
+      "compute_ms": {
+        "edge-a": 200,
+        "edge-b": 70,
+        "cloud-c": 20
+      },
+      "inputs": [
+        {
+          "source_node": "edge-b",
+          "bytes": 100000,
+          "transfer_ms": {
+            "edge-b|edge-a": 90.0,
+            "edge-b|edge-b": 0.2,
+            "edge-b|cloud-c": 90.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "fusion",
+      "candidates": [
+        "cloud-c"
+      ],
+      "image": "example.invalid/research/fusion:replace-me",
+      "cpu_m": 1000,
+      "memory_mib": 1024,
+      "compute_ms": {
+        "cloud-c": 5
+      },
+      "inputs": [
+        {
+          "task": "vision",
+          "bytes": 2048,
+          "transfer_ms": {
+            "edge-a|cloud-c": 11.6384,
+            "edge-b|cloud-c": 11.6384,
+            "cloud-c|cloud-c": 0.2
+          }
+        },
+        {
+          "task": "speech",
+          "bytes": 100,
+          "transfer_ms": {
+            "edge-a|cloud-c": 10.08,
+            "edge-b|cloud-c": 10.08,
+            "cloud-c|cloud-c": 0.2
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "task": "fusion",
+      "destination_node": "edge-a",
+      "transfer_ms": {
+        "cloud-c|edge-a": 10.8192
+      }
+    }
+  ]
+}
