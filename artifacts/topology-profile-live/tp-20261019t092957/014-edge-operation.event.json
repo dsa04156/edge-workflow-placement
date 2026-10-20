@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-19T09:31:22.556377+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "tp-20261019t092957-source-e0",
+    "--",
+    "python3",
+    "-c",
+    "import sys,json;sys.path.insert(0,\"/config\");from http_runtime import request;print(json.dumps(request('http://10.244.8.55:8080/health',{})))"
+  ],
+  "timeout_s": 120,
+  "status": "completed",
+  "returncode": 0,
+  "finished_at": "2026-10-19T09:31:23.021111+00:00"
+}

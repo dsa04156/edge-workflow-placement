@@ -1,0 +1,573 @@
+{
+  "utc": "2026-10-19T10:30:23.529563+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "get",
+    "pods",
+    "-A",
+    "-o",
+    "json"
+  ],
+  "rows": [
+    {
+      "name": "edgeai-rtsp-3cc2c7b093d5ea1a-5669dc4886-g8m8f",
+      "namespace": "edgeai-devices",
+      "node": "etri-dev0002-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-16T02:34:37Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-16T02:34:30Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:53Z",
+          "message": "containers with unready status: [mapper]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:53Z",
+          "message": "containers with unready status: [mapper]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-16T02:34:30Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "mapper",
+          "ready": false,
+          "restartCount": 40,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T06:12:11Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "edgeai-sensehat-b8f860d4e26b0400-787c46cdf-pr2qc",
+      "namespace": "edgeai-devices",
+      "node": "etri-dev0003-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-13T09:59:59Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-13T09:59:57Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:23:34Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:23:34Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-13T09:59:57Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "mapper",
+          "ready": true,
+          "restartCount": 30,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T09:23:31Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "hailo-device-plugin-lmgzr",
+      "namespace": "kube-system",
+      "node": "etri-dev0002-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-08T08:06:21Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-08T08:06:20Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:53Z",
+          "message": "containers with unready status: [device-plugin]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:53Z",
+          "message": "containers with unready status: [device-plugin]",
+          "reason": "ContainersNotReady",
+          "status": "False",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-08T08:06:20Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "device-plugin",
+          "ready": false,
+          "restartCount": 38,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T06:11:47Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "kube-flannel-edge-ds-grmxg",
+      "namespace": "kube-system",
+      "node": "etri-dev0003-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:48:54Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:48:55Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:48:56Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:48:56Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:48:50Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "kube-flannel",
+          "ready": true,
+          "restartCount": 0,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T05:48:55Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "kube-flannel-edge-ds-hsf7b",
+      "namespace": "kube-system",
+      "node": "etri-dev0002-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:49:23Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:49:24Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:49:26Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:49:26Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T05:49:17Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "kube-flannel",
+          "ready": true,
+          "restartCount": 0,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T05:49:25Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "node-gpu-exporter-ccbfp",
+      "namespace": "kube-system",
+      "node": "etri-dev0003-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-14T08:33:00Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-14T08:32:59Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:21:41Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:21:41Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-14T08:32:59Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "exporter",
+          "ready": true,
+          "restartCount": 0,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-14T08:33:00Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "node-gpu-exporter-xb4fv",
+      "namespace": "kube-system",
+      "node": "etri-dev0002-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-14T08:32:19Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-14T08:32:18Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:58Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:58Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-14T08:32:18Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "exporter",
+          "ready": true,
+          "restartCount": 0,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-14T08:32:18Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "node-hardware-inventory-pgxnh",
+      "namespace": "kube-system",
+      "node": "etri-dev0002-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-09-30T10:56:28Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-09-30T10:56:25Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:30:02Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:30:02Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-09-30T10:56:25Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "inventory",
+          "ready": true,
+          "restartCount": 0,
+          "state": {
+            "running": {
+              "startedAt": "2026-09-30T10:56:27Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "node-hardware-inventory-vpfkq",
+      "namespace": "kube-system",
+      "node": "etri-dev0003-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-07T08:28:04Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-09-30T10:55:12Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:21:40Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:21:40Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-09-30T10:55:12Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "inventory",
+          "ready": true,
+          "restartCount": 2,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-07T08:28:03Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "prometheus-prometheus-node-exporter-7hv6k",
+      "namespace": "kube-system",
+      "node": "etri-dev0003-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-07T08:23:39Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-06-04T10:14:04Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:21:43Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T09:21:43Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-06-04T10:14:04Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "node-exporter",
+          "ready": true,
+          "restartCount": 39,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T05:48:49Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "prometheus-prometheus-node-exporter-z89n7",
+      "namespace": "kube-system",
+      "node": "etri-dev0002-raspi5",
+      "phase": "Running",
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-09-30T05:21:31Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-04-20T09:00:31Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:54Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:29:54Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-04-20T09:00:31Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "container_statuses": [
+        {
+          "name": "node-exporter",
+          "ready": true,
+          "restartCount": 46,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T05:48:54Z"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

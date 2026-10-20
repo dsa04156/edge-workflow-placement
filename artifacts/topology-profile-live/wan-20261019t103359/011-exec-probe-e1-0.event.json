@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-19T10:34:07.023910+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t103359-probe-e1",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "print('transport-probe-ok')"
+  ],
+  "timeout_s": 15,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-19T10:34:07.188186+00:00"
+}

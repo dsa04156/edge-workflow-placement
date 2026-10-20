@@ -77,12 +77,13 @@ def manifests(c,policy,run_id,result=None):
             'resources':{'requests':{'cpu':str(t['cpu_m'])+'m','memory':str(t['memory_mib'])+'Mi'}},
             'env':[{'name':'TASK_ID','value':t['id']},{'name':'RUN_ID','value':run_id}]}],
             'affinity':{'nodeAffinity':{'requiredDuringSchedulingIgnoredDuringExecution':{'nodeSelectorTerms':[{'matchFields':[{
-                'key':'metadata.name','operator':'In','values':t['candidates']}]}]}}}}
+                'key':'metadata.name','operator':'In','values':[node]}]} for node in t['candidates']]}}}}
         if t.get('command'): spec['containers'][0]['command']=t['command']
         if t.get('args'): spec['containers'][0]['args']=t['args']
         if policy!='resource':
             # Keep normal scheduler resource admission; require the node selected by planner.
-            spec['affinity']['nodeAffinity']['requiredDuringSchedulingIgnoredDuringExecution']['nodeSelectorTerms'][0]['matchFields'][0]['values']=[result['placement'][t['id']]]
+            spec['affinity']['nodeAffinity']['requiredDuringSchedulingIgnoredDuringExecution']['nodeSelectorTerms']=[{'matchFields':[{
+                'key':'metadata.name','operator':'In','values':[result['placement'][t['id']]]}]}]
         labels={'experiment':'topology-profile','run-id':run_id,'task-id':t['id']}
         docs.append({'apiVersion':'v1','kind':'Pod','metadata':{'name':run_id+'-'+t['id'],'namespace':c['namespace'],'labels':labels},'spec':spec})
     return {'apiVersion':'v1','kind':'List','items':docs}

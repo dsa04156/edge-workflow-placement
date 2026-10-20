@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-19T10:19:03.275116+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t100804-source-e0",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "from pathlib import Path;Path('/work/trace.json').write_text('{\"run_id\": \"wan-20261019t100804\", \"phase\": \"native-mixed\", \"question_ids\": [3506790, 5341940, 787710, 3344170, 2748690, 2196320], \"offsets_s\": [0.0, 10.0, 20.0, 30.0, 40.0, 50.0], \"endpoints\": {\"vision\": \"http://10.244.4.151:8080\", \"speech\": \"http://10.244.8.67:8080\", \"fusion\": \"http://10.244.8.66:8080\", \"vision_fusion\": \"http://10.244.8.66:8080\", \"speech_fusion\": \"http://10.244.8.66:8080\"}, \"remote_source\": \"http://10.244.1.97:8080\", \"representation\": \"raw\", \"deadline_s\": 120, \"max_inflight\": 32, \"placement\": [\"v-edge\", \"s-cloud\"], \"mbps\": null, \"oneway_delay_ms\": 0, \"rate_rps\": 0.1}');import sys,runpy;sys.path.insert(0,'/config');sys.argv=['load_trace.py','--config','/work/trace.json'];runpy.run_path('/config/load_trace.py',run_name='__main__')"
+  ],
+  "timeout_s": 320.0,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-19T10:19:54.591802+00:00"
+}

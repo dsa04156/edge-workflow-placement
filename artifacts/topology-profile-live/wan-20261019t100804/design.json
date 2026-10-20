@@ -1,0 +1,86 @@
+{
+  "scope": "single deployment shared-WAN placement/load diagnostic; not six-policy benchmark",
+  "baseline_commit": "46fd850",
+  "placements": {
+    "cloud": [
+      "v-cloud",
+      "s-cloud"
+    ],
+    "edge": [
+      "v-edge",
+      "s-edge"
+    ],
+    "mixed": [
+      "v-edge",
+      "s-cloud"
+    ]
+  },
+  "low_rate_rps": 0.1,
+  "low_count": 6,
+  "load_rates": [
+    0.5,
+    1
+  ],
+  "load_count": 40,
+  "deadline_s": 120,
+  "serving": "one FIFO per operator Pod, not node-wide FIFO",
+  "qdisc": "aggregate per direction, netem64 packet queue,4096B TBF burst",
+  "low_order": [
+    [
+      2,
+      20,
+      "mixed"
+    ],
+    [
+      100,
+      20,
+      "cloud"
+    ],
+    [
+      2,
+      20,
+      "cloud"
+    ],
+    [
+      100,
+      20,
+      "mixed"
+    ],
+    [
+      10,
+      20,
+      "edge"
+    ],
+    [
+      10,
+      20,
+      "cloud"
+    ],
+    [
+      2,
+      20,
+      "edge"
+    ],
+    [
+      100,
+      20,
+      "edge"
+    ],
+    [
+      10,
+      20,
+      "mixed"
+    ]
+  ],
+  "seed": 20261019,
+  "calibration_inputs": 20,
+  "evaluation_inputs": 40,
+  "replay": "offline decoded fixture, input-ready clock, actual edge Pod emission",
+  "quality": {
+    "feature_rtol": 0.0001,
+    "feature_atol": 1e-05,
+    "transcript": "exact",
+    "answer_id": "exact",
+    "score_atol": 0.0001
+  }
+}

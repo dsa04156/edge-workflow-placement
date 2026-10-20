@@ -1,0 +1,256 @@
+{
+  "scope": "Archived code/observed-data reanalysis only; no new performance or network experiment",
+  "payloads": {
+    "calibration20": {
+      "n": 20,
+      "jpeg_bytes": 165243.15,
+      "flac_bytes": 35057.65,
+      "decoded_uint8_image_bytes": 846723,
+      "decoded_float32_audio_bytes": 112597.8,
+      "decoded_to_file_image_ratio": 5.124103480235036,
+      "decoded_to_file_audio_ratio": 3.211789723498295,
+      "decoded_binary_input_Mbit_per_request": 7.674566400000001,
+      "compressed_base64_body_Mbit_per_request": 2.1365418666666667,
+      "boundary": "Payload approximation excludes binary headers/HTTP/ACK; not measured NIC throughput"
+    },
+    "evaluation40": {
+      "n": 40,
+      "jpeg_bytes": 181636.025,
+      "flac_bytes": 33306.2,
+      "decoded_uint8_image_bytes": 821505,
+      "decoded_float32_audio_bytes": 108209.6,
+      "decoded_to_file_image_ratio": 4.522808732463728,
+      "decoded_to_file_audio_ratio": 3.2489326311617663,
+      "decoded_binary_input_Mbit_per_request": 7.4377168,
+      "compressed_base64_body_Mbit_per_request": 2.2927170666666665,
+      "boundary": "Payload approximation excludes binary headers/HTTP/ACK; not measured NIC throughput"
+    },
+    "smoke_evaluation5": {
+      "n": 5,
+      "jpeg_bytes": 155452.2,
+      "flac_bytes": 30966.2,
+      "decoded_uint8_image_bytes": 741120,
+      "decoded_float32_audio_bytes": 98637.6,
+      "decoded_to_file_image_ratio": 4.767510527351816,
+      "decoded_to_file_audio_ratio": 3.185331102944501,
+      "decoded_binary_input_Mbit_per_request": 6.7180608,
+      "compressed_base64_body_Mbit_per_request": 1.9884629333333337,
+      "boundary": "Payload approximation excludes binary headers/HTTP/ACK; not measured NIC throughput"
+    }
+  },
+  "observed_smoke": {
+    "tp-20261019t092957": {
+      "n": 10,
+      "mean_e2e_ms": 1237.6888719853014,
+      "stages": {
+        "vision": {
+          "compute_mean_ms": 586.1462098662741,
+          "queue_mean_ms": 0.0023298081941902637,
+          "output_mean_bytes": 2176
+        },
+        "speech": {
+          "compute_mean_ms": 1191.389600862749,
+          "queue_mean_ms": 0.004150019958615303,
+          "output_mean_bytes": 28.4
+        },
+        "fusion": {
+          "compute_mean_ms": 25.00960339948506,
+          "queue_mean_ms": 0.0018457003534422256,
+          "output_mean_bytes": 205.8
+        }
+      },
+      "noncompute_critical_residual_mean_ms": 21.28367200275534,
+      "residual_boundary": "Executor/transfer/control/branch overlap residual, never pure network time",
+      "independent_environment_replicates": 1
+    },
+    "tp-20261019t093419": {
+      "n": 10,
+      "mean_e2e_ms": 723.4276122879237,
+      "stages": {
+        "vision": {
+          "compute_mean_ms": 137.2286310999698,
+          "queue_mean_ms": 0.0016932999642449431,
+          "output_mean_bytes": 2176
+        },
+        "speech": {
+          "compute_mean_ms": 680.9356730995205,
+          "queue_mean_ms": 0.0030698000045958906,
+          "output_mean_bytes": 28.4
+        },
+        "fusion": {
+          "compute_mean_ms": 25.084665400027006,
+          "queue_mean_ms": 0.002105600287904963,
+          "output_mean_bytes": 205.6
+        }
+      },
+      "noncompute_critical_residual_mean_ms": 17.402098388083687,
+      "residual_boundary": "Executor/transfer/control/branch overlap residual, never pure network time",
+      "independent_environment_replicates": 1
+    }
+  },
+  "indicative_thresholds": [
+    {
+      "task": "vision",
+      "representation": "compressed_base64",
+      "indicative_break_even_Mbps": 3.641973962851757,
+      "observed_compute_gain_ms": 448.91757876630436,
+      "caveat": "Single-task no-queue approximation from sequential smoke. Raw moves decoding boundary, so fresh calibration required. Not DAG optimum."
+    },
+    {
+      "task": "vision",
+      "representation": "decoded_binary",
+      "indicative_break_even_Mbps": 13.168457373056919,
+      "observed_compute_gain_ms": 448.91757876630436,
+      "caveat": "Single-task no-queue approximation from sequential smoke. Raw moves decoding boundary, so fresh calibration required. Not DAG optimum."
+    },
+    {
+      "task": "speech",
+      "representation": "compressed_base64",
+      "indicative_break_even_Mbps": 0.6464896870243505,
+      "observed_compute_gain_ms": 510.4539277632284,
+      "caveat": "Single-task no-queue approximation from sequential smoke. Raw moves decoding boundary, so fresh calibration required. Not DAG optimum."
+    },
+    {
+      "task": "speech",
+      "representation": "decoded_binary",
+      "indicative_break_even_Mbps": 1.5454354587039545,
+      "observed_compute_gain_ms": 510.4539277632284,
+      "caveat": "Single-task no-queue approximation from sequential smoke. Raw moves decoding boundary, so fresh calibration required. Not DAG optimum."
+    }
+  ],
+  "simulation_ablation": [
+    {
+      "name": "reference",
+      "improvement_pct": "33.45593930983683",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "33.45593930983683",
+      "mandatory_cloud_load_lower_bound": "0.8447462447365952"
+    },
+    {
+      "name": "light_cloud",
+      "improvement_pct": "1.812596936518837",
+      "links_improvement_pct": "-0.06761111118107731",
+      "queue_improvement_pct": "1.8659620251082147",
+      "mandatory_cloud_load_lower_bound": "0.4333949248947319"
+    },
+    {
+      "name": "steady",
+      "improvement_pct": "0.023051167710171183",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "0.023051167710171183",
+      "mandatory_cloud_load_lower_bound": "0.5197462447365951"
+    },
+    {
+      "name": "burst",
+      "improvement_pct": "21.748204367892075",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "21.748204367892075",
+      "mandatory_cloud_load_lower_bound": "0.8447462447365952"
+    },
+    {
+      "name": "steady_burst",
+      "improvement_pct": "1.1131097757100394",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "1.1131097757100394",
+      "mandatory_cloud_load_lower_bound": "0.5197462447365951"
+    },
+    {
+      "name": "slow_wan",
+      "improvement_pct": "0.0",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "0.0",
+      "mandatory_cloud_load_lower_bound": "0.8447462447365952"
+    },
+    {
+      "name": "high_rtt",
+      "improvement_pct": "31.531364403450425",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "31.531364403450425",
+      "mandatory_cloud_load_lower_bound": "0.8447462447365952"
+    },
+    {
+      "name": "overload",
+      "improvement_pct": "22.757909004861475",
+      "links_improvement_pct": "-0.02244350444638295",
+      "queue_improvement_pct": "22.754637617910564",
+      "mandatory_cloud_load_lower_bound": "1.2644924894731904"
+    },
+    {
+      "name": "split_cloud",
+      "improvement_pct": "0.0",
+      "links_improvement_pct": "0.0",
+      "queue_improvement_pct": "0.0",
+      "mandatory_cloud_load_lower_bound": "0.8447462447365952"
+    }
+  ],
+  "offered_load": [
+    {
+      "nominal_WAN_Mbps": 100,
+      "arrival_rate_rps": 0.1,
+      "all_cloud_input_only_offered_load": 0.007437716800000001,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 100,
+      "arrival_rate_rps": 0.5,
+      "all_cloud_input_only_offered_load": 0.037188584,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 100,
+      "arrival_rate_rps": 1,
+      "all_cloud_input_only_offered_load": 0.074377168,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 10,
+      "arrival_rate_rps": 0.1,
+      "all_cloud_input_only_offered_load": 0.07437716800000001,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 10,
+      "arrival_rate_rps": 0.5,
+      "all_cloud_input_only_offered_load": 0.37188583999999997,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 10,
+      "arrival_rate_rps": 1,
+      "all_cloud_input_only_offered_load": 0.7437716799999999,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 2,
+      "arrival_rate_rps": 0.1,
+      "all_cloud_input_only_offered_load": 0.37188584,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 2,
+      "arrival_rate_rps": 0.5,
+      "all_cloud_input_only_offered_load": 1.8594292,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    },
+    {
+      "nominal_WAN_Mbps": 2,
+      "arrival_rate_rps": 1,
+      "all_cloud_input_only_offered_load": 3.7188584,
+      "caveat": "Input serialization load only; headers/other traffic/return paths excluded. Emulated cap must be achievable."
+    }
+  ],
+  "input_sha256": {
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/artifacts/topology-profile-live/pod-pairs.json": "14b92b91a3f867cf08a5aa91e6e37200d60162c1921e9726aadbd130bc6de1d3",
+    "/home/jinuk/codex-work/scheduler/experiments/simulation-20261019/results/summary.csv": "fd736aee3716194ea2e9eb34ea7cdb0e3579775a057addb9a6091cf294d2929a",
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/artifacts/topology-profile-live/tp-20261019t092957/attempts.jsonl": "cf692b8ee6a9232b7b4ce962e926a9eb2b8212da3f3b6980de82979ba7cba152",
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/artifacts/topology-profile-live/tp-20261019t093419/attempts.jsonl": "de4f23994c109cf4a75d1db5e431a696ef8c12b185ee15c7b239bda6b65b758a",
+    "/home/jinuk/codex-work/scheduler/experiments/simulation-20261019/scenarios.py": "0321e162604a5f871618b283c38cb61e3d17b1eb1286e0493d49f82f9940cc43",
+    "/home/jinuk/codex-work/scheduler/experiments/simulation-20261019/components.py": "141887566610c6cb0b79b50dda3f2c1535f831f60fceb48971f9e7428ecb01aa",
+    "/home/jinuk/codex-work/scheduler/experiments/simulation-20261019/run_suite.py": "00b249d0bb1f0dd0f6646b36b2fffb889bbfe43ead7fc503a881c02352e8bc60",
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/experiments/topology-profile-20261019/run.py": "a0b6b352d0d76aeac561bcb389c946e7da53891d3e4974fd9ebf3f2a1e1e082f",
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/experiments/real-topology-live/http_runtime.py": "963c7bdbdf7a4d730df9af8690d669f9c21269003e17d94fdbf948ada89d5f3c",
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/experiments/real-topology-live/edge_client.py": "2f43ea9989c0c3c2d426e9a90821fbe25dedd49d5bc65d9764fd373f43b543e4",
+    "/home/jinuk/codex-work/scheduler-topology-profile-live/experiments/real-topology-live/run_smoke.py": "71c2f47cec7075f0c12677c800041ceebe64aeca745e97f8ef55a3aa8ffa4e93",
+    "/home/jinuk/codex-work/scheduler/experiments/simulation-20261019/data/jellybean/VQA/python/models_profiler/compute_message_size.py": "b944905f49e42f372f47f4e17e2eedcb0d5961198bef54da4b1bc8a96c7ab86b"
+  }
+}

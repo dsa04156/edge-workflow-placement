@@ -1,0 +1,20 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=15s",
+    "describe",
+    "node",
+    "etri-dev0002-raspi5",
+    "etri-dev0003-raspi5",
+    "etri-ser0002-cgnmsb",
+    "etri-ser0003-cg0ms0"
+  ],
+  "started_at": "2026-10-19T09:04:10.568891+00:00",
+  "returncode": 0,
+  "stdout": "Name:               etri-dev0002-raspi5\nAllocated resources:\n  (Total limits may be over 100 percent, i.e., overcommitted.)\n  Resource           Requests     Limits\n  --------           --------     ------\n  cpu                1970m (49%)  5600m (140%)\n  memory             1452Mi (9%)  4182Mi (25%)\n  ephemeral-storage  0 (0%)       0 (0%)\n  hailo.ai/h8        0            0\nEvents:              <none>\nName:               etri-dev0003-raspi5\nAllocated resources:\n  (Total limits may be over 100 percent, i.e., overcommitted.)\n  Resource           Requests    Limits\n  --------           --------    ------\n  cpu                785m (19%)  3 (75%)\n  memory             396Mi (4%)  1302Mi (16%)\n  ephemeral-storage  0 (0%)      0 (0%)\nEvents:              <none>\nName:               etri-ser0002-cgnmsb\nAllocated resources:\n  (Total limits may be over 100 percent, i.e., overcommitted.)\n  Resource             Requests      Limits\n  --------             --------      ------\n  cpu                  2460m (10%)   10450m (43%)\n  memory               4639Mi (14%)  8460Mi (27%)\n  ephemeral-storage    0 (0%)        0 (0%)\n  hugepages-1Gi        0 (0%)        0 (0%)\n  hugepages-2Mi        0 (0%)        0 (0%)\n  npu.intel.com/accel  0             0\n  nvidia.com/gpu       1             1\nEvents:                <none>\nName:               etri-ser0003-cg0ms0\nAllocated resources:\n  (Total limits may be over 100 percent, i.e., overcommitted.)\n  Resource           Requests     Limits\n  --------           --------     ------\n  cpu                1135m (5%)   5500m (27%)\n  memory             1222Mi (0%)  3762Mi (3%)\n  ephemeral-storage  64Mi (0%)    256Mi (0%)\n  hugepages-1Gi      0 (0%)       0 (0%)\n  hugepages-2Mi      0 (0%)       0 (0%)\n  hugepages-32Mi     0 (0%)       0 (0%)\n  hugepages-64Ki     0 (0%)       0 (0%)\n  nvidia.com/gpu     0            0\nEvents:              <none>\n",
+  "stderr": "",
+  "finished_at": "2026-10-19T09:04:10.641315+00:00",
+  "scope": "Filtered node name and allocated resources, not full describe output"
+}

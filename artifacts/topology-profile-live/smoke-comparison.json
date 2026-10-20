@@ -1,0 +1,90 @@
+{
+  "runs": [
+    {
+      "run_id": "tp-20261019t092957",
+      "scope": "real-AI fixed three-node native closed-loop smoke, not placement policy comparison",
+      "attempts": 12,
+      "measured": 10,
+      "valid_measured": 10,
+      "failures": 0,
+      "quality_failures": 0,
+      "top5_order_matches": 12,
+      "mean_success_e2e_ms": 1237.6888719853014,
+      "receipts": 36,
+      "measured_p50_ms": 1356.8647960200906,
+      "min_success_ms": 882.0174610009417,
+      "max_success_ms": 1543.7179669970647,
+      "max_score_abs_error": 2.2351741790771484e-07,
+      "qualified_inputs": 6,
+      "feature_max_abs_error": 1.7881393432617188e-06,
+      "transcripts_all_match": true,
+      "per_question_measured_means": {
+        "787710": 1530.6773794582114,
+        "2748690": 1414.9319764692336,
+        "3344170": 962.6697394996881,
+        "3506790": 1356.8647960200906,
+        "5341940": 923.3004684792832
+      },
+      "placement": {
+        "vision": "etri-dev0003-raspi5",
+        "speech": "etri-dev0002-raspi5",
+        "fusion": "etri-ser0002-cgnmsb"
+      }
+    },
+    {
+      "run_id": "tp-20261019t093419",
+      "placement_mode": "default_scheduler",
+      "actual_placement": {
+        "vision": "etri-ser0002-cgnmsb",
+        "speech": "etri-ser0002-cgnmsb",
+        "fusion": "etri-ser0002-cgnmsb"
+      },
+      "scope": "real-AI native deployment smoke; sequential placements, not controlled policy benchmark",
+      "attempts": 12,
+      "measured": 10,
+      "valid_measured": 10,
+      "failures": 0,
+      "quality_failures": 0,
+      "top5_order_matches": 12,
+      "mean_success_e2e_ms": 723.4276122879237,
+      "receipts": 36,
+      "measured_p50_ms": 888.5031290119514,
+      "min_success_ms": 188.26170801185071,
+      "max_success_ms": 1574.5969980489463,
+      "max_score_abs_error": 0.0,
+      "qualified_inputs": 6,
+      "feature_max_abs_error": 0.0,
+      "transcripts_all_match": true,
+      "per_question_measured_means": {
+        "787710": 1274.9069320270792,
+        "2748690": 951.7464980017394,
+        "3344170": 188.2736524567008,
+        "3506790": 1002.3676459677517,
+        "5341940": 199.84333298634738
+      },
+      "placement": {
+        "vision": "etri-ser0002-cgnmsb",
+        "speech": "etri-ser0002-cgnmsb",
+        "fusion": "etri-ser0002-cgnmsb"
+      }
+    }
+  ],
+  "interrupted_attempts": [
+    {
+      "run_id": "tp-20261019t093320",
+      "phase": "Pod schema admission before model run",
+      "reason": "metadata.name matchFields In accepts one value; fixed to OR nodeSelectorTerms",
+      "performance_requests": 0,
+      "cleanup": {
+        "remaining_owned_pods_and_configmaps": 0,
+        "diagnostic_or_cleanup_errors": []
+      }
+    }
+  ],
+  "limitations": [
+    "Two sequential same-session deployment smoke runs,not randomized paired blocks",
+    "First uses forced local branch nodes; second actual default-scheduler eligible vision E0/C,speech E1/C,fusion C",
+    "No proposed-plan policy evaluation,network shaping,GPU/NPU or real sensor capture",
+    "CPU reference60; each deployment6quality inputs and5heldout latency inputsx2"
+  ]
+}

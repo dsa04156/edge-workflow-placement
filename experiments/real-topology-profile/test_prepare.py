@@ -26,7 +26,9 @@ class Tests(unittest.TestCase):
             items=prepare.manifests(self.c,policy,'test',r)['items'][1:]
             for pod,t in zip(items,self.c['tasks']):
                 self.assertNotIn('nodeName',pod['spec'])
-                values=pod['spec']['affinity']['nodeAffinity']['requiredDuringSchedulingIgnoredDuringExecution']['nodeSelectorTerms'][0]['matchFields'][0]['values']
+                terms=pod['spec']['affinity']['nodeAffinity']['requiredDuringSchedulingIgnoredDuringExecution']['nodeSelectorTerms']
+                self.assertTrue(all(len(term['matchFields'][0]['values'])==1 for term in terms))
+                values=[term['matchFields'][0]['values'][0] for term in terms]
                 self.assertEqual(values,t['candidates'] if policy=='resource' else [r['placement'][t['id']]])
     def test_ablation_same_constraints(self):
         for policy in prepare.POLICIES[1:]:self.assertTrue(prepare.feasible(self.c,prepare.plan(self.c,policy)['placement']))

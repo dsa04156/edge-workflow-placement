@@ -1,0 +1,2810 @@
+{
+  "source-e0": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-source-e0\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-dev0003-raspi5\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"source\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:50Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-source-e0",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319053",
+      "uid": "bbc0b387-8bf1-4c31-a4ce-61dee2a1eb0c"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-dev0003-raspi5"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "source"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "ephemeral-storage": "128Mi",
+              "memory": "256Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-dev0003-raspi5",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:04Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:04Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:50Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://aaa8dae7782e8c1871ed37545f8f424aabd652ca99dd72fbec0f3da6e96f8cab",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://fefe0060063a60925353d6ff777c0f887496ca0bfcfb862bea08c723a6c5331f",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.164.138",
+      "hostIPs": [
+        {
+          "ip": "10.254.164.138"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.4.152",
+      "podIPs": [
+        {
+          "ip": "10.244.4.152"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "source-e1": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-source-e1\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-dev0002-raspi5\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"source\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:50Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-source-e1",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319070",
+      "uid": "38b8232a-7d6e-4d29-a9c5-5c0d5b39dcbd"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-dev0002-raspi5"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "source"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "ephemeral-storage": "128Mi",
+              "memory": "256Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-dev0002-raspi5",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:03Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:03Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:50Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://6bcc7bd1803c2b8c9617052009c7663693a1fb96fb816a5c492a46d1b08bfa96",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:52Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://160e964409af33b72b6e39e8b1e467232f2601a96dd3206c52733bbc48eb6930",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:52Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.192.123",
+      "hostIPs": [
+        {
+          "ip": "10.254.192.123"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.1.99",
+      "podIPs": [
+        {
+          "ip": "10.244.1.99"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "v-edge": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-v-edge\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-dev0003-raspi5\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"vision\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"2Gi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:50Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-v-edge",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319486",
+      "uid": "7f40ceb2-dbdc-4d66-9fc0-81b0d93358b6"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-dev0003-raspi5"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "vision"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "2Gi"
+            },
+            "requests": {
+              "cpu": "1",
+              "ephemeral-storage": "128Mi",
+              "memory": "2Gi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-dev0003-raspi5",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:47Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:47Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:50Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://80367c00173a24604cf69a66e4668c0fdb97770a3cdd4919d5a347e0b6ee3724",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://49b4e1b46de923d069540eb2403005cded4f94d4c67f8bbfc2e9b714d2aa44b3",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.164.138",
+      "hostIPs": [
+        {
+          "ip": "10.254.164.138"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.4.153",
+      "podIPs": [
+        {
+          "ip": "10.244.4.153"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "s-edge": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-s-edge\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-dev0002-raspi5\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"speech\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"2Gi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:51Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-s-edge",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319403",
+      "uid": "82cdfe7f-7ad6-4238-bfc8-452365b1a44c"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-dev0002-raspi5"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "speech"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "2Gi"
+            },
+            "requests": {
+              "cpu": "1",
+              "ephemeral-storage": "128Mi",
+              "memory": "2Gi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-dev0002-raspi5",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:39Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:39Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://9c92bfde333d7122d8a129f63c35df88bf980ffec7f0a527fc667ee46ec17b0a",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://09c4b2dc0bab0f79dd7dd153a5381ad5a8d370eede6374dd098a694eda5c3876",
+          "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.192.123",
+      "hostIPs": [
+        {
+          "ip": "10.254.192.123"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.1.98",
+      "podIPs": [
+        {
+          "ip": "10.244.1.98"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "v-cloud": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-v-cloud\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-ser0002-cgnmsb\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"vision\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"2Gi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:51Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-v-cloud",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319065",
+      "uid": "45f41555-0e31-42f3-b1bb-001403da8440"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-ser0002-cgnmsb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "vision"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "2Gi"
+            },
+            "requests": {
+              "cpu": "1",
+              "ephemeral-storage": "128Mi",
+              "memory": "2Gi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-ser0002-cgnmsb",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:06Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:06Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://f73f42b5d724d5fd01aefadf182555dd30925a1f8751674a1122194a8076f4bd",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://3d73c2b3d44c9722ee95be39eec8ad0e9158231590a2898d1ad7bb21727f7e3c",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.192.128",
+      "hostIPs": [
+        {
+          "ip": "10.254.192.128"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.8.70",
+      "podIPs": [
+        {
+          "ip": "10.244.8.70"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "s-cloud": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-s-cloud\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-ser0002-cgnmsb\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"speech\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"2Gi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:51Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-s-cloud",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319066",
+      "uid": "ee41dd79-b133-4ddb-ad46-417da86b73db"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-ser0002-cgnmsb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "speech"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "2Gi"
+            },
+            "requests": {
+              "cpu": "1",
+              "ephemeral-storage": "128Mi",
+              "memory": "2Gi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-ser0002-cgnmsb",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:06Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:06Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://485abeb435af3671b6e1d3c8fb2a19b1ff3f73fb69bd625926affefda9128725",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://baa98e03fe31c6a1590a1d1e4fb3bf0e667348ba0a4e62cd11664457546efbc6",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.192.128",
+      "hostIPs": [
+        {
+          "ip": "10.254.192.128"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.8.71",
+      "podIPs": [
+        {
+          "ip": "10.244.8.71"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "fusion": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-fusion\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-ser0002-cgnmsb\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"fusion\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"2Gi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:51Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-fusion",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49319016",
+      "uid": "b75c914a-c2dc-42b6-9582-5b4b4ee8ba04"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-ser0002-cgnmsb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "fusion"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "2Gi"
+            },
+            "requests": {
+              "cpu": "1",
+              "ephemeral-storage": "128Mi",
+              "memory": "2Gi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-ser0002-cgnmsb",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:01Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:23:01Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:51Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://f74b9e300475a45cacf3dc7e3cc18bb4a2e0c680d3347b40ef3f73fb45531886",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://70d32e15e27c62d7d3ad4effaa9150893092625834e49f2c7ef9981e8b7bc2bd",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.192.128",
+      "hostIPs": [
+        {
+          "ip": "10.254.192.128"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.8.72",
+      "podIPs": [
+        {
+          "ip": "10.244.8.72"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:51Z"
+    }
+  },
+  "gateway": {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261019t102234\"},\"name\":\"wan-20261019t102234-gateway\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-ser0002-cgnmsb\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/wan_gateway.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"gateway\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.68:8080\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261019t102234\"},\"name\":\"config\"}]}}\n"
+      },
+      "creationTimestamp": "2026-10-19T10:22:50Z",
+      "labels": {
+        "experiment": "topology-profile",
+        "run-id": "wan-20261019t102234"
+      },
+      "name": "wan-20261019t102234-gateway",
+      "namespace": "topology-profile-lab",
+      "resourceVersion": "49318913",
+      "uid": "b13112dd-da10-443a-af11-5a2d3c41d6a1"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 10800,
+      "affinity": {
+        "nodeAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": {
+            "nodeSelectorTerms": [
+              {
+                "matchFields": [
+                  {
+                    "key": "metadata.name",
+                    "operator": "In",
+                    "values": [
+                      "etri-ser0002-cgnmsb"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/wan_gateway.py',run_name='__main__')"
+          ],
+          "env": [
+            {
+              "name": "NODE_NAME",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "spec.nodeName"
+                }
+              }
+            },
+            {
+              "name": "POD_UID",
+              "valueFrom": {
+                "fieldRef": {
+                  "apiVersion": "v1",
+                  "fieldPath": "metadata.uid"
+                }
+              }
+            },
+            {
+              "name": "TASK_ID",
+              "value": "gateway"
+            },
+            {
+              "name": "TMPDIR",
+              "value": "/work/tmp"
+            },
+            {
+              "name": "PYTHONDONTWRITEBYTECODE",
+              "value": "1"
+            },
+            {
+              "name": "HF_HUB_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "TRANSFORMERS_OFFLINE",
+              "value": "1"
+            },
+            {
+              "name": "ASSET_URL",
+              "value": "http://10.244.8.68:8080"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "worker",
+          "readinessProbe": {
+            "failureThreshold": 3,
+            "httpGet": {
+              "path": "/health",
+              "port": 8080,
+              "scheme": "HTTP"
+            },
+            "periodSeconds": 5,
+            "successThreshold": 1,
+            "timeoutSeconds": 3
+          },
+          "resources": {
+            "limits": {
+              "cpu": "1",
+              "ephemeral-storage": "8Gi",
+              "memory": "512Mi"
+            },
+            "requests": {
+              "cpu": "100m",
+              "ephemeral-storage": "128Mi",
+              "memory": "256Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "command": [
+            "python3",
+            "-u",
+            "-c",
+            "import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.68:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');print('netctl-ready',flush=True);time.sleep(10800)"
+          ],
+          "env": [
+            {
+              "name": "RESEARCH_LINK_CONTROL",
+              "value": "owned-pod-netns"
+            },
+            {
+              "name": "PYTHONPATH",
+              "value": "/work/net:/config"
+            }
+          ],
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "imagePullPolicy": "IfNotPresent",
+          "name": "netctl",
+          "resources": {
+            "limits": {
+              "cpu": "100m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "32Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "add": [
+                "NET_ADMIN"
+              ],
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true,
+            "runAsNonRoot": false,
+            "runAsUser": 0
+          },
+          "terminationMessagePath": "/dev/termination-log",
+          "terminationMessagePolicy": "File",
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true
+            }
+          ]
+        }
+      ],
+      "dnsPolicy": "ClusterFirst",
+      "enableServiceLinks": true,
+      "nodeName": "etri-ser0002-cgnmsb",
+      "preemptionPolicy": "PreemptLowerPriority",
+      "priority": 0,
+      "restartPolicy": "Never",
+      "schedulerName": "default-scheduler",
+      "securityContext": {
+        "fsGroup": 65532
+      },
+      "serviceAccount": "default",
+      "serviceAccountName": "default",
+      "terminationGracePeriodSeconds": 3,
+      "tolerations": [
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/not-ready",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        },
+        {
+          "effect": "NoExecute",
+          "key": "node.kubernetes.io/unreachable",
+          "operator": "Exists",
+          "tolerationSeconds": 300
+        }
+      ],
+      "volumes": [
+        {
+          "emptyDir": {
+            "sizeLimit": "8Gi"
+          },
+          "name": "work"
+        },
+        {
+          "configMap": {
+            "defaultMode": 420,
+            "name": "wan-20261019t102234"
+          },
+          "name": "config"
+        }
+      ]
+    },
+    "status": {
+      "conditions": [
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "PodReadyToStartContainers"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:50Z",
+          "status": "True",
+          "type": "Initialized"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "Ready"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:52Z",
+          "status": "True",
+          "type": "ContainersReady"
+        },
+        {
+          "lastProbeTime": null,
+          "lastTransitionTime": "2026-10-19T10:22:50Z",
+          "status": "True",
+          "type": "PodScheduled"
+        }
+      ],
+      "containerStatuses": [
+        {
+          "containerID": "containerd://a01391faa381dc10abf225a467811bade1abc1a55aa4baea7471a72cef6f9f2f",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "netctl",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        },
+        {
+          "containerID": "containerd://6181ea65ec10fd37d99ee5e5ffdc9c00c03083abdfd53061791c959a716090ac",
+          "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+          "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "lastState": {},
+          "name": "worker",
+          "ready": true,
+          "restartCount": 0,
+          "started": true,
+          "state": {
+            "running": {
+              "startedAt": "2026-10-19T10:22:51Z"
+            }
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/work",
+              "name": "work"
+            },
+            {
+              "mountPath": "/config",
+              "name": "config",
+              "readOnly": true,
+              "recursiveReadOnly": "Disabled"
+            }
+          ]
+        }
+      ],
+      "hostIP": "10.254.192.128",
+      "hostIPs": [
+        {
+          "ip": "10.254.192.128"
+        }
+      ],
+      "phase": "Running",
+      "podIP": "10.244.8.69",
+      "podIPs": [
+        {
+          "ip": "10.244.8.69"
+        }
+      ],
+      "qosClass": "Burstable",
+      "startTime": "2026-10-19T10:22:50Z"
+    }
+  }
+}

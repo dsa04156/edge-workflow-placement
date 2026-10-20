@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-19T09:31:39.457674+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "tp-20261019t092957-source-e0",
+    "--",
+    "python3",
+    "-c",
+    "import sys,json;sys.path.insert(0,\"/config\");from http_runtime import request;print(json.dumps(request(\"http://127.0.0.1:8080/run\",{'run_id': 'tp-20261019t092957', 'request_id': 'r001', 'question_id': 1713820, 'endpoints': {'vision': 'http://10.244.4.147:8080', 'speech': 'http://10.244.1.93:8080', 'fusion': 'http://10.244.8.55:8080'}, 'remote_source': 'http://10.244.1.92:8080'},timeout=90)))"
+  ],
+  "timeout_s": 120,
+  "status": "completed",
+  "returncode": 0,
+  "finished_at": "2026-10-19T09:31:41.326548+00:00"
+}

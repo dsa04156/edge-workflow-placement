@@ -1,0 +1,817 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "tp-20261019t093419",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "tp-20261019t093419"
+        }
+      },
+      "data": {
+        "http_runtime.py": "\"\"\"Direct branch/join HTTP runtime. Test fixtures are explicitly labelled, not AI.\n\nOperator adapters are bytes -> bytes; fusion adapters receive two named bytes.\nWire format is JSON/base64. Payload byte counts exclude this wire envelope.\n\"\"\"\nimport base64\nfrom contextlib import contextmanager\nimport hashlib\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nimport json\nimport os\nimport threading\nimport time\nimport urllib.error\nimport urllib.request\n\n\ndef digest(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef request(url, data, timeout=60):\n    raw = json.dumps(data, separators=(',', ':')).encode()\n    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))\n    req = urllib.request.Request(url, raw, {'Content-Type': 'application/json'})\n    with opener.open(req, timeout=timeout) as response:\n        return json.load(response)\n\n\nclass ProtocolError(Exception):\n    def __init__(self, message, status=400):\n        super().__init__(message)\n        self.status = status\n\n\ndef identity(data):\n    values = tuple(data.get(k) for k in ('run_id', 'request_id'))\n    if any(not isinstance(v, str) or not v or len(v) > 100 for v in values):\n        raise ProtocolError('run_id and request_id must be nonempty short strings')\n    return values\n\n\nclass OperatorServer(ThreadingHTTPServer):\n    daemon_threads = True\n\n    def __init__(self, address, task, adapter, metadata=None, capacity=64, ttl=120):\n        super().__init__(address, Handler)\n        self.task, self.adapter = task, adapter\n        self.metadata = dict(metadata or {'scope': 'protocol_fixture_not_ai'})\n        self.metadata.update(task=task, node=os.getenv('NODE_NAME', 'local-test'), pod_uid=os.getenv('POD_UID', 'local-test'))\n        self.capacity, self.ttl = capacity, ttl\n        self.entries = {}\n        self.lock, self.model_lock = threading.Lock(), threading.Lock()\n\n    def receipt(self, inputs, output, compute_ms, queue_ms):\n        return dict(self.metadata, input_bytes={k: len(v) for k, v in inputs.items()},\n                    input_sha256={k: digest(v) for k, v in inputs.items()}, output_bytes=len(output),\n                    output_sha256=digest(output), compute_ms=compute_ms, queue_ms=queue_ms)\n\n    def invoke(self, inputs):\n        start = time.perf_counter()\n        with self.model_lock:\n            begin = time.perf_counter()\n            result = self.adapter(inputs)\n            if not isinstance(result, bytes):\n                raise TypeError('Adapter must return bytes')\n            end = time.perf_counter()\n        return result, (end - begin) * 1000, (begin - start) * 1000\n\n    def operate(self, path, data):\n        if path == '/health':\n            return dict(self.metadata, status='ready')\n        key = identity(data)\n        if path == '/infer':\n            if self.task == 'fusion':\n                inputs = {k: base64.b64decode(data['inputs'][k], validate=True) for k in ('vision', 'speech')}\n                argument = inputs\n            else:\n                argument = base64.b64decode(data['data'], validate=True)\n                inputs = {'source': argument}\n            output, compute, queue = self.invoke(argument)\n            return {'status': 'ok', 'data': base64.b64encode(output).decode(),\n                    'receipt': self.receipt(inputs, output, compute, queue)}\n        if path == '/execute':\n            if self.task not in ('vision', 'speech'):\n                raise ProtocolError('Only branch operators accept execute')\n            payload = base64.b64decode(data['data'], validate=True)\n            output, compute, queue = self.invoke(payload)\n            receipt = self.receipt({'source': payload}, output, compute, queue)\n            request(data['fusion_url'] + '/join', dict(run_id=key[0], request_id=key[1],\n                    task=self.task, data=base64.b64encode(output).decode(), receipt=receipt))\n            return {'status': 'forwarded', 'receipt': receipt}\n        if self.task != 'fusion':\n            raise ProtocolError('Only fusion accepts open/join/result')\n        with self.lock:\n            if path == '/open':\n                now = time.monotonic()\n                self.entries = {k: v for k, v in self.entries.items() if now - v['created'] <= self.ttl}\n                if key in self.entries:\n                    raise ProtocolError('Request already registered', 409)\n                if len(self.entries) >= self.capacity:\n                    raise ProtocolError('Join capacity reached', 429)\n                self.entries[key] = {'created': now, 'inputs': {}, 'receipts': {}}\n                return {'status': 'registered'}\n            if key not in self.entries:\n                raise ProtocolError('Unknown request', 404)\n            item = self.entries[key]\n            if time.monotonic() - item['created'] > self.ttl:\n                raise ProtocolError('Request expired', 410)\n            if path == '/result':\n                if 'result' not in item:\n                    raise ProtocolError('Both branches have not completed', 409)\n                return item['result']\n            if path != '/join':\n                raise ProtocolError('Unknown endpoint', 404)\n            task = data['task']\n            if task not in ('vision', 'speech'):\n                raise ProtocolError('Invalid branch task')\n            payload = base64.b64decode(data['data'], validate=True)\n            receipt = data['receipt']\n            if receipt.get('task') != task or receipt.get('output_sha256') != digest(payload) or receipt.get('output_bytes') != len(payload):\n                raise ProtocolError('Branch receipt does not match transferred payload')\n            if task in item['inputs']:\n                if item['inputs'][task] != payload or item['receipts'][task] != receipt:\n                    raise ProtocolError('Conflicting duplicate branch', 409)\n                return {'status': 'duplicate'}\n            item['inputs'][task], item['receipts'][task] = payload, receipt\n            if len(item['inputs']) == 2:\n                output, compute, queue = self.invoke(item['inputs'])\n                final = self.receipt(item['inputs'], output, compute, queue)\n                item['result'] = {'status': 'ok', 'run_id': key[0], 'request_id': key[1],\n                                  'data': base64.b64encode(output).decode(),\n                                  'receipts': [item['receipts']['vision'], item['receipts']['speech'], final]}\n            return {'status': 'accepted'}\n\n\nclass Handler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        if self.path != '/health':\n            self.send_error(404)\n            return\n        raw = json.dumps(dict(self.server.metadata, status='ready')).encode()\n        self.send_response(200)\n        self.send_header('Content-Length', str(len(raw)))\n        self.end_headers()\n        self.wfile.write(raw)\n\n    def do_POST(self):\n        status = 200\n        try:\n            size = int(self.headers.get('Content-Length', '0'))\n            if size <= 0 or size > 16 * 1024 * 1024:\n                raise ProtocolError('Invalid or oversized body', 413)\n            data = json.loads(self.rfile.read(size))\n            result = self.server.operate(self.path, data)\n        except ProtocolError as error:\n            status, result = error.status, {'status': 'error', 'error': str(error)}\n        except (ValueError, TypeError, KeyError) as error:\n            status, result = 400, {'status': 'error', 'error': str(error)}\n        except Exception as error:\n            status, result = 500, {'status': 'error', 'error': repr(error)}\n        raw = json.dumps(result, separators=(',', ':')).encode()\n        self.send_response(status)\n        self.send_header('Content-Type', 'application/json')\n        self.send_header('Content-Length', str(len(raw)))\n        self.end_headers()\n        self.wfile.write(raw)\n\n    def log_message(self, *args):\n        pass\n\n\n@contextmanager\ndef serve(task, adapter, **options):\n    server = OperatorServer(('127.0.0.1', 0), task, adapter, **options)\n    thread = threading.Thread(target=server.serve_forever, daemon=True)\n    thread.start()\n    try:\n        yield 'http://127.0.0.1:' + str(server.server_port)\n    finally:\n        server.shutdown()\n        server.server_close()\n        thread.join()\n\n\nif __name__ == '__main__':\n    import importlib\n    module = importlib.import_module(os.environ['ADAPTER_MODULE'])\n    task = os.environ['TASK_ID']\n    adapter, metadata = module.load(task)\n    server = OperatorServer(('0.0.0.0', 8080), task, adapter, metadata)\n    print(json.dumps({'event': 'ready', **server.metadata}), flush=True)\n    server.serve_forever()\n",
+        "model_adapter.py": "\"\"\"Pinned JellyBean model graph, CPU/batch1, trained weights loaded strictly.\n\nTwo compatibility changes: torchvision Scale -> Resize alias; skipthought\npretraining initialization omitted because every parameter is replaced strictly\nby the published trained MUTAN state_dict. No model layer/weight is omitted.\n\"\"\"\nimport ast\nimport hashlib\nimport io\nimport json\nimport os\nfrom pathlib import Path\nimport re\nimport sys\nimport time\n\n\ndef sha(path):\n    return hashlib.sha256(Path(path).read_bytes()).hexdigest()\n\n\ndef load(task):\n    import numpy as np\n    import torch\n    root = Path(os.environ['MODEL_ROOT'])\n    source = Path(os.environ['JELLYBEAN_SOURCE'])\n    started = time.perf_counter()\n    torch.set_num_threads(1)\n    try:\n        torch.set_num_interop_threads(1)\n    except RuntimeError:\n        pass  # Reference harness loads multiple stages sequentially in one process.\n    sys.path.insert(0, str(source))\n    metadata = {'scope': 'real_ai_file_replay', 'device': 'cpu', 'precision': 'float32',\n                'torch': torch.__version__, 'threads': torch.get_num_threads(),\n                'adapter_sha256': sha(__file__), 'source_commit': '65a1d67817946a4ae67b068eafb49d649bc061bc'}\n    if task == 'vision':\n        from PIL import Image\n        import torchvision.models as models\n        import torchvision.transforms as transforms\n        weight = root / 'resnet18-f37072fd.pth'\n        model = models.resnet18(weights=None)\n        model.load_state_dict(torch.load(weight, weights_only=True, map_location='cpu'), strict=True)\n        model = torch.nn.Sequential(*list(model.children())[:-2]).eval()\n        transform = transforms.Compose([transforms.Resize(448), transforms.CenterCrop(448),\n                                        transforms.ToTensor(), transforms.Normalize([.485, .456, .406], [.229, .224, .225])])\n\n        def operator(data):\n            image = Image.open(io.BytesIO(data)).convert('RGB')\n            value = transform(image).unsqueeze(0)\n            with torch.inference_mode():\n                feature = model(value)\n                feature = feature.sum(3).sum(2).div(feature.size(2) * feature.size(3)).squeeze(0).numpy()\n            assert feature.shape == (512,) and feature.dtype == np.float32\n            out = io.BytesIO()\n            np.save(out, feature, allow_pickle=False)\n            return out.getvalue()\n        metadata.update(model_sha256=sha(weight), model='resnet18-imagenet1k-v1-noatt-448')\n    elif task == 'speech':\n        import soundfile as sf\n        from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor\n        processor = Wav2Vec2Processor.from_pretrained(root / 'asr', local_files_only=True)\n        model = Wav2Vec2ForCTC.from_pretrained(root / 'asr', local_files_only=True).eval()\n\n        def operator(data):\n            audio, rate = sf.read(io.BytesIO(data), dtype='float32')\n            if rate != 16000 or audio.ndim != 1:\n                raise ValueError('Expected mono 16kHz fixture')\n            inputs = processor(audio, sampling_rate=16000, return_tensors='pt', padding='longest')\n            with torch.inference_mode():\n                logits = model(inputs.input_values).logits.squeeze(0)\n                text = processor.decode(torch.argmax(logits, dim=-1), skip_special_tokens=True)\n            return text.encode()\n        metadata.update(model_sha256=sha(root / 'asr/model.safetensors'), model='wav2vec2-base-960h')\n    elif task == 'fusion':\n        import yaml\n        import vqa.models as models\n        import skipthoughts\n        from gru import BayesianGRU\n        vocab_path, weight = root / 'vocab.json', root / 'mutan-resnet18.pth.tar'\n        vocab = json.loads(vocab_path.read_text())\n        words = [word for word, _ in sorted(vocab['word_to_wid'].items(), key=lambda x: x[1])]\n        config = yaml.safe_load((source / 'configs/variants/mutan_noatt_resnet18.yaml').read_text())\n        # The trained checkpoint includes embedding and GRU parameters. Construct\n        # their original classes, skip unused pretraining downloads, strict-load.\n        old_embedding = skipthoughts.AbstractSkipThoughts._load_embedding\n        old_rnn = skipthoughts.BayesianUniSkip._load_rnn\n        skipthoughts.AbstractSkipThoughts._load_embedding = lambda self: torch.nn.Embedding(len(self.vocab) + 1, 620, padding_idx=0)\n        skipthoughts.BayesianUniSkip._load_rnn = lambda self: BayesianGRU(620, 2400, dropout=self.dropout)\n        try:\n            model = models.factory(config['model'], words, vocab['aid_to_ans'])\n        finally:\n            skipthoughts.AbstractSkipThoughts._load_embedding = old_embedding\n            skipthoughts.BayesianUniSkip._load_rnn = old_rnn\n        state = torch.load(weight, weights_only=True, map_location='cpu')\n        model.load_state_dict(state, strict=True)\n        assert all(torch.equal(v.cpu(), state[k]) for k, v in model.state_dict().items())\n        model.eval()\n        source_text = (source / 'vqa/datasets/vqa_processed.py').read_text()\n        function = next(n for n in ast.parse(source_text).body if isinstance(n, ast.FunctionDef) and n.name == 'tokenize_mcb')\n        namespace = {'re': re}\n        exec(compile(ast.Module(body=[function], type_ignores=[]), 'upstream-tokenize_mcb', 'exec'), namespace)\n\n        def operator(inputs):\n            feature = np.load(io.BytesIO(inputs['vision']), allow_pickle=False)\n            if feature.shape != (512,) or feature.dtype != np.float32 or not np.isfinite(feature).all():\n                raise ValueError('Invalid feature tensor')\n            tokens = namespace['tokenize_mcb'](inputs['speech'].decode())[:26]\n            if not tokens:\n                raise ValueError('ASR produced empty question')\n            ids = torch.tensor([[vocab['word_to_wid'].get(w, vocab['word_to_wid']['UNK']) for w in tokens]], dtype=torch.long)\n            with torch.inference_mode():\n                scores = model(torch.from_numpy(feature).unsqueeze(0), ids).softmax(-1)\n                values, indices = scores.topk(5)\n            result = {'answers': [vocab['aid_to_ans'][i] for i in indices[0].tolist()],\n                      'answer_ids': indices[0].tolist(), 'scores': values[0].tolist()}\n            return json.dumps(result, separators=(',', ':')).encode()\n        metadata.update(model_sha256=sha(weight), vocab_sha256=sha(vocab_path), model='MutanNoAtt-resnet18',\n                        strict_state_keys=len(state), all_checkpoint_tensors_equal=True,\n                        initialization_change='skip unused pretrained initialization, strict trained state_dict replaces every tensor')\n    else:\n        raise ValueError('Unknown task')\n    metadata['load_ms'] = (time.perf_counter() - started) * 1000\n    return operator, metadata\n",
+        "edge_client.py": "\"\"\"File-replay sources: payloads originate on E0/E1, never collector-relayed.\n\nSource RPCs carry control, IDs and final results. Branch outputs go directly\nto fusion. This smoke is closed-loop and never labelled fixed-RPS evaluation.\n\"\"\"\nimport argparse\nimport base64\nfrom concurrent.futures import ThreadPoolExecutor\nimport hashlib\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nimport json\nimport os\nfrom pathlib import Path\nimport time\n\nfrom http_runtime import request\n\n\ndef read_input(pair, kind):\n    data = Path(pair[kind + '_path']).read_bytes()\n    if hashlib.sha256(data).hexdigest() != pair[kind + '_sha256']:\n        raise ValueError('Input hash changed')\n    return base64.b64encode(data).decode()\n\n\ndef run_once(pair, identity, endpoints, remote_source):\n    start = time.perf_counter()\n    request(endpoints['fusion'] + '/open', identity)\n    with ThreadPoolExecutor(max_workers=2) as pool:\n        vision = pool.submit(request, endpoints['vision'] + '/execute', dict(identity,\n            data=read_input(pair, 'image'), fusion_url=endpoints['fusion']))\n        speech = pool.submit(request, remote_source + '/branch', dict(identity,\n            question_id=pair['question_id'], speech_url=endpoints['speech'], fusion_url=endpoints['fusion']))\n        vision.result()\n        speech_source = speech.result()\n    result = request(endpoints['fusion'] + '/result', identity)\n    result['e2e_ms'] = (time.perf_counter() - start) * 1000\n    result['speech_source_node'] = speech_source['source_node']\n    result['speech_source_payload_sha256'] = speech_source['source_payload_sha256']\n    return result\n\n\ndef main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument('--root', required=True)\n    ap.add_argument('--port', type=int, default=8080)\n    args = ap.parse_args()\n    root = Path(args.root)\n    pairs = {p['question_id']: p for p in json.loads((root / 'pairs.json').read_text())['pairs']}\n    references = {r['question_id']: r for r in map(json.loads, (root / 'reference.jsonl').read_text().splitlines())}\n\n    class Handler(BaseHTTPRequestHandler):\n        def do_GET(self):\n            if self.path != '/health':\n                self.send_error(404)\n                return\n            raw = json.dumps({'status': 'ready', 'node': os.environ['NODE_NAME']}).encode()\n            self.send_response(200)\n            self.send_header('Content-Length', str(len(raw)))\n            self.end_headers()\n            self.wfile.write(raw)\n\n        def do_POST(self):\n            status = 200\n            try:\n                size = int(self.headers.get('Content-Length', 0))\n                if size < 1 or size > 1024 * 1024:\n                    raise ValueError('Invalid control body')\n                data = json.loads(self.rfile.read(size))\n                pair = pairs[data['question_id']]\n                identity = {k: data[k] for k in ('run_id', 'request_id')}\n                if self.path == '/branch':\n                    result = request(data['speech_url'] + '/execute', dict(identity,\n                        data=read_input(pair, 'audio'), fusion_url=data['fusion_url']))\n                    result['source_node'] = os.environ['NODE_NAME']\n                    result['source_payload_sha256'] = pair['audio_sha256']\n                elif self.path == '/run':\n                    result = run_once(pair, identity, data['endpoints'], data['remote_source'])\n                    raw_output = base64.b64decode(result.pop('data'), validate=True)\n                    final_receipt = next(r for r in result['receipts'] if r['task'] == 'fusion')\n                    if hashlib.sha256(raw_output).hexdigest() != final_receipt['output_sha256'] or len(raw_output) != final_receipt['output_bytes']:\n                        raise ValueError('Fusion output receipt mismatch')\n                    output = json.loads(raw_output)\n                    ref = references[pair['question_id']]\n                    result.update(question_id=pair['question_id'], split=pair['split'],\n                                  source_node=os.environ['NODE_NAME'], scope='real_ai_file_replay',\n                                  output=output, reference_answer_id=ref['answer_ids'][0],\n                                  answer_id_matches=output['answer_ids'][0] == ref['answer_ids'][0],\n                                  top5_order_matches=output['answer_ids'] == ref['answer_ids'],\n                                  max_score_abs_error=max(abs(a-b) for a,b in zip(output['scores'], ref['scores'])),\n                                  source_payload_sha256=pair['image_sha256'])\n                else:\n                    raise ValueError('Unknown endpoint')\n            except Exception as error:\n                status, result = 500, {'status': 'error', 'error': repr(error)}\n            raw = json.dumps(result).encode()\n            self.send_response(status)\n            self.send_header('Content-Length', str(len(raw)))\n            self.end_headers()\n            self.wfile.write(raw)\n\n        def log_message(self, *args):\n            pass\n\n    print(json.dumps({'event': 'source_ready', 'node': os.environ['NODE_NAME'], 'pairs': len(pairs)}), flush=True)\n    ThreadingHTTPServer(('0.0.0.0', args.port), Handler).serve_forever()\n\n\nif __name__ == '__main__':\n    main()\n",
+        "bootstrap.py": "\"\"\"Install hash-bound offline wheels and role assets inside owned emptyDir.\"\"\"\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport sys\nimport tarfile\nimport urllib.request\n\nroot = Path('/work')\nmanifest = json.loads(Path('/config/bundles.json').read_text())\nrole = os.environ['TASK_ID']\narch = platform.machine()\nnames = ['source.tar'] if role == 'source' else ['wheels-' + arch + '.tar', role + '.tar']\nfor name in names:\n    path = root / name\n    hasher = hashlib.sha256()\n    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))\n    with opener.open(os.environ['ASSET_URL'] + '/' + name, timeout=120) as response, path.open('xb') as output:\n        while block := response.read(1024 * 1024):\n            output.write(block)\n            hasher.update(block)\n    if hasher.hexdigest() != manifest[name]['sha256']:\n        raise RuntimeError('Bundle hash mismatch: ' + name)\n    with tarfile.open(path) as archive:\n        archive.extractall(root, filter='data')\n    path.unlink()\nif role != 'source':\n    subprocess.run([sys.executable, '-m', 'pip', 'install', '--disable-pip-version-check', '--no-compile',\n                    '--no-cache-dir', '--no-index', '--require-hashes', '--find-links', '/work/wheels',\n                    '--target', '/work/site', '-r', '/work/requirements.txt'], check=True)\n    os.environ.update(PYTHONPATH='/work/site:/config', MODEL_ROOT='/work/models',\n                      JELLYBEAN_SOURCE='/work/jellybean', ADAPTER_MODULE='model_adapter')\n    os.execv(sys.executable, [sys.executable, '-u', '/config/http_runtime.py'])\nos.execv(sys.executable, [sys.executable, '-u', '/config/edge_client.py', '--root', '/work/corpus'])\n",
+        "bundles.json": "{\n  \"fusion.tar\": {\n    \"bytes\": 148469760,\n    \"sha256\": \"fe30e79d0b756acd5848204c414944573a58a3797c7f49ec8c4614e2c4b4d789\"\n  },\n  \"wheels-x86_64.tar\": {\n    \"bytes\": 245882880,\n    \"sha256\": \"5084d30883179e6aede2f372ac9ba5bf52b9ca3ea37c3057b11f97bd4cdfd546\"\n  },\n  \"speech.tar\": {\n    \"bytes\": 377630720,\n    \"sha256\": \"3c6ae7aba1f6886cca8aa0ebc0fe3f566b1dde350519ab5346a11734346bc2b8\"\n  },\n  \"vision.tar\": {\n    \"bytes\": 46837760,\n    \"sha256\": \"524a4b8078e73fe7d1f0f228d2e05b124d8d4e1982fcd79a818669d64ce4f420\"\n  },\n  \"source.tar\": {\n    \"bytes\": 13025280,\n    \"sha256\": \"faf48dee4639e237939d2b990f6967d06b46a437e2307d474bb9e2a599906446\"\n  },\n  \"wheels-aarch64.tar\": {\n    \"bytes\": 159344640,\n    \"sha256\": \"ebd1c3bb5ef1a8abb1c5aec19189d482c3db27307c21ad5149dee2c7a9950ecf\"\n  }\n}\n"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "tp-20261019t093419-source-e0",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "tp-20261019t093419"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0003-raspi5"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.58:8080"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "initialDelaySeconds": 2,
+              "periodSeconds": 10,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "tp-20261019t093419"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "tp-20261019t093419-source-e1",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "tp-20261019t093419"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0002-raspi5"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.58:8080"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "initialDelaySeconds": 2,
+              "periodSeconds": 10,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "tp-20261019t093419"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "tp-20261019t093419-vision",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "tp-20261019t093419"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0003-raspi5"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-ser0002-cgnmsb"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "1",
+                "memory": "2Gi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "2Gi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "vision"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.58:8080"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "initialDelaySeconds": 2,
+              "periodSeconds": 10,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "tp-20261019t093419"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "tp-20261019t093419-speech",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "tp-20261019t093419"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0002-raspi5"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-ser0002-cgnmsb"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "1",
+                "memory": "2Gi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "2Gi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "speech"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.58:8080"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "initialDelaySeconds": 2,
+              "periodSeconds": 10,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "tp-20261019t093419"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "tp-20261019t093419-fusion",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "tp-20261019t093419"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 1800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-ser0002-cgnmsb"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "1",
+                "memory": "2Gi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "2Gi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "fusion"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.58:8080"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "initialDelaySeconds": 2,
+              "periodSeconds": 10,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "tp-20261019t093419"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

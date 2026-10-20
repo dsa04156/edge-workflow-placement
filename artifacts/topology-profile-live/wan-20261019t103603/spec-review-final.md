@@ -1,0 +1,13 @@
+# Final Spec review
+
+Scope: `.scratch/edge-load-validation/spec.md`, final collector/runtime changes since `46fd850`, completed run `wan-20261019t103603`, current analysis/verifier and `docs/experiments/topology-profile-load.md`. This review read saved artifacts and made no cluster or model calls. HEAD at review: `c9e8009b7674dfa2007b84aba7bde8fd75bcdaca`; final analysis/report additions were also reviewed in the working tree.
+
+Result: no remaining blocking Spec finding.
+
+- Independently counted 33 phases and 606 terminal attempts: 597 successful, three timeout errors with `deadline_exceeded=True`, and six `driver_capacity` rejections. All remain in the attempt denominator. Each of the 12 high-load conditions uses the identical ordered 40-input evaluation sequence. Low-rate conditions use six inputs and are explicitly separated from arrival-rate-only comparisons.
+- Independently recomputed all 12 high-load report rows, including success/failure counts, successful mean, interpolated p95 and ASR mean queue. They agree with the report and generated JSON. Maximum high-load release lag is 1.587665989 ms, consistent with the stated 1.59 ms bound. B2/cloud means are 77,471.695011 ms at 0.5 rps (38/40 successful) and 94,737.110326 ms at 1 rps (33/40 successful); these are successful-request statistics, not failure-inclusive latency estimates.
+- Independently checked all 1,791 successful stage receipts against model hashes, Pod UIDs/nodes, CPU/worker thread settings, source input bytes/hashes, branch-to-fusion transfers and reconstructed final JSON hashes. All 597 successful outputs match reference Top-1 and Top-5 order; maximum score error is 5.364418029785156e-7. Same-candidate qualification output hashes also agree. Exact hash agreement is a separate, stricter condition than the declared feature `allclose` gate; failed requests without outputs are not counted as quality validated.
+- Recomputed final two whole-path health snapshots for every phase and independently decoded 66 retained native qdisc captures: all required activity/queue/backlog fields are zero. The earlier observer recursion defect is disclosed and does not change these retained native results.
+- Cleanup records zero owned resources/errors. The report discloses three initially non-ready external Pod UIDs missing afterward, without attributing cause or claiming an unchanged cluster.
+
+The report preserves the single-deployment diagnostic scope, real file replay rather than live sensors, split-TCP relay semantics, finite-window overload, and absence of six-policy/new-algorithm superiority evidence. Earlier admission, global-lock, source preparation, restore-probe, drain and profile-retry findings are addressed.

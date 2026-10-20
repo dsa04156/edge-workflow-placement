@@ -1,0 +1,34 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "python3",
+    "-m",
+    "unittest",
+    "test_http_runtime",
+    "test_load_trace",
+    "test_source_control"
+  ],
+  "returncode": 0,
+  "stdout": "{\"event\": \"phase_start\", \"utc\": \"2026-10-19T10:36:41.063354+00:00\", \"config\": {\"run_id\": \"control\", \"phase\": \"one\", \"question_ids\": [1, 1], \"offsets_s\": [0, 0.05], \"endpoints\": {\"fusion\": \"http://127.0.0.1:34871\"}, \"remote_source\": \"\", \"representation\": \"compressed\", \"deadline_s\": 1, \"max_inflight\": 4}, \"phase\": \"one\"}\n{\"event\": \"release\", \"index\": 0, \"question_id\": 1, \"scheduled_s\": 0, \"actual_release_s\": 0.00021770700186607428, \"release_lag_ms\": 0.21770700186607428, \"phase\": \"one\"}\n{\"event\": \"release\", \"index\": 1, \"question_id\": 1, \"scheduled_s\": 0.05, \"actual_release_s\": 0.05006482699900516, \"release_lag_ms\": 0.06482699900516031, \"phase\": \"one\"}\n{\"event\": \"stop_release\", \"elapsed_s\": 0.05061677800040343, \"phase\": \"one\"}\n{\"event\": \"terminal\", \"index\": 0, \"question_id\": 1, \"scheduled_s\": 0, \"actual_release_s\": 0.00021770700186607428, \"dispatch_s\": 0.00033789000008255243, \"driver_queue_ms\": 0.12018299821647815, \"status\": \"error\", \"error\": \"KeyError('vision')\", \"quality_ok\": false, \"finished_s\": 0.05256497099981061, \"scheduled_to_terminal_ms\": 52.56497099981061, \"deadline_exceeded\": false, \"phase\": \"one\"}\n{\"event\": \"terminal\", \"index\": 1, \"question_id\": 1, \"scheduled_s\": 0.05, \"actual_release_s\": 0.05006482699900516, \"dispatch_s\": 0.05036280800050008, \"driver_queue_ms\": 0.297981001494918, \"status\": \"error\", \"error\": \"KeyError('vision')\", \"quality_ok\": false, \"finished_s\": 0.07822424199912348, \"scheduled_to_terminal_ms\": 28.224241999123475, \"deadline_exceeded\": false, \"phase\": \"one\"}\n{\"event\": \"phase_end\", \"attempts\": 2, \"terminals\": 2, \"failures\": 2, \"elapsed_s\": 0.07834642099987832, \"phase\": \"one\"}\n",
+  "stderr": ".........\n----------------------------------------------------------------------\nRan 9 tests in 11.269s\n\nOK\n",
+  "utc": "2026-10-19T10:36:42.154290+00:00",
+  "source_sha256": {
+    "verify_load.py": "a002fe0fb1d0e351f88bbf48765989dc524948852702ed215534df4c288ea32e",
+    "wan_gateway.py": "7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae",
+    "prepare_load_assets.py": "41a8f0de8055f9787d54467ebf9cf1ae28fa8e470c424aa486954ec3fac90dde",
+    "load_trace.py": "305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156",
+    "run_smoke.py": "71c2f47cec7075f0c12677c800041ceebe64aeca745e97f8ef55a3aa8ffa4e93",
+    "test_source_control.py": "6864672339a1608b531190019a434e5a5ee7d2e70ecf77e48d98dc4d8bc8d821",
+    "analyze_load.py": "75ae5ecceedebdc4dd75618ac009e0cc793cdc079628012d2c730727a24c6774",
+    "test_http_runtime.py": "678aac48aec5afa3d63f4875e9dfd89ea02fe93922bbb8f7b5628a94e316431b",
+    "model_adapter.py": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+    "reference.py": "665b3fffc7864070d1734b93e90bce5700e7025f6786ef6894fd4218ee2b78ce",
+    "edge_client.py": "942ece34936adc1cdccb485d9485c69ba6e84469b3cf4b91a0086d5b891e6875",
+    "test_load_trace.py": "2b8025aae320c737eb24cab3d78e35e83c1a83092a766550bb4b6f723ac2d78f",
+    "http_runtime.py": "4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5",
+    "net_control.py": "2ee6c6841f10753859ac032d3ad41e073503bb31cca358a10c908f2a27eea209",
+    "bootstrap.py": "839bbb366fb0ab18b7f3c98bb881cf47268037f85133bd916b035adffce5cd3a",
+    "run_load.py": "db99d3ae9e7d2b3053010ffad07398ac14a7d412893c37f611738691800792ac"
+  }
+}

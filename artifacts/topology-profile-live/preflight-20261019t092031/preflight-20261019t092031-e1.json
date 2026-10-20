@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-19T09:20:36.148201+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=15s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "preflight-20261019t092031-e1",
+    "--",
+    "python3",
+    "-c",
+    "import sys,platform,importlib.util,json;print(json.dumps({\"python\":sys.version,\"architecture\":platform.machine(),\"pip\":importlib.util.find_spec(\"pip\") is not None}))"
+  ],
+  "returncode": 0,
+  "stdout": "{\"python\": \"3.11.16 (main, Sep 19 2026, 01:11:34) [GCC 14.2.0]\", \"architecture\": \"aarch64\", \"pip\": true}\n",
+  "stderr": "",
+  "finished_at": "2026-10-19T09:20:38.058687+00:00"
+}

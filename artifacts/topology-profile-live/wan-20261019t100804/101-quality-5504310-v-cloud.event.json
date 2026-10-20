@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-19T10:13:04.353599+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261019t100804-source-e0",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import sys,json;sys.path.insert(0,'/config');from pathlib import Path;from http_runtime import request;print(json.dumps(request('http://10.244.8.65:8080/infer',{'run_id':'wan-20261019t100804','request_id':'quality-5504310-v-cloud','data':Path('/work/corpus/5504310-image.npy').read_bytes()},timeout=60)))"
+  ],
+  "timeout_s": 80,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-19T10:13:05.169254+00:00"
+}
