@@ -172,7 +172,7 @@ def verify(run):
     check((run/'completed.json').exists(),'pilot completion marker')
     # One helper-only calibration guard/restore plus one per fresh evaluation.
     expected_probes=6+9*len(expected_groups)
-    for prefix,field,expected in [('bypass','blocked',True),('restore','status','ready')]:
+    for prefix,field,expected in [('bypass','blocked',True),('restore','status','ready'),('relay','status','ready')]:
         captures=list(run.glob('*-'+prefix+'-*.stdout'))
         successful=[];histories={}
         import re

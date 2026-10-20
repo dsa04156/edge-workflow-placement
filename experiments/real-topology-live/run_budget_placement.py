@@ -21,9 +21,10 @@ class BudgetPilot(Pilot):
             tag=stem if attempt==0 else stem+'-retry-'+str(attempt)
             try:return super().execute(key,code,tag,timeout,container,stdin)
             except RuntimeError:
+                if not readonly:raise
                 stderr=(self.out/f'{self.counter:03d}-{tag}.stderr').read_text()
                 transport_eof='error sending request:' in stderr and 'unexpected EOF' in stderr
-                if not readonly or not transport_eof or attempt==2:raise
+                if not transport_eof or attempt==2:raise
                 time.sleep(1)
 
     def deploy_operators(self,placement,label):
