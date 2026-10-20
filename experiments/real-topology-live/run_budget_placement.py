@@ -26,7 +26,7 @@ class BudgetPilot(Pilot):
             names=['http_runtime.py','edge_client.py','model_adapter.py','bootstrap.py','load_trace.py','net_control.py','wan_gateway.py']
             if any(hashlib.sha256((HERE/n).read_bytes()).hexdigest()!=frozen[n] for n in names):raise ValueError('Runtime changed: fresh calibration required')
             if not (calibration_run/'plans-frozen.json').is_file():raise ValueError('Complete frozen calibration required')
-            if list(calibration_run.glob('eval-*.rows.json')):raise ValueError('Resume only an attempt with no evaluation observations')
+            if any(list(calibration_run.glob(pattern)) for pattern in ['eval-*.rows.json','eval-*.events.jsonl','eval-*.config.json','*-start-eval-*.event.json']):raise ValueError('Resume only an attempt with no evaluation observations')
             helper_manifest=json.loads((calibration_run/'helpers.manifest.json').read_text())
             bundle_text=next(x['data']['bundles.json'] for x in helper_manifest['items'] if x['kind']=='ConfigMap')
             if bundle_text!=(ASSETS/'load-bundles.json').read_text():raise ValueError('Asset bundles changed')
@@ -121,6 +121,17 @@ def main():
                     groups.setdefault(tuple(plan['placement'][t] for t in TASKS),[]).append(policy)
                 group_items=list(groups.items());rng.shuffle(group_items)
                 for key,policies in group_items:jobs.append((condition,rate,20,'compressed',key,policies))
+        if session.calibration_run is not None:
+            original=json.loads((session.calibration_run/'plans-frozen.json').read_text())
+            for condition,policies in plans.items():
+                for policy,plan in policies.items():
+                    for key in ['status','placement','predicted_e2e_proxy_ms','profile_sha256']:
+                        if plan[key]!=original[condition][policy][key]:raise ValueError('Frozen selection changed')
+            old_design=json.loads((session.calibration_run/'design.json').read_text())
+            new_design=json.loads((session.out/'design.json').read_text())
+            for key in ['seed','policies','evaluation_ids','server_slots','blocks','warmup','evaluation_count','rate_rps']:
+                if old_design[key]!=new_design[key]:raise ValueError('Frozen design changed')
+            if active!=[tuple(c) for c in json.loads((session.calibration_run/'active-conditions.json').read_text())['active']]:raise ValueError('Frozen conditions changed')
         session.save('active-conditions.json',dict(active=active,deferred=[],profile_sources=sources))
         session.save('plans-frozen.json',plans)
         session.save('simple-alternatives-frozen.json',alternatives)

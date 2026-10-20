@@ -67,7 +67,14 @@ def verify(run):
             for name,digest in origin['source_files'].items():check(hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,'frozen calibration source '+name)
             current_source=read(run/'git-source.json')['files']
             check(all(current_source[n]==v for n,v in origin['runtime_sha256'].items()),'unchanged runtime for calibration reuse')
-            check(not list(source.glob('eval-*.rows.json')),'no pooled previous evaluation')
+            check(not any(list(source.glob(pattern)) for pattern in ['eval-*.rows.json','eval-*.events.jsonl','eval-*.config.json','*-start-eval-*.event.json']),'no pooled previous evaluation')
+            old_design=read(source/'design.json')
+            for key in ['seed','policies','evaluation_ids','server_slots','blocks','warmup','evaluation_count','rate_rps']:check(design[key]==old_design[key],'unchanged resumed design '+key)
+            check(read(run/'active-conditions.json')['active']==read(source/'active-conditions.json')['active'],'unchanged resumed conditions')
+            old_plans=read(source/'plans-frozen.json')
+            for condition,policies in plans.items():
+                for policy,plan in policies.items():
+                    for key in ['status','placement','predicted_e2e_proxy_ms','profile_sha256']:check(plan[key]==old_plans[condition][policy][key],'unchanged frozen selection '+condition+'/'+policy+'/'+key)
             for name in ['profile-calibration-10.json','profile-calibration-2.json','transfer-calibration-10.json','transfer-calibration-2.json']:
                 check(read(run/name)==read(source/name),'unchanged reused calibration '+name)
         from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
