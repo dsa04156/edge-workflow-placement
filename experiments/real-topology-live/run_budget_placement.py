@@ -7,6 +7,8 @@ from datetime import datetime,timezone
 from pathlib import Path
 import statistics
 import time
+import uuid
+from control_receipt import command as receipt_command
 from run_placement import Pilot, HERE, NODES, TASKS
 from run_smoke import ASSETS, NS
 from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
@@ -74,6 +76,30 @@ class BudgetPilot(Pilot):
                 stderr=(self.out/f'{self.counter:03d}-{tag}.stderr').read_text()
                 transport_eof='error sending request:' in stderr and 'unexpected EOF' in stderr
                 if not transport_eof or attempt==2:raise
+                time.sleep(1)
+
+    def net(self,key,spec,stem):
+        expected=hashlib.sha256((HERE/'net_control.py').read_bytes()).hexdigest()
+        code="import runpy,hashlib;from pathlib import Path;p=Path('/work/net-config/net_control.py');assert hashlib.sha256(p.read_bytes()).hexdigest()=="+repr(expected)+";runpy.run_path(str(p),run_name='__main__')"
+        return json.loads(self.execute_control(key,code,json.dumps(spec),stem))
+
+    def execute_control(self,key,code,stdin,stem):
+        """Execute a journaled control; never use this interface for inference."""
+        uid=self.actual[key]['metadata']['uid']
+        operation=uuid.uuid4().hex
+        wrapped=receipt_command(operation,uid,code,stdin)
+        self.save('control-'+operation+'.json',dict(operation=operation,pod_uid=uid,
+            key=key,stem=stem,stdin=stdin,code_sha256=hashlib.sha256(code.encode()).hexdigest(),
+            command_sha256=hashlib.sha256(wrapped.encode()).hexdigest()))
+        for attempt in range(3):
+            tag=stem if attempt==0 else stem+'-receipt-'+str(attempt)
+            try:
+                result=self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c','netctl','--','python3','-u','-c',wrapped],timeout=60)
+                return result
+            except RuntimeError:
+                stderr=(self.out/f'{self.counter:03d}-{tag}.stderr').read_text()
+                if not ('error sending request:' in stderr and 'unexpected EOF' in stderr) or attempt==2:
+                    raise
                 time.sleep(1)
 
     def deploy_operators(self,placement,label):

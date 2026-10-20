@@ -19,3 +19,20 @@ The resumed run wan-20261020t052248 completed six greedy/heft evaluation request
 
 ## Outcome
 Latest run053336 completed only first10Mbps block18/18evaluation,6/6warmup,72receipts; full study incomplete after final unblockvision netctl execEOF. Partial audit passes observed evidence while retaining missing conditions/completion/restorecoverage errors. Five planned groups unexecuted. Cleanup0/errors[]. Earlier052248 six successes kept separate. Report docs/experiments/greedy-joint-budget.md. Followup: resolve or separately validate recovery of control EOF before completing secondblock/2Mbps; no automatic mutation retries added. User explicitly authorized Git push when finished.
+
+## 2026-10-20 completion amendment, frozen before new evaluation
+User authorized completing the static comparison. Retain the original two-block
+design, six evaluation inputs, policies, slots, seeds and regimes. Use fresh full
+calibration; keep all older partial observations separate. No significance or
+independent-environment claim is added.
+
+Collector network controls now use a same-Pod operation receipt with a lock,
+UID/code/input identity and started/completed state. On a transport EOF only,
+at most two recovery attempts reuse the exact operation. Completed commands
+return their stored stdout; started/failed operations stop without replaying
+side effects. This is recovery from ambiguous transport responses, not a fix
+for the underlying KubeEdge EOF and not automatic inference retry. Existing
+kernel snapshot, bypass, relay, direct-restore and drain gates remain required.
+The receipt guarantees tested here concern process/transport failures, not
+machine power loss or filesystem corruption. New local and live diagnostic
+evidence is separate from AI performance observations.
