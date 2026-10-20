@@ -59,6 +59,7 @@ def verify(run):
     active=read(run/'active-conditions.json')['active']
     if budget_mode:
         from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
+        check(design['evaluation_ids']==[p['question_id'] for p in pairs.values() if p['split']=='evaluation'][6:12],'evaluation split entries7-12')
         check(design['server_slots']==2 and design['blocks']==2,'declared two-slot two-block design')
         check({c[0] for c in active}=={f'b{b}-compressed-{r}' for b in range(2) for r in (10,2)},'exact budget block/condition set')
         sources=read(run/'active-conditions.json')['profile_sources']
