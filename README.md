@@ -1,5 +1,14 @@
 # 이종 엣지 AI 워크플로 배치 연구
 
+## 2026-10-19: DAG·토폴로지·노드 성능 프로파일 실험 인계
+
+현재 사용자 지정 실험 축은 **고정 센서의 DAG를 네트워크 토폴로지와 작업×노드 성능 프로파일로 배치**하는 정적 비교다. 기존 동적 연구·실측 기록은 아래에 보존한다.
+
+- [실제 시스템 실험 절차와 준비 도구](docs/experiments/topology-profile-system.md): 프로파일링 → 동결 → 실제 default-scheduler/성분 제거/제안 배치 → 평가. **PREPARED, 새 클러스터 실행 미실시.**
+- [토폴로지·성능 성분 제거 시뮬레이션](experiments/topology-profile-20261019/REPORT.md):144조건×12시드. 자원 점수 비교는 Kubernetes 근사이며 실제 kube-scheduler가 아니다.
+- [준비 도구](experiments/real-topology-profile/): 계획/Pod 명세 생성, 노드별 연산 프로파일, 스냅샷, 실패 포함 집계, 로컬 테스트. 실제 모델 adapter와 분기·합류 데이터 경로는 실험실 연결이 필요하다.
+
+
 **이종 엣지 AI 환경에서 실행 호환성과 데이터 이동 비용을 고려한 동적 워크플로우 배치 최적화**
 
 **Runtime- and Data-Aware Dynamic Workflow Placement for Heterogeneous Edge AI Systems**
@@ -65,3 +74,4 @@ AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 �
 | [Kubernetes DRL·이종 가속기 조사](docs/research/kubernetes-drl-heterogeneous-accelerators.md) | NPU 포함 선행 근거와 확인 수준 |
 
 이전 조사 문서는 출처와 검증 이력을 보존한다. 현재 실험 우선순위는 문제 정의와 첫 비교 실험 계획을 따른다. 로컬 Markdown 이슈와 도메인 문서 운영 규칙은 [docs/agents](docs/agents/domain.md)에 있다.
+
