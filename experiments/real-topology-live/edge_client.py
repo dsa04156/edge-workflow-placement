@@ -173,6 +173,46 @@ def source_server(root, host='0.0.0.0', port=8080):
             raise ValueError('Original profile observation failed: '+entry['error'])
         return entry['result']
 
+    def transfer_profile(server, data):
+        content = payload(data['data'])
+        count = data.get('count', 1)
+        if not isinstance(count, int) or not 1 <= count <= 100:
+            raise ValueError('Transfer sample count must be 1..100')
+        key = (data['run_id'], data['request_id'])
+        signature = (data['target_url'], digest(content), count)
+        with server.trace_lock:
+            entry = server.transfers.get(key)
+            owner = entry is None
+            if owner:
+                if len(server.transfers) >= 4096:
+                    raise ValueError('Transfer observation capacity reached')
+                entry = dict(signature=signature, done=threading.Event())
+                server.transfers[key] = entry
+            elif entry['signature'] != signature:
+                raise ValueError('Conflicting transfer identity')
+        if owner:
+            try:
+                samples = []
+                for _ in range(count):
+                    started = time.monotonic()
+                    reply = request(data['target_url']+'/sink', {'data': content}, timeout=60)
+                    samples.append((time.monotonic()-started)*1000)
+                    if reply['sha256'] != digest(content) or reply['bytes'] != len(content):
+                        raise ValueError('Transfer integrity failure')
+                entry['result'] = dict(samples_ms=samples, payload_bytes=len(content),
+                    sha256=digest(content), source_node=os.environ['NODE_NAME'],
+                    scope='serialized payload echo RPC proxy, not pure one-way network time')
+            except Exception as error:
+                entry['error'] = repr(error)
+                raise
+            finally:
+                entry['done'].set()
+        if not entry['done'].wait(120):
+            raise TimeoutError('Transfer observation still running')
+        if 'error' in entry:
+            raise ValueError('Original transfer failed: '+entry['error'])
+        return entry['result']
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path != '/health':
@@ -226,6 +266,14 @@ def source_server(root, host='0.0.0.0', port=8080):
                     self.end_headers()
                     self.wfile.write(raw)
                     return
+                if self.path == '/transfer_profile':
+                    result = transfer_profile(self.server, data)
+                    raw = json.dumps(result).encode()
+                    self.send_response(200)
+                    self.send_header('Content-Length', str(len(raw)))
+                    self.end_headers()
+                    self.wfile.write(raw)
+                    return
                 pair = pairs[data['question_id']]
                 representation = data.get('representation', 'compressed')
                 remaining = data.get('remaining_s', 120)
@@ -257,6 +305,7 @@ def source_server(root, host='0.0.0.0', port=8080):
     server.active_requests = 0
     server.traces = {}
     server.profiles = {}
+    server.transfers = {}
     server.trace_lock = threading.Lock()
     return server
 

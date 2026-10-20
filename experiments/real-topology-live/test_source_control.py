@@ -35,6 +35,29 @@ class SourceControlTests(unittest.TestCase):
             finally:
                 source.shutdown();source.server_close();thread.join()
 
+    def test_transfer_profile_preserves_payload_and_retry_observation(self):
+        os.environ.setdefault('NODE_NAME', 'protocol-fixture')
+        with tempfile.TemporaryDirectory() as folder, ExitStack() as stack:
+            root = Path(folder)
+            (root/'pairs.json').write_text('{"pairs":[]}')
+            (root/'reference.jsonl').write_text('')
+            source = source_server(root, host='127.0.0.1', port=0)
+            thread = threading.Thread(target=source.serve_forever, daemon=True); thread.start()
+            target = stack.enter_context(serve('vision', lambda _:b'unused'))
+            body = dict(run_id='transfer', request_id='one', target_url=target,
+                        data=b'actual calibration payload', count=2)
+            try:
+                url = 'http://127.0.0.1:'+str(source.server_port)+'/transfer_profile'
+                first = request(url, body)
+                second = request(url, body)
+                self.assertEqual(first, second)
+                self.assertEqual(first['payload_bytes'], 26)
+                self.assertEqual(len(first['samples_ms']), 2)
+                self.assertEqual(first['sha256'], hashlib.sha256(body['data']).hexdigest())
+                self.assertTrue(all(value >= 0 for value in first['samples_ms']))
+            finally:
+                source.shutdown();source.server_close();thread.join()
+
     def test_started_trace_is_idempotent_and_preserves_one_terminal_per_release(self):
         os.environ.setdefault('NODE_NAME', 'protocol-fixture')
         with tempfile.TemporaryDirectory() as folder, ExitStack() as stack:
