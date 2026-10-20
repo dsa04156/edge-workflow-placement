@@ -33,7 +33,7 @@ class BudgetTests(unittest.TestCase):
 
     def test_read_only_control_eof_is_preserved_then_retried(self):
         with tempfile.TemporaryDirectory() as temp:
-            pilot=BudgetPilot.__new__(BudgetPilot);pilot.run='fixture';pilot.out=Path(temp);pilot.counter=0
+            pilot=BudgetPilot.__new__(BudgetPilot);pilot.run='fixture';pilot.out=Path(temp);pilot.counter=0;pilot.actual={'source-e1':{'metadata':{'uid':'fixture-uid'}}}
             events=iter([False,True])
             def external_command(command,**kwargs):
                 success=next(events)
@@ -47,7 +47,7 @@ class BudgetTests(unittest.TestCase):
 
     def test_network_mutation_eof_is_not_retried(self):
         with tempfile.TemporaryDirectory() as temp:
-            pilot=BudgetPilot.__new__(BudgetPilot);pilot.run='fixture';pilot.out=Path(temp);pilot.counter=0
+            pilot=BudgetPilot.__new__(BudgetPilot);pilot.run='fixture';pilot.out=Path(temp);pilot.counter=0;pilot.actual={'source-e1':{'metadata':{'uid':'fixture-uid'}}}
             def external_command(command,**kwargs):
                 kwargs['stderr'].write(b'error sending request: unexpected EOF\n')
                 return subprocess.CompletedProcess(command,1)

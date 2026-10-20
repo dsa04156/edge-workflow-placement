@@ -65,8 +65,9 @@ class BudgetPilot(Pilot):
             tag=stem if attempt==0 else stem+'-retry-'+str(attempt)
             try:
                 if readonly:
-                    code=code.replace("sys.path.insert(0,'/config')", "sys.path.insert(0,'/work/config')")
-                    return self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],timeout=timeout)
+                    probe=code.replace("sys.path.insert(0,'/config')", "sys.path.insert(0,'/work/net-config')")
+                    probe="import os;assert os.environ['POD_UID']=="+repr(self.actual[key]['metadata']['uid'])+";"+probe
+                    return self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c','netctl','--','python3','-u','-c',probe],timeout=timeout)
                 return super().execute(key,code,tag,timeout,container,stdin)
             except RuntimeError:
                 if not readonly:raise
