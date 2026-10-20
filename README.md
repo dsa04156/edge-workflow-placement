@@ -83,3 +83,5 @@ AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 �
 
 이전 조사 문서는 출처와 검증 이력을 보존한다. 현재 실험 우선순위는 문제 정의와 첫 비교 실험 계획을 따른다. 로컬 Markdown 이슈와 도메인 문서 운영 규칙은 [docs/agents](docs/agents/domain.md)에 있다.
 
+
+- [보유 장비 자동 배치 파일럿 결과](docs/experiments/owned-hardware-placement-pilot.md): Pi2대+CPU 서버, 압축 입력4조건·고유 배치9개·54/54성공.

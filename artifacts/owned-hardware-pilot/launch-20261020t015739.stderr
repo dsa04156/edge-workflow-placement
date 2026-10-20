@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 386, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 346, in main
+    session.guard(False)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 96, in guard
+    self.net(key,dict(action='block' if enabled else 'unblock',destinations=targets),'guard-'+str(enabled)+'-'+key)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 116, in net
+    return json.loads(self.execute(key,"import runpy;runpy.run_path('/config/net_control.py',run_name='__main__')",stem,container='netctl',stdin=json.dumps(spec)))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 113, in execute
+    return self.call(stem,['exec','-i','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],stdin,timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 54, in call
+    raise RuntimeError(tag+' failed; inspect phase stderr')
+RuntimeError: 3221-guard-False-source-e1 failed; inspect phase stderr

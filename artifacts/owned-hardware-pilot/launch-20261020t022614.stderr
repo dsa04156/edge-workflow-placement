@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 421, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 385, in main
+    baseline=session.deploy_operators({t:None for t in TASKS},'kube-default')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 167, in deploy_operators
+    self.apply(label,items)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 66, in apply
+    self.call(stem+'-dryrun',['apply','--dry-run=server','-f','-'],json.dumps(manifest))
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 54, in call
+    raise RuntimeError(tag+' failed; inspect phase stderr')
+RuntimeError: 3232-kube-default-dryrun failed; inspect phase stderr

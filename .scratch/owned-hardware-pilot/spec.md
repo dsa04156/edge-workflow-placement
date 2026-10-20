@@ -1,9 +1,10 @@
 # Owned hardware automatic placement pilot
-Status: ready-for-agent
+Status: ready-for-human
+Execution: completed and audited (wan-20261020t024540); report docs/experiments/owned-hardware-placement-pilot.md.
 
 User authorized bringing latest Git work and running experiments; explicitly prioritized automatic placement and confirmed tests at profile→plan/Pod and HTTP DAG→receipts/cleanup seams.
 
-Integrate docs branch 0a03487 and live executor 4dc7550 in isolated worktree; preserve original artifacts. E0/E1/C CPU only; current Jetsons NotReady. Fusion movable on all quality-passing nodes. Respect current requests, including helper and netctl requests; no existing workloads modified.
+Integrate docs branch 0a03487 and live executor 4dc7550 in isolated worktree; preserve original artifacts. E0/E1/C CPU only; Jetsons were NotReady at initial scoping (GPU remains outside this pilot). Fusion movable on all quality-passing nodes. Respect current requests, including helper and netctl requests; no existing workloads modified.
 
 First stage is an execution/calibration pilot, not the five-block confirmatory study. One time block; freshly deployed selected operators only (no unselected model Pods). Fixed image E0/audio E1; same models, one Torch thread, 1 CPU/2GiB per operator plus common 10m/32Mi netctl. Actual default-scheduler shares candidates. Policies: server-only, greedy no look-ahead, HEFT serving-adapted, full exact DAG, no-network, no-node-profile, kube-default. Exact enumeration is a reference selector, not new algorithm. HEFT's static rank/EFT heuristic is adapted to independent per-stage services; not reproduction of a node-exclusive processor scheduler.
 
