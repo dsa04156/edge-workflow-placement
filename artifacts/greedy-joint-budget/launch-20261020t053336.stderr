@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 161, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 151, in main
+    session.remove_operators(label)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 184, in remove_operators
+    if self.guarded: self.guard(False)
+                     ^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 131, in guard
+    self.net(key,dict(action='block' if enabled else 'unblock',destinations=targets),'guard-'+str(enabled)+'-'+key)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 83, in net
+    return json.loads(self.execute(key,code,stem,container='netctl',stdin=json.dumps(spec)))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 71, in execute
+    return super().execute(key,code,tag,timeout,container,stdin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 78, in execute
+    return super().execute(key,code,stem,timeout,container,stdin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 113, in execute
+    return self.call(stem,['exec','-i','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],stdin,timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 54, in call
+    raise RuntimeError(tag+' failed; inspect phase stderr')
+RuntimeError: 528-guard-False-vision failed; inspect phase stderr

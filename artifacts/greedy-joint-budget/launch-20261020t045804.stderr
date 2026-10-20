@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 97, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 83, in main
+    session.guard(True);session.shape(rate,delay,label+'-shape')
+    ^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 139, in guard
+    self.pod_rpc(key,self.urls['gateway']+'/to/'+target+'/health',{},'relay-'+key)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 145, in pod_rpc
+    return json.loads(self.execute(key,code,stem,timeout))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 22, in execute
+    try:return super().execute(key,code,tag,timeout,container,stdin)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 78, in execute
+    return super().execute(key,code,stem,timeout,container,stdin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 113, in execute
+    return self.call(stem,['exec','-i','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],stdin,timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 54, in call
+    raise RuntimeError(tag+' failed; inspect phase stderr')
+RuntimeError: 2035-relay-fusion-retry-2 failed; inspect phase stderr

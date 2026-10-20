@@ -1,5 +1,5 @@
 # Greedy versus joint placement under a declared server admission budget
-Status: ready-for-agent
+Status: ready-for-human — partial evidence; infrastructure control failure
 
 Question: Does choosing earliest finish per ready task waste the two server operator slots on early stages, while exact DAG placement reserves a slot for the join? This is a static mechanism pilot, not a new algorithm or real server saturation claim.
 
@@ -16,3 +16,6 @@ Two interrupted attempts had no evaluation rows. The completed calibration in wa
 
 ## Same-Pod network probe amendment
 The resumed run wan-20261020t052248 completed six greedy/heft evaluation requests before worker exec EOF interrupted preparation of the next placement. Preserve it as partial evidence, excluded from the complete rerun. Health proofs now execute from netctl in the same Pod network namespace with an actual Pod UID assertion; inference and network mutation paths are unchanged. This proves Pod network reachability, not worker process exec reliability. Diagnostic wan-20261020t053023 passed guarded relay/bypass and restored connectivity with selected E0/C/C operators; cleanup remaining_owned=0, errors=[]. Both spec and standards reviewers found no blocking issue. Root cause of the intermittent worker exec EOF remains unconfirmed.
+
+## Outcome
+Latest run053336 completed only first10Mbps block18/18evaluation,6/6warmup,72receipts; full study incomplete after final unblockvision netctl execEOF. Partial audit passes observed evidence while retaining missing conditions/completion/restorecoverage errors. Five planned groups unexecuted. Cleanup0/errors[]. Earlier052248 six successes kept separate. Report docs/experiments/greedy-joint-budget.md. Followup: resolve or separately validate recovery of control EOF before completing secondblock/2Mbps; no automatic mutation retries added. User explicitly authorized Git push when finished.

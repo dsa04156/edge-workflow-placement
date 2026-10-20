@@ -1,0 +1,13 @@
+reuse-frozen-qualification artifacts/topology-profile-live/wan-20261020t045804
+profile calibration-10
+profile calibration-2
+deploy eval-0-b0-compressed-10 ['greedy', 'heft'] {'vision': 'etri-ser0002-cgnmsb', 'speech': 'etri-ser0002-cgnmsb', 'fusion': 'etri-dev0002-raspi5'}
+phase eval-0-b0-compressed-10-warm
+phase eval-0-b0-compressed-10
+deploy eval-1-b0-compressed-10 ['ours'] {'vision': 'etri-dev0003-raspi5', 'speech': 'etri-ser0002-cgnmsb', 'fusion': 'etri-ser0002-cgnmsb'}
+phase eval-1-b0-compressed-10-warm
+phase eval-1-b0-compressed-10
+deploy eval-2-b0-compressed-10 ['greedy-swap'] {'vision': 'etri-dev0002-raspi5', 'speech': 'etri-ser0002-cgnmsb', 'fusion': 'etri-ser0002-cgnmsb'}
+phase eval-2-b0-compressed-10-warm
+phase eval-2-b0-compressed-10
+evidence /home/jinuk/codex-work/scheduler-owned-hardware/artifacts/topology-profile-live/wan-20261020t053336

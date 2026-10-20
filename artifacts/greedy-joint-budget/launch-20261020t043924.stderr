@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 84, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 32, in main
+    session.guard(True)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 137, in guard
+    result=json.loads(self.execute(key,code,'bypass-'+key,timeout=10))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 78, in execute
+    return super().execute(key,code,stem,timeout,container,stdin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 113, in execute
+    return self.call(stem,['exec','-i','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],stdin,timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 54, in call
+    raise RuntimeError(tag+' failed; inspect phase stderr')
+RuntimeError: 741-bypass-source-e1 failed; inspect phase stderr

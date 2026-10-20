@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 160, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 146, in main
+    session.guard(True);session.shape(rate,delay,label+'-shape')
+    ^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_placement.py", line 139, in guard
+    self.pod_rpc(key,self.urls['gateway']+'/to/'+target+'/health',{},'relay-'+key)
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 145, in pod_rpc
+    return json.loads(self.execute(key,code,stem,timeout))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_budget_placement.py", line 69, in execute
+    return self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c',container,'--','python3','-u','-c',code],timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler-owned-hardware/experiments/real-topology-live/run_load.py", line 54, in call
+    raise RuntimeError(tag+' failed; inspect phase stderr')
+RuntimeError: 273-relay-source-e0-retry-2 failed; inspect phase stderr
