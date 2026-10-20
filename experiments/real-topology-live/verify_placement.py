@@ -174,11 +174,28 @@ def verify(run):
     expected_probes=6+9*len(expected_groups)
     for prefix,field,expected in [('bypass','blocked',True),('restore','status','ready')]:
         captures=list(run.glob('*-'+prefix+'-*.stdout'))
-        check(len(captures)==expected_probes,prefix+': full calibration/deployment coverage')
-        for capture in captures:
-            check(read(capture).get(field)==expected,prefix+': probe result '+capture.name)
+        successful=[];histories={}
+        import re
+        for capture in sorted(captures,key=lambda p:int(p.name.split('-')[0])):
             event=read(capture.with_suffix('.event.json'))
-            check(event.get('returncode')==0,prefix+': probe command completed')
+            stem=capture.stem.split('-',1)[1]
+            base=re.sub(r'-retry-[12]$','',stem)
+            histories.setdefault(base,[]).append(event.get('returncode'))
+            if event.get('returncode')==0:
+                successful.append(capture)
+                check(read(capture).get(field)==expected,prefix+': probe result '+capture.name)
+            else:
+                stderr=capture.with_suffix('.stderr').read_text()
+                check(budget_mode and 'error sending request:' in stderr and 'unexpected EOF' in stderr,prefix+': only preserved control EOF may retry')
+        check(len(successful)==expected_probes,prefix+': full calibration/deployment coverage')
+        # Repeated deployments reuse stems; each failed attempt must eventually
+        # be followed by a success, with no more than two consecutive retries.
+        for stem,codes in histories.items():
+            failures=0
+            for code in codes:
+                failures=0 if code==0 else failures+1
+                check(failures<=2,prefix+': bounded retries '+stem)
+            check(failures==0,prefix+': terminal successful proof '+stem)
     result=dict(status='passed' if not errors else 'needs_review',errors=errors,phases=phases,
         evaluation_attempts=sum(p['attempts'] for p in phases if not p['warmup']),
         evaluation_successes=sum(p['successes'] for p in phases if not p['warmup']),

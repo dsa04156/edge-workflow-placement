@@ -1,6 +1,7 @@
 """Two-block measured pilot with an explicit workflow-only server slot budget."""
 import random
 import statistics
+import time
 from run_placement import Pilot, HERE, NODES, TASKS
 from budget_placement import with_server_budget, validate_placement, simple_alternatives, select_budget_policies
 
@@ -13,6 +14,17 @@ class BudgetPilot(Pilot):
         evaluation=[p for p in self.pairs if p['split']=='evaluation']
         self.pairs=calibration+evaluation[6:]+evaluation[:6]
         self.active_profile=None
+
+    def execute(self,key,code,stem='operation',timeout=60,container='worker',stdin=None):
+        readonly=container=='worker' and stdin is None and stem.startswith(('bypass-','restore-','relay-'))
+        for attempt in range(3):
+            tag=stem if attempt==0 else stem+'-retry-'+str(attempt)
+            try:return super().execute(key,code,tag,timeout,container,stdin)
+            except RuntimeError:
+                stderr=(self.out/f'{self.counter:03d}-{tag}.stderr').read_text()
+                transport_eof='error sending request:' in stderr and 'unexpected EOF' in stderr
+                if not readonly or not transport_eof or attempt==2:raise
+                time.sleep(1)
 
     def deploy_operators(self,placement,label):
         if self.active_profile is not None:validate_placement(self.active_profile,placement)
