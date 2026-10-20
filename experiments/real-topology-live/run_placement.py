@@ -19,7 +19,7 @@ from run_smoke import ASSETS, HERE, IMAGE, NODES, NS
 from placement_policies import prepare, select_policies
 
 TASKS = ('vision', 'speech', 'fusion')
-HELPERS = ('source-e0', 'source-e1', 'source-c')
+HELPERS = ('source-e0', 'source-e1', 'source-c', 'sink-e0', 'sink-e1', 'sink-c')
 
 
 def quantile(values, q=.75):
@@ -68,11 +68,15 @@ class Pilot(Session):
         cm['data']['bundles.json']=(ASSETS/'load-bundles.json').read_text()
         items=[cm,self.pod('gateway','c','gateway',self.cache_url)]
         items += [self.pod('source-'+node,node,'source',self.cache_url) for node in NODES]
+        for node in NODES:
+            sink=self.pod('sink-'+node,node,'source',self.cache_url)
+            sink['spec']['containers'][0]['resources']['requests'].update(cpu='5m',memory='32Mi')
+            items.append(sink)
         self.apply('helpers',items)
         self.call('helpers-ready',['wait','pods','-n',NS,'-l','run-id='+self.run,'--for=condition=Ready','--timeout=240s'],timeout=250)
         self.actual={key:json.loads(self.call('helper-'+key,['get','pod','-n',NS,self.run+'-'+key,'-o','json'])) for key in (*HELPERS,'gateway')}
         self.urls={k:'http://'+p['status']['podIP']+':8080' for k,p in self.actual.items()}
-        self.zones={'source-e0':'edge','source-e1':'edge','source-c':'cloud'}
+        self.zones={key:'cloud' if key.endswith('-c') else 'edge' for key in HELPERS}
         self.refresh_network('helpers')
         # Preflight's sink is a helper, not an AI operator; unchanged probe bytes.
         self.urls['fusion']=self.urls['source-c']
@@ -90,6 +94,8 @@ class Pilot(Session):
         for key,zone in self.zones.items():
             targets=self.cloud if zone=='edge' else self.edge
             self.net(key,dict(action='block' if enabled else 'unblock',destinations=targets),'guard-'+str(enabled)+'-'+key)
+        # Restore both directions on every participant before connectivity probes.
+        for key,zone in self.zones.items():
             target='source-c' if zone=='edge' else 'source-e0'
             if enabled:
                 code="import urllib.request,json;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));\ntry:\n op.open("+repr(self.urls[target]+'/health')+",timeout=2);print(json.dumps({'blocked':False}))\nexcept Exception as e:print(json.dumps({'blocked':True,'error':repr(e)}))"
@@ -252,7 +258,7 @@ class Pilot(Session):
                         else:content=b'{}'
                         label=f'{condition}-{kind}-{origin}-{dest}-{index}'
                         row=self.rpc(self.urls['source-'+origin]+'/transfer_profile',dict(run_id=self.run,request_id=label,
-                            target_url=self.route('source-'+origin,'source-'+dest),data=base64.b64encode(content).decode(),count=1),label,timeout=125)
+                            target_url=self.route('source-'+origin,'sink-'+dest),data=base64.b64encode(content).decode(),count=1),label,timeout=125)
                         if row['source_node']!=NODES[origin] or row['sha256']!=hashlib.sha256(content).hexdigest():raise RuntimeError('Transfer observation identity mismatch')
                         observations.extend(row['samples_ms']);sizes[kind].append(len(content))
                     table[kind][NODES[origin]+'|'+NODES[dest]]=quantile(observations)
@@ -264,11 +270,11 @@ class Pilot(Session):
             else:inputs=[dict(task=t,bytes=statistics.mean(sizes[t]),transfer_ms=table[t]) for t in ('vision','speech')]
             tasks.append(dict(id=task,candidates=list(NODES.values()),compute_ms=self.compute[task],
                 image=IMAGE,cpu_m=1010,memory_mib=2080,inputs=inputs))
-        output={node+'|'+NODES['e0']:table['return'][node+'|'+NODES['e0']]+2*table['control'][NODES['e0']+'|'+node] for node in NODES.values()}
+        output={node+'|'+NODES['e0']:table['return'][node+'|'+NODES['e0']]+table['control'][NODES['e0']+'|'+node] for node in NODES.values()}
         config=dict(provenance='measured',evidence_id=str(self.out),namespace=NS,nodes=capacity,tasks=tasks,
             outputs=[dict(task='fusion',destination_node=NODES['e0'],transfer_ms=output)],
             representation=representation,condition=condition,
-            model='p75 isolated compute + payload echo RPC proxies + two fusion control RPC proxies; no queue/contention prediction')
+            model='p75 isolated compute + payload echo RPC proxies + one open-control RPC proxy plus final-payload echo proxy; no queue/contention prediction')
         prepare.validate(config)
         self.save('profile-'+condition+'.json',config)
         self.save('transfer-'+condition+'.json',dict(table=table,payload_bytes=sizes))
@@ -317,6 +323,9 @@ def main():
         serving='independent persistent stage FIFO; no node-exclusive processor lane',
         compute_representation='compressed; raw recomputation required before raw condition'))
     try:
+        scheduler=json.loads(session.call('scheduler-snapshot',['get','pods','-n','kube-system','-l','component=kube-scheduler','-o','json']))
+        session.save('scheduler-provenance.json',dict(snapshot=scheduler,
+            configuration='Pod command/images captured; no explicit --config found in preflight; plugin weights inferred from version defaults, not live introspection'))
         session.deploy()
         session.network_preflight()
         session.qualify_all()

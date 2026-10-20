@@ -1,0 +1,14 @@
+# Predeployment review
+Base: 0c327c525ba66a6945d653bf20d72d9317c15393. Initial implementation: 00a00d6.
+
+## Standards
+Reviewer found one P1: restore loop probed connectivity before the opposite endpoint removed its blackhole route. Fixed with separate restore-all and probe-all loops, matching existing Session behavior. No other documented-standard violation reported.
+
+## Spec
+Reviewer found one P2: scheduler version/config provenance absent in runner. Added full scheduler Pod capture; command lacks explicit --config in current preflight, so plugin/weight defaults are inference from v1.31.14, not introspected active configuration.
+
+Colocated echo originally used the same helper Pod. Replaced with distinct per-node sink helpers so same-node calibration crosses Pod interfaces. Their requests are included in capacity. Echo endpoint remains an explicitly documented proxy for actual stage forwarding, not pure network time.
+
+Also corrected final-output proxy from final-payload echo + two control echoes to final-payload echo + one open-control echo to avoid counting result-fetch control twice.
+
+Totals on initial review: Standards1, Spec1; both fixed before deployment. No algorithmic novelty or formal repeated-block result claimed.
