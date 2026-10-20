@@ -43,6 +43,9 @@ class Pilot(Session):
         self.cal_outputs = {}
         self.spec = (HERE.parents[1]/'.scratch/owned-hardware-pilot/spec.md').read_text()
         (self.out/'spec-frozen.md').write_text(self.spec)
+        planner = Path(prepare.__file__)
+        (self.out/'planner-source.py').write_bytes(planner.read_bytes())
+        self.save('planner-source.json', dict(path=str(planner), sha256=hashlib.sha256(planner.read_bytes()).hexdigest()))
         self.save('git-source.json', dict(commit=subprocess.check_output(
             ['rtk','proxy','git','rev-parse','HEAD'],text=True).strip(),
             files={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in HERE.glob('*.py')}))
@@ -61,11 +64,18 @@ class Pilot(Session):
             if container['name']=='worker':
                 container['env'].extend([dict(name='CONFIG_ROOT',value=destination),dict(name='PYTHONPATH',value=destination)])
             else:
+                container['command'][-1]=container['command'][-1].replace("print('netctl-ready',flush=True)", "__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True)")
+                container['readinessProbe']={'exec':{'command':['python3','-c',"from pathlib import Path;assert Path('/work/netctl-ready').is_file()"]},'periodSeconds':2,'timeoutSeconds':3}
                 container['env'].extend([dict(name='POD_UID',valueFrom={'fieldRef':{'fieldPath':'metadata.uid'}}),
                     dict(name='NODE_NAME',valueFrom={'fieldRef':{'fieldPath':'spec.nodeName'}})])
                 for entry in container['env']:
                     if entry['name']=='PYTHONPATH':entry['value']='/work/net:'+destination
         return pod
+
+    def execute(self,key,code,stem='operation',timeout=60,container='worker',stdin=None):
+        if container=='worker':
+            code=code.replace("sys.path.insert(0,'/config')", "sys.path.insert(0,'/work/config')")
+        return super().execute(key,code,stem,timeout,container,stdin)
 
     def net(self,key,spec,stem):
         expected=hashlib.sha256((HERE/'net_control.py').read_bytes()).hexdigest()
