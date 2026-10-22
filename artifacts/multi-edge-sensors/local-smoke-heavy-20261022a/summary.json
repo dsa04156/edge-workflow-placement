@@ -1,0 +1,242 @@
+{
+ "scope": "local x86_64 smoke of the Pod bootstrap/runtime path; not cluster evidence, not a placement comparison",
+ "prepared": "prepared-heavy-20261022a",
+ "workflow": {
+  "id": "w1",
+  "video": "cam-e0",
+  "text": "txt-e1",
+  "destination": "video"
+ },
+ "python": "/home/jinuk/.local/bin/python3.11",
+ "pod_python": "3.11.15 x86_64",
+ "status": "failed",
+ "rtsp": {
+  "codec": {
+   "name": "h264",
+   "width": 640,
+   "height": 480,
+   "pix_fmt": "yuv420p",
+   "average_rate": "5"
+  },
+  "setup_ms": 1744.0716639976017,
+  "decoded_frames": 24,
+  "skipped_frames": 0,
+  "loop_consistent": true,
+  "probe_equals_freeze": "6/6",
+  "mediamtx_paths": [
+   {
+    "name": "cam-e0",
+    "ready": true,
+    "tracks": [
+     "H264"
+    ],
+    "source": "rtspSession",
+    "bytes_received": 2146577,
+    "readers": 0
+   }
+  ],
+  "processes": {
+   "mediamtx": {
+    "pid": 3227776,
+    "sha256": "0ffb7f18210d08ee38cb16668c4f3a2c96622e69d401119c0026d078a2b89523",
+    "alive": true,
+    "cmdline": [
+     "/home/jinuk/codex-work/scheduler/artifacts/multi-edge-sensors/local-smoke-heavy-20261022a/pods/video/work/mediamtx/mediamtx",
+     "/home/jinuk/codex-work/scheduler/artifacts/multi-edge-sensors/local-smoke-heavy-20261022a/pods/video/work/mediamtx.yml"
+    ]
+   },
+   "publisher": {
+    "pid": 3227777,
+    "alive": true,
+    "cmdline": [
+     "/home/jinuk/.local/bin/python3.11",
+     "-u",
+     "/home/jinuk/codex-work/scheduler/artifacts/multi-edge-sensors/local-smoke-heavy-20261022a/config/runtime.py",
+     "publish"
+    ]
+   }
+  }
+ },
+ "workflows": [
+  {
+   "seq": 0,
+   "warmup": true,
+   "status": "ok",
+   "e2e_ms": 335.77222599706147,
+   "stage_ms": {
+    "V": 286.234551,
+    "T": 47.22931,
+    "F": 0.056863
+   },
+   "fetch_ms": {
+    "V": 0.822168993181549,
+    "T": 0.8465629944112152
+   },
+   "result": "bus",
+   "alert": false
+  },
+  {
+   "seq": 3,
+   "warmup": false,
+   "status": "ok",
+   "e2e_ms": 328.07507600227837,
+   "stage_ms": {
+    "V": 316.140707,
+    "T": 52.319046,
+    "F": 0.058279
+   },
+   "fetch_ms": {
+    "V": 0.8132450020639226,
+    "T": 0.7473190053133294
+   },
+   "result": "bus",
+   "alert": true
+  },
+  {
+   "seq": 4,
+   "warmup": false,
+   "status": "ok",
+   "e2e_ms": 285.94284199061804,
+   "stage_ms": {
+    "V": 275.833199,
+    "T": 48.694785,
+    "F": 0.052434
+   },
+   "fetch_ms": {
+    "V": 0.5990270001348108,
+    "T": 0.5890850006835535
+   },
+   "result": "bus",
+   "alert": true
+  },
+  {
+   "seq": 5,
+   "warmup": false,
+   "status": "ok",
+   "e2e_ms": 293.5876219999045,
+   "stage_ms": {
+    "V": 283.119234,
+    "T": 67.926635,
+    "F": 0.056206
+   },
+   "fetch_ms": {
+    "V": 0.8083340071607381,
+    "T": 0.7346799975493923
+   },
+   "result": "bus",
+   "alert": true
+  }
+ ],
+ "quality_rows_without_violation": 0,
+ "quality_rows": 4,
+ "events": [
+  {
+   "event": "cache-start",
+   "at": "2026-10-22T11:31:23.953936+00:00",
+   "monotonic": 92194.128827139
+  },
+  {
+   "event": "bootstrap-start",
+   "at": "2026-10-22T11:31:23.968821+00:00",
+   "monotonic": 92194.143713737,
+   "role": "video"
+  },
+  {
+   "event": "bootstrap-start",
+   "at": "2026-10-22T11:31:23.969299+00:00",
+   "monotonic": 92194.144185206,
+   "role": "text"
+  },
+  {
+   "event": "bootstrap-start",
+   "at": "2026-10-22T11:31:23.969638+00:00",
+   "monotonic": 92194.144522919,
+   "role": "V"
+  },
+  {
+   "event": "bootstrap-start",
+   "at": "2026-10-22T11:31:23.969933+00:00",
+   "monotonic": 92194.144817433,
+   "role": "T"
+  },
+  {
+   "event": "bootstrap-start",
+   "at": "2026-10-22T11:31:23.970173+00:00",
+   "monotonic": 92194.145058211,
+   "role": "F"
+  },
+  {
+   "event": "ready",
+   "at": "2026-10-22T11:31:24.972892+00:00",
+   "monotonic": 92195.147784122,
+   "role": "text"
+  },
+  {
+   "event": "ready",
+   "at": "2026-10-22T11:31:25.982810+00:00",
+   "monotonic": 92196.157701411,
+   "role": "F"
+  },
+  {
+   "event": "ready",
+   "at": "2026-10-22T11:31:26.984803+00:00",
+   "monotonic": 92197.159695141,
+   "role": "V"
+  },
+  {
+   "event": "ready",
+   "at": "2026-10-22T11:31:28.989344+00:00",
+   "monotonic": 92199.164235358,
+   "role": "T"
+  },
+  {
+   "event": "ready",
+   "at": "2026-10-22T11:31:32.996195+00:00",
+   "monotonic": 92203.171122005,
+   "role": "video"
+  },
+  {
+   "event": "rtsp-probe-start",
+   "at": "2026-10-22T11:31:34.406988+00:00",
+   "monotonic": 92204.58188422
+  },
+  {
+   "event": "rtsp-probe-end",
+   "at": "2026-10-22T11:31:40.146485+00:00",
+   "monotonic": 92210.321374513,
+   "status": "ok"
+  },
+  {
+   "event": "workflow",
+   "at": "2026-10-22T11:31:40.531818+00:00",
+   "monotonic": 92210.706711261,
+   "seq": 0,
+   "status": "ok",
+   "e2e_ms": 335.77222599706147
+  },
+  {
+   "event": "workflow",
+   "at": "2026-10-22T11:31:40.903057+00:00",
+   "monotonic": 92211.077953292,
+   "seq": 3,
+   "status": "ok",
+   "e2e_ms": 328.07507600227837
+  },
+  {
+   "event": "workflow",
+   "at": "2026-10-22T11:31:41.244044+00:00",
+   "monotonic": 92211.418940404,
+   "seq": 4,
+   "status": "ok",
+   "e2e_ms": 285.94284199061804
+  },
+  {
+   "event": "workflow",
+   "at": "2026-10-22T11:31:41.585129+00:00",
+   "monotonic": 92211.760022733,
+   "seq": 5,
+   "status": "ok",
+   "e2e_ms": 293.5876219999045
+  }
+ ]
+}

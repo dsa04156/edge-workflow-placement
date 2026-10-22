@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T12:07:41.910433+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-heavy-20261022t113349z-j08-w2-f",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0613-j08-w2-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T12:08:01.973296+00:00",
+ "duration_ms": 20062.858730001608,
+ "tag": "0613-j08-w2-ready"
+}

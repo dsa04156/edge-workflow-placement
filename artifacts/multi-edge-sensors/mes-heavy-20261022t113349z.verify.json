@@ -1,0 +1,535 @@
+{
+ "status": "passed",
+ "offline": false,
+ "environment": "cluster",
+ "errors": [],
+ "findings": [],
+ "quality": {
+  "checked_rows": 64,
+  "ok_rows": 64,
+  "violations": []
+ },
+ "policies": {
+  "w1": {
+   "greedy-network": {
+    "job": "j00-w1",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-dev0003-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     339.32770998217165,
+     322.459960822016,
+     323.10827216133475
+    ],
+    "mean_e2e_ms": 328.29864765517414
+   },
+   "server-fixed": {
+    "job": "j01-w1",
+    "placement": {
+     "V": "etri-ser0002-cgnmsb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-ser0002-cgnmsb"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     343.4487599879503,
+     325.1655369531363,
+     329.68967594206333
+    ],
+    "mean_e2e_ms": 332.76799096105
+   },
+   "exact": {
+    "job": "j02-w1",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-dev0002-raspi5",
+     "F": "etri-dev0003-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     334.2922960873693,
+     327.32778298668563,
+     324.0204700268805
+    ],
+    "mean_e2e_ms": 328.54684970031184
+   },
+   "kube-default": {
+    "job": "j03-w1",
+    "placement": {
+     "V": "etri-ser0004-cgnms0",
+     "T": "etri-ser0003-cg0ms0",
+     "F": "etri-dev0009-jetorn"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     609.9142809398472,
+     594.2083010450006,
+     594.183431006968
+    ],
+    "mean_e2e_ms": 599.4353376639386
+   },
+   "task-fastest": {
+    "job": "j04-w1",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-ser0003-cg0ms0"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     345.38395097479224,
+     323.55593610554934,
+     328.8832730613649
+    ],
+    "mean_e2e_ms": 332.6077200472355
+   }
+  },
+  "w2": {
+   "server-fixed": {
+    "job": "j05-w2",
+    "placement": {
+     "V": "etri-ser0002-cgnmsb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-ser0002-cgnmsb"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     307.8089461196214,
+     289.05212692916393,
+     290.5713221989572
+    ],
+    "mean_e2e_ms": 295.8107984159142
+   },
+   "task-fastest": {
+    "job": "j06-w2",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-ser0003-cg0ms0"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     304.8131479881704,
+     289.08379399217665,
+     289.9606029968709
+    ],
+    "mean_e2e_ms": 294.61918165907264
+   },
+   "exact": {
+    "job": "j07-w2",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-dev0002-raspi5",
+     "F": "etri-dev0008-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     312.0366239454597,
+     289.120274130255,
+     285.8734040055424
+    ],
+    "mean_e2e_ms": 295.67676736041903
+   },
+   "kube-default": {
+    "job": "j08-w2",
+    "placement": {
+     "V": "etri-ser0003-cg0ms0",
+     "T": "etri-ser0004-cgnms0",
+     "F": "etri-dev0009-jetorn"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     378.44620808027685,
+     332.35330507159233,
+     330.08804009296
+    ],
+    "mean_e2e_ms": 346.9625177482764
+   },
+   "greedy-network": {
+    "job": "j09-w2",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-dev0008-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     308.84049483574927,
+     287.4091360718012,
+     284.6797618549317
+    ],
+    "mean_e2e_ms": 293.6431309208274
+   }
+  },
+  "w3": {
+   "task-fastest": {
+    "job": "j10-w3",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-ser0003-cg0ms0"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     307.42466301308013,
+     292.3249909945298,
+     288.6312850168906
+    ],
+    "mean_e2e_ms": 296.12697967483354
+   },
+   "greedy-network": {
+    "job": "j11-w3",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-dev0008-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     302.19201199361123,
+     284.65103200869635,
+     292.3356979736127
+    ],
+    "mean_e2e_ms": 293.0595806586401
+   },
+   "source-local": {
+    "job": "j12-w3",
+    "placement": {
+     "V": "etri-dev0008-raspi5",
+     "T": "etri-dev0002-raspi5",
+     "F": "etri-dev0008-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     1499.8363790218718,
+     1457.3121209978126,
+     1451.7005079833325
+    ],
+    "mean_e2e_ms": 1469.6163360010057
+   },
+   "exact": {
+    "job": "j13-w3",
+    "placement": {
+     "V": "etri-ser0001-cg0msb",
+     "T": "etri-dev0002-raspi5",
+     "F": "etri-dev0008-raspi5"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     303.9621230273042,
+     284.82014100882225,
+     286.0764619836118
+    ],
+    "mean_e2e_ms": 291.6195753399127
+   },
+   "server-fixed": {
+    "job": "j14-w3",
+    "placement": {
+     "V": "etri-ser0002-cgnmsb",
+     "T": "etri-ser0002-cgnmsb",
+     "F": "etri-ser0002-cgnmsb"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     304.0602510154713,
+     293.3264839812182,
+     288.8025089923758
+    ],
+    "mean_e2e_ms": 295.39641466302174
+   },
+   "kube-default": {
+    "job": "j15-w3",
+    "placement": {
+     "V": "etri-ser0004-cgnms0",
+     "T": "etri-ser0003-cg0ms0",
+     "F": "etri-dev0009-jetorn"
+    },
+    "attempts": 3,
+    "ok": 3,
+    "failures": [],
+    "e2e_ms": [
+     576.4650729834102,
+     549.0790609910619,
+     548.3989930071402
+    ],
+    "mean_e2e_ms": 557.9810423272041
+   }
+  }
+ },
+ "rtsp_protocol": [
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-dev0003-raspi5",
+   "status": "ok",
+   "setup_ms": 1689.8515571374446,
+   "decoded_frames": 24,
+   "decode_ms_sum": 183.500448,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-dev0003-raspi5",
+   "status": "ok",
+   "setup_ms": 1613.2217599079013,
+   "decoded_frames": 24,
+   "decode_ms_sum": 75.317916,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-dev0003-raspi5",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-dev0002-raspi5",
+   "status": "ok",
+   "setup_ms": 1687.3168831225485,
+   "decoded_frames": 24,
+   "decode_ms_sum": 236.63908099999998,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-dev0002-raspi5",
+   "status": "ok",
+   "setup_ms": 1734.5003972295672,
+   "decoded_frames": 24,
+   "decode_ms_sum": 132.705095,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-dev0002-raspi5",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-ser0002-cgnmsb",
+   "status": "ok",
+   "setup_ms": 1576.378011959605,
+   "decoded_frames": 24,
+   "decode_ms_sum": 206.133922,
+   "decoded_equal_frozen": "0/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-ser0002-cgnmsb",
+   "status": "ok",
+   "setup_ms": 1713.4531089686789,
+   "decoded_frames": 24,
+   "decode_ms_sum": 105.89053599999998,
+   "decoded_equal_frozen": "0/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-ser0002-cgnmsb",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-dev0008-raspi5",
+   "status": "ok",
+   "setup_ms": 1761.1595049966127,
+   "decoded_frames": 24,
+   "decode_ms_sum": 260.8647890000001,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-dev0008-raspi5",
+   "status": "ok",
+   "setup_ms": 1616.96622899035,
+   "decoded_frames": 24,
+   "decode_ms_sum": 88.92767599999999,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-dev0008-raspi5",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-dev0009-jetorn",
+   "status": "ok",
+   "setup_ms": 1824.5707610039972,
+   "decoded_frames": 24,
+   "decode_ms_sum": 446.1313229999999,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-dev0009-jetorn",
+   "status": "ok",
+   "setup_ms": 1650.4240469657816,
+   "decoded_frames": 24,
+   "decode_ms_sum": 298.40086,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-dev0009-jetorn",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-ser0001-cg0msb",
+   "status": "ok",
+   "setup_ms": 1564.1494700103067,
+   "decoded_frames": 24,
+   "decode_ms_sum": 263.20165199999997,
+   "decoded_equal_frozen": "0/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-ser0001-cg0msb",
+   "status": "ok",
+   "setup_ms": 1685.672612991766,
+   "decoded_frames": 24,
+   "decode_ms_sum": 112.568383,
+   "decoded_equal_frozen": "0/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-ser0001-cg0msb",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-ser0003-cg0ms0",
+   "status": "ok",
+   "setup_ms": 1670.0106179341674,
+   "decoded_frames": 24,
+   "decode_ms_sum": 115.76212899999999,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-ser0003-cg0ms0",
+   "status": "ok",
+   "setup_ms": 1769.557052059099,
+   "decoded_frames": 24,
+   "decode_ms_sum": 42.35851399999999,
+   "decoded_equal_frozen": "6/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-ser0003-cg0ms0",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  },
+  {
+   "source": "cam-e0",
+   "reader_node": "etri-ser0004-cgnms0",
+   "status": "ok",
+   "setup_ms": 1782.7875879593194,
+   "decoded_frames": 24,
+   "decode_ms_sum": 288.68213000000003,
+   "decoded_equal_frozen": "0/6",
+   "error": null
+  },
+  {
+   "source": "cam-e6",
+   "reader_node": "etri-ser0004-cgnms0",
+   "status": "ok",
+   "setup_ms": 1698.4795569442213,
+   "decoded_frames": 24,
+   "decode_ms_sum": 158.17413200000001,
+   "decoded_equal_frozen": "0/6",
+   "error": null
+  },
+  {
+   "source": "cam-e8",
+   "reader_node": "etri-ser0004-cgnms0",
+   "status": "error",
+   "setup_ms": null,
+   "decoded_frames": null,
+   "decode_ms_sum": null,
+   "decoded_equal_frozen": "0/0",
+   "error": "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://10.244.10.30:8554/cam-e8')"
+  }
+ ],
+ "scope": "descriptive per-policy e2e of evaluation rows; warmups excluded from summaries but audited; no significance claim with 3 evaluation inputs"
+}

@@ -36,8 +36,9 @@ def compute(prepared_dir, run_dir, seqs, workflows):
             archive.extractall(tmp, filter='data')
         root = Path(tmp)/'models'
         names = json.loads((root/'class-names.json').read_text())
-        detector = models.Detector(root/'yolo11n.onnx', 1)
-        embedder = models.Embedder(str(root/'minilm'), 1, names)
+        v_path, t_dir, _ = models.bundle_models(root)
+        detector = models.Detector(v_path, 1)
+        embedder = models.Embedder(t_dir, 1, names)
         video, text = {}, {}
         for sid in sc['video_sources']:
             for seq in seqs:

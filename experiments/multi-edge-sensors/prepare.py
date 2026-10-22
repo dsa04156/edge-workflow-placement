@@ -18,6 +18,8 @@ import urllib.request
 HERE = Path(__file__).resolve().parent
 ARCHES = ('x86_64', 'aarch64')
 WHEELS = ('numpy', 'onnxruntime', 'pillow', 'tokenizers', 'av')
+DEFAULT_MODELS = dict(V=dict(onnx='yolo11n-onnx', weights='yolo11n-pt', provenance='yolo11n-export-provenance', label='yolo11n-onnx'),
+                      T=dict(onnx='minilm-onnx/model.onnx', tokenizer='minilm-tokenizer.json', label='all-MiniLM-L6-v2-onnx'))
 CODE = ('runtime.py', 'models.py', 'rtsp.py', 'scenario.py', 'bootstrap.py')
 
 
@@ -103,8 +105,14 @@ def build(manifest, data, scenario_path):
         bundles[f'wheels-{arch}.tar'] = members
         bundles[f'mediamtx-{arch}.tar'] = mediamtx_members(data['mediamtx-'+arch])
     models = {e['member']: (data[e['id']], 0o644) for e in manifest['sources'] if e['kind'] == 'model'}
-    names = class_names(data['yolo11n-onnx'])
+    chosen = manifest.get('models', DEFAULT_MODELS)
+    vm, tm = chosen['V'], chosen['T']
+    names = class_names(data[vm['onnx']])
     models['models/class-names.json'] = (json.dumps(names).encode(), 0o644)
+    t_dir = str(Path(entries[tm['onnx']]['member']).parent.parent.relative_to('models'))
+    layout = dict(V=dict(file=str(Path(entries[vm['onnx']]['member']).relative_to('models')), label=vm['label']),
+                  T=dict(dir=t_dir, label=tm['label']))
+    models['models/manifest.json'] = (json.dumps(layout, sort_keys=True).encode(), 0o644)
     bundles['models.tar'] = models
     bundles['fixtures.tar'] = {e['member']: (data[e['id']], 0o644) for e in manifest['sources'] if e['kind'] == 'image'}
     frozen = scenario.load(scenario_path)
@@ -117,12 +125,12 @@ def build(manifest, data, scenario_path):
                                    for k in seqs}
     for source, spec in frozen['text_sources'].items():
         inputs['text'][source] = {str(k): dict(text=(t := scenario.sentence(spec['seed'], k)), sha256=sha(t.encode())) for k in seqs}
-    model_info = dict(V=dict(member='models/yolo11n.onnx', sha256=entries['yolo11n-onnx']['sha256'],
-                             derived_from=dict(id='yolo11n-pt', sha256=entries['yolo11n-pt']['sha256'], url=entries['yolo11n-pt']['url']),
-                             provenance=dict(id='yolo11n-export-provenance', sha256=entries['yolo11n-export-provenance']['sha256'],
-                                             export=json.loads(data['yolo11n-export-provenance']))),
-                      T=dict(member='models/minilm/onnx/model.onnx', sha256=entries['minilm-onnx/model.onnx']['sha256'],
-                             tokenizer_sha256=entries['minilm-tokenizer.json']['sha256'], origin=entries['minilm-onnx/model.onnx']['origin']),
+    model_info = dict(V=dict(label=vm['label'], member=entries[vm['onnx']]['member'], sha256=entries[vm['onnx']]['sha256'],
+                             derived_from=dict(id=vm['weights'], sha256=entries[vm['weights']]['sha256'], url=entries[vm['weights']]['url']),
+                             provenance=dict(id=vm['provenance'], sha256=entries[vm['provenance']]['sha256'],
+                                             export=json.loads(data[vm['provenance']]))),
+                      T=dict(label=tm['label'], member=entries[tm['onnx']]['member'], sha256=entries[tm['onnx']]['sha256'],
+                             tokenizer_sha256=entries[tm['tokenizer']]['sha256'], origin=entries[tm['onnx']]['origin']),
                       class_names_sha256=sha(models['models/class-names.json'][0]))
     return bundles, inputs, model_info, names
 

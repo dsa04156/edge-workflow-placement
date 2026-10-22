@@ -1,0 +1,149 @@
+{"event": "cache-start", "at": "2026-10-22T11:33:04.448497+00:00", "monotonic": 92294.623386148}
+{"event": "bootstrap-start", "at": "2026-10-22T11:33:04.460071+00:00", "monotonic": 92294.634963792, "role": "video"}
+{"event": "bootstrap-start", "at": "2026-10-22T11:33:04.460574+00:00", "monotonic": 92294.63546101, "role": "text"}
+{"event": "bootstrap-start", "at": "2026-10-22T11:33:04.460904+00:00", "monotonic": 92294.635789931, "role": "V"}
+{"event": "bootstrap-start", "at": "2026-10-22T11:33:04.461223+00:00", "monotonic": 92294.636108877, "role": "T"}
+{"event": "bootstrap-start", "at": "2026-10-22T11:33:04.461502+00:00", "monotonic": 92294.636386914, "role": "F"}
+{"event": "ready", "at": "2026-10-22T11:33:05.465277+00:00", "monotonic": 92295.640168947, "role": "text"}
+{"event": "ready", "at": "2026-10-22T11:33:06.469744+00:00", "monotonic": 92296.644635889, "role": "F"}
+{"event": "ready", "at": "2026-10-22T11:33:07.471711+00:00", "monotonic": 92297.646603241, "role": "V"}
+{"event": "ready", "at": "2026-10-22T11:33:09.476133+00:00", "monotonic": 92299.651025386, "role": "T"}
+{"event": "ready", "at": "2026-10-22T11:33:13.512097+00:00", "monotonic": 92303.687019879, "role": "video"}
+{"event": "rtsp-probe-start", "at": "2026-10-22T11:33:14.514463+00:00", "monotonic": 92304.689351862}
+{"event": "rtsp-probe-end", "at": "2026-10-22T11:33:20.690761+00:00", "monotonic": 92310.865655768, "status": "ok"}
+{"event": "workflow", "at": "2026-10-22T11:33:21.079268+00:00", "monotonic": 92311.254161483, "seq": 0, "status": "ok", "e2e_ms": 338.542696001241}
+{"event": "workflow", "at": "2026-10-22T11:33:21.470013+00:00", "monotonic": 92311.64490907, "seq": 3, "status": "ok", "e2e_ms": 347.7340910030762}
+{"event": "workflow", "at": "2026-10-22T11:33:21.803871+00:00", "monotonic": 92311.978763073, "seq": 4, "status": "ok", "e2e_ms": 289.09981600008905}
+{"event": "workflow", "at": "2026-10-22T11:33:22.225312+00:00", "monotonic": 92312.400207194, "seq": 5, "status": "ok", "e2e_ms": 344.325337006012}
+{
+ "scope": "local x86_64 smoke of the Pod bootstrap/runtime path; not cluster evidence, not a placement comparison",
+ "prepared": "prepared-heavy-20261022b",
+ "workflow": {
+  "id": "w1",
+  "video": "cam-e0",
+  "text": "txt-e1",
+  "destination": "video"
+ },
+ "python": "/home/jinuk/.local/bin/python3.11",
+ "pod_python": "3.11.15 x86_64",
+ "status": "passed",
+ "rtsp": {
+  "codec": {
+   "name": "h264",
+   "width": 640,
+   "height": 480,
+   "pix_fmt": "yuv420p",
+   "average_rate": "5"
+  },
+  "setup_ms": 1716.7114350013435,
+  "decoded_frames": 24,
+  "skipped_frames": 0,
+  "loop_consistent": true,
+  "probe_equals_freeze": "6/6",
+  "mediamtx_paths": [
+   {
+    "name": "cam-e0",
+    "ready": true,
+    "tracks": [
+     "H264"
+    ],
+    "source": "rtspSession",
+    "bytes_received": 2087787,
+    "readers": 0
+   }
+  ],
+  "processes": {
+   "mediamtx": {
+    "pid": 3245333,
+    "sha256": "0ffb7f18210d08ee38cb16668c4f3a2c96622e69d401119c0026d078a2b89523",
+    "alive": true,
+    "cmdline": [
+     "/home/jinuk/codex-work/scheduler/artifacts/multi-edge-sensors/local-smoke-heavy-20261022b/pods/video/work/mediamtx/mediamtx",
+     "/home/jinuk/codex-work/scheduler/artifacts/multi-edge-sensors/local-smoke-heavy-20261022b/pods/video/work/mediamtx.yml"
+    ]
+   },
+   "publisher": {
+    "pid": 3245334,
+    "alive": true,
+    "cmdline": [
+     "/home/jinuk/.local/bin/python3.11",
+     "-u",
+     "/home/jinuk/codex-work/scheduler/artifacts/multi-edge-sensors/local-smoke-heavy-20261022b/config/runtime.py",
+     "publish"
+    ]
+   }
+  }
+ },
+ "workflows": [
+  {
+   "seq": 0,
+   "warmup": true,
+   "status": "ok",
+   "e2e_ms": 338.542696001241,
+   "stage_ms": {
+    "V": 285.517642,
+    "T": 50.62803,
+    "F": 0.03752
+   },
+   "fetch_ms": {
+    "V": 0.7908639963716269,
+    "T": 0.813125996501185
+   },
+   "result": "bus",
+   "alert": false
+  },
+  {
+   "seq": 3,
+   "warmup": false,
+   "status": "ok",
+   "e2e_ms": 347.7340910030762,
+   "stage_ms": {
+    "V": 335.472903,
+    "T": 86.221835,
+    "F": 0.056304
+   },
+   "fetch_ms": {
+    "V": 0.7551400049123913,
+    "T": 0.7505870016757399
+   },
+   "result": "bus",
+   "alert": true
+  },
+  {
+   "seq": 4,
+   "warmup": false,
+   "status": "ok",
+   "e2e_ms": 289.09981600008905,
+   "stage_ms": {
+    "V": 276.754879,
+    "T": 62.517732,
+    "F": 0.03597
+   },
+   "fetch_ms": {
+    "V": 0.7234160002553836,
+    "T": 0.7363119948422536
+   },
+   "result": "bus",
+   "alert": true
+  },
+  {
+   "seq": 5,
+   "warmup": false,
+   "status": "ok",
+   "e2e_ms": 344.325337006012,
+   "stage_ms": {
+    "V": 331.989947,
+    "T": 56.637136,
+    "F": 0.055656
+   },
+   "fetch_ms": {
+    "V": 0.7798720034770668,
+    "T": 0.7446450035786256
+   },
+   "result": "bus",
+   "alert": true
+  }
+ ],
+ "quality_rows_without_violation": 4,
+ "quality_rows": 4
+}

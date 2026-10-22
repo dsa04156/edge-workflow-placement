@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T11:59:15.441908+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-heavy-20261022t113349z-j02-w1-v",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0462-j02-w1-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T11:59:35.508367+00:00",
+ "duration_ms": 20066.492306999862,
+ "tag": "0462-j02-w1-ready"
+}

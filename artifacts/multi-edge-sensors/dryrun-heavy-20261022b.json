@@ -1,0 +1,420 @@
+{
+ "experiment": "multi-edge-sensors",
+ "seed": 20261022,
+ "namespace": "topology-profile-lab",
+ "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+ "pod_port": 8080,
+ "topology": {
+  "name": "ready-nodes-20261022",
+  "sha256": "2b4cf5da1883a3aea4f2cf4e79f651b9abfdfe596b21fe414f93df181899d01f",
+  "candidates": [
+   "etri-dev0003-raspi5",
+   "etri-dev0002-raspi5",
+   "etri-ser0002-cgnmsb",
+   "etri-dev0006-raspi5",
+   "etri-dev0008-raspi5",
+   "etri-dev0009-jetorn",
+   "etri-ser0001-cg0msb",
+   "etri-ser0003-cg0ms0",
+   "etri-ser0004-cgnms0"
+  ],
+  "roles": {
+   "etri-dev0003-raspi5": "edge",
+   "etri-dev0002-raspi5": "edge",
+   "etri-ser0002-cgnmsb": "cloud",
+   "etri-dev0006-raspi5": "edge",
+   "etri-dev0008-raspi5": "edge",
+   "etri-dev0009-jetorn": "edge",
+   "etri-ser0001-cg0msb": "cloud",
+   "etri-ser0003-cg0ms0": "cloud",
+   "etri-ser0004-cgnms0": "cloud"
+  },
+  "excluded": [
+   "etri-dev0001-jetorn",
+   "etri-dev0004-tedger",
+   "etri-dev0007-jetagx"
+  ],
+  "fixed": {
+   "image_source": "etri-dev0003-raspi5",
+   "audio_source": "etri-dev0002-raspi5",
+   "result_destination": "etri-dev0003-raspi5",
+   "helper_gateway_cache": "etri-ser0002-cgnmsb"
+  },
+  "aliases": {
+   "e0": "etri-dev0003-raspi5",
+   "e1": "etri-dev0002-raspi5",
+   "c": "etri-ser0002-cgnmsb",
+   "e6": "etri-dev0006-raspi5",
+   "e8": "etri-dev0008-raspi5",
+   "e9": "etri-dev0009-jetorn",
+   "c1": "etri-ser0001-cg0msb",
+   "c3": "etri-ser0003-cg0ms0",
+   "c4": "etri-ser0004-cgnms0"
+  }
+ },
+ "candidates": [
+  "etri-dev0003-raspi5",
+  "etri-dev0002-raspi5",
+  "etri-ser0002-cgnmsb",
+  "etri-dev0006-raspi5",
+  "etri-dev0008-raspi5",
+  "etri-dev0009-jetorn",
+  "etri-ser0001-cg0msb",
+  "etri-ser0003-cg0ms0",
+  "etri-ser0004-cgnms0"
+ ],
+ "server": "etri-ser0002-cgnmsb",
+ "scenario": {
+  "name": "multi-edge-sensors-20261022",
+  "sha256": "ba2bcd898133f7bba03fdeec176d76c38abb1a4d6909dcebd7f3503717278b19",
+  "stream": {
+   "protocol": "rtsp",
+   "transport": "tcp",
+   "server": "mediamtx v1.21.2",
+   "port": 8554,
+   "width": 640,
+   "height": 480,
+   "fps": 5,
+   "loop_frames": 12,
+   "codec": "h264",
+   "encoder": "libx264",
+   "encoder_options": {
+    "preset": "veryfast",
+    "tune": "zerolatency",
+    "qp": "23",
+    "bf": "0",
+    "g": "12",
+    "keyint_min": "12",
+    "sc_threshold": "0",
+    "threads": "1"
+   },
+   "pix_fmt": "yuv420p",
+   "sampling": "workflow input k = decoded frame whose barcode equals k; frozen once per source Pod after two loops are read back from its own RTSP stream",
+   "drop_policy": "frames without valid barcode or before the first IDR are counted and skipped; never substituted"
+  },
+  "frame_representation": "PNG (lossless) of the decoded RGB frame",
+  "inputs": {
+   "calibration": [
+    0,
+    1,
+    2
+   ],
+   "evaluation": [
+    3,
+    4,
+    5
+   ]
+  }
+ },
+ "sources": {
+  "cam-e0": {
+   "kind": "video",
+   "alias": "e0",
+   "node": "etri-dev0003-raspi5",
+   "image": "bus.jpg",
+   "path": "cam-e0"
+  },
+  "cam-e6": {
+   "kind": "video",
+   "alias": "e6",
+   "node": "etri-dev0006-raspi5",
+   "image": "zidane.jpg",
+   "path": "cam-e6"
+  },
+  "cam-e8": {
+   "kind": "video",
+   "alias": "e8",
+   "node": "etri-dev0008-raspi5",
+   "image": "coco-000000039769.jpg",
+   "path": "cam-e8"
+  },
+  "txt-e1": {
+   "kind": "text",
+   "alias": "e1",
+   "node": "etri-dev0002-raspi5"
+  },
+  "txt-e9": {
+   "kind": "text",
+   "alias": "e9",
+   "node": "etri-dev0009-jetorn"
+  }
+ },
+ "workflows": [
+  {
+   "id": "w1",
+   "video": "cam-e0",
+   "text": "txt-e1",
+   "video_node": "etri-dev0003-raspi5",
+   "text_node": "etri-dev0002-raspi5",
+   "destination_node": "etri-dev0003-raspi5"
+  },
+  {
+   "id": "w2",
+   "video": "cam-e6",
+   "text": "txt-e9",
+   "video_node": "etri-dev0006-raspi5",
+   "text_node": "etri-dev0009-jetorn",
+   "destination_node": "etri-dev0006-raspi5"
+  },
+  {
+   "id": "w3",
+   "video": "cam-e8",
+   "text": "txt-e1",
+   "video_node": "etri-dev0008-raspi5",
+   "text_node": "etri-dev0002-raspi5",
+   "destination_node": "etri-dev0008-raspi5"
+  }
+ ],
+ "prepared": {
+  "name": "prepared-heavy-20261022b",
+  "models": {
+   "V": {
+    "label": "yolo11m-onnx",
+    "member": "models/yolo11m.onnx",
+    "sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+    "derived_from": {
+     "id": "yolo11m-pt",
+     "sha256": "d5ffc1a674953a08e11a8d21e022781b1b23a19b730afc309290bd9fb5305b95",
+     "url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m.pt"
+    },
+    "provenance": {
+     "id": "yolo11m-export-provenance",
+     "sha256": "6aa65d78224006f3b5c086dd7312fe8c559a5ca9b83800b10767618dbad67e87",
+     "export": {
+      "weights_url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11m.pt",
+      "weights_sha256": "d5ffc1a674953a08e11a8d21e022781b1b23a19b730afc309290bd9fb5305b95",
+      "export_args": {
+       "format": "onnx",
+       "imgsz": 640,
+       "opset": 17,
+       "dynamic": false,
+       "simplify": false,
+       "nms": false,
+       "half": false,
+       "device": "cpu"
+      },
+      "onnx_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "onnx_bytes": 80622291,
+      "versions": {
+       "python": "3.11.15",
+       "torch": "2.9.1+cpu",
+       "ultralytics": "8.4.174",
+       "onnx": "1.19.1",
+       "onnxruntime": "1.23.2",
+       "numpy": "2.2.6"
+      },
+      "note": "ONNX metadata includes an export date, so re-export bytes differ; the pinned onnx_sha256 is the artifact used",
+      "comparison": {
+       "scope": "models.Detector (ORT CPU) vs original .pt on the same letterboxed tensor (gate), vs ultralytics ONNX predict (pipeline gate), vs default rectangular .pt predict (diagnostic; different input shape)",
+       "tolerance": {
+        "box_abs_px": 1.0,
+        "score_abs": 0.001,
+        "embedding_cosine_min": 0.9999,
+        "similarity_abs": 0.0001,
+        "fused_abs": 0.001
+       },
+       "frames": 9,
+       "frames_with_violations": 0,
+       "frames_with_pipeline_violations": 0,
+       "frames_differing_from_rect_mode": 9
+      }
+     }
+    }
+   },
+   "T": {
+    "label": "all-mpnet-base-v2-onnx",
+    "member": "models/mpnet/onnx/model.onnx",
+    "sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+    "tokenizer_sha256": "b8be2c30ba5dd723a6d5ee26d013da103d5408d92ddcb23747622f9e48f1d842",
+    "origin": "huggingface sentence-transformers/all-mpnet-base-v2 revision e8c3b32edf5434bc2275fc9bab85f82640a19130"
+   },
+   "class_names_sha256": "870d9b62483583605673c37812a780964045f6009eee31e4fa5879ae3a71d0d0"
+  },
+  "bundles": {
+   "wheels-x86_64.tar": "2f203c4a2239529e3aeb99cb637a3481f83676486338da419149b2f254380a1b",
+   "mediamtx-x86_64.tar": "d2dbd37e2d629f34c871efaeb26c78549f32341241b2a99ec76ba5db0b384ec1",
+   "wheels-aarch64.tar": "71690c368659ee365eb7f05faac2b942aa432dba42d4fd7a7d0ec5b8735faa09",
+   "mediamtx-aarch64.tar": "6196c8a38a9e9089c6ccaac4a795f6357691067cafd3f4fdb00c33788b57441b",
+   "models.tar": "24ec4acdc3d1c6151e22a79a223b5513d2d3d495092e492f56b60911a9c89193",
+   "fixtures.tar": "8c285584369a7675d3c4cc05c57d10539f3b4f660f926b59209ac9cd9807e6dd"
+  }
+ },
+ "dag": {
+  "tasks": [
+   "V: yolo11m-onnx CPU detection",
+   "T: all-mpnet-base-v2-onnx CPU embedding + class-prompt cosine",
+   "F: deterministic fusion (not a learned model)"
+  ],
+  "edges": [
+   "source(video)->V",
+   "source(text)->T",
+   "V->F",
+   "T->F",
+   "F->destination(video source edge)"
+  ],
+  "parallel": "V || T, joined by F"
+ },
+ "resources": {
+  "cache": {
+   "cpu": "1",
+   "memory": "1Gi"
+  },
+  "video-source": {
+   "cpu": "1",
+   "memory": "768Mi"
+  },
+  "text-source": {
+   "cpu": "100m",
+   "memory": "128Mi"
+  },
+  "controller": {
+   "cpu": "200m",
+   "memory": "256Mi"
+  },
+  "V": {
+   "cpu": "2",
+   "memory": "1536Mi",
+   "threads": 2
+  },
+  "T": {
+   "cpu": "1",
+   "memory": "2Gi",
+   "threads": 1
+  },
+  "F": {
+   "cpu": "250m",
+   "memory": "384Mi",
+   "threads": 1
+  }
+ },
+ "policies": [
+  "kube-default",
+  "task-fastest",
+  "greedy-network",
+  "exact"
+ ],
+ "diagnostics": [
+  "source-local",
+  "server-fixed"
+ ],
+ "policy_sources": {
+  "kube-default": "fresh unpinned default-scheduler observation per workflow, then re-pinned evaluation",
+  "task-fastest": "plan.taskwise_fastest: V,T,F in order, each min measured execution cost among remaining-capacity quality-valid nodes; no network, no critical path",
+  "greedy-network": "real-topology-live/placement_policies.sequential (network-aware greedy, topological order)",
+  "exact": "real-topology-profile/prepare.plan topology_profile (exhaustive over the frozen cost model; not a new algorithm)",
+  "source-local": "diagnostic: V on video edge, T on text edge, F on destination edge",
+  "server-fixed": "diagnostic: all tasks on the helper server"
+ },
+ "cost_model": "no-queue critical path; V||T in parallel (max), not summed; ignores link/node contention",
+ "calibration": "qualification inputs = calibration seqs only; evaluation seqs never used for planning",
+ "warmup": 1,
+ "evaluation_count": 3,
+ "workload": {
+  "source_pods": 5,
+  "qualification_pods": 27,
+  "qualification_requests": {
+   "V": 108,
+   "T": 72,
+   "F": 36
+  },
+  "rtsp_protocol_probes": 27,
+  "transfer_probe_gets": 567,
+  "scheduler_observation_pods": 9,
+  "max_unique_jobs": 18,
+  "max_eval_workflows": 54,
+  "max_workflow_requests": 72,
+  "eval_workflow_cap": 72
+ },
+ "network": "native LAN, no qdisc/shaping (first bounded pilot)",
+ "separation": "RTSP protocol probes (live stream) are reported separately from the frozen decoded-frame placement comparison",
+ "observation_sharing": "policies with the same placement in the same workflow share one job/observation",
+ "control_path": "kubectl exec only into the owned cache (bundle upload) and controller Pods on the server; edge Pods via HTTP",
+ "environment": "cluster",
+ "dry_run": true,
+ "cluster_calls": 0,
+ "preflight": {
+  "status": "passed",
+  "errors": [],
+  "candidates": [
+   {
+    "alias": "e0",
+    "name": "etri-dev0003-raspi5",
+    "role": "edge",
+    "arch": "arm64",
+    "ok": true
+   },
+   {
+    "alias": "e1",
+    "name": "etri-dev0002-raspi5",
+    "role": "edge",
+    "arch": "arm64",
+    "ok": true
+   },
+   {
+    "alias": "c",
+    "name": "etri-ser0002-cgnmsb",
+    "role": "cloud",
+    "arch": "amd64",
+    "ok": true
+   },
+   {
+    "alias": "e6",
+    "name": "etri-dev0006-raspi5",
+    "role": "edge",
+    "arch": "arm64",
+    "ok": true
+   },
+   {
+    "alias": "e8",
+    "name": "etri-dev0008-raspi5",
+    "role": "edge",
+    "arch": "arm64",
+    "ok": true
+   },
+   {
+    "alias": "e9",
+    "name": "etri-dev0009-jetorn",
+    "role": "edge",
+    "arch": "arm64",
+    "ok": true
+   },
+   {
+    "alias": "c1",
+    "name": "etri-ser0001-cg0msb",
+    "role": "cloud",
+    "arch": "amd64",
+    "ok": true
+   },
+   {
+    "alias": "c3",
+    "name": "etri-ser0003-cg0ms0",
+    "role": "cloud",
+    "arch": "arm64",
+    "ok": true
+   },
+   {
+    "alias": "c4",
+    "name": "etri-ser0004-cgnms0",
+    "role": "cloud",
+    "arch": "amd64",
+    "ok": true
+   }
+  ],
+  "excluded": {
+   "etri-dev0001-jetorn": {
+    "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+    "observed_ready": false
+   },
+   "etri-dev0004-tedger": {
+    "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+    "observed_ready": false
+   },
+   "etri-dev0007-jetagx": {
+    "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+    "observed_ready": false
+   }
+  },
+  "unlisted_not_candidates": [],
+  "runtime": "image/runtime compatibility unverified until qualification; arch check uses previously qualified arches only"
+ }
+}

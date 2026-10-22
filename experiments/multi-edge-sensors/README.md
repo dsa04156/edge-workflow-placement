@@ -3,7 +3,7 @@
 다중 엣지 가상 RTSP 영상·텍스트 입력 → YOLO11n(V) ∥ all-MiniLM-L6-v2(T) → 결정적 fusion(F) DAG 배치 실험 도구.
 명세: `.scratch/multi-edge-sensors/spec.md`, 결과·한계: `docs/experiments/multi-edge-sensors-20261022.md`.
 
-**현재 상태: 구현 + 로컬 smoke + fake-kubectl 오프라인 검증까지. 클러스터 실행(`--execute`)은 아직 하지 않았다.**
+**상태: 클러스터 실행 2회 — 경량(`mes-live-20261022t101935z`), 무거운 모델(`mes-heavy-20261022t113349z`, `sources-20261022-heavy.json`).**
 
 ## 파일
 

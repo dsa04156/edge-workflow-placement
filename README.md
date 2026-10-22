@@ -1,5 +1,9 @@
 # 이종 엣지 AI 워크플로 배치 연구
 
+## 2026-10-22 무거운 모델 재실측 (YOLO11m·mpnet)
+
+[무거운 모델 재실측](docs/experiments/multi-edge-sensors-heavy-20261022.md): 같은 엣지 source·정책에서 V=YOLO11m, T=all-mpnet-base-v2로 교체. 64/64 성공·품질 통과·잔여0. E2E 약 290–330ms로 V compute가 지배하며 exact/greedy/task-fastest/server-fixed 차이는 0–2%(SD 이내)로 DAG 공동 배치 이득이 사라졌다. kube-default는 V를 느린 ser0004에 두어 w1/w3에서 약 45–48% 느렸다(프로파일 기반 정책 일반의 이득). cam-e8 RTSP probe 9건 404, dev0006은 capacity로 V/T 후보 제외.
+
 ## 2026-10-22 다중 엣지 센서 입력 배치 실측
 
 [다중 엣지 RTSP·텍스트 소스 파일럿](docs/experiments/multi-edge-sensors-20261022.md): Ready9 노드, 엣지 영상3(RTSP)·텍스트2 source, YOLO11n‖MiniLM→fusion DAG, CPU FP32 ONNX. 68/68 성공·품질 통과·잔여0. exact 중앙값은 task-fastest 대비 3.3–5.6%, kube-default 대비 6.4–10.0% 낮지만 n=3·차이가 SD 규모이고 평균 기준 w2는 역전, greedy-network와 거의 동일하다. 동결 PNG 입력 비교이며 실시간 RTSP E2E가 아니다.

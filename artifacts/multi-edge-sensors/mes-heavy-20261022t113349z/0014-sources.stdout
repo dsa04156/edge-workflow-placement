@@ -1,0 +1,1040 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-10-22T11:34:14Z",
+        "labels": {
+            "component": "source",
+            "experiment": "multi-edge-sensors",
+            "run-id": "mes-heavy-20261022t113349z",
+            "source-id": "cam-e0"
+        },
+        "name": "mes-heavy-20261022t113349z-src-cam-e0",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51728843",
+        "uid": "01421f2e-72a9-4dcf-b78c-11bce06d05d9"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 5400,
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "etri-dev0003-raspi5"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+                ],
+                "env": [
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_IP",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "status.podIP"
+                            }
+                        }
+                    },
+                    {
+                        "name": "TMPDIR",
+                        "value": "/work/tmp"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    },
+                    {
+                        "name": "PYTHONDONTWRITEBYTECODE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OMP_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OPENBLAS_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "ROLE",
+                        "value": "video-source"
+                    },
+                    {
+                        "name": "ASSET_URL",
+                        "value": "http://10.244.8.154:8080"
+                    },
+                    {
+                        "name": "SOURCE_ID",
+                        "value": "cam-e0"
+                    }
+                ],
+                "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "worker",
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health",
+                        "port": 8080,
+                        "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 2,
+                    "periodSeconds": 3,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "ephemeral-storage": "3Gi",
+                        "memory": "768Mi"
+                    },
+                    "requests": {
+                        "cpu": "1",
+                        "ephemeral-storage": "512Mi",
+                        "memory": "768Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": false,
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "fsGroup": 65532,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 3,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "emptyDir": {
+                    "sizeLimit": "3Gi"
+                },
+                "name": "work"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "mes-heavy-20261022t113349z-code"
+                },
+                "name": "config"
+            }
+        ]
+    },
+    "status": {
+        "phase": "Pending",
+        "qosClass": "Guaranteed"
+    }
+}
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-10-22T11:34:14Z",
+        "labels": {
+            "component": "source",
+            "experiment": "multi-edge-sensors",
+            "run-id": "mes-heavy-20261022t113349z",
+            "source-id": "cam-e6"
+        },
+        "name": "mes-heavy-20261022t113349z-src-cam-e6",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51728847",
+        "uid": "9945dadc-3648-4b31-82ce-6216e817f1fa"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 5400,
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "etri-dev0006-raspi5"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+                ],
+                "env": [
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_IP",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "status.podIP"
+                            }
+                        }
+                    },
+                    {
+                        "name": "TMPDIR",
+                        "value": "/work/tmp"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    },
+                    {
+                        "name": "PYTHONDONTWRITEBYTECODE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OMP_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OPENBLAS_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "ROLE",
+                        "value": "video-source"
+                    },
+                    {
+                        "name": "ASSET_URL",
+                        "value": "http://10.244.8.154:8080"
+                    },
+                    {
+                        "name": "SOURCE_ID",
+                        "value": "cam-e6"
+                    }
+                ],
+                "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "worker",
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health",
+                        "port": 8080,
+                        "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 2,
+                    "periodSeconds": 3,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "ephemeral-storage": "3Gi",
+                        "memory": "768Mi"
+                    },
+                    "requests": {
+                        "cpu": "1",
+                        "ephemeral-storage": "512Mi",
+                        "memory": "768Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": false,
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "fsGroup": 65532,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 3,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "emptyDir": {
+                    "sizeLimit": "3Gi"
+                },
+                "name": "work"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "mes-heavy-20261022t113349z-code"
+                },
+                "name": "config"
+            }
+        ]
+    },
+    "status": {
+        "phase": "Pending",
+        "qosClass": "Guaranteed"
+    }
+}
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-10-22T11:34:14Z",
+        "labels": {
+            "component": "source",
+            "experiment": "multi-edge-sensors",
+            "run-id": "mes-heavy-20261022t113349z",
+            "source-id": "cam-e8"
+        },
+        "name": "mes-heavy-20261022t113349z-src-cam-e8",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51728853",
+        "uid": "ed9dedd1-cce3-4159-89ac-beb274e01078"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 5400,
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "etri-dev0008-raspi5"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+                ],
+                "env": [
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_IP",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "status.podIP"
+                            }
+                        }
+                    },
+                    {
+                        "name": "TMPDIR",
+                        "value": "/work/tmp"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    },
+                    {
+                        "name": "PYTHONDONTWRITEBYTECODE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OMP_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OPENBLAS_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "ROLE",
+                        "value": "video-source"
+                    },
+                    {
+                        "name": "ASSET_URL",
+                        "value": "http://10.244.8.154:8080"
+                    },
+                    {
+                        "name": "SOURCE_ID",
+                        "value": "cam-e8"
+                    }
+                ],
+                "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "worker",
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health",
+                        "port": 8080,
+                        "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 2,
+                    "periodSeconds": 3,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "ephemeral-storage": "3Gi",
+                        "memory": "768Mi"
+                    },
+                    "requests": {
+                        "cpu": "1",
+                        "ephemeral-storage": "512Mi",
+                        "memory": "768Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": false,
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "fsGroup": 65532,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 3,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "emptyDir": {
+                    "sizeLimit": "3Gi"
+                },
+                "name": "work"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "mes-heavy-20261022t113349z-code"
+                },
+                "name": "config"
+            }
+        ]
+    },
+    "status": {
+        "phase": "Pending",
+        "qosClass": "Guaranteed"
+    }
+}
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-10-22T11:34:15Z",
+        "labels": {
+            "component": "source",
+            "experiment": "multi-edge-sensors",
+            "run-id": "mes-heavy-20261022t113349z",
+            "source-id": "txt-e1"
+        },
+        "name": "mes-heavy-20261022t113349z-src-txt-e1",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51728860",
+        "uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 5400,
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "etri-dev0002-raspi5"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+                ],
+                "env": [
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_IP",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "status.podIP"
+                            }
+                        }
+                    },
+                    {
+                        "name": "TMPDIR",
+                        "value": "/work/tmp"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    },
+                    {
+                        "name": "PYTHONDONTWRITEBYTECODE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OMP_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OPENBLAS_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "ROLE",
+                        "value": "text-source"
+                    },
+                    {
+                        "name": "ASSET_URL",
+                        "value": "http://10.244.8.154:8080"
+                    },
+                    {
+                        "name": "SOURCE_ID",
+                        "value": "txt-e1"
+                    }
+                ],
+                "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "worker",
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health",
+                        "port": 8080,
+                        "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 2,
+                    "periodSeconds": 3,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "100m",
+                        "ephemeral-storage": "3Gi",
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "100m",
+                        "ephemeral-storage": "512Mi",
+                        "memory": "128Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": false,
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "fsGroup": 65532,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 3,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "emptyDir": {
+                    "sizeLimit": "3Gi"
+                },
+                "name": "work"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "mes-heavy-20261022t113349z-code"
+                },
+                "name": "config"
+            }
+        ]
+    },
+    "status": {
+        "phase": "Pending",
+        "qosClass": "Guaranteed"
+    }
+}
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2026-10-22T11:34:15Z",
+        "labels": {
+            "component": "source",
+            "experiment": "multi-edge-sensors",
+            "run-id": "mes-heavy-20261022t113349z",
+            "source-id": "txt-e9"
+        },
+        "name": "mes-heavy-20261022t113349z-src-txt-e9",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51728865",
+        "uid": "21cca149-f9be-4175-bb16-f40437cefd16"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 5400,
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "etri-dev0009-jetorn"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/config/bootstrap.py',run_name='__main__')"
+                ],
+                "env": [
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_IP",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "status.podIP"
+                            }
+                        }
+                    },
+                    {
+                        "name": "TMPDIR",
+                        "value": "/work/tmp"
+                    },
+                    {
+                        "name": "PORT",
+                        "value": "8080"
+                    },
+                    {
+                        "name": "PYTHONDONTWRITEBYTECODE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OMP_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "OPENBLAS_NUM_THREADS",
+                        "value": "1"
+                    },
+                    {
+                        "name": "ROLE",
+                        "value": "text-source"
+                    },
+                    {
+                        "name": "ASSET_URL",
+                        "value": "http://10.244.8.154:8080"
+                    },
+                    {
+                        "name": "SOURCE_ID",
+                        "value": "txt-e9"
+                    }
+                ],
+                "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "worker",
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health",
+                        "port": 8080,
+                        "scheme": "HTTP"
+                    },
+                    "initialDelaySeconds": 2,
+                    "periodSeconds": 3,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "100m",
+                        "ephemeral-storage": "3Gi",
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "100m",
+                        "ephemeral-storage": "512Mi",
+                        "memory": "128Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": false,
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "fsGroup": 65532,
+            "runAsGroup": 65532,
+            "runAsNonRoot": true,
+            "runAsUser": 65532
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 3,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "emptyDir": {
+                    "sizeLimit": "3Gi"
+                },
+                "name": "work"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "mes-heavy-20261022t113349z-code"
+                },
+                "name": "config"
+            }
+        ]
+    },
+    "status": {
+        "phase": "Pending",
+        "qosClass": "Guaranteed"
+    }
+}

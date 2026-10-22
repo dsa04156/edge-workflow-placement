@@ -178,13 +178,14 @@ def load_worker():
     root = WORK/'models'
     names = json.loads((root/'class-names.json').read_text())
     start = time.perf_counter()
+    v_path, t_dir, labels = models.bundle_models(root)
     if task == 'V':
-        State.model = models.Detector(root/'yolo11n.onnx', threads)
-        State.info = dict(model='yolo11n-onnx', model_sha256=file_sha(root/'yolo11n.onnx'))
+        State.model = models.Detector(v_path, threads)
+        State.info = dict(model=labels['V'], model_sha256=file_sha(v_path))
     elif task == 'T':
-        State.model = models.Embedder(str(root/'minilm'), threads, names)
-        State.info = dict(model='all-MiniLM-L6-v2-onnx', model_sha256=file_sha(root/'minilm/onnx/model.onnx'),
-                          tokenizer_sha256=file_sha(root/'minilm/tokenizer.json'))
+        State.model = models.Embedder(t_dir, threads, names)
+        State.info = dict(model=labels['T'], model_sha256=file_sha(t_dir+'/onnx/model.onnx'),
+                          tokenizer_sha256=file_sha(t_dir+'/tokenizer.json'))
     elif task == 'F':
         State.info = dict(model='deterministic-fusion', model_sha256=file_sha(HERE/'models.py'))
     else:

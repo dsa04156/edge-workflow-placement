@@ -56,12 +56,12 @@ PROBE_REPEATS = 3
 # Pod HTTP port; overridable only for offline fake-kubectl tests on a host whose 8080 is taken.
 PORT = int(os.environ.get('MES_POD_PORT', '8080'))
 RESOURCES = {
-    'cache': dict(cpu='500m', memory='512Mi'),
+    'cache': dict(cpu='1', memory='1Gi'),
     'video-source': dict(cpu='1', memory='768Mi'),
     'text-source': dict(cpu='100m', memory='128Mi'),
     'controller': dict(cpu='200m', memory='256Mi'),
     'V': dict(cpu='2', memory='1536Mi', threads=2),
-    'T': dict(cpu='1', memory='1Gi', threads=1),
+    'T': dict(cpu='1', memory='2Gi', threads=1),
     'F': dict(cpu='250m', memory='384Mi', threads=1)}
 CODE = ('runtime.py', 'models.py', 'rtsp.py', 'scenario.py', 'bootstrap.py')
 TIMEOUTS = dict(cache_ready=120, upload=600, source_ready=420, worker_ready=480, batch=600, drive=600, delete=120, terminal_grace=45)
@@ -112,7 +112,7 @@ def load_design(prepared_dir, topology_path, scenario_path):
                       frame_representation=sc['frame_representation'], inputs=sc['inputs']),
         sources=sources, workflows=workflows, prepared=dict(name=prepared['name'], models=prepared['models'],
                                                             bundles={k: v['sha256'] for k, v in prepared['bundles'].items()}),
-        dag=dict(tasks=['V: YOLO11n ONNX CPU detection', 'T: all-MiniLM-L6-v2 ONNX CPU embedding + class-prompt cosine',
+        dag=dict(tasks=[f"V: {prepared['models']['V'].get('label', 'yolo11n-onnx')} CPU detection", f"T: {prepared['models']['T'].get('label', 'all-MiniLM-L6-v2-onnx')} CPU embedding + class-prompt cosine",
                         'F: deterministic fusion (not a learned model)'], edges=['source(video)->V', 'source(text)->T', 'V->F', 'T->F',
                         'F->destination(video source edge)'], parallel='V || T, joined by F'),
         resources=RESOURCES, policies=list(POLICIES), diagnostics=list(DIAGNOSTICS),

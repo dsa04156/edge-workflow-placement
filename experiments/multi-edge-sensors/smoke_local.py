@@ -140,8 +140,9 @@ def main(argv=None):
             with tarfile.open(args.prepared/'bundles/models.tar') as archive:
                 archive.extractall(tmp, filter='data')
             names = json.loads((Path(tmp)/'models/class-names.json').read_text())
-            detector = models.Detector(Path(tmp)/'models/yolo11n.onnx', 1)
-            embedder = models.Embedder(str(Path(tmp)/'models/minilm'), 1, names)
+            v_path, t_dir, _ = models.bundle_models(Path(tmp)/'models')
+            detector = models.Detector(v_path, 1)
+            embedder = models.Embedder(t_dir, 1, names)
             checks = []
             for row in rows:
                 seq = row['seq']

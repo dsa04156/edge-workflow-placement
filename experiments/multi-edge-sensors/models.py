@@ -11,6 +11,7 @@ import io
 import json
 import math
 import os
+from pathlib import Path
 import time
 
 CONF, IOU, MAX_DET, PAD = 0.25, 0.7, 300, 114
@@ -19,6 +20,12 @@ PROMPT = 'a photo of a {}'
 ALERT_THRESHOLD = 0.2
 # Pre-agreed quality tolerances against the local CPU reference (same ONNX bytes).
 TOLERANCE = dict(box_abs_px=1.0, score_abs=1e-3, embedding_cosine_min=0.9999, similarity_abs=1e-4, fused_abs=1e-3)
+
+
+def bundle_models(root):
+    """(V onnx path, T model dir, labels) from the prepared models/manifest.json."""
+    manifest = json.loads((Path(root)/'manifest.json').read_text())
+    return Path(root)/manifest['V']['file'], str(Path(root)/manifest['T']['dir']), dict(V=manifest['V']['label'], T=manifest['T']['label'])
 
 
 def session(path, threads):
@@ -93,6 +100,7 @@ class Embedder:
     def __init__(self, root, threads=1, class_names=None):
         from tokenizers import Tokenizer
         self.session = session(os.path.join(root, 'onnx/model.onnx'), threads)
+        self.inputs = {i.name for i in self.session.get_inputs()}
         self.tokenizer = Tokenizer.from_file(os.path.join(root, 'tokenizer.json'))
         self.tokenizer.no_padding()
         self.tokenizer.enable_truncation(MAX_TOKENS)
@@ -108,7 +116,7 @@ class Embedder:
         feed = dict(input_ids=np.array([encoding.ids], dtype=np.int64),
                     attention_mask=np.array([encoding.attention_mask], dtype=np.int64),
                     token_type_ids=np.array([encoding.type_ids], dtype=np.int64))
-        hidden = self.session.run(None, feed)[0][0]
+        hidden = self.session.run(None, {k: v for k, v in feed.items() if k in self.inputs})[0][0]
         mask = feed['attention_mask'][0][:, None].astype(np.float32)
         pooled = (hidden*mask).sum(0)/max(mask.sum(), 1e-9)
         return (pooled/max(float(np.linalg.norm(pooled)), 1e-12)).astype(np.float32)
@@ -145,7 +153,7 @@ def timed(function, *args):
     return result, (time.perf_counter_ns()-wall)/1e6, (time.thread_time_ns()-cpu)/1e6
 
 
-EMBEDDING_DIM, CLASSES = 384, 80
+EMBEDDING_DIMS, CLASSES = (384, 768), 80  # all-MiniLM-L6-v2, all-mpnet-base-v2
 NORM_TOLERANCE = 1e-3  # output contract: T embedding is L2-normalized
 
 
@@ -192,8 +200,8 @@ def validate(task, out, names=None):
     elif task == 'T':
         if not isinstance(out, dict):
             return ['invalid: T output is not an object']
-        if not _vector(out.get('embedding'), EMBEDDING_DIM):
-            bad.append(f'invalid: embedding must be {EMBEDDING_DIM} finite values')
+        if not any(_vector(out.get('embedding'), n) for n in EMBEDDING_DIMS):
+            bad.append(f'invalid: embedding must be {" or ".join(map(str, EMBEDDING_DIMS))} finite values')
         elif abs(math.sqrt(sum(v*v for v in out['embedding'])) - 1.0) > NORM_TOLERANCE:
             bad.append('invalid: embedding is not L2-normalized (norm %.6g)' % math.sqrt(sum(v*v for v in out['embedding'])))
         sims = out.get('similarities')
@@ -258,6 +266,8 @@ def compare(task, got, ref, names=None):
                 errors.append('box diff')
     elif task == 'T':
         a, b = got['embedding'], ref['embedding']
+        if len(a) != len(b):
+            return ['embedding dimension differs: %d vs %d' % (len(a), len(b))]
         cosine = sum(x*y for x, y in zip(a, b))/(math.sqrt(sum(x*x for x in a))*math.sqrt(sum(y*y for y in b)))
         if cosine < TOLERANCE['embedding_cosine_min']:
             errors.append('embedding cosine %.6f' % cosine)

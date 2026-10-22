@@ -1,0 +1,795 @@
+{
+ "run": "mes-heavy-20261022t113349z",
+ "scope": "descriptive n=3 per unique placement; warmup excluded; E2E = destination-Pod monotonic F request->response (frozen decoded frames, not live RTSP E2E); no hypothesis test",
+ "workflows": {
+  "w1": {
+   "policies": {
+    "greedy-network": {
+     "job": "j00-w1",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-dev0003-raspi5"
+     },
+     "predicted_ms": 326.20922625632204,
+     "decision_ms": 3.0054720118641853,
+     "e2e_ms": [
+      339.32770998217165,
+      322.459960822016,
+      323.10827216133475
+     ],
+     "stats": {
+      "n": 3,
+      "median": 323.10827216133475,
+      "mean": 328.29864765517414,
+      "sd": 9.556947146331263,
+      "min": 322.459960822016,
+      "max": 339.32770998217165
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 41.202203996363096,
+      "V_decode_ms": 5.951708,
+      "V_compute_ms": 271.985594,
+      "T_fetch_ms": 2.24600697401911,
+      "T_compute_ms": 56.066847,
+      "F_call_V_ms": 320.9049890283495,
+      "F_call_T_ms": 61.37783289887011,
+      "F_compute_ms": 0.109092
+     },
+     "deploy_and_run_phase_ms": 115100.16794699186,
+     "pct_mean_diff_vs": {
+      "task-fastest": -1.2955419048750274,
+      "kube-default": -45.23201636149983
+     }
+    },
+    "server-fixed": {
+     "job": "j01-w1",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0002-cgnmsb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-ser0002-cgnmsb"
+     },
+     "predicted_ms": 328.199236921249,
+     "decision_ms": 0.0063680054154247046,
+     "e2e_ms": [
+      343.4487599879503,
+      325.1655369531363,
+      329.68967594206333
+     ],
+     "stats": {
+      "n": 3,
+      "median": 329.68967594206333,
+      "mean": 332.76799096105,
+      "sd": 9.522398786664915,
+      "min": 325.1655369531363,
+      "max": 343.4487599879503
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 41.43725399626419,
+      "V_decode_ms": 6.247029,
+      "V_compute_ms": 275.892405,
+      "T_fetch_ms": 1.5121159958653152,
+      "T_compute_ms": 52.016333,
+      "F_call_V_ms": 326.9369580084458,
+      "F_call_T_ms": 55.019608000293374,
+      "F_compute_ms": 0.045187
+     },
+     "deploy_and_run_phase_ms": 23736.036709990003,
+     "pct_mean_diff_vs": {
+      "task-fastest": 0.04818616771484589,
+      "kube-default": -44.48642413076927
+     }
+    },
+    "exact": {
+     "job": "j02-w1",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-dev0002-raspi5",
+      "F": "etri-dev0003-raspi5"
+     },
+     "predicted_ms": 326.20922625632204,
+     "decision_ms": 2.465800993377343,
+     "e2e_ms": [
+      334.2922960873693,
+      327.32778298668563,
+      324.0204700268805
+     ],
+     "stats": {
+      "n": 3,
+      "median": 327.32778298668563,
+      "mean": 328.54684970031184,
+      "sd": 5.243300048007727,
+      "min": 324.0204700268805,
+      "max": 334.2922960873693
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 41.09026699734386,
+      "V_decode_ms": 5.845683,
+      "V_compute_ms": 277.161363,
+      "T_fetch_ms": 0.9264189284294844,
+      "T_compute_ms": 166.221059,
+      "F_call_V_ms": 325.3740349318832,
+      "F_call_T_ms": 170.49302603118122,
+      "F_compute_ms": 0.110351
+     },
+     "deploy_and_run_phase_ms": 107444.21929100645,
+     "pct_mean_diff_vs": {
+      "task-fastest": -1.2209188488911031,
+      "kube-default": -45.19061038665274
+     }
+    },
+    "kube-default": {
+     "job": "j03-w1",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0004-cgnms0",
+      "T": "etri-ser0003-cg0ms0",
+      "F": "etri-dev0009-jetorn"
+     },
+     "predicted_ms": 578.932741067079,
+     "decision_ms": null,
+     "e2e_ms": [
+      609.9142809398472,
+      594.2083010450006,
+      594.183431006968
+     ],
+     "stats": {
+      "n": 3,
+      "median": 594.2083010450006,
+      "mean": 599.4353376639386,
+      "sd": 9.075039601262407,
+      "min": 594.183431006968,
+      "max": 609.9142809398472
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 41.45227000117302,
+      "V_decode_ms": 10.878123,
+      "V_compute_ms": 530.842817,
+      "T_fetch_ms": 1.82057311758399,
+      "T_compute_ms": 62.681368,
+      "F_call_V_ms": 590.0579359731637,
+      "F_call_T_ms": 68.63726500887424,
+      "F_compute_ms": 0.494902
+     },
+     "deploy_and_run_phase_ms": 140898.92013400095,
+     "pct_mean_diff_vs": {
+      "task-fastest": 80.22291772987393,
+      "kube-default": 0.0
+     }
+    },
+    "task-fastest": {
+     "job": "j04-w1",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-ser0003-cg0ms0"
+     },
+     "predicted_ms": 326.6898199373256,
+     "decision_ms": 0.033356001949869096,
+     "e2e_ms": [
+      345.38395097479224,
+      323.55593610554934,
+      328.8832730613649
+     ],
+     "stats": {
+      "n": 3,
+      "median": 328.8832730613649,
+      "mean": 332.6077200472355,
+      "sd": 11.380649686898055,
+      "min": 323.55593610554934,
+      "max": 345.38395097479224
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 41.592299996409565,
+      "V_decode_ms": 5.76611,
+      "V_compute_ms": 274.729408,
+      "T_fetch_ms": 1.8494169926270843,
+      "T_compute_ms": 52.50453,
+      "F_call_V_ms": 326.16395596414804,
+      "F_call_T_ms": 57.00743291527033,
+      "F_compute_ms": 0.078209
+     },
+     "deploy_and_run_phase_ms": 37054.09721600881,
+     "pct_mean_diff_vs": {
+      "task-fastest": 0.0,
+      "kube-default": -44.5131611120155
+     }
+    }
+   },
+   "failed_or_missing": [],
+   "not_evaluated": {
+    "source-local": {
+     "status": "infeasible",
+     "error": "placement outside qualified candidates or resource-infeasible",
+     "decision_ms": 0.006143003702163696
+    }
+   }
+  },
+  "w2": {
+   "policies": {
+    "server-fixed": {
+     "job": "j05-w2",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0002-cgnmsb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-ser0002-cgnmsb"
+     },
+     "predicted_ms": 286.6934350652174,
+     "decision_ms": 0.006698013748973608,
+     "e2e_ms": [
+      307.8089461196214,
+      289.05212692916393,
+      290.5713221989572
+     ],
+     "stats": {
+      "n": 3,
+      "median": 290.5713221989572,
+      "mean": 295.8107984159142,
+      "sd": 10.418428375091978,
+      "min": 289.05212692916393,
+      "max": 307.8089461196214
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 4.9699670053087175,
+      "V_decode_ms": 8.262137,
+      "V_compute_ms": 270.997128,
+      "T_fetch_ms": 5.172377976123244,
+      "T_compute_ms": 57.411651,
+      "F_call_V_ms": 286.4715940086171,
+      "F_call_T_ms": 64.57777600735426,
+      "F_compute_ms": 0.185336
+     },
+     "deploy_and_run_phase_ms": 35505.22981400718,
+     "pct_mean_diff_vs": {
+      "task-fastest": 0.4044600049905967,
+      "kube-default": -14.74272197017925
+     }
+    },
+    "task-fastest": {
+     "job": "j06-w2",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-ser0003-cg0ms0"
+     },
+     "predicted_ms": 284.4896608360878,
+     "decision_ms": 0.020906998543068767,
+     "e2e_ms": [
+      304.8131479881704,
+      289.08379399217665,
+      289.9606029968709
+     ],
+     "stats": {
+      "n": 3,
+      "median": 289.9606029968709,
+      "mean": 294.61918165907264,
+      "sd": 8.839112548596843,
+      "min": 289.08379399217665,
+      "max": 304.8131479881704
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 5.3445200028363615,
+      "V_decode_ms": 5.709541,
+      "V_compute_ms": 270.934798,
+      "T_fetch_ms": 4.185826051980257,
+      "T_compute_ms": 58.416886,
+      "F_call_V_ms": 286.4776458591223,
+      "F_call_T_ms": 65.72276819497347,
+      "F_compute_ms": 0.073665
+     },
+     "deploy_and_run_phase_ms": 32715.15073100454,
+     "pct_mean_diff_vs": {
+      "task-fastest": 0.0,
+      "kube-default": -15.086164473587088
+     }
+    },
+    "exact": {
+     "job": "j07-w2",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-dev0002-raspi5",
+      "F": "etri-dev0008-raspi5"
+     },
+     "predicted_ms": 283.2289349779352,
+     "decision_ms": 2.4308520078193396,
+     "e2e_ms": [
+      312.0366239454597,
+      289.120274130255,
+      285.8734040055424
+     ],
+     "stats": {
+      "n": 3,
+      "median": 289.120274130255,
+      "mean": 295.67676736041903,
+      "sd": 14.26075811498155,
+      "min": 285.8734040055424,
+      "max": 312.0366239454597
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 4.885731003014371,
+      "V_decode_ms": 5.999954,
+      "V_compute_ms": 273.147395,
+      "T_fetch_ms": 6.790556944906712,
+      "T_compute_ms": 156.888167,
+      "F_call_V_ms": 286.4963049942162,
+      "F_call_T_ms": 166.13549599424005,
+      "F_compute_ms": 0.105536
+     },
+     "deploy_and_run_phase_ms": 111050.90269300854,
+     "pct_mean_diff_vs": {
+      "task-fastest": 0.3589670215601285,
+      "kube-default": -14.781351807305459
+     }
+    },
+    "kube-default": {
+     "job": "j08-w2",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0003-cg0ms0",
+      "T": "etri-ser0004-cgnms0",
+      "F": "etri-dev0009-jetorn"
+     },
+     "predicted_ms": 329.50396196162245,
+     "decision_ms": null,
+     "e2e_ms": [
+      378.44620808027685,
+      332.35330507159233,
+      330.08804009296
+     ],
+     "stats": {
+      "n": 3,
+      "median": 332.35330507159233,
+      "mean": 346.9625177482764,
+      "sd": 27.289190608129598,
+      "min": 330.08804009296,
+      "max": 378.44620808027685
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 5.296170944347978,
+      "V_decode_ms": 4.488727,
+      "V_compute_ms": 309.477387,
+      "T_fetch_ms": 5.015651928260922,
+      "T_compute_ms": 79.122048,
+      "F_call_V_ms": 325.29718201840296,
+      "F_call_T_ms": 89.81372998096049,
+      "F_compute_ms": 0.471824
+     },
+     "deploy_and_run_phase_ms": 130384.8126619996,
+     "pct_mean_diff_vs": {
+      "task-fastest": 17.766438625769595,
+      "kube-default": 0.0
+     }
+    },
+    "greedy-network": {
+     "job": "j09-w2",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-dev0008-raspi5"
+     },
+     "predicted_ms": 283.2289349779352,
+     "decision_ms": 2.948648005258292,
+     "e2e_ms": [
+      308.84049483574927,
+      287.4091360718012,
+      284.6797618549317
+     ],
+     "stats": {
+      "n": 3,
+      "median": 287.4091360718012,
+      "mean": 293.6431309208274,
+      "sd": 13.231865831236924,
+      "min": 284.6797618549317,
+      "max": 308.84049483574927
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 4.503295000176877,
+      "V_decode_ms": 5.464118,
+      "V_compute_ms": 273.041767,
+      "T_fetch_ms": 6.14438799675554,
+      "T_compute_ms": 55.00171,
+      "F_call_V_ms": 285.18721301225014,
+      "F_call_T_ms": 63.18710700725205,
+      "F_compute_ms": 0.104962
+     },
+     "deploy_and_run_phase_ms": 107748.6263759929,
+     "pct_mean_diff_vs": {
+      "task-fastest": -0.3312923254856892,
+      "kube-default": -15.367477493961633
+     }
+    }
+   },
+   "failed_or_missing": [],
+   "not_evaluated": {
+    "source-local": {
+     "status": "infeasible",
+     "error": "placement outside qualified candidates or resource-infeasible",
+     "decision_ms": 0.003654000465758145
+    }
+   }
+  },
+  "w3": {
+   "policies": {
+    "task-fastest": {
+     "job": "j10-w3",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-ser0003-cg0ms0"
+     },
+     "predicted_ms": 285.6902308997813,
+     "decision_ms": 0.020108011085540056,
+     "e2e_ms": [
+      307.42466301308013,
+      292.3249909945298,
+      288.6312850168906
+     ],
+     "stats": {
+      "n": 3,
+      "median": 292.3249909945298,
+      "mean": 296.12697967483354,
+      "sd": 9.956862084551704,
+      "min": 288.6312850168906,
+      "max": 307.42466301308013
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 6.095125994761474,
+      "V_decode_ms": 6.076303,
+      "V_compute_ms": 274.332644,
+      "T_fetch_ms": 2.2288290201686323,
+      "T_compute_ms": 56.158256,
+      "F_call_V_ms": 289.28591683506966,
+      "F_call_T_ms": 61.99939479120076,
+      "F_compute_ms": 0.065488
+     },
+     "deploy_and_run_phase_ms": 36045.810398994945,
+     "pct_mean_diff_vs": {
+      "task-fastest": 0.0,
+      "kube-default": -46.92884574720327
+     }
+    },
+    "greedy-network": {
+     "job": "j11-w3",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-dev0008-raspi5"
+     },
+     "predicted_ms": 284.6872140152841,
+     "decision_ms": 2.9863279924029484,
+     "e2e_ms": [
+      302.19201199361123,
+      284.65103200869635,
+      292.3356979736127
+     ],
+     "stats": {
+      "n": 3,
+      "median": 292.3356979736127,
+      "mean": 293.0595806586401,
+      "sd": 8.792866387820185,
+      "min": 284.65103200869635,
+      "max": 302.19201199361123
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 5.925335004576482,
+      "V_decode_ms": 7.231269,
+      "V_compute_ms": 274.473731,
+      "T_fetch_ms": 2.314695972017944,
+      "T_compute_ms": 57.617608,
+      "F_call_V_ms": 290.7827690069098,
+      "F_call_T_ms": 62.55766001413576,
+      "F_compute_ms": 0.105944
+     },
+     "deploy_and_run_phase_ms": 277685.2469389996,
+     "pct_mean_diff_vs": {
+      "task-fastest": -1.035839091582153,
+      "kube-default": -47.4785775093076
+     }
+    },
+    "source-local": {
+     "job": "j12-w3",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-dev0008-raspi5",
+      "T": "etri-dev0002-raspi5",
+      "F": "etri-dev0008-raspi5"
+     },
+     "predicted_ms": 1446.088722997717,
+     "decision_ms": 0.006040005246177316,
+     "e2e_ms": [
+      1499.8363790218718,
+      1457.3121209978126,
+      1451.7005079833325
+     ],
+     "stats": {
+      "n": 3,
+      "median": 1457.3121209978126,
+      "mean": 1469.6163360010057,
+      "sd": 26.321299365595976,
+      "min": 1451.7005079833325,
+      "max": 1499.8363790218718
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 1.1992660001851618,
+      "V_decode_ms": 11.490167,
+      "V_compute_ms": 1440.483949,
+      "T_fetch_ms": 0.9885940235108137,
+      "T_compute_ms": 164.532348,
+      "F_call_V_ms": 1455.768043990247,
+      "F_call_T_ms": 168.23112100246362,
+      "F_compute_ms": 0.101276
+     },
+     "deploy_and_run_phase_ms": 168093.89495800133,
+     "pct_mean_diff_vs": {
+      "task-fastest": 396.2791089196732,
+      "kube-default": 163.3810514191649
+     }
+    },
+    "exact": {
+     "job": "j13-w3",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0001-cg0msb",
+      "T": "etri-dev0002-raspi5",
+      "F": "etri-dev0008-raspi5"
+     },
+     "predicted_ms": 284.6872140152841,
+     "decision_ms": 2.5474739959463477,
+     "e2e_ms": [
+      303.9621230273042,
+      284.82014100882225,
+      286.0764619836118
+     ],
+     "stats": {
+      "n": 3,
+      "median": 286.0764619836118,
+      "mean": 291.6195753399127,
+      "sd": 10.707401559648956,
+      "min": 284.82014100882225,
+      "max": 303.9621230273042
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 6.0328989929985255,
+      "V_decode_ms": 6.111284,
+      "V_compute_ms": 269.40059,
+      "T_fetch_ms": 0.9963340125977993,
+      "T_compute_ms": 162.866556,
+      "F_call_V_ms": 283.9954079827294,
+      "F_call_T_ms": 166.5745229984168,
+      "F_compute_ms": 0.143795
+     },
+     "deploy_and_run_phase_ms": 103126.26929400722,
+     "pct_mean_diff_vs": {
+      "task-fastest": -1.5221187680603188,
+      "kube-default": -47.73665174651133
+     }
+    },
+    "server-fixed": {
+     "job": "j14-w3",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0002-cgnmsb",
+      "T": "etri-ser0002-cgnmsb",
+      "F": "etri-ser0002-cgnmsb"
+     },
+     "predicted_ms": 289.1288849386585,
+     "decision_ms": 0.005460999091155827,
+     "e2e_ms": [
+      304.0602510154713,
+      293.3264839812182,
+      288.8025089923758
+     ],
+     "stats": {
+      "n": 3,
+      "median": 293.3264839812182,
+      "mean": 295.39641466302174,
+      "sd": 7.836653155616712,
+      "min": 288.8025089923758,
+      "max": 304.0602510154713
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 6.279075983911753,
+      "V_decode_ms": 6.782512,
+      "V_compute_ms": 275.357092,
+      "T_fetch_ms": 1.4521509874612093,
+      "T_compute_ms": 52.836903,
+      "F_call_V_ms": 290.7061279984191,
+      "F_call_T_ms": 55.8199739898555,
+      "F_compute_ms": 0.112097
+     },
+     "deploy_and_run_phase_ms": 23490.382150004734,
+     "pct_mean_diff_vs": {
+      "task-fastest": -0.24670667043374378,
+      "kube-default": -47.059775824821095
+     }
+    },
+    "kube-default": {
+     "job": "j15-w3",
+     "shared_with": [],
+     "placement": {
+      "V": "etri-ser0004-cgnms0",
+      "T": "etri-ser0003-cg0ms0",
+      "F": "etri-dev0009-jetorn"
+     },
+     "predicted_ms": 560.4423860446111,
+     "decision_ms": null,
+     "e2e_ms": [
+      576.4650729834102,
+      549.0790609910619,
+      548.3989930071402
+     ],
+     "stats": {
+      "n": 3,
+      "median": 549.0790609910619,
+      "mean": 557.9810423272041,
+      "sd": 16.01125120314975,
+      "min": 548.3989930071402,
+      "max": 576.4650729834102
+     },
+     "stage_medians_ms": {
+      "V_fetch_ms": 6.777017842978239,
+      "V_decode_ms": 12.000378,
+      "V_compute_ms": 519.321465,
+      "T_fetch_ms": 1.7649719957262278,
+      "T_compute_ms": 71.001523,
+      "F_call_V_ms": 543.4340939973481,
+      "F_call_T_ms": 76.13925897749141,
+      "F_compute_ms": 0.442155
+     },
+     "deploy_and_run_phase_ms": 132865.01032000524,
+     "pct_mean_diff_vs": {
+      "task-fastest": 88.42627677488326,
+      "kube-default": 0.0
+     }
+    }
+   },
+   "failed_or_missing": [],
+   "not_evaluated": {}
+  }
+ },
+ "pct_formula": "(mean_policy - mean_reference) / mean_reference * 100, evaluation rows only",
+ "phases_ms": {
+  "candidate-quality": {
+   "status": "ok",
+   "duration_ms": 17.675167007837445
+  },
+  "evaluation-j06-w2": {
+   "status": "ok",
+   "duration_ms": 32715.15073100454
+  },
+  "capacity-qualification": {
+   "status": "ok",
+   "duration_ms": 340.9145549958339
+  },
+  "cleanup": {
+   "status": "ok",
+   "duration_ms": 7671.125762994052
+  },
+  "scheduler-w1": {
+   "status": "ok",
+   "duration_ms": 141005.53617499827
+  },
+  "evaluation-j08-w2": {
+   "status": "ok",
+   "duration_ms": 130384.8126619996
+  },
+  "qualification-V": {
+   "status": "ok",
+   "duration_ms": 391280.9469950007
+  },
+  "qualification-F": {
+   "status": "ok",
+   "duration_ms": 157596.04068899353
+  },
+  "calibration-reference": {
+   "status": "ok",
+   "duration_ms": 7959.244099998614
+  },
+  "evaluation-j14-w3": {
+   "status": "ok",
+   "duration_ms": 23490.382150004734
+  },
+  "evaluation-j13-w3": {
+   "status": "ok",
+   "duration_ms": 103126.26929400722
+  },
+  "qualification-T": {
+   "status": "ok",
+   "duration_ms": 137753.3732180018
+  },
+  "evaluation-j10-w3": {
+   "status": "ok",
+   "duration_ms": 36045.810398994945
+  },
+  "scheduler-w3": {
+   "status": "ok",
+   "duration_ms": 139086.78238399443
+  },
+  "capacity-planning": {
+   "status": "ok",
+   "duration_ms": 374.10168000496924
+  },
+  "evaluation-j02-w1": {
+   "status": "ok",
+   "duration_ms": 107444.21929100645
+  },
+  "cache": {
+   "status": "ok",
+   "duration_ms": 20509.75161899987
+  },
+  "evaluation-j01-w1": {
+   "status": "ok",
+   "duration_ms": 23736.036709990003
+  },
+  "evaluation-j05-w2": {
+   "status": "ok",
+   "duration_ms": 35505.22981400718
+  },
+  "evaluation-j12-w3": {
+   "status": "ok",
+   "duration_ms": 168093.89495800133
+  },
+  "evaluation-j00-w1": {
+   "status": "ok",
+   "duration_ms": 115100.16794699186
+  },
+  "scheduler-w2": {
+   "status": "ok",
+   "duration_ms": 126626.88179299585
+  },
+  "sources": {
+   "status": "ok",
+   "duration_ms": 53923.59081200266
+  },
+  "evaluation-j04-w1": {
+   "status": "ok",
+   "duration_ms": 37054.09721600881
+  },
+  "evaluation-j07-w2": {
+   "status": "ok",
+   "duration_ms": 111050.90269300854
+  },
+  "evaluation-j11-w3": {
+   "status": "ok",
+   "duration_ms": 277685.2469389996
+  },
+  "planning": {
+   "status": "ok",
+   "duration_ms": 18.658190994756296
+  },
+  "evaluation-j03-w1": {
+   "status": "ok",
+   "duration_ms": 140898.92013400095
+  },
+  "transfer-probes": {
+   "status": "ok",
+   "duration_ms": 206856.27259699686
+  },
+  "preflight": {
+   "status": "ok",
+   "duration_ms": 130.61686100263614
+  },
+  "scheduler-provenance": {
+   "status": "ok",
+   "duration_ms": 34.28349799651187
+  },
+  "evaluation-j09-w2": {
+   "status": "ok",
+   "duration_ms": 107748.6263759929
+  },
+  "evaluation-j15-w3": {
+   "status": "ok",
+   "duration_ms": 132865.01032000524
+  }
+ }
+}

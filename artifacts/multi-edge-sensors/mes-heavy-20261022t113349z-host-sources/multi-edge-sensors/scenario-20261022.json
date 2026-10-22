@@ -1,0 +1,29 @@
+{
+  "name": "multi-edge-sensors-20261022",
+  "scope": "synthetic edge-generated inputs (virtual cameras over public still images, seeded event sentences); not real sensor collection",
+  "video_sources": {
+    "cam-e0": {"node_alias": "e0", "image": "bus.jpg", "seed": 1101, "path": "cam-e0"},
+    "cam-e6": {"node_alias": "e6", "image": "zidane.jpg", "seed": 1106, "path": "cam-e6"},
+    "cam-e8": {"node_alias": "e8", "image": "coco-000000039769.jpg", "seed": 1108, "path": "cam-e8"}
+  },
+  "text_sources": {
+    "txt-e1": {"node_alias": "e1", "seed": 2201},
+    "txt-e9": {"node_alias": "e9", "seed": 2209}
+  },
+  "workflows": [
+    {"id": "w1", "video": "cam-e0", "text": "txt-e1", "destination": "video"},
+    {"id": "w2", "video": "cam-e6", "text": "txt-e9", "destination": "video"},
+    {"id": "w3", "video": "cam-e8", "text": "txt-e1", "destination": "video"}
+  ],
+  "stream": {
+    "protocol": "rtsp", "transport": "tcp", "server": "mediamtx v1.21.2", "port": 8554,
+    "width": 640, "height": 480, "fps": 5, "loop_frames": 12, "codec": "h264", "encoder": "libx264",
+    "encoder_options": {"preset": "veryfast", "tune": "zerolatency", "qp": "23", "bf": "0", "g": "12", "keyint_min": "12",
+                        "sc_threshold": "0", "threads": "1"},
+    "pix_fmt": "yuv420p",
+    "sampling": "workflow input k = decoded frame whose barcode equals k; frozen once per source Pod after two loops are read back from its own RTSP stream",
+    "drop_policy": "frames without valid barcode or before the first IDR are counted and skipped; never substituted"
+  },
+  "frame_representation": "PNG (lossless) of the decoded RGB frame",
+  "inputs": {"calibration": [0, 1, 2], "evaluation": [3, 4, 5]}
+}

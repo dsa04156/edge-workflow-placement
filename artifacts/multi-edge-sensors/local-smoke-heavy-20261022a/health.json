@@ -1,0 +1,255 @@
+{
+ "text": {
+  "node": "local-smoke-host",
+  "pod_uid": "4feefbc9-d2d6-419d-a0bc-d469c5c5e9be",
+  "pod_ip": "127.0.3.12",
+  "role": "text-source",
+  "task": null,
+  "source_id": "txt-e1",
+  "ready": true,
+  "error": null,
+  "info": {
+   "seed": 2201,
+   "generator": "scenario.sentence (seeded templates)",
+   "text_sha256": {
+    "0": "c343be8c034c402b002c8d4ce195d0cc4d4ea635e2f19fbc4075f3577904fc12",
+    "1": "a20d0c0d362e50195a9f9b6c66fa4a7d5ebe276c284f0d0ce35f1b95536c4cb6",
+    "2": "c8c2a7070a24eab9d805462abde3122f7c8e8de70906eaa74de80cc18874ae95",
+    "3": "394b396958b3a8bf591a1b6b830d6dff21e77557d376d309424ab0650bc3d134",
+    "4": "44d6c0afc7658ebb507f2914948714932a6edc1f884881e869fd7f04985f05b9",
+    "5": "4e6f91d737f024bf416381c78e458e4ff2140c43b4336ed2648507c69cc1dbb4"
+   }
+  }
+ },
+ "F": {
+  "node": "local-smoke-host",
+  "pod_uid": "f7d54fe9-2166-4519-82ce-fb1615983099",
+  "pod_ip": "127.0.3.15",
+  "role": "worker",
+  "task": "F",
+  "source_id": null,
+  "ready": true,
+  "error": null,
+  "info": {
+   "model": "deterministic-fusion",
+   "model_sha256": "dbd4d3e9adc7aeb86393b82bc986b03ccce719e82c560f45d33284c4f0e7de3f",
+   "load_ms": 0.0715469941496849,
+   "threads": 1
+  }
+ },
+ "V": {
+  "node": "local-smoke-host",
+  "pod_uid": "b9a2f127-2541-48f8-8524-46e37c8ac89c",
+  "pod_ip": "127.0.3.13",
+  "role": "worker",
+  "task": "V",
+  "source_id": null,
+  "ready": true,
+  "error": null,
+  "info": {
+   "model": "yolo11m-onnx",
+   "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+   "load_ms": 314.07182999828365,
+   "threads": 2
+  }
+ },
+ "T": {
+  "node": "local-smoke-host",
+  "pod_uid": "b78f1184-66bd-4ff3-86c1-82abe566e230",
+  "pod_ip": "127.0.3.14",
+  "role": "worker",
+  "task": "T",
+  "source_id": null,
+  "ready": true,
+  "error": null,
+  "info": {
+   "model": "all-mpnet-base-v2-onnx",
+   "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+   "tokenizer_sha256": "b8be2c30ba5dd723a6d5ee26d013da103d5408d92ddcb23747622f9e48f1d842",
+   "load_ms": 2683.7640380108496,
+   "threads": 1
+  }
+ },
+ "video": {
+  "node": "local-smoke-host",
+  "pod_uid": "39a19ce2-d145-407c-b9f6-24c1446a3d3f",
+  "pod_ip": "127.0.3.11",
+  "role": "video-source",
+  "task": null,
+  "source_id": "cam-e0",
+  "ready": true,
+  "error": null,
+  "info": {
+   "rtsp_url": "rtsp://127.0.3.11:8554/cam-e0",
+   "image": "bus.jpg",
+   "image_sha256": "c02019c4979c191eb739ddd944445ef408dad5679acab6fd520ef9d434bfbc63",
+   "seed": 1101,
+   "stream": {
+    "protocol": "rtsp",
+    "transport": "tcp",
+    "server": "mediamtx v1.21.2",
+    "port": 8554,
+    "width": 640,
+    "height": 480,
+    "fps": 5,
+    "loop_frames": 12,
+    "codec": "h264",
+    "encoder": "libx264",
+    "encoder_options": {
+     "preset": "veryfast",
+     "tune": "zerolatency",
+     "qp": "23",
+     "bf": "0",
+     "g": "12",
+     "keyint_min": "12",
+     "sc_threshold": "0",
+     "threads": "1"
+    },
+    "pix_fmt": "yuv420p",
+    "sampling": "workflow input k = decoded frame whose barcode equals k; frozen once per source Pod after two loops are read back from its own RTSP stream",
+    "drop_policy": "frames without valid barcode or before the first IDR are counted and skipped; never substituted"
+   },
+   "mediamtx": {
+    "pid": 3227776,
+    "sha256": "0ffb7f18210d08ee38cb16668c4f3a2c96622e69d401119c0026d078a2b89523"
+   },
+   "publisher": {
+    "pid": 3227777
+   },
+   "freeze_retries": [
+    "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://127.0.3.11:8554/cam-e0')"
+   ],
+   "freeze": {
+    "url": "rtsp://127.0.3.11:8554/cam-e0",
+    "setup_ms": 1630.446787996334,
+    "first_barcode_frame_ms": 1961.1203579988796,
+    "total_ms": 5312.549424008466,
+    "codec": {
+     "name": "h264",
+     "width": 640,
+     "height": 480,
+     "pix_fmt": "yuv420p",
+     "average_rate": "5"
+    },
+    "packets": 26,
+    "packet_bytes": 1274702,
+    "decoded_frames": 18,
+    "skipped_frames": 0,
+    "decode_ms_sum": 108.61526899999998,
+    "decode_ms_max": 19.719922,
+    "demux_wait_ms_sum": 3458.1421320181107,
+    "seq_order": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "frame_sha256": {
+     "0": [
+      "55249bd493e3299824084f60f7152c026f14dc5a288234571700c17aa484caff",
+      "55249bd493e3299824084f60f7152c026f14dc5a288234571700c17aa484caff"
+     ],
+     "1": [
+      "a80e5fbbe20a75022e6e03d3d5db2fea3b755002af760f7171b53ef35e4c4c21",
+      "a80e5fbbe20a75022e6e03d3d5db2fea3b755002af760f7171b53ef35e4c4c21"
+     ],
+     "2": [
+      "d531c65d2aab1d8e32d4df4aba59ea097c30ec5e6c9d6e9b14e1de9d5c68f8c2",
+      "d531c65d2aab1d8e32d4df4aba59ea097c30ec5e6c9d6e9b14e1de9d5c68f8c2"
+     ],
+     "3": [
+      "6add9ac671fc8d99555746ee4db7942efd2f9a69f9325d9c810ebaa66cc816f3",
+      "6add9ac671fc8d99555746ee4db7942efd2f9a69f9325d9c810ebaa66cc816f3"
+     ],
+     "4": [
+      "92601a8ff9f16f58c4908582ddecabe4c9b9d26e174de11523e8e23629e333ea",
+      "92601a8ff9f16f58c4908582ddecabe4c9b9d26e174de11523e8e23629e333ea"
+     ],
+     "5": [
+      "578fc55a70a7095e8202ce12832e41f2f732df891fa8e74ac156c867a8e10935",
+      "578fc55a70a7095e8202ce12832e41f2f732df891fa8e74ac156c867a8e10935"
+     ],
+     "6": [
+      "765117114ed234fffa0c63b254f111ed3c2277f55c21ff82e7c753e0de70084d"
+     ],
+     "7": [
+      "35cf7c7fc4bdd281dd49f19e669b02b4ad0361f0d7237ecc53b892c1c6793998"
+     ],
+     "8": [
+      "2cef264d46cabf29575965f9d63259a7be63090cb559eeebc379e9dc2c701f27"
+     ],
+     "9": [
+      "ae9a128c0b9d3a5e96e510287c6596106f1c6a53c72bbb36e274bc6f2dc47cf1"
+     ],
+     "10": [
+      "fda0dd9f7cfe0d2c06459b2f41d69358a79a1066cddf8fed47d639c86dcb6030"
+     ],
+     "11": [
+      "027a95b768d7194d11858483f64db119c90016b163348bc555595e0c7cba0ecf"
+     ]
+    },
+    "loop_consistent": {
+     "0": true,
+     "1": true,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true
+    },
+    "scope": "RTSP/TCP session setup, demux wait (pacing+network) and CPU decode separated; monotonic, one host",
+    "frozen": {
+     "0": {
+      "rgb_sha256": "55249bd493e3299824084f60f7152c026f14dc5a288234571700c17aa484caff",
+      "png_sha256": "8b46bc90cf3a5b97dec0d25ee2b502777b5e202c3af66836414f8bafde6c4358",
+      "png_bytes": 448287,
+      "loop_consistent": true
+     },
+     "1": {
+      "rgb_sha256": "a80e5fbbe20a75022e6e03d3d5db2fea3b755002af760f7171b53ef35e4c4c21",
+      "png_sha256": "ffff53ccd56c31a69ad091b3dfe5856ecc9c84585ac7273aa9f57b84f4f20b09",
+      "png_bytes": 423725,
+      "loop_consistent": true
+     },
+     "2": {
+      "rgb_sha256": "d531c65d2aab1d8e32d4df4aba59ea097c30ec5e6c9d6e9b14e1de9d5c68f8c2",
+      "png_sha256": "842e70005e7091ab9c08261a11c5b6ddbd0e9308da03decbb42fd9ed1a6c11d0",
+      "png_bytes": 432694,
+      "loop_consistent": true
+     },
+     "3": {
+      "rgb_sha256": "6add9ac671fc8d99555746ee4db7942efd2f9a69f9325d9c810ebaa66cc816f3",
+      "png_sha256": "a4bc65c48f1ea2db680b133abaef581e55a364700af2849e75a261136bbf512c",
+      "png_bytes": 415347,
+      "loop_consistent": true
+     },
+     "4": {
+      "rgb_sha256": "92601a8ff9f16f58c4908582ddecabe4c9b9d26e174de11523e8e23629e333ea",
+      "png_sha256": "851973aa0fa4d4a19d36ce6f3dc2e005506f2a82b19cfd3f62f3758c6912e1e8",
+      "png_bytes": 404440,
+      "loop_consistent": true
+     },
+     "5": {
+      "rgb_sha256": "578fc55a70a7095e8202ce12832e41f2f732df891fa8e74ac156c867a8e10935",
+      "png_sha256": "2944c450ae5b9804f5aef80c8f1e2fddd7254f33829183dfb7f2ad19df3d23db",
+      "png_bytes": 425996,
+      "loop_consistent": true
+     }
+    }
+   }
+  }
+ }
+}

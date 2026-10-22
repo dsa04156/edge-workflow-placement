@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T11:51:28.911117+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-heavy-20261022t113349z-s-w1-f",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0339-scheduler-w1-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T11:51:49.332039+00:00",
+ "duration_ms": 20420.915110997157,
+ "tag": "0339-scheduler-w1-ready"
+}

@@ -1,7 +1,7 @@
-"""Export the pinned yolo11n.pt to ONNX and cross-check the ONNX pipeline against the original weights.
+"""Export pinned ultralytics YOLO weights (e.g. yolo11n.pt, yolo11m.pt) to ONNX and cross-check the ONNX pipeline against the original weights.
 
 Run in the isolated export env (ultralytics + torch CPU). Writes into a NEW
-output directory: yolo11n.onnx, export-provenance.json (weight hash, export
+output directory: <weights stem>.onnx, export-provenance.json (weight hash, export
 args, tool versions, exported hash) and original-vs-onnx detection comparison
 on the given RGB frames. Never overwrites.
 """
@@ -25,6 +25,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--weights', type=Path, required=True)
     parser.add_argument('--weights-sha256', required=True)
+    parser.add_argument('--weights-url', default='https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt')
     parser.add_argument('--images', type=Path, nargs='+', required=True, help='fixture images; frames are rendered with scenario.frame')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
@@ -42,7 +43,7 @@ def main(argv=None):
     sys.path.insert(0, str(HERE))
     import models
     import scenario
-    work = args.output/'yolo11n.pt'
+    work = args.output/args.weights.name
     shutil.copyfile(args.weights, work)
     exported = Path(YOLO(str(work)).export(**EXPORT_ARGS))
     detector = models.Detector(exported)
@@ -73,7 +74,7 @@ def main(argv=None):
                              violations=models.compare('V', got, same_input),
                              pipeline_violations=models.compare('V', got, ultra_onnx),
                              rect_mode_differences=models.compare('V', got, rect)))
-    provenance = dict(weights_url='https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt',
+    provenance = dict(weights_url=args.weights_url,
         weights_sha256=args.weights_sha256, export_args=EXPORT_ARGS, onnx_sha256=sha(exported), onnx_bytes=exported.stat().st_size,
         versions=dict(python=sys.version.split()[0], torch=torch.__version__, ultralytics=ultralytics.__version__, onnx=onnx.__version__,
                       onnxruntime=onnxruntime.__version__, numpy=numpy.__version__),

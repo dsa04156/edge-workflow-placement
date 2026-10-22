@@ -1,0 +1,1443 @@
+{
+ "nodes": {
+  "V": "etri-ser0002-cgnmsb",
+  "T": "etri-ser0002-cgnmsb",
+  "F": "etri-ser0002-cgnmsb"
+ },
+ "rows": [
+  {
+   "tag": "w1/0/warmup",
+   "status": "ok",
+   "call_ms": 386.40215602936223,
+   "reply_bytes": 2818,
+   "reply": {
+    "result": {
+     "top_class": "bus",
+     "top_fused": 0.18663272855627433,
+     "alert": false,
+     "top3": [
+      {
+       "name": "bus",
+       "fused": 0.18663272855627433
+      },
+      {
+       "name": "person",
+       "fused": 0.055096832787999706
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "parking meter",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w1-0-0",
+      "seq": 0,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 488862,
+      "input_payload_sha256": "440797b1509101210e99b6d879308ef33277b97551226472cff03736ae0c7705",
+      "input_sha256": "62b8f404c91346df5a869580ca8224c38956290f33953d9181acb42b2c56bb22",
+      "source": {
+       "x-source-node": "etri-dev0003-raspi5",
+       "x-source-pod-uid": "01421f2e-72a9-4dcf-b78c-11bce06d05d9",
+       "x-source-id": "cam-e0",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 45.71952600963414,
+      "decode_ms": 46.79002,
+      "compute_ms": 285.055992,
+      "compute_cpu_ms": 284.998003,
+      "output_sha256": "9d85b201821982ad22c2dc97ea351568c1c333c12f57b043063a4521e1b70c8d",
+      "output_bytes": 683,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w1-0-0",
+      "seq": 0,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 215,
+      "input_payload_sha256": "8e36561cd88d283a71aa9e442d738a90e9f85638da5ce40e848640b0f69862cc",
+      "input_sha256": "c343be8c034c402b002c8d4ce195d0cc4d4ea635e2f19fbc4075f3577904fc12",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 3.0192540143616498,
+      "decode_ms": 0.0,
+      "compute_ms": 64.187326,
+      "compute_cpu_ms": 60.057742,
+      "output_sha256": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930",
+      "output_bytes": 17890,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w1-0-0",
+      "seq": 0,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "9d85b201821982ad22c2dc97ea351568c1c333c12f57b043063a4521e1b70c8d",
+       "T": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930"
+      },
+      "call_ms": {
+       "V": 381.62094401195645,
+       "T": 70.81691001076251
+      },
+      "response_bytes": {
+       "V": 1631,
+       "T": 2630
+      },
+      "compute_ms": 0.232506,
+      "compute_cpu_ms": 0.232318,
+      "output_sha256": "5c84f25b63682d265d39c6b5b0782585f69c5ae8ea9d03aad47b5f1f0a63e417",
+      "output_bytes": 309,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w1",
+   "exec_error": null
+  },
+  {
+   "tag": "w1/0/cal",
+   "status": "ok",
+   "call_ms": 349.4115190114826,
+   "reply_bytes": 2814,
+   "reply": {
+    "result": {
+     "top_class": "bus",
+     "top_fused": 0.18663272855627433,
+     "alert": false,
+     "top3": [
+      {
+       "name": "bus",
+       "fused": 0.18663272855627433
+      },
+      {
+       "name": "person",
+       "fused": 0.055096832787999706
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "parking meter",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w1-0-1",
+      "seq": 0,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 488862,
+      "input_payload_sha256": "440797b1509101210e99b6d879308ef33277b97551226472cff03736ae0c7705",
+      "input_sha256": "62b8f404c91346df5a869580ca8224c38956290f33953d9181acb42b2c56bb22",
+      "source": {
+       "x-source-node": "etri-dev0003-raspi5",
+       "x-source-pod-uid": "01421f2e-72a9-4dcf-b78c-11bce06d05d9",
+       "x-source-id": "cam-e0",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 45.70312099531293,
+      "decode_ms": 6.14322,
+      "compute_ms": 290.42052,
+      "compute_cpu_ms": 289.001081,
+      "output_sha256": "9d85b201821982ad22c2dc97ea351568c1c333c12f57b043063a4521e1b70c8d",
+      "output_bytes": 683,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w1-0-1",
+      "seq": 0,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 215,
+      "input_payload_sha256": "8e36561cd88d283a71aa9e442d738a90e9f85638da5ce40e848640b0f69862cc",
+      "input_sha256": "c343be8c034c402b002c8d4ce195d0cc4d4ea635e2f19fbc4075f3577904fc12",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 2.751723979599774,
+      "decode_ms": 0.0,
+      "compute_ms": 55.998411,
+      "compute_cpu_ms": 55.987397,
+      "output_sha256": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930",
+      "output_bytes": 17890,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w1-0-1",
+      "seq": 0,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "9d85b201821982ad22c2dc97ea351568c1c333c12f57b043063a4521e1b70c8d",
+       "T": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930"
+      },
+      "call_ms": {
+       "V": 345.03311599837616,
+       "T": 61.30756897618994
+      },
+      "response_bytes": {
+       "V": 1629,
+       "T": 2629
+      },
+      "compute_ms": 0.20399,
+      "compute_cpu_ms": 0.204057,
+      "output_sha256": "5c84f25b63682d265d39c6b5b0782585f69c5ae8ea9d03aad47b5f1f0a63e417",
+      "output_bytes": 309,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w1",
+   "exec_error": null
+  },
+  {
+   "tag": "w1/1/cal",
+   "status": "ok",
+   "call_ms": 328.97429500008,
+   "reply_bytes": 2809,
+   "reply": {
+    "result": {
+     "top_class": "bus",
+     "top_fused": 0.10863864479271435,
+     "alert": false,
+     "top3": [
+      {
+       "name": "bus",
+       "fused": 0.10863864479271435
+      },
+      {
+       "name": "person",
+       "fused": 0.06772151114084579
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "bicycle",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w1-1-2",
+      "seq": 1,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 466660,
+      "input_payload_sha256": "bacf0f168c2a0b464f2d79b35c6605cf4f8f1eb9ed1cf6ded15fcbfa44c460d7",
+      "input_sha256": "04a304a333dd6825ee9c9a35336a540621854c6641ce9a7c7f3a88f5be5c8929",
+      "source": {
+       "x-source-node": "etri-dev0003-raspi5",
+       "x-source-pod-uid": "01421f2e-72a9-4dcf-b78c-11bce06d05d9",
+       "x-source-id": "cam-e0",
+       "x-source-seq": "1"
+      },
+      "fetch_ms": 43.7135300016962,
+      "decode_ms": 5.744594,
+      "compute_ms": 273.389352,
+      "compute_cpu_ms": 273.364214,
+      "output_sha256": "d865dbfe6814fb5ddf88d27c428f2e221068b3e5669fd4a2fabacd7b2fa0b844",
+      "output_bytes": 681,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w1-1-2",
+      "seq": 1,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 220,
+      "input_payload_sha256": "67d15b59833e348e019f5082d68c1cf5dac539999babc7c22f1710f1556e0c9e",
+      "input_sha256": "a20d0c0d362e50195a9f9b6c66fa4a7d5ebe276c284f0d0ce35f1b95536c4cb6",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "1"
+      },
+      "fetch_ms": 2.618329948745668,
+      "decode_ms": 0.0,
+      "compute_ms": 60.162034,
+      "compute_cpu_ms": 60.154966,
+      "output_sha256": "7a40ed5b56e962cc4cc83f1dd3da576cd65dac2684b910f4c83019c2514075a9",
+      "output_bytes": 17877,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w1-1-2",
+      "seq": 1,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "d865dbfe6814fb5ddf88d27c428f2e221068b3e5669fd4a2fabacd7b2fa0b844",
+       "T": "7a40ed5b56e962cc4cc83f1dd3da576cd65dac2684b910f4c83019c2514075a9"
+      },
+      "call_ms": {
+       "V": 325.52233297610655,
+       "T": 65.29410998336971
+      },
+      "response_bytes": {
+       "V": 1628,
+       "T": 2620
+      },
+      "compute_ms": 0.182264,
+      "compute_cpu_ms": 0.183073,
+      "output_sha256": "87248ebd3ef5c470ae0a23da8e4763308ec57f304c50792a9428499ae1114624",
+      "output_bytes": 302,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w1",
+   "exec_error": null
+  },
+  {
+   "tag": "w1/2/cal",
+   "status": "ok",
+   "call_ms": 329.4083729851991,
+   "reply_bytes": 2820,
+   "reply": {
+    "result": {
+     "top_class": "bus",
+     "top_fused": 0.13831399476142714,
+     "alert": false,
+     "top3": [
+      {
+       "name": "bus",
+       "fused": 0.13831399476142714
+      },
+      {
+       "name": "person",
+       "fused": 0.042372415785341566
+      },
+      {
+       "name": "dog",
+       "fused": 0.025184753295878215
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "tie",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w1-2-3",
+      "seq": 2,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 474443,
+      "input_payload_sha256": "5cc2892d4b2e56769480015ece890a3fd14849a851484c01fd4771615afeb755",
+      "input_sha256": "51346889d7adcd6c630c03281125a4c36b29c40c2ceb1a2eeebaaf919039a951",
+      "source": {
+       "x-source-node": "etri-dev0003-raspi5",
+       "x-source-pod-uid": "01421f2e-72a9-4dcf-b78c-11bce06d05d9",
+       "x-source-id": "cam-e0",
+       "x-source-seq": "2"
+      },
+      "fetch_ms": 44.008244993165135,
+      "decode_ms": 5.937113,
+      "compute_ms": 273.366903,
+      "compute_cpu_ms": 273.351886,
+      "output_sha256": "1908675b39f7889d1a4489c0db34e1d5952b7c4ebab254e596b01e9d5c104613",
+      "output_bytes": 671,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w1-2-3",
+      "seq": 2,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 215,
+      "input_payload_sha256": "26d3bf667b247d6a5f87b09ac5d2c373e654ab7c6bd72a614d475769de91f4c2",
+      "input_sha256": "c8c2a7070a24eab9d805462abde3122f7c8e8de70906eaa74de80cc18874ae95",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "2"
+      },
+      "fetch_ms": 2.3094610078260303,
+      "decode_ms": 0.0,
+      "compute_ms": 61.61152,
+      "compute_cpu_ms": 61.60644,
+      "output_sha256": "40c3d633727a575e8fe3a7b59c26a29cce8659ced8db05f2aae0b857d1f0e3b8",
+      "output_bytes": 17894,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w1-2-3",
+      "seq": 2,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "1908675b39f7889d1a4489c0db34e1d5952b7c4ebab254e596b01e9d5c104613",
+       "T": "40c3d633727a575e8fe3a7b59c26a29cce8659ced8db05f2aae0b857d1f0e3b8"
+      },
+      "call_ms": {
+       "V": 325.4287189920433,
+       "T": 66.22196896933019
+      },
+      "response_bytes": {
+       "V": 1620,
+       "T": 2616
+      },
+      "compute_ms": 0.19049,
+      "compute_cpu_ms": 0.190965,
+      "output_sha256": "067ed599affd0542f2c7171fdf1f160251a023f0e73b1b17ffee4a11ab53f41f",
+      "output_bytes": 314,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w1",
+   "exec_error": null
+  },
+  {
+   "tag": "w2/0/warmup",
+   "status": "ok",
+   "call_ms": 293.9250709605403,
+   "reply_bytes": 2806,
+   "reply": {
+    "result": {
+     "top_class": "person",
+     "top_fused": 0.1391595325243955,
+     "alert": false,
+     "top3": [
+      {
+       "name": "person",
+       "fused": 0.1391595325243955
+      },
+      {
+       "name": "tie",
+       "fused": 0.11335093959065468
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 3,
+     "text_top_class": "car",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w2-0-0",
+      "seq": 0,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 316943,
+      "input_payload_sha256": "06515b14be46b661b5d05ce78a26903e0dab0d47e59868464510430e1a66db4b",
+      "input_sha256": "4dda01a339fcfbaf870a7b01c3d72128da58d431ec060fe41ea5ef6324f3057f",
+      "source": {
+       "x-source-node": "etri-dev0006-raspi5",
+       "x-source-pod-uid": "9945dadc-3648-4b31-82ce-6216e817f1fa",
+       "x-source-id": "cam-e6",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 6.850026024039835,
+      "decode_ms": 8.78834,
+      "compute_ms": 271.454173,
+      "compute_cpu_ms": 271.438172,
+      "output_sha256": "6000559e328d17d0d20d28a77b818439a2d08ac3fe8b4b9ff75361e8941c128e",
+      "output_bytes": 406,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w2-0-0",
+      "seq": 0,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 197,
+      "input_payload_sha256": "58e8e07d2ee2d26b924c4dc53f1d488033196f47e9d2a0b29fc72b58594d88cc",
+      "input_sha256": "4fd8e9f1b1f6c6a2d35edfc8fe6db79903b15f7236f16f217883ab11c694e2b1",
+      "source": {
+       "x-source-node": "etri-dev0009-jetorn",
+       "x-source-pod-uid": "21cca149-f9be-4175-bb16-f40437cefd16",
+       "x-source-id": "txt-e9",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 7.556574011687189,
+      "decode_ms": 0.0,
+      "compute_ms": 52.501455,
+      "compute_cpu_ms": 52.495168,
+      "output_sha256": "a570add44ab34297b5d17d71d8fb393c47f45f872523c40ad6cbabd19b6db8cb",
+      "output_bytes": 17873,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w2-0-0",
+      "seq": 0,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "6000559e328d17d0d20d28a77b818439a2d08ac3fe8b4b9ff75361e8941c128e",
+       "T": "a570add44ab34297b5d17d71d8fb393c47f45f872523c40ad6cbabd19b6db8cb"
+      },
+      "call_ms": {
+       "V": 290.18513101618737,
+       "T": 63.08341899421066
+      },
+      "response_bytes": {
+       "V": 1331,
+       "T": 2584
+      },
+      "compute_ms": 0.117057,
+      "compute_cpu_ms": 0.117339,
+      "output_sha256": "1eb703cdbd7b68df7b3b7d39ac1f4e7f5c27234f9af0e1359d9fb5f625e56a1e",
+      "output_bytes": 299,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w2",
+   "exec_error": null
+  },
+  {
+   "tag": "w2/0/cal",
+   "status": "ok",
+   "call_ms": 289.404874027241,
+   "reply_bytes": 2806,
+   "reply": {
+    "result": {
+     "top_class": "person",
+     "top_fused": 0.1391595325243955,
+     "alert": false,
+     "top3": [
+      {
+       "name": "person",
+       "fused": 0.1391595325243955
+      },
+      {
+       "name": "tie",
+       "fused": 0.11335093959065468
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 3,
+     "text_top_class": "car",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w2-0-1",
+      "seq": 0,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 316943,
+      "input_payload_sha256": "06515b14be46b661b5d05ce78a26903e0dab0d47e59868464510430e1a66db4b",
+      "input_sha256": "4dda01a339fcfbaf870a7b01c3d72128da58d431ec060fe41ea5ef6324f3057f",
+      "source": {
+       "x-source-node": "etri-dev0006-raspi5",
+       "x-source-pod-uid": "9945dadc-3648-4b31-82ce-6216e817f1fa",
+       "x-source-id": "cam-e6",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 5.41276199510321,
+      "decode_ms": 6.177192,
+      "compute_ms": 272.355748,
+      "compute_cpu_ms": 272.343504,
+      "output_sha256": "6000559e328d17d0d20d28a77b818439a2d08ac3fe8b4b9ff75361e8941c128e",
+      "output_bytes": 406,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w2-0-1",
+      "seq": 0,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 197,
+      "input_payload_sha256": "58e8e07d2ee2d26b924c4dc53f1d488033196f47e9d2a0b29fc72b58594d88cc",
+      "input_sha256": "4fd8e9f1b1f6c6a2d35edfc8fe6db79903b15f7236f16f217883ab11c694e2b1",
+      "source": {
+       "x-source-node": "etri-dev0009-jetorn",
+       "x-source-pod-uid": "21cca149-f9be-4175-bb16-f40437cefd16",
+       "x-source-id": "txt-e9",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 6.302202004007995,
+      "decode_ms": 0.0,
+      "compute_ms": 52.012047,
+      "compute_cpu_ms": 52.003094,
+      "output_sha256": "a570add44ab34297b5d17d71d8fb393c47f45f872523c40ad6cbabd19b6db8cb",
+      "output_bytes": 17873,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w2-0-1",
+      "seq": 0,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "6000559e328d17d0d20d28a77b818439a2d08ac3fe8b4b9ff75361e8941c128e",
+       "T": "a570add44ab34297b5d17d71d8fb393c47f45f872523c40ad6cbabd19b6db8cb"
+      },
+      "call_ms": {
+       "V": 286.16370097734034,
+       "T": 60.44999300502241
+      },
+      "response_bytes": {
+       "V": 1331,
+       "T": 2584
+      },
+      "compute_ms": 0.213182,
+      "compute_cpu_ms": 0.213744,
+      "output_sha256": "1eb703cdbd7b68df7b3b7d39ac1f4e7f5c27234f9af0e1359d9fb5f625e56a1e",
+      "output_bytes": 299,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w2",
+   "exec_error": null
+  },
+  {
+   "tag": "w2/1/cal",
+   "status": "ok",
+   "call_ms": 290.5118479975499,
+   "reply_bytes": 2809,
+   "reply": {
+    "result": {
+     "top_class": "person",
+     "top_fused": 0.14195820527385905,
+     "alert": false,
+     "top3": [
+      {
+       "name": "person",
+       "fused": 0.14195820527385905
+      },
+      {
+       "name": "tie",
+       "fused": 0.05034349120897019
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 3,
+     "text_top_class": "truck",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w2-1-2",
+      "seq": 1,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 269408,
+      "input_payload_sha256": "23c8d9e33fecbccf6a5b9cb8a4ce93959ac720813acc115534f343b4fb7bdbb9",
+      "input_sha256": "6ad25238fd883576d199db851403594430905b91564610b10d5ba941de968582",
+      "source": {
+       "x-source-node": "etri-dev0006-raspi5",
+       "x-source-pod-uid": "9945dadc-3648-4b31-82ce-6216e817f1fa",
+       "x-source-id": "cam-e6",
+       "x-source-seq": "1"
+      },
+      "fetch_ms": 5.449188989587128,
+      "decode_ms": 8.255271,
+      "compute_ms": 270.299312,
+      "compute_cpu_ms": 270.281349,
+      "output_sha256": "17bfe4e4c1065617be25d8b13f1fb5ede605a9590db569516ebaf60d1905b66e",
+      "output_bytes": 415,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w2-1-2",
+      "seq": 1,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 224,
+      "input_payload_sha256": "c87251e3d59fc4e928fd5a3858631189450e73b88571b66ad1e38503c02637d1",
+      "input_sha256": "9b598a7489585bc0a285e73865e87b5cd03cc6b4d923374b09291938945d8345",
+      "source": {
+       "x-source-node": "etri-dev0009-jetorn",
+       "x-source-pod-uid": "21cca149-f9be-4175-bb16-f40437cefd16",
+       "x-source-id": "txt-e9",
+       "x-source-seq": "1"
+      },
+      "fetch_ms": 6.156752002425492,
+      "decode_ms": 0.0,
+      "compute_ms": 57.35735,
+      "compute_cpu_ms": 57.352605,
+      "output_sha256": "ae26287e96c18ee6e13b83202c8a2ca356cc746a6ea930b3a4e8d03032562a2d",
+      "output_bytes": 17915,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w2-1-2",
+      "seq": 1,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "17bfe4e4c1065617be25d8b13f1fb5ede605a9590db569516ebaf60d1905b66e",
+       "T": "ae26287e96c18ee6e13b83202c8a2ca356cc746a6ea930b3a4e8d03032562a2d"
+      },
+      "call_ms": {
+       "V": 286.5900839678943,
+       "T": 66.01178395794705
+      },
+      "response_bytes": {
+       "V": 1341,
+       "T": 2618
+      },
+      "compute_ms": 0.179571,
+      "compute_cpu_ms": 0.180565,
+      "output_sha256": "c24aabb29fa7fb1ad5b2b29253100af1e599ed6e4f405e39bc90709fb8700ee4",
+      "output_bytes": 303,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w2",
+   "exec_error": null
+  },
+  {
+   "tag": "w2/2/cal",
+   "status": "ok",
+   "call_ms": 286.56660101842135,
+   "reply_bytes": 2807,
+   "reply": {
+    "result": {
+     "top_class": "tie",
+     "top_fused": 0.10767838581597289,
+     "alert": false,
+     "top3": [
+      {
+       "name": "tie",
+       "fused": 0.10767838581597289
+      },
+      {
+       "name": "person",
+       "fused": 0.07773590282033815
+      },
+      {
+       "name": "zebra",
+       "fused": 0.0
+      }
+     ],
+     "detections": 3,
+     "text_top_class": "bus",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w2-2-3",
+      "seq": 2,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 293145,
+      "input_payload_sha256": "e721d0cd0a97abaa73e93d511fa52381acff9c1bc6c11f047d09288a84e6bc8f",
+      "input_sha256": "5b37a02f008fe97dc2c7f18ec61cfe3655fc5245eebb444bfb41ab2ae0850a25",
+      "source": {
+       "x-source-node": "etri-dev0006-raspi5",
+       "x-source-pod-uid": "9945dadc-3648-4b31-82ce-6216e817f1fa",
+       "x-source-id": "cam-e6",
+       "x-source-seq": "2"
+      },
+      "fetch_ms": 6.269457982853055,
+      "decode_ms": 8.457718,
+      "compute_ms": 266.652312,
+      "compute_cpu_ms": 266.616603,
+      "output_sha256": "ccb69e5bdabdbe98e4669524a3669232d532ffb6a0e76787eb015917324b752e",
+      "output_bytes": 408,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w2-2-3",
+      "seq": 2,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 207,
+      "input_payload_sha256": "9008378dd4447af06900dc52e4a51b526ec2d314c952147de870d1e1eb7b1d89",
+      "input_sha256": "986a7b56ab213421463b7793b3d928361af07f861a658e705d7464a1ec2278a2",
+      "source": {
+       "x-source-node": "etri-dev0009-jetorn",
+       "x-source-pod-uid": "21cca149-f9be-4175-bb16-f40437cefd16",
+       "x-source-id": "txt-e9",
+       "x-source-seq": "2"
+      },
+      "fetch_ms": 5.256471049506217,
+      "decode_ms": 0.0,
+      "compute_ms": 55.170246,
+      "compute_cpu_ms": 55.161871,
+      "output_sha256": "6b967c52b66dc099483410a43f8ed06b9db2d000c1e7112897f3d2f27ba7ab61",
+      "output_bytes": 17874,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w2-2-3",
+      "seq": 2,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "ccb69e5bdabdbe98e4669524a3669232d532ffb6a0e76787eb015917324b752e",
+       "T": "6b967c52b66dc099483410a43f8ed06b9db2d000c1e7112897f3d2f27ba7ab61"
+      },
+      "call_ms": {
+       "V": 283.86864898493513,
+       "T": 63.173277012538165
+      },
+      "response_bytes": {
+       "V": 1334,
+       "T": 2597
+      },
+      "compute_ms": 0.052542,
+      "compute_cpu_ms": 0.052523,
+      "output_sha256": "b7773a8240d66e7e38d066489e8d33e202cfeeaf53d3908868f751ad7d78172c",
+      "output_bytes": 298,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w2",
+   "exec_error": null
+  },
+  {
+   "tag": "w3/0/warmup",
+   "status": "ok",
+   "call_ms": 294.5114799658768,
+   "reply_bytes": 2833,
+   "reply": {
+    "result": {
+     "top_class": "remote",
+     "top_fused": 0.1501750137385045,
+     "alert": false,
+     "top3": [
+      {
+       "name": "remote",
+       "fused": 0.1501750137385045
+      },
+      {
+       "name": "cat",
+       "fused": 0.12076250514665787
+      },
+      {
+       "name": "couch",
+       "fused": 0.021034104924280816
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "parking meter",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w3-0-0",
+      "seq": 0,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 519456,
+      "input_payload_sha256": "8a56fc190413ac090103a0e08afa376a980a47052bbde540cf31c8f25ea4019b",
+      "input_sha256": "4c8f85676b4b90257b6c80622c6f627a30026bd14ee360dce3d09e5bd05805b4",
+      "source": {
+       "x-source-node": "etri-dev0008-raspi5",
+       "x-source-pod-uid": "ed9dedd1-cce3-4159-89ac-beb274e01078",
+       "x-source-id": "cam-e8",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 7.333146990276873,
+      "decode_ms": 7.066525,
+      "compute_ms": 272.836747,
+      "compute_cpu_ms": 272.81747,
+      "output_sha256": "bc31c904e4db03ff38b4d12b304b1fa0b2a1ce9caceafa401f124b9a954f5e96",
+      "output_bytes": 659,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w3-0-0",
+      "seq": 0,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 215,
+      "input_payload_sha256": "8e36561cd88d283a71aa9e442d738a90e9f85638da5ce40e848640b0f69862cc",
+      "input_sha256": "c343be8c034c402b002c8d4ce195d0cc4d4ea635e2f19fbc4075f3577904fc12",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 2.746386977378279,
+      "decode_ms": 0.0,
+      "compute_ms": 57.487946,
+      "compute_cpu_ms": 57.477575,
+      "output_sha256": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930",
+      "output_bytes": 17890,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w3-0-0",
+      "seq": 0,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "bc31c904e4db03ff38b4d12b304b1fa0b2a1ce9caceafa401f124b9a954f5e96",
+       "T": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930"
+      },
+      "call_ms": {
+       "V": 290.70019302889705,
+       "T": 62.74361297255382
+      },
+      "response_bytes": {
+       "V": 1606,
+       "T": 2629
+      },
+      "compute_ms": 0.194685,
+      "compute_cpu_ms": 0.195034,
+      "output_sha256": "b69d49c77e1ee8f627ab8128a00d4301866e461bb77d16bf3b7c52680b406a55",
+      "output_bytes": 326,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w3",
+   "exec_error": null
+  },
+  {
+   "tag": "w3/0/cal",
+   "status": "ok",
+   "call_ms": 291.58822499448434,
+   "reply_bytes": 2834,
+   "reply": {
+    "result": {
+     "top_class": "remote",
+     "top_fused": 0.1501750137385045,
+     "alert": false,
+     "top3": [
+      {
+       "name": "remote",
+       "fused": 0.1501750137385045
+      },
+      {
+       "name": "cat",
+       "fused": 0.12076250514665787
+      },
+      {
+       "name": "couch",
+       "fused": 0.021034104924280816
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "parking meter",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w3-0-1",
+      "seq": 0,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 519456,
+      "input_payload_sha256": "8a56fc190413ac090103a0e08afa376a980a47052bbde540cf31c8f25ea4019b",
+      "input_sha256": "4c8f85676b4b90257b6c80622c6f627a30026bd14ee360dce3d09e5bd05805b4",
+      "source": {
+       "x-source-node": "etri-dev0008-raspi5",
+       "x-source-pod-uid": "ed9dedd1-cce3-4159-89ac-beb274e01078",
+       "x-source-id": "cam-e8",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 7.11149798007682,
+      "decode_ms": 8.288696,
+      "compute_ms": 270.441645,
+      "compute_cpu_ms": 270.392091,
+      "output_sha256": "bc31c904e4db03ff38b4d12b304b1fa0b2a1ce9caceafa401f124b9a954f5e96",
+      "output_bytes": 659,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w3-0-1",
+      "seq": 0,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 215,
+      "input_payload_sha256": "8e36561cd88d283a71aa9e442d738a90e9f85638da5ce40e848640b0f69862cc",
+      "input_sha256": "c343be8c034c402b002c8d4ce195d0cc4d4ea635e2f19fbc4075f3577904fc12",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "0"
+      },
+      "fetch_ms": 2.5625129928812385,
+      "decode_ms": 0.0,
+      "compute_ms": 58.493438,
+      "compute_cpu_ms": 58.481714,
+      "output_sha256": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930",
+      "output_bytes": 17890,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w3-0-1",
+      "seq": 0,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "bc31c904e4db03ff38b4d12b304b1fa0b2a1ce9caceafa401f124b9a954f5e96",
+       "T": "2c6eb7389c2465108dbdbbeca859a156d55e6c740da2dbc3e58a99f1abc5a930"
+      },
+      "call_ms": {
+       "V": 288.31395599991083,
+       "T": 63.50515998201445
+      },
+      "response_bytes": {
+       "V": 1606,
+       "T": 2630
+      },
+      "compute_ms": 0.044893,
+      "compute_cpu_ms": 0.045026,
+      "output_sha256": "b69d49c77e1ee8f627ab8128a00d4301866e461bb77d16bf3b7c52680b406a55",
+      "output_bytes": 326,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w3",
+   "exec_error": null
+  },
+  {
+   "tag": "w3/1/cal",
+   "status": "ok",
+   "call_ms": 287.8024899982847,
+   "reply_bytes": 2830,
+   "reply": {
+    "result": {
+     "top_class": "remote",
+     "top_fused": 0.13652164650858722,
+     "alert": false,
+     "top3": [
+      {
+       "name": "remote",
+       "fused": 0.13652164650858722
+      },
+      {
+       "name": "cat",
+       "fused": 0.09352041669878464
+      },
+      {
+       "name": "couch",
+       "fused": 0.00815062876903594
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "bicycle",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w3-1-2",
+      "seq": 1,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 510976,
+      "input_payload_sha256": "261b95dca1acdd5f4697cdab1cefc01928b71b7b5bdf2f5b0fbbf9954e3ff095",
+      "input_sha256": "517c98edac6b22d23142b776bf23009af13cad80113d0e6db0d27492b53794c1",
+      "source": {
+       "x-source-node": "etri-dev0008-raspi5",
+       "x-source-pod-uid": "ed9dedd1-cce3-4159-89ac-beb274e01078",
+       "x-source-id": "cam-e8",
+       "x-source-seq": "1"
+      },
+      "fetch_ms": 6.4445570460520685,
+      "decode_ms": 6.354975,
+      "compute_ms": 272.208708,
+      "compute_cpu_ms": 272.19611,
+      "output_sha256": "f8990b7f73742407676e7044642ab541159f4b4118cc890635e99c5a2c44393c",
+      "output_bytes": 664,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w3-1-2",
+      "seq": 1,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 220,
+      "input_payload_sha256": "67d15b59833e348e019f5082d68c1cf5dac539999babc7c22f1710f1556e0c9e",
+      "input_sha256": "a20d0c0d362e50195a9f9b6c66fa4a7d5ebe276c284f0d0ce35f1b95536c4cb6",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "1"
+      },
+      "fetch_ms": 1.6823839978314936,
+      "decode_ms": 0.0,
+      "compute_ms": 54.552541,
+      "compute_cpu_ms": 54.544383,
+      "output_sha256": "7a40ed5b56e962cc4cc83f1dd3da576cd65dac2684b910f4c83019c2514075a9",
+      "output_bytes": 17877,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w3-1-2",
+      "seq": 1,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "f8990b7f73742407676e7044642ab541159f4b4118cc890635e99c5a2c44393c",
+       "T": "7a40ed5b56e962cc4cc83f1dd3da576cd65dac2684b910f4c83019c2514075a9"
+      },
+      "call_ms": {
+       "V": 286.4365419954993,
+       "T": 57.430917979218066
+      },
+      "response_bytes": {
+       "V": 1612,
+       "T": 2621
+      },
+      "compute_ms": 0.045728,
+      "compute_cpu_ms": 0.045845,
+      "output_sha256": "ddec89bae86146cdb45cdcb8fa7f0b275f584492f4e6461c0a3cc2c4c888577e",
+      "output_bytes": 321,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w3",
+   "exec_error": null
+  },
+  {
+   "tag": "w3/2/cal",
+   "status": "ok",
+   "call_ms": 293.40078396489844,
+   "reply_bytes": 2824,
+   "reply": {
+    "result": {
+     "top_class": "remote",
+     "top_fused": 0.12294436998197966,
+     "alert": false,
+     "top3": [
+      {
+       "name": "remote",
+       "fused": 0.12294436998197966
+      },
+      {
+       "name": "cat",
+       "fused": 0.11206843297442326
+      },
+      {
+       "name": "couch",
+       "fused": 0.03874086647821717
+      }
+     ],
+     "detections": 5,
+     "text_top_class": "tie",
+     "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+    },
+    "receipts": [
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "dbc7c645-accf-48af-a37e-55eef95dff07",
+      "pod_ip": "10.244.8.160",
+      "role": "worker",
+      "task": "V",
+      "source_id": null,
+      "request_id": "rs-w3-2-3",
+      "seq": 2,
+      "model_sha256": "1fc01bfa1162a8cc6641aeed5b06ff65995257caea38c3858a9f930dacab8a66",
+      "input_bytes": 511464,
+      "input_payload_sha256": "913fad67fbd7d863a71db226151988cd4d51db323919afa8569000496629b4bb",
+      "input_sha256": "2c99c718021d7182e04a0143793a457640c99bba71619393598e0e1b09509d43",
+      "source": {
+       "x-source-node": "etri-dev0008-raspi5",
+       "x-source-pod-uid": "ed9dedd1-cce3-4159-89ac-beb274e01078",
+       "x-source-id": "cam-e8",
+       "x-source-seq": "2"
+      },
+      "fetch_ms": 6.465018028393388,
+      "decode_ms": 6.519056,
+      "compute_ms": 276.585865,
+      "compute_cpu_ms": 276.578942,
+      "output_sha256": "5cabd236914f5c523fd832a5b989b8074c6bcf12e2f3c93b487cca219a07d650",
+      "output_bytes": 671,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "3f3d619a-2cdd-4aa2-8c5b-ed0df52ef0e9",
+      "pod_ip": "10.244.8.161",
+      "role": "worker",
+      "task": "T",
+      "source_id": null,
+      "request_id": "rs-w3-2-3",
+      "seq": 2,
+      "model_sha256": "74187b16d9c946fea252e120cfd7a12c5779d8b8b86838a2e4c56573c47941bd",
+      "input_bytes": 215,
+      "input_payload_sha256": "26d3bf667b247d6a5f87b09ac5d2c373e654ab7c6bd72a614d475769de91f4c2",
+      "input_sha256": "c8c2a7070a24eab9d805462abde3122f7c8e8de70906eaa74de80cc18874ae95",
+      "source": {
+       "x-source-node": "etri-dev0002-raspi5",
+       "x-source-pod-uid": "0f960fa8-3acc-4a7c-8b3c-2f1f9a9e4b28",
+       "x-source-id": "txt-e1",
+       "x-source-seq": "2"
+      },
+      "fetch_ms": 1.633494975976646,
+      "decode_ms": 0.0,
+      "compute_ms": 54.513008,
+      "compute_cpu_ms": 54.505275,
+      "output_sha256": "40c3d633727a575e8fe3a7b59c26a29cce8659ced8db05f2aae0b857d1f0e3b8",
+      "output_bytes": 17894,
+      "device": "cpu"
+     },
+     {
+      "node": "etri-ser0002-cgnmsb",
+      "pod_uid": "ba1d8704-1f6b-476a-b400-cd77d124dcce",
+      "pod_ip": "10.244.8.159",
+      "role": "worker",
+      "task": "F",
+      "source_id": null,
+      "request_id": "rs-w3-2-3",
+      "seq": 2,
+      "model_sha256": "3bca67c4f7fd536f532b44b6c9e7c2bf079e36f353d8dbd3a9c8d5c71f1414e1",
+      "input_sha256": {
+       "V": "5cabd236914f5c523fd832a5b989b8074c6bcf12e2f3c93b487cca219a07d650",
+       "T": "40c3d633727a575e8fe3a7b59c26a29cce8659ced8db05f2aae0b857d1f0e3b8"
+      },
+      "call_ms": {
+       "V": 290.8005529898219,
+       "T": 57.39025300135836
+      },
+      "response_bytes": {
+       "V": 1619,
+       "T": 2617
+      },
+      "compute_ms": 0.181629,
+      "compute_cpu_ms": 0.182196,
+      "output_sha256": "bf3b6489c65ef89833a5aa64dd44911ed60095949ec45c1d834c91b5c89394c3",
+      "output_bytes": 317,
+      "device": "cpu"
+     }
+    ]
+   },
+   "workflow": "w3",
+   "exec_error": null
+  }
+ ],
+ "sizes": {
+  "w1": {
+   "frame": 481652,
+   "text": 215,
+   "V": 1652,
+   "T": 2644,
+   "categories": {
+    "V_task_bytes": 732,
+    "T_task_bytes": 1734,
+    "F_task_bytes": 333,
+    "F_receipt_envelope_bytes": 2482
+   },
+   "F": 2814
+  },
+  "w2": {
+   "frame": 305044,
+   "text": 202,
+   "V": 1356,
+   "T": 2612,
+   "categories": {
+    "V_task_bytes": 438,
+    "T_task_bytes": 1703,
+    "F_task_bytes": 323,
+    "F_receipt_envelope_bytes": 2483
+   },
+   "F": 2807
+  },
+  "w3": {
+   "frame": 515460,
+   "text": 215,
+   "V": 1638,
+   "T": 2644,
+   "categories": {
+    "V_task_bytes": 719,
+    "T_task_bytes": 1734,
+    "F_task_bytes": 345,
+    "F_receipt_envelope_bytes": 2484
+   },
+   "F": 2830
+  }
+ },
+ "scope": "HTTP response body bytes only (headers excluded). V/T: /infer body to F (output + receipt); F: /run body to the destination (result + V/T/F receipts). *_task_bytes = JSON of the semantic output alone; the rest is instrumentation."
+}

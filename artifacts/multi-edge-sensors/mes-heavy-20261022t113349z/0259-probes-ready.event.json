@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T11:48:37.217041+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-heavy-20261022t113349z-p-e6",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0259-probes-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T11:48:57.276773+00:00",
+ "duration_ms": 20059.770981999463,
+ "tag": "0259-probes-ready"
+}

@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T11:53:32.756745+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-heavy-20261022t113349z-s-w2-f",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0366-scheduler-w2-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T11:53:52.815643+00:00",
+ "duration_ms": 20058.905958998366,
+ "tag": "0366-scheduler-w2-ready"
+}
