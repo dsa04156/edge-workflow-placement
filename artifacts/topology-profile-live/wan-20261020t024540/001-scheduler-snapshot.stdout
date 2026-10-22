@@ -1,0 +1,200 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubernetes.io/config.hash": "e83b81dff3c82e4866b37e0fca7a8be6",
+                    "kubernetes.io/config.mirror": "e83b81dff3c82e4866b37e0fca7a8be6",
+                    "kubernetes.io/config.seen": "2026-03-20T16:38:31.316379145+09:00",
+                    "kubernetes.io/config.source": "file"
+                },
+                "creationTimestamp": "2026-03-20T07:38:34Z",
+                "labels": {
+                    "component": "kube-scheduler",
+                    "tier": "control-plane"
+                },
+                "name": "kube-scheduler-etri-ser0001-cg0msb",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "v1",
+                        "controller": true,
+                        "kind": "Node",
+                        "name": "etri-ser0001-cg0msb",
+                        "uid": "5d12790a-6588-4729-b085-d05c4729d635"
+                    }
+                ],
+                "resourceVersion": "49135510",
+                "uid": "c1f998e1-4617-47d8-91f3-8deb124a3970"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "command": [
+                            "kube-scheduler",
+                            "--authentication-kubeconfig=/etc/kubernetes/scheduler.conf",
+                            "--authorization-kubeconfig=/etc/kubernetes/scheduler.conf",
+                            "--bind-address=127.0.0.1",
+                            "--kubeconfig=/etc/kubernetes/scheduler.conf",
+                            "--leader-elect=true"
+                        ],
+                        "image": "registry.k8s.io/kube-scheduler:v1.31.14",
+                        "imagePullPolicy": "IfNotPresent",
+                        "livenessProbe": {
+                            "failureThreshold": 8,
+                            "httpGet": {
+                                "host": "127.0.0.1",
+                                "path": "/healthz",
+                                "port": 10259,
+                                "scheme": "HTTPS"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 15
+                        },
+                        "name": "kube-scheduler",
+                        "resources": {
+                            "requests": {
+                                "cpu": "100m"
+                            }
+                        },
+                        "startupProbe": {
+                            "failureThreshold": 24,
+                            "httpGet": {
+                                "host": "127.0.0.1",
+                                "path": "/healthz",
+                                "port": 10259,
+                                "scheme": "HTTPS"
+                            },
+                            "initialDelaySeconds": 10,
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 15
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/kubernetes/scheduler.conf",
+                                "name": "kubeconfig",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostNetwork": true,
+                "nodeName": "etri-ser0001-cg0msb",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 2000001000,
+                "priorityClassName": "system-node-critical",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "hostPath": {
+                            "path": "/etc/kubernetes/scheduler.conf",
+                            "type": "FileOrCreate"
+                        },
+                        "name": "kubeconfig"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-19T04:13:24Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-19T04:13:24Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-19T04:14:58Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-19T04:14:58Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-19T04:13:24Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://8636a9c4c4cfa0af36d68f18b58d209815a3fa263da538c0b9bddc3fcfb4608d",
+                        "image": "registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.31.14",
+                        "imageID": "registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler@sha256:346d4b827cfff2bb74489b537e4219382315bed4287adc0faa6fd6ea7d12deaf",
+                        "lastState": {
+                            "terminated": {
+                                "containerID": "containerd://16b21ce7eecf33814a079cceb60034a15c4e866c132b49f3a66a2345b89a0868",
+                                "exitCode": 137,
+                                "finishedAt": "2026-10-19T04:14:39Z",
+                                "reason": "Error",
+                                "startedAt": "2026-10-19T04:04:58Z"
+                            }
+                        },
+                        "name": "kube-scheduler",
+                        "ready": true,
+                        "restartCount": 361,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-19T04:14:39Z"
+                            }
+                        }
+                    }
+                ],
+                "hostIP": "10.254.192.47",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.47"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.254.192.47",
+                "podIPs": [
+                    {
+                        "ip": "10.254.192.47"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-19T04:13:24Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

@@ -1,0 +1,38 @@
+## captured 2026-10-22T14:01:50+09:00 via node-exporter /host/root (ro)
+.:
+total 32
+drwxr-xr-x    4 root     root          4096 Sep  9 10:49 .
+drwxr-xr-x  178 root     root         12288 Oct 19 06:39 ..
+drwxr-xr-x    3 root     root          4096 Sep  9 10:39 certs.d
+drwxr-xr-x    2 root     root          4096 Sep  9 10:49 conf.d
+-rw-r--r--    1 root     root          8016 Sep  9 10:49 config.toml
+
+certs.d:
+total 12
+drwxr-xr-x    3 root     root          4096 Sep  9 10:39 .
+drwxr-xr-x    4 root     root          4096 Sep  9 10:49 ..
+drwxr-xr-x    2 root     root          4096 Sep  9 10:39 192.168.0.56:5000
+
+conf.d:
+total 12
+drwxr-xr-x    2 root     root          4096 Sep  9 10:49 .
+drwxr-xr-x    4 root     root          4096 Sep  9 10:49 ..
+-rw-r--r--    1 root     root          3060 Sep  9 10:49 99-nvidia.toml
+### certs.d/192.168.0.56:5000
+total 12
+drwxr-xr-x    2 root     root          4096 Sep  9 10:39 .
+drwxr-xr-x    3 root     root          4096 Sep  9 10:39 ..
+-rw-r--r--    1 root     root           101 Sep  9 10:39 hosts.toml
+--- certs.d/192.168.0.56:5000/hosts.toml
+server = "http://10.77.0.1:5000"
+[host."http://10.77.0.1:5000"]
+  capabilities = ["pull", "resolve"]
+### docker certs.d
+ls: /host/root/etc/docker/certs.d: No such file or directory
+total 16
+drwxr-xr-x    2 root     root          4096 Jul 25  2025 .
+drwxr-xr-x  178 root     root         12288 Oct 19 06:39 ..
+### sha256
+ec06ee761575c86acbdab179b68a2fe1f22b7719ea9f83957cfc93054a849b7f  config.toml
+92feb33765bd8f02d98c4c09e7fde41d7e32c1b15574f224b7c89b14652271f8  conf.d/99-nvidia.toml
+17cf25eda2982c71b2d5fc8defce8b928ef52a785bb963684f1d4d4cd3e139fe  certs.d/192.168.0.56:5000/hosts.toml

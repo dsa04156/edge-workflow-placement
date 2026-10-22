@@ -1,0 +1,339 @@
+From 389862263e7e05d5928ae45bc855d91d47800c69 Mon Sep 17 00:00:00 2001
+From: local-patch <local@invalid>
+Date: Thu, 22 Oct 2026 16:14:38 +0900
+Subject: [PATCH 2/2] edged: report pod sources ready only after kubelet
+ podManager has initial pods
+
+---
+ edge/pkg/edged/edged.go               |  97 ++++++++++++++---
+ edge/pkg/edged/init_pod_ready_test.go | 146 ++++++++++++++++++++++++++
+ 2 files changed, 231 insertions(+), 12 deletions(-)
+ create mode 100644 edge/pkg/edged/init_pod_ready_test.go
+
+diff --git a/edge/pkg/edged/edged.go b/edge/pkg/edged/edged.go
+index ed4009db3..2cf9f3b61 100644
+--- a/edge/pkg/edged/edged.go
++++ b/edge/pkg/edged/edged.go
+@@ -37,6 +37,9 @@ import (
+ 	"github.com/golang/protobuf/jsonpb"
+ 	v1 "k8s.io/api/core/v1"
+ 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
++	"k8s.io/apimachinery/pkg/types"
++	"k8s.io/apimachinery/pkg/util/sets"
++	"k8s.io/apimachinery/pkg/util/wait"
+ 	utilfeature "k8s.io/apiserver/pkg/util/feature"
+ 	"k8s.io/component-base/featuregate"
+ 	runtimeapi "k8s.io/cri-api/pkg/apis/runtime/v1"
+@@ -317,19 +320,19 @@ func (e *edged) syncPod(podCfg *config.PodConfig) {
+ 		switch resType {
+ 		case model.ResourceTypePod:
+ 			if op == model.ResponseOperation && resID == "" && result.GetSource() == modules.MetaManagerModuleName {
+-				err := e.handlePodListFromMetaManager(content, rawUpdateChan)
++				expected, err := e.handlePodListFromMetaManager(content, rawUpdateChan)
+ 				if err != nil {
+ 					klog.Errorf("handle podList failed: %v", err)
+ 					continue
+ 				}
+-				podCfg.SetInitPodReady(true)
++				e.setInitPodReadyAfterKubeletAdmits(beehiveContext.GetContext(), podCfg, expected)
+ 			} else if op == model.ResponseOperation && resID == "" && result.GetSource() == metamanager.CloudControllerModel {
+-				err := e.handlePodListFromEdgeController(content, rawUpdateChan)
++				expected, err := e.handlePodListFromEdgeController(content, rawUpdateChan)
+ 				if err != nil {
+ 					klog.Errorf("handle podList failed: %v", err)
+ 					continue
+ 				}
+-				podCfg.SetInitPodReady(true)
++				e.setInitPodReadyAfterKubeletAdmits(beehiveContext.GetContext(), podCfg, expected)
+ 			} else if op == model.UnholdUpgradeOperation {
+ 				key := fmt.Sprintf("%s/%s", ns, resID)
+ 				if updates, exists := e.heldPodUpdates[key]; exists {
+@@ -499,11 +502,11 @@ func (e *edged) updateHeldUpgradeCondition(pod *v1.Pod) error {
+ 	return nil
+ }
+ 
+-func (e *edged) handlePodListFromMetaManager(content []byte, updatesChan chan<- interface{}) (err error) {
++func (e *edged) handlePodListFromMetaManager(content []byte, updatesChan chan<- interface{}) (sets.Set[types.UID], error) {
+ 	var lists []string
+-	err = json.Unmarshal(content, &lists)
++	err := json.Unmarshal(content, &lists)
+ 	if err != nil {
+-		return err
++		return nil, err
+ 	}
+ 
+ 	var pods []*v1.Pod
+@@ -511,7 +514,7 @@ func (e *edged) handlePodListFromMetaManager(content []byte, updatesChan chan<-
+ 		var pod v1.Pod
+ 		err = json.Unmarshal([]byte(list), &pod)
+ 		if err != nil {
+-			return err
++			return nil, err
+ 		}
+ 
+ 		if filterPodByNodeName(&pod, e.nodeName) {
+@@ -525,17 +528,19 @@ func (e *edged) handlePodListFromMetaManager(content []byte, updatesChan chan<-
+ 		}
+ 	}
+ 
++	// Collect before sending: kubelet's pod config mutates the pods once queued.
++	expected := podManagerUIDs(pods)
+ 	updates := &kubelettypes.PodUpdate{Op: kubelettypes.SET, Pods: pods, Source: kubelettypes.ApiserverSource}
+ 	updatesChan <- *updates
+ 
+-	return nil
++	return expected, nil
+ }
+ 
+-func (e *edged) handlePodListFromEdgeController(content []byte, updatesChan chan<- interface{}) (err error) {
++func (e *edged) handlePodListFromEdgeController(content []byte, updatesChan chan<- interface{}) (sets.Set[types.UID], error) {
+ 	var podLists []v1.Pod
+ 	var pods []*v1.Pod
+ 	if err := json.Unmarshal(content, &podLists); err != nil {
+-		return err
++		return nil, err
+ 	}
+ 
+ 	for _, pod := range podLists {
+@@ -543,10 +548,12 @@ func (e *edged) handlePodListFromEdgeController(content []byte, updatesChan chan
+ 			pods = append(pods, &pod)
+ 		}
+ 	}
++	// Collect before sending: kubelet's pod config mutates the pods once queued.
++	expected := podManagerUIDs(pods)
+ 	updates := &kubelettypes.PodUpdate{Op: kubelettypes.SET, Pods: pods, Source: kubelettypes.ApiserverSource}
+ 	updatesChan <- *updates
+ 
+-	return nil
++	return expected, nil
+ }
+ 
+ func (e *edged) handleVolume(op string, content []byte) (interface{}, error) {
+@@ -640,6 +647,72 @@ func filterPodByNodeName(pod *v1.Pod, nodeName string) bool {
+ 	return pod.Spec.NodeName == nodeName
+ }
+ 
++// initPodReadyTimeout bounds how long edged waits for kubelet to take the
++// initial pod list into its podManager before reporting sources ready anyway.
++var initPodReadyTimeout = 2 * time.Minute
++
++// setInitPodReadyAfterKubeletAdmits reports pod sources ready only after
++// kubelet's podManager contains the initial pods. Kubelet's syncLoop skips pod
++// updates until the runtime/PLEG is healthy, so marking ready right after
++// queueing the list lets the volume populator finish with an empty desired
++// state and the reconciler tear down volumes of pods that are still running.
++func (e *edged) setInitPodReadyAfterKubeletAdmits(ctx context.Context, podCfg *config.PodConfig, expected sets.Set[types.UID]) {
++	if podCfg.SeenAllSources(nil) {
++		return
++	}
++	url := fmt.Sprintf("http://localhost:%d/pods", e.KubeletServer.ReadOnlyPort)
++	go func() {
++		waitCtx, cancel := context.WithTimeout(ctx, initPodReadyTimeout)
++		defer cancel()
++		err := wait.PollUntilContextCancel(waitCtx, 100*time.Millisecond, true, func(context.Context) (bool, error) {
++			return kubeletHasPods(url, expected), nil
++		})
++		if err != nil {
++			klog.Warningf("kubelet did not report all %d initial pods before timeout, marking pod sources ready anyway: %v", expected.Len(), err)
++		} else {
++			klog.Infof("kubelet reports all %d initial pods, marking pod sources ready", expected.Len())
++		}
++		podCfg.SetInitPodReady(true)
++	}()
++}
++
++// podManagerUIDs returns the UIDs kubelet's podManager.GetPods will report
++// for pods, which excludes mirror pods.
++func podManagerUIDs(pods []*v1.Pod) sets.Set[types.UID] {
++	uids := sets.New[types.UID]()
++	for _, pod := range pods {
++		if !kubelettypes.IsMirrorPod(pod) {
++			uids.Insert(pod.UID)
++		}
++	}
++	return uids
++}
++
++func kubeletHasPods(url string, expected sets.Set[types.UID]) bool {
++	if expected.Len() == 0 {
++		return true
++	}
++	resp, err := http.Get(url)
++	if err != nil {
++		klog.V(4).Infof("failed to get kubelet pods, err: %v", err)
++		return false
++	}
++	defer resp.Body.Close()
++	if resp.StatusCode != http.StatusOK {
++		return false
++	}
++	var list v1.PodList
++	if err := json.NewDecoder(resp.Body).Decode(&list); err != nil {
++		klog.V(4).Infof("failed to decode kubelet pods, err: %v", err)
++		return false
++	}
++	seen := sets.New[types.UID]()
++	for i := range list.Items {
++		seen.Insert(list.Items[i].UID)
++	}
++	return seen.IsSuperset(expected)
++}
++
+ func kubeletHealthCheck(port int32, kubeletReadyChan chan struct{}) {
+ 	url := fmt.Sprintf("http://localhost:%d/healthz/syncloop", port)
+ 	for {
+diff --git a/edge/pkg/edged/init_pod_ready_test.go b/edge/pkg/edged/init_pod_ready_test.go
+new file mode 100644
+index 000000000..191bbeb8e
+--- /dev/null
++++ b/edge/pkg/edged/init_pod_ready_test.go
+@@ -0,0 +1,146 @@
++package edged
++
++import (
++	"context"
++	"encoding/json"
++	"net"
++	"net/http"
++	"net/http/httptest"
++	"sync/atomic"
++	"testing"
++	"time"
++
++	v1 "k8s.io/api/core/v1"
++	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
++	"k8s.io/apimachinery/pkg/types"
++	"k8s.io/apimachinery/pkg/util/sets"
++	"k8s.io/client-go/tools/record"
++	kubeletoptions "k8s.io/kubernetes/cmd/kubelet/app/options"
++	"k8s.io/kubernetes/pkg/kubelet/config"
++	kubelettypes "k8s.io/kubernetes/pkg/kubelet/types"
++	kubeletutil "k8s.io/kubernetes/pkg/kubelet/util"
++
++	"github.com/kubeedge/beehive/pkg/common"
++	beehiveContext "github.com/kubeedge/beehive/pkg/core/context"
++	"github.com/kubeedge/beehive/pkg/core/model"
++	"github.com/kubeedge/kubeedge/edge/pkg/common/modules"
++)
++
++func init() {
++	beehiveContext.InitContext([]string{common.MsgCtxTypeChannel})
++	for _, m := range []string{modules.EdgedModuleName, modules.MetaManagerModuleName} {
++		beehiveContext.AddModule(&common.ModuleInfo{ModuleName: m, ModuleType: common.MsgCtxTypeChannel})
++	}
++}
++
++// TestInitPodReadyWaitsForKubeletPodManager reproduces the dev0009 restart
++// teardown: after an edgecore restart, metamanager answers the initial pod
++// list from sqlite within milliseconds, but kubelet's syncLoop does not read
++// pod updates while PLEG/runtime status is not yet healthy ("Skipping pod
++// synchronization"). If sources are reported ready in that window, the volume
++// desired-state populator finishes with an empty podManager and the reconciler
++// unmounts (and for emptyDir, deletes) every reconstructed volume of the
++// still-running pods.
++//
++// The property under test: SeenAllSources must stay false until kubelet's
++// podManager (served by the read-only /pods endpoint) contains the initial pods.
++func TestInitPodReadyWaitsForKubeletPodManager(t *testing.T) {
++	const nodeName = "edge-node"
++	running := &v1.Pod{
++		ObjectMeta: metav1.ObjectMeta{Name: "source-e9", Namespace: "default", UID: "d4f764e3"},
++		Spec:       v1.PodSpec{NodeName: nodeName},
++	}
++	mirror := &v1.Pod{
++		ObjectMeta: metav1.ObjectMeta{Name: "static-mirror", Namespace: "default", UID: "mirror-uid",
++			Annotations: map[string]string{kubelettypes.ConfigMirrorAnnotationKey: "x"}},
++		Spec: v1.PodSpec{NodeName: nodeName},
++	}
++
++	// Fake kubelet read-only server: /pods reflects podManager.GetPods(),
++	// which never contains mirror pods.
++	var admitted atomic.Bool
++	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		if r.URL.Path != "/pods" {
++			http.NotFound(w, r)
++			return
++		}
++		list := v1.PodList{}
++		if admitted.Load() {
++			list.Items = []v1.Pod{*running}
++		}
++		_ = json.NewEncoder(w).Encode(list)
++	}))
++	defer srv.Close()
++
++	e := &edged{
++		nodeName:       nodeName,
++		namespace:      "default",
++		heldPodUpdates: map[string][]kubelettypes.PodUpdate{},
++		KubeletServer:  &kubeletoptions.KubeletServer{},
++	}
++	e.KubeletServer.ReadOnlyPort = int32(srv.Listener.Addr().(*net.TCPAddr).Port)
++
++	podCfg := config.NewPodConfig(config.PodConfigNotificationIncremental, record.NewFakeRecorder(10), kubeletutil.NewPodStartupLatencyTracker())
++	go e.syncPod(podCfg)
++
++	var items []string
++	for _, p := range []*v1.Pod{running, mirror} {
++		b, err := json.Marshal(p)
++		if err != nil {
++			t.Fatal(err)
++		}
++		items = append(items, string(b))
++	}
++	content, err := json.Marshal(items)
++	if err != nil {
++		t.Fatal(err)
++	}
++	resp := model.NewMessage("").BuildRouter(modules.MetaManagerModuleName, modules.MetaGroup,
++		"default/"+model.ResourceTypePod, model.ResponseOperation).FillBody(content)
++	beehiveContext.Send(modules.EdgedModuleName, *resp)
++
++	// Nobody consumes podCfg.Updates(): kubelet syncLoop is still skipping.
++	time.Sleep(700 * time.Millisecond)
++	if podCfg.SeenAllSources(nil) {
++		t.Fatalf("sources reported ready while kubelet podManager is still empty; volume reconciler would tear down live pod volumes")
++	}
++
++	admitted.Store(true)
++	deadline := time.Now().Add(5 * time.Second)
++	for !podCfg.SeenAllSources(nil) {
++		if time.Now().After(deadline) {
++			t.Fatalf("sources never became ready after kubelet admitted the initial pods")
++		}
++		time.Sleep(20 * time.Millisecond)
++	}
++}
++
++// TestInitPodReadyFallsBackAfterTimeout keeps upstream liveness: if kubelet
++// never reports a pod (e.g. it was filtered as invalid), sources still become
++// ready once initPodReadyTimeout expires.
++func TestInitPodReadyFallsBackAfterTimeout(t *testing.T) {
++	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		_ = json.NewEncoder(w).Encode(v1.PodList{})
++	}))
++	defer srv.Close()
++	old := initPodReadyTimeout
++	initPodReadyTimeout = 300 * time.Millisecond
++	defer func() { initPodReadyTimeout = old }()
++
++	e := &edged{KubeletServer: &kubeletoptions.KubeletServer{}}
++	e.KubeletServer.ReadOnlyPort = int32(srv.Listener.Addr().(*net.TCPAddr).Port)
++	podCfg := config.NewPodConfig(config.PodConfigNotificationIncremental, record.NewFakeRecorder(10), kubeletutil.NewPodStartupLatencyTracker())
++	e.setInitPodReadyAfterKubeletAdmits(context.Background(), podCfg, sets.New[types.UID]("never-admitted"))
++
++	time.Sleep(100 * time.Millisecond)
++	if podCfg.SeenAllSources(nil) {
++		t.Fatalf("sources ready before timeout")
++	}
++	deadline := time.Now().Add(3 * time.Second)
++	for !podCfg.SeenAllSources(nil) {
++		if time.Now().After(deadline) {
++			t.Fatalf("sources never became ready after timeout")
++		}
++		time.Sleep(20 * time.Millisecond)
++	}
++}
+-- 
+2.43.0
+

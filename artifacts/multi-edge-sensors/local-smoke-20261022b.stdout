@@ -1,0 +1,27 @@
+{"event": "cache-start", "at": "2026-10-22T09:26:22.920582+00:00", "monotonic": 84693.095472163}
+{"event": "bootstrap-start", "at": "2026-10-22T09:26:22.932548+00:00", "monotonic": 84693.107439972, "role": "video"}
+{"event": "bootstrap-start", "at": "2026-10-22T09:26:22.932998+00:00", "monotonic": 84693.107884289, "role": "text"}
+{"event": "bootstrap-start", "at": "2026-10-22T09:26:22.933333+00:00", "monotonic": 84693.108218397, "role": "V"}
+{"event": "bootstrap-start", "at": "2026-10-22T09:26:22.933634+00:00", "monotonic": 84693.108518702, "role": "T"}
+{"event": "bootstrap-start", "at": "2026-10-22T09:26:22.933880+00:00", "monotonic": 84693.108764472, "role": "F"}
+{
+ "scope": "local x86_64 smoke of the Pod bootstrap/runtime path; not cluster evidence, not a placement comparison",
+ "prepared": "prepared-20261022b",
+ "workflow": {
+  "id": "w1",
+  "video": "cam-e0",
+  "text": "txt-e1",
+  "destination": "video"
+ },
+ "python": "/home/jinuk/.local/bin/python3.11",
+ "pod_python": "3.11.15 x86_64",
+ "status": "error",
+ "error": "RuntimeError('video exited rc=2; see video.log')"
+}
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/smoke_local.py", line 201, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/smoke_local.py", line 105, in main
+    raise RuntimeError(f'{name} exited rc={processes[name].returncode}; see {name}.log')
+RuntimeError: video exited rc=2; see video.log

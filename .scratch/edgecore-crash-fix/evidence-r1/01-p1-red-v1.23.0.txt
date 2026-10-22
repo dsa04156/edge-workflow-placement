@@ -1,0 +1,241 @@
+=== RUN   TestDeleteWithFullBufferAndNoConsumer
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/exec
+    tunnel_lifecycle_test.go:83: writer panicked: send on closed channel
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/attach
+    tunnel_lifecycle_test.go:83: writer panicked: send on closed channel
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/logs
+    tunnel_lifecycle_test.go:83: writer panicked: send on closed channel
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/metrics
+    tunnel_lifecycle_test.go:83: writer panicked: send on closed channel
+--- FAIL: TestDeleteWithFullBufferAndNoConsumer (0.20s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/exec (0.05s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/attach (0.05s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/logs (0.05s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/metrics (0.05s)
+=== RUN   TestExecDialFailureWithFullBuffer
+E1022 16:33:47.735089 1437265 edgedexecconnection.go:118] failed to dial, err: read tcp 127.0.0.1:47138->127.0.0.1:40451: read: connection reset by peer
+E1022 16:33:47.735147 1437265 tunnel.go:116] Serve Container Exec connection error MESSAGE: connectID 42 messageType EXEC_CONNECT
+    tunnel_lifecycle_test.go:184: tunnel writer panicked: send on closed channel
+--- FAIL: TestExecDialFailureWithFullBuffer (0.06s)
+=== RUN   TestNoDropWithLiveConsumer
+=== RUN   TestNoDropWithLiveConsumer/exec
+=== RUN   TestNoDropWithLiveConsumer/attach
+=== RUN   TestNoDropWithLiveConsumer/logs
+=== RUN   TestNoDropWithLiveConsumer/metrics
+--- PASS: TestNoDropWithLiveConsumer (0.04s)
+    --- PASS: TestNoDropWithLiveConsumer/exec (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/attach (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/logs (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/metrics (0.01s)
+=== RUN   TestCloseReadChannelIdempotent
+=== RUN   TestCloseReadChannelIdempotent/exec
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+=== RUN   TestCloseReadChannelIdempotent/attach
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+=== RUN   TestCloseReadChannelIdempotent/logs
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+=== RUN   TestCloseReadChannelIdempotent/metrics
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+--- FAIL: TestCloseReadChannelIdempotent (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/exec (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/attach (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/logs (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/metrics (0.00s)
+=== RUN   TestConcurrentWriteDelete
+    tunnel_lifecycle_test.go:297: connection 255 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 239 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 367 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 55 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 93 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 109 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 207 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 269 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 389 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 373 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 101 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 201 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 265 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 225 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 171 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 301 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 317 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 345 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 73 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 57 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 63 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 197 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 199 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 343 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 65 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 71 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 139 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 196 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 9 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 17 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 369 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 381 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 263 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 283 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 277 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 337 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 29 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 103 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 131 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 153 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 259 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 217 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 229 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 289 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 95 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 143 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 195 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 209 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 351 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 379 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 383 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 13 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 49 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 123 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 145 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 325 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 397 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 395 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 61 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 83 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 165 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 241 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 393 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 79 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 117 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 167 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 341 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 176 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 179 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 307 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 365 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 1 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 53 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 175 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 227 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 5 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 235 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 271 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 385 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 151 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 253 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 347 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 311 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 147 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 215 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 213 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 305 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 11 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 89 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 107 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 114 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 321 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 335 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 327 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 319 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 37 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 87 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 211 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 247 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 323 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 309 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 33 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 41 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 75 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 105 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 59 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 137 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 181 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 299 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 3 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 25 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 23 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 43 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 361 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 191 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 189 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 249 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 243 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 27 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 21 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 99 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 115 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 267 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 295 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 349 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 363 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 315 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 355 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 371 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 91 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 97 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 159 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 261 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 67 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 313 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 331 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 387 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 19 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 47 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 76 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 69 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 223 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 391 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 399 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 39 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 77 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 111 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 126 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 287 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 275 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 86 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 163 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 185 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 161 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 237 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 74 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 121 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 155 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 203 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 205 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 353 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 359 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 7 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 375 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 377 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 15 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 303 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 251 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 333 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 35 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 85 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 141 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 245 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 169 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 281 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 81 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 129 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 149 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 193 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 233 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 273 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 329 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 339 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 133 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 187 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 173 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 231 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 285 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 297 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 127 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 157 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 257 panicked: send on closed channel
+    tunnel_lifecycle_test.go:297: connection 279 panicked: send on closed channel
+--- FAIL: TestConcurrentWriteDelete (0.00s)
+FAIL
+FAIL	github.com/kubeedge/kubeedge/edge/pkg/edgestream	0.330s
+FAIL

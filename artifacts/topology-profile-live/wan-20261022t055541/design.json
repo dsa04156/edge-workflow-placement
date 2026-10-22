@@ -1,0 +1,119 @@
+{
+  "comparison": "scheduling-baseline-smoke-v1",
+  "scope": "one block smoke comparison; no CI, p95, throughput, independent-environment, new-holdout or original-HEFT reproduction claim",
+  "seed": 20261023,
+  "blocks": 1,
+  "conditions": [
+    {
+      "condition": "compressed-10",
+      "mbps": 10,
+      "oneway_delay_ms": 20,
+      "representation": "compressed"
+    },
+    {
+      "condition": "compressed-2",
+      "mbps": 2,
+      "oneway_delay_ms": 20,
+      "representation": "compressed"
+    }
+  ],
+  "policies": [
+    "kube-default",
+    "greedy",
+    "heft",
+    "greedy-swap",
+    "exact",
+    "no-network"
+  ],
+  "policy_sources": {
+    "greedy": "greedy",
+    "heft": "heft",
+    "exact": "ours",
+    "no-network": "no-network",
+    "greedy-swap": "budget_placement.simple_alternatives",
+    "kube-default": "actual default-scheduler, unpinned within the same candidate nodes"
+  },
+  "calibration_ids": [
+    1713820,
+    3733440,
+    4556100,
+    3355890
+  ],
+  "evaluation_ids": [
+    3506790,
+    5341940,
+    787710
+  ],
+  "qualification": {
+    "warmup_per_task_node": 5,
+    "rows_per_task_node": 12,
+    "task_nodes": 27,
+    "expected_rows": 324
+  },
+  "warmup": 1,
+  "evaluation_count": 3,
+  "rate_rps": 0.1,
+  "deadline_s": 120,
+  "max_workflow_requests": 48,
+  "capacity": "physical requests-based snapshot; no admission_budget or server slot reduction",
+  "scheduler": "one fresh unpinned default-scheduler observation per condition, then re-pinned evaluation",
+  "observation_sharing": "same condition and placement share one observation; never across conditions",
+  "topology": {
+    "name": "ready-nodes-20261022",
+    "sha256": "2b4cf5da1883a3aea4f2cf4e79f651b9abfdfe596b21fe414f93df181899d01f",
+    "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+    ],
+    "roles": {
+      "etri-dev0003-raspi5": "edge",
+      "etri-dev0002-raspi5": "edge",
+      "etri-ser0002-cgnmsb": "cloud",
+      "etri-dev0006-raspi5": "edge",
+      "etri-dev0008-raspi5": "edge",
+      "etri-dev0009-jetorn": "edge",
+      "etri-ser0001-cg0msb": "cloud",
+      "etri-ser0003-cg0ms0": "cloud",
+      "etri-ser0004-cgnms0": "cloud"
+    },
+    "excluded": [
+      "etri-dev0001-jetorn",
+      "etri-dev0004-tedger",
+      "etri-dev0007-jetagx"
+    ],
+    "fixed": {
+      "image_source": "etri-dev0003-raspi5",
+      "audio_source": "etri-dev0002-raspi5",
+      "result_destination": "etri-dev0003-raspi5",
+      "helper_gateway_cache": "etri-ser0002-cgnmsb"
+    }
+  },
+  "workload_estimate": {
+    "candidates": 9,
+    "qualification": {
+      "deployments": 27,
+      "requests": 324,
+      "legacy_deployments": 9,
+      "legacy_requests": 108
+    },
+    "transfer_rpcs": {
+      "per_condition": 792,
+      "total": 1584,
+      "legacy_total": 240
+    },
+    "helper_pods": {
+      "total": 20,
+      "legacy_total": 8
+    },
+    "scheduler_observations": 2,
+    "max_workflow_requests": 48,
+    "scope": "request/deployment counts of the frozen design; excludes health, poll, drain, control and retry RPCs; no duration estimate"
+  }
+}

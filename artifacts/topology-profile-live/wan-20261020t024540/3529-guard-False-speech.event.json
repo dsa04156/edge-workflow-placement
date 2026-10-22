@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T03:09:09.362581+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t024540-speech",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import runpy,hashlib,os;from pathlib import Path;assert os.environ['POD_UID']=='72bf793d-e382-4cfc-99c3-5202b448e2fc';p=Path('/work/net-config/net_control.py');assert hashlib.sha256(p.read_bytes()).hexdigest()=='192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6';runpy.run_path(str(p),run_name='__main__')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T03:09:10.378592+00:00"
+}

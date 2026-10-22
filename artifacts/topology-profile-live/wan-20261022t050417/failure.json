@@ -1,0 +1,7 @@
+{
+  "error": "RuntimeError('Restartable init containers need explicit resource accounting')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py\", line 356, in collect\n    capacity = session.capacity()\n               ^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py\", line 296, in capacity\n    result = super().capacity()\n             ^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_budget_placement.py\", line 52, in capacity\n    self.current_capacity=super().capacity()\n                          ^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py\", line 273, in capacity\n    raise RuntimeError('Restartable init containers need explicit resource accounting')\nRuntimeError: Restartable init containers need explicit resource accounting\n",
+  "partial_mapping": {},
+  "completed_labels": [],
+  "scheduled": 0
+}

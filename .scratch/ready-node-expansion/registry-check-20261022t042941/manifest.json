@@ -1,0 +1,106 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "registry-check-20261022t042941-e8",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "run-id": "registry-check-20261022t042941"
+        }
+      },
+      "spec": {
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0008-raspi5"
+        },
+        "restartPolicy": "Never",
+        "automountServiceAccountToken": false,
+        "activeDeadlineSeconds": 180,
+        "terminationGracePeriodSeconds": 1,
+        "containers": [
+          {
+            "name": "probe",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "Always",
+            "command": [
+              "python3",
+              "-c",
+              "import platform;print(\"REGISTRY_IMAGE_OK\",platform.machine())"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "registry-check-20261022t042941-e9",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "run-id": "registry-check-20261022t042941"
+        }
+      },
+      "spec": {
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0009-jetorn"
+        },
+        "restartPolicy": "Never",
+        "automountServiceAccountToken": false,
+        "activeDeadlineSeconds": 180,
+        "terminationGracePeriodSeconds": 1,
+        "containers": [
+          {
+            "name": "probe",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "Always",
+            "command": [
+              "python3",
+              "-c",
+              "import platform;print(\"REGISTRY_IMAGE_OK\",platform.machine())"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

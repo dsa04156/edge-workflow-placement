@@ -1,0 +1,342 @@
+[
+  {
+    "attempt": 0,
+    "idle": true,
+    "states": {
+      "source-e0": {
+        "status": "ready",
+        "node": "etri-dev0003-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "source-e1": {
+        "status": "ready",
+        "node": "etri-dev0002-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "source-c": {
+        "status": "ready",
+        "node": "etri-ser0002-cgnmsb",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "sink-e0": {
+        "status": "ready",
+        "node": "etri-dev0003-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "sink-e1": {
+        "status": "ready",
+        "node": "etri-dev0002-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "sink-c": {
+        "status": "ready",
+        "node": "etri-ser0002-cgnmsb",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "vision": {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 5014.585334109142,
+        "task": "vision",
+        "node": "etri-dev0003-raspi5",
+        "pod_uid": "f69aadf0-e45a-47c3-a362-807496d6587c",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 13,
+        "serving_thread_initialized_utc": "2026-10-21T05:10:44Z",
+        "status": "ready",
+        "serving_queue": 0,
+        "serving_active": false,
+        "http_active": 0,
+        "pending_joins": 0
+      },
+      "speech": {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2292.085315013537,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "eb1ab3f8-9d1a-4ce4-921c-c8c18ec558a6",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-21T05:10:07Z",
+        "status": "ready",
+        "serving_queue": 0,
+        "serving_active": false,
+        "http_active": 0,
+        "pending_joins": 0
+      },
+      "fusion": {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1626.8558889860287,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "6418358d-f971-47d2-a17e-d7488639d2cd",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-21T05:10:06Z",
+        "status": "ready",
+        "serving_queue": 0,
+        "serving_active": false,
+        "http_active": 0,
+        "pending_joins": 0
+      },
+      "gateway": {
+        "status": "ready",
+        "counters": {
+          "fusion": {
+            "requests": 124,
+            "request_body_bytes": 19725027,
+            "response_body_bytes": 61929
+          },
+          "source-e0": {
+            "requests": 18,
+            "request_body_bytes": 4363004,
+            "response_body_bytes": 1774
+          },
+          "source-e1": {
+            "requests": 4,
+            "request_body_bytes": 4362976,
+            "response_body_bytes": 444
+          },
+          "source-c": {
+            "requests": 19,
+            "request_body_bytes": 38,
+            "response_body_bytes": 1805
+          },
+          "sink-c": {
+            "requests": 280,
+            "request_body_bytes": 8190544,
+            "response_body_bytes": 30348
+          },
+          "sink-e0": {
+            "requests": 120,
+            "request_body_bytes": 97208,
+            "response_body_bytes": 12960
+          },
+          "sink-e1": {
+            "requests": 80,
+            "request_body_bytes": 88856,
+            "response_body_bytes": 8640
+          },
+          "speech": {
+            "requests": 24,
+            "request_body_bytes": 841682,
+            "response_body_bytes": 22627
+          },
+          "vision": {
+            "requests": 8,
+            "request_body_bytes": 1797725,
+            "response_body_bytes": 7683
+          }
+        },
+        "active_requests": 0
+      }
+    },
+    "backlog_bytes": 0
+  },
+  {
+    "attempt": 1,
+    "idle": true,
+    "states": {
+      "source-e0": {
+        "status": "ready",
+        "node": "etri-dev0003-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "source-e1": {
+        "status": "ready",
+        "node": "etri-dev0002-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "source-c": {
+        "status": "ready",
+        "node": "etri-ser0002-cgnmsb",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "sink-e0": {
+        "status": "ready",
+        "node": "etri-dev0003-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "sink-e1": {
+        "status": "ready",
+        "node": "etri-dev0002-raspi5",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "sink-c": {
+        "status": "ready",
+        "node": "etri-ser0002-cgnmsb",
+        "active_requests": 0,
+        "raw_audio_ready": 60
+      },
+      "vision": {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+        "model": "resnet18-imagenet1k-v1-noatt-448",
+        "load_ms": 5014.585334109142,
+        "task": "vision",
+        "node": "etri-dev0003-raspi5",
+        "pod_uid": "f69aadf0-e45a-47c3-a362-807496d6587c",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 13,
+        "serving_thread_initialized_utc": "2026-10-21T05:10:44Z",
+        "status": "ready",
+        "serving_queue": 0,
+        "serving_active": false,
+        "http_active": 0,
+        "pending_joins": 0
+      },
+      "speech": {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "model": "wav2vec2-base-960h",
+        "load_ms": 2292.085315013537,
+        "task": "speech",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "eb1ab3f8-9d1a-4ce4-921c-c8c18ec558a6",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-21T05:10:07Z",
+        "status": "ready",
+        "serving_queue": 0,
+        "serving_active": false,
+        "http_active": 0,
+        "pending_joins": 0
+      },
+      "fusion": {
+        "scope": "real_ai_file_replay",
+        "device": "cpu",
+        "precision": "float32",
+        "torch": "2.8.0+cpu",
+        "threads": 1,
+        "adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+        "source_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+        "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+        "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+        "model": "MutanNoAtt-resnet18",
+        "strict_state_keys": 56,
+        "all_checkpoint_tensors_equal": true,
+        "initialization_change": "skip unused pretrained initialization, strict trained state_dict replaces every tensor",
+        "load_ms": 1626.8558889860287,
+        "task": "fusion",
+        "node": "etri-ser0002-cgnmsb",
+        "pod_uid": "6418358d-f971-47d2-a17e-d7488639d2cd",
+        "serving_torch_threads": 1,
+        "serving_torch_interop_threads": 1,
+        "serving_native_thread_id": 33,
+        "serving_thread_initialized_utc": "2026-10-21T05:10:06Z",
+        "status": "ready",
+        "serving_queue": 0,
+        "serving_active": false,
+        "http_active": 0,
+        "pending_joins": 0
+      },
+      "gateway": {
+        "status": "ready",
+        "counters": {
+          "fusion": {
+            "requests": 124,
+            "request_body_bytes": 19725027,
+            "response_body_bytes": 61929
+          },
+          "source-e0": {
+            "requests": 18,
+            "request_body_bytes": 4363004,
+            "response_body_bytes": 1774
+          },
+          "source-e1": {
+            "requests": 4,
+            "request_body_bytes": 4362976,
+            "response_body_bytes": 444
+          },
+          "source-c": {
+            "requests": 19,
+            "request_body_bytes": 38,
+            "response_body_bytes": 1805
+          },
+          "sink-c": {
+            "requests": 280,
+            "request_body_bytes": 8190544,
+            "response_body_bytes": 30348
+          },
+          "sink-e0": {
+            "requests": 120,
+            "request_body_bytes": 97208,
+            "response_body_bytes": 12960
+          },
+          "sink-e1": {
+            "requests": 80,
+            "request_body_bytes": 88856,
+            "response_body_bytes": 8640
+          },
+          "speech": {
+            "requests": 24,
+            "request_body_bytes": 841682,
+            "response_body_bytes": 22627
+          },
+          "vision": {
+            "requests": 8,
+            "request_body_bytes": 1797725,
+            "response_body_bytes": 7683
+          }
+        },
+        "active_requests": 0
+      }
+    },
+    "backlog_bytes": 0
+  }
+]

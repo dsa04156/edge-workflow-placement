@@ -1,0 +1,8 @@
+=== RUN   TestInitPodReadyWaitsForKubeletPodManager
+I1022 16:14:24.613727 1131632 edged.go:673] kubelet reports all 1 initial pods, marking pod sources ready
+--- PASS: TestInitPodReadyWaitsForKubeletPodManager (0.72s)
+=== RUN   TestInitPodReadyFallsBackAfterTimeout
+W1022 16:14:24.935052 1131632 edged.go:671] kubelet did not report all 1 initial pods before timeout, marking pod sources ready anyway: context deadline exceeded
+--- PASS: TestInitPodReadyFallsBackAfterTimeout (0.30s)
+PASS
+ok  	github.com/kubeedge/kubeedge/edge/pkg/edged	2.099s

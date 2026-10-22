@@ -1,0 +1,689 @@
+{
+ "cam-e0": {
+  "pod": "mes-diag-src-cam-e0",
+  "uid": "f64bfc5a-212e-4adb-952a-25040af895f5",
+  "node": "etri-dev0003-raspi5",
+  "ip": "127.0.1.14",
+  "expected_node": "etri-dev0003-raspi5",
+  "ready_problem": null,
+  "evidence": {
+   "node": "etri-dev0003-raspi5",
+   "pod_uid": "f64bfc5a-212e-4adb-952a-25040af895f5",
+   "pod_ip": "127.0.1.14",
+   "role": "video-source",
+   "task": null,
+   "source_id": "cam-e0",
+   "rtsp_url": "rtsp://127.0.1.14:8554/cam-e0",
+   "image": "bus.jpg",
+   "image_sha256": "c02019c4979c191eb739ddd944445ef408dad5679acab6fd520ef9d434bfbc63",
+   "seed": 1101,
+   "stream": {
+    "protocol": "rtsp",
+    "transport": "tcp",
+    "server": "mediamtx v1.21.2",
+    "port": 8554,
+    "width": 640,
+    "height": 480,
+    "fps": 5,
+    "loop_frames": 12,
+    "codec": "h264",
+    "encoder": "libx264",
+    "encoder_options": {
+     "preset": "veryfast",
+     "tune": "zerolatency",
+     "qp": "23",
+     "bf": "0",
+     "g": "12",
+     "keyint_min": "12",
+     "sc_threshold": "0",
+     "threads": "1"
+    },
+    "pix_fmt": "yuv420p",
+    "sampling": "workflow input k = decoded frame whose barcode equals k; frozen once per source Pod after two loops are read back from its own RTSP stream",
+    "drop_policy": "frames without valid barcode or before the first IDR are counted and skipped; never substituted"
+   },
+   "mediamtx": {
+    "pid": 2651495,
+    "sha256": "0ffb7f18210d08ee38cb16668c4f3a2c96622e69d401119c0026d078a2b89523",
+    "alive": true,
+    "cmdline": [
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e0/work/mediamtx/mediamtx",
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e0/work/mediamtx.yml"
+    ]
+   },
+   "publisher": {
+    "pid": 2651496,
+    "alive": true,
+    "cmdline": [
+     "/mnt/data3tb/multi-edge-sensors-20261022/envs/pod311/bin/python",
+     "-u",
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e0/config/runtime.py",
+     "publish"
+    ]
+   },
+   "freeze_retries": [
+    "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://127.0.1.14:8554/cam-e0')"
+   ],
+   "freeze": {
+    "url": "rtsp://127.0.1.14:8554/cam-e0",
+    "setup_ms": 1769.5220460009295,
+    "first_barcode_frame_ms": 1843.9761779882247,
+    "total_ms": 5204.502042994136,
+    "codec": {
+     "name": "h264",
+     "width": 640,
+     "height": 480,
+     "pix_fmt": "yuv420p",
+     "average_rate": "5"
+    },
+    "packets": 25,
+    "packet_bytes": 1221026,
+    "decoded_frames": 18,
+    "skipped_frames": 0,
+    "decode_ms_sum": 134.396551,
+    "decode_ms_max": 26.729895,
+    "demux_wait_ms_sum": 3246.3673270103754,
+    "seq_order": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "frame_sha256": {
+     "0": [
+      "55249bd493e3299824084f60f7152c026f14dc5a288234571700c17aa484caff",
+      "55249bd493e3299824084f60f7152c026f14dc5a288234571700c17aa484caff"
+     ],
+     "1": [
+      "a80e5fbbe20a75022e6e03d3d5db2fea3b755002af760f7171b53ef35e4c4c21",
+      "a80e5fbbe20a75022e6e03d3d5db2fea3b755002af760f7171b53ef35e4c4c21"
+     ],
+     "2": [
+      "d531c65d2aab1d8e32d4df4aba59ea097c30ec5e6c9d6e9b14e1de9d5c68f8c2",
+      "d531c65d2aab1d8e32d4df4aba59ea097c30ec5e6c9d6e9b14e1de9d5c68f8c2"
+     ],
+     "3": [
+      "6add9ac671fc8d99555746ee4db7942efd2f9a69f9325d9c810ebaa66cc816f3",
+      "6add9ac671fc8d99555746ee4db7942efd2f9a69f9325d9c810ebaa66cc816f3"
+     ],
+     "4": [
+      "92601a8ff9f16f58c4908582ddecabe4c9b9d26e174de11523e8e23629e333ea",
+      "92601a8ff9f16f58c4908582ddecabe4c9b9d26e174de11523e8e23629e333ea"
+     ],
+     "5": [
+      "578fc55a70a7095e8202ce12832e41f2f732df891fa8e74ac156c867a8e10935",
+      "578fc55a70a7095e8202ce12832e41f2f732df891fa8e74ac156c867a8e10935"
+     ],
+     "6": [
+      "765117114ed234fffa0c63b254f111ed3c2277f55c21ff82e7c753e0de70084d"
+     ],
+     "7": [
+      "35cf7c7fc4bdd281dd49f19e669b02b4ad0361f0d7237ecc53b892c1c6793998"
+     ],
+     "8": [
+      "2cef264d46cabf29575965f9d63259a7be63090cb559eeebc379e9dc2c701f27"
+     ],
+     "9": [
+      "ae9a128c0b9d3a5e96e510287c6596106f1c6a53c72bbb36e274bc6f2dc47cf1"
+     ],
+     "10": [
+      "fda0dd9f7cfe0d2c06459b2f41d69358a79a1066cddf8fed47d639c86dcb6030"
+     ],
+     "11": [
+      "027a95b768d7194d11858483f64db119c90016b163348bc555595e0c7cba0ecf"
+     ]
+    },
+    "loop_consistent": {
+     "0": true,
+     "1": true,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true
+    },
+    "scope": "RTSP/TCP session setup, demux wait (pacing+network) and CPU decode separated; monotonic, one host",
+    "frozen": {
+     "0": {
+      "rgb_sha256": "55249bd493e3299824084f60f7152c026f14dc5a288234571700c17aa484caff",
+      "png_sha256": "8b46bc90cf3a5b97dec0d25ee2b502777b5e202c3af66836414f8bafde6c4358",
+      "png_bytes": 448287,
+      "loop_consistent": true
+     },
+     "1": {
+      "rgb_sha256": "a80e5fbbe20a75022e6e03d3d5db2fea3b755002af760f7171b53ef35e4c4c21",
+      "png_sha256": "ffff53ccd56c31a69ad091b3dfe5856ecc9c84585ac7273aa9f57b84f4f20b09",
+      "png_bytes": 423725,
+      "loop_consistent": true
+     },
+     "2": {
+      "rgb_sha256": "d531c65d2aab1d8e32d4df4aba59ea097c30ec5e6c9d6e9b14e1de9d5c68f8c2",
+      "png_sha256": "842e70005e7091ab9c08261a11c5b6ddbd0e9308da03decbb42fd9ed1a6c11d0",
+      "png_bytes": 432694,
+      "loop_consistent": true
+     },
+     "3": {
+      "rgb_sha256": "6add9ac671fc8d99555746ee4db7942efd2f9a69f9325d9c810ebaa66cc816f3",
+      "png_sha256": "a4bc65c48f1ea2db680b133abaef581e55a364700af2849e75a261136bbf512c",
+      "png_bytes": 415347,
+      "loop_consistent": true
+     },
+     "4": {
+      "rgb_sha256": "92601a8ff9f16f58c4908582ddecabe4c9b9d26e174de11523e8e23629e333ea",
+      "png_sha256": "851973aa0fa4d4a19d36ce6f3dc2e005506f2a82b19cfd3f62f3758c6912e1e8",
+      "png_bytes": 404440,
+      "loop_consistent": true
+     },
+     "5": {
+      "rgb_sha256": "578fc55a70a7095e8202ce12832e41f2f732df891fa8e74ac156c867a8e10935",
+      "png_sha256": "2944c450ae5b9804f5aef80c8f1e2fddd7254f33829183dfb7f2ad19df3d23db",
+      "png_bytes": 425996,
+      "loop_consistent": true
+     }
+    }
+   },
+   "mediamtx_paths": [
+    {
+     "name": "cam-e0",
+     "ready": true,
+     "tracks": [
+      "H264"
+     ],
+     "source": "rtspSession",
+     "bytes_received": 1748974,
+     "readers": 0
+    }
+   ]
+  },
+  "evidence_error": null
+ },
+ "cam-e6": {
+  "pod": "mes-diag-src-cam-e6",
+  "uid": "54c69c45-96e8-46eb-9d99-6bcaf0ca860b",
+  "node": "etri-dev0006-raspi5",
+  "ip": "127.0.1.15",
+  "expected_node": "etri-dev0006-raspi5",
+  "ready_problem": null,
+  "evidence": {
+   "node": "etri-dev0006-raspi5",
+   "pod_uid": "54c69c45-96e8-46eb-9d99-6bcaf0ca860b",
+   "pod_ip": "127.0.1.15",
+   "role": "video-source",
+   "task": null,
+   "source_id": "cam-e6",
+   "rtsp_url": "rtsp://127.0.1.15:8554/cam-e6",
+   "image": "zidane.jpg",
+   "image_sha256": "16d73869e3267a7d4ed00de8e860833bd1657c1b252e94c0c348277adc7b6edb",
+   "seed": 1106,
+   "stream": {
+    "protocol": "rtsp",
+    "transport": "tcp",
+    "server": "mediamtx v1.21.2",
+    "port": 8554,
+    "width": 640,
+    "height": 480,
+    "fps": 5,
+    "loop_frames": 12,
+    "codec": "h264",
+    "encoder": "libx264",
+    "encoder_options": {
+     "preset": "veryfast",
+     "tune": "zerolatency",
+     "qp": "23",
+     "bf": "0",
+     "g": "12",
+     "keyint_min": "12",
+     "sc_threshold": "0",
+     "threads": "1"
+    },
+    "pix_fmt": "yuv420p",
+    "sampling": "workflow input k = decoded frame whose barcode equals k; frozen once per source Pod after two loops are read back from its own RTSP stream",
+    "drop_policy": "frames without valid barcode or before the first IDR are counted and skipped; never substituted"
+   },
+   "mediamtx": {
+    "pid": 2651507,
+    "sha256": "0ffb7f18210d08ee38cb16668c4f3a2c96622e69d401119c0026d078a2b89523",
+    "alive": true,
+    "cmdline": [
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e6/work/mediamtx/mediamtx",
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e6/work/mediamtx.yml"
+    ]
+   },
+   "publisher": {
+    "pid": 2651508,
+    "alive": true,
+    "cmdline": [
+     "/mnt/data3tb/multi-edge-sensors-20261022/envs/pod311/bin/python",
+     "-u",
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e6/config/runtime.py",
+     "publish"
+    ]
+   },
+   "freeze_retries": [
+    "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://127.0.1.15:8554/cam-e6')"
+   ],
+   "freeze": {
+    "url": "rtsp://127.0.1.15:8554/cam-e6",
+    "setup_ms": 1766.0945620009443,
+    "first_barcode_frame_ms": 1813.4550789982313,
+    "total_ms": 5118.827151993173,
+    "codec": {
+     "name": "h264",
+     "width": 640,
+     "height": 480,
+     "pix_fmt": "yuv420p",
+     "average_rate": "5"
+    },
+    "packets": 25,
+    "packet_bytes": 412990,
+    "decoded_frames": 18,
+    "skipped_frames": 0,
+    "decode_ms_sum": 70.369984,
+    "decode_ms_max": 11.355977,
+    "demux_wait_ms_sum": 3224.376690995996,
+    "seq_order": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "frame_sha256": {
+     "0": [
+      "09097a80fb6c71469f738b4311b1a20c37c08588e01e8d4a30b25e1023783319",
+      "09097a80fb6c71469f738b4311b1a20c37c08588e01e8d4a30b25e1023783319"
+     ],
+     "1": [
+      "f725c4b2ffec4ff56a513ba97378efe38da09df5bf3ff37fa1b356f4250c6f00",
+      "f725c4b2ffec4ff56a513ba97378efe38da09df5bf3ff37fa1b356f4250c6f00"
+     ],
+     "2": [
+      "84a52a7339f9aaa5e7e733b26f803be6685b2084e43b3e7279d0ac76edfd1c3c",
+      "84a52a7339f9aaa5e7e733b26f803be6685b2084e43b3e7279d0ac76edfd1c3c"
+     ],
+     "3": [
+      "4357d43b024e0092aba4c39c749c30e79711dafa3ca60ea5c30a58b0cc67644d",
+      "4357d43b024e0092aba4c39c749c30e79711dafa3ca60ea5c30a58b0cc67644d"
+     ],
+     "4": [
+      "4aeaf1137743cc8111e995fbf2a755ded4218bcc108635c2e99e84d68047c309",
+      "4aeaf1137743cc8111e995fbf2a755ded4218bcc108635c2e99e84d68047c309"
+     ],
+     "5": [
+      "76cdb756bfa8a1c51a3a3640a949581c17a005cd05b2cd22cf6f75941ace7594",
+      "76cdb756bfa8a1c51a3a3640a949581c17a005cd05b2cd22cf6f75941ace7594"
+     ],
+     "6": [
+      "c3c14b70641acbda26ce049a88578e3710b1a9d101a663f4f3a9ef59ab6e8f4b"
+     ],
+     "7": [
+      "cdfd27eb8e10a691eb94c59955da685dde65c6c86476d427e6e999b22b794d86"
+     ],
+     "8": [
+      "64bb4639606539070d794b1fb571f08913b9129192d9f1d375b5222745888774"
+     ],
+     "9": [
+      "e8839bdc57759b2f22f60078b1e3898b0bfff6d2484aac6ff7a31ad0908c8f22"
+     ],
+     "10": [
+      "a493cd76bd87c8847ce7eb2bfc15c496a8157df2dd7322d131d997cb6aff5958"
+     ],
+     "11": [
+      "fcf9b249a5fd4bde0f4879ed242c891879406fafe78325a997b1967e165ce7ce"
+     ]
+    },
+    "loop_consistent": {
+     "0": true,
+     "1": true,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true
+    },
+    "scope": "RTSP/TCP session setup, demux wait (pacing+network) and CPU decode separated; monotonic, one host",
+    "frozen": {
+     "0": {
+      "rgb_sha256": "09097a80fb6c71469f738b4311b1a20c37c08588e01e8d4a30b25e1023783319",
+      "png_sha256": "8679970f60de5f249b58c64a0f10b0378e5697a21641b706630a8f4bb0c7d563",
+      "png_bytes": 295804,
+      "loop_consistent": true
+     },
+     "1": {
+      "rgb_sha256": "f725c4b2ffec4ff56a513ba97378efe38da09df5bf3ff37fa1b356f4250c6f00",
+      "png_sha256": "0dbf672109c1ee50e3a71e55cf65bbdfc88768128e0ff2f69723e83be6d0b365",
+      "png_bytes": 247458,
+      "loop_consistent": true
+     },
+     "2": {
+      "rgb_sha256": "84a52a7339f9aaa5e7e733b26f803be6685b2084e43b3e7279d0ac76edfd1c3c",
+      "png_sha256": "e899f4a79067e1e36d7d8751462b1398b3b83046a2fba54c70582bfc5118add6",
+      "png_bytes": 271997,
+      "loop_consistent": true
+     },
+     "3": {
+      "rgb_sha256": "4357d43b024e0092aba4c39c749c30e79711dafa3ca60ea5c30a58b0cc67644d",
+      "png_sha256": "cc0e106ce2895df9fe34032ced3c15b2a4b9af9a667921beb4391233549ffd8a",
+      "png_bytes": 281192,
+      "loop_consistent": true
+     },
+     "4": {
+      "rgb_sha256": "4aeaf1137743cc8111e995fbf2a755ded4218bcc108635c2e99e84d68047c309",
+      "png_sha256": "e3268e17bdf73a95977452526d590400c3accaf1e73e928f571909d5636c5416",
+      "png_bytes": 275544,
+      "loop_consistent": true
+     },
+     "5": {
+      "rgb_sha256": "76cdb756bfa8a1c51a3a3640a949581c17a005cd05b2cd22cf6f75941ace7594",
+      "png_sha256": "2b621763f0b6305385af0d7fbe99cc7a0451601b9471e0fafa6d6d1f53a6b480",
+      "png_bytes": 278014,
+      "loop_consistent": true
+     }
+    }
+   },
+   "mediamtx_paths": [
+    {
+     "name": "cam-e6",
+     "ready": true,
+     "tracks": [
+      "H264"
+     ],
+     "source": "rtspSession",
+     "bytes_received": 615613,
+     "readers": 0
+    }
+   ]
+  },
+  "evidence_error": null
+ },
+ "cam-e8": {
+  "pod": "mes-diag-src-cam-e8",
+  "uid": "d4bc2c0b-8545-40f7-9d38-ab275a1246a5",
+  "node": "etri-dev0008-raspi5",
+  "ip": "127.0.1.16",
+  "expected_node": "etri-dev0008-raspi5",
+  "ready_problem": null,
+  "evidence": {
+   "node": "etri-dev0008-raspi5",
+   "pod_uid": "d4bc2c0b-8545-40f7-9d38-ab275a1246a5",
+   "pod_ip": "127.0.1.16",
+   "role": "video-source",
+   "task": null,
+   "source_id": "cam-e8",
+   "rtsp_url": "rtsp://127.0.1.16:8554/cam-e8",
+   "image": "coco-000000039769.jpg",
+   "image_sha256": "dea9e7ef97386345f7cff32f9055da4982da5471c48d575146c796ab4563b04e",
+   "seed": 1108,
+   "stream": {
+    "protocol": "rtsp",
+    "transport": "tcp",
+    "server": "mediamtx v1.21.2",
+    "port": 8554,
+    "width": 640,
+    "height": 480,
+    "fps": 5,
+    "loop_frames": 12,
+    "codec": "h264",
+    "encoder": "libx264",
+    "encoder_options": {
+     "preset": "veryfast",
+     "tune": "zerolatency",
+     "qp": "23",
+     "bf": "0",
+     "g": "12",
+     "keyint_min": "12",
+     "sc_threshold": "0",
+     "threads": "1"
+    },
+    "pix_fmt": "yuv420p",
+    "sampling": "workflow input k = decoded frame whose barcode equals k; frozen once per source Pod after two loops are read back from its own RTSP stream",
+    "drop_policy": "frames without valid barcode or before the first IDR are counted and skipped; never substituted"
+   },
+   "mediamtx": {
+    "pid": 2651544,
+    "sha256": "0ffb7f18210d08ee38cb16668c4f3a2c96622e69d401119c0026d078a2b89523",
+    "alive": true,
+    "cmdline": [
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e8/work/mediamtx/mediamtx",
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e8/work/mediamtx.yml"
+    ]
+   },
+   "publisher": {
+    "pid": 2651545,
+    "alive": true,
+    "cmdline": [
+     "/mnt/data3tb/multi-edge-sensors-20261022/envs/pod311/bin/python",
+     "-u",
+     "/tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/kube/pods/mes-diag-src-cam-e8/config/runtime.py",
+     "publish"
+    ]
+   },
+   "freeze_retries": [
+    "HTTPNotFoundError(875574520, 'Server returned 404 Not Found', 'rtsp://127.0.1.16:8554/cam-e8')"
+   ],
+   "freeze": {
+    "url": "rtsp://127.0.1.16:8554/cam-e8",
+    "setup_ms": 1762.2034389933106,
+    "first_barcode_frame_ms": 1812.5229819997912,
+    "total_ms": 5155.468561002635,
+    "codec": {
+     "name": "h264",
+     "width": 640,
+     "height": 480,
+     "pix_fmt": "yuv420p",
+     "average_rate": "5"
+    },
+    "packets": 25,
+    "packet_bytes": 883268,
+    "decoded_frames": 18,
+    "skipped_frames": 0,
+    "decode_ms_sum": 123.47246200000001,
+    "decode_ms_max": 15.979701,
+    "demux_wait_ms_sum": 3205.668625960243,
+    "seq_order": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "frame_sha256": {
+     "0": [
+      "ae11d13e1b4a935289f87763c960db142bdfaae2a225894ed2986d53176c0579",
+      "ae11d13e1b4a935289f87763c960db142bdfaae2a225894ed2986d53176c0579"
+     ],
+     "1": [
+      "ea25d3a04c57def747817f78216bb292cf101aaae15a5477f250f81c67162b26",
+      "ea25d3a04c57def747817f78216bb292cf101aaae15a5477f250f81c67162b26"
+     ],
+     "2": [
+      "e7491e995b001c2fbf79ec90d2b8ce9b7c98fd34fd56fe522cda3093d7061b8e",
+      "e7491e995b001c2fbf79ec90d2b8ce9b7c98fd34fd56fe522cda3093d7061b8e"
+     ],
+     "3": [
+      "a4cb0e04e05527917a1f9938bc615278a21c1212781365623b56d083e9162fe0",
+      "a4cb0e04e05527917a1f9938bc615278a21c1212781365623b56d083e9162fe0"
+     ],
+     "4": [
+      "1e3e9aa341dc998bae834e63b0b3428b36f0f07f511e4cf10bed85b6f4aabece",
+      "1e3e9aa341dc998bae834e63b0b3428b36f0f07f511e4cf10bed85b6f4aabece"
+     ],
+     "5": [
+      "40d87ee7342c09f74770e3c95bb357e4acd75261073da306f33d1d1ec3f121a0",
+      "40d87ee7342c09f74770e3c95bb357e4acd75261073da306f33d1d1ec3f121a0"
+     ],
+     "6": [
+      "633e6f9916c7acd0b9d255013ec8b3e05667ceef98a72cb7cced367c16b2e842"
+     ],
+     "7": [
+      "a4941845796f68316d9e451499af8155ec317ccc21610c7a6493efb85c8e590f"
+     ],
+     "8": [
+      "955d49380a45af83d3585e66d1675c2886ae3df46ff25dc255bfdf6e8a2dc7fc"
+     ],
+     "9": [
+      "7b87ec3438ed38ad0a50ff9dc6795341d3bef75eb8642e6286cac8ce2c24649f"
+     ],
+     "10": [
+      "a24d2b8b60f88c35480ad41c44b9874cc291c04991e950aa59a890bdeba1209e"
+     ],
+     "11": [
+      "29f9c7179b2148aae13fd13999bd92713599a7ef9a3fb0d272bc520926d66498"
+     ]
+    },
+    "loop_consistent": {
+     "0": true,
+     "1": true,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true
+    },
+    "scope": "RTSP/TCP session setup, demux wait (pacing+network) and CPU decode separated; monotonic, one host",
+    "frozen": {
+     "0": {
+      "rgb_sha256": "ae11d13e1b4a935289f87763c960db142bdfaae2a225894ed2986d53176c0579",
+      "png_sha256": "7503d6a46817a99343c1b8c3d4d3e23be8f0fc7b3875ff4a654c96bbf6cb75a5",
+      "png_bytes": 490055,
+      "loop_consistent": true
+     },
+     "1": {
+      "rgb_sha256": "ea25d3a04c57def747817f78216bb292cf101aaae15a5477f250f81c67162b26",
+      "png_sha256": "6dda4fed5aab49d7929fde627c3150677bfbd0fe1f66d69770ccd7c69540a463",
+      "png_bytes": 478121,
+      "loop_consistent": true
+     },
+     "2": {
+      "rgb_sha256": "e7491e995b001c2fbf79ec90d2b8ce9b7c98fd34fd56fe522cda3093d7061b8e",
+      "png_sha256": "791845b3b5301b7eb15467cf76b1fb15d9b6b77aa61c374e3d4096003d9168fd",
+      "png_bytes": 483199,
+      "loop_consistent": true
+     },
+     "3": {
+      "rgb_sha256": "a4cb0e04e05527917a1f9938bc615278a21c1212781365623b56d083e9162fe0",
+      "png_sha256": "04c63d0a3c8948d62a07753f5a094bd477badf3d76a8b281a33ba3946ebe86a7",
+      "png_bytes": 498360,
+      "loop_consistent": true
+     },
+     "4": {
+      "rgb_sha256": "1e3e9aa341dc998bae834e63b0b3428b36f0f07f511e4cf10bed85b6f4aabece",
+      "png_sha256": "9f60a63b068c2a8ca52cf262f645a28fe0118d7286833c9ef83e1ed05f3b2ea7",
+      "png_bytes": 485619,
+      "loop_consistent": true
+     },
+     "5": {
+      "rgb_sha256": "40d87ee7342c09f74770e3c95bb357e4acd75261073da306f33d1d1ec3f121a0",
+      "png_sha256": "1bb97e35095e51c7d1bb97b69392020a6b6ccda057a38ef78eb5b1f0a521dafb",
+      "png_bytes": 482510,
+      "loop_consistent": true
+     }
+    }
+   },
+   "mediamtx_paths": [
+    {
+     "name": "cam-e8",
+     "ready": true,
+     "tracks": [
+      "H264"
+     ],
+     "source": "rtspSession",
+     "bytes_received": 1277770,
+     "readers": 0
+    }
+   ]
+  },
+  "evidence_error": null
+ },
+ "txt-e1": {
+  "pod": "mes-diag-src-txt-e1",
+  "uid": "dc8ba3f0-c0fb-4bee-93de-40c345ff2307",
+  "node": "etri-dev0002-raspi5",
+  "ip": "127.0.1.17",
+  "expected_node": "etri-dev0002-raspi5",
+  "ready_problem": null,
+  "evidence": {
+   "node": "etri-dev0002-raspi5",
+   "pod_uid": "dc8ba3f0-c0fb-4bee-93de-40c345ff2307",
+   "pod_ip": "127.0.1.17",
+   "role": "text-source",
+   "task": null,
+   "source_id": "txt-e1",
+   "seed": 2201,
+   "generator": "scenario.sentence (seeded templates)",
+   "text_sha256": {
+    "0": "c343be8c034c402b002c8d4ce195d0cc4d4ea635e2f19fbc4075f3577904fc12",
+    "1": "a20d0c0d362e50195a9f9b6c66fa4a7d5ebe276c284f0d0ce35f1b95536c4cb6",
+    "2": "c8c2a7070a24eab9d805462abde3122f7c8e8de70906eaa74de80cc18874ae95",
+    "3": "394b396958b3a8bf591a1b6b830d6dff21e77557d376d309424ab0650bc3d134",
+    "4": "44d6c0afc7658ebb507f2914948714932a6edc1f884881e869fd7f04985f05b9",
+    "5": "4e6f91d737f024bf416381c78e458e4ff2140c43b4336ed2648507c69cc1dbb4"
+   }
+  },
+  "evidence_error": null
+ },
+ "txt-e9": {
+  "pod": "mes-diag-src-txt-e9",
+  "uid": "5f431a9f-0976-4608-bbcc-fd30faa96288",
+  "node": "etri-dev0009-jetorn",
+  "ip": "127.0.1.18",
+  "expected_node": "etri-dev0009-jetorn",
+  "ready_problem": null,
+  "evidence": {
+   "node": "etri-dev0009-jetorn",
+   "pod_uid": "5f431a9f-0976-4608-bbcc-fd30faa96288",
+   "pod_ip": "127.0.1.18",
+   "role": "text-source",
+   "task": null,
+   "source_id": "txt-e9",
+   "seed": 2209,
+   "generator": "scenario.sentence (seeded templates)",
+   "text_sha256": {
+    "0": "4fd8e9f1b1f6c6a2d35edfc8fe6db79903b15f7236f16f217883ab11c694e2b1",
+    "1": "9b598a7489585bc0a285e73865e87b5cd03cc6b4d923374b09291938945d8345",
+    "2": "986a7b56ab213421463b7793b3d928361af07f861a658e705d7464a1ec2278a2",
+    "3": "f906f85259ab200ef6bb86caf045c844b3d776fb68af129c7e400cdbb90e35bf",
+    "4": "cfc4c4b8ebfa513f6b9fdd83e3fd57eacfa0ba2233c0a3426f432d2ba59b80bb",
+    "5": "c4a7d297db7f59693c246bde76d3c1b03a1c87f164d151104320805dde76b75c"
+   }
+  },
+  "evidence_error": null
+ }
+}

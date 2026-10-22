@@ -1,0 +1,174 @@
+{
+  "status": "passed",
+  "errors": [],
+  "phases": [
+    {
+      "phase": "eval-0-b0-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 1062.330857035704,
+      "failures": 0
+    },
+    {
+      "phase": "eval-0-b0-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 1124.540684511885,
+      "failures": 0
+    },
+    {
+      "phase": "eval-1-b0-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 994.526008493267,
+      "failures": 0
+    },
+    {
+      "phase": "eval-1-b0-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 890.5318784915531,
+      "failures": 0
+    },
+    {
+      "phase": "eval-2-b0-compressed-2-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 954.5618984848261,
+      "failures": 0
+    },
+    {
+      "phase": "eval-2-b0-compressed-2",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 893.699763653179,
+      "failures": 0
+    },
+    {
+      "phase": "eval-3-b1-compressed-2-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 924.5699500897899,
+      "failures": 0
+    },
+    {
+      "phase": "eval-3-b1-compressed-2",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 911.6220995783806,
+      "failures": 0
+    },
+    {
+      "phase": "eval-4-b1-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 933.185824425891,
+      "failures": 0
+    },
+    {
+      "phase": "eval-4-b1-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 885.6495713116601,
+      "failures": 0
+    },
+    {
+      "phase": "eval-5-b1-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 1087.4497330514714,
+      "failures": 0
+    },
+    {
+      "phase": "eval-5-b1-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 1111.0739696693297,
+      "failures": 0
+    }
+  ],
+  "evaluation_attempts": 36,
+  "evaluation_successes": 36,
+  "successes_including_warmup": 48,
+  "receipts": 144,
+  "max_score_abs_error": 1.0132789611816406e-06,
+  "protected": {
+    "protected_count": 211,
+    "changes": [
+      {
+        "uid": "96375ac8-c77a-4371-a7d5-b14d4d8e29ae",
+        "before": {
+          "name": "server1",
+          "namespace": "ebpf-clock-check-20261021",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": null
+      },
+      {
+        "uid": "09949c27-7ed3-41d9-9459-2d3120972996",
+        "before": {
+          "name": "server2",
+          "namespace": "ebpf-clock-check-20261021",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": null
+      },
+      {
+        "uid": "d19c650f-70c2-4dee-b6de-6fd7c01e61cd",
+        "before": {
+          "name": "server4",
+          "namespace": "ebpf-clock-check-20261021",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": null
+      },
+      {
+        "uid": "ddad7f76-9e6d-4777-b517-486c7cf1ed01",
+        "before": {
+          "name": "backend-a",
+          "namespace": "ebpf-shared-repeat-v3-20261021-0",
+          "phase": "Running",
+          "ready": "False"
+        },
+        "after": null
+      },
+      {
+        "uid": "ca82cfa4-52d8-4d78-8a72-b8b2ad2b6b3d",
+        "before": {
+          "name": "backend-b",
+          "namespace": "ebpf-shared-repeat-v3-20261021-0",
+          "phase": "Running",
+          "ready": "False"
+        },
+        "after": null
+      },
+      {
+        "uid": "ad4189c5-057e-47d2-a539-906d58ac4816",
+        "before": {
+          "name": "router",
+          "namespace": "ebpf-shared-repeat-v3-20261021-0",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": null
+      }
+    ]
+  },
+  "scope": "two temporal blocks with workflow server admission budget",
+  "verifier_sha256": "d3d27c179ecc71f93130c5da5018c37bdb5cd6563cef8dc13e7b71f27fa8f86e"
+}

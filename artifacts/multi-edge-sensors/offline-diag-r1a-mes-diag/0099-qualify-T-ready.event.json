@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T09:58:31.889441+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-diag-q-t-c4",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0099-qualify-T-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T09:58:53.153416+00:00",
+ "duration_ms": 21264.007630001288,
+ "tag": "0099-qualify-T-ready"
+}

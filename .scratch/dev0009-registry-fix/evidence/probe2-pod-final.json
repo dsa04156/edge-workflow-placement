@@ -1,0 +1,154 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"run-id\":\"dev0009-registry-fix-20261022\"},\"name\":\"dev0009-registry-fix-probe\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":180,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-c\",\"import platform;print(\\\"REGISTRY_IMAGE_OK\\\",platform.machine())\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"Always\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]}}}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0009-jetorn\"},\"restartPolicy\":\"Never\",\"terminationGracePeriodSeconds\":1}}\n"
+        },
+        "creationTimestamp": "2026-10-22T04:38:20Z",
+        "labels": {
+            "run-id": "dev0009-registry-fix-20261022"
+        },
+        "name": "dev0009-registry-fix-probe",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51517683",
+        "uid": "994d9479-eedc-492e-ba53-d3e2f0caa019"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 180,
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-c",
+                    "import platform;print(\"REGISTRY_IMAGE_OK\",platform.machine())"
+                ],
+                "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "Always",
+                "name": "probe",
+                "resources": {
+                    "limits": {
+                        "cpu": "100m",
+                        "memory": "128Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "32Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0009-jetorn",
+        "nodeSelector": {
+            "kubernetes.io/hostname": "etri-dev0009-jetorn"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 1,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:45Z",
+                "status": "False",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:20Z",
+                "reason": "PodCompleted",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:44Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:44Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:20Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://3f34b1288653b98b5b684c9f0c3fa53361eeb656f189367812df3f215d275da9",
+                "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "lastState": {},
+                "name": "probe",
+                "ready": false,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://3f34b1288653b98b5b684c9f0c3fa53361eeb656f189367812df3f215d275da9",
+                        "exitCode": 0,
+                        "finishedAt": "2026-10-22T04:38:41Z",
+                        "reason": "Completed",
+                        "startedAt": "2026-10-22T04:38:38Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.254.192.128",
+        "hostIPs": [
+            {
+                "ip": "10.254.192.128"
+            }
+        ],
+        "phase": "Succeeded",
+        "podIP": "10.244.11.12",
+        "podIPs": [
+            {
+                "ip": "10.244.11.12"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-22T04:38:20Z"
+    }
+}

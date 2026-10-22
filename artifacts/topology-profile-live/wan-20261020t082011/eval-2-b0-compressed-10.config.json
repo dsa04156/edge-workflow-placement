@@ -1,0 +1,39 @@
+{
+  "run_id": "wan-20261020t082011",
+  "phase": "eval-2-b0-compressed-10",
+  "question_ids": [
+    1291130,
+    3706570,
+    3448780,
+    256850,
+    3448970,
+    1154590
+  ],
+  "offsets_s": [
+    0.0,
+    10.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0
+  ],
+  "endpoints": {
+    "vision": "http://10.244.1.156:8080",
+    "speech": "http://10.244.8.174:8080/to/speech",
+    "fusion": "http://10.244.8.174:8080/to/fusion",
+    "vision_fusion": "http://10.244.8.174:8080/to/fusion",
+    "speech_fusion": "http://10.244.8.188:8080"
+  },
+  "remote_source": "http://10.244.1.150:8080",
+  "representation": "compressed",
+  "deadline_s": 120,
+  "max_inflight": 32,
+  "placement": {
+    "vision": "etri-dev0002-raspi5",
+    "speech": "etri-ser0002-cgnmsb",
+    "fusion": "etri-ser0002-cgnmsb"
+  },
+  "mbps": 10,
+  "oneway_delay_ms": 20,
+  "rate_rps": 0.1
+}

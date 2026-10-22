@@ -1,0 +1,20 @@
+diff --git a/README.md b/README.md
+index 2960eeb..534fd1f 100644
+--- a/README.md
++++ b/README.md
+@@ -8,6 +8,15 @@
+ - [토폴로지·성능 성분 제거 시뮬레이션](experiments/topology-profile-20261019/REPORT.md):144조건×12시드. 자원 점수 비교는 Kubernetes 근사이며 실제 kube-scheduler가 아니다.
+ - [준비 도구](experiments/real-topology-profile/): 계획/Pod 명세 생성, 노드별 연산 프로파일, 스냅샷, 실패 포함 집계, 로컬 테스트. 실제 모델 adapter와 분기·합류 데이터 경로는 실험실 연결이 필요하다.
+ 
++## Git 실험의 부하 조건 재분석
++
++[네트워크·요청 부하 재분석과 수정 계획](docs/experiments/topology-profile-load-reanalysis.md): 원 프로파일의 decoded image/PCM과 smoke의 압축 JPEG/FLAC 입력 경계 차이를 확인했다. 공유 WAN100/10/2Mbps·지연·open-loop 요청 부하와 serving queue를 구분해 다음 실험을 준비한다. 원자료 분석과 로컬 protocol 진단이며 새 클러스터 부하 성능 결과는 아니다.
++
++## 2026-10-19 실제 클러스터 적용 계획
++
++후속 [실제 모델 실행 결과](/home/jinuk/codex-work/scheduler-topology-profile-live/docs/experiments/topology-profile-smoke.md)는 별도 작업트리의 `experiment/topology-profile-live` 브랜치에 있다. 두 배포24workflow에서 실행 오류·CPU reference 대비 답변/Top5순서 불일치0, 소유 Pod/ConfigMap0개를 확인했다. 6정책·네트워크 제약 본 비교는 후속이다.
++
++[토폴로지·성능 프로파일 DAG 실행 계획](docs/experiments/topology-profile-cluster-plan.md)은 새 준비 브랜치 `e110d8b`를 분석하고 현재 KubeEdge 장비에 적용할 단계와 통과 조건을 정리한다. Pi2대+x86서버 CPU로 모델·직접 전달·합류를 검증한 뒤 실제 default-scheduler와 성분 제거/단순 기준선을 비교한다. **계획·읽기 전용 점검 완료이며 새 AI 실측 결과는 아니다.** [모델·공식 소스 확인](docs/research/topology-profile-system-source-check.md).
+ 
+ **이종 엣지 AI 환경에서 실행 호환성과 데이터 이동 비용을 고려한 동적 워크플로우 배치 최적화**
+ 

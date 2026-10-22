@@ -1,0 +1,1 @@
+Previous run wan-20261021t094522 is partial: 72 qualification rows, zero policy evaluation. No exception, cleanup or process-exit record; root cause unknown. Prior run owned pods/configmaps absent at read-only preflight. Recorded source hashes unchanged. Restart once with unchanged reduced design; do not pool old and new observations.

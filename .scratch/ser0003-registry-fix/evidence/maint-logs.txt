@@ -1,0 +1,29 @@
+containerd_pid=2153 since=Wed 2026-10-07 18:00:49 KST
+8:imports = ['/etc/containerd/conf.d/*.toml']
+48:    use_local_image_pull = true
+54:      config_path = '/etc/containerd/certs.d:/etc/docker/certs.d'
+80:      default_runtime_name = 'runc'
+101:            BinaryName = '/usr/bin/nvidia-container-runtime'
+127:            BinaryName = ''
+195:    plugin_config_path = '/etc/nri/conf.d'
+271:    config_path = ''
+/etc/containerd/certs.d:
+total 16
+drwxr-xr-x 4 root root 4096 Oct 22 14:02 .
+drwxr-xr-x 4 root root 4096 Sep  9 19:49 ..
+drwxr-xr-x 2 root root 4096 Oct 22 14:02 10.254.192.47:5000
+drwxr-xr-x 2 root root 4096 Sep  9 19:39 192.168.0.56:5000
+
+/etc/containerd/certs.d/10.254.192.47:5000:
+total 12
+drwxr-xr-x 2 root root 4096 Oct 22 14:02 .
+drwxr-xr-x 4 root root 4096 Oct 22 14:02 ..
+-rw-r--r-- 1 root root  109 Oct 22 14:02 hosts.toml
+4a760734c7c08d9267f6a9a79b55068fb45877ed27a477255af8b2f72b981aa5  /etc/containerd/certs.d/10.254.192.47:5000/hosts.toml
+ec06ee761575c86acbdab179b68a2fe1f22b7719ea9f83957cfc93054a849b7f  /etc/containerd/config.toml
+92feb33765bd8f02d98c4c09e7fde41d7e32c1b15574f224b7c89b14652271f8  /etc/containerd/conf.d/99-nvidia.toml
+server = "http://10.254.192.47:5000"
+[host."http://10.254.192.47:5000"]
+  capabilities = ["pull", "resolve"]
+containerd_pid_after=2153 active=active
+HOSTS_TOML_WRITTEN

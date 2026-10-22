@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T10:07:59.474802+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-fake-q-v-c4",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0045-qualify-V-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T10:08:20.183705+00:00",
+ "duration_ms": 20708.934631999,
+ "tag": "0045-qualify-V-ready"
+}

@@ -1,0 +1,1928 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/restartedAt": "2026-04-03T21:41:42+09:00"
+                },
+                "creationTimestamp": "2026-10-20T11:38:27Z",
+                "generateName": "kube-flannel-edge-ds-",
+                "labels": {
+                    "app": "flannel",
+                    "controller-revision-hash": "66f6f5d9bb",
+                    "pod-template-generation": "11",
+                    "tier": "node"
+                },
+                "name": "kube-flannel-edge-ds-9rh85",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "kube-flannel-edge-ds",
+                        "uid": "9e25d262-9f11-4e6b-975a-6e0e60ca72a3"
+                    }
+                ],
+                "resourceVersion": "50146931",
+                "uid": "638daf74-c33a-4692-98b4-271440f3d732"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "etri-dev0009-jetorn"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "containers": [
+                    {
+                        "args": [
+                            "set -eu; iface=$(cat \"/etc/kube-flannel-network/$NODE_NAME\"); test -n \"$iface\"; exec /opt/bin/flanneld --iface \"$iface\" --ip-masq --kube-subnet-mgr --kube-api-url=http://127.0.0.1:10550"
+                        ],
+                        "command": [
+                            "/bin/sh",
+                            "-ec"
+                        ],
+                        "env": [
+                            {
+                                "name": "NODE_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "spec.nodeName"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "POD_NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "EVENT_QUEUE_DEPTH",
+                                "value": "5000"
+                            },
+                            {
+                                "name": "CONT_WHEN_CACHE_NOT_READY",
+                                "value": "false"
+                            }
+                        ],
+                        "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "kube-flannel",
+                        "resources": {
+                            "limits": {
+                                "cpu": "100m",
+                                "memory": "50Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "50Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "capabilities": {
+                                "add": [
+                                    "NET_ADMIN",
+                                    "NET_RAW"
+                                ]
+                            },
+                            "privileged": false
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/kube-flannel-network",
+                                "name": "network-interfaces",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/run/flannel",
+                                "name": "run"
+                            },
+                            {
+                                "mountPath": "/etc/kube-flannel/",
+                                "name": "flannel-cfg"
+                            },
+                            {
+                                "mountPath": "/run/xtables.lock",
+                                "name": "xtables-lock"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dnkrz",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostNetwork": true,
+                "initContainers": [
+                    {
+                        "args": [
+                            "-f",
+                            "/flannel",
+                            "/opt/cni/bin/flannel"
+                        ],
+                        "command": [
+                            "cp"
+                        ],
+                        "image": "ghcr.io/flannel-io/flannel-cni-plugin:v1.9.1-flannel1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "install-cni-plugin",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/cni/bin",
+                                "name": "cni-plugin"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dnkrz",
+                                "readOnly": true
+                            }
+                        ]
+                    },
+                    {
+                        "args": [
+                            "-f",
+                            "/etc/kube-flannel/cni-conf.json",
+                            "/etc/cni/net.d/10-flannel.conflist"
+                        ],
+                        "command": [
+                            "cp"
+                        ],
+                        "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "install-cni",
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/cni/net.d",
+                                "name": "cni"
+                            },
+                            {
+                                "mountPath": "/etc/kube-flannel/",
+                                "name": "flannel-cfg"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dnkrz",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "nodeName": "etri-dev0009-jetorn",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 2000001000,
+                "priorityClassName": "system-node-critical",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "flannel",
+                "serviceAccountName": "flannel",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/network-unavailable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "kube-flannel-network-interfaces"
+                        },
+                        "name": "network-interfaces"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/run/flannel",
+                            "type": ""
+                        },
+                        "name": "run"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/opt/cni/bin",
+                            "type": ""
+                        },
+                        "name": "cni-plugin"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/etc/cni/net.d",
+                            "type": ""
+                        },
+                        "name": "cni"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "kube-flannel-cfg"
+                        },
+                        "name": "flannel-cfg"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/run/xtables.lock",
+                            "type": "FileOrCreate"
+                        },
+                        "name": "xtables-lock"
+                    },
+                    {
+                        "name": "kube-api-access-dnkrz",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:38Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:56Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:57Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:57Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://7b49145ac4b0711e29ac7cf57e4d27292e65a009c9ed82588a73863f2772bfcb",
+                        "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                        "imageID": "ghcr.io/flannel-io/flannel@sha256:8e5228b764002ef674af9519fb848e8d2004b8d03d7d18edc3333c749b87fadf",
+                        "lastState": {},
+                        "name": "kube-flannel",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-20T11:38:57Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/kube-flannel-network",
+                                "name": "network-interfaces",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            },
+                            {
+                                "mountPath": "/run/flannel",
+                                "name": "run"
+                            },
+                            {
+                                "mountPath": "/etc/kube-flannel/",
+                                "name": "flannel-cfg"
+                            },
+                            {
+                                "mountPath": "/run/xtables.lock",
+                                "name": "xtables-lock"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dnkrz",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "initContainerStatuses": [
+                    {
+                        "containerID": "containerd://aacf8c17afd7f63110363239277d1fabc6fdc7a1e3f8c6f59035a3902873c4a3",
+                        "image": "ghcr.io/flannel-io/flannel-cni-plugin:v1.9.1-flannel1",
+                        "imageID": "ghcr.io/flannel-io/flannel-cni-plugin@sha256:7c3377e977b4b77b8efdad96e207ebee371537d6dcd7b9c40853cf0c0f0aade3",
+                        "lastState": {},
+                        "name": "install-cni-plugin",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": false,
+                        "state": {
+                            "terminated": {
+                                "containerID": "containerd://aacf8c17afd7f63110363239277d1fabc6fdc7a1e3f8c6f59035a3902873c4a3",
+                                "exitCode": 0,
+                                "finishedAt": "2026-10-20T11:38:37Z",
+                                "reason": "Completed",
+                                "startedAt": "2026-10-20T11:38:37Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/opt/cni/bin",
+                                "name": "cni-plugin"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dnkrz",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    },
+                    {
+                        "containerID": "containerd://2bf2c13b5b686f383c9aefe55f2330427e416ea1980d8991b9fe84f830d8316f",
+                        "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                        "imageID": "ghcr.io/flannel-io/flannel@sha256:8e5228b764002ef674af9519fb848e8d2004b8d03d7d18edc3333c749b87fadf",
+                        "lastState": {},
+                        "name": "install-cni",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": false,
+                        "state": {
+                            "terminated": {
+                                "containerID": "containerd://2bf2c13b5b686f383c9aefe55f2330427e416ea1980d8991b9fe84f830d8316f",
+                                "exitCode": 0,
+                                "finishedAt": "2026-10-20T11:38:49Z",
+                                "reason": "Completed",
+                                "startedAt": "2026-10-20T11:38:49Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/cni/net.d",
+                                "name": "cni"
+                            },
+                            {
+                                "mountPath": "/etc/kube-flannel/",
+                                "name": "flannel-cfg"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-dnkrz",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.254.192.128",
+                "podIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-20T11:38:27Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-10-20T11:38:27Z",
+                "generateName": "node-hardware-inventory-",
+                "labels": {
+                    "app": "node-hardware-inventory",
+                    "controller-revision-hash": "7f7fdb77d8",
+                    "pod-template-generation": "3"
+                },
+                "name": "node-hardware-inventory-tlpdn",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "node-hardware-inventory",
+                        "uid": "96b1a35f-bcb9-4a12-b367-48d75854533e"
+                    }
+                ],
+                "resourceVersion": "50148482",
+                "uid": "61dff9e0-497e-4ee2-82a1-3ad3e4ac86a6"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "etri-dev0009-jetorn"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python",
+                            "-B",
+                            "/app/exporter.py"
+                        ],
+                        "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "livenessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": "metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 30,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "name": "inventory",
+                        "ports": [
+                            {
+                                "containerPort": 9403,
+                                "name": "metrics",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": "metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "100m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "5m",
+                                "memory": "20Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/app",
+                                "name": "code",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/host/sys",
+                                "name": "sys",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0009-jetorn",
+                "nodeSelector": {
+                    "kubernetes.io/os": "linux"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "runAsGroup": 65534,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65534,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "node-hardware-inventory-code-52k4bgc2kg"
+                        },
+                        "name": "code"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/sys",
+                            "type": "Directory"
+                        },
+                        "name": "sys"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:40:24Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "message": "containers with unready status: [inventory]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "message": "containers with unready status: [inventory]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imageID": "",
+                        "lastState": {},
+                        "name": "inventory",
+                        "ready": false,
+                        "restartCount": 0,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "message": "Back-off pulling image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\": ErrImagePull: rpc error: code = DeadlineExceeded desc = failed to pull and unpack image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\": failed to resolve image: failed to do request: Head \"https://192.168.0.56:5000/v2/node-inventory-python/manifests/sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\": dial tcp 192.168.0.56:5000: i/o timeout",
+                                "reason": "ImagePullBackOff"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/app",
+                                "name": "code",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            },
+                            {
+                                "mountPath": "/host/sys",
+                                "name": "sys",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "phase": "Pending",
+                "podIP": "10.244.11.2",
+                "podIPs": [
+                    {
+                        "ip": "10.244.11.2"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-20T11:38:27Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-10-20T11:40:53Z",
+                "generateName": "nvidia-jetson-device-plugin-orin9-",
+                "labels": {
+                    "app": "nvidia-jetson-device-plugin-orin9",
+                    "controller-revision-hash": "694c867cc7",
+                    "pod-template-generation": "1"
+                },
+                "name": "nvidia-jetson-device-plugin-orin9-xvvkl",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "nvidia-jetson-device-plugin-orin9",
+                        "uid": "a8d99d94-db33-45d0-bac8-7a459b9b35e3"
+                    }
+                ],
+                "resourceVersion": "50148994",
+                "uid": "b754803c-4bd2-40f2-8e46-0a40f247e4d6"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "etri-dev0009-jetorn"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "args": [
+                            "--config-file=/config/config.yaml"
+                        ],
+                        "env": [
+                            {
+                                "name": "NVIDIA_VISIBLE_DEVICES",
+                                "value": "all"
+                            },
+                            {
+                                "name": "NVIDIA_DRIVER_CAPABILITIES",
+                                "value": "compute,utility"
+                            }
+                        ],
+                        "image": "nvcr.io/nvidia/k8s-device-plugin@sha256:d2569d771ea77b94371b58e430fbf4a36ac7d2a79874cd0c5617ebd9cb1da220",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "device-plugin",
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "128Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/lib/kubelet/device-plugins",
+                                "name": "device-plugin"
+                            },
+                            {
+                                "mountPath": "/config",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0009-jetorn",
+                "nodeSelector": {
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0009-jetorn",
+                    "kubernetes.io/os": "linux"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 2000001000,
+                "priorityClassName": "system-node-critical",
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "hostPath": {
+                            "path": "/var/lib/kubelet/device-plugins",
+                            "type": "Directory"
+                        },
+                        "name": "device-plugin"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "nvidia-jetson-timeslicing-nano-58gh76b6t8"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:42:37Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:40:53Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:42:37Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:42:37Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:40:53Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://7b158a9d91265564642196defcffdc8929a811ac662ae256546e46fc5db6f750",
+                        "image": "sha256:5f3e9f5377ac91b25e623df8a585a664cf48961af79033017660f09063c3f0e8",
+                        "imageID": "nvcr.io/nvidia/k8s-device-plugin@sha256:d2569d771ea77b94371b58e430fbf4a36ac7d2a79874cd0c5617ebd9cb1da220",
+                        "lastState": {},
+                        "name": "device-plugin",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-20T11:42:36Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/var/lib/kubelet/device-plugins",
+                                "name": "device-plugin"
+                            },
+                            {
+                                "mountPath": "/config",
+                                "name": "config",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.244.11.4",
+                "podIPs": [
+                    {
+                        "ip": "10.244.11.4"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-20T11:40:53Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
+                },
+                "creationTimestamp": "2026-10-20T11:38:27Z",
+                "generateName": "prometheus-prometheus-node-exporter-",
+                "labels": {
+                    "app.kubernetes.io/component": "metrics",
+                    "app.kubernetes.io/instance": "prometheus",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "prometheus-node-exporter",
+                    "app.kubernetes.io/part-of": "prometheus-node-exporter",
+                    "app.kubernetes.io/version": "1.10.2",
+                    "controller-revision-hash": "76c648dcd8",
+                    "helm.sh/chart": "prometheus-node-exporter-4.52.2",
+                    "jobLabel": "node-exporter",
+                    "pod-template-generation": "1",
+                    "release": "prometheus"
+                },
+                "name": "prometheus-prometheus-node-exporter-f6tdh",
+                "namespace": "kube-system",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "prometheus-prometheus-node-exporter",
+                        "uid": "bf2b107d-4871-4c85-bd3d-7d2d8e0a7c11"
+                    }
+                ],
+                "resourceVersion": "50147842",
+                "uid": "4e086f85-b48f-48eb-8238-76efd78f869e"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "etri-dev0009-jetorn"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "args": [
+                            "--path.procfs=/host/proc",
+                            "--path.sysfs=/host/sys",
+                            "--path.rootfs=/host/root",
+                            "--path.udev.data=/host/root/run/udev/data",
+                            "--web.listen-address=[$(HOST_IP)]:9100",
+                            "--collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)",
+                            "--collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs|erofs)$"
+                        ],
+                        "env": [
+                            {
+                                "name": "HOST_IP",
+                                "value": "0.0.0.0"
+                            }
+                        ],
+                        "image": "quay.io/prometheus/node-exporter:v1.10.2",
+                        "imagePullPolicy": "IfNotPresent",
+                        "livenessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/",
+                                "port": "http-metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "name": "node-exporter",
+                        "ports": [
+                            {
+                                "containerPort": 9100,
+                                "hostPort": 9100,
+                                "name": "http-metrics",
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "readinessProbe": {
+                            "failureThreshold": 3,
+                            "httpGet": {
+                                "path": "/",
+                                "port": "http-metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {},
+                        "securityContext": {
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/host/proc",
+                                "name": "proc",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/host/sys",
+                                "name": "sys",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/host/root",
+                                "mountPropagation": "HostToContainer",
+                                "name": "root",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostNetwork": true,
+                "hostPID": true,
+                "nodeName": "etri-dev0009-jetorn",
+                "nodeSelector": {
+                    "kubernetes.io/os": "linux"
+                },
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65534,
+                    "runAsGroup": 65534,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65534
+                },
+                "serviceAccount": "prometheus-prometheus-node-exporter",
+                "serviceAccountName": "prometheus-prometheus-node-exporter",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoSchedule",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/network-unavailable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "hostPath": {
+                            "path": "/proc",
+                            "type": ""
+                        },
+                        "name": "proc"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/sys",
+                            "type": ""
+                        },
+                        "name": "sys"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/",
+                            "type": ""
+                        },
+                        "name": "root"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:34Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:40:33Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:40:33Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:27Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://e4437927cb800f283ae4fec0b1840ffecb22256fac9ad7e24d1d558c71d120b2",
+                        "image": "quay.io/prometheus/node-exporter:v1.10.2",
+                        "imageID": "quay.io/prometheus/node-exporter@sha256:337ff1d356b68d39cef853e8c6345de11ce7556bb34cda8bd205bcf2ed30b565",
+                        "lastState": {},
+                        "name": "node-exporter",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-20T11:38:33Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/host/proc",
+                                "name": "proc",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            },
+                            {
+                                "mountPath": "/host/sys",
+                                "name": "sys",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            },
+                            {
+                                "mountPath": "/host/root",
+                                "name": "root",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.254.192.128",
+                "podIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "qosClass": "BestEffort",
+                "startTime": "2026-10-20T11:38:27Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "creationTimestamp": "2026-10-20T11:38:55Z",
+                "generateName": "edge-eclipse-mosquitto-",
+                "labels": {
+                    "controller-revision-hash": "6b9bb7597b",
+                    "k8s-app": "eclipse-mosquitto",
+                    "kubeedge": "eclipse-mosquitto",
+                    "pod-template-generation": "4"
+                },
+                "name": "edge-eclipse-mosquitto-vjskg",
+                "namespace": "kubeedge",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "edge-eclipse-mosquitto",
+                        "uid": "62eb5c06-5678-4f0d-8c0c-0b6484bbc3ce"
+                    }
+                ],
+                "resourceVersion": "50146956",
+                "uid": "182e1354-8c41-499c-ae23-e50d19b35cdf"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "etri-dev0009-jetorn"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "containers": [
+                    {
+                        "image": "eclipse-mosquitto:1.6.15",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "edge-eclipse-mosquitto",
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "100Mi"
+                            },
+                            "requests": {
+                                "cpu": "100m",
+                                "memory": "50Mi"
+                            }
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/mosquitto/data",
+                                "name": "mqtt-data-path"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-zq26v",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostNetwork": true,
+                "nodeName": "etri-dev0009-jetorn",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/network-unavailable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "hostPath": {
+                            "path": "/var/lib/kubeedge/mqtt/data",
+                            "type": ""
+                        },
+                        "name": "mqtt-data-path"
+                    },
+                    {
+                        "name": "kube-api-access-zq26v",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:59Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:57Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:59Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:59Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:55Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://ddba75a426fcff198c8d5a860adab994fa1f68383312728a076b1740e8ecd3b0",
+                        "image": "docker.io/library/eclipse-mosquitto:1.6.15",
+                        "imageID": "sha256:9bc6c8a979e91817ffaf838f9f96d5ac1183d4fd2e0fc4d8d2c45438d4f9087c",
+                        "lastState": {},
+                        "name": "edge-eclipse-mosquitto",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-20T11:38:58Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/mosquitto/data",
+                                "name": "mqtt-data-path"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-zq26v",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.254.192.128",
+                "podIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-20T11:38:57Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "edgeai.etrilab/vpn-relay": "edgemesh-vpn-1788942592169770244",
+                    "kubectl.kubernetes.io/restartedAt": "2026-07-20T17:45:12+09:00"
+                },
+                "creationTimestamp": "2026-10-20T11:38:55Z",
+                "generateName": "edgemesh-agent-",
+                "labels": {
+                    "controller-revision-hash": "bfdd47559",
+                    "k8s-app": "kubeedge",
+                    "kubeedge": "edgemesh-agent",
+                    "pod-template-generation": "17"
+                },
+                "name": "edgemesh-agent-j89sz",
+                "namespace": "kubeedge",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "blockOwnerDeletion": true,
+                        "controller": true,
+                        "kind": "DaemonSet",
+                        "name": "edgemesh-agent",
+                        "uid": "a08381ed-44e0-44f9-af73-4f55d877a736"
+                    }
+                ],
+                "resourceVersion": "50149015",
+                "uid": "2ebbc62e-480d-418d-baca-1234451ed24e"
+            },
+            "spec": {
+                "affinity": {
+                    "nodeAffinity": {
+                        "requiredDuringSchedulingIgnoredDuringExecution": {
+                            "nodeSelectorTerms": [
+                                {
+                                    "matchFields": [
+                                        {
+                                            "key": "metadata.name",
+                                            "operator": "In",
+                                            "values": [
+                                                "etri-dev0009-jetorn"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "containers": [
+                    {
+                        "env": [
+                            {
+                                "name": "NODE_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "spec.nodeName"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "apiVersion": "v1",
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            }
+                        ],
+                        "image": "192.168.0.56:5000/edgemesh-agent@sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "edgemesh-agent",
+                        "resources": {
+                            "limits": {
+                                "cpu": "1",
+                                "memory": "256Mi"
+                            },
+                            "requests": {
+                                "cpu": "500m",
+                                "memory": "128Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "privileged": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/edgemesh/config",
+                                "name": "conf"
+                            },
+                            {
+                                "mountPath": "/etc/resolv.conf",
+                                "name": "resolv"
+                            },
+                            {
+                                "mountPath": "/etc/localtime",
+                                "name": "host-time",
+                                "readOnly": true
+                            },
+                            {
+                                "mountPath": "/etc/edgemesh",
+                                "name": "psk"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-v9zc6",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "hostNetwork": true,
+                "nodeName": "etri-dev0009-jetorn",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Always",
+                "schedulerName": "default-scheduler",
+                "securityContext": {},
+                "serviceAccount": "edgemesh-agent",
+                "serviceAccountName": "edgemesh-agent",
+                "terminationGracePeriodSeconds": 30,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/disk-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/memory-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/pid-pressure",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unschedulable",
+                        "operator": "Exists"
+                    },
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/network-unavailable",
+                        "operator": "Exists"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "edgemesh-agent-cfg"
+                        },
+                        "name": "conf"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/etc/resolv.conf",
+                            "type": ""
+                        },
+                        "name": "resolv"
+                    },
+                    {
+                        "hostPath": {
+                            "path": "/etc/localtime",
+                            "type": ""
+                        },
+                        "name": "host-time"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "edgemesh-agent-psk"
+                        },
+                        "name": "psk"
+                    },
+                    {
+                        "name": "kube-api-access-v9zc6",
+                        "projected": {
+                            "defaultMode": 420,
+                            "sources": [
+                                {
+                                    "serviceAccountToken": {
+                                        "expirationSeconds": 3607,
+                                        "path": "token"
+                                    }
+                                },
+                                {
+                                    "configMap": {
+                                        "items": [
+                                            {
+                                                "key": "ca.crt",
+                                                "path": "ca.crt"
+                                            }
+                                        ],
+                                        "name": "kube-root-ca.crt"
+                                    }
+                                },
+                                {
+                                    "downwardAPI": {
+                                        "items": [
+                                            {
+                                                "fieldRef": {
+                                                    "apiVersion": "v1",
+                                                    "fieldPath": "metadata.namespace"
+                                                },
+                                                "path": "namespace"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:39:58Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:57Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:57Z",
+                        "message": "containers with unready status: [edgemesh-agent]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:57Z",
+                        "message": "containers with unready status: [edgemesh-agent]",
+                        "reason": "ContainersNotReady",
+                        "status": "False",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-20T11:38:55Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "image": "192.168.0.56:5000/edgemesh-agent@sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a",
+                        "imageID": "",
+                        "lastState": {},
+                        "name": "edgemesh-agent",
+                        "ready": false,
+                        "restartCount": 0,
+                        "started": false,
+                        "state": {
+                            "waiting": {
+                                "message": "Back-off pulling image \"192.168.0.56:5000/edgemesh-agent@sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a\": ErrImagePull: rpc error: code = DeadlineExceeded desc = failed to pull and unpack image \"192.168.0.56:5000/edgemesh-agent@sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a\": failed to resolve image: failed to do request: Head \"https://192.168.0.56:5000/v2/edgemesh-agent/manifests/sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a\": dial tcp 192.168.0.56:5000: i/o timeout",
+                                "reason": "ImagePullBackOff"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/etc/edgemesh/config",
+                                "name": "conf"
+                            },
+                            {
+                                "mountPath": "/etc/resolv.conf",
+                                "name": "resolv"
+                            },
+                            {
+                                "mountPath": "/etc/localtime",
+                                "name": "host-time",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            },
+                            {
+                                "mountPath": "/etc/edgemesh",
+                                "name": "psk"
+                            },
+                            {
+                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                                "name": "kube-api-access-v9zc6",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "phase": "Pending",
+                "podIP": "10.254.192.128",
+                "podIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-20T11:38:57Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

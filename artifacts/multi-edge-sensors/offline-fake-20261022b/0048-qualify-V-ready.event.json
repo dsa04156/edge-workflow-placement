@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T09:27:57.255383+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "offline-fake-20261022b-q-v-c4",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0048-qualify-V-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T09:28:17.966953+00:00",
+ "duration_ms": 20711.581752009806,
+ "tag": "0048-qualify-V-ready"
+}

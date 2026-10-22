@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-21T10:12:38.284310+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261021t101203-gateway",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "from pathlib import Path;import json;p=Path('/work/peers.json');d=json.loads(p.read_text());d['fusion']=d['source-c'];p.write_text(json.dumps(d))"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-21T10:12:38.500769+00:00"
+}

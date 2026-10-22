@@ -1,0 +1,117 @@
+--- before/run_placement.py
++++ experiments/real-topology-live/run_placement.py
+@@ -267,13 +267,18 @@
+             for pod in pods:
+                 if pod['spec'].get('nodeName')!=name or pod['status'].get('phase') in ('Succeeded','Failed'):continue
+                 regular=[c.get('resources',{}).get('requests',{}) for c in pod['spec']['containers']]
+-                init=[c.get('resources',{}).get('requests',{}) for c in pod['spec'].get('initContainers',[])]
+-                # Refuse sidecar-init accounting ambiguity instead of undercounting.
+-                if any(c.get('restartPolicy')=='Always' for c in pod['spec'].get('initContainers',[])):
+-                    raise RuntimeError('Restartable init containers need explicit resource accounting')
+                 overhead=pod['spec'].get('overhead',{})
+-                cpu-=max(sum(amount(r.get('cpu',0),True) for r in regular),max((amount(r.get('cpu',0),True) for r in init),default=0))+amount(overhead.get('cpu',0),True)
+-                mem-=max(sum(amount(r.get('memory',0)) for r in regular),max((amount(r.get('memory',0)) for r in init),default=0))+amount(overhead.get('memory',0))
++                # Kubernetes v1.31.14 PodRequests: sidecars (restartPolicy Always) join the steady sum;
++                # each init stage needs itself plus the sidecars started before it.
++                for key,is_cpu in (('cpu',True),('memory',False)):
++                    steady=sum(amount(r.get(key,0),is_cpu) for r in regular);sidecars=0;peak=0
++                    for c in pod['spec'].get('initContainers',[]):
++                        own=amount(c.get('resources',{}).get('requests',{}).get(key,0),is_cpu)
++                        peak=max(peak,own+sidecars)
++                        if c.get('restartPolicy')=='Always':sidecars+=own;steady+=own
++                    request=max(steady,peak)+amount(overhead.get(key,0),is_cpu)
++                    if is_cpu:cpu-=request
++                    else:mem-=request
+             result[name]=dict(cpu_free_m=cpu,memory_free_mib=mem)
+         return result
+ 
+--- before/test_baseline_comparison.py
++++ experiments/real-topology-live/test_baseline_comparison.py
+@@ -646,13 +646,82 @@
+             with patch('subprocess.run', capacity_kubectl(CAPACITY_PODS)):
+                 self.assertEqual(rb.Pilot.capacity(raw), capacity)
+ 
+-    def test_restartable_init_container_is_still_rejected(self):
+-        pods = copy.deepcopy(CAPACITY_PODS)
+-        pods[0]['spec']['initContainers'][0]['restartPolicy'] = 'Always'
++    def test_restartable_init_containers_follow_pod_requests(self):
++        # Kubernetes v1.31.14 PodRequests: steady = regular + all sidecars; stage i = init i + earlier sidecars.
++        side = lambda cpu, memory=None, **extra: dict(name='s', restartPolicy='Always', env=[dict(name='T', value=CANARY)],
++            resources=dict(requests=dict(cpu=cpu, **({'memory': memory} if memory else {})), limits=dict(cpu='3', memory='7Gi')), **extra)
++        ordinary = lambda cpu, memory: dict(name='i', resources=dict(requests=dict(cpu=cpu, memory=memory)))
++        pods = CAPACITY_PODS[1:2]+[
++            dict(metadata=dict(name='mesh', uid='s1', namespace='team'),
++                 spec=dict(nodeName=C, overhead=dict(cpu='50m', memory='32Mi'),
++                     containers=[dict(name='a', resources=dict(requests=dict(cpu='200m', memory='100Mi')))],
++                     initContainers=[ordinary('1', '64Mi'), side('300m', '512Mi'), ordinary('600m', '1Gi'), side('100m', '256Mi')]),
++                 status=dict(phase='Running')),
++            dict(metadata=dict(name='steady', uid='s2', namespace='team'),
++                 spec=dict(nodeName=E1, containers=[dict(name='a', resources=dict(requests=dict(cpu='500m', memory='1Gi')))],
++                     initContainers=[ordinary('400m', '2Gi'), side('200m', '128Mi'), side('300m')]),
++                 status=dict(phase='Pending'))]
+         with tempfile.TemporaryDirectory() as temp:
+-            with self.assertRaisesRegex(RuntimeError, 'Restartable init'):
+-                self.capacity(temp, pods)
++            _, _, capacity = self.capacity(temp, pods)
+             self.assertEqual(persisted_with(temp, CANARY), [])
++            projected = json.loads((Path(temp)/'002-pods.projected.json').read_text())['items']
++            self.assertEqual([[c.get('restartPolicy') for c in p['spec'].get('initContainers', [])] for p in projected],
++                             [[], [None, 'Always', None, 'Always'], [None, 'Always', 'Always']])
++        # C cpu: steady 200+300+100=600m; stages 1000, 300, 600+300=900, 400 -> 1000m (early init not added to later sidecars) +50m.
++        # C mem: steady 100+512+256=868Mi; stages 64, 512, 1024+512=1536, 768 -> 1536Mi +32Mi. Limits never counted.
++        # E1 cpu: steady 500+200+300=1000m beats stages 400/200/500; mem stage 2048Mi beats steady 1024+128+0 (missing request).
++        self.assertEqual(capacity, {C: dict(cpu_free_m=2950, memory_free_mib=6624), E0: dict(cpu_free_m=4000, memory_free_mib=8192),
++                                    E1: dict(cpu_free_m=3000, memory_free_mib=6144)})
++        raw = Session.__new__(Session)
++        with tempfile.TemporaryDirectory() as temp:
++            raw.out, raw.counter = Path(temp), 0
++            with patch('subprocess.run', capacity_kubectl(pods)):
++                self.assertEqual(rb.Pilot.capacity(raw), capacity)
++
++    def test_restartable_init_capacity_can_go_negative(self):
++        pods = [dict(metadata=dict(name='big', uid='b1', namespace='team', annotations=dict(x=CANARY)),
++            spec=dict(nodeName=E0, containers=[dict(name='a', resources=dict(requests=dict(cpu='3', memory='6Gi')))],
++                initContainers=[dict(name='s', restartPolicy='Always', resources=dict(requests=dict(cpu='1500m', memory='3Gi')))]),
++            status=dict(phase='Running'))]
++        with tempfile.TemporaryDirectory() as temp:
++            _, _, capacity = self.capacity(temp, pods)
++        self.assertEqual(capacity[E0], dict(cpu_free_m=-500, memory_free_mib=-1024))
++
++    def test_failed_ready9_snapshot_capacity(self):
++        # wan-20261022t050417 stopped at capacity() after 324/324 quality pass; replay its saved node/projected Pod snapshots.
++        run = HERE.parents[1]/'artifacts/topology-profile-live/wan-20261022t050417'
++        nodes, pods = (run/'700-nodes.stdout').read_bytes(), json.loads((run/'701-pods.projected.json').read_text())['items']
++        def kubectl(items):
++            def run_(command, **kwargs):
++                raw = nodes if command[4:] == ['get', 'nodes', '-o', 'json'] else json.dumps(dict(items=items)).encode()
++                if kwargs['stdout'] is subprocess.PIPE:
++                    return subprocess.CompletedProcess(command, 0, stdout=raw)
++                kwargs['stdout'].write(raw)
++                return subprocess.CompletedProcess(command, 0)
++            return run_
++        def capacity(items):
++            with tempfile.TemporaryDirectory() as temp:
++                pilot = real_pilot(temp)
++                pilot.use_topology(HERE/'topologies/ready-nodes-20261022.json')
++                with patch('subprocess.run', kubectl(items)):
++                    return pilot.capacity()
++        sidecar = [p for p in pods if any(c.get('restartPolicy') == 'Always' for c in p['spec'].get('initContainers', []))]
++        self.assertEqual(len(sidecar), 34)
++        # Every such Pod is Running on ser0001 with [ordinary 100m/128Mi, sidecar 100m/128Mi]: request = regular + 100m/128Mi.
++        ser1 = 'etri-ser0001-cg0msb'
++        init = [dict(resources=dict(requests=dict(cpu='100m', memory='128Mi'))),
++                dict(resources=dict(requests=dict(cpu='100m', memory='128Mi')), restartPolicy='Always')]
++        self.assertTrue(all(p['spec']['nodeName'] == ser1 and p['status']['phase'] == 'Running' and
++                            p['spec']['initContainers'] == init and 'overhead' not in p['spec'] for p in sidecar))
++        rest = capacity([p for p in pods if p not in sidecar])
++        cpu = sum(float(r['cpu'][:-1]) if r['cpu'].endswith('m') else float(r['cpu'])*1000
++                  for p in sidecar for c in p['spec']['containers'] for r in [c.get('resources', {}).get('requests', {})] if 'cpu' in r)
++        mem = sum(float(r['memory'][:-2])*(1024 if r['memory'].endswith('Gi') else 1)
++                  for p in sidecar for c in p['spec']['containers'] for r in [c.get('resources', {}).get('requests', {})] if 'memory' in r)
++        expected = dict(rest, **{ser1: dict(cpu_free_m=rest[ser1]['cpu_free_m']-cpu-34*100,
++                                            memory_free_mib=rest[ser1]['memory_free_mib']-mem-34*128)})
++        self.assertEqual(len(expected), 9)
++        self.assertEqual(capacity(pods), expected)
+ 
+     def test_pods_timeout_persists_no_env(self):
+         with tempfile.TemporaryDirectory() as temp:

@@ -1,0 +1,1601 @@
+{
+ "profiles": {
+  "w1": {
+   "provenance": "measured",
+   "evidence_id": "mes-live-20261022t101935z/qualification+transfer-probes",
+   "namespace": "topology-profile-lab",
+   "nodes": {
+    "etri-dev0003-raspi5": {
+     "cpu_free_m": 2215.0,
+     "memory_free_mib": 6798.9375
+    },
+    "etri-dev0002-raspi5": {
+     "cpu_free_m": 2930.0,
+     "memory_free_mib": 15558.921875
+    },
+    "etri-ser0002-cgnmsb": {
+     "cpu_free_m": 21840.0,
+     "memory_free_mib": 28913.5390625
+    },
+    "etri-dev0006-raspi5": {
+     "cpu_free_m": 2280.0,
+     "memory_free_mib": 2881.140625
+    },
+    "etri-dev0008-raspi5": {
+     "cpu_free_m": 2285.0,
+     "memory_free_mib": 2901.125
+    },
+    "etri-dev0009-jetorn": {
+     "cpu_free_m": 5175.0,
+     "memory_free_mib": 6953.62890625
+    },
+    "etri-ser0001-cg0msb": {
+     "cpu_free_m": 19145.0,
+     "memory_free_mib": 121186.484375
+    },
+    "etri-ser0003-cg0ms0": {
+     "cpu_free_m": 17065.0,
+     "memory_free_mib": 118552.10546875
+    },
+    "etri-ser0004-cgnms0": {
+     "cpu_free_m": 14090.0,
+     "memory_free_mib": 30048.26171875
+    }
+   },
+   "tasks": [
+    {
+     "id": "V",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 220.675791,
+      "etri-dev0002-raspi5": 243.290059,
+      "etri-ser0002-cgnmsb": 49.041033,
+      "etri-dev0006-raspi5": 217.54363,
+      "etri-dev0008-raspi5": 208.351653,
+      "etri-dev0009-jetorn": 309.670897,
+      "etri-ser0001-cg0msb": 42.573347,
+      "etri-ser0003-cg0ms0": 50.90938,
+      "etri-ser0004-cgnms0": 81.332926
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 2000.0,
+     "memory_mib": 1536.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0003-raspi5",
+       "bytes": 481652,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 1.3608068693429232,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 43.95075491629541,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 43.842223996762186,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 43.75402117148042,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 43.93803799757734,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 44.72289199475199,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 44.095327000832185,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 45.209778007119894,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 44.13036000914872
+       }
+      }
+     ]
+    },
+    {
+     "id": "T",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 36.119947,
+      "etri-dev0002-raspi5": 30.174453,
+      "etri-ser0002-cgnmsb": 8.587762,
+      "etri-dev0006-raspi5": 25.807043,
+      "etri-dev0008-raspi5": 24.984098,
+      "etri-dev0009-jetorn": 53.712733,
+      "etri-ser0001-cg0msb": 12.582743,
+      "etri-ser0003-cg0ms0": 6.829926,
+      "etri-ser0004-cgnms0": 17.279338
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 1000.0,
+     "memory_mib": 1024.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0002-raspi5",
+       "bytes": 215,
+       "transfer_ms": {
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.793969888240099,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 1.0029240511357784,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 1.0960520012304187,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.624268013983965,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.3769310025963932,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 2.4368020240217447,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 1.3086069957353175,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.6405500937253237,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 1.883479068055749
+       }
+      }
+     ]
+    },
+    {
+     "id": "F",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 0.107629,
+      "etri-dev0002-raspi5": 0.104036,
+      "etri-ser0002-cgnmsb": 0.098622,
+      "etri-dev0006-raspi5": 0.079037,
+      "etri-dev0008-raspi5": 0.073998,
+      "etri-dev0009-jetorn": 0.158148,
+      "etri-ser0001-cg0msb": 0.218178,
+      "etri-ser0003-cg0ms0": 0.041504,
+      "etri-ser0004-cgnms0": 0.094155
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 250.0,
+     "memory_mib": 384.0,
+     "inputs": [
+      {
+       "task": "V",
+       "bytes": 1653,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.8738648612052202,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 1.4557200483977795,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 2.2086690296418965,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.7448230646550655,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.5429500199388713,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 2.3284149938263,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 1.1679279996315017,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 1.1377630289644003,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 1.69100402854383,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 2.3103561252355576,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.540499109774828,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.9295629570260644,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.3486959505826235,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.2654739839490503,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 1.94446905516088,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 1.13789300667122,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.4001009985804558,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 1.7499360255897045,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 2.4373559281229973,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 2.325071021914482,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.5880450480617583,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.244227100163698,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 1.9411820103414357,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 2.845901995897293,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.6756490038242191,
+        "etri-ser0002-cgnmsb|etri-ser0003-cg0ms0": 1.7176540568470955,
+        "etri-ser0002-cgnmsb|etri-ser0004-cgnms0": 3.2630639616400003,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.2008820194751024,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 1.3252377975732088,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.2019469868391752,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.7045329548418522,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.3999149960000068,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 1.9800220034085214,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 1.2381720007397234,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 1.2368359602987766,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 1.7454761546105146,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.5551748219877481,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 1.1926637962460518,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.1078359675593674,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.6610461752861738,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.8642039902042598,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 1.5837869723327458,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.9419929992873222,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 1.0917000472545624,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 1.721760956570506,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 2.4896329268813133,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 6.543803960084915,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.9655590294860303,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 2.8768531046807766,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.5455760187469423,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 1.3335080002434552,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 2.2767820046283305,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 2.3363111540675163,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 2.9379460029304028,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.1573021076619625,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.7004229594022036,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 1.357481989543885,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.0441229678690434,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9201850043609738,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 1.2146570370532572,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.4900350031675771,
+        "etri-ser0001-cg0msb|etri-ser0003-cg0ms0": 2.1026311442255974,
+        "etri-ser0001-cg0msb|etri-ser0004-cgnms0": 2.090970054268837,
+        "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 2.048635855317116,
+        "etri-ser0003-cg0ms0|etri-dev0002-raspi5": 1.3469611294567585,
+        "etri-ser0003-cg0ms0|etri-ser0002-cgnmsb": 2.132897963747382,
+        "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 1.562250079587102,
+        "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.8569979874882847,
+        "etri-ser0003-cg0ms0|etri-dev0009-jetorn": 2.479682967532426,
+        "etri-ser0003-cg0ms0|etri-ser0001-cg0msb": 1.2574410066008568,
+        "etri-ser0003-cg0ms0|etri-ser0003-cg0ms0": 0.5913779605180025,
+        "etri-ser0003-cg0ms0|etri-ser0004-cgnms0": 1.8884390592575073,
+        "etri-ser0004-cgnms0|etri-dev0003-raspi5": 2.665890846401453,
+        "etri-ser0004-cgnms0|etri-dev0002-raspi5": 2.2789028007537127,
+        "etri-ser0004-cgnms0|etri-ser0002-cgnmsb": 1.31055002566427,
+        "etri-ser0004-cgnms0|etri-dev0006-raspi5": 2.2338570561259985,
+        "etri-ser0004-cgnms0|etri-dev0008-raspi5": 2.1584919886663556,
+        "etri-ser0004-cgnms0|etri-dev0009-jetorn": 2.6324240025132895,
+        "etri-ser0004-cgnms0|etri-ser0001-cg0msb": 1.1298649915261194,
+        "etri-ser0004-cgnms0|etri-ser0003-cg0ms0": 1.83261395432055,
+        "etri-ser0004-cgnms0|etri-ser0004-cgnms0": 1.0921231005340815
+       }
+      },
+      {
+       "task": "T",
+       "bytes": 2625,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.7805880159139633,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 1.503275940194726,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 1.4509010361507535,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.312528969720006,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.5439300041180104,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 1.9392849644646049,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 1.266942999791354,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 1.2278440408408642,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 1.621719915419817,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.7494710627943277,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.5397771019488573,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.7785600028000772,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.1523999273777008,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.2912880047224462,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 1.6455809818580747,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.9920129959937185,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.2324198614805937,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 2.0258398726582527,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 1.7270450480282307,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 1.7729040700942278,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.4211870254948735,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.0095990039408207,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 1.5840780106373131,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 1.4801680226810277,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.6821889983257279,
+        "etri-ser0002-cgnmsb|etri-ser0003-cg0ms0": 1.2237320188432932,
+        "etri-ser0002-cgnmsb|etri-ser0004-cgnms0": 1.5161300543695688,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.235585194081068,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 1.087517011910677,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.0148239671252668,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.654533039778471,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.3353800168260932,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 1.7338719917461276,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 1.0486450046300888,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 1.2188521213829517,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 1.3766330666840076,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.5311751049011946,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 1.0959981009364128,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 0.8945079753175378,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.360936090350151,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.7554100011475384,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 1.341187977232039,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.8531339990440756,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 1.0521160438656807,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 1.3728609774261713,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 1.9874318968504667,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 1.9907751120626926,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.4477689983323216,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 1.9866919610649347,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.0918819936923683,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 1.276290975511074,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 1.2985689972992986,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 1.677701948210597,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 2.3305630311369896,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.8402230236679316,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 2.0515338983386755,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 1.4386370312422514,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.21977087110281,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9266659908462316,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 1.3509170385077596,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.43932200060226023,
+        "etri-ser0001-cg0msb|etri-ser0003-cg0ms0": 2.091767033562064,
+        "etri-ser0001-cg0msb|etri-ser0004-cgnms0": 1.1830830480903387,
+        "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 1.6611011233180761,
+        "etri-ser0003-cg0ms0|etri-dev0002-raspi5": 1.0540538933128119,
+        "etri-ser0003-cg0ms0|etri-ser0002-cgnmsb": 1.6969989519566298,
+        "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 2.0123207941651344,
+        "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.7959250253625214,
+        "etri-ser0003-cg0ms0|etri-dev0009-jetorn": 1.889299019239843,
+        "etri-ser0003-cg0ms0|etri-ser0001-cg0msb": 2.173843007767573,
+        "etri-ser0003-cg0ms0|etri-ser0003-cg0ms0": 0.6127378437668085,
+        "etri-ser0003-cg0ms0|etri-ser0004-cgnms0": 1.514167059212923,
+        "etri-ser0004-cgnms0|etri-dev0003-raspi5": 2.129172207787633,
+        "etri-ser0004-cgnms0|etri-dev0002-raspi5": 1.5549238305538893,
+        "etri-ser0004-cgnms0|etri-ser0002-cgnmsb": 1.3028799439780414,
+        "etri-ser0004-cgnms0|etri-dev0006-raspi5": 2.050969051197171,
+        "etri-ser0004-cgnms0|etri-dev0008-raspi5": 3.435835998971015,
+        "etri-ser0004-cgnms0|etri-dev0009-jetorn": 3.1633179751224816,
+        "etri-ser0004-cgnms0|etri-ser0001-cg0msb": 1.1202840105397627,
+        "etri-ser0004-cgnms0|etri-ser0003-cg0ms0": 1.2824530713260174,
+        "etri-ser0004-cgnms0|etri-ser0004-cgnms0": 0.9746418800204992
+       }
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "task": "F",
+     "destination_node": "etri-dev0003-raspi5",
+     "transfer_ms": {
+      "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.888217007741332,
+      "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.8401918932795525,
+      "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 1.5734911430627108,
+      "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.4496759977191687,
+      "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.708711963146925,
+      "etri-dev0009-jetorn|etri-dev0003-raspi5": 2.9963890556246042,
+      "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.260170876979828,
+      "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 2.3081160616129637,
+      "etri-ser0004-cgnms0|etri-dev0003-raspi5": 3.3337019849568605
+     }
+    }
+   ],
+   "workflow": "w1",
+   "representation": "frozen decoded PNG frame / UTF-8 sentence"
+  },
+  "w2": {
+   "provenance": "measured",
+   "evidence_id": "mes-live-20261022t101935z/qualification+transfer-probes",
+   "namespace": "topology-profile-lab",
+   "nodes": {
+    "etri-dev0003-raspi5": {
+     "cpu_free_m": 2215.0,
+     "memory_free_mib": 6798.9375
+    },
+    "etri-dev0002-raspi5": {
+     "cpu_free_m": 2930.0,
+     "memory_free_mib": 15558.921875
+    },
+    "etri-ser0002-cgnmsb": {
+     "cpu_free_m": 21840.0,
+     "memory_free_mib": 28913.5390625
+    },
+    "etri-dev0006-raspi5": {
+     "cpu_free_m": 2280.0,
+     "memory_free_mib": 2881.140625
+    },
+    "etri-dev0008-raspi5": {
+     "cpu_free_m": 2285.0,
+     "memory_free_mib": 2901.125
+    },
+    "etri-dev0009-jetorn": {
+     "cpu_free_m": 5175.0,
+     "memory_free_mib": 6953.62890625
+    },
+    "etri-ser0001-cg0msb": {
+     "cpu_free_m": 19145.0,
+     "memory_free_mib": 121186.484375
+    },
+    "etri-ser0003-cg0ms0": {
+     "cpu_free_m": 17065.0,
+     "memory_free_mib": 118552.10546875
+    },
+    "etri-ser0004-cgnms0": {
+     "cpu_free_m": 14090.0,
+     "memory_free_mib": 30048.26171875
+    }
+   },
+   "tasks": [
+    {
+     "id": "V",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 226.540885,
+      "etri-dev0002-raspi5": 242.97819700000002,
+      "etri-ser0002-cgnmsb": 44.597152,
+      "etri-dev0006-raspi5": 212.604106,
+      "etri-dev0008-raspi5": 211.89863599999998,
+      "etri-dev0009-jetorn": 302.95205599999997,
+      "etri-ser0001-cg0msb": 43.488535999999996,
+      "etri-ser0003-cg0ms0": 62.508938,
+      "etri-ser0004-cgnms0": 83.720196
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 2000.0,
+     "memory_mib": 1536.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0006-raspi5",
+       "bytes": 305044,
+       "transfer_ms": {
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 27.784386882558465,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 4.824707051739097,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 4.623432003427297,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 1.0020679328590631,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 4.9723939737305045,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 5.685979966074228,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 4.863366004428826,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 5.033615976572037,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 5.288908025249839
+       }
+      }
+     ]
+    },
+    {
+     "id": "T",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 23.18547,
+      "etri-dev0002-raspi5": 24.117355,
+      "etri-ser0002-cgnmsb": 8.011649,
+      "etri-dev0006-raspi5": 23.203911,
+      "etri-dev0008-raspi5": 22.861954,
+      "etri-dev0009-jetorn": 53.306194,
+      "etri-ser0001-cg0msb": 16.209716,
+      "etri-ser0003-cg0ms0": 6.427525,
+      "etri-ser0004-cgnms0": 13.222706
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 1000.0,
+     "memory_mib": 1024.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0009-jetorn",
+       "bytes": 202,
+       "transfer_ms": {
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 4.354603122919798,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 3.1146779656410217,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 2.028800023254007,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 2.419465919956565,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 3.051857987884432,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 2.523461007513106,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 3.7175369943724945,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 2.9852581210434437,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 3.307696897536516
+       }
+      }
+     ]
+    },
+    {
+     "id": "F",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 0.099833,
+      "etri-dev0002-raspi5": 0.096167,
+      "etri-ser0002-cgnmsb": 0.064822,
+      "etri-dev0006-raspi5": 0.070759,
+      "etri-dev0008-raspi5": 0.083776,
+      "etri-dev0009-jetorn": 0.120484,
+      "etri-ser0001-cg0msb": 0.204288,
+      "etri-ser0003-cg0ms0": 0.034256,
+      "etri-ser0004-cgnms0": 0.084338
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 250.0,
+     "memory_mib": 384.0,
+     "inputs": [
+      {
+       "task": "V",
+       "bytes": 1433,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.8738648612052202,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 1.4557200483977795,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 2.2086690296418965,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.7448230646550655,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.5429500199388713,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 2.3284149938263,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 1.1679279996315017,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 1.1377630289644003,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 1.69100402854383,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 2.3103561252355576,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.540499109774828,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.9295629570260644,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.3486959505826235,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.2654739839490503,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 1.94446905516088,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 1.13789300667122,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.4001009985804558,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 1.7499360255897045,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 2.4373559281229973,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 2.325071021914482,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.5880450480617583,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.244227100163698,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 1.9411820103414357,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 2.845901995897293,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.6756490038242191,
+        "etri-ser0002-cgnmsb|etri-ser0003-cg0ms0": 1.7176540568470955,
+        "etri-ser0002-cgnmsb|etri-ser0004-cgnms0": 3.2630639616400003,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.2008820194751024,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 1.3252377975732088,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.2019469868391752,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.7045329548418522,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.3999149960000068,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 1.9800220034085214,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 1.2381720007397234,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 1.2368359602987766,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 1.7454761546105146,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.5551748219877481,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 1.1926637962460518,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.1078359675593674,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.6610461752861738,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.8642039902042598,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 1.5837869723327458,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.9419929992873222,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 1.0917000472545624,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 1.721760956570506,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 2.4896329268813133,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 6.543803960084915,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.9655590294860303,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 2.8768531046807766,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.5455760187469423,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 1.3335080002434552,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 2.2767820046283305,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 2.3363111540675163,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 2.9379460029304028,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.1573021076619625,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.7004229594022036,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 1.357481989543885,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.0441229678690434,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9201850043609738,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 1.2146570370532572,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.4900350031675771,
+        "etri-ser0001-cg0msb|etri-ser0003-cg0ms0": 2.1026311442255974,
+        "etri-ser0001-cg0msb|etri-ser0004-cgnms0": 2.090970054268837,
+        "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 2.048635855317116,
+        "etri-ser0003-cg0ms0|etri-dev0002-raspi5": 1.3469611294567585,
+        "etri-ser0003-cg0ms0|etri-ser0002-cgnmsb": 2.132897963747382,
+        "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 1.562250079587102,
+        "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.8569979874882847,
+        "etri-ser0003-cg0ms0|etri-dev0009-jetorn": 2.479682967532426,
+        "etri-ser0003-cg0ms0|etri-ser0001-cg0msb": 1.2574410066008568,
+        "etri-ser0003-cg0ms0|etri-ser0003-cg0ms0": 0.5913779605180025,
+        "etri-ser0003-cg0ms0|etri-ser0004-cgnms0": 1.8884390592575073,
+        "etri-ser0004-cgnms0|etri-dev0003-raspi5": 2.665890846401453,
+        "etri-ser0004-cgnms0|etri-dev0002-raspi5": 2.2789028007537127,
+        "etri-ser0004-cgnms0|etri-ser0002-cgnmsb": 1.31055002566427,
+        "etri-ser0004-cgnms0|etri-dev0006-raspi5": 2.2338570561259985,
+        "etri-ser0004-cgnms0|etri-dev0008-raspi5": 2.1584919886663556,
+        "etri-ser0004-cgnms0|etri-dev0009-jetorn": 2.6324240025132895,
+        "etri-ser0004-cgnms0|etri-ser0001-cg0msb": 1.1298649915261194,
+        "etri-ser0004-cgnms0|etri-ser0003-cg0ms0": 1.83261395432055,
+        "etri-ser0004-cgnms0|etri-ser0004-cgnms0": 1.0921231005340815
+       }
+      },
+      {
+       "task": "T",
+       "bytes": 2612,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.7805880159139633,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 1.503275940194726,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 1.4509010361507535,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.312528969720006,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.5439300041180104,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 1.9392849644646049,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 1.266942999791354,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 1.2278440408408642,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 1.621719915419817,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.7494710627943277,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.5397771019488573,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.7785600028000772,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.1523999273777008,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.2912880047224462,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 1.6455809818580747,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.9920129959937185,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.2324198614805937,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 2.0258398726582527,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 1.7270450480282307,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 1.7729040700942278,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.4211870254948735,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.0095990039408207,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 1.5840780106373131,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 1.4801680226810277,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.6821889983257279,
+        "etri-ser0002-cgnmsb|etri-ser0003-cg0ms0": 1.2237320188432932,
+        "etri-ser0002-cgnmsb|etri-ser0004-cgnms0": 1.5161300543695688,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.235585194081068,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 1.087517011910677,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.0148239671252668,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.654533039778471,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.3353800168260932,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 1.7338719917461276,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 1.0486450046300888,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 1.2188521213829517,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 1.3766330666840076,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.5311751049011946,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 1.0959981009364128,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 0.8945079753175378,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.360936090350151,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.7554100011475384,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 1.341187977232039,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.8531339990440756,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 1.0521160438656807,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 1.3728609774261713,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 1.9874318968504667,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 1.9907751120626926,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.4477689983323216,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 1.9866919610649347,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.0918819936923683,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 1.276290975511074,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 1.2985689972992986,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 1.677701948210597,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 2.3305630311369896,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.8402230236679316,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 2.0515338983386755,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 1.4386370312422514,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.21977087110281,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9266659908462316,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 1.3509170385077596,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.43932200060226023,
+        "etri-ser0001-cg0msb|etri-ser0003-cg0ms0": 2.091767033562064,
+        "etri-ser0001-cg0msb|etri-ser0004-cgnms0": 1.1830830480903387,
+        "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 1.6611011233180761,
+        "etri-ser0003-cg0ms0|etri-dev0002-raspi5": 1.0540538933128119,
+        "etri-ser0003-cg0ms0|etri-ser0002-cgnmsb": 1.6969989519566298,
+        "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 2.0123207941651344,
+        "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.7959250253625214,
+        "etri-ser0003-cg0ms0|etri-dev0009-jetorn": 1.889299019239843,
+        "etri-ser0003-cg0ms0|etri-ser0001-cg0msb": 2.173843007767573,
+        "etri-ser0003-cg0ms0|etri-ser0003-cg0ms0": 0.6127378437668085,
+        "etri-ser0003-cg0ms0|etri-ser0004-cgnms0": 1.514167059212923,
+        "etri-ser0004-cgnms0|etri-dev0003-raspi5": 2.129172207787633,
+        "etri-ser0004-cgnms0|etri-dev0002-raspi5": 1.5549238305538893,
+        "etri-ser0004-cgnms0|etri-ser0002-cgnmsb": 1.3028799439780414,
+        "etri-ser0004-cgnms0|etri-dev0006-raspi5": 2.050969051197171,
+        "etri-ser0004-cgnms0|etri-dev0008-raspi5": 3.435835998971015,
+        "etri-ser0004-cgnms0|etri-dev0009-jetorn": 3.1633179751224816,
+        "etri-ser0004-cgnms0|etri-ser0001-cg0msb": 1.1202840105397627,
+        "etri-ser0004-cgnms0|etri-ser0003-cg0ms0": 1.2824530713260174,
+        "etri-ser0004-cgnms0|etri-ser0004-cgnms0": 0.9746418800204992
+       }
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "task": "F",
+     "destination_node": "etri-dev0006-raspi5",
+     "transfer_ms": {
+      "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.3515290338546038,
+      "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.5177500899881124,
+      "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.2527638357132673,
+      "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.7864388171583414,
+      "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.3941400684416294,
+      "etri-dev0009-jetorn|etri-dev0006-raspi5": 2.004247158765793,
+      "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.3636210933327675,
+      "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 2.3322629276663065,
+      "etri-ser0004-cgnms0|etri-dev0006-raspi5": 1.6845089849084616
+     }
+    }
+   ],
+   "workflow": "w2",
+   "representation": "frozen decoded PNG frame / UTF-8 sentence"
+  },
+  "w3": {
+   "provenance": "measured",
+   "evidence_id": "mes-live-20261022t101935z/qualification+transfer-probes",
+   "namespace": "topology-profile-lab",
+   "nodes": {
+    "etri-dev0003-raspi5": {
+     "cpu_free_m": 2215.0,
+     "memory_free_mib": 6798.9375
+    },
+    "etri-dev0002-raspi5": {
+     "cpu_free_m": 2930.0,
+     "memory_free_mib": 15558.921875
+    },
+    "etri-ser0002-cgnmsb": {
+     "cpu_free_m": 21840.0,
+     "memory_free_mib": 28913.5390625
+    },
+    "etri-dev0006-raspi5": {
+     "cpu_free_m": 2280.0,
+     "memory_free_mib": 2881.140625
+    },
+    "etri-dev0008-raspi5": {
+     "cpu_free_m": 2285.0,
+     "memory_free_mib": 2901.125
+    },
+    "etri-dev0009-jetorn": {
+     "cpu_free_m": 5175.0,
+     "memory_free_mib": 6953.62890625
+    },
+    "etri-ser0001-cg0msb": {
+     "cpu_free_m": 19145.0,
+     "memory_free_mib": 121186.484375
+    },
+    "etri-ser0003-cg0ms0": {
+     "cpu_free_m": 17065.0,
+     "memory_free_mib": 118552.10546875
+    },
+    "etri-ser0004-cgnms0": {
+     "cpu_free_m": 14090.0,
+     "memory_free_mib": 30048.26171875
+    }
+   },
+   "tasks": [
+    {
+     "id": "V",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 213.25624399999998,
+      "etri-dev0002-raspi5": 247.563525,
+      "etri-ser0002-cgnmsb": 46.144682,
+      "etri-dev0006-raspi5": 213.503897,
+      "etri-dev0008-raspi5": 212.026838,
+      "etri-dev0009-jetorn": 308.361291,
+      "etri-ser0001-cg0msb": 42.359553,
+      "etri-ser0003-cg0ms0": 62.515354,
+      "etri-ser0004-cgnms0": 86.216702
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 2000.0,
+     "memory_mib": 1536.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0008-raspi5",
+       "bytes": 515460,
+       "transfer_ms": {
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 47.40989697165787,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 5.993407918140292,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 6.266276002861559,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 6.764475954696536,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 1.1695619905367494,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 7.175556966103613,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 6.163073994684964,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 6.487205158919096,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 6.782259093597531
+       }
+      }
+     ]
+    },
+    {
+     "id": "T",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 36.119947,
+      "etri-dev0002-raspi5": 30.174453,
+      "etri-ser0002-cgnmsb": 8.587762,
+      "etri-dev0006-raspi5": 25.807043,
+      "etri-dev0008-raspi5": 24.984098,
+      "etri-dev0009-jetorn": 53.712733,
+      "etri-ser0001-cg0msb": 12.582743,
+      "etri-ser0003-cg0ms0": 6.829926,
+      "etri-ser0004-cgnms0": 17.279338
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 1000.0,
+     "memory_mib": 1024.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0002-raspi5",
+       "bytes": 215,
+       "transfer_ms": {
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.793969888240099,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 1.0029240511357784,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 1.0960520012304187,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.624268013983965,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.3769310025963932,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 2.4368020240217447,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 1.3086069957353175,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.6405500937253237,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 1.883479068055749
+       }
+      }
+     ]
+    },
+    {
+     "id": "F",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 0.105185,
+      "etri-dev0002-raspi5": 0.088648,
+      "etri-ser0002-cgnmsb": 0.061484,
+      "etri-dev0006-raspi5": 0.083055,
+      "etri-dev0008-raspi5": 0.08585,
+      "etri-dev0009-jetorn": 0.141156,
+      "etri-ser0001-cg0msb": 0.205091,
+      "etri-ser0003-cg0ms0": 0.024785,
+      "etri-ser0004-cgnms0": 0.082937
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 250.0,
+     "memory_mib": 384.0,
+     "inputs": [
+      {
+       "task": "V",
+       "bytes": 1640,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.8738648612052202,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 1.4557200483977795,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 2.2086690296418965,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.7448230646550655,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.5429500199388713,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 2.3284149938263,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 1.1679279996315017,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 1.1377630289644003,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 1.69100402854383,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 2.3103561252355576,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.540499109774828,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.9295629570260644,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.3486959505826235,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.2654739839490503,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 1.94446905516088,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 1.13789300667122,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.4001009985804558,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 1.7499360255897045,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 2.4373559281229973,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 2.325071021914482,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.5880450480617583,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.244227100163698,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 1.9411820103414357,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 2.845901995897293,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.6756490038242191,
+        "etri-ser0002-cgnmsb|etri-ser0003-cg0ms0": 1.7176540568470955,
+        "etri-ser0002-cgnmsb|etri-ser0004-cgnms0": 3.2630639616400003,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.2008820194751024,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 1.3252377975732088,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.2019469868391752,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.7045329548418522,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.3999149960000068,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 1.9800220034085214,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 1.2381720007397234,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 1.2368359602987766,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 1.7454761546105146,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.5551748219877481,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 1.1926637962460518,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.1078359675593674,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.6610461752861738,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.8642039902042598,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 1.5837869723327458,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.9419929992873222,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 1.0917000472545624,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 1.721760956570506,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 2.4896329268813133,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 6.543803960084915,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.9655590294860303,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 2.8768531046807766,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.5455760187469423,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 1.3335080002434552,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 2.2767820046283305,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 2.3363111540675163,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 2.9379460029304028,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.1573021076619625,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.7004229594022036,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 1.357481989543885,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.0441229678690434,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9201850043609738,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 1.2146570370532572,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.4900350031675771,
+        "etri-ser0001-cg0msb|etri-ser0003-cg0ms0": 2.1026311442255974,
+        "etri-ser0001-cg0msb|etri-ser0004-cgnms0": 2.090970054268837,
+        "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 2.048635855317116,
+        "etri-ser0003-cg0ms0|etri-dev0002-raspi5": 1.3469611294567585,
+        "etri-ser0003-cg0ms0|etri-ser0002-cgnmsb": 2.132897963747382,
+        "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 1.562250079587102,
+        "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.8569979874882847,
+        "etri-ser0003-cg0ms0|etri-dev0009-jetorn": 2.479682967532426,
+        "etri-ser0003-cg0ms0|etri-ser0001-cg0msb": 1.2574410066008568,
+        "etri-ser0003-cg0ms0|etri-ser0003-cg0ms0": 0.5913779605180025,
+        "etri-ser0003-cg0ms0|etri-ser0004-cgnms0": 1.8884390592575073,
+        "etri-ser0004-cgnms0|etri-dev0003-raspi5": 2.665890846401453,
+        "etri-ser0004-cgnms0|etri-dev0002-raspi5": 2.2789028007537127,
+        "etri-ser0004-cgnms0|etri-ser0002-cgnmsb": 1.31055002566427,
+        "etri-ser0004-cgnms0|etri-dev0006-raspi5": 2.2338570561259985,
+        "etri-ser0004-cgnms0|etri-dev0008-raspi5": 2.1584919886663556,
+        "etri-ser0004-cgnms0|etri-dev0009-jetorn": 2.6324240025132895,
+        "etri-ser0004-cgnms0|etri-ser0001-cg0msb": 1.1298649915261194,
+        "etri-ser0004-cgnms0|etri-ser0003-cg0ms0": 1.83261395432055,
+        "etri-ser0004-cgnms0|etri-ser0004-cgnms0": 1.0921231005340815
+       }
+      },
+      {
+       "task": "T",
+       "bytes": 2625,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.7805880159139633,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 1.503275940194726,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 1.4509010361507535,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 1.312528969720006,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.5439300041180104,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 1.9392849644646049,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 1.266942999791354,
+        "etri-dev0003-raspi5|etri-ser0003-cg0ms0": 1.2278440408408642,
+        "etri-dev0003-raspi5|etri-ser0004-cgnms0": 1.621719915419817,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.7494710627943277,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.5397771019488573,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.7785600028000772,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 1.1523999273777008,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.2912880047224462,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 1.6455809818580747,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.9920129959937185,
+        "etri-dev0002-raspi5|etri-ser0003-cg0ms0": 1.2324198614805937,
+        "etri-dev0002-raspi5|etri-ser0004-cgnms0": 2.0258398726582527,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 1.7270450480282307,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 1.7729040700942278,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.4211870254948735,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 2.0095990039408207,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 1.5840780106373131,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 1.4801680226810277,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.6821889983257279,
+        "etri-ser0002-cgnmsb|etri-ser0003-cg0ms0": 1.2237320188432932,
+        "etri-ser0002-cgnmsb|etri-ser0004-cgnms0": 1.5161300543695688,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.235585194081068,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 1.087517011910677,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.0148239671252668,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.654533039778471,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.3353800168260932,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 1.7338719917461276,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 1.0486450046300888,
+        "etri-dev0006-raspi5|etri-ser0003-cg0ms0": 1.2188521213829517,
+        "etri-dev0006-raspi5|etri-ser0004-cgnms0": 1.3766330666840076,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.5311751049011946,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 1.0959981009364128,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 0.8945079753175378,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 1.360936090350151,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.7554100011475384,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 1.341187977232039,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.8531339990440756,
+        "etri-dev0008-raspi5|etri-ser0003-cg0ms0": 1.0521160438656807,
+        "etri-dev0008-raspi5|etri-ser0004-cgnms0": 1.3728609774261713,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 1.9874318968504667,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 1.9907751120626926,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.4477689983323216,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 1.9866919610649347,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.0918819936923683,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 1.276290975511074,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 1.2985689972992986,
+        "etri-dev0009-jetorn|etri-ser0003-cg0ms0": 1.677701948210597,
+        "etri-dev0009-jetorn|etri-ser0004-cgnms0": 2.3305630311369896,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 2.8402230236679316,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 2.0515338983386755,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 1.4386370312422514,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 1.21977087110281,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9266659908462316,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 1.3509170385077596,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.43932200060226023,
+        "etri-ser0001-cg0msb|etri-ser0003-cg0ms0": 2.091767033562064,
+        "etri-ser0001-cg0msb|etri-ser0004-cgnms0": 1.1830830480903387,
+        "etri-ser0003-cg0ms0|etri-dev0003-raspi5": 1.6611011233180761,
+        "etri-ser0003-cg0ms0|etri-dev0002-raspi5": 1.0540538933128119,
+        "etri-ser0003-cg0ms0|etri-ser0002-cgnmsb": 1.6969989519566298,
+        "etri-ser0003-cg0ms0|etri-dev0006-raspi5": 2.0123207941651344,
+        "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.7959250253625214,
+        "etri-ser0003-cg0ms0|etri-dev0009-jetorn": 1.889299019239843,
+        "etri-ser0003-cg0ms0|etri-ser0001-cg0msb": 2.173843007767573,
+        "etri-ser0003-cg0ms0|etri-ser0003-cg0ms0": 0.6127378437668085,
+        "etri-ser0003-cg0ms0|etri-ser0004-cgnms0": 1.514167059212923,
+        "etri-ser0004-cgnms0|etri-dev0003-raspi5": 2.129172207787633,
+        "etri-ser0004-cgnms0|etri-dev0002-raspi5": 1.5549238305538893,
+        "etri-ser0004-cgnms0|etri-ser0002-cgnmsb": 1.3028799439780414,
+        "etri-ser0004-cgnms0|etri-dev0006-raspi5": 2.050969051197171,
+        "etri-ser0004-cgnms0|etri-dev0008-raspi5": 3.435835998971015,
+        "etri-ser0004-cgnms0|etri-dev0009-jetorn": 3.1633179751224816,
+        "etri-ser0004-cgnms0|etri-ser0001-cg0msb": 1.1202840105397627,
+        "etri-ser0004-cgnms0|etri-ser0003-cg0ms0": 1.2824530713260174,
+        "etri-ser0004-cgnms0|etri-ser0004-cgnms0": 0.9746418800204992
+       }
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "task": "F",
+     "destination_node": "etri-dev0008-raspi5",
+     "transfer_ms": {
+      "etri-dev0003-raspi5|etri-dev0008-raspi5": 1.8697020132094622,
+      "etri-dev0002-raspi5|etri-dev0008-raspi5": 1.4097300008870661,
+      "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 2.4615970032755286,
+      "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.4995060046203434,
+      "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.8410009904764593,
+      "etri-dev0009-jetorn|etri-dev0008-raspi5": 2.3350260162260383,
+      "etri-ser0001-cg0msb|etri-dev0008-raspi5": 1.0827190126292408,
+      "etri-ser0003-cg0ms0|etri-dev0008-raspi5": 1.8744980043265969,
+      "etri-ser0004-cgnms0|etri-dev0008-raspi5": 2.6414080057293177
+     }
+    }
+   ],
+   "workflow": "w3",
+   "representation": "frozen decoded PNG frame / UTF-8 sentence"
+  }
+ },
+ "candidates": {
+  "w1": {
+   "candidates": {
+    "V": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "T": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "F": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ]
+   },
+   "removed_for_missing_transfer": [],
+   "cost_components": {
+    "V": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 11.536893,
+      "compute_ms": 209.138898
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 10.69319,
+      "compute_ms": 232.480647
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 6.927302,
+      "compute_ms": 42.589137
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 10.399268,
+      "compute_ms": 206.414478
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 10.397561,
+      "compute_ms": 197.954092
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 26.579129,
+      "compute_ms": 289.305251
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 5.79752,
+      "compute_ms": 36.775827
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 4.674687,
+      "compute_ms": 46.234693
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 11.776783,
+      "compute_ms": 70.227615
+     }
+    },
+    "T": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 36.119947
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 30.174453
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0.0,
+      "compute_ms": 8.587762
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 25.807043
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 24.984098
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0.0,
+      "compute_ms": 53.712733
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0.0,
+      "compute_ms": 12.582743
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 0.0,
+      "compute_ms": 6.829926
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 0.0,
+      "compute_ms": 17.279338
+     }
+    },
+    "F": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.107629
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.104036
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0,
+      "compute_ms": 0.098622
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.079037
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.073998
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0,
+      "compute_ms": 0.158148
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0,
+      "compute_ms": 0.218178
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 0,
+      "compute_ms": 0.041504
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 0,
+      "compute_ms": 0.094155
+     }
+    }
+   },
+   "cost_rule": "V execution = median(decode_ms + compute_ms) per row; T/F = median(compute_ms); fetch_ms is transfer",
+   "excluded_by_quality": {
+    "V": [],
+    "T": [],
+    "F": []
+   }
+  },
+  "w2": {
+   "candidates": {
+    "V": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "T": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "F": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ]
+   },
+   "removed_for_missing_transfer": [],
+   "cost_components": {
+    "V": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 10.813583,
+      "compute_ms": 215.643896
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 10.513209,
+      "compute_ms": 232.150211
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 6.083813,
+      "compute_ms": 38.639416
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 10.759636,
+      "compute_ms": 201.328419
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 10.727984,
+      "compute_ms": 201.170652
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 15.796497,
+      "compute_ms": 287.177287
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 7.360223,
+      "compute_ms": 36.128313
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 7.040359,
+      "compute_ms": 55.353763
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 14.063847,
+      "compute_ms": 69.656349
+     }
+    },
+    "T": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 23.18547
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 24.117355
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0.0,
+      "compute_ms": 8.011649
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 23.203911
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 22.861954
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0.0,
+      "compute_ms": 53.306194
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0.0,
+      "compute_ms": 16.209716
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 0.0,
+      "compute_ms": 6.427525
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 0.0,
+      "compute_ms": 13.222706
+     }
+    },
+    "F": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.099833
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.096167
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0,
+      "compute_ms": 0.064822
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.070759
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.083776
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0,
+      "compute_ms": 0.120484
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0,
+      "compute_ms": 0.204288
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 0,
+      "compute_ms": 0.034256
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 0,
+      "compute_ms": 0.084338
+     }
+    }
+   },
+   "cost_rule": "V execution = median(decode_ms + compute_ms) per row; T/F = median(compute_ms); fetch_ms is transfer",
+   "excluded_by_quality": {
+    "V": [],
+    "T": [],
+    "F": []
+   }
+  },
+  "w3": {
+   "candidates": {
+    "V": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "T": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "F": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb",
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ]
+   },
+   "removed_for_missing_transfer": [],
+   "cost_components": {
+    "V": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 11.284339,
+      "compute_ms": 201.971905
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 11.248874,
+      "compute_ms": 236.314651
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 6.354339,
+      "compute_ms": 39.835188
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 11.263355,
+      "compute_ms": 202.321079
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 11.255071,
+      "compute_ms": 200.771767
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 19.001097,
+      "compute_ms": 289.488517
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 6.061456,
+      "compute_ms": 36.111052
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 7.962105,
+      "compute_ms": 54.521104
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 13.862718,
+      "compute_ms": 72.353984
+     }
+    },
+    "T": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 36.119947
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 30.174453
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0.0,
+      "compute_ms": 8.587762
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 25.807043
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 24.984098
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0.0,
+      "compute_ms": 53.712733
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0.0,
+      "compute_ms": 12.582743
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 0.0,
+      "compute_ms": 6.829926
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 0.0,
+      "compute_ms": 17.279338
+     }
+    },
+    "F": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.105185
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.088648
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0,
+      "compute_ms": 0.061484
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.083055
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.08585
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0,
+      "compute_ms": 0.141156
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0,
+      "compute_ms": 0.205091
+     },
+     "etri-ser0003-cg0ms0": {
+      "decode_ms": 0,
+      "compute_ms": 0.024785
+     },
+     "etri-ser0004-cgnms0": {
+      "decode_ms": 0,
+      "compute_ms": 0.082937
+     }
+    }
+   },
+   "cost_rule": "V execution = median(decode_ms + compute_ms) per row; T/F = median(compute_ms); fetch_ms is transfer",
+   "excluded_by_quality": {
+    "V": [],
+    "T": [],
+    "F": []
+   }
+  }
+ },
+ "payload_sizes": {
+  "w1": {
+   "frame": 481652,
+   "text": 215,
+   "V": 1653,
+   "T": 2625,
+   "categories": {
+    "V_task_bytes": 738,
+    "T_task_bytes": 1717,
+    "F_task_bytes": 341,
+    "F_receipt_envelope_bytes": 2480
+   },
+   "F": 2821
+  },
+  "w2": {
+   "frame": 305044,
+   "text": 202,
+   "V": 1433,
+   "T": 2612,
+   "categories": {
+    "V_task_bytes": 517,
+    "T_task_bytes": 1705,
+    "F_task_bytes": 324,
+    "F_receipt_envelope_bytes": 2478
+   },
+   "F": 2804
+  },
+  "w3": {
+   "frame": 515460,
+   "text": 215,
+   "V": 1640,
+   "T": 2625,
+   "categories": {
+    "V_task_bytes": 724,
+    "T_task_bytes": 1717,
+    "F_task_bytes": 341,
+    "F_receipt_envelope_bytes": 2480
+   },
+   "F": 2822
+  }
+ }
+}

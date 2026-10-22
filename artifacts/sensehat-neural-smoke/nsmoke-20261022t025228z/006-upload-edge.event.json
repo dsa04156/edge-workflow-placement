@@ -1,0 +1,23 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "nsmoke-20261022t025228z-edge",
+    "--",
+    "python3",
+    "-c",
+    "import tarfile,sys,zipfile;tarfile.open(fileobj=sys.stdin.buffer,mode='r|').extractall('/work',filter='data');zipfile.ZipFile('/work/numpy.whl').extractall('/work/site');print('installed',flush=True)"
+  ],
+  "finished_at": "2026-10-22T02:52:32.767273+00:00",
+  "returncode": 0,
+  "started_at": "2026-10-22T02:52:30.833652+00:00",
+  "status": "completed",
+  "timeout_s": 120,
+  "wall_ms": 1933.6265579986502
+}

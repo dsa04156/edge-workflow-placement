@@ -18,7 +18,7 @@ import time
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 ASSETS = ROOT / 'artifacts/topology-profile-live'
-IMAGE = '192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f'
+IMAGE = '10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f'
 NODES = {'e0': 'etri-dev0003-raspi5', 'e1': 'etri-dev0002-raspi5', 'c': 'etri-ser0002-cgnmsb'}
 NS = 'topology-profile-lab'
 

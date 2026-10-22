@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-20T11:46:15.363309+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t114454-source-e1",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import os;assert os.environ['POD_UID']=='4c1a6f7e-18d6-4b92-8e46-37a41a9679c7';import urllib.request,json;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));\ntry:\n op.open('http://10.244.8.205:8080/health',timeout=2);print(json.dumps({'blocked':False}))\nexcept Exception as e:print(json.dumps({'blocked':True,'error':repr(e)}))"
+  ],
+  "timeout_s": 10,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T11:46:15.777677+00:00"
+}

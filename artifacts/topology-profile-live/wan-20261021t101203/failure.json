@@ -1,0 +1,28 @@
+{
+  "error": "RuntimeError('976-guard-False-sink-e0-receipt-2 failed; inspect phase stderr')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py\", line 334, in collect\n    session.remove_operators(label)\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py\", line 184, in remove_operators\n    if self.guarded: self.guard(False)\n                     ^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py\", line 131, in guard\n    self.net(key,dict(action='block' if enabled else 'unblock',destinations=targets),'guard-'+str(enabled)+'-'+key)\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_budget_placement.py\", line 84, in net\n    return json.loads(self.execute_control(key,code,json.dumps(spec),stem))\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_budget_placement.py\", line 97, in execute_control\n    result=self.call(tag,['exec','-n',NS,self.run+'-'+key,'-c','netctl','--','python3','-u','-c',wrapped],timeout=60)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py\", line 274, in call\n    return super().call(stem, args, stdin, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_load.py\", line 54, in call\n    raise RuntimeError(tag+' failed; inspect phase stderr')\nRuntimeError: 976-guard-False-sink-e0-receipt-2 failed; inspect phase stderr\n",
+  "partial_mapping": {
+    "compressed-10": {
+      "kube-default": "eval-0-compressed-10",
+      "greedy": "eval-0-compressed-10",
+      "heft": "eval-0-compressed-10",
+      "greedy-swap": "eval-0-compressed-10",
+      "exact": "eval-0-compressed-10",
+      "no-network": "eval-0-compressed-10"
+    },
+    "compressed-2": {
+      "kube-default": "eval-1-compressed-2",
+      "no-network": "eval-1-compressed-2",
+      "greedy": "eval-2-compressed-2",
+      "heft": "eval-2-compressed-2",
+      "greedy-swap": "eval-2-compressed-2",
+      "exact": "eval-2-compressed-2"
+    }
+  },
+  "completed_labels": [
+    "eval-0-compressed-10",
+    "eval-1-compressed-2",
+    "eval-2-compressed-2"
+  ],
+  "scheduled": 3
+}

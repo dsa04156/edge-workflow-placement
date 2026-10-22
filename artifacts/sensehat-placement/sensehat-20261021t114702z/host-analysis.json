@@ -1,0 +1,133 @@
+{
+  "verify_exit": 1,
+  "stats": {
+    "edge-all": {
+      "n": 9,
+      "median_ms": 4.214474931359291,
+      "mean_ms": 7.823808765452769,
+      "min_ms": 4.01016091927886,
+      "max_ms": 36.54522309079766,
+      "median_compute_sum_ms": 0.27647893875837326
+    },
+    "mixed": {
+      "n": 9,
+      "median_ms": 6.581163965165615,
+      "mean_ms": 10.386931244283915,
+      "min_ms": 5.012137116864324,
+      "max_ms": 40.348664158955216,
+      "median_compute_sum_ms": 0.27485296595841646
+    },
+    "server-all": {
+      "n": 9,
+      "median_ms": 7.790175033733249,
+      "mean_ms": 8.676809672680166,
+      "min_ms": 4.489417187869549,
+      "max_ms": 14.40200605429709,
+      "median_compute_sum_ms": 0.38221600698307157
+    }
+  },
+  "edge_median_reduction_vs_server_pct": 45.9001253102832,
+  "t1_input_bytes_range": [
+    8250,
+    8440
+  ],
+  "mutation_commands": [
+    {
+      "file": "002-configmap-dry-run.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "apply",
+        "--dry-run=server",
+        "-f",
+        "-"
+      ],
+      "returncode": 0
+    },
+    {
+      "file": "003-configmap.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "apply",
+        "-f",
+        "-"
+      ],
+      "returncode": 0
+    },
+    {
+      "file": "004-scheduler-probe-dry-run.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "apply",
+        "--dry-run=server",
+        "-f",
+        "-"
+      ],
+      "returncode": 0
+    },
+    {
+      "file": "005-scheduler-probe.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "apply",
+        "-f",
+        "-"
+      ],
+      "returncode": 0
+    },
+    {
+      "file": "011-pool-dry-run.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "apply",
+        "--dry-run=server",
+        "-f",
+        "-"
+      ],
+      "returncode": 0
+    },
+    {
+      "file": "012-pool.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "apply",
+        "-f",
+        "-"
+      ],
+      "returncode": 0
+    },
+    {
+      "file": "075-cleanup.event.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "kubectl",
+        "--request-timeout=20s",
+        "delete",
+        "-f",
+        "-",
+        "--ignore-not-found=true",
+        "--wait=false"
+      ],
+      "returncode": 0
+    }
+  ],
+  "limit": "Three pre-existing Pods disappeared in ebpf-baseline-main-20261021-0; no attribution inferred. All submitted mutations scoped to owned manifest resources. Overall verifier failed its unchanged-protected-workload check."
+}

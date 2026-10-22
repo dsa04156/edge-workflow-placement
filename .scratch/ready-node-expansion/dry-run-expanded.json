@@ -1,0 +1,218 @@
+{
+  "comparison": "scheduling-baseline-smoke-v1",
+  "scope": "one block smoke comparison; no CI, p95, throughput, independent-environment, new-holdout or original-HEFT reproduction claim",
+  "seed": 20261023,
+  "blocks": 1,
+  "conditions": [
+    {
+      "condition": "compressed-10",
+      "mbps": 10,
+      "oneway_delay_ms": 20,
+      "representation": "compressed"
+    },
+    {
+      "condition": "compressed-2",
+      "mbps": 2,
+      "oneway_delay_ms": 20,
+      "representation": "compressed"
+    }
+  ],
+  "policies": [
+    "kube-default",
+    "greedy",
+    "heft",
+    "greedy-swap",
+    "exact",
+    "no-network"
+  ],
+  "policy_sources": {
+    "greedy": "greedy",
+    "heft": "heft",
+    "exact": "ours",
+    "no-network": "no-network",
+    "greedy-swap": "budget_placement.simple_alternatives",
+    "kube-default": "actual default-scheduler, unpinned within the same candidate nodes"
+  },
+  "calibration_ids": [
+    1713820,
+    3733440,
+    4556100,
+    3355890
+  ],
+  "evaluation_ids": [
+    3506790,
+    5341940,
+    787710
+  ],
+  "qualification": {
+    "warmup_per_task_node": 5,
+    "rows_per_task_node": 12,
+    "task_nodes": 27,
+    "expected_rows": 324
+  },
+  "warmup": 1,
+  "evaluation_count": 3,
+  "rate_rps": 0.1,
+  "deadline_s": 120,
+  "max_workflow_requests": 48,
+  "capacity": "physical requests-based snapshot; no admission_budget or server slot reduction",
+  "scheduler": "one fresh unpinned default-scheduler observation per condition, then re-pinned evaluation",
+  "observation_sharing": "same condition and placement share one observation; never across conditions",
+  "topology": {
+    "name": "ready-nodes-20261022",
+    "sha256": "2b4cf5da1883a3aea4f2cf4e79f651b9abfdfe596b21fe414f93df181899d01f",
+    "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb",
+      "etri-ser0003-cg0ms0",
+      "etri-ser0004-cgnms0"
+    ],
+    "roles": {
+      "etri-dev0003-raspi5": "edge",
+      "etri-dev0002-raspi5": "edge",
+      "etri-ser0002-cgnmsb": "cloud",
+      "etri-dev0006-raspi5": "edge",
+      "etri-dev0008-raspi5": "edge",
+      "etri-dev0009-jetorn": "edge",
+      "etri-ser0001-cg0msb": "cloud",
+      "etri-ser0003-cg0ms0": "cloud",
+      "etri-ser0004-cgnms0": "cloud"
+    },
+    "excluded": [
+      "etri-dev0001-jetorn",
+      "etri-dev0004-tedger",
+      "etri-dev0007-jetagx"
+    ],
+    "fixed": {
+      "image_source": "etri-dev0003-raspi5",
+      "audio_source": "etri-dev0002-raspi5",
+      "result_destination": "etri-dev0003-raspi5",
+      "helper_gateway_cache": "etri-ser0002-cgnmsb"
+    }
+  },
+  "workload_estimate": {
+    "candidates": 9,
+    "qualification": {
+      "deployments": 27,
+      "requests": 324,
+      "legacy_deployments": 9,
+      "legacy_requests": 108
+    },
+    "transfer_rpcs": {
+      "per_condition": 792,
+      "total": 1584,
+      "legacy_total": 240
+    },
+    "helper_pods": {
+      "total": 20,
+      "legacy_total": 8
+    },
+    "scheduler_observations": 2,
+    "max_workflow_requests": 48,
+    "scope": "request/deployment counts of the frozen design; excludes health, poll, drain, control and retry RPCs; no duration estimate"
+  },
+  "dry_run": true,
+  "sources": {
+    "experiments/real-topology-live/run_baseline_comparison.py": "180bca99ad1034cdb405b2a0874f4de2f14e5ed36596e6fb788ee5030a7de9dc",
+    "experiments/real-topology-live/verify_baseline_comparison.py": "cf0afb1c0e61d52c16e5504849e27c87441c9c333edfbef6ebacf3d5c357deb9",
+    "experiments/real-topology-live/run_placement.py": "9131a2e569aa79f1d65731ff3bb454736dda635cafb008f5d5cf0aaa67bb0478",
+    "experiments/real-topology-live/run_budget_placement.py": "6f81cdc3c52eae98d9612adcb3d7f9c0421bb893a4619481a5b5d722c528108e",
+    "experiments/real-topology-live/run_load.py": "17acae3c58ff9a8222dd0bbdaf12432bcf47aeb19ca59a4e1b190a2eca3c66ef",
+    "experiments/real-topology-live/run_smoke.py": "71c2f47cec7075f0c12677c800041ceebe64aeca745e97f8ef55a3aa8ffa4e93",
+    "experiments/real-topology-live/budget_placement.py": "bd06dd6fe4d9597b1b62a15ad0f3b5f23d7f734079c35ba9731cc691298d6cb3",
+    "experiments/real-topology-live/placement_policies.py": "5d3f10a0ae05ffa9af91d3745df897cc2164b8c13be9e0f698789c2f66cc727b",
+    "experiments/real-topology-live/control_receipt.py": "abd1dc1709f5cbd46ee432b543b3a16558d2b7a9a71d374e5f4f99c93f9f41a6",
+    "experiments/real-topology-live/topology.py": "b20a3a0b731b762fe143eea2530b11fc7426ae694bc4b9f3c42b10870a7393ee",
+    "experiments/real-topology-profile/prepare.py": "5fd6d9b42bb64e96277bc5c8d7bd474e9ac52732b3591dc29586612d8e1a6c74"
+  },
+  "preflight": {
+    "status": "passed",
+    "errors": [],
+    "candidates": [
+      {
+        "alias": "e0",
+        "name": "etri-dev0003-raspi5",
+        "role": "edge",
+        "arch": "arm64",
+        "ok": true
+      },
+      {
+        "alias": "e1",
+        "name": "etri-dev0002-raspi5",
+        "role": "edge",
+        "arch": "arm64",
+        "ok": true
+      },
+      {
+        "alias": "c",
+        "name": "etri-ser0002-cgnmsb",
+        "role": "cloud",
+        "arch": "amd64",
+        "ok": true
+      },
+      {
+        "alias": "e6",
+        "name": "etri-dev0006-raspi5",
+        "role": "edge",
+        "arch": "arm64",
+        "ok": true
+      },
+      {
+        "alias": "e8",
+        "name": "etri-dev0008-raspi5",
+        "role": "edge",
+        "arch": "arm64",
+        "ok": true
+      },
+      {
+        "alias": "e9",
+        "name": "etri-dev0009-jetorn",
+        "role": "edge",
+        "arch": "arm64",
+        "ok": true
+      },
+      {
+        "alias": "c1",
+        "name": "etri-ser0001-cg0msb",
+        "role": "cloud",
+        "arch": "amd64",
+        "ok": true
+      },
+      {
+        "alias": "c3",
+        "name": "etri-ser0003-cg0ms0",
+        "role": "cloud",
+        "arch": "arm64",
+        "ok": true
+      },
+      {
+        "alias": "c4",
+        "name": "etri-ser0004-cgnms0",
+        "role": "cloud",
+        "arch": "amd64",
+        "ok": true
+      }
+    ],
+    "excluded": {
+      "etri-dev0001-jetorn": {
+        "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+        "observed_ready": false
+      },
+      "etri-dev0004-tedger": {
+        "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+        "observed_ready": false
+      },
+      "etri-dev0007-jetagx": {
+        "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+        "observed_ready": false
+      }
+    },
+    "unlisted_not_candidates": [],
+    "runtime": "image/runtime compatibility unverified until qualification; arch check uses previously qualified arches only"
+  }
+}

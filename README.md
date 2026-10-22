@@ -1,5 +1,13 @@
 # 이종 엣지 AI 워크플로 배치 연구
 
+## 2026-10-22 다중 엣지 센서 입력 배치 실측
+
+[다중 엣지 RTSP·텍스트 소스 파일럿](docs/experiments/multi-edge-sensors-20261022.md): Ready9 노드, 엣지 영상3(RTSP)·텍스트2 source, YOLO11n‖MiniLM→fusion DAG, CPU FP32 ONNX. 68/68 성공·품질 통과·잔여0. exact 중앙값은 task-fastest 대비 3.3–5.6%, kube-default 대비 6.4–10.0% 낮지만 n=3·차이가 SD 규모이고 평균 기준 w2는 역전, greedy-network와 거의 동일하다. 동결 PNG 입력 비교이며 실시간 RTSP E2E가 아니다.
+
+## 2026-10-21 기본 스케줄러 비교 소규모 실측
+
+[6정책 소규모 비교](docs/experiments/scheduling-baseline-smoke-20261021.md): 품질108/108, 평가9/9 성공. 10Mbps에서는 모두 서버 배치, 2Mbps에서는 기본 스케줄러의 서버 배치1,427.91ms 대비 프로파일 기반 엣지 혼합934.51ms였다. 단순 greedy도 같은 배치를 골라 새 알고리즘 고유 이득은 없다. 마지막 네트워크 제어 exec EOF와 보호 workload 변화로 전체 감사는 **partial**이며 소유 자원 정리는 잔여0·오류0이다. 조건·배치당3입력의 진단값으로만 보고한다.
+
 ## 2026-10-20 단순 보완 기준선 고정
 
 [greedy 교환 후 한 작업 이동](docs/experiments/swap-move-baseline.md)을 오프라인
@@ -118,3 +126,5 @@ AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 �
 
 
 - [보유 장비 자동 배치 파일럿 결과](docs/experiments/owned-hardware-placement-pilot.md): Pi2대+CPU 서버, 압축 입력4조건·고유 배치9개·54/54성공.
+
+- [Sense HAT 실제 데이터 배치 진단](docs/experiments/sensehat-placement-20261021.md): 실제 온도·습도·기압,3배치36회 실행. 엣지 중앙값4.21ms; 외부 Pod 변화로 전체 검증은 미통과.

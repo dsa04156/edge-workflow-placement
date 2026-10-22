@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-21T10:11:47.007897+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "wait",
+    "--for=delete",
+    "pod",
+    "-n",
+    "topology-profile-lab",
+    "-l",
+    "run-id=wan-20261021t094522",
+    "--timeout=90s"
+  ],
+  "timeout_s": 100,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-21T10:11:51.479907+00:00"
+}

@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T05:12:45.130173+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t045804-source-e1",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import urllib.request,json;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));\ntry:\n op.open('http://10.244.8.129:8080/health',timeout=2);print(json.dumps({'blocked':False}))\nexcept Exception as e:print(json.dumps({'blocked':True,'error':repr(e)}))"
+  ],
+  "timeout_s": 10,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T05:12:45.544776+00:00"
+}

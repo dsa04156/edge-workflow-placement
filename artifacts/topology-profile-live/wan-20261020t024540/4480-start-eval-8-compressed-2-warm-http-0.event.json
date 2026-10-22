@@ -1,0 +1,40 @@
+{
+  "started_at": "2026-10-20T03:25:48.993704+00:00",
+  "method": "POST",
+  "url": "http://10.244.4.168:8080/start_trace",
+  "timeout_s": 15,
+  "control": {
+    "run_id": "wan-20261020t024540",
+    "phase": "eval-8-compressed-2-warm",
+    "question_ids": [
+      1713820,
+      3733440
+    ],
+    "offsets_s": [
+      0.0,
+      10.0
+    ],
+    "endpoints": {
+      "vision": "http://10.244.4.179:8080",
+      "speech": "http://10.244.1.123:8080",
+      "fusion": "http://10.244.4.180:8080",
+      "vision_fusion": "http://10.244.4.180:8080",
+      "speech_fusion": "http://10.244.4.180:8080"
+    },
+    "remote_source": "http://10.244.1.115:8080",
+    "representation": "compressed",
+    "deadline_s": 120,
+    "max_inflight": 32,
+    "placement": {
+      "vision": "etri-dev0003-raspi5",
+      "speech": "etri-dev0002-raspi5",
+      "fusion": "etri-dev0003-raspi5"
+    },
+    "mbps": 2,
+    "oneway_delay_ms": 20,
+    "rate_rps": 0.1
+  },
+  "status": "completed",
+  "response_json_sha256": "c663c7a034b6341bd4d98b19b55d93cfa6f2db9d7b6ad548c70adda2a7b80ed2",
+  "finished_at": "2026-10-20T03:25:49.005535+00:00"
+}

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "route": "subscription",
+  "routeKind": "claude-code-subscription",
+  "requestedModel": "claude-opus-5-5",
+  "observedModels": {
+    "init": "claude-opus-5-5",
+    "assistant": [
+      "claude-opus-5-5"
+    ],
+    "modelUsage": [
+      "claude-opus-5-5"
+    ]
+  },
+  "unexpectedModels": [],
+  "failureKind": null,
+  "authenticationRequired": false,
+  "syntheticRecords": 0,
+  "fallbackUsed": false,
+  "noFallback": "Single configured subscription route; the adapter never substitutes a model or provider.",
+  "sessionId": "6445d748-bfd4-45e1-acd1-14030a4e07b4",
+  "apiKeySource": "none",
+  "permissionMode": "default",
+  "cliVersion": "2.1.304",
+  "toolsExposed": [
+    "Edit",
+    "Glob",
+    "Grep",
+    "Read",
+    "Write"
+  ],
+  "toolProfile": "files",
+  "tools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep"
+  ],
+  "requiredTools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep"
+  ],
+  "requiredMcpTools": [],
+  "configuredMcpTools": [],
+  "unexpectedTools": [],
+  "missingTools": [],
+  "missingMcp": [],
+  "resumedFrom": null,
+  "result": {
+    "subtype": "success",
+    "isError": false,
+    "numTurns": 3,
+    "durationMs": 12643,
+    "durationApiMs": 12572,
+    "stopReason": "end_turn"
+  },
+  "modelUsage": {
+    "claude-opus-5-5": {
+      "inputTokens": 4,
+      "outputTokens": 330,
+      "cacheReadInputTokens": 10453,
+      "cacheCreationInputTokens": 3214,
+      "costUSD": 0.0344186
+    }
+  },
+  "modelUsageSource": "result.modelUsage (cumulative CLI session totals; use resume-delta.json for this invocation)",
+  "usage": {
+    "route": "subscription",
+    "billing": "not-billed-via-api",
+    "billedUsd": null,
+    "equivalentUsd": 0.0344186,
+    "accountQuota": null,
+    "note": "Claude subscription usage; the CLI cost field is a list-price equivalent, not an actual charge. Account quota is not observable here."
+  },
+  "provisionalMessageUsage": {
+    "messages": 2,
+    "input_tokens": 4,
+    "output_tokens": 136,
+    "cache_read_input_tokens": 10453,
+    "cache_creation_input_tokens": 3214,
+    "note": "Deduplicated per-message snapshots; informational only, never add to modelUsage."
+  },
+  "permissionDenials": [],
+  "toolUses": {
+    "Write": 1,
+    "Read": 1
+  },
+  "toolErrors": 0,
+  "toolFinished": 2,
+  "terminalToolUses": 0,
+  "terminalCommands": 0,
+  "outsideWorkspaceToolUses": [],
+  "stream": {
+    "lines": 8,
+    "malformedLines": 0,
+    "oversizedLines": 0,
+    "duplicateRecords": 0,
+    "duplicateAssistantRecords": 1,
+    "assistantMessages": 2
+  },
+  "events": 11,
+  "errors": [],
+  "warnings": [
+    "1 duplicate assistant record(s) deduplicated"
+  ],
+  "invocationId": "ddfad7d4225cf711a9bdd4ae",
+  "mode": "solo",
+  "profileTransition": null,
+  "runId": "smoke-20261021",
+  "requestId": "smoke-request",
+  "phase": "smoke",
+  "agentId": "opus-smoke",
+  "parentAgentId": "codex-host",
+  "budget": {
+    "authorized": true,
+    "usd": 1,
+    "note": null
+  },
+  "workspace": "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021",
+  "process": {
+    "pid": 707534,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "cancelled": false,
+    "stopReason": null,
+    "spawnError": null
+  },
+  "startedAt": "2026-10-21T02:47:49.005Z",
+  "endedAt": "2026-10-21T02:48:02.818Z",
+  "wallDurationMs": 13813,
+  "deadlineSeconds": 90,
+  "safeMode": true,
+  "mcpConfig": null,
+  "mcpAllowedTools": [],
+  "resumeProfile": [],
+  "files": {
+    "stdout": "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021/run/stdout.jsonl",
+    "stderr": "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021/run/stderr.log",
+    "pid": "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021/run/pid.json",
+    "run": "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021/run/run.json"
+  }
+}

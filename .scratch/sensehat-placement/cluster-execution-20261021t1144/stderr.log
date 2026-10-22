@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/sensehat-placement/run.py", line 489, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/sensehat-placement/run.py", line 132, in main
+    return execute(args.prepared)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/sensehat-placement/run.py", line 405, in execute
+    raise primary
+  File "/home/jinuk/codex-work/scheduler/experiments/sensehat-placement/run.py", line 308, in execute
+    apply('scheduler-probe', scheduler_pods(run))
+  File "/home/jinuk/codex-work/scheduler/experiments/sensehat-placement/run.py", line 275, in apply
+    rec.call(stem + '-dry-run', ['apply', '--dry-run=server', '-f', '-'], body)
+  File "/home/jinuk/codex-work/scheduler/experiments/sensehat-placement/run.py", line 208, in call
+    raise RuntimeError(f'{tag} failed rc={result.returncode}: {stderr[-300:]}')
+RuntimeError: 004-scheduler-probe-dry-run failed rc=1: : error when creating "STDIN": Pod "sensehat-20261021t114403z-sched-t3" is invalid: spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchFields[0].values: Required value: must be only one value when `operator` is 'In' or 'NotIn' for node field selector
+

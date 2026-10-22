@@ -1,0 +1,27 @@
+=== RUN   TestSourcesNotReadyUntilKubeletProcessesInitialPods
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestSourcesNotReadyUntilKubeletProcessesInitialPods
+        --- PASS: TestSourcesNotReadyUntilKubeletProcessesInitialPods (1.51s)
+        PASS
+--- PASS: TestSourcesNotReadyUntilKubeletProcessesInitialPods (2.58s)
+=== RUN   TestPreListPodUpdateDoesNotOpenWindow
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestPreListPodUpdateDoesNotOpenWindow
+        --- PASS: TestPreListPodUpdateDoesNotOpenWindow (0.21s)
+        PASS
+--- PASS: TestPreListPodUpdateDoesNotOpenWindow (1.27s)
+=== RUN   TestNoStallOnEmptyStaleOrFilteredPods
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestNoStallOnEmptyStaleOrFilteredPods
+        I1022 16:40:28.268170 1554855 config.go:363] "Pod failed validation due to duplicate pod name, ignoring" index=1 pod="default/source-e9" source="api"
+        --- PASS: TestNoStallOnEmptyStaleOrFilteredPods (0.00s)
+        PASS
+--- PASS: TestNoStallOnEmptyStaleOrFilteredPods (1.08s)
+=== RUN   TestNoStallOnEmptyList
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestNoStallOnEmptyList
+        --- PASS: TestNoStallOnEmptyList (0.00s)
+        PASS
+--- PASS: TestNoStallOnEmptyList (1.08s)
+PASS
+ok  	github.com/kubeedge/kubeedge/edge/pkg/edged	7.103s

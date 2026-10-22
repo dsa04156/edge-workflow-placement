@@ -1,0 +1,33 @@
+{
+  "pods": [
+    {
+      "name": "kube-scheduler-etri-ser0001-cg0msb",
+      "uid": "c1f998e1-4617-47d8-91f3-8deb124a3970",
+      "node": "etri-ser0001-cg0msb",
+      "config_hash": "e83b81dff3c82e4866b37e0fca7a8be6",
+      "containers": [
+        {
+          "name": "kube-scheduler",
+          "image": "registry.k8s.io/kube-scheduler:v1.31.14",
+          "image_id": "registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler@sha256:346d4b827cfff2bb74489b537e4219382315bed4287adc0faa6fd6ea7d12deaf",
+          "command": [
+            "kube-scheduler",
+            "--authentication-kubeconfig=/etc/kubernetes/scheduler.conf",
+            "--authorization-kubeconfig=/etc/kubernetes/scheduler.conf",
+            "--bind-address=127.0.0.1",
+            "--kubeconfig=/etc/kubernetes/scheduler.conf",
+            "--leader-elect=true"
+          ],
+          "args": [],
+          "mounts": [
+            "/etc/kubernetes/scheduler.conf"
+          ]
+        }
+      ],
+      "host_paths": [
+        "/etc/kubernetes/scheduler.conf"
+      ]
+    }
+  ],
+  "configuration": "captured command/args/mount paths only; config file contents and env not read"
+}

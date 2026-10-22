@@ -1,0 +1,23 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "nsmoke-20261022t025228z-server",
+    "--",
+    "python3",
+    "/work/infer.py",
+    "/work/model.bin",
+    "/work/inputs.json"
+  ],
+  "finished_at": "2026-10-22T02:52:34.450571+00:00",
+  "returncode": 0,
+  "started_at": "2026-10-22T02:52:34.136421+00:00",
+  "status": "completed",
+  "timeout_s": 90,
+  "wall_ms": 314.16162900131894
+}

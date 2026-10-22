@@ -1,0 +1,117 @@
+{
+    "apiVersion": "v1",
+    "kind": "Node",
+    "metadata": {
+        "annotations": {
+            "cloudcore": "10.254.192.47",
+            "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"5e:d0:f3:b4:cd:9e\"}",
+            "flannel.alpha.coreos.com/backend-type": "vxlan",
+            "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+            "flannel.alpha.coreos.com/public-ip": "10.254.192.111",
+            "node.alpha.kubernetes.io/ttl": "0",
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+        },
+        "creationTimestamp": "2026-10-20T11:03:43Z",
+        "labels": {
+            "beta.kubernetes.io/arch": "arm64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "arm64",
+            "kubernetes.io/hostname": "etri-dev0008-raspi5",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/agent": "",
+            "node-role.kubernetes.io/edge": ""
+        },
+        "name": "etri-dev0008-raspi5",
+        "resourceVersion": "50128925",
+        "uid": "19e6bb2d-d5a6-41ce-b236-3ca639d90c19"
+    },
+    "spec": {
+        "podCIDR": "10.244.10.0/24",
+        "podCIDRs": [
+            "10.244.10.0/24"
+        ]
+    },
+    "status": {
+        "addresses": [
+            {
+                "address": "10.254.192.111",
+                "type": "InternalIP"
+            },
+            {
+                "address": "etri-dev0008-raspi5",
+                "type": "Hostname"
+            }
+        ],
+        "allocatable": {
+            "cpu": "4",
+            "ephemeral-storage": "27720570425",
+            "memory": "4043904Ki",
+            "pods": "110"
+        },
+        "capacity": {
+            "cpu": "4",
+            "ephemeral-storage": "30078744Ki",
+            "memory": "4146304Ki",
+            "pods": "110"
+        },
+        "conditions": [
+            {
+                "lastHeartbeatTime": "2026-10-20T11:09:45Z",
+                "lastTransitionTime": "2026-10-20T11:09:45Z",
+                "message": "Flannel is running on this node",
+                "reason": "FlannelIsUp",
+                "status": "False",
+                "type": "NetworkUnavailable"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-20T11:09:24Z",
+                "lastTransitionTime": "2026-10-20T11:03:43Z",
+                "message": "kubelet has sufficient memory available",
+                "reason": "KubeletHasSufficientMemory",
+                "status": "False",
+                "type": "MemoryPressure"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-20T11:09:24Z",
+                "lastTransitionTime": "2026-10-20T11:03:43Z",
+                "message": "kubelet has no disk pressure",
+                "reason": "KubeletHasNoDiskPressure",
+                "status": "False",
+                "type": "DiskPressure"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-20T11:09:24Z",
+                "lastTransitionTime": "2026-10-20T11:03:43Z",
+                "message": "kubelet has sufficient PID available",
+                "reason": "KubeletHasSufficientPID",
+                "status": "False",
+                "type": "PIDPressure"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-20T11:09:24Z",
+                "lastTransitionTime": "2026-10-20T11:05:24Z",
+                "message": "edge is posting ready status",
+                "reason": "EdgeReady",
+                "status": "True",
+                "type": "Ready"
+            }
+        ],
+        "daemonEndpoints": {
+            "kubeletEndpoint": {
+                "Port": 10368
+            }
+        },
+        "nodeInfo": {
+            "architecture": "arm64",
+            "bootID": "660a445a-aee7-4e93-bf0a-6b14b1653da8",
+            "containerRuntimeVersion": "containerd://1.7.24",
+            "kernelVersion": "6.18.34+rpt-rpi-2712",
+            "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+            "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+            "machineID": "fc0a5aa4df6b4c3dbd69c244ff579f50",
+            "operatingSystem": "linux",
+            "osImage": "Debian GNU/Linux 13 (trixie)",
+            "systemUUID": "fc0a5aa4df6b4c3dbd69c244ff579f50"
+        }
+    }
+}

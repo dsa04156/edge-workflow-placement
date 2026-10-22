@@ -1,0 +1,741 @@
+==================
+WARNING: DATA RACE
+Read at 0x00c0000c2508 by goroutine 17:
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:231 +0x4ee
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c0000c2508 by goroutine 18:
+  github.com/kubeedge/kubeedge/pkg/stream.(*attachMockConn).Write()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:165 +0xee
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).receiveFromCloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection.go:82 +0x370
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream.func1.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:225 +0x5d
+
+Goroutine 17 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:215 +0x3af
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Goroutine 18 (running) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:225 +0x490
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c000114000 by goroutine 17:
+  runtime.slicebytetostringtmp()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/string.go:160 +0x0
+  bytes.Equal()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/bytes/bytes.go:21 +0x104
+  github.com/stretchr/testify/assert.ObjectsAreEqual()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertions.go:81 +0x129
+  github.com/stretchr/testify/assert.Equal()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertions.go:469 +0x237
+  github.com/stretchr/testify/assert.(*Assertions).Equal()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertion_forward.go:128 +0xdd
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:231 +0x52c
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c000114000 by goroutine 18:
+  runtime.slicecopy()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/slice.go:355 +0x0
+  github.com/kubeedge/kubeedge/pkg/stream.(*attachMockConn).Write()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:165 +0xe4
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).receiveFromCloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection.go:82 +0x370
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream.func1.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:225 +0x5d
+
+Goroutine 17 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:215 +0x3af
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Goroutine 18 (running) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestReceiveFromCloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:225 +0x490
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+E1022 16:10:40.593210 1063532 edgedattachconnection.go:85] failed to write, err: write error
+--- FAIL: TestReceiveFromCloudStream (0.02s)
+    --- FAIL: TestReceiveFromCloudStream/MessageTypeData (0.01s)
+        testing.go:1399: race detected during execution of test
+==================
+WARNING: DATA RACE
+Read at 0x00c000238540 by goroutine 25:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:294 +0x58e
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c000238540 by goroutine 26:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockSafeWriteTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:191 +0xf4
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection.go:107 +0x234
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1.1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:288 +0x6b
+
+Goroutine 25 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:277 +0x3af
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Goroutine 26 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:287 +0x575
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00009a620 by goroutine 25:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:295 +0x656
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c00009a620 by goroutine 26:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockSafeWriteTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:191 +0xad
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection.go:107 +0x234
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1.1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:288 +0x6b
+
+Goroutine 25 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:277 +0x3af
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Goroutine 26 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:287 +0x575
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c0002385b0 by goroutine 25:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:295 +0x677
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c0002385b0 by goroutine 26:
+  github.com/kubeedge/kubeedge/pkg/stream.NewMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/message.go:61 +0x1d6
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection.go:106 +0x140
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1.1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:288 +0x6b
+
+Goroutine 25 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:277 +0x3af
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Goroutine 26 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:287 +0x575
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c000011100 by goroutine 25:
+  runtime.slicebytetostringtmp()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/string.go:160 +0x0
+  bytes.Equal()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/bytes/bytes.go:21 +0x104
+  github.com/stretchr/testify/assert.ObjectsAreEqual()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertions.go:81 +0x129
+  github.com/stretchr/testify/assert.Equal()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertions.go:469 +0x237
+  github.com/stretchr/testify/assert.(*Assertions).Equal()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertion_forward.go:128 +0xdd
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:295 +0x6bb
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c000011100 by goroutine 26:
+  runtime.slicecopy()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/slice.go:355 +0x0
+  github.com/kubeedge/kubeedge/pkg/stream.(*attachMockConn).Read()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:156 +0x91
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection.go:99 +0x133
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1.1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:288 +0x6b
+
+Goroutine 25 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:277 +0x3af
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Goroutine 26 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestWrite2CloudStream.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedattachconnection_test.go:287 +0x575
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+E1022 16:10:40.614966 1063532 edgedattachconnection.go:102] EDGE_ATTACH_CONNECTOR Message MessageID 100 failed to read attach data, err:read error
+E1022 16:10:40.615092 1063532 edgedattachconnection.go:108] EDGE_ATTACH_CONNECTOR Message MessageID 100 failed to write to tunnel, msg: MESSAGE: connectID 100 messageType DATA, err: write error
+--- FAIL: TestWrite2CloudStream (0.01s)
+    --- FAIL: TestWrite2CloudStream/Normal_operation (0.01s)
+        testing.go:1399: race detected during execution of test
+==================
+WARNING: DATA RACE
+Read at 0x00c000156000 by goroutine 33:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:170 +0x39a
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c000156000 by goroutine 34:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:88 +0xf4
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection.go:98 +0x234
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x79
+
+Goroutine 33 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 34 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x386
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00013a038 by goroutine 33:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:171 +0x3f9
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c00013a038 by goroutine 34:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:88 +0xad
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection.go:98 +0x234
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x79
+
+Goroutine 33 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 34 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x386
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c000124458 by goroutine 33:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:171 +0x414
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c000124458 by goroutine 34:
+  github.com/kubeedge/kubeedge/pkg/stream.NewMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/message.go:60 +0x1ba
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection.go:97 +0x140
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x79
+
+Goroutine 33 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 34 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x386
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c000124460 by goroutine 33:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:172 +0x50d
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c000124460 by goroutine 34:
+  github.com/kubeedge/kubeedge/pkg/stream.NewMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/message.go:61 +0x1d6
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection.go:97 +0x140
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x79
+
+Goroutine 33 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 34 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x386
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00010e300 by goroutine 33:
+  runtime.slicebytetostringtmp()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/string.go:160 +0x0
+  bytes.Equal()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/bytes/bytes.go:21 +0x104
+  github.com/stretchr/testify/assert.ObjectsAreEqual()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertions.go:81 +0x129
+  github.com/stretchr/testify/assert.Equal()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertions.go:469 +0x237
+  github.com/stretchr/testify/assert.(*Assertions).Equal()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/vendor/github.com/stretchr/testify/assert/assertion_forward.go:128 +0xdd
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:172 +0x54c
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c00010e300 by goroutine 34:
+  runtime.slicecopy()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/slice.go:355 +0x0
+  github.com/kubeedge/kubeedge/pkg/stream.(*execMockConn).Read()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:47 +0x91
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection.go:90 +0x133
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x79
+
+Goroutine 33 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 34 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestExecConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedexecconnection_test.go:166 +0x386
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+--- FAIL: TestExecConnection_write2CloudStream (0.10s)
+    testing.go:1399: race detected during execution of test
+E1022 16:10:40.716736 1063532 edgedexecconnection.go:93] EDGE_EXEC_CONNECTOR Message MessageID 100 failed to read exec data, err:read error
+E1022 16:10:40.817506 1063532 edgedexecconnection.go:99] EDGE_EXEC_CONNECTOR Message MessageID 100 failed to write to tunnel, msg: MESSAGE: connectID 100 messageType DATA, err: tunnel write error
+I1022 16:10:43.022083 1063532 edgedmetricsconnection.go:74] receive remove client id 100
+==================
+WARNING: DATA RACE
+Read at 0x00c0002ac000 by goroutine 59:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:217 +0x44f
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c0002ac000 by goroutine 60:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockStreamTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:71 +0xf4
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:89 +0x369
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x6b
+
+Goroutine 59 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 60 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x43b
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00029a248 by goroutine 59:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:218 +0x4cd
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c00029a248 by goroutine 60:
+  github.com/kubeedge/kubeedge/pkg/stream.NewMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/message.go:60 +0x2e4
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:88 +0x209
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x6b
+
+Goroutine 59 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 60 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x43b
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00029a250 by goroutine 59:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:219 +0x54d
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c00029a250 by goroutine 60:
+  github.com/kubeedge/kubeedge/pkg/stream.NewMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/message.go:61 +0x304
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:88 +0x209
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x6b
+
+Goroutine 59 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 60 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x43b
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c0002b4000 by goroutine 59:
+  runtime.slicebytetostring()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/string.go:91 +0x0
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:219 +0x564
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c0002b4000 by goroutine 60:
+  runtime.slicecopy()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/slice.go:355 +0x0
+  strings.(*Reader).Read()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/strings/reader.go:44 +0xe8
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockResponseBody).Read()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:46 +0x5b
+  bufio.(*Scanner).Scan()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/bufio/scan.go:219 +0x13e1
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:86 +0x1e6
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream.gowrap1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x6b
+
+Goroutine 59 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 60 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:213 +0x43b
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+--- FAIL: TestMetricsConnection_write2CloudStream (0.10s)
+    testing.go:1399: race detected during execution of test
+E1022 16:10:43.125063 1063532 edgedmetricsconnection.go:91] write tunnel message MESSAGE: connectID 100 messageType DATA error
+I1022 16:10:43.653694 1063532 edgedmetricsconnection.go:136] receive stop signal, so stop metrics scan ...
+==================
+WARNING: DATA RACE
+Read at 0x00c0001561e0 by goroutine 64:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockStreamTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:71 +0x52
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).Serve.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:125 +0x1a3
+  runtime.deferreturn()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/panic.go:611 +0x5d
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_Serve()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:286 +0xcf5
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c0001561e0 by goroutine 102:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockStreamTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:71 +0xf4
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:89 +0x369
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).Serve.gowrap3()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:133 +0x6b
+
+Goroutine 64 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 102 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).Serve()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:133 +0x959
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_Serve()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:286 +0xcf5
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+==================
+WARNING: DATA RACE
+Read at 0x00c00013a000 by goroutine 64:
+  runtime.growslice()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/slice.go:177 +0x0
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockStreamTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:71 +0x87
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).Serve.func1()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:125 +0x1a3
+  runtime.deferreturn()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/panic.go:611 +0x5d
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_Serve()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:286 +0xcf5
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+
+Previous write at 0x00c00013a000 by goroutine 102:
+  github.com/kubeedge/kubeedge/pkg/stream.(*MockStreamTunneler).WriteMessage()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:71 +0xad
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).write2CloudStream()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:89 +0x369
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).Serve.gowrap3()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:133 +0x6b
+
+Goroutine 64 (running) created at:
+  testing.(*T).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x825
+  testing.runTests.func1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x85
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.runTests()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x8be
+  testing.(*M).Run()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0xf17
+  main.main()
+      _testmain.go:139 +0x164
+
+Goroutine 102 (finished) created at:
+  github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).Serve()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection.go:133 +0x959
+  github.com/kubeedge/kubeedge/pkg/stream.TestMetricsConnection_Serve()
+      /home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge/pkg/stream/edgedmetricsconnection_test.go:286 +0xcf5
+  testing.tRunner()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0x226
+  testing.(*T).Run.gowrap1()
+      /home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x44
+==================
+--- FAIL: TestMetricsConnection_Serve (0.43s)
+    testing.go:1399: race detected during execution of test
+FAIL
+FAIL	github.com/kubeedge/kubeedge/pkg/stream	4.130s
+FAIL

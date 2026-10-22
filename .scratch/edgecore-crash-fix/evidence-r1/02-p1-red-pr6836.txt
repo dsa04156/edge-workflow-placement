@@ -1,0 +1,325 @@
+=== RUN   TestDeleteWithFullBufferAndNoConsumer
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/exec
+    tunnel_lifecycle_test.go:80: DeleteLocalConnection did not finish within 3s (deadlock/stall)
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/attach
+    tunnel_lifecycle_test.go:80: DeleteLocalConnection did not finish within 3s (deadlock/stall)
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/logs
+    tunnel_lifecycle_test.go:80: DeleteLocalConnection did not finish within 3s (deadlock/stall)
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/metrics
+    tunnel_lifecycle_test.go:80: DeleteLocalConnection did not finish within 3s (deadlock/stall)
+--- FAIL: TestDeleteWithFullBufferAndNoConsumer (12.21s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/exec (3.05s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/attach (3.05s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/logs (3.05s)
+    --- FAIL: TestDeleteWithFullBufferAndNoConsumer/metrics (3.05s)
+=== RUN   TestExecDialFailureWithFullBuffer
+E1022 16:34:01.416362 1437854 edgedexecconnection.go:118] failed to dial, err: read tcp 127.0.0.1:39166->127.0.0.1:46565: read: connection reset by peer
+E1022 16:34:01.416417 1437854 tunnel.go:116] Serve Container Exec connection error MESSAGE: connectID 42 messageType EXEC_CONNECT
+    tunnel_lifecycle_test.go:181: ServeConnection did not finish within 5s (deadlock/stall)
+--- FAIL: TestExecDialFailureWithFullBuffer (5.07s)
+=== RUN   TestNoDropWithLiveConsumer
+=== RUN   TestNoDropWithLiveConsumer/exec
+=== RUN   TestNoDropWithLiveConsumer/attach
+=== RUN   TestNoDropWithLiveConsumer/logs
+=== RUN   TestNoDropWithLiveConsumer/metrics
+--- PASS: TestNoDropWithLiveConsumer (0.05s)
+    --- PASS: TestNoDropWithLiveConsumer/exec (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/attach (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/logs (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/metrics (0.01s)
+=== RUN   TestCloseReadChannelIdempotent
+=== RUN   TestCloseReadChannelIdempotent/exec
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+=== RUN   TestCloseReadChannelIdempotent/attach
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+=== RUN   TestCloseReadChannelIdempotent/logs
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+=== RUN   TestCloseReadChannelIdempotent/metrics
+    tunnel_lifecycle_test.go:243: panic: close of closed channel
+--- FAIL: TestCloseReadChannelIdempotent (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/exec (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/attach (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/logs (0.00s)
+    --- FAIL: TestCloseReadChannelIdempotent/metrics (0.00s)
+=== RUN   TestConcurrentWriteDelete
+panic: test timed out after 2m0s
+	running tests:
+		TestConcurrentWriteDelete (1m43s)
+
+goroutine 180 [running]:
+testing.(*M).startAlarm.func1()
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2373 +0x385
+created by time.goFunc
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/time/sleep.go:215 +0x2d
+
+goroutine 1 [chan receive, 2 minutes]:
+testing.(*T).Run(0xc000134820, {0x21c2b3f?, 0x0?}, 0x22dd578)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1751 +0x3ab
+testing.runTests.func1(0xc000134820)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2168 +0x37
+testing.tRunner(0xc000134820, 0xc000751c70)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0xf4
+testing.runTests(0xc000810990, {0x37ecb80, 0x5, 0x5}, {0x474f30?, 0x474b9a?, 0x3815e60?})
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2166 +0x43d
+testing.(*M).Run(0xc000488460)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:2034 +0x64a
+main.main()
+	_testmain.go:53 +0x9b
+
+goroutine 195 [sync.Mutex.Lock, 2 minutes]:
+sync.runtime_SemacquireMutex(0x3e3c08?, 0x18?, 0xb0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:95 +0x25
+sync.(*Mutex).lockSlow(0xc0001274a8)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/mutex.go:173 +0x15d
+sync.(*Mutex).Lock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/mutex.go:92
+sync.(*RWMutex).Lock(0x1ff8a80?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:148 +0x31
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).AddLocalConnection(0xc000127480, 0x3, {0x2525740, 0xc00070f1e0})
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:204 +0x45
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete(0xc0007da1a0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:268 +0x10d
+testing.tRunner(0xc0007da1a0, 0x22dd578)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1690 +0xf4
+created by testing.(*T).Run in goroutine 1
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/testing/testing.go:1743 +0x390
+
+goroutine 167 [chan send, 2 minutes]:
+github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).CacheTunnelMessage(0x1e5c720?, 0xc0005998f0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/pkg/stream/edgedexecconnection.go:42 +0x25
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0x0?, 0xc0005998f0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:147 +0xa2
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.1()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:74 +0xd2
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 166
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:72 +0x1b7
+
+goroutine 131 [sync.RWMutex.Lock, 2 minutes]:
+sync.runtime_SemacquireRWMutex(0x0?, 0x0?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:105 +0x25
+sync.(*RWMutex).Lock(0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:153 +0x6a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc0006a4b00, 0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.2()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x4c
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 166
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x227
+
+goroutine 169 [chan send, 2 minutes]:
+github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).CacheTunnelMessage(0x1e5c720?, 0xc0005999e0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/pkg/stream/edgedattachconnection.go:58 +0x25
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0x0?, 0xc0005999e0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:147 +0xa2
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.1()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:74 +0xd2
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 168
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:72 +0x1b7
+
+goroutine 132 [sync.RWMutex.Lock, 2 minutes]:
+sync.runtime_SemacquireRWMutex(0x550540?, 0x50?, 0xc0005fe780?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:105 +0x25
+sync.(*RWMutex).Lock(0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:153 +0x6a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc0006a4b40, 0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.2()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x4c
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 168
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x227
+
+goroutine 171 [chan send, 2 minutes]:
+github.com/kubeedge/kubeedge/pkg/stream.(*EdgedLogsConnection).CacheTunnelMessage(0x1e5c720?, 0xc000599ad0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/pkg/stream/edgedlogconnection.go:44 +0x25
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0x0?, 0xc000599ad0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:147 +0xa2
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.1()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:74 +0xd2
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 170
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:72 +0x1b7
+
+goroutine 133 [sync.RWMutex.Lock, 2 minutes]:
+sync.runtime_SemacquireRWMutex(0x0?, 0x0?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:105 +0x25
+sync.(*RWMutex).Lock(0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:153 +0x6a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc0006a4b80, 0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.2()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x4c
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 170
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x227
+
+goroutine 173 [chan send, 2 minutes]:
+github.com/kubeedge/kubeedge/pkg/stream.(*EdgedMetricsConnection).CacheTunnelMessage(0x1e5c720?, 0xc000599bc0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/pkg/stream/edgedmetricsconnection.go:42 +0x25
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0x0?, 0xc000599bc0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:147 +0xa2
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.1()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:74 +0xd2
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 172
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:72 +0x1b7
+
+goroutine 134 [sync.RWMutex.Lock, 2 minutes]:
+sync.runtime_SemacquireRWMutex(0x0?, 0x0?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:105 +0x25
+sync.(*RWMutex).Lock(0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:153 +0x6a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc0006a4bc0, 0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1.2()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x4c
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestDeleteWithFullBufferAndNoConsumer.func1 in goroutine 172
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:79 +0x227
+
+goroutine 176 [sync.RWMutex.Lock, 2 minutes]:
+sync.runtime_SemacquireRWMutex(0xc000773dc8?, 0x60?, 0x7fa330?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:105 +0x25
+sync.(*RWMutex).Lock(0xc0002b2930?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:153 +0x6a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc0006a4c40, 0x2a)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).ServeConnection(0xc0006a4c40, 0xc00098ff90)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:130 +0x59e
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestExecDialFailureWithFullBuffer.func2()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:133 +0x8f
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestExecDialFailureWithFullBuffer in goroutine 174
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:131 +0x37e
+
+goroutine 177 [chan send, 2 minutes]:
+github.com/kubeedge/kubeedge/pkg/stream.(*EdgedExecConnection).CacheTunnelMessage(0x1e5c720?, 0xc0005ccea0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/pkg/stream/edgedexecconnection.go:42 +0x25
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0x0?, 0xc0005ccea0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:147 +0xa2
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0xc00050d7a0?, 0xc000015788?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestExecDialFailureWithFullBuffer.func3()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:154 +0x154
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestExecDialFailureWithFullBuffer in goroutine 174
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:151 +0x4f5
+
+goroutine 197 [sync.RWMutex.RLock, 2 minutes]:
+sync.runtime_SemacquireRWMutexR(0x7ece0823e7b0?, 0x30?, 0xc0004aa6d8?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:100 +0x25
+sync.(*RWMutex).RLock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:72
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0xc000127480, 0xc0007d5230)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:144 +0x48
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0xf4240?, 0xc00077e960?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func2(0x0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:280 +0x10e
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:277 +0x2cb
+
+goroutine 198 [sync.RWMutex.RLock, 2 minutes]:
+sync.runtime_SemacquireRWMutexR(0x7ece5224b078?, 0x30?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:100 +0x25
+sync.(*RWMutex).RLock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:72
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0xc000127480, 0xc000824b10)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:144 +0x48
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func2(0x0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:280 +0x10e
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:277 +0x2cb
+
+goroutine 200 [sync.RWMutex.RLock, 2 minutes]:
+sync.runtime_SemacquireRWMutexR(0x7ece0823e7b0?, 0x30?, 0x1?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:100 +0x25
+sync.(*RWMutex).RLock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:72
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0xc000127480, 0xc0007d5140)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:144 +0x48
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func2(0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:280 +0x10e
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:277 +0x2cb
+
+goroutine 201 [chan send, 2 minutes]:
+github.com/kubeedge/kubeedge/pkg/stream.(*EdgedAttachConnection).CacheTunnelMessage(0x1e5c720?, 0xc0007d5170)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/pkg/stream/edgedattachconnection.go:58 +0x25
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0x0?, 0xc0007d5170)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:147 +0xa2
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func2(0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:280 +0x10e
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:277 +0x2cb
+
+goroutine 202 [sync.RWMutex.Lock, 2 minutes]:
+sync.runtime_SemacquireRWMutex(0xc0001274a8?, 0x0?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:105 +0x25
+sync.(*RWMutex).Lock(0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:153 +0x6a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc000127480, 0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func3(0x1)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:289 +0x5b
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:287 +0x9a
+
+goroutine 203 [chan receive, 2 minutes]:
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func1()
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:271 +0x3a
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:270 +0x156
+
+goroutine 204 [sync.RWMutex.RLock, 2 minutes]:
+sync.runtime_SemacquireRWMutexR(0x7ece0823e7b0?, 0x30?, 0x2?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:100 +0x25
+sync.(*RWMutex).RLock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:72
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0xc000127480, 0xc0007d51d0)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:144 +0x48
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func2(0x2)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:280 +0x10e
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:277 +0x2cb
+
+goroutine 205 [sync.RWMutex.RLock, 2 minutes]:
+sync.runtime_SemacquireRWMutexR(0x7ece0823e7b0?, 0x30?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:100 +0x25
+sync.(*RWMutex).RLock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:72
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).WriteToLocalConnection(0xc000127480, 0xc0007d5200)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:144 +0x48
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.writeRecover(0x0?, 0x0?)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:54 +0x4a
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func2(0x2)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:280 +0x10e
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:277 +0x2cb
+
+goroutine 206 [sync.Mutex.Lock, 2 minutes]:
+sync.runtime_SemacquireMutex(0x0?, 0x0?, 0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/runtime/sema.go:95 +0x25
+sync.(*Mutex).lockSlow(0xc0001274a8)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/mutex.go:173 +0x15d
+sync.(*Mutex).Lock(...)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/mutex.go:92
+sync.(*RWMutex).Lock(0x0?)
+	/home/jinuk/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.12.linux-amd64/src/sync/rwmutex.go:148 +0x31
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.(*TunnelSession).DeleteLocalConnection(0xc000127480, 0x2)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel.go:217 +0x3b
+github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete.func3(0x2)
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:289 +0x5b
+created by github.com/kubeedge/kubeedge/edge/pkg/edgestream.TestConcurrentWriteDelete in goroutine 195
+	/home/jinuk/codex-work/scheduler/.scratch/edgecore-crash-fix/src/kubeedge-r1/edge/pkg/edgestream/tunnel_lifecycle_test.go:287 +0x9a
+FAIL	github.com/kubeedge/kubeedge/edge/pkg/edgestream	120.023s
+FAIL

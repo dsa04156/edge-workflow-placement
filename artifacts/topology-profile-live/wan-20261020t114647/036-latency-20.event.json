@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T11:49:27.912091+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t114647-source-e0",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import sys,time,json;sys.path.insert(0,'/work/config');from http_runtime import request;values=[];\nfor _ in range(10):\n t=time.monotonic();request('http://10.244.8.208:8080/to/fusion/sink',{'data':b'probe'});values.append((time.monotonic()-t)*1000)\nprint(json.dumps({'application_roundtrip_ms':values}))"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T11:49:29.277800+00:00"
+}

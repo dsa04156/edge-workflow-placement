@@ -1,0 +1,27 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "sensehat-20261021t114702z-src",
+    "--",
+    "python3",
+    "/config/stage_runtime.py",
+    "client",
+    "--url",
+    "http://10.244.4.244:8080/health",
+    "--timeout",
+    "60"
+  ],
+  "finished_at": "2026-10-21T11:48:12.685017+00:00",
+  "returncode": 0,
+  "started_at": "2026-10-21T11:48:11.818849+00:00",
+  "status": "completed",
+  "timeout_s": 90,
+  "wall_ms": 866.1774790007257
+}

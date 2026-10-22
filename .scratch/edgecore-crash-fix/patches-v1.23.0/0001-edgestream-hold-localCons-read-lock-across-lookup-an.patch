@@ -1,0 +1,146 @@
+From b7ad375e7eedc13b014a4cb3e774053d259cce95 Mon Sep 17 00:00:00 2001
+From: local-patch <local@invalid>
+Date: Thu, 22 Oct 2026 16:14:38 +0900
+Subject: [PATCH 1/2] edgestream: hold localCons read lock across lookup and
+ send (backport kubeedge/kubeedge#6836)
+
+---
+ edge/pkg/edgestream/tunnel.go           |   4 +-
+ edge/pkg/edgestream/tunnel_race_test.go | 110 ++++++++++++++++++++++++
+ 2 files changed, 113 insertions(+), 1 deletion(-)
+ create mode 100644 edge/pkg/edgestream/tunnel_race_test.go
+
+diff --git a/edge/pkg/edgestream/tunnel.go b/edge/pkg/edgestream/tunnel.go
+index 4b933efa5..3cb939397 100644
+--- a/edge/pkg/edgestream/tunnel.go
++++ b/edge/pkg/edgestream/tunnel.go
+@@ -141,7 +141,9 @@ func (s *TunnelSession) Close() {
+ }
+ 
+ func (s *TunnelSession) WriteToLocalConnection(m *stream.Message) {
+-	if con, ok := s.GetLocalConnection(m.ConnectID); ok {
++	s.localConsLock.RLock()
++	defer s.localConsLock.RUnlock()
++	if con, ok := s.localCons[m.ConnectID]; ok {
+ 		con.CacheTunnelMessage(m)
+ 	}
+ }
+diff --git a/edge/pkg/edgestream/tunnel_race_test.go b/edge/pkg/edgestream/tunnel_race_test.go
+new file mode 100644
+index 000000000..b1b1dbcd5
+--- /dev/null
++++ b/edge/pkg/edgestream/tunnel_race_test.go
+@@ -0,0 +1,110 @@
++package edgestream
++
++import (
++	"fmt"
++	"sync"
++	"testing"
++	"time"
++
++	"github.com/kubeedge/kubeedge/pkg/stream"
++)
++
++// TestWriteToLocalConnectionDoesNotPanicOnConcurrentDelete reproduces the
++// dev0009 crash (send on closed channel in EdgedExecConnection.CacheTunnelMessage
++// called from TunnelSession.WriteToLocalConnection) deterministically:
++//  1. the connection's ReadChan is full, so the tunnel reader blocks inside
++//     CacheTunnelMessage after the localCons lookup;
++//  2. ServeConnection finishes and DeleteLocalConnection closes ReadChan;
++//  3. the local reader (receiveFromCloudStream in production) drains late.
++//
++// Without holding localConsLock across lookup+send, step 2 closes the channel
++// under a blocked sender and the sender panics.
++func TestWriteToLocalConnectionDoesNotPanicOnConcurrentDelete(t *testing.T) {
++	s := &TunnelSession{localCons: make(map[uint64]stream.EdgedConnection)}
++	con := &stream.EdgedExecConnection{
++		ReadChan: make(chan *stream.Message, 1),
++		Stop:     make(chan struct{}, 2),
++	}
++	const id = 7
++	s.AddLocalConnection(id, con)
++	con.ReadChan <- stream.NewMessage(id, stream.MessageTypeData, []byte("fill"))
++
++	panicCh := make(chan interface{}, 1)
++	writerDone := make(chan struct{})
++	go func() {
++		defer close(writerDone)
++		defer func() { panicCh <- recover() }()
++		s.WriteToLocalConnection(stream.NewMessage(id, stream.MessageTypeData, []byte("late")))
++	}()
++	time.Sleep(100 * time.Millisecond) // writer is now blocked on the full channel
++
++	deleteDone := make(chan struct{})
++	go func() {
++		defer close(deleteDone)
++		s.DeleteLocalConnection(id)
++	}()
++	time.Sleep(100 * time.Millisecond) // delete runs (unpatched) or waits for the lock (patched)
++
++	drained := 0
++	drainDone := make(chan struct{})
++	go func() {
++		defer close(drainDone)
++		for range con.ReadChan {
++			drained++
++		}
++	}()
++
++	for name, ch := range map[string]chan struct{}{"writer": writerDone, "delete": deleteDone, "drain": drainDone} {
++		select {
++		case <-ch:
++		case <-time.After(5 * time.Second):
++			t.Fatalf("%s did not finish: possible deadlock", name)
++		}
++	}
++	if p := <-panicCh; p != nil {
++		t.Fatalf("WriteToLocalConnection panicked: %v", p)
++	}
++	if _, ok := s.GetLocalConnection(id); ok {
++		t.Fatalf("connection %d still registered after delete", id)
++	}
++}
++
++// TestWriteToLocalConnectionStress hammers lookup+send against delete for many
++// connections; run with -race.
++func TestWriteToLocalConnectionStress(t *testing.T) {
++	s := &TunnelSession{localCons: make(map[uint64]stream.EdgedConnection)}
++	var panics sync.Map
++	for i := uint64(0); i < 2000; i++ {
++		con := &stream.EdgedExecConnection{
++			ReadChan: make(chan *stream.Message, 2),
++			Stop:     make(chan struct{}, 2),
++		}
++		s.AddLocalConnection(i, con)
++		go func() {
++			for range con.ReadChan {
++			}
++		}()
++		var wg sync.WaitGroup
++		wg.Add(2)
++		go func(id uint64) {
++			defer wg.Done()
++			defer func() {
++				if p := recover(); p != nil {
++					panics.Store(id, fmt.Sprint(p))
++				}
++			}()
++			for j := 0; j < 8; j++ {
++				s.WriteToLocalConnection(stream.NewMessage(id, stream.MessageTypeData, []byte("x")))
++			}
++		}(i)
++		go func(id uint64) {
++			defer wg.Done()
++			s.DeleteLocalConnection(id)
++		}(i)
++		wg.Wait()
++	}
++	panics.Range(func(k, v interface{}) bool {
++		t.Errorf("connection %v panicked: %v", k, v)
++		return true
++	})
++}
+-- 
+2.43.0
+

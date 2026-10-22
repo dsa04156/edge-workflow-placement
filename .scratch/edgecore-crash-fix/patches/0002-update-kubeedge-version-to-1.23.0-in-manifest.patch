@@ -1,0 +1,232 @@
+From b50c13de0e858fdeeee9e736938c7d24a0a1d464 Mon Sep 17 00:00:00 2001
+From: Shelley-BaoYue <baoyue2@huawei.com>
+Date: Mon, 9 Mar 2026 19:56:31 +0800
+Subject: [PATCH 2/2] update kubeedge version to 1.23.0 in manifest
+
+Signed-off-by: Shelley-BaoYue <baoyue2@huawei.com>
+---
+ README.md                                  | 16 ++++++++--------
+ README_zh.md                               | 16 ++++++++--------
+ build/cloud/07-deployment.yaml             |  2 +-
+ keadm/cmd/keadm/app/cmd/common/constant.go |  2 +-
+ manifests/charts/cloudcore/Chart.yaml      |  4 ++--
+ manifests/charts/cloudcore/README.md       |  4 ++--
+ manifests/charts/cloudcore/values.yaml     | 10 +++++-----
+ manifests/profiles/version.yaml            | 10 +++++-----
+ 8 files changed, 32 insertions(+), 32 deletions(-)
+
+diff --git a/README.md b/README.md
+index 480117de1..8a59c3bfd 100644
+--- a/README.md
++++ b/README.md
+@@ -53,14 +53,14 @@ KubeEdge consists of cloud part and edge part.
+ 
+ ## Kubernetes compatibility
+ 
+-|                        | Kubernetes 1.26 | Kubernetes 1.27 | Kubernetes 1.28 | Kubernetes 1.29 | Kubernetes 1.30 | Kubernetes 1.31 | Kubernetes 1.32 |
+-|------------------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
+-| KubeEdge 1.18          | +               | ✓               | ✓               | ✓               | -               | -               | -               |
+-| KubeEdge 1.19          | +               | ✓               | ✓               | ✓               | -               | -               | -               |
+-| KubeEdge 1.20          | +               | +               | ✓               | ✓               | ✓               | -               | -               |
+-| KubeEdge 1.21          | +               | +               | ✓               | ✓               | ✓               | -               | -               |
+-| KubeEdge 1.22          | +               | +               | +               | ✓               | ✓               | ✓               | -               |
+-| KubeEdge HEAD (master) | +               | +               | +               | +               | ✓               | ✓               | ✓               |
++|                        | Kubernetes 1.27 | Kubernetes 1.28 | Kubernetes 1.29 | Kubernetes 1.30 | Kubernetes 1.31 | Kubernetes 1.32 |
++|------------------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
++| KubeEdge 1.19          | ✓               | ✓               | ✓               | -               | -               | -               |
++| KubeEdge 1.20          | +               | ✓               | ✓               | ✓               | -               | -               |
++| KubeEdge 1.21          | +               | ✓               | ✓               | ✓               | -               | -               |
++| KubeEdge 1.22          | +               | +               | ✓               | ✓               | ✓               | -               |
++| KubeEdge 1.23          | +               | +               | +               | ✓               | ✓               | ✓               |
++| KubeEdge HEAD (master) | +               | +               | +               | ✓               | ✓               | ✓               |
+ 
+ Key:
+ * `✓` KubeEdge and the Kubernetes version are exactly compatible.
+diff --git a/README_zh.md b/README_zh.md
+index ba9574bbb..4a317e555 100644
+--- a/README_zh.md
++++ b/README_zh.md
+@@ -56,14 +56,14 @@ KubeEdge 由云端和边缘端部分构成：
+ 
+ ### Kubernetes 版本兼容
+ 
+-|                        | Kubernetes 1.26 | Kubernetes 1.27 | Kubernetes 1.28 | Kubernetes 1.29 | Kubernetes 1.30 | Kubernetes 1.31 | Kubernetes 1.32 |
+-|------------------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
+-| KubeEdge 1.18          | +               | ✓               | ✓               | ✓               | -               | -               | -               |
+-| KubeEdge 1.19          | +               | ✓               | ✓               | ✓               | -               | -               | -               |
+-| KubeEdge 1.20          | +               | +               | ✓               | ✓               | ✓               | -               | -               |
+-| KubeEdge 1.21          | +               | +               | ✓               | ✓               | ✓               | -               | -               |
+-| KubeEdge 1.22          | +               | +               | +               | ✓               | ✓               | ✓               | -               |
+-| KubeEdge HEAD (master) | +               | +               | +               | +               | ✓               | ✓               | ✓               |
++|                        | Kubernetes 1.27 | Kubernetes 1.28 | Kubernetes 1.29 | Kubernetes 1.30 | Kubernetes 1.31 | Kubernetes 1.32 |
++|------------------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
++| KubeEdge 1.19          | ✓               | ✓               | ✓               | -               | -               | -               |
++| KubeEdge 1.20          | +               | ✓               | ✓               | ✓               | -               | -               |
++| KubeEdge 1.21          | +               | ✓               | ✓               | ✓               | -               | -               |
++| KubeEdge 1.22          | +               | +               | ✓               | ✓               | ✓               | -               |
++| KubeEdge 1.23          | +               | +               | +               | ✓               | ✓               | ✓               |
++| KubeEdge HEAD (master) | +               | +               | +               | ✓               | ✓               | ✓               |
+ 
+ 说明：
+ * `✓` KubeEdge 和 Kubernetes 的版本是完全兼容的
+diff --git a/build/cloud/07-deployment.yaml b/build/cloud/07-deployment.yaml
+index 9b67d99ec..ff82103eb 100644
+--- a/build/cloud/07-deployment.yaml
++++ b/build/cloud/07-deployment.yaml
+@@ -20,7 +20,7 @@ spec:
+       hostNetwork: true
+       containers:
+         - name: cloudcore
+-          image: kubeedge/cloudcore:v1.22.0
++          image: kubeedge/cloudcore:v1.23.0
+           imagePullPolicy: IfNotPresent
+           ports:
+             - containerPort: 10000
+diff --git a/keadm/cmd/keadm/app/cmd/common/constant.go b/keadm/cmd/keadm/app/cmd/common/constant.go
+index 106b5ac19..3d55d44ce 100644
+--- a/keadm/cmd/keadm/app/cmd/common/constant.go
++++ b/keadm/cmd/keadm/app/cmd/common/constant.go
+@@ -126,7 +126,7 @@ const (
+ 	DefaultK8SMinimumVersion = 11
+ 
+ 	// DefaultKubeEdgeVersion is the default KubeEdge version, it must have no prefix 'v'
+-	DefaultKubeEdgeVersion = "1.22.0"
++	DefaultKubeEdgeVersion = "1.23.0"
+ 
+ 	// Helm action
+ 	HelmInstallAction  = "install"
+diff --git a/manifests/charts/cloudcore/Chart.yaml b/manifests/charts/cloudcore/Chart.yaml
+index f8392e45a..901cd9363 100644
+--- a/manifests/charts/cloudcore/Chart.yaml
++++ b/manifests/charts/cloudcore/Chart.yaml
+@@ -1,7 +1,7 @@
+ apiVersion: v1
+ name: cloudcore
+-version: 1.22.0
+-appVersion: 1.22.0
++version: 1.23.0
++appVersion: 1.23.0
+ description: The KubeEdge cloudcore component.
+ sources:
+ - https://github.com/kubeedge/kubeedge
+diff --git a/manifests/charts/cloudcore/README.md b/manifests/charts/cloudcore/README.md
+index 6543edcb8..2d0de3d31 100644
+--- a/manifests/charts/cloudcore/README.md
++++ b/manifests/charts/cloudcore/README.md
+@@ -20,7 +20,7 @@ helm upgrade --install cloudcore ./cloudcore --namespace kubeedge --create-names
+ - `cloudCore.modules.cloudHub.dnsNames`, defines the domain names which can be accessed by edge nodes.
+ - `cloudCore.hostNetWork`, default `true`, which shares the host network, used for setting the forward iptables rules on the host.
+ - `cloudCore.image.repository`, default `kubeedge`, defines the image repo.
+-- `cloudCore.image.tag`, default `v1.22.0`, defines the image tag.
++- `cloudCore.image.tag`, default `v1.23.0`, defines the image tag.
+ - `cloudCore.image.pullPolicy`, default `IfNotPresent`, defines the policies to pull images.
+ - `cloudCore.image.pullSecrets`, defines the secrets to pull images.
+ - `cloudCore.labels`, defines the labels.
+@@ -47,7 +47,7 @@ helm upgrade --install cloudcore ./cloudcore --namespace kubeedge --create-names
+ - `iptablesManager.mode`,  default `external`, can be modified to `internal`. The external mode will set up a iptables manager component which shares the host network.
+ - `iptablesManager.framework`,  default `legacy`, can be modified to `nft`. Iptables of different frameworks are not compatible in the same network environment and need to be configured according to the operating environment.
+ - `iptablesManager.image.repository`, default `kubeedge`, defines the image repo.
+-- `iptablesManager.image.tag`, default `v1.22.0`, defines the image tag.
++- `iptablesManager.image.tag`, default `v1.23.0`, defines the image tag.
+ - `iptablesManager.image.pullPolicy`, default `IfNotPresent`, defines the policies to pull images.
+ - `iptablesManager.image.pullSecrets`, defines the secrets to pull images.
+ - `iptablesManager.labels`, defines the labels.
+diff --git a/manifests/charts/cloudcore/values.yaml b/manifests/charts/cloudcore/values.yaml
+index 9e3d46bc7..dc328f648 100644
+--- a/manifests/charts/cloudcore/values.yaml
++++ b/manifests/charts/cloudcore/values.yaml
+@@ -1,14 +1,14 @@
+ # Default values for kubeedge.
+ # This is a YAML-formatted file.
+ # Declare variables to be passed into your templates.
+-appVersion: "1.22.0"
++appVersion: "1.23.0"
+ 
+ cloudCore:
+   replicaCount: 1
+   hostNetWork: true
+   image:
+     repository: "kubeedge/cloudcore"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   securityContext:
+@@ -80,7 +80,7 @@ iptablesManager:
+   image:
+     repository: "kubeedge/iptables-manager"
+     nftRepository: "kubeedge/iptables-manager-nft"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   securityContext:
+@@ -113,7 +113,7 @@ controllerManager:
+   enable: false
+   image:
+     repository: "kubeedge/controller-manager"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   labels:
+@@ -149,7 +149,7 @@ admission:
+   certsSecretName: ""
+   image:
+     repository: "kubeedge/admission"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   labels:
+diff --git a/manifests/profiles/version.yaml b/manifests/profiles/version.yaml
+index 07002a488..176c0ab00 100644
+--- a/manifests/profiles/version.yaml
++++ b/manifests/profiles/version.yaml
+@@ -1,14 +1,14 @@
+ # Default values for kubeedge.
+ # This is a YAML-formatted file.
+ # Declare variables to be passed into your templates.
+-appVersion: "1.22.0"
++appVersion: "1.23.0"
+ 
+ cloudCore:
+   replicaCount: 1
+   hostNetWork: true
+   image:
+     repository: "kubeedge/cloudcore"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   securityContext:
+@@ -76,7 +76,7 @@ iptablesManager:
+   hostNetWork: true
+   image:
+     repository: "kubeedge/iptables-manager"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   securityContext:
+@@ -109,7 +109,7 @@ controllerManager:
+   enable: false
+   image:
+     repository: "kubeedge/controller-manager"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   labels:
+@@ -145,7 +145,7 @@ admission:
+   certsSecretName: ""
+   image:
+     repository: "kubeedge/admission"
+-    tag: "v1.22.0"
++    tag: "v1.23.0"
+     pullPolicy: "IfNotPresent"
+     pullSecrets: []
+   labels:
+-- 
+2.43.0
+

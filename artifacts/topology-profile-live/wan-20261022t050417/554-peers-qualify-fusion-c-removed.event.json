@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-22T05:30:33.357054+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261022t050417-gateway",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "from pathlib import Path;Path('/work/peers.json').write_text('{\"source-e0\": {\"url\": \"http://10.244.4.3:8080\", \"zone\": \"edge\"}, \"source-e1\": {\"url\": \"http://10.244.1.190:8080\", \"zone\": \"edge\"}, \"source-c\": {\"url\": \"http://10.244.8.109:8080\", \"zone\": \"cloud\"}, \"source-e6\": {\"url\": \"http://10.244.9.6:8080\", \"zone\": \"edge\"}, \"source-e8\": {\"url\": \"http://10.244.10.9:8080\", \"zone\": \"edge\"}, \"source-e9\": {\"url\": \"http://10.244.11.16:8080\", \"zone\": \"edge\"}, \"source-c1\": {\"url\": \"http://10.244.0.154:8080\", \"zone\": \"cloud\"}, \"source-c3\": {\"url\": \"http://10.244.7.59:8080\", \"zone\": \"cloud\"}, \"source-c4\": {\"url\": \"http://10.244.5.135:8080\", \"zone\": \"cloud\"}, \"sink-e0\": {\"url\": \"http://10.244.4.4:8080\", \"zone\": \"edge\"}, \"sink-e1\": {\"url\": \"http://10.244.1.191:8080\", \"zone\": \"edge\"}, \"sink-c\": {\"url\": \"http://10.244.8.110:8080\", \"zone\": \"cloud\"}, \"sink-e6\": {\"url\": \"http://10.244.9.7:8080\", \"zone\": \"edge\"}, \"sink-e8\": {\"url\": \"http://10.244.10.10:8080\", \"zone\": \"edge\"}, \"sink-e9\": {\"url\": \"http://10.244.11.15:8080\", \"zone\": \"edge\"}, \"sink-c1\": {\"url\": \"http://10.244.0.155:8080\", \"zone\": \"cloud\"}, \"sink-c3\": {\"url\": \"http://10.244.7.60:8080\", \"zone\": \"cloud\"}, \"sink-c4\": {\"url\": \"http://10.244.5.136:8080\", \"zone\": \"cloud\"}}')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-22T05:30:33.521344+00:00"
+}

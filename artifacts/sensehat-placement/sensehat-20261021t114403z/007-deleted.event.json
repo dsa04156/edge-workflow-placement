@@ -1,0 +1,22 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "wait",
+    "--for=delete",
+    "pod",
+    "-n",
+    "topology-profile-lab",
+    "-l",
+    "run-id=sensehat-20261021t114403z",
+    "--timeout=90s"
+  ],
+  "finished_at": "2026-10-21T11:44:04.941791+00:00",
+  "returncode": 0,
+  "started_at": "2026-10-21T11:44:04.878037+00:00",
+  "status": "completed",
+  "timeout_s": 100,
+  "wall_ms": 63.762548999875435
+}

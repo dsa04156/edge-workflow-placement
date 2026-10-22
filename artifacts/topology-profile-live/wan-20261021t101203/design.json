@@ -1,0 +1,61 @@
+{
+  "comparison": "scheduling-baseline-smoke-v1",
+  "scope": "one block smoke comparison; no CI, p95, throughput, independent-environment, new-holdout or original-HEFT reproduction claim",
+  "seed": 20261023,
+  "blocks": 1,
+  "conditions": [
+    {
+      "condition": "compressed-10",
+      "mbps": 10,
+      "oneway_delay_ms": 20,
+      "representation": "compressed"
+    },
+    {
+      "condition": "compressed-2",
+      "mbps": 2,
+      "oneway_delay_ms": 20,
+      "representation": "compressed"
+    }
+  ],
+  "policies": [
+    "kube-default",
+    "greedy",
+    "heft",
+    "greedy-swap",
+    "exact",
+    "no-network"
+  ],
+  "policy_sources": {
+    "greedy": "greedy",
+    "heft": "heft",
+    "exact": "ours",
+    "no-network": "no-network",
+    "greedy-swap": "budget_placement.simple_alternatives",
+    "kube-default": "actual default-scheduler, unpinned within the same candidate nodes"
+  },
+  "calibration_ids": [
+    1713820,
+    3733440,
+    4556100,
+    3355890
+  ],
+  "evaluation_ids": [
+    3506790,
+    5341940,
+    787710
+  ],
+  "qualification": {
+    "warmup_per_task_node": 5,
+    "rows_per_task_node": 12,
+    "task_nodes": 9,
+    "expected_rows": 108
+  },
+  "warmup": 1,
+  "evaluation_count": 3,
+  "rate_rps": 0.1,
+  "deadline_s": 120,
+  "max_workflow_requests": 48,
+  "capacity": "physical requests-based snapshot; no admission_budget or server slot reduction",
+  "scheduler": "one fresh unpinned default-scheduler observation per condition, then re-pinned evaluation",
+  "observation_sharing": "same condition and placement share one observation; never across conditions"
+}

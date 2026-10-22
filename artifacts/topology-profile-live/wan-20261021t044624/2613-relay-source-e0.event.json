@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-21T05:16:06.705977+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261021t044624-source-e0",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import os;assert os.environ['POD_UID']=='31b347b2-d05a-4320-8844-3719e9b2fbde';import sys,json;sys.path.insert(0,'/work/net-config');from http_runtime import request;print(json.dumps(request('http://10.244.8.221:8080/to/source-c/health',{},timeout=15)))"
+  ],
+  "timeout_s": 20,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-21T05:16:07.370701+00:00"
+}

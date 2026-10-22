@@ -1,0 +1,1729 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "wan-20261020t043924",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "data": {
+        "http_runtime.py": "\"\"\"Direct branch/join HTTP runtime. Test fixtures are explicitly labelled, not AI.\n\nOperator adapters are bytes -> bytes; fusion adapters receive two named bytes.\nBinary task bodies and JSON control. Payload counts exclude the wire envelope.\n\"\"\"\nimport base64\nfrom contextlib import contextmanager\nimport hashlib\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nimport json\nimport os\nimport struct\nimport threading\nimport queue\nfrom concurrent.futures import Future\nimport time\nimport urllib.error\nimport urllib.request\n\n\ndef digest(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef request(url, data, timeout=60):\n    raw, content_type = encode_body(data)\n    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))\n    req = urllib.request.Request(url, raw, {'Content-Type': content_type})\n    with opener.open(req, timeout=timeout) as response:\n        return json.load(response)\n\n\ndef encode_body(data):\n    \"\"\"JSON control header followed by exact binary data; no padding/base64.\"\"\"\n    if isinstance(data.get('data'), bytes):\n        metadata = {k: v for k, v in data.items() if k != 'data'}\n        header = json.dumps(metadata, separators=(',', ':')).encode()\n        return struct.pack('!I', len(header)) + header + data['data'], 'application/x-edge-binary'\n    return json.dumps(data, separators=(',', ':')).encode(), 'application/json'\n\n\ndef decode_body(raw, content_type):\n    if content_type == 'application/x-edge-binary':\n        if len(raw) < 4:\n            raise ValueError('Truncated binary header')\n        length = struct.unpack('!I', raw[:4])[0]\n        if length > len(raw) - 4:\n            raise ValueError('Truncated binary metadata')\n        return dict(json.loads(raw[4:4 + length]), data=raw[4 + length:])\n    return json.loads(raw)\n\n\ndef payload(data):\n    return data if isinstance(data, bytes) else base64.b64decode(data, validate=True)\n\n\nclass ProtocolError(Exception):\n    def __init__(self, message, status=400):\n        super().__init__(message)\n        self.status = status\n\n\ndef identity(data):\n    values = tuple(data.get(k) for k in ('run_id', 'request_id'))\n    if any(not isinstance(v, str) or not v or len(v) > 100 for v in values):\n        raise ProtocolError('run_id and request_id must be nonempty short strings')\n    return values\n\n\nclass OperatorServer(ThreadingHTTPServer):\n    daemon_threads = True\n\n    def __init__(self, address, task, adapter, metadata=None, capacity=64, ttl=120):\n        super().__init__(address, Handler)\n        self.task, self.adapter = task, adapter\n        self.metadata = dict(metadata or {'scope': 'protocol_fixture_not_ai'})\n        self.metadata.update(task=task, node=os.getenv('NODE_NAME', 'local-test'), pod_uid=os.getenv('POD_UID', 'local-test'))\n        self.capacity, self.ttl = capacity, ttl\n        self.entries = {}\n        self.lock = threading.Lock()\n        self.jobs = queue.Queue(maxsize=capacity)\n        self.active = False\n        self.http_active = 0\n        self.worker_ready = threading.Event()\n        self.worker_error = None\n        self.worker = threading.Thread(target=self._work, daemon=True)\n        self.worker.start()\n        if not self.worker_ready.wait(60) or self.worker_error:\n            raise RuntimeError('Serving worker initialization failed: ' + str(self.worker_error))\n        self.tombstones = {}\n\n    def receipt(self, inputs, output, compute_ms, queue_ms):\n        return dict(self.metadata, input_bytes={k: len(v) for k, v in inputs.items()},\n                    input_sha256={k: digest(v) for k, v in inputs.items()}, output_bytes=len(output),\n                    output_sha256=digest(output), compute_ms=compute_ms, queue_ms=queue_ms)\n\n    def _work(self):\n        try:\n            if self.metadata.get('scope') == 'real_ai_file_replay':\n                import torch\n                # Apply OpenMP settings in the thread that actually calls models.\n                torch.set_num_threads(1)\n                self.metadata['serving_torch_threads'] = torch.get_num_threads()\n                self.metadata['serving_torch_interop_threads'] = torch.get_num_interop_threads()\n                self.metadata['serving_native_thread_id'] = threading.get_native_id()\n                self.metadata['serving_thread_initialized_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())\n                if self.metadata['serving_torch_threads'] != 1 or self.metadata['serving_torch_interop_threads'] != 1:\n                    raise RuntimeError('Serving thread configuration failed')\n        except Exception as error:\n            self.worker_error = repr(error)\n            self.worker_ready.set()\n            return\n        self.worker_ready.set()\n        while True:\n            job = self.jobs.get()\n            if job is None:\n                return\n            inputs, arrived, deadline, future = job\n            begin = time.monotonic()\n            try:\n                self.active = True\n                if begin >= deadline:\n                    raise ProtocolError('Expired in serving queue', 504)\n                result = self.adapter(inputs)\n                if not isinstance(result, bytes):\n                    raise TypeError('Adapter must return bytes')\n                end = time.monotonic()\n                if end >= deadline:\n                    raise ProtocolError('Expired during model execution', 504)\n                future.set_result((result, (end - begin) * 1000, (begin - arrived) * 1000))\n            except Exception as error:\n                future.set_exception(error)\n            finally:\n                self.active = False\n                self.jobs.task_done()\n\n    def invoke(self, inputs, timeout=120):\n        arrived, future = time.monotonic(), Future()\n        try:\n            self.jobs.put_nowait((inputs, arrived, arrived + timeout, future))\n        except queue.Full:\n            raise ProtocolError('Serving queue capacity reached', 429)\n        return future.result(timeout=timeout)\n\n    def server_close(self):\n        super().server_close()\n        self.jobs.put(None)\n\n    def operate(self, path, data):\n        if path == '/health':\n            with self.lock:\n                now = time.monotonic()\n                self.entries = {k:v for k,v in self.entries.items() if now-v['created'] <= self.ttl}\n                pending = sum('result' not in v for v in self.entries.values())\n            return dict(self.metadata, status='ready', serving_queue=self.jobs.qsize(), serving_active=self.active, http_active=self.http_active, pending_joins=pending)\n        if path == '/sink':\n            content = payload(data['data'])\n            return dict(status='ok', bytes=len(content), sha256=digest(content))\n        key = identity(data)\n        if path == '/infer':\n            if self.task == 'fusion':\n                inputs = {k: base64.b64decode(data['inputs'][k], validate=True) for k in ('vision', 'speech')}\n                argument = inputs\n            else:\n                argument = payload(data['data'])\n                inputs = {'source': argument}\n            output, compute, queue = self.invoke(argument, data.get('remaining_s', 120))\n            return {'status': 'ok', 'data': base64.b64encode(output).decode(),\n                    'receipt': self.receipt(inputs, output, compute, queue)}\n        if path == '/execute':\n            started = time.monotonic()\n            if self.task not in ('vision', 'speech'):\n                raise ProtocolError('Only branch operators accept execute')\n            content = payload(data['data'])\n            output, compute, queue = self.invoke(content, data.get('remaining_s', 120))\n            receipt = self.receipt({'source': content}, output, compute, queue)\n            remaining = data.get('remaining_s', 120) - (time.monotonic() - started)\n            if remaining <= 0:\n                raise ProtocolError('Deadline before forwarding', 504)\n            request(data['fusion_url'] + '/join', dict(run_id=key[0], request_id=key[1],\n                    task=self.task, data=output, receipt=receipt, remaining_s=remaining), timeout=remaining)\n            return {'status': 'forwarded', 'receipt': receipt}\n        if self.task != 'fusion':\n            raise ProtocolError('Only fusion accepts open/join/result')\n        execute = None\n        with self.lock:\n            now = time.monotonic()\n            self.entries = {k: v for k, v in self.entries.items() if now - v['created'] <= self.ttl}\n            self.tombstones = {k: v for k, v in self.tombstones.items() if now - v <= self.ttl}\n            if path == '/open':\n                if key in self.entries or key in self.tombstones:\n                    raise ProtocolError('Request already registered', 409)\n                if sum('result' not in v for v in self.entries.values()) >= self.capacity:\n                    raise ProtocolError('Join capacity reached', 429)\n                self.entries[key] = {'created': now, 'inputs': {}, 'receipts': {}}\n                return {'status': 'registered'}\n            if key not in self.entries:\n                raise ProtocolError('Unknown or released request', 410)\n            item = self.entries[key]\n            if path in ('/ack', '/cancel'):\n                if path == '/ack' and 'result' not in item:\n                    raise ProtocolError('Cannot acknowledge incomplete request', 409)\n                del self.entries[key]\n                self.tombstones[key] = now\n                while len(self.tombstones) > 1024:\n                    del self.tombstones[next(iter(self.tombstones))]\n                return {'status': 'released'}\n            if path == '/result':\n                if 'result' not in item:\n                    raise ProtocolError('Both branches have not completed', 409)\n                return item['result']\n            if path != '/join':\n                raise ProtocolError('Unknown endpoint', 404)\n            task = data['task']\n            if task not in ('vision', 'speech'):\n                raise ProtocolError('Invalid branch task')\n            content = payload(data['data'])\n            receipt = data['receipt']\n            if receipt.get('task') != task or receipt.get('output_sha256') != digest(content) or receipt.get('output_bytes') != len(content):\n                raise ProtocolError('Branch receipt does not match transferred payload')\n            if task in item['receipts']:\n                if item['receipts'][task] != receipt:\n                    raise ProtocolError('Conflicting duplicate branch', 409)\n                return {'status': 'duplicate'}\n            item['inputs'][task], item['receipts'][task] = content, receipt\n            if len(item['inputs']) == 2:\n                execute = dict(item['inputs'])\n        # Inference and FIFO waiting must never hold the global request-state lock.\n        if execute is not None:\n            output, compute, waiting = self.invoke(execute, data.get('remaining_s', 120))\n            final = self.receipt(execute, output, compute, waiting)\n            with self.lock:\n                if self.entries.get(key) is not item:\n                    raise ProtocolError('Request cancelled during inference', 410)\n                item['result'] = {'status': 'ok', 'run_id': key[0], 'request_id': key[1],\n                                  'data': base64.b64encode(output).decode(),\n                                  'receipts': [item['receipts']['vision'], item['receipts']['speech'], final]}\n                item['inputs'].clear()\n                completed = [k for k, v in self.entries.items() if 'result' in v]\n                for old in completed[:-128]:\n                    del self.entries[old]\n        return {'status': 'accepted'}\n\n\nclass Handler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        if self.path != '/health':\n            self.send_error(404)\n            return\n        raw = json.dumps(dict(self.server.metadata, status='ready')).encode()\n        self.send_response(200)\n        self.send_header('Content-Length', str(len(raw)))\n        self.end_headers()\n        self.wfile.write(raw)\n\n    def do_POST(self):\n        counted = self.path != '/health'\n        if counted: self.server.http_active += 1\n        try: self._post()\n        finally:\n            if counted: self.server.http_active -= 1\n\n    def _post(self):\n        status = 200\n        try:\n            size = int(self.headers.get('Content-Length', '0'))\n            if size <= 0 or size > 16 * 1024 * 1024:\n                raise ProtocolError('Invalid or oversized body', 413)\n            data = decode_body(self.rfile.read(size), self.headers.get('Content-Type'))\n            result = self.server.operate(self.path, data)\n        except ProtocolError as error:\n            status, result = error.status, {'status': 'error', 'error': str(error)}\n        except (ValueError, TypeError, KeyError) as error:\n            status, result = 400, {'status': 'error', 'error': str(error)}\n        except Exception as error:\n            status, result = 500, {'status': 'error', 'error': repr(error)}\n        raw = json.dumps(result, separators=(',', ':')).encode()\n        self.send_response(status)\n        self.send_header('Content-Type', 'application/json')\n        self.send_header('Content-Length', str(len(raw)))\n        self.end_headers()\n        try:\n            self.wfile.write(raw)\n        except (BrokenPipeError, ConnectionResetError):\n            pass  # Client deadline elapsed; source terminal row records it.\n\n    def log_message(self, *args):\n        pass\n\n\n@contextmanager\ndef serve(task, adapter, **options):\n    server = OperatorServer(('127.0.0.1', 0), task, adapter, **options)\n    thread = threading.Thread(target=server.serve_forever, daemon=True)\n    thread.start()\n    try:\n        yield 'http://127.0.0.1:' + str(server.server_port)\n    finally:\n        server.shutdown()\n        server.server_close()\n        thread.join()\n\n\nif __name__ == '__main__':\n    import importlib\n    module = importlib.import_module(os.environ['ADAPTER_MODULE'])\n    task = os.environ['TASK_ID']\n    adapter, metadata = module.load(task)\n    server = OperatorServer(('0.0.0.0', 8080), task, adapter, metadata)\n    print(json.dumps({'event': 'ready', **server.metadata}), flush=True)\n    server.serve_forever()\n",
+        "edge_client.py": "\"\"\"File-replay sources: payloads originate on E0/E1, never collector-relayed.\n\nSource RPCs carry control, IDs and final results. Branch outputs go directly\nto fusion. This smoke is closed-loop and never labelled fixed-RPS evaluation.\n\"\"\"\nimport argparse\nimport base64\nfrom concurrent.futures import ThreadPoolExecutor, wait\nimport hashlib\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nimport json\nimport os\nfrom pathlib import Path\nimport time\nimport threading\nimport re\nimport sys\nfrom functools import lru_cache\n\nfrom http_runtime import request, decode_body, payload, digest\n\n\n@lru_cache(maxsize=120)\ndef read_file(path, expected):\n    data = Path(path).read_bytes()\n    if hashlib.sha256(data).hexdigest() != expected:\n        raise ValueError('Input hash changed')\n    return data\n\n\ndef read_input(pair, kind, representation='compressed'):\n    prefix = 'raw_' if representation == 'raw' else ''\n    return read_file(pair[prefix + kind + '_path'], pair[prefix + kind + '_sha256'])\n\n\ndef run_once(pair, identity, endpoints, remote_source, representation='compressed', deadline_s=120):\n    start = time.monotonic()\n    deadline = start + deadline_s\n    def rpc(url, body):\n        remaining = deadline - time.monotonic()\n        if remaining <= 0:\n            raise TimeoutError('Absolute workflow deadline elapsed')\n        return request(url, dict(body, remaining_s=remaining), timeout=remaining)\n    rpc(endpoints['fusion'] + '/open', identity)\n    pool = ThreadPoolExecutor(max_workers=2)\n    try:\n        vision = pool.submit(rpc, endpoints['vision'] + '/execute', dict(identity,\n            data=read_input(pair, 'image', representation),\n            fusion_url=endpoints.get('vision_fusion', endpoints['fusion'])))\n        speech = pool.submit(rpc, remote_source + '/branch', dict(identity,\n            representation=representation, question_id=pair['question_id'],\n            speech_url=endpoints['speech'], fusion_url=endpoints.get('speech_fusion', endpoints['fusion'])))\n        done, pending = wait([vision, speech], timeout=max(0, deadline - time.monotonic()))\n        if pending:\n            raise TimeoutError('Absolute workflow deadline elapsed waiting for branches')\n        vision.result()\n        speech_source = speech.result()\n        result = rpc(endpoints['fusion'] + '/result', identity)\n        result['e2e_ms'] = (time.monotonic() - start) * 1000\n        result['speech_source_node'] = speech_source['source_node']\n        result['speech_source_payload_sha256'] = speech_source['source_payload_sha256']\n        # Ack is lifecycle/control overhead, separately included in source_total_ms.\n        rpc(endpoints['fusion'] + '/ack', identity)\n        result['source_total_ms'] = (time.monotonic() - start) * 1000\n        return result\n    except Exception:\n        try:\n            request(endpoints['fusion'] + '/cancel', identity, timeout=3)\n        except Exception:\n            pass\n        raise\n    finally:\n        pool.shutdown(wait=True, cancel_futures=True)\n\n\ndef validate_result(pair, result, reference, representation='compressed'):\n    raw_output = base64.b64decode(result.pop('data'), validate=True)\n    final = next(r for r in result['receipts'] if r['task'] == 'fusion')\n    if hashlib.sha256(raw_output).hexdigest() != final['output_sha256'] or len(raw_output) != final['output_bytes']:\n        raise ValueError('Fusion output receipt mismatch')\n    output = json.loads(raw_output)\n    prefix = 'raw_' if representation == 'raw' else ''\n    result.update(question_id=pair['question_id'], split=pair['split'],\n        source_node=os.environ['NODE_NAME'], scope='real_ai_file_replay', representation=representation,\n        output=output, reference_answer_id=reference['answer_ids'][0],\n        answer_id_matches=output['answer_ids'][0] == reference['answer_ids'][0],\n        top5_order_matches=output['answer_ids'] == reference['answer_ids'],\n        max_score_abs_error=max(abs(a-b) for a,b in zip(output['scores'], reference['scores'])),\n        source_payload_sha256=pair[prefix + 'image_sha256'])\n    receipts = {r['task']: r for r in result['receipts']}\n    if receipts['vision']['input_sha256']['source'] != pair[prefix + 'image_sha256'] or receipts['speech']['input_sha256']['source'] != pair[prefix + 'audio_sha256']:\n        raise ValueError('Source-to-operator hash mismatch')\n    for task in ('vision', 'speech'):\n        if receipts['fusion']['input_sha256'][task] != receipts[task]['output_sha256']:\n            raise ValueError('Branch-to-fusion hash mismatch')\n    if result['speech_source_payload_sha256'] != pair[prefix + 'audio_sha256']:\n        raise ValueError('Remote source hash mismatch')\n    result['quality_ok'] = result['answer_id_matches'] and result['max_score_abs_error'] <= 1e-4\n    return result\n\n\ndef source_server(root, host='0.0.0.0', port=8080):\n    root = Path(root)\n    pairs = {p['question_id']: p for p in json.loads((root / 'pairs.json').read_text())['pairs']}\n    references = {r['question_id']: r for r in map(json.loads, (root / 'reference.jsonl').read_text().splitlines())}\n    # Both edge sources are raw-ready before their readiness probe can pass.\n    for pair in pairs.values():\n        if 'raw_audio_path' in pair:\n            read_input(pair, 'audio', 'raw')\n\n    def start_trace(server, config):\n        phase = config['phase']\n        if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,79}', phase):\n            raise ValueError('Invalid trace phase')\n        with server.trace_lock:\n            if phase in server.traces:\n                if server.traces[phase]['config'] != config:\n                    raise ValueError('Conflicting trace configuration')\n                return dict(status=server.traces[phase]['status'], phase=phase)\n            if any(s['status']=='running' for s in server.traces.values()):\n                raise ValueError('Another trace is active')\n            state = dict(status='running', config=config, events=[])\n            server.traces[phase] = state\n\n        def task():\n            try:\n                from load_trace import run_trace\n                with (root / ('trace-'+phase+'.jsonl')).open('x') as handle:\n                    def emit(row):\n                        handle.write(json.dumps(row)+'\\n')\n                        handle.flush()\n                        with server.trace_lock:\n                            state['events'].append(row)\n                        print(json.dumps(row), flush=True)\n                    for qid in set(config['question_ids']):\n                        read_input(pairs[qid], 'image', config['representation'])\n                    run_trace(config, pairs, references, emit)\n                with server.trace_lock:\n                    state['status']='complete'\n            except Exception as error:\n                with server.trace_lock:\n                    state.update(status='failed', error=repr(error))\n                print(json.dumps(dict(event='trace_error', phase=phase, error=repr(error))), flush=True)\n        threading.Thread(target=task, daemon=True).start()\n        return dict(status='running', phase=phase)\n\n    def profile(server, data, pair, representation, remaining):\n        key = (data['run_id'], data['request_id'])\n        signature = (pair['question_id'], data['kind'], data['operator_url'], representation)\n        with server.trace_lock:\n            entry = server.profiles.get(key)\n            owner = entry is None\n            if owner:\n                if len(server.profiles) >= 512:\n                    raise ValueError('Profile observation capacity reached')\n                entry = dict(signature=signature, done=threading.Event())\n                server.profiles[key] = entry\n            elif entry['signature'] != signature:\n                raise ValueError('Conflicting profile identity')\n        if owner:\n            try:\n                entry['result'] = request(data['operator_url']+'/infer', dict(\n                    run_id=key[0],request_id=key[1],data=read_input(pair,data['kind'],representation),\n                    remaining_s=remaining), timeout=remaining)\n            except Exception as error:\n                entry['error'] = repr(error)\n                raise\n            finally:\n                entry['done'].set()\n        if not entry['done'].wait(remaining):\n            raise TimeoutError('Profile observation pending')\n        if 'error' in entry:\n            raise ValueError('Original profile observation failed: '+entry['error'])\n        return entry['result']\n\n    def transfer_profile(server, data):\n        content = payload(data['data'])\n        count = data.get('count', 1)\n        if not isinstance(count, int) or not 1 <= count <= 100:\n            raise ValueError('Transfer sample count must be 1..100')\n        key = (data['run_id'], data['request_id'])\n        signature = (data['target_url'], digest(content), count)\n        with server.trace_lock:\n            entry = server.transfers.get(key)\n            owner = entry is None\n            if owner:\n                if len(server.transfers) >= 4096:\n                    raise ValueError('Transfer observation capacity reached')\n                entry = dict(signature=signature, done=threading.Event())\n                server.transfers[key] = entry\n            elif entry['signature'] != signature:\n                raise ValueError('Conflicting transfer identity')\n        if owner:\n            try:\n                samples = []\n                for _ in range(count):\n                    started = time.monotonic()\n                    reply = request(data['target_url']+'/sink', {'data': content}, timeout=60)\n                    samples.append((time.monotonic()-started)*1000)\n                    if reply['sha256'] != digest(content) or reply['bytes'] != len(content):\n                        raise ValueError('Transfer integrity failure')\n                entry['result'] = dict(samples_ms=samples, payload_bytes=len(content),\n                    sha256=digest(content), source_node=os.environ['NODE_NAME'],\n                    scope='serialized payload echo RPC proxy, not pure one-way network time')\n            except Exception as error:\n                entry['error'] = repr(error)\n                raise\n            finally:\n                entry['done'].set()\n        if not entry['done'].wait(120):\n            raise TimeoutError('Transfer observation still running')\n        if 'error' in entry:\n            raise ValueError('Original transfer failed: '+entry['error'])\n        return entry['result']\n\n    class Handler(BaseHTTPRequestHandler):\n        def do_GET(self):\n            if self.path != '/health':\n                self.send_error(404)\n                return\n            raw = json.dumps({'status': 'ready', 'node': os.environ['NODE_NAME']}).encode()\n            self.send_response(200)\n            self.send_header('Content-Length', str(len(raw)))\n            self.end_headers()\n            self.wfile.write(raw)\n\n        def do_POST(self):\n            counted = self.path != '/health'\n            if counted: self.server.active_requests += 1\n            try: self._post()\n            finally:\n                if counted: self.server.active_requests -= 1\n\n        def _post(self):\n            status = 200\n            try:\n                size = int(self.headers.get('Content-Length', 0))\n                if size < 1 or size > 16 * 1024 * 1024:\n                    raise ValueError('Invalid control body')\n                data = decode_body(self.rfile.read(size), self.headers.get('Content-Type'))\n                if self.path in ('/start_trace', '/trace_status'):\n                    if self.path == '/start_trace':\n                        result = start_trace(self.server, data)\n                    else:\n                        with self.server.trace_lock:\n                            state = self.server.traces[data['phase']]\n                            result = dict(status=state['status'], events=list(state['events']), error=state.get('error'))\n                    raw = json.dumps(result).encode()\n                    self.send_response(200)\n                    self.send_header('Content-Length', str(len(raw)))\n                    self.end_headers()\n                    self.wfile.write(raw)\n                    return\n                if self.path == '/health':\n                    raw = json.dumps(dict(status='ready', node=os.environ['NODE_NAME'], active_requests=self.server.active_requests, raw_audio_ready=sum('raw_audio_path' in p for p in pairs.values()))).encode()\n                    self.send_response(200)\n                    self.send_header('Content-Length', str(len(raw)))\n                    self.end_headers()\n                    self.wfile.write(raw)\n                    return\n                if self.path == '/sink':\n                    content = payload(data['data'])\n                    raw = json.dumps(dict(status='ok', bytes=len(content), sha256=digest(content))).encode()\n                    self.send_response(200)\n                    self.send_header('Content-Length', str(len(raw)))\n                    self.end_headers()\n                    self.wfile.write(raw)\n                    return\n                if self.path == '/transfer_profile':\n                    result = transfer_profile(self.server, data)\n                    raw = json.dumps(result).encode()\n                    self.send_response(200)\n                    self.send_header('Content-Length', str(len(raw)))\n                    self.end_headers()\n                    self.wfile.write(raw)\n                    return\n                pair = pairs[data['question_id']]\n                representation = data.get('representation', 'compressed')\n                remaining = data.get('remaining_s', 120)\n                identity = {k: data[k] for k in ('run_id', 'request_id')}\n                if self.path == '/branch':\n                    result = request(data['speech_url'] + '/execute', dict(identity,\n                        data=read_input(pair, 'audio', representation), fusion_url=data['fusion_url'], remaining_s=remaining), timeout=remaining)\n                    result['source_node'] = os.environ['NODE_NAME']\n                    result['source_payload_sha256'] = pair[('raw_' if representation == 'raw' else '') + 'audio_sha256']\n                elif self.path == '/profile':\n                    result = profile(self.server, data, pair, representation, remaining)\n                elif self.path == '/run':\n                    result = run_once(pair, identity, data['endpoints'], data['remote_source'], representation, remaining)\n                    result = validate_result(pair, result, references[pair['question_id']], representation)\n                else:\n                    raise ValueError('Unknown endpoint')\n            except Exception as error:\n                status, result = 500, {'status': 'error', 'error': repr(error)}\n            raw = json.dumps(result).encode()\n            self.send_response(status)\n            self.send_header('Content-Length', str(len(raw)))\n            self.end_headers()\n            self.wfile.write(raw)\n\n        def log_message(self, *args):\n            pass\n\n    server = ThreadingHTTPServer((host, port), Handler)\n    server.active_requests = 0\n    server.traces = {}\n    server.profiles = {}\n    server.transfers = {}\n    server.trace_lock = threading.Lock()\n    return server\n\n\ndef main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument('--root', required=True)\n    ap.add_argument('--port', type=int, default=8080)\n    args = ap.parse_args()\n    server = source_server(args.root, port=args.port)\n    print(json.dumps({'event': 'source_ready', 'node': os.environ['NODE_NAME']}), flush=True)\n    server.serve_forever()\n\n\nif __name__ == '__main__':\n    # load_trace imports edge_client. Reuse this module and its prepared cache.\n    sys.modules['edge_client'] = sys.modules[__name__]\n    main()\n",
+        "model_adapter.py": "\"\"\"Pinned JellyBean model graph, CPU/batch1, trained weights loaded strictly.\n\nTwo compatibility changes: torchvision Scale -> Resize alias; skipthought\npretraining initialization omitted because every parameter is replaced strictly\nby the published trained MUTAN state_dict. No model layer/weight is omitted.\n\"\"\"\nimport ast\nimport hashlib\nimport io\nimport json\nimport os\nfrom pathlib import Path\nimport re\nimport sys\nimport time\n\n\ndef sha(path):\n    return hashlib.sha256(Path(path).read_bytes()).hexdigest()\n\n\ndef load(task):\n    import numpy as np\n    import torch\n    root = Path(os.environ['MODEL_ROOT'])\n    source = Path(os.environ['JELLYBEAN_SOURCE'])\n    started = time.perf_counter()\n    torch.set_num_threads(1)\n    try:\n        torch.set_num_interop_threads(1)\n    except RuntimeError:\n        pass  # Reference harness loads multiple stages sequentially in one process.\n    sys.path.insert(0, str(source))\n    metadata = {'scope': 'real_ai_file_replay', 'device': 'cpu', 'precision': 'float32',\n                'torch': torch.__version__, 'threads': torch.get_num_threads(),\n                'adapter_sha256': sha(__file__), 'source_commit': '65a1d67817946a4ae67b068eafb49d649bc061bc'}\n    if task == 'vision':\n        from PIL import Image\n        import torchvision.models as models\n        import torchvision.transforms as transforms\n        weight = root / 'resnet18-f37072fd.pth'\n        model = models.resnet18(weights=None)\n        model.load_state_dict(torch.load(weight, weights_only=True, map_location='cpu'), strict=True)\n        model = torch.nn.Sequential(*list(model.children())[:-2]).eval()\n        transform = transforms.Compose([transforms.Resize(448), transforms.CenterCrop(448),\n                                        transforms.ToTensor(), transforms.Normalize([.485, .456, .406], [.229, .224, .225])])\n\n        def operator(data):\n            if data.startswith(b'\\x93NUMPY'):\n                pixels = np.load(io.BytesIO(data), allow_pickle=False)\n                if pixels.dtype != np.uint8 or pixels.ndim != 3 or pixels.shape[2] != 3:\n                    raise ValueError('Expected decoded uint8 RGB pixels')\n                image = Image.fromarray(pixels, 'RGB')\n            else:\n                image = Image.open(io.BytesIO(data)).convert('RGB')\n            value = transform(image).unsqueeze(0)\n            with torch.inference_mode():\n                feature = model(value)\n                feature = feature.sum(3).sum(2).div(feature.size(2) * feature.size(3)).squeeze(0).numpy()\n            assert feature.shape == (512,) and feature.dtype == np.float32\n            out = io.BytesIO()\n            np.save(out, feature, allow_pickle=False)\n            return out.getvalue()\n        metadata.update(model_sha256=sha(weight), model='resnet18-imagenet1k-v1-noatt-448')\n    elif task == 'speech':\n        import soundfile as sf\n        from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor\n        processor = Wav2Vec2Processor.from_pretrained(root / 'asr', local_files_only=True)\n        model = Wav2Vec2ForCTC.from_pretrained(root / 'asr', local_files_only=True).eval()\n\n        def operator(data):\n            if data.startswith(b'\\x93NUMPY'):\n                audio = np.load(io.BytesIO(data), allow_pickle=False)\n                if audio.dtype != np.float32 or not np.isfinite(audio).all():\n                    raise ValueError('Expected float32 PCM')\n                rate = 16000\n            else:\n                audio, rate = sf.read(io.BytesIO(data), dtype='float32')\n            if rate != 16000 or audio.ndim != 1:\n                raise ValueError('Expected mono 16kHz fixture')\n            inputs = processor(audio, sampling_rate=16000, return_tensors='pt', padding='longest')\n            with torch.inference_mode():\n                logits = model(inputs.input_values).logits.squeeze(0)\n                text = processor.decode(torch.argmax(logits, dim=-1), skip_special_tokens=True)\n            return text.encode()\n        metadata.update(model_sha256=sha(root / 'asr/model.safetensors'), model='wav2vec2-base-960h')\n    elif task == 'fusion':\n        import yaml\n        import vqa.models as models\n        import skipthoughts\n        from gru import BayesianGRU\n        vocab_path, weight = root / 'vocab.json', root / 'mutan-resnet18.pth.tar'\n        vocab = json.loads(vocab_path.read_text())\n        words = [word for word, _ in sorted(vocab['word_to_wid'].items(), key=lambda x: x[1])]\n        config = yaml.safe_load((source / 'configs/variants/mutan_noatt_resnet18.yaml').read_text())\n        # The trained checkpoint includes embedding and GRU parameters. Construct\n        # their original classes, skip unused pretraining downloads, strict-load.\n        old_embedding = skipthoughts.AbstractSkipThoughts._load_embedding\n        old_rnn = skipthoughts.BayesianUniSkip._load_rnn\n        skipthoughts.AbstractSkipThoughts._load_embedding = lambda self: torch.nn.Embedding(len(self.vocab) + 1, 620, padding_idx=0)\n        skipthoughts.BayesianUniSkip._load_rnn = lambda self: BayesianGRU(620, 2400, dropout=self.dropout)\n        try:\n            model = models.factory(config['model'], words, vocab['aid_to_ans'])\n        finally:\n            skipthoughts.AbstractSkipThoughts._load_embedding = old_embedding\n            skipthoughts.BayesianUniSkip._load_rnn = old_rnn\n        state = torch.load(weight, weights_only=True, map_location='cpu')\n        model.load_state_dict(state, strict=True)\n        assert all(torch.equal(v.cpu(), state[k]) for k, v in model.state_dict().items())\n        model.eval()\n        source_text = (source / 'vqa/datasets/vqa_processed.py').read_text()\n        function = next(n for n in ast.parse(source_text).body if isinstance(n, ast.FunctionDef) and n.name == 'tokenize_mcb')\n        namespace = {'re': re}\n        exec(compile(ast.Module(body=[function], type_ignores=[]), 'upstream-tokenize_mcb', 'exec'), namespace)\n\n        def operator(inputs):\n            feature = np.load(io.BytesIO(inputs['vision']), allow_pickle=False)\n            if feature.shape != (512,) or feature.dtype != np.float32 or not np.isfinite(feature).all():\n                raise ValueError('Invalid feature tensor')\n            tokens = namespace['tokenize_mcb'](inputs['speech'].decode())[:26]\n            if not tokens:\n                raise ValueError('ASR produced empty question')\n            ids = torch.tensor([[vocab['word_to_wid'].get(w, vocab['word_to_wid']['UNK']) for w in tokens]], dtype=torch.long)\n            with torch.inference_mode():\n                scores = model(torch.from_numpy(feature).unsqueeze(0), ids).softmax(-1)\n                values, indices = scores.topk(5)\n            result = {'answers': [vocab['aid_to_ans'][i] for i in indices[0].tolist()],\n                      'answer_ids': indices[0].tolist(), 'scores': values[0].tolist()}\n            return json.dumps(result, separators=(',', ':')).encode()\n        metadata.update(model_sha256=sha(weight), vocab_sha256=sha(vocab_path), model='MutanNoAtt-resnet18',\n                        strict_state_keys=len(state), all_checkpoint_tensors_equal=True,\n                        initialization_change='skip unused pretrained initialization, strict trained state_dict replaces every tensor')\n    else:\n        raise ValueError('Unknown task')\n    metadata['load_ms'] = (time.perf_counter() - started) * 1000\n    return operator, metadata\n",
+        "bootstrap.py": "\"\"\"Install hash-bound offline wheels and role assets inside owned emptyDir.\"\"\"\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport sys\nimport tarfile\nimport urllib.request\n\nroot = Path('/work')\nconfig = Path(os.environ.get('CONFIG_ROOT', '/config'))\nmanifest = json.loads((config / 'bundles.json').read_text())\nrole = os.environ['TASK_ID']\narch = platform.machine()\nnames = ['source.tar'] if role == 'source' else ['wheels-' + arch + '.tar', role + '.tar']\nfor name in names:\n    path = root / name\n    hasher = hashlib.sha256()\n    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))\n    with opener.open(os.environ['ASSET_URL'] + '/' + name, timeout=120) as response, path.open('xb') as output:\n        while block := response.read(1024 * 1024):\n            output.write(block)\n            hasher.update(block)\n    if hasher.hexdigest() != manifest[name]['sha256']:\n        raise RuntimeError('Bundle hash mismatch: ' + name)\n    with tarfile.open(path) as archive:\n        archive.extractall(root, filter='data')\n    path.unlink()\nif role != 'source':\n    subprocess.run([sys.executable, '-m', 'pip', 'install', '--disable-pip-version-check', '--no-compile',\n                    '--no-cache-dir', '--no-index', '--require-hashes', '--find-links', '/work/wheels',\n                    '--target', '/work/site', '-r', '/work/requirements.txt'], check=True)\n    os.environ.update(PYTHONPATH='/work/site:'+str(config), MODEL_ROOT='/work/models',\n                      JELLYBEAN_SOURCE='/work/jellybean', ADAPTER_MODULE='model_adapter')\n    os.execv(sys.executable, [sys.executable, '-u', str(config / 'http_runtime.py')])\nos.execv(sys.executable, [sys.executable, '-u', str(config / 'edge_client.py'), '--root', '/work/corpus'])\n",
+        "load_trace.py": "\"\"\"Source-local open-loop trace. Every planned release gets one terminal row.\"\"\"\nimport argparse\nfrom concurrent.futures import ThreadPoolExecutor\nfrom datetime import datetime, timezone\nimport json\nfrom pathlib import Path\nimport threading\nimport time\n\nfrom edge_client import read_input, run_once, validate_result\n\n\ndef run_trace(config, pairs, references, emit):\n    offsets, questions = config['offsets_s'], config['question_ids']\n    if len(offsets) != len(questions) or offsets != sorted(offsets):\n        raise ValueError('Trace offsets must be sorted and match question count')\n    start = time.monotonic()\n    slots = threading.BoundedSemaphore(config['max_inflight'])\n    lock = threading.Lock()\n    terminals = []\n    def log(row):\n        with lock:\n            emit(dict(row, phase=config['phase']))\n    log({'event': 'phase_start', 'utc': datetime.now(timezone.utc).isoformat(), 'config': config})\n\n    def attempt(index, qid, released):\n        row = dict(event='terminal', index=index, question_id=qid, scheduled_s=offsets[index], actual_release_s=released)\n        row['dispatch_s'] = time.monotonic() - start\n        row['driver_queue_ms'] = (row['dispatch_s'] - released) * 1000\n        identity = dict(run_id=config['run_id'], request_id=config['phase'] + '-' + str(index))\n        try:\n            pair = pairs[qid]\n            remaining = config['deadline_s'] - (time.monotonic() - start - offsets[index])\n            if remaining <= 0:\n                raise TimeoutError('Expired before dispatch')\n            result = run_once(pair, identity, config['endpoints'], config['remote_source'], config['representation'], remaining)\n            row.update(validate_result(pair, result, references[qid], config['representation']))\n            row['status'] = 'ok' if row['quality_ok'] else 'quality_error'\n        except Exception as error:\n            row.update(status='error', error=repr(error), quality_ok=False)\n        finally:\n            row['finished_s'] = time.monotonic() - start\n            row['scheduled_to_terminal_ms'] = (row['finished_s'] - offsets[index]) * 1000\n            row['deadline_exceeded'] = row['scheduled_to_terminal_ms'] > config['deadline_s'] * 1000\n            if row['deadline_exceeded'] and row['status'] == 'ok':\n                row.update(status='deadline_error', quality_ok=False)\n            with lock:\n                terminals.append(row)\n            log(row)\n            slots.release()\n\n    with ThreadPoolExecutor(max_workers=config['max_inflight']) as pool:\n        for index, (offset, qid) in enumerate(zip(offsets, questions)):\n            remaining = start + offset - time.monotonic()\n            if remaining > 0:\n                time.sleep(remaining)\n            released = time.monotonic() - start\n            log(dict(event='release', index=index, question_id=qid, scheduled_s=offset,\n                     actual_release_s=released, release_lag_ms=(released - offset) * 1000))\n            if slots.acquire(blocking=False):\n                pool.submit(attempt, index, qid, released)\n            else:\n                row = dict(event='terminal', index=index, question_id=qid, scheduled_s=offset,\n                    actual_release_s=released, finished_s=released, status='driver_capacity', quality_ok=False)\n                terminals.append(row)\n                log(row)\n        log({'event': 'stop_release', 'elapsed_s': time.monotonic() - start})\n    summary = dict(event='phase_end', attempts=len(questions), terminals=len(terminals),\n                   failures=sum(r['status'] != 'ok' for r in terminals), elapsed_s=time.monotonic() - start)\n    log(summary)\n    return summary\n\n\nif __name__ == '__main__':\n    ap = argparse.ArgumentParser()\n    ap.add_argument('--config', required=True)\n    ap.add_argument('--root', default='/work/corpus')\n    args = ap.parse_args()\n    config = json.loads(Path(args.config).read_text())\n    root = Path(args.root)\n    pairs = {p['question_id']: p for p in json.loads((root / 'pairs.json').read_text())['pairs']}\n    references = {r['question_id']: r for r in map(json.loads, (root / 'reference.jsonl').read_text().splitlines())}\n    # Raw-ready input replay: file reading/hashing is before the release clock.\n    for qid in set(config['question_ids']):\n        read_input(pairs[qid], 'image', config['representation'])\n    run_trace(config, pairs, references, lambda row: print(json.dumps(row), flush=True))\n",
+        "net_control.py": "\"\"\"Kernel impairment and /32 bypass guards in explicitly owned Pod netns only.\"\"\"\nimport ipaddress\nimport json\nimport os\nimport sys\n\n\ndef configure(spec):\n    from pyroute2 import IPRoute\n    if os.environ.get('RESEARCH_LINK_CONTROL') != 'owned-pod-netns':\n        raise RuntimeError('Refusing unowned network namespace')\n    def address(value):\n        result = str(ipaddress.IPv4Address(value))\n        if not result.startswith('10.'):\n            raise ValueError('Only frozen cluster Pod IPs are allowed')\n        return result\n    with IPRoute() as ip:\n        index = ip.link_lookup(ifname='eth0')[0]\n        if spec['action'] in ('block', 'unblock'):\n            for value in spec['destinations']:\n                ip.route('add' if spec['action'] == 'block' else 'del',\n                         dst=address(value) + '/32', type='blackhole', table=254)\n        elif spec['action'] == 'shape':\n            roots = [q for q in ip.get_qdiscs(index=index) if q['parent'] == 0xffffffff]\n            if not all(q['handle'] in (0, 0x10000) for q in roots):\n                raise RuntimeError('Unrelated root qdisc; refusing replacement')\n            if any(q['handle'] == 0x10000 for q in roots):\n                ip.tc('del', 'prio', index, '1:')\n            rate, delay = spec.get('mbps'), spec.get('delay_ms', 0)\n            if rate not in (None, 2, 10, 100) or delay not in (0, 20):\n                raise ValueError('Unapproved impairment condition')\n            if rate is not None or delay:\n                ip.tc('add', 'prio', index, '1:', bands=3, priomap=[2]*16)\n                for band, zone in ((1, 'cloud'), (2, 'edge')):\n                    tbf, netem = f'{band}0:', f'{band}1:'\n                    # netem leaf owns the packet queue. 64 packets is frozen;\n                    # TCP retransmission/drop is measured rather than hidden.\n                    ip.tc('add', 'tbf', index, tbf, parent=f'1:{band}',\n                          rate=f'{rate or 10000}mbit', burst=4096, limit=131072)\n                    ip.tc('add', 'netem', index, netem, parent=f'{band}0:1', delay=delay*1000, limit=64)\n                    for priority, value in enumerate(spec[zone], band*100):\n                        destination = address(value)\n                        ip.tc('add-filter', 'u32', index, parent='1:', prio=priority, protocol=0x0800,\n                              target=f'1:{band}', keys=[f'{hex(int(ipaddress.IPv4Address(destination)))}/0xffffffff+16'])\n        elif spec['action'] != 'snapshot':\n            raise ValueError('Unknown netns operation')\n        native=list(ip.get_qdiscs(index=index))\n        summaries=[]\n        for q in native:\n            stats=q.get_attr('TCA_STATS')\n            if stats is None:\n                raise RuntimeError('Kernel queue stats unavailable; refuse false idle')\n            summaries.append(dict(handle=q['handle'],parent=q['parent'],kind=q.get_attr('TCA_KIND'),\n                bytes=int(stats['bytes']),packets=int(stats['packets']),drops=int(stats['drop']),\n                overlimits=int(stats['overlimits']),qlen=int(stats['qlen']),backlog=int(stats['backlog'])))\n        # Parent/child stats may overlap; summed positivity is used only as a zero gate.\n        return dict(backlog_bytes=sum(q['backlog'] for q in summaries),\n            qdisc_summary=summaries,observer='native-TCA_STATS-v2',\n            netns=os.readlink('/proc/self/ns/net'),spec=spec,qdiscs=[dict(q) for q in native],\n            filters=[dict(x) for x in ip.get_filters(index=index, parent=0x10000)],\n            routes=[dict(x) for x in ip.get_routes(family=2, table=254)],\n            links=[dict(x) for x in ip.get_links(index)])\n\n\nif __name__ == '__main__':\n    print(json.dumps(configure(json.load(sys.stdin)), default=str))\n",
+        "wan_gateway.py": "\"\"\"Explicit HTTP relay; kernel egress classes share one cap per zone/direction.\n\nThis splits TCP connections. Unlimited relay is a mandatory separate control.\nEndpoints are a frozen allow-list; no HTTP_PROXY or arbitrary URL forwarding.\n\"\"\"\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer\nimport json\nfrom pathlib import Path\nimport threading\nimport time\nimport urllib.error\nimport urllib.request\n\nslots = threading.BoundedSemaphore(96)\nlock = threading.Lock()\ncounters = {}\nactive = 0\n\n\nclass Handler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        raw = json.dumps({'status': 'ready', 'counters': counters, 'active_requests': active}).encode()\n        self.send_response(200)\n        self.send_header('Content-Length', str(len(raw)))\n        self.end_headers()\n        self.wfile.write(raw)\n\n    def do_POST(self):\n        global active\n        if self.path == '/health':\n            self.do_GET()\n            return\n        with lock: active += 1\n        try: self._post()\n        finally:\n            with lock: active -= 1\n\n    def _post(self):\n        if not slots.acquire(blocking=False):\n            self.send_error(429)\n            return\n        started = time.monotonic()\n        target = 'invalid'\n        try:\n            parts = self.path.split('/', 3)\n            if len(parts) != 4 or parts[1] != 'to':\n                raise ValueError('Only named relay endpoints are allowed')\n            target, path = parts[2:]\n            peers = json.loads(Path('/work/peers.json').read_text())\n            url = peers[target]['url'] + '/' + path\n            size = int(self.headers.get('Content-Length', 0))\n            if size < 1 or size > 16*1024*1024:\n                raise ValueError('Invalid relay body')\n            body = self.rfile.read(size)\n            opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))\n            req = urllib.request.Request(url, body, {'Content-Type': self.headers.get('Content-Type', 'application/json')})\n            try:\n                response = opener.open(req, timeout=120)\n            except urllib.error.HTTPError as error:\n                response = error\n            with response:\n                raw, status = response.read(), response.code\n            with lock:\n                item = counters.setdefault(target, dict(requests=0, request_body_bytes=0, response_body_bytes=0))\n                item['requests'] += 1\n                item['request_body_bytes'] += size\n                item['response_body_bytes'] += len(raw)\n        except Exception as error:\n            status, raw = 502, json.dumps({'error': repr(error)}).encode()\n        finally:\n            slots.release()\n        self.send_response(status)\n        self.send_header('Content-Type', 'application/json')\n        self.send_header('Content-Length', str(len(raw)))\n        self.end_headers()\n        try:\n            self.wfile.write(raw)\n        except (BrokenPipeError, ConnectionResetError):\n            pass\n        print(json.dumps(dict(target=target, status=status, elapsed_ms=(time.monotonic()-started)*1000)), flush=True)\n\n    def log_message(self, *args):\n        pass\n\n\nif __name__ == '__main__':\n    ThreadingHTTPServer(('0.0.0.0', 8080), Handler).serve_forever()\n",
+        "bundles.json": "{\n  \"fusion.tar\": {\n    \"bytes\": 148469760,\n    \"sha256\": \"fe30e79d0b756acd5848204c414944573a58a3797c7f49ec8c4614e2c4b4d789\"\n  },\n  \"wheels-x86_64.tar\": {\n    \"bytes\": 245882880,\n    \"sha256\": \"5084d30883179e6aede2f372ac9ba5bf52b9ca3ea37c3057b11f97bd4cdfd546\"\n  },\n  \"speech.tar\": {\n    \"bytes\": 377630720,\n    \"sha256\": \"3c6ae7aba1f6886cca8aa0ebc0fe3f566b1dde350519ab5346a11734346bc2b8\"\n  },\n  \"vision.tar\": {\n    \"bytes\": 46837760,\n    \"sha256\": \"524a4b8078e73fe7d1f0f228d2e05b124d8d4e1982fcd79a818669d64ce4f420\"\n  },\n  \"source.tar\": {\n    \"bytes\": 69662720,\n    \"sha256\": \"aa2b6a1743b1f232a5e5d9ea9a85b93876adf127986c2e77ce6d731ed0933fd9\"\n  },\n  \"wheels-aarch64.tar\": {\n    \"bytes\": 159344640,\n    \"sha256\": \"ebd1c3bb5ef1a8abb1c5aec19189d482c3db27307c21ad5149dee2c7a9950ecf\"\n  },\n  \"pyroute2-0.9.6-py3-none-any.whl\": {\n    \"bytes\": 483440,\n    \"sha256\": \"3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8\"\n  }\n}"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-gateway",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-ser0002-cgnmsb"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/wan_gateway.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "gateway"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-source-e0",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0003-raspi5"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-source-e1",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0002-raspi5"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-source-c",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-ser0002-cgnmsb"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-sink-e0",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0003-raspi5"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "5m",
+                "memory": "32Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-sink-e1",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-dev0002-raspi5"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "5m",
+                "memory": "32Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t043924-sink-c",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t043924"
+        }
+      },
+      "spec": {
+        "schedulerName": "default-scheduler",
+        "automountServiceAccountToken": false,
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 10800,
+        "terminationGracePeriodSeconds": 3,
+        "securityContext": {
+          "fsGroup": 65532
+        },
+        "affinity": {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchFields": [
+                    {
+                      "key": "metadata.name",
+                      "operator": "In",
+                      "values": [
+                        "etri-ser0002-cgnmsb"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+            ],
+            "env": [
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "TASK_ID",
+                "value": "source"
+              },
+              {
+                "name": "TMPDIR",
+                "value": "/work/tmp"
+              },
+              {
+                "name": "PYTHONDONTWRITEBYTECODE",
+                "value": "1"
+              },
+              {
+                "name": "HF_HUB_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "TRANSFORMERS_OFFLINE",
+                "value": "1"
+              },
+              {
+                "name": "ASSET_URL",
+                "value": "http://10.244.8.119:8080"
+              },
+              {
+                "name": "CONFIG_ROOT",
+                "value": "/work/config"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/config"
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "5m",
+                "memory": "32Mi",
+                "ephemeral-storage": "128Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi",
+                "ephemeral-storage": "8Gi"
+              }
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/health",
+                "port": 8080
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsGroup": 65532,
+              "runAsNonRoot": true,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          },
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.119:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+            ],
+            "env": [
+              {
+                "name": "RESEARCH_LINK_CONTROL",
+                "value": "owned-pod-netns"
+              },
+              {
+                "name": "PYTHONPATH",
+                "value": "/work/net:/work/net-config"
+              },
+              {
+                "name": "POD_UID",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "metadata.uid"
+                  }
+                }
+              },
+              {
+                "name": "NODE_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath": "spec.nodeName"
+                  }
+                }
+              }
+            ],
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "96Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 0,
+              "runAsNonRoot": false,
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ],
+                "add": [
+                  "NET_ADMIN"
+                ]
+              }
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                ]
+              },
+              "periodSeconds": 2,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Gi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t043924"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

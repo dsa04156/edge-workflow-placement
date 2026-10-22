@@ -1,0 +1,34 @@
+{
+  "code_sha256": {
+    "forecast.py": "690c742f6e096ec2f6411135b7e07ac5cda47db91e93b121da7a2df212aec4f9",
+    "run.py": "5bb2fba0416437b791ed53ccb71d422f8d194f45a72b86e27d7d4fe7d314963e",
+    "stage_runtime.py": "0986d9049354d3e84da5681eae2877720a9b401fa6cb59201b1a2f8b0ae60619",
+    "verify.py": "fb8384bebdf952efcbbcfae4046d972d3340bfd25b63dd84bc682a4bfd0afa8b"
+  },
+  "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+  "limits": "single native-network block; no injected delay/qdisc; no inference retry; no p95/significance/throughput claim",
+  "measured_span": "source Pod monotonic from T1 request to final response; excludes target access, artifact fetch, window formation and training",
+  "model_sha256": "5ae6e406ae15491a989f7b0c5ba57c22cf084a6fb111becd400a4cb9f85758f3",
+  "namespace": "topology-profile-lab",
+  "nodes": {
+    "edge": "etri-dev0003-raspi5",
+    "server": "etri-ser0002-cgnmsb"
+  },
+  "port": 8080,
+  "prepared_files": {
+    "evaluation.json": "5e5ff41f6ab16ace46a2b3e39cf176444c27fb59bd63c0fb930689e4264feb19",
+    "model.json": "5ae6e406ae15491a989f7b0c5ba57c22cf084a6fb111becd400a4cb9f85758f3",
+    "plan.json": "facff679f02c962314657194ae210e222a5ad06691df5e0eacdae20547d09ba5",
+    "reference.json": "6773aea90f022e2cc50e04c1f0f508fadd3aed605c38ba14b8a0e5240019a2ad",
+    "source-manifest.json": "c4f168df1b26a14032f3e59c740bd3b687210fe831542f29ff1c8a0983f08855",
+    "source/SHA256SUMS": "ff4c2372dc100c59365f4af067e0d83777fb7c3ee498ddd03b07fdb042af8d14",
+    "source/history/humidity.json": "50062dd1b0bbcce4988576b5af71c2b9329a8783a2019f157515598374d73036",
+    "source/history/manifest.json": "54c1de06d94a6b33cdd9047552a63df9779e1af520971283eec6233497fd46e9",
+    "source/history/pressure.json": "fe95d319fb8a8ea6ff59579794261f046d1d36f706f72c1bc1d2cf177bd98495",
+    "source/history/temp_humidity.json": "a042628b4fe17ee8f314778cace0af5ab9167ebf7f51192f0f36bf095b4834b7",
+    "targets.json": "2ef8e296e0bad7364711d23639f4c330503886aa919a50ec2d947d34262a90ce",
+    "windows.json": "65dd79d5f3366954847b1abfe616d4eb281010c099efb866e67d7548e01adc7c"
+  },
+  "run_id": "sensehat-20261021t114702z",
+  "scope": "fixed diagnostic placements + one observed default-scheduler placement; frozen physical Sense HAT history replayed from the edge source Pod; not live sensor E2E, not optimized placement comparison"
+}

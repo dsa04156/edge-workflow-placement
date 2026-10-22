@@ -1,0 +1,42 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "ser0003-registry-fix-probe",
+    "namespace": "topology-profile-lab",
+    "labels": {
+      "run-id": "ser0003-registry-fix-20261022"
+    }
+  },
+  "spec": {
+    "nodeSelector": {
+      "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+    },
+    "restartPolicy": "Never",
+    "automountServiceAccountToken": false,
+    "activeDeadlineSeconds": 300,
+    "terminationGracePeriodSeconds": 1,
+    "containers": [
+      {
+        "name": "probe",
+        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "imagePullPolicy": "Always",
+        "command": [
+          "python3",
+          "-c",
+          "import platform,sys;print('REGISTRY_IMAGE_OK',platform.machine(),sys.version.split()[0])"
+        ],
+        "resources": {
+          "requests": {
+            "cpu": "10m",
+            "memory": "32Mi"
+          },
+          "limits": {
+            "cpu": "200m",
+            "memory": "128Mi"
+          }
+        }
+      }
+    ]
+  }
+}

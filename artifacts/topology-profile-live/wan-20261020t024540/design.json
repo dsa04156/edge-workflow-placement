@@ -1,0 +1,64 @@
+{
+  "scope": "automatic placement execution pilot, one time block",
+  "conditions": [
+    [
+      "raw-100",
+      100,
+      20,
+      "raw"
+    ],
+    [
+      "unlimited",
+      null,
+      0,
+      "compressed"
+    ],
+    [
+      "raw-10",
+      10,
+      20,
+      "raw"
+    ],
+    [
+      "compressed-100",
+      100,
+      20,
+      "compressed"
+    ],
+    [
+      "compressed-10",
+      10,
+      20,
+      "compressed"
+    ],
+    [
+      "compressed-2",
+      2,
+      20,
+      "compressed"
+    ],
+    [
+      "raw-2",
+      2,
+      20,
+      "raw"
+    ]
+  ],
+  "rate_rps": 0.1,
+  "warmup": 2,
+  "evaluation_count": 6,
+  "seed": 20261020,
+  "quality_inputs": 60,
+  "calibration_inputs": 20,
+  "policies": [
+    "kube-default",
+    "server-only",
+    "greedy",
+    "heft",
+    "ours",
+    "no-network",
+    "no-node-profile"
+  ],
+  "serving": "independent persistent stage FIFO; no node-exclusive processor lane",
+  "compute_representation": "compressed; raw recomputation required before raw condition"
+}

@@ -1,0 +1,157 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "wan-20261020t021827",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t021827"
+        }
+      },
+      "data": {
+        "probe.py": "print('config-present',flush=True)\n"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t021827-holder",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t021827"
+        }
+      },
+      "spec": {
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 300,
+        "automountServiceAccountToken": false,
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0002-raspi5"
+        },
+        "containers": [
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import time;time.sleep(280)"
+            ],
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsNonRoot": true,
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t021827"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "wan-20261020t021827-mate",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "experiment": "topology-profile",
+          "run-id": "wan-20261020t021827"
+        }
+      },
+      "spec": {
+        "restartPolicy": "Never",
+        "activeDeadlineSeconds": 300,
+        "automountServiceAccountToken": false,
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0002-raspi5"
+        },
+        "containers": [
+          {
+            "name": "netctl",
+            "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "import time;time.sleep(280)"
+            ],
+            "volumeMounts": [
+              {
+                "name": "config",
+                "mountPath": "/config",
+                "readOnly": true
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "runAsUser": 65532,
+              "runAsNonRoot": true,
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "config",
+            "configMap": {
+              "name": "wan-20261020t021827"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

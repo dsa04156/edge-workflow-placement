@@ -1,0 +1,150 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"run-id\":\"ser0003-registry-fix-20261022\"},\"name\":\"ser0003-registry-fix-maint\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":120,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"/bin/sh\",\"-c\",\"# Runs inside the owned maint Pod (hostPID, privileged). Adds only certs.d/10.254.192.47:5000/hosts.toml.\\n# No config.toml edit, no restart: use_local_image_pull=true splits config_path and reads hosts dirs per pull.\\nset -eu\\nH=\\\"nsenter -t 1 -m -u -i -n -p --\\\"\\nD=/etc/containerd/certs.d/10.254.192.47:5000\\necho \\\"containerd_pid=$($H systemctl show -p MainPID --value containerd) since=$($H systemctl show -p ActiveEnterTimestamp --value containerd)\\\"\\n$H containerd config dump \\u003e /tmp/dump.$$ 2\\u003e\\u00261 || { echo \\\"DUMP_FAILED_ABORT\\\"; head -5 /tmp/dump.$$; exit 4; }\\ngrep -n -E \\\"config_path|use_local_image_pull|default_runtime_name|BinaryName|^imports\\\" /tmp/dump.$$ || true\\ngrep -q -x -F \\\"    use_local_image_pull = true\\\" /tmp/dump.$$ || { echo \\\"NOT_LOCAL_PULL_ABORT\\\"; exit 3; }\\ngrep -q -x -F \\\"      config_path = '/etc/containerd/certs.d:/etc/docker/certs.d'\\\" /tmp/dump.$$ || { echo \\\"CONFIG_PATH_UNEXPECTED_ABORT\\\"; exit 3; }\\nif $H test -e \\\"$D\\\"; then echo \\\"EXISTS_ABORT\\\"; $H ls -la \\\"$D\\\"; exit 3; fi\\n$H mkdir -p \\\"$D\\\"\\nprintf '%s\\\\n' 'server = \\\"http://10.254.192.47:5000\\\"' '[host.\\\"http://10.254.192.47:5000\\\"]' '  capabilities = [\\\"pull\\\", \\\"resolve\\\"]' | $H sh -c \\\"cat \\u003e '$D/.hosts.toml.tmp' \\u0026\\u0026 mv '$D/.hosts.toml.tmp' '$D/hosts.toml'\\\"\\n$H ls -la /etc/containerd/certs.d \\\"$D\\\"\\n$H sha256sum \\\"$D/hosts.toml\\\" /etc/containerd/config.toml /etc/containerd/conf.d/99-nvidia.toml\\n$H cat \\\"$D/hosts.toml\\\"\\necho \\\"containerd_pid_after=$($H systemctl show -p MainPID --value containerd) active=$($H systemctl is-active containerd)\\\"\\necho HOSTS_TOML_WRITTEN\\n\"],\"image\":\"ghcr.io/flannel-io/flannel:v0.28.3\",\"imagePullPolicy\":\"Never\",\"name\":\"maint\",\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"16Mi\"}},\"securityContext\":{\"privileged\":true}}],\"hostPID\":true,\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-ser0003-cg0ms0\"},\"restartPolicy\":\"Never\",\"terminationGracePeriodSeconds\":1}}\n"
+        },
+        "creationTimestamp": "2026-10-22T05:02:34Z",
+        "labels": {
+            "run-id": "ser0003-registry-fix-20261022"
+        },
+        "name": "ser0003-registry-fix-maint",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51532303",
+        "uid": "663b07cd-8884-45b7-aa2d-3c9dd6d3c437"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 120,
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "/bin/sh",
+                    "-c",
+                    "# Runs inside the owned maint Pod (hostPID, privileged). Adds only certs.d/10.254.192.47:5000/hosts.toml.\n# No config.toml edit, no restart: use_local_image_pull=true splits config_path and reads hosts dirs per pull.\nset -eu\nH=\"nsenter -t 1 -m -u -i -n -p --\"\nD=/etc/containerd/certs.d/10.254.192.47:5000\necho \"containerd_pid=$($H systemctl show -p MainPID --value containerd) since=$($H systemctl show -p ActiveEnterTimestamp --value containerd)\"\n$H containerd config dump \u003e /tmp/dump.$$ 2\u003e\u00261 || { echo \"DUMP_FAILED_ABORT\"; head -5 /tmp/dump.$$; exit 4; }\ngrep -n -E \"config_path|use_local_image_pull|default_runtime_name|BinaryName|^imports\" /tmp/dump.$$ || true\ngrep -q -x -F \"    use_local_image_pull = true\" /tmp/dump.$$ || { echo \"NOT_LOCAL_PULL_ABORT\"; exit 3; }\ngrep -q -x -F \"      config_path = '/etc/containerd/certs.d:/etc/docker/certs.d'\" /tmp/dump.$$ || { echo \"CONFIG_PATH_UNEXPECTED_ABORT\"; exit 3; }\nif $H test -e \"$D\"; then echo \"EXISTS_ABORT\"; $H ls -la \"$D\"; exit 3; fi\n$H mkdir -p \"$D\"\nprintf '%s\\n' 'server = \"http://10.254.192.47:5000\"' '[host.\"http://10.254.192.47:5000\"]' '  capabilities = [\"pull\", \"resolve\"]' | $H sh -c \"cat \u003e '$D/.hosts.toml.tmp' \u0026\u0026 mv '$D/.hosts.toml.tmp' '$D/hosts.toml'\"\n$H ls -la /etc/containerd/certs.d \"$D\"\n$H sha256sum \"$D/hosts.toml\" /etc/containerd/config.toml /etc/containerd/conf.d/99-nvidia.toml\n$H cat \"$D/hosts.toml\"\necho \"containerd_pid_after=$($H systemctl show -p MainPID --value containerd) active=$($H systemctl is-active containerd)\"\necho HOSTS_TOML_WRITTEN\n"
+                ],
+                "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                "imagePullPolicy": "Never",
+                "name": "maint",
+                "resources": {
+                    "limits": {
+                        "cpu": "200m",
+                        "memory": "64Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "securityContext": {
+                    "privileged": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "hostPID": true,
+        "nodeName": "etri-ser0003-cg0ms0",
+        "nodeSelector": {
+            "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 1,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T05:02:35Z",
+                "status": "False",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T05:02:34Z",
+                "reason": "PodCompleted",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T05:02:34Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T05:02:34Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T05:02:34Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://e01d44e89196057f47c7e5bf68fd0fc98304e35771219559b8fd25bf3b5ba1dc",
+                "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                "imageID": "ghcr.io/flannel-io/flannel@sha256:8e5228b764002ef674af9519fb848e8d2004b8d03d7d18edc3333c749b87fadf",
+                "lastState": {},
+                "name": "maint",
+                "ready": false,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://e01d44e89196057f47c7e5bf68fd0fc98304e35771219559b8fd25bf3b5ba1dc",
+                        "exitCode": 0,
+                        "finishedAt": "2026-10-22T05:02:34Z",
+                        "reason": "Completed",
+                        "startedAt": "2026-10-22T05:02:34Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.254.70.81",
+        "hostIPs": [
+            {
+                "ip": "10.254.70.81"
+            }
+        ],
+        "phase": "Succeeded",
+        "podIP": "10.244.7.56",
+        "podIPs": [
+            {
+                "ip": "10.244.7.56"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-22T05:02:34Z"
+    }
+}

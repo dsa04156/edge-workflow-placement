@@ -1,0 +1,28 @@
+test_dropped_sample_is_rejected (test_execute.Audit.test_dropped_sample_is_rejected) ... ok
+test_input_mismatch_is_rejected (test_execute.Audit.test_input_mismatch_is_rejected) ... ok
+test_model_mismatch_is_rejected (test_execute.Audit.test_model_mismatch_is_rejected) ... ok
+test_reference_is_written_and_golden_run_passes_as_offline (test_execute.Audit.test_reference_is_written_and_golden_run_passes_as_offline) ... ok
+test_same_placement_counted_twice_is_rejected (test_execute.Audit.test_same_placement_counted_twice_is_rejected) ... ok
+test_source_replaced_by_server_is_rejected (test_execute.Audit.test_source_replaced_by_server_is_rejected) ... ok
+test_collection_completes_and_cleans_up_owned_resources (test_execute.Collection.test_collection_completes_and_cleans_up_owned_resources) ... ok
+test_every_scheduled_attempt_is_recorded_once (test_execute.Collection.test_every_scheduled_attempt_is_recorded_once) ... ok
+test_every_source_publishes_from_its_own_edge (test_execute.Collection.test_every_source_publishes_from_its_own_edge) ... ok
+test_f_transfer_bytes_are_actual_run_bodies_including_receipts (test_execute.Collection.test_f_transfer_bytes_are_actual_run_bodies_including_receipts) ... ok
+test_failed_node_is_recorded_and_excluded_not_filled (test_execute.Collection.test_failed_node_is_recorded_and_excluded_not_filled) ... ok
+test_numerically_wrong_node_is_excluded_before_planning_with_reasons (test_execute.Collection.test_numerically_wrong_node_is_excluded_before_planning_with_reasons) ... FAIL
+test_protected_pod_env_is_never_persisted (test_execute.Collection.test_protected_pod_env_is_never_persisted) ... ok
+test_v_planning_cost_is_decode_plus_inference_per_row (test_execute.Collection.test_v_planning_cost_is_decode_plus_inference_per_row) ... ok
+
+======================================================================
+FAIL: test_numerically_wrong_node_is_excluded_before_planning_with_reasons (test_execute.Collection.test_numerically_wrong_node_is_excluded_before_planning_with_reasons)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 107, in test_numerically_wrong_node_is_excluded_before_planning_with_reasons
+    self.assertIn(expected[task], reasons)
+AssertionError: 'similarity diff' not found in '{"stage": "quality/provenance", "rows": [{"task": "T", "node": "etri-ser0003-cg0ms0", "tag": "txt-e1/0/warmup", "ok": false, "problems": ["invalid: text_top_class is not the highest-similarity class"]}, {"task": "T", "node": "etri-ser0003-cg0ms0", "tag": "txt-e1/0/cal", "ok": false, "problems": ["invalid: text_top_class is not the highest-similarity class"]}, {"task": "T", "node": "etri-ser0003-cg0ms0", "tag": "txt-e1/1/cal", "ok": false, "problems": ["invalid: text_top_class is not the highest-similarity class"]}, {"task": "T", "node": "etri-ser0003-cg0ms0", "tag": "txt-e1/2/cal", "ok": false, "problems": ["invalid: text_top_class is not the highest-similarity class"]}]}'
+
+----------------------------------------------------------------------
+Ran 14 tests in 505.921s
+
+FAILED (failures=1)
+exit=1

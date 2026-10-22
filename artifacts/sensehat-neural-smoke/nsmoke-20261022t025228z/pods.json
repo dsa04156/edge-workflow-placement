@@ -1,0 +1,212 @@
+{
+  "edge": {
+    "affinity": {
+      "nodeAffinity": {
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "nodeSelectorTerms": [
+            {
+              "matchFields": [
+                {
+                  "key": "metadata.name",
+                  "operator": "In",
+                  "values": [
+                    "etri-dev0003-raspi5"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "conditions": [
+      {
+        "lastTransitionTime": "2026-10-22T02:52:30Z",
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:29Z",
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:30Z",
+        "status": "True",
+        "type": "Ready"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:30Z",
+        "status": "True",
+        "type": "ContainersReady"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:29Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+        "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "name": "worker",
+        "ready": true,
+        "restartCount": 0,
+        "started": true
+      }
+    ],
+    "creationTimestamp": "2026-10-22T02:52:29Z",
+    "group": null,
+    "hostNetwork": false,
+    "name": "nsmoke-20261022t025228z-edge",
+    "node": "etri-dev0003-raspi5",
+    "podIP": "10.244.4.251",
+    "role": null,
+    "schedulerName": "default-scheduler",
+    "security": {
+      "containers": [
+        {
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "kind": "containers",
+          "name": "worker",
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "privileged": false,
+            "readOnlyRootFilesystem": true
+          }
+        }
+      ],
+      "hostIPC": false,
+      "hostNetwork": false,
+      "hostPID": false,
+      "securityContext": {
+        "fsGroup": 65532,
+        "runAsGroup": 65532,
+        "runAsNonRoot": true,
+        "runAsUser": 65532
+      },
+      "volumes": [
+        {
+          "configMap": null,
+          "name": "work",
+          "sources": [
+            "emptyDir"
+          ]
+        }
+      ]
+    },
+    "site": "edge",
+    "uid": "a4259f7e-c91e-4ee9-929b-2704a5787ec7"
+  },
+  "server": {
+    "affinity": {
+      "nodeAffinity": {
+        "requiredDuringSchedulingIgnoredDuringExecution": {
+          "nodeSelectorTerms": [
+            {
+              "matchFields": [
+                {
+                  "key": "metadata.name",
+                  "operator": "In",
+                  "values": [
+                    "etri-ser0002-cgnmsb"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "conditions": [
+      {
+        "lastTransitionTime": "2026-10-22T02:52:30Z",
+        "status": "True",
+        "type": "PodReadyToStartContainers"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:29Z",
+        "status": "True",
+        "type": "Initialized"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:30Z",
+        "status": "True",
+        "type": "Ready"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:30Z",
+        "status": "True",
+        "type": "ContainersReady"
+      },
+      {
+        "lastTransitionTime": "2026-10-22T02:52:29Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    ],
+    "containers": [
+      {
+        "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+        "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+        "name": "worker",
+        "ready": true,
+        "restartCount": 0,
+        "started": true
+      }
+    ],
+    "creationTimestamp": "2026-10-22T02:52:29Z",
+    "group": null,
+    "hostNetwork": false,
+    "name": "nsmoke-20261022t025228z-server",
+    "node": "etri-ser0002-cgnmsb",
+    "podIP": "10.244.8.96",
+    "role": null,
+    "schedulerName": "default-scheduler",
+    "security": {
+      "containers": [
+        {
+          "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+          "kind": "containers",
+          "name": "worker",
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "privileged": false,
+            "readOnlyRootFilesystem": true
+          }
+        }
+      ],
+      "hostIPC": false,
+      "hostNetwork": false,
+      "hostPID": false,
+      "securityContext": {
+        "fsGroup": 65532,
+        "runAsGroup": 65532,
+        "runAsNonRoot": true,
+        "runAsUser": 65532
+      },
+      "volumes": [
+        {
+          "configMap": null,
+          "name": "work",
+          "sources": [
+            "emptyDir"
+          ]
+        }
+      ]
+    },
+    "site": "server",
+    "uid": "32396e24-f74d-4b9b-a1e3-88f72bd91fdd"
+  }
+}

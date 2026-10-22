@@ -1,0 +1,69 @@
+{
+ "A_captured": {
+  "error": "976-guard-False-sink-e0-receipt-2 failed; inspect phase stderr",
+  "sink_attempts": 3,
+  "sleeps": [
+   1,
+   1
+  ],
+  "guarded": true,
+  "exec_keys": [
+   "source-e0",
+   "source-e1",
+   "source-c",
+   "sink-e0",
+   "sink-e0",
+   "sink-e0"
+  ],
+  "logs_or_delete": [],
+  "stderr_files": [
+   "971-guard-False-source-e0.stderr",
+   "972-guard-False-source-e1.stderr",
+   "973-guard-False-source-c.stderr",
+   "974-guard-False-sink-e0.stderr",
+   "975-guard-False-sink-e0-receipt-1.stderr",
+   "976-guard-False-sink-e0-receipt-2.stderr"
+  ],
+  "counter": 976
+ },
+ "B_transient": {
+  "error": null,
+  "sink_attempts": 2,
+  "sleeps": [
+   1
+  ],
+  "guarded": false,
+  "exec_keys": [
+   "source-e0",
+   "source-e1",
+   "source-c",
+   "sink-e0",
+   "sink-e0",
+   "sink-e1",
+   "sink-c",
+   "vision",
+   "speech",
+   "fusion"
+  ],
+  "logs_or_delete": [],
+  "stderr_files": [
+   "971-guard-False-source-e0.stderr",
+   "972-guard-False-source-e1.stderr",
+   "973-guard-False-source-c.stderr",
+   "974-guard-False-sink-e0.stderr",
+   "975-guard-False-sink-e0-receipt-1.stderr",
+   "976-guard-False-sink-e1.stderr"
+  ],
+  "counter": 980
+ }
+}
+PASS A aborts with captured error
+PASS A three sink-e0 attempts
+PASS A two 1s sleeps (~2s retry window)
+PASS A exec order matches 971-976
+PASS A no logs/delete in remove_operators
+PASS A guard state left True
+PASS A counter ends at 976
+PASS B transient EOF recovers
+eof_attempts=2 -> {"error": null, "sink_attempts": 3, "guarded": false}
+A-abort-check would be FAIL (red as expected)

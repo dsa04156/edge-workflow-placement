@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T02:51:51.529452+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t024540-gateway",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "from pathlib import Path;Path('/work/peers.json').write_text('{\"source-e0\": {\"url\": \"http://10.244.4.168:8080\", \"zone\": \"edge\"}, \"source-e1\": {\"url\": \"http://10.244.1.115:8080\", \"zone\": \"edge\"}, \"source-c\": {\"url\": \"http://10.244.8.97:8080\", \"zone\": \"cloud\"}, \"sink-e0\": {\"url\": \"http://10.244.4.167:8080\", \"zone\": \"edge\"}, \"sink-e1\": {\"url\": \"http://10.244.1.116:8080\", \"zone\": \"edge\"}, \"sink-c\": {\"url\": \"http://10.244.8.98:8080\", \"zone\": \"cloud\"}}')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T02:51:51.693443+00:00"
+}

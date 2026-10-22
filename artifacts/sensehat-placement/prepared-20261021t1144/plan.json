@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "evaluation": [
+        "humidity-evaluation-1115",
+        "temp_humidity-evaluation-1286",
+        "pressure-evaluation-1115",
+        "humidity-evaluation-1286",
+        "pressure-evaluation-1200",
+        "pressure-evaluation-1286",
+        "temp_humidity-evaluation-1200",
+        "temp_humidity-evaluation-1115",
+        "humidity-evaluation-1200"
+      ],
+      "label": "default-scheduler",
+      "warmup": [
+        "temp_humidity-calibration-935",
+        "humidity-calibration-935",
+        "pressure-calibration-935"
+      ]
+    },
+    {
+      "evaluation": [
+        "temp_humidity-evaluation-1115",
+        "pressure-evaluation-1200",
+        "humidity-evaluation-1286",
+        "humidity-evaluation-1200",
+        "humidity-evaluation-1115",
+        "temp_humidity-evaluation-1200",
+        "pressure-evaluation-1286",
+        "temp_humidity-evaluation-1286",
+        "pressure-evaluation-1115"
+      ],
+      "label": "edge-all",
+      "warmup": [
+        "temp_humidity-calibration-935",
+        "humidity-calibration-935",
+        "pressure-calibration-935"
+      ]
+    },
+    {
+      "evaluation": [
+        "pressure-evaluation-1200",
+        "humidity-evaluation-1115",
+        "temp_humidity-evaluation-1200",
+        "pressure-evaluation-1286",
+        "temp_humidity-evaluation-1115",
+        "pressure-evaluation-1115",
+        "temp_humidity-evaluation-1286",
+        "humidity-evaluation-1286",
+        "humidity-evaluation-1200"
+      ],
+      "label": "mixed",
+      "warmup": [
+        "temp_humidity-calibration-935",
+        "humidity-calibration-935",
+        "pressure-calibration-935"
+      ]
+    },
+    {
+      "evaluation": [
+        "pressure-evaluation-1286",
+        "temp_humidity-evaluation-1115",
+        "humidity-evaluation-1115",
+        "pressure-evaluation-1115",
+        "temp_humidity-evaluation-1200",
+        "pressure-evaluation-1200",
+        "humidity-evaluation-1286",
+        "humidity-evaluation-1200",
+        "temp_humidity-evaluation-1286"
+      ],
+      "label": "server-all",
+      "warmup": [
+        "temp_humidity-calibration-935",
+        "humidity-calibration-935",
+        "pressure-calibration-935"
+      ]
+    }
+  ],
+  "fixed_placements": {
+    "edge-all": {
+      "t1": "edge",
+      "t2": "edge",
+      "t3": "edge"
+    },
+    "mixed": {
+      "t1": "edge",
+      "t2": "server",
+      "t3": "server"
+    },
+    "server-all": {
+      "t1": "server",
+      "t2": "server",
+      "t3": "server"
+    }
+  },
+  "max_workflows": 48,
+  "network": "single native-network block; no injected delay/qdisc; no inference retry",
+  "nodes": {
+    "edge": "etri-dev0003-raspi5",
+    "server": "etri-ser0002-cgnmsb"
+  },
+  "requests_per_unique_placement": 12,
+  "scheduler_placement": "observed from default-scheduler, then re-pinned to the matching pinned pool Pods",
+  "seed": 20261024,
+  "shared_observations": "a scheduler placement equal to a fixed placement reuses that block"
+}

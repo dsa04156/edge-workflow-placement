@@ -1,0 +1,8 @@
+{"event": "start", "phase": "protected-before", "at": "2026-10-21T11:44:03.209627+00:00"}
+{"event": "end", "phase": "protected-before", "at": "2026-10-21T11:44:03.526342+00:00", "status": "ok", "duration_s": 0.316714427000079}
+{"event": "start", "phase": "configmap", "at": "2026-10-21T11:44:03.526585+00:00"}
+{"event": "end", "phase": "configmap", "at": "2026-10-21T11:44:04.341777+00:00", "status": "ok", "duration_s": 0.8151917340001091}
+{"event": "start", "phase": "scheduler-probe", "at": "2026-10-21T11:44:04.341816+00:00"}
+{"event": "end", "phase": "scheduler-probe", "at": "2026-10-21T11:44:04.706944+00:00", "status": "error", "error": "RuntimeError('004-scheduler-probe-dry-run failed rc=1: : error when creating \"STDIN\": Pod \"sensehat-20261021t114403z-sched-t3\" is invalid: spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchFields[0].values: Required value: must be only one value when `operator` is \\'In\\' or \\'NotIn\\' for node field selector\\n')", "duration_s": 0.36513521399956517}
+{"event": "start", "phase": "teardown", "at": "2026-10-21T11:44:04.706993+00:00"}
+{"event": "end", "phase": "teardown", "at": "2026-10-21T11:44:05.288731+00:00", "status": "ok", "errors": [], "duration_s": 0.5817376420000073}

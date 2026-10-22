@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-20T01:57:39.652836+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "get",
+    "pods",
+    "-n",
+    "kube-system",
+    "-l",
+    "component=kube-scheduler",
+    "-o",
+    "json"
+  ],
+  "timeout_s": 40,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T01:57:39.716580+00:00"
+}

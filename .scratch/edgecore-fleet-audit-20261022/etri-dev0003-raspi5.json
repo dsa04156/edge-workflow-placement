@@ -1,0 +1,76 @@
+{
+  "host": "etri-dev0003-raspi5",
+  "addresses": "lo               UNKNOWN        127.0.0.1/8 ::1/128 \neth0             UP             10.254.164.138/24 fe80::db79:4af:aa86:db4e/64 \nwlan0            DOWN           \nedgemesh0        UNKNOWN        169.254.96.16/32 fe80::14b0:fff:fe46:8196/64 \ncni0             UP             10.244.4.1/24 fe80::cc9e:20ff:fe8e:7099/64 \nveth1d6b89c3@if3 UP             fe80::b0e7:35ff:fe2f:8b27/64 \nveth6a697a12@if3 UP             fe80::201c:d4ff:fe63:d379/64 \nflannel.1        UNKNOWN        10.244.4.0/32 fe80::9864:a5ff:fed8:e40d/64 \nveth05a76fd7@if3 UP             fe80::7889:dbff:fe2a:aab8/64 \n",
+  "edgecore": "MainPID=2201271\nNRestarts=10\nActiveState=active\nActiveEnterTimestamp=Thu 2026-10-22 03:12:45 KST\n",
+  "endpoint_config": [
+    "httpServer: https://10.254.192.47:10002",
+    "server: 10.254.192.47:10001",
+    "server: 10.254.192.47:10000",
+    "server: 10.254.192.47:10004",
+    "hostnameOverride: etri-dev0003-raspi5",
+    "readOnlyPort: 10350",
+    "server: 127.0.0.1:10550",
+    "server: 127.0.0.1"
+  ],
+  "binary_sha": "d17f777d0ac97dc2cdb534e499f1df38401aa1434fba834e5ab19431e04682ac  /usr/local/bin/edgecore\n",
+  "arch": "aarch64\n",
+  "log_events": [
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638371 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/92dd34ef-c505-46e6-8835-dc609d3f86fe-gpg-keyring\" (OuterVolumeSpecName: \"gpg-keyring\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"gpg-keyring\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638526 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/92dd34ef-c505-46e6-8835-dc609d3f86fe-helm-working-dir\" (OuterVolumeSpecName: \"helm-working-dir\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"helm-working-dir\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638635 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/92dd34ef-c505-46e6-8835-dc609d3f86fe-tmp\" (OuterVolumeSpecName: \"tmp\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"tmp\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638695 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/92dd34ef-c505-46e6-8835-dc609d3f86fe-var-files\" (OuterVolumeSpecName: \"var-files\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"var-files\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638735 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/configmap/92dd34ef-c505-46e6-8835-dc609d3f86fe-tls-certs\" (OuterVolumeSpecName: \"tls-certs\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"tls-certs\". PluginName \"kubernetes.io/configmap\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638885 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/92dd34ef-c505-46e6-8835-dc609d3f86fe-plugins\" (OuterVolumeSpecName: \"plugins\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"plugins\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.638913 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/configmap/92dd34ef-c505-46e6-8835-dc609d3f86fe-ssh-known-hosts\" (OuterVolumeSpecName: \"ssh-known-hosts\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"ssh-known-hosts\". PluginName \"kubernetes.io/configmap\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.639109 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/configmap/92dd34ef-c505-46e6-8835-dc609d3f86fe-gpg-keys\" (OuterVolumeSpecName: \"gpg-keys\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"gpg-keys\". PluginName \"kubernetes.io/configmap\", VolumeGIDValue \"\"",
+    "2026-10-22T15:34:41+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:34:41.643811 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/secret/92dd34ef-c505-46e6-8835-dc609d3f86fe-argocd-repo-server-tls\" (OuterVolumeSpecName: \"argocd-repo-server-tls\") pod \"92dd34ef-c505-46e6-8835-dc609d3f86fe\" (UID: \"92dd34ef-c505-46e6-8835-dc609d3f86fe\"). InnerVolumeSpecName \"argocd-repo-server-tls\". PluginName \"kubernetes.io/secret\", VolumeGIDValue \"\"",
+    "2026-10-22T15:53:17+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:53:17.832128 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/7b1aac68-d818-424a-b48f-5d74923ea118-data\" (OuterVolumeSpecName: \"data\") pod \"7b1aac68-d818-424a-b48f-5d74923ea118\" (UID: \"7b1aac68-d818-424a-b48f-5d74923ea118\"). InnerVolumeSpecName \"data\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:53:17+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:53:17.832148 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/empty-dir/7b1aac68-d818-424a-b48f-5d74923ea118-tmp\" (OuterVolumeSpecName: \"tmp\") pod \"7b1aac68-d818-424a-b48f-5d74923ea118\" (UID: \"7b1aac68-d818-424a-b48f-5d74923ea118\"). InnerVolumeSpecName \"tmp\". PluginName \"kubernetes.io/empty-dir\", VolumeGIDValue \"\"",
+    "2026-10-22T15:53:17+09:00 etri-dev0003-raspi5 edgecore[2201271]: I1022 15:53:17.856904 2201271 operation_generator.go:780] UnmountVolume.TearDown succeeded for volume \"kubernetes.io/projected/7b1aac68-d818-424a-b48f-5d74923ea118-kube-api-access-hkpsc\" (OuterVolumeSpecName: \"kube-api-access-hkpsc\") pod \"7b1aac68-d818-424a-b48f-5d74923ea118\" (UID: \"7b1aac68-d818-424a-b48f-5d74923ea118\"). InnerVolumeSpecName \"kube-api-access-hkpsc\". PluginName \"kubernetes.io/projected\", VolumeGIDValue \"\""
+  ],
+  "deleted_mounts": [
+    {
+      "pid": "4306",
+      "mounts": [
+        "887 880 179:2 /var/lib/kubelet/pods/58717df9-12cb-4094-a5a7-faee2b41388d/volumes/kubernetes.io~configmap/code//deleted /app ro,noatime"
+      ]
+    },
+    {
+      "pid": "612659",
+      "mounts": [
+        "1060 1053 179:2 /var/lib/kubelet/pods/847c3a20-9a55-425e-ae11-8b20cde4693e/volumes/kubernetes.io~empty-dir/tmp//deleted /tmp rw,noatime",
+        "1061 1053 179:2 /var/lib/kubelet/pods/847c3a20-9a55-425e-ae11-8b20cde4693e/volumes/kubernetes.io~configmap/config/..2026_10_14_05_57_50.2211117010/nanomq.conf//deleted /etc/nanomq.conf ro,noatime"
+      ]
+    },
+    {
+      "pid": "806681",
+      "mounts": [
+        "1064 1048 179:2 /var/lib/kubelet/pods/df577428-7671-48c8-8647-3379413d3522/volumes/kubernetes.io~configmap/code//deleted /app ro,noatime"
+      ]
+    },
+    {
+      "pid": "1405838",
+      "mounts": [
+        "686 677 179:2 /var/lib/kubelet/pods/a853bfc1-6fb7-4915-9568-c0d804120811/volumes/kubernetes.io~configmap/psk//deleted /etc/edgemesh ro,noatime"
+      ]
+    },
+    {
+      "pid": "1407104",
+      "mounts": [
+        "1026 796 179:2 /var/lib/kubelet/pods/47dc2fff-d13c-411a-8d76-5c99b30c52f6/volumes/kubernetes.io~configmap/network-interfaces//deleted /etc/kube-flannel-network ro,noatime",
+        "1085 796 179:2 /var/lib/kubelet/pods/47dc2fff-d13c-411a-8d76-5c99b30c52f6/volumes/kubernetes.io~configmap/flannel-cfg//deleted /etc/kube-flannel ro,noatime"
+      ]
+    },
+    {
+      "pid": "1425909",
+      "mounts": [
+        "1497 1485 179:2 /var/lib/kubelet/pods/2802baeb-b578-483b-9241-410b13a934c8/volumes/kubernetes.io~empty-dir/data//deleted /var/lib/grafana rw,noatime",
+        "1498 1485 179:2 /var/lib/kubelet/pods/2802baeb-b578-483b-9241-410b13a934c8/volumes/kubernetes.io~configmap/config/..2026_10_19_05_58_17.3598592085/datasources.yaml//deleted /etc/grafana/provisioning/datasources/default.yaml ro,noatime",
+        "1499 1485 179:2 /var/lib/kubelet/pods/2802baeb-b578-483b-9241-410b13a934c8/volumes/kubernetes.io~configmap/config/..2026_10_19_05_58_17.3598592085/dashboards.yaml//deleted /etc/grafana/provisioning/dashboards/default.yaml ro,noatime"
+      ]
+    }
+  ],
+  "registry_config": {
+    "/etc/containerd/certs.d/10.254.192.47:5000/hosts.toml": "server = \"http://10.254.192.47:5000\"\n\n[host.\"http://10.77.0.1:5000\"]\n  capabilities = [\"pull\", \"resolve\"]\n\n[host.\"http://10.254.192.47:5000\"]\n  capabilities = [\"pull\", \"resolve\"]\n\n"
+  }
+}

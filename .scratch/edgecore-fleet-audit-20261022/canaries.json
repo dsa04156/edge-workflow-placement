@@ -1,0 +1,495 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "diag-ec-fleet-20261022",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "diag-owner": "edgecore-fleet-20261022"
+        }
+      },
+      "data": {
+        "marker": "edgecore-fleet-20261022"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "diag-ec-fleet-20261022-e2",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "diag-owner": "edgecore-fleet-20261022"
+        }
+      },
+      "spec": {
+        "nodeName": "etri-dev0002-raspi5",
+        "activeDeadlineSeconds": 3600,
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 3,
+        "automountServiceAccountToken": false,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "200m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/cfg",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())<15"
+                ]
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Mi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "diag-ec-fleet-20261022"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "diag-ec-fleet-20261022-e3",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "diag-owner": "edgecore-fleet-20261022"
+        }
+      },
+      "spec": {
+        "nodeName": "etri-dev0003-raspi5",
+        "activeDeadlineSeconds": 3600,
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 3,
+        "automountServiceAccountToken": false,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "200m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/cfg",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())<15"
+                ]
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Mi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "diag-ec-fleet-20261022"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "diag-ec-fleet-20261022-e6",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "diag-owner": "edgecore-fleet-20261022"
+        }
+      },
+      "spec": {
+        "nodeName": "etri-dev0006-raspi5",
+        "activeDeadlineSeconds": 3600,
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 3,
+        "automountServiceAccountToken": false,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "200m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/cfg",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())<15"
+                ]
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Mi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "diag-ec-fleet-20261022"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "diag-ec-fleet-20261022-e8",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "diag-owner": "edgecore-fleet-20261022"
+        }
+      },
+      "spec": {
+        "nodeName": "etri-dev0008-raspi5",
+        "activeDeadlineSeconds": 3600,
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 3,
+        "automountServiceAccountToken": false,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "200m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/cfg",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())<15"
+                ]
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Mi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "diag-ec-fleet-20261022"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "diag-ec-fleet-20261022-e9",
+        "namespace": "topology-profile-lab",
+        "labels": {
+          "diag-owner": "edgecore-fleet-20261022"
+        }
+      },
+      "spec": {
+        "nodeName": "etri-dev0009-jetorn",
+        "activeDeadlineSeconds": 3600,
+        "restartPolicy": "Never",
+        "terminationGracePeriodSeconds": 3,
+        "automountServiceAccountToken": false,
+        "securityContext": {
+          "runAsUser": 65532,
+          "runAsGroup": 65532,
+          "runAsNonRoot": true,
+          "fsGroup": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "containers": [
+          {
+            "name": "worker",
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "IfNotPresent",
+            "command": [
+              "python3",
+              "-u",
+              "-c",
+              "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              },
+              "limits": {
+                "cpu": "200m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "readOnlyRootFilesystem": true,
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "work",
+                "mountPath": "/work"
+              },
+              {
+                "name": "config",
+                "mountPath": "/cfg",
+                "readOnly": true
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "python3",
+                  "-c",
+                  "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())<15"
+                ]
+              },
+              "periodSeconds": 5,
+              "timeoutSeconds": 3
+            }
+          }
+        ],
+        "volumes": [
+          {
+            "name": "work",
+            "emptyDir": {
+              "sizeLimit": "8Mi"
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "diag-ec-fleet-20261022"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

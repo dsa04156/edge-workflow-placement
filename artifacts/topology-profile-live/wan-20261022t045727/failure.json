@@ -1,0 +1,7 @@
+{
+  "error": "RuntimeError('009-helpers-ready failed; inspect phase stderr')",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py\", line 351, in collect\n    session.deploy()\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py\", line 115, in deploy\n    self.call('helpers-ready',['wait','pods','-n',NS,'-l','run-id='+self.run,'--for=condition=Ready','--timeout=240s'],timeout=250)\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py\", line 315, in call\n    return super().call(stem, args, stdin, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_load.py\", line 57, in call\n    raise RuntimeError(tag+' failed; inspect phase stderr')\nRuntimeError: 009-helpers-ready failed; inspect phase stderr\n",
+  "partial_mapping": {},
+  "completed_labels": [],
+  "scheduled": 0
+}

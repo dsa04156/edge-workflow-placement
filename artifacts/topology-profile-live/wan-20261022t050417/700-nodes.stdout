@@ -1,0 +1,2916 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"5e:48:55:bc:43:49\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.164.139",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-04-20T09:01:48Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "edge.device/class": "jetson",
+                    "edge.device/mapper": "mqttvirtual",
+                    "edgeai.etrilab/sensor-gateway": "true",
+                    "edgeai.io/mqtt-broker": "nanomq",
+                    "environment": "edge",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0001-jetorn",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0001-jetorn",
+                "resourceVersion": "51550790",
+                "uid": "0773ff3d-6845-4b4c-9034-a6aca4b5dad8"
+            },
+            "spec": {
+                "podCIDR": "10.244.2.0/24",
+                "podCIDRs": [
+                    "10.244.2.0/24"
+                ],
+                "taints": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unreachable",
+                        "timeAdded": "2026-10-22T05:24:20Z"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "timeAdded": "2026-10-22T05:24:25Z"
+                    }
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.164.139",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0001-jetorn",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "6",
+                    "ephemeral-storage": "451876913224",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "7700336Ki",
+                    "nvidia.com/gpu.shared": "2",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "6",
+                    "ephemeral-storage": "490317832Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "7802736Ki",
+                    "nvidia.com/gpu.shared": "2",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-07T08:26:55Z",
+                        "lastTransitionTime": "2026-10-07T08:26:55Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:24:58Z",
+                        "lastTransitionTime": "2026-10-22T05:24:20Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:24:58Z",
+                        "lastTransitionTime": "2026-10-22T05:24:20Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:24:58Z",
+                        "lastTransitionTime": "2026-10-22T05:24:20Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:24:58Z",
+                        "lastTransitionTime": "2026-10-22T05:24:20Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "343e2502-c92b-4012-9250-ee530860b430",
+                    "containerRuntimeVersion": "containerd://2.2.1",
+                    "kernelVersion": "5.15.148-tegra",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "5dbfb12414a3456d9014d88183e338b1",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 22.04.5 LTS",
+                    "systemUUID": "5dbfb12414a3456d9014d88183e338b1"
+                },
+                "runtimeHandlers": [
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": ""
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "nvidia"
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "runc"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"12:33:94:2c:53:cc\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.192.123",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "placement.edgeai.etrilab/profiles": "{\"mobilenetv2-12\":{\"batch_size\":1,\"execution_provider\":\"CPUExecutionProvider\",\"inference_backend\":\"onnxruntime\",\"inference_ms\":33.584095366666666,\"input_shape\":[1,3,224,224],\"mean_inference_ms\":33.584095366666666,\"measured_runs\":30,\"median_inference_ms\":33.56659,\"p95_inference_ms\":33.7226587,\"p99_inference_ms\":33.873084760000005,\"record_fingerprint\":\"c79fca2885212bbd0e6ccb2ffd6453e1c31e77b87f92a5834c0ee8d1c6892a2a\",\"throughput_rps\":29.688594640507382,\"timestamp\":\"2026-08-31T11:33:51.013007+00:00\"},\"resnet18-v1-7\":{\"batch_size\":1,\"execution_provider\":\"CPUExecutionProvider\",\"inference_backend\":\"onnxruntime\",\"inference_ms\":129.41676733333333,\"input_shape\":[1,3,224,224],\"mean_inference_ms\":129.41676733333333,\"measured_runs\":30,\"median_inference_ms\":129.3219785,\"p95_inference_ms\":130.2422708,\"p99_inference_ms\":130.30296384000002,\"record_fingerprint\":\"37d57e412a769b75fc851e9af109a8db8716418f2cda27290d7d7aff40eb98b2\",\"throughput_rps\":7.721055543882414,\"timestamp\":\"2026-08-31T12:19:50.802606+00:00\"}}",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-04-20T08:58:22Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "edge.device/class": "raspi",
+                    "edge.device/mapper": "mqttvirtual",
+                    "environment": "edge",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0002-raspi5",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0002-raspi5",
+                "resourceVersion": "51554558",
+                "uid": "8dd1f2dc-9e54-432b-934c-e41e0ef0a5ca"
+            },
+            "spec": {
+                "podCIDR": "10.244.1.0/24",
+                "podCIDRs": [
+                    "10.244.1.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.192.123",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0002-raspi5",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "4",
+                    "ephemeral-storage": "452888019014",
+                    "hailo.ai/h8": "1",
+                    "memory": "16501680Ki",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "4",
+                    "ephemeral-storage": "491414952Ki",
+                    "hailo.ai/h8": "1",
+                    "memory": "16604080Ki",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-19T05:49:26Z",
+                        "lastTransitionTime": "2026-10-19T05:49:26Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:23Z",
+                        "lastTransitionTime": "2026-10-21T09:56:36Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:23Z",
+                        "lastTransitionTime": "2026-10-21T09:56:36Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:23Z",
+                        "lastTransitionTime": "2026-10-21T09:56:36Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:23Z",
+                        "lastTransitionTime": "2026-10-21T09:56:36Z",
+                        "message": "edge is posting ready status",
+                        "reason": "EdgeReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "8ced8ac2-8d13-4d54-aa4d-638971ac248f",
+                    "containerRuntimeVersion": "containerd://1.7.18",
+                    "kernelVersion": "6.12.75+rpt-rpi-2712",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "1df2520cf04e466091a56304fa6b8049",
+                    "operatingSystem": "linux",
+                    "osImage": "Debian GNU/Linux 13 (trixie)",
+                    "systemUUID": "1df2520cf04e466091a56304fa6b8049"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"9a:64:a5:d8:e4:0d\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.164.138",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-06-04T07:02:06Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "edge.device/class": "raspi",
+                    "edge.device/mapper": "mqttvirtual",
+                    "edgeai.io/mqtt-broker": "nanomq",
+                    "environment": "edge",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0003-raspi5",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0003-raspi5",
+                "resourceVersion": "51552138",
+                "uid": "10990155-62b9-4b49-a888-e1479ca90fbd"
+            },
+            "spec": {
+                "podCIDR": "10.244.4.0/24",
+                "podCIDRs": [
+                    "10.244.4.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.164.138",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0003-raspi5",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "4",
+                    "ephemeral-storage": "226587133987",
+                    "memory": "8154048Ki",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "4",
+                    "ephemeral-storage": "245862776Ki",
+                    "memory": "8256448Ki",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-19T05:48:57Z",
+                        "lastTransitionTime": "2026-10-19T05:48:57Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:09Z",
+                        "lastTransitionTime": "2026-10-21T09:56:37Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:09Z",
+                        "lastTransitionTime": "2026-10-21T09:56:37Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:09Z",
+                        "lastTransitionTime": "2026-10-21T09:56:37Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:09Z",
+                        "lastTransitionTime": "2026-10-21T09:56:37Z",
+                        "message": "edge is posting ready status",
+                        "reason": "EdgeReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "4a052b91-08a7-4aeb-9ec6-001d1ce24d6c",
+                    "containerRuntimeVersion": "containerd://1.7.24",
+                    "kernelVersion": "6.12.75+rpt-rpi-2712",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "e50d7f1c4944474a944cfc9de88a85e8",
+                    "operatingSystem": "linux",
+                    "osImage": "Debian GNU/Linux 13 (trixie)",
+                    "systemUUID": "e50d7f1c4944474a944cfc9de88a85e8"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "192.168.0.56",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"4e:01:9e:06:86:15\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "192.168.0.7",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-08-18T09:30:51Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "edge.device/class": "tinker-edge-r",
+                    "environment": "edge",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0004-tedger",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0004-tedger",
+                "resourceVersion": "50893465",
+                "uid": "cb3642fd-f081-4a9a-ad8f-29a06285f98b"
+            },
+            "spec": {
+                "podCIDR": "10.244.3.0/24",
+                "podCIDRs": [
+                    "10.244.3.0/24"
+                ],
+                "taints": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unreachable",
+                        "timeAdded": "2026-10-19T04:15:37Z"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "timeAdded": "2026-10-21T09:55:52Z"
+                    }
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "192.168.0.7",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0004-tedger",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "6",
+                    "ephemeral-storage": "114836878351",
+                    "memory": "3835236Ki",
+                    "pods": "110",
+                    "rockchip.com/rk3399pro": "1"
+                },
+                "capacity": {
+                    "cpu": "6",
+                    "ephemeral-storage": "124605988Ki",
+                    "memory": "3937636Ki",
+                    "pods": "110",
+                    "rockchip.com/rk3399pro": "1"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-09-28T01:11:26Z",
+                        "lastTransitionTime": "2026-09-28T01:11:26Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-19T02:43:08Z",
+                        "lastTransitionTime": "2026-10-19T04:15:36Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-19T02:43:08Z",
+                        "lastTransitionTime": "2026-10-19T04:15:36Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-19T02:43:08Z",
+                        "lastTransitionTime": "2026-10-19T04:15:36Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-19T02:43:08Z",
+                        "lastTransitionTime": "2026-10-19T04:15:36Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10365
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "9500a9ea-a04d-4575-a275-606a595bf856",
+                    "containerRuntimeVersion": "containerd://1.7.32",
+                    "kernelVersion": "4.4.194",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "41cfdc5bfd5749068b63aa0cf08c96e4",
+                    "operatingSystem": "linux",
+                    "osImage": "Debian GNU/Linux 10 (buster)",
+                    "systemUUID": "41cfdc5bfd5749068b63aa0cf08c96e4"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"a2:5d:8d:8f:7e:95\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.164.136",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-09-10T12:25:49Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "edge.device/class": "raspi",
+                    "environment": "edge",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0006-raspi5",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0006-raspi5",
+                "resourceVersion": "51553997",
+                "uid": "9c3d1a73-e65c-4197-adad-931086b19653"
+            },
+            "spec": {
+                "podCIDR": "10.244.9.0/24",
+                "podCIDRs": [
+                    "10.244.9.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.164.136",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0006-raspi5",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "4",
+                    "ephemeral-storage": "27720570425",
+                    "hailo.ai/h8": "1",
+                    "memory": "4043920Ki",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "4",
+                    "ephemeral-storage": "30078744Ki",
+                    "hailo.ai/h8": "1",
+                    "memory": "4146320Ki",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-19T05:48:59Z",
+                        "lastTransitionTime": "2026-10-19T05:48:59Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:16Z",
+                        "lastTransitionTime": "2026-10-21T09:56:26Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:16Z",
+                        "lastTransitionTime": "2026-10-21T09:56:26Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:16Z",
+                        "lastTransitionTime": "2026-10-21T09:56:26Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:16Z",
+                        "lastTransitionTime": "2026-10-21T09:56:26Z",
+                        "message": "edge is posting ready status",
+                        "reason": "EdgeReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "d4a9e212-9c38-4c68-a438-23056a16372d",
+                    "containerRuntimeVersion": "containerd://1.7.24",
+                    "kernelVersion": "6.18.39+rpt-rpi-2712",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "f952242c7b1840e1a1d9555e7bf6c0a7",
+                    "operatingSystem": "linux",
+                    "osImage": "Debian GNU/Linux 13 (trixie)",
+                    "systemUUID": "f952242c7b1840e1a1d9555e7bf6c0a7"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"2a:a9:27:45:bc:34\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.164.140",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-10-19T06:14:52Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "edge.device/class": "jetagx",
+                    "environment": "edge",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0007-jetagx",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0007-jetagx",
+                "resourceVersion": "51551393",
+                "uid": "44054cd3-c502-49fd-aaf4-74bce64ab23c"
+            },
+            "spec": {
+                "podCIDR": "10.244.6.0/24",
+                "podCIDRs": [
+                    "10.244.6.0/24"
+                ],
+                "taints": [
+                    {
+                        "effect": "NoSchedule",
+                        "key": "node.kubernetes.io/unreachable",
+                        "timeAdded": "2026-10-22T05:30:40Z"
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "timeAdded": "2026-10-22T05:30:45Z"
+                    }
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.164.140",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0007-jetagx",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "12",
+                    "ephemeral-storage": "52025455326",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "64284988Ki",
+                    "nvidia.com/gpu.shared": "2",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "12",
+                    "ephemeral-storage": "56451232Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "64387388Ki",
+                    "nvidia.com/gpu.shared": "2",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:29:49Z",
+                        "lastTransitionTime": "2026-10-22T05:30:40Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:29:49Z",
+                        "lastTransitionTime": "2026-10-22T05:30:40Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:29:49Z",
+                        "lastTransitionTime": "2026-10-22T05:30:40Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:29:49Z",
+                        "lastTransitionTime": "2026-10-22T05:30:40Z",
+                        "message": "Kubelet stopped posting node status.",
+                        "reason": "NodeStatusUnknown",
+                        "status": "Unknown",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "214aef28-6fe5-4dd4-af2d-45e85a520af9",
+                    "containerRuntimeVersion": "containerd://2.3.4",
+                    "kernelVersion": "6.8.12-1021-tegra",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "bd09d9c96ca849e68c556c350a671ad7",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 24.04.4 LTS",
+                    "systemUUID": "7eeefb33-b09b-50bc-9884-19a1f4edfc6e"
+                },
+                "runtimeHandlers": [
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": ""
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "nvidia"
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "runc"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"5e:d0:f3:b4:cd:9e\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.192.111",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-10-20T11:03:43Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0008-raspi5",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0008-raspi5",
+                "resourceVersion": "51553004",
+                "uid": "19e6bb2d-d5a6-41ce-b236-3ca639d90c19"
+            },
+            "spec": {
+                "podCIDR": "10.244.10.0/24",
+                "podCIDRs": [
+                    "10.244.10.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.192.111",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0008-raspi5",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "4",
+                    "ephemeral-storage": "27720570425",
+                    "memory": "4043904Ki",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "4",
+                    "ephemeral-storage": "30078744Ki",
+                    "memory": "4146304Ki",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-20T11:09:45Z",
+                        "lastTransitionTime": "2026-10-20T11:09:45Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:33:44Z",
+                        "lastTransitionTime": "2026-10-21T09:56:43Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:33:44Z",
+                        "lastTransitionTime": "2026-10-21T09:56:43Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:33:44Z",
+                        "lastTransitionTime": "2026-10-21T09:56:43Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:33:44Z",
+                        "lastTransitionTime": "2026-10-21T09:56:43Z",
+                        "message": "edge is posting ready status",
+                        "reason": "EdgeReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "660a445a-aee7-4e93-bf0a-6b14b1653da8",
+                    "containerRuntimeVersion": "containerd://1.7.24",
+                    "kernelVersion": "6.18.34+rpt-rpi-2712",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "fc0a5aa4df6b4c3dbd69c244ff579f50",
+                    "operatingSystem": "linux",
+                    "osImage": "Debian GNU/Linux 13 (trixie)",
+                    "systemUUID": "fc0a5aa4df6b4c3dbd69c244ff579f50"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "cloudcore": "10.254.192.47",
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"8a:5c:64:49:8a:ed\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.192.128",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-10-20T11:38:27Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-dev0009-jetorn",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/agent": "",
+                    "node-role.kubernetes.io/edge": ""
+                },
+                "name": "etri-dev0009-jetorn",
+                "resourceVersion": "51552512",
+                "uid": "be03daca-c9e9-4800-b2ca-6d9636c9e981"
+            },
+            "spec": {
+                "podCIDR": "10.244.11.0/24",
+                "podCIDRs": [
+                    "10.244.11.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.192.128",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-dev0009-jetorn",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "6",
+                    "ephemeral-storage": "111429948027",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "7562884Ki",
+                    "nvidia.com/gpu.shared": "2",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "6",
+                    "ephemeral-storage": "120909232Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "7665284Ki",
+                    "nvidia.com/gpu.shared": "2",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-20T11:38:59Z",
+                        "lastTransitionTime": "2026-10-20T11:38:59Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:50Z",
+                        "lastTransitionTime": "2026-10-21T09:56:39Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:50Z",
+                        "lastTransitionTime": "2026-10-21T09:56:39Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:50Z",
+                        "lastTransitionTime": "2026-10-21T09:56:39Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:32:50Z",
+                        "lastTransitionTime": "2026-10-21T09:56:39Z",
+                        "message": "edge is posting ready status",
+                        "reason": "EdgeReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10369
+                    }
+                },
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "d00792b2-d9e5-4ab6-9b8b-97d6e9d12a22",
+                    "containerRuntimeVersion": "containerd://2.2.1",
+                    "kernelVersion": "6.8.12-1021-tegra",
+                    "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+                    "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+                    "machineID": "522f9e052aa04d23b889d2575fb08096",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 24.04.4 LTS",
+                    "systemUUID": "f39fe123-dd66-5c2d-9edc-d6ea14e51b88"
+                },
+                "runtimeHandlers": [
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": ""
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "nvidia"
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "runc"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"6a:89:87:b2:0e:ad\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.192.47",
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/containerd/containerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-03-20T07:38:32Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "environment": "cloud",
+                    "gpu": "on",
+                    "gpu.platform": "server",
+                    "hairp.io/multi-gpu-poc": "true",
+                    "hairp.io/scheduling-lab": "gpu",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "etri-ser0001-cg0msb",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/control-plane": "",
+                    "node.kubernetes.io/exclude-from-external-load-balancers": ""
+                },
+                "name": "etri-ser0001-cg0msb",
+                "resourceVersion": "51554507",
+                "uid": "5d12790a-6588-4729-b085-d05c4729d635"
+            },
+            "spec": {
+                "podCIDR": "10.244.0.0/24",
+                "podCIDRs": [
+                    "10.244.0.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.192.47",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-ser0001-cg0msb",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "24",
+                    "ephemeral-storage": "451628671048",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "131498480Ki",
+                    "nvidia.com/gpu": "1",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "24",
+                    "ephemeral-storage": "490048472Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "131600880Ki",
+                    "nvidia.com/gpu": "1",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-21T09:55:43Z",
+                        "lastTransitionTime": "2026-10-21T09:55:43Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:17Z",
+                        "lastTransitionTime": "2026-09-04T07:05:40Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:17Z",
+                        "lastTransitionTime": "2026-10-06T03:01:21Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:17Z",
+                        "lastTransitionTime": "2026-09-04T07:05:40Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:17Z",
+                        "lastTransitionTime": "2026-09-04T07:05:40Z",
+                        "message": "kubelet is posting ready status",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-candy-cuda@sha256:29012d0aea4548c27852090fe5a38db22374e0b3298f840fd3177f23d5b638ea"
+                        ],
+                        "sizeBytes": 2559094643
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/kfp-visualization-server@sha256:771cfc11e0e0910aa2221dc878ae34fc78fdaee39a41edb26881ddd9c13f8b1b",
+                            "ghcr.io/kubeflow/kfp-visualization-server:2.5.0"
+                        ],
+                        "sizeBytes": 1603903285
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/kubeflow/notebook-servers/jupyter-scipy@sha256:5c64bc8a4298bcb89b522e16903f49965a287a99cfdeededa426cc266c04cdaf",
+                            "ghcr.io/kubeflow/kubeflow/notebook-servers/jupyter-scipy:v1.10.0"
+                        ],
+                        "sizeBytes": 1294834789
+                    },
+                    {
+                        "names": [
+                            "10.254.192.47:5000/resource-advisor/services@sha256:da6b42ef549db0c75b10d006036764b8ebf40430532e23cd853ef9e0429957ed",
+                            "192.168.0.56:5000/resource-advisor/services@sha256:da6b42ef549db0c75b10d006036764b8ebf40430532e23cd853ef9e0429957ed"
+                        ],
+                        "sizeBytes": 663957501
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:d0fd7ab58043b696d2f8e8a479ce9ed751647add8b5548321aa9e89238115070"
+                        ],
+                        "sizeBytes": 663617935
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor@sha256:614bf4d2b3acdca350bf0650bda74760cb86556a6d05b48246fc61827ce5d770"
+                        ],
+                        "sizeBytes": 663199746
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor@sha256:5e4c7dce2959f3fd723b39f6d87848a2340720f016c3ea69b187e715640b427d"
+                        ],
+                        "sizeBytes": 663199709
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:eef4d7afb901facfb448b1757953138673facc4d7d6424054d0df4ddae6d3f90"
+                        ],
+                        "sizeBytes": 663186161
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:732bdef00cc778b7e658462d2d09b5618db0d67cb09ad39a8a69d9d04ae9cb63"
+                        ],
+                        "sizeBytes": 662877121
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:a80be853c696c7f3822db09c00a0913c41863b7c52fe6a77914ae8a5ef6b8ee8"
+                        ],
+                        "sizeBytes": 662600110
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:eabeb52f254b8180042d2839b4a7308146bb4b1620d969e43b2e9dabf110c1b2"
+                        ],
+                        "sizeBytes": 662569277
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:3165072beadb83c08ca73841fec16bac36eece113a7dc7bda2b983738bb5ce69"
+                        ],
+                        "sizeBytes": 662271502
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:88226767d03e51e280dfd20982ea91dc0f5cc20070be3ce7a4cef90b2fe49935"
+                        ],
+                        "sizeBytes": 661983836
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:981339d6008ad0e64a1acc44102a90085432ca00775122038aa9b256c68a9c7b"
+                        ],
+                        "sizeBytes": 661729664
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:329247dc93d5c30343d74bbc346700eabb5567baf9d542f382b00ed266ad6793"
+                        ],
+                        "sizeBytes": 661483779
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:d5913dd7466538227a4d1e96c4188ae233d85e932bad63073ebd8e878c89b319"
+                        ],
+                        "sizeBytes": 661250104
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:fe05fa4e68259c5c7456580678ae67d1aa5ec1fce5c1cb3bce4420e6a4f4875b"
+                        ],
+                        "sizeBytes": 661019329
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:175c04269030b38070d8b2e44078c9daa970d21944ec782120eee8a74ff7da30"
+                        ],
+                        "sizeBytes": 660797234
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:bd5458548396093f6449b46ac6ba53c9f38078cf7221ae7914d499a3c6c3c99d"
+                        ],
+                        "sizeBytes": 660597552
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:a608787a696ca9a737ea8c72e59b1f70788fa1fa964d4e7785b641df50daadfc"
+                        ],
+                        "sizeBytes": 660405778
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/spark-operator/controller@sha256:d33cd24b189c611aec372aeb9e94b0d5e0b86906bb591b33106327aeb670e4a7",
+                            "ghcr.io/kubeflow/spark-operator/controller:2.2.0"
+                        ],
+                        "sizeBytes": 566671163
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/kfp-metadata-writer@sha256:6b312e5a8434f05bb20f0d381a2b11dd3aeeb1382b7f56c61ce0cf30692d6000",
+                            "ghcr.io/kubeflow/kfp-metadata-writer:2.5.0"
+                        ],
+                        "sizeBytes": 418813644
+                    },
+                    {
+                        "names": [
+                            "public.ecr.aws/docker/library/python@sha256:3528d5830ec8b7c8729a2a9961154061c7d34e114089ab5c6b1da707ed581c87",
+                            "public.ecr.aws/docker/library/python:3.12"
+                        ],
+                        "sizeBytes": 411074614
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:55a5666a4f5068e061399230eb14bba2790d94ee6aa725e390399cc209f0fa10"
+                        ],
+                        "sizeBytes": 374115935
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:799bbbf2a7f09772451099f8e5819ad56a07a8587eef3f6657dc3d991e2954b6"
+                        ],
+                        "sizeBytes": 373806895
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:47c2f2e21ce992a96d6c974955fdc1c4bef78df3b3960d5dc9f79b6591b1944b"
+                        ],
+                        "sizeBytes": 373498919
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:4d9574a6788eaa641bc1e993023141a9be7a1791ebdbfce148161f0a84929589"
+                        ],
+                        "sizeBytes": 373191075
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:e431be8feca1582e77fe3ce990b991d18294bbffd56bbd340dcdff1bfd8dc521"
+                        ],
+                        "sizeBytes": 372887424
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:b8edb6cc73ab4d29e5d45207f8340e8b9a5ab9556d90a21eee472b22e1b92399"
+                        ],
+                        "sizeBytes": 372583800
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:4984f85ad6dcdabe5cc0ec0b5c2d17ec7fef639578fc9aa39b2e75110ffc5355"
+                        ],
+                        "sizeBytes": 372281126
+                    },
+                    {
+                        "names": [
+                            "10.254.192.47:5000/resource-advisor/console-api@sha256:97cd7faf4ab0a47f11e802b034a0a727c5ba5b54e357e417124e4f90e1a8b86d",
+                            "192.168.0.56:5000/resource-advisor/console-api@sha256:97cd7faf4ab0a47f11e802b034a0a727c5ba5b54e357e417124e4f90e1a8b86d"
+                        ],
+                        "sizeBytes": 372277244
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/console-api@sha256:92449b5a313d3e125ba5d919d6f064c13f1069ec281b747ab526ce543ef19e46"
+                        ],
+                        "sizeBytes": 372187413
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/inference-api@sha256:50961409ae53573e128a39a8776a5c9b6c83decf97288ea5f12df3a23ede0c6d"
+                        ],
+                        "sizeBytes": 372036179
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:67f15dca05d27a7ebe2df6934d4221bc55f31de75f25053fd17397ff2d3d5ad9"
+                        ],
+                        "sizeBytes": 372019009
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:cd8b5b86228079760e7a3c859436ad5189d7a77832f6155b96fd9779ab44a1fa"
+                        ],
+                        "sizeBytes": 372019007
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:4ee0e5e3fd844b6a95ac4288cb55cc1bacda4260832a09925922d86825c649f0"
+                        ],
+                        "sizeBytes": 371978466
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:62f2e309a6d865a758670449300a027d769f07caa2847583d0a0c901b40d9558"
+                        ],
+                        "sizeBytes": 371676154
+                    },
+                    {
+                        "names": [
+                            "10.254.192.47:5000/resource-advisor/services@sha256:29aa3cfc7e5f936d2b47974e44b8b7990133b494ba9d5893543127363c5cf726",
+                            "192.168.0.56:5000/resource-advisor/services@sha256:29aa3cfc7e5f936d2b47974e44b8b7990133b494ba9d5893543127363c5cf726"
+                        ],
+                        "sizeBytes": 371659767
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:5dfb179a7807332ad74e736eac26cf7d3a083f1119168ac3fceda4d6baf1c9ab"
+                        ],
+                        "sizeBytes": 371659750
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:d71f357b380bf03c88369dc46c7b6f25aad5ba196445bd4ca203031889c395a3"
+                        ],
+                        "sizeBytes": 371374301
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:ca83639819391497af7436dfd4b8b5acac12996a21106c9f8f30fdc493c7d0b0"
+                        ],
+                        "sizeBytes": 371308415
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:6ccd524704cc41f531a0870e5cea9ec3d111605a265d7064bbde1685261b190d"
+                        ],
+                        "sizeBytes": 371072785
+                    },
+                    {
+                        "names": [
+                            "10.254.192.47:5000/resource-advisor/services@sha256:1f18f257b792ddf7fbb4cdd332544308985b59144022bee17d94a0783b810183",
+                            "192.168.0.56:5000/resource-advisor/services@sha256:1f18f257b792ddf7fbb4cdd332544308985b59144022bee17d94a0783b810183"
+                        ],
+                        "sizeBytes": 370962030
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:0325d26c678c3c6aec281721c05ef7cf117ce619ae15fdbc7e353da756f93905"
+                        ],
+                        "sizeBytes": 370772447
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:f8320efa119c0653ab5b32dc5d9880912f816d556ee272186902ea502977b46c"
+                        ],
+                        "sizeBytes": 370622464
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:d940014cfa68846e74629abcaed177619d7d8c4edcece699a54e09e5110c8f54"
+                        ],
+                        "sizeBytes": 370472189
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:fb800480da4f8678313b8abfe0b234269ab28722941417734ebfef594b8af934"
+                        ],
+                        "sizeBytes": 370171015
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:6befd66bc8d4b097f4b9f97199422022885d9fa7ae6e026ab06fab1c41e974d0"
+                        ],
+                        "sizeBytes": 369871523
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:1032c11e56e236be8843328b186899d0b4d1e3a1191db8141fa69d3ab75a2cce"
+                        ],
+                        "sizeBytes": 369604639
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:c9b47a2da68f8582c6ca9de2c0dd9d60937ceb0d33d9a9e59153d863a88650d7"
+                        ],
+                        "sizeBytes": 369572062
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "32674831-9a66-41de-888f-74022ba34430",
+                    "containerRuntimeVersion": "containerd://1.7.18",
+                    "kernelVersion": "7.0.0-38-generic",
+                    "kubeProxyVersion": "v1.31.14",
+                    "kubeletVersion": "v1.31.14",
+                    "machineID": "b90ae4e13f8643d6ab8ac4a3e5ebaa90",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 24.04.3 LTS",
+                    "systemUUID": "6f1e60e6-c84a-6cd3-91d3-50ebf6ee5939"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"fa:53:14:67:ea:93\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.192.129",
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/containerd/containerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "placement.edgeai.etrilab/profiles": "{\"mobilenetv2-12\":{\"batch_size\":1,\"execution_provider\":\"CPUExecutionProvider\",\"inference_backend\":\"onnxruntime\",\"inference_ms\":4.709341066666667,\"input_shape\":[1,3,224,224],\"mean_inference_ms\":4.709341066666667,\"measured_runs\":30,\"median_inference_ms\":4.7081415,\"p95_inference_ms\":4.79140155,\"p99_inference_ms\":4.88194304,\"record_fingerprint\":\"87be6f32bde3201b7cc4638fa51b398cdb65ba05eeb0a22397f13e4c60ab4c6b\",\"throughput_rps\":211.53746025478833,\"timestamp\":\"2026-08-31T11:33:51.209720+00:00\"},\"resnet18-v1-7\":{\"batch_size\":1,\"execution_provider\":\"CPUExecutionProvider\",\"inference_backend\":\"onnxruntime\",\"inference_ms\":23.146589933333335,\"input_shape\":[1,3,224,224],\"mean_inference_ms\":23.146589933333335,\"measured_runs\":30,\"median_inference_ms\":23.146148500000002,\"p95_inference_ms\":23.37548565,\"p99_inference_ms\":23.48416734,\"record_fingerprint\":\"9d4caeaa83671a078ddcda34da51fa1439efcc6a43b7abac6a381cc497b2d7c1\",\"throughput_rps\":43.154554616747184,\"timestamp\":\"2026-08-31T12:19:51.622832+00:00\"}}",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-04-09T07:01:07Z",
+                "labels": {
+                    "accelerator": "nvidia-gpu",
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "environment": "cloud",
+                    "gpu": "on",
+                    "gpu.platform": "server",
+                    "hairp.io/multi-gpu-poc": "true",
+                    "hairp.io/scheduling-lab": "gpu",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "etri-ser0002-cgnmsb",
+                    "kubernetes.io/os": "linux",
+                    "llm": "inference",
+                    "node-role.kubernetes.io/worker": "worker"
+                },
+                "name": "etri-ser0002-cgnmsb",
+                "resourceVersion": "51553984",
+                "uid": "4b770e6c-dcac-4293-9932-a08f1989e91a"
+            },
+            "spec": {
+                "podCIDR": "10.244.8.0/24",
+                "podCIDRs": [
+                    "10.244.8.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.192.129",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-ser0002-cgnmsb",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "24",
+                    "ephemeral-storage": "927870306816",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "31998504Ki",
+                    "npu.intel.com/accel": "1",
+                    "nvidia.com/gpu": "1",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "24",
+                    "ephemeral-storage": "1006803720Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "32100904Ki",
+                    "npu.intel.com/accel": "1",
+                    "nvidia.com/gpu": "1",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-20T11:30:30Z",
+                        "lastTransitionTime": "2026-10-20T11:30:30Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:15Z",
+                        "lastTransitionTime": "2026-10-20T11:26:59Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:15Z",
+                        "lastTransitionTime": "2026-10-20T11:26:59Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:15Z",
+                        "lastTransitionTime": "2026-10-20T11:26:59Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:15Z",
+                        "lastTransitionTime": "2026-10-20T11:26:59Z",
+                        "message": "kubelet is posting ready status",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "docker.io/nvidia/cuda@sha256:da6791294b0b04d7e65d87b7451d6f2390b4d36225ab0701ee7dfec5769829f5",
+                            "docker.io/nvidia/cuda:12.4.1-devel-ubuntu22.04"
+                        ],
+                        "sizeBytes": 4112402589
+                    },
+                    {
+                        "names": [
+                            "docker.io/ollama/ollama@sha256:5600a652d1081050f398152127c584222546354491f27fe47ccbc6351bc870bd",
+                            "docker.io/ollama/ollama:latest"
+                        ],
+                        "sizeBytes": 3766395940
+                    },
+                    {
+                        "names": [
+                            "docker.io/ollama/ollama@sha256:662109db8037f17257cfc6e816289c0d4c9ae8a2a4ff760b653d8d410e234ba0"
+                        ],
+                        "sizeBytes": 3710971950
+                    },
+                    {
+                        "names": [
+                            "nvcr.io/nvidia/cuda@sha256:c4e81887e4aa9f13b1119337323cba89601319ecb282383b879c4ba50510fd17",
+                            "nvcr.io/nvidia/cuda:12.2.0-devel-ubuntu22.04"
+                        ],
+                        "sizeBytes": 3532598949
+                    },
+                    {
+                        "names": [
+                            "docker.io/ollama/ollama@sha256:020e4134285e2ef4d8fd801234176de3b4faadc992a3eb06c8e66a2f9d4c4ba2"
+                        ],
+                        "sizeBytes": 3383207082
+                    },
+                    {
+                        "names": [
+                            "10.254.192.47:5000/resource-advisor/inference-cuda@sha256:0e0498c82b7442e9b69c54785ebf099e853d76af927780817d7bcedd35c94adf",
+                            "192.168.0.56:5000/resource-advisor/inference-cuda@sha256:0e0498c82b7442e9b69c54785ebf099e853d76af927780817d7bcedd35c94adf"
+                        ],
+                        "sizeBytes": 2699265855
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-pool-cuda@sha256:21cf10aef3f5360f95e4d6e9ef46b2a6aaa06d8660b0cc3738e408666811fddc"
+                        ],
+                        "sizeBytes": 2699261093
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-candy-cuda@sha256:29012d0aea4548c27852090fe5a38db22374e0b3298f840fd3177f23d5b638ea"
+                        ],
+                        "sizeBytes": 2559094643
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-candy-cuda@sha256:862aa71e29c3a3f46545fc177d3e2bd5c3ad0aefaa96c457018fbde9e5ec8f3b"
+                        ],
+                        "sizeBytes": 2459245463
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/kfp-visualization-server@sha256:7a0a27674889d66f721939ef742eaec9c3a9487d2648c40e2772550c51dace3d",
+                            "ghcr.io/kubeflow/kfp-visualization-server:2.17.0"
+                        ],
+                        "sizeBytes": 1082092973
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/rpi-image-analyzer@sha256:97ff66ee75fe8d2b43d385642615a9cb1e1c1d2470eaeeb59ebec52216c49f07",
+                            "192.168.0.56:5000/rpi-image-analyzer:0.1"
+                        ],
+                        "sizeBytes": 826807440
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:eabeb52f254b8180042d2839b4a7308146bb4b1620d969e43b2e9dabf110c1b2"
+                        ],
+                        "sizeBytes": 662569277
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a"
+                        ],
+                        "sizeBytes": 504118028
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-npu-intel@sha256:09dedfc5150d8e67a310e7213862e04ffb6a696421945921ccd26cf3e7077d26"
+                        ],
+                        "sizeBytes": 504111899
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-npu-intel@sha256:07d94ebdab7bd2138ed44c95af607c1a922a41e6e5d460165dc5083bf40141df"
+                        ],
+                        "sizeBytes": 504110674
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-npu-intel@sha256:3f58dc0d5e217481451d4787fd4ea5f11678a2b47d4eb30f75cfa4407b000828"
+                        ],
+                        "sizeBytes": 504105349
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/ra-npu-intel@sha256:e2e9a25c97e9d3ece4bdcb7457015cbac3f4bc3e28068f5bffa8d263c9122df0"
+                        ],
+                        "sizeBytes": 504105342
+                    },
+                    {
+                        "names": [
+                            "docker.io/projecthami/hami@sha256:a5658595f9de6d52fbb768a758fa32053554a5b813f88904fcb4ddea1079dfb9",
+                            "docker.io/projecthami/hami:v2.9.0"
+                        ],
+                        "sizeBytes": 386226123
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/services@sha256:c9b47a2da68f8582c6ca9de2c0dd9d60937ceb0d33d9a9e59153d863a88650d7"
+                        ],
+                        "sizeBytes": 369572062
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:eccb4ba1dcfee01ffa5eeca481bf71247b24c12f733f785c58110b2b733c8194"
+                        ],
+                        "sizeBytes": 363888796
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:634da17e11322bc7230d08e494f02fba3d947577aceca1212606ce7fc2d5cb9c"
+                        ],
+                        "sizeBytes": 340094790
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:5200ecc66482f4be2e0b560672c4ac0bd1d9e46ba4dbc7c5139d5216a7f3bbe3"
+                        ],
+                        "sizeBytes": 340088981
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:ff8eeedda18be1612a321bf94dfd78fd51de68679eb6827b585df9a4648f3f6f",
+                            "192.168.0.56:5000/edge-agent:0.2"
+                        ],
+                        "sizeBytes": 340088841
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:9a403f1844a9e01b69b18fca7fbaf8302e11d770a73da2f0706cc7a9766a1e78",
+                            "192.168.0.56:5000/edge-agent:0.1"
+                        ],
+                        "sizeBytes": 340088721
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:a3f4756eb75a0b227f53c2e9f4f1779cb5048a3165fe2deab35d7f4df4f19c27"
+                        ],
+                        "sizeBytes": 340083880
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:e35366e9c4248524561942fc029c466a5a26efb2553112f28e1b2b36e7bec72c"
+                        ],
+                        "sizeBytes": 340083747
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:6d60069af847ec8ef0318ab5e2393a951a4706d327162badbabdd276f8f6ab45"
+                        ],
+                        "sizeBytes": 340083377
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:8122f352d5f6bceff8eedc803d4f532953d515aeae0a93678f60919eee920405"
+                        ],
+                        "sizeBytes": 340083190
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:055077446942cfca01f9f7509b11d981187d2e5509f8dede7a004b2df94f9ed9"
+                        ],
+                        "sizeBytes": 340080643
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edge-agent@sha256:7e954d40ad501aff61604f9bad4f4583e365e5df1057f314251470f37c8ce8a5",
+                            "192.168.0.56:5000/edge-agent:latest"
+                        ],
+                        "sizeBytes": 340080435
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/kfp-cache-deployer@sha256:a713d1e3cafc089c0d530bd9818bc5cc228cb9cafea5c1d1de8eed45adbba26a",
+                            "ghcr.io/kubeflow/kfp-cache-deployer:2.17.0"
+                        ],
+                        "sizeBytes": 337950284
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/launcher@sha256:9a54d33c0a3a3a93d48133a29564fb1f45ec538fe815b1950861a18ec7a1273b"
+                        ],
+                        "sizeBytes": 306388720
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:0f16d643c4d74be0b396415bfa9a0b767a081c885a9e68dcdb40a506f1666479"
+                        ],
+                        "sizeBytes": 293635376
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:b06ad91f17d6d5d220403c33df29bb8a04023cbe140d3ad435d19f6e0c0de994"
+                        ],
+                        "sizeBytes": 293634829
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:b31d45e138c431cc3f6a04be5757b0244942338cd2387b01ef7825359f464c1c"
+                        ],
+                        "sizeBytes": 293633325
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:b239f85ed5097205c914934122d23e8fd4fae26bdc6b219e7c573447b0041ead"
+                        ],
+                        "sizeBytes": 293586482
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/mlflow/mlflow@sha256:06058cc872276873e9759c635e773342aca4731e240f6d20d88ea43774083984"
+                        ],
+                        "sizeBytes": 290376944
+                    },
+                    {
+                        "names": [
+                            "docker.io/grafana/grafana@sha256:83749231c3835e390a3144e5e940203e42b9589761f20ef3169c716e734ad505",
+                            "docker.io/grafana/grafana:12.4.2"
+                        ],
+                        "sizeBytes": 213873728
+                    },
+                    {
+                        "names": [
+                            "docker.io/nicolaka/netshoot@sha256:47b907d662d139d1e2f22bfe14f4efca1e3f1feed283572f47c970c780c03b61",
+                            "docker.io/nicolaka/netshoot:latest",
+                            "docker.io/nicolaka/netshoot:v0.15"
+                        ],
+                        "sizeBytes": 212842400
+                    },
+                    {
+                        "names": [
+                            "docker.io/grafana/grafana@sha256:a1701c2180249361737a99a01bc770db39381640e4d631825d38ff4535efa47d",
+                            "docker.io/grafana/grafana:12.1.1"
+                        ],
+                        "sizeBytes": 201615524
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/kubeflow/kfp-frontend@sha256:d28a5d7e15d23e68cdd0fc6099062b2910548e756465dcc0481203094dfef695",
+                            "ghcr.io/kubeflow/kfp-frontend:2.17.0"
+                        ],
+                        "sizeBytes": 200412869
+                    },
+                    {
+                        "names": [
+                            "quay.io/argoproj/argocd@sha256:9ab6baab65a6b283044a7d7b7dbe50f589564de9c8898d67c77d84b2b5df46bc",
+                            "quay.io/argoproj/argocd:v3.2.3"
+                        ],
+                        "sizeBytes": 195026890
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:385deb3f4ab7a6d8b41ca5514e6758b93f433bfff2f8daea0aa19e469a26b40c"
+                        ],
+                        "sizeBytes": 192648409
+                    },
+                    {
+                        "names": [
+                            "docker.io/projecthami/hami-webui-fe-oss@sha256:48fd142b9a70c61f7a4883688fe1fd0dd16ea2041fda2d7f95d4aed57c326b7a",
+                            "docker.io/projecthami/hami-webui-fe-oss:v1.2.0"
+                        ],
+                        "sizeBytes": 153959716
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:19f18f87c1cab10553e0fc66a8d390cadbc363a457498b0a58cdfaa6e113d314"
+                        ],
+                        "sizeBytes": 150332368
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:37974615f6034c2a230aaca567960d4df4a0a2700753f71718f4778a76fd6edb"
+                        ],
+                        "sizeBytes": 150329328
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:efef59865dcd2a7e77d09f7f467ee6758f22dc3d9a28b8bb284e221e6dc647b8"
+                        ],
+                        "sizeBytes": 150282412
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:cc42f75df3978ac51512c937d931d1344cb99566b7cfe247e7eeed23d8efc33d"
+                        ],
+                        "sizeBytes": 150267541
+                    },
+                    {
+                        "names": [
+                            "quay.io/prometheus/prometheus@sha256:7571a304e67fbd794be02422b13627dc7de822152f74e99e2bef95d29eceecde",
+                            "quay.io/prometheus/prometheus:v3.10.0"
+                        ],
+                        "sizeBytes": 143646693
+                    },
+                    {
+                        "names": [
+                            "nvcr.io/nvidia/gpu-operator@sha256:64ef3dafb9dd28eebe645010e9a5df1efccddea8ad2d61bb6e0a0c4e12eea310",
+                            "nvcr.io/nvidia/gpu-operator:v26.3.0"
+                        ],
+                        "sizeBytes": 138212965
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "d0b17d24-d6c2-468b-b8cb-6b2a13a25914",
+                    "containerRuntimeVersion": "containerd://2.2.4",
+                    "kernelVersion": "7.0.0-38-generic",
+                    "kubeProxyVersion": "v1.31.14",
+                    "kubeletVersion": "v1.31.14",
+                    "machineID": "86f7842cea214f42825d0de1caeca950",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 24.04.4 LTS",
+                    "systemUUID": "4f2bdbd3-f8a3-5123-73fe-60cf84aa3a75"
+                },
+                "runtimeHandlers": [
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": ""
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "nvidia"
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "runc"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"ea:23:51:39:b9:77\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.70.81",
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///run/containerd/containerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-09-09T10:40:01Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "arm64",
+                    "beta.kubernetes.io/os": "linux",
+                    "environment": "cloud",
+                    "hairp.io/multi-gpu-poc": "true",
+                    "kubernetes.io/arch": "arm64",
+                    "kubernetes.io/hostname": "etri-ser0003-cg0ms0",
+                    "kubernetes.io/os": "linux",
+                    "monitoring.jinuk.io/gpu-collector": "spark-nvidia-smi",
+                    "node-role.kubernetes.io/worker": ""
+                },
+                "name": "etri-ser0003-cg0ms0",
+                "resourceVersion": "51554520",
+                "uid": "4b0730fc-30ed-4e99-b6f0-b060eb0df9dd"
+            },
+            "spec": {
+                "podCIDR": "10.244.7.0/24",
+                "podCIDRs": [
+                    "10.244.7.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.70.81",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-ser0003-cg0ms0",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "20",
+                    "ephemeral-storage": "3628684392175",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "127498348Ki",
+                    "nvidia.com/gpu": "1",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "20",
+                    "ephemeral-storage": "3937374564Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "hugepages-32Mi": "0",
+                    "hugepages-64Ki": "0",
+                    "memory": "127600748Ki",
+                    "nvidia.com/gpu": "1",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-19T06:39:17Z",
+                        "lastTransitionTime": "2026-10-19T06:39:17Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:18Z",
+                        "lastTransitionTime": "2026-10-19T06:39:12Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:18Z",
+                        "lastTransitionTime": "2026-10-19T06:39:12Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:18Z",
+                        "lastTransitionTime": "2026-10-19T06:39:12Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:36:18Z",
+                        "lastTransitionTime": "2026-10-19T06:39:12Z",
+                        "message": "kubelet is posting ready status",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "10.254.192.47:5000/edgeai/gpu-inference@sha256:dfbb9376be488669296ecd55335167f8e8d1d9d5f69c7f74645c895e0444ce9a"
+                        ],
+                        "sizeBytes": 3450131258
+                    },
+                    {
+                        "names": [
+                            "docker.io/ollama/ollama@sha256:020e4134285e2ef4d8fd801234176de3b4faadc992a3eb06c8e66a2f9d4c4ba2"
+                        ],
+                        "sizeBytes": 2780086317
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/fastdds-unified@sha256:0cfdcd22a2336495e1da3e3bdd03127c15abafb6390ed3b707bd08afed614943"
+                        ],
+                        "sizeBytes": 1126903513
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sh-vlm-service@sha256:7ae96e108c60fdd7966e613490826effe6fe5907bf78ecc57cbbdf049779808e",
+                            "192.168.0.56:5000/sh-vlm-service:0.3.0"
+                        ],
+                        "sizeBytes": 1080617953
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/sh-vlm-service@sha256:323e36662661f1900620c12c3d6653cc45eac46eeb5730a8b73475939c36b8e6",
+                            "192.168.0.56:5000/sh-vlm-service:0.2.0"
+                        ],
+                        "sizeBytes": 1080617804
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/mlflow/mlflow@sha256:06058cc872276873e9759c635e773342aca4731e240f6d20d88ea43774083984"
+                        ],
+                        "sizeBytes": 284798082
+                    },
+                    {
+                        "names": [
+                            "docker.io/grafana/grafana@sha256:a1701c2180249361737a99a01bc770db39381640e4d631825d38ff4535efa47d",
+                            "docker.io/grafana/grafana:12.1.1"
+                        ],
+                        "sizeBytes": 185899103
+                    },
+                    {
+                        "names": [
+                            "quay.io/argoproj/argocd@sha256:9ab6baab65a6b283044a7d7b7dbe50f589564de9c8898d67c77d84b2b5df46bc",
+                            "quay.io/argoproj/argocd:v3.2.3"
+                        ],
+                        "sizeBytes": 182509985
+                    },
+                    {
+                        "names": [
+                            "quay.io/prometheus/prometheus@sha256:7571a304e67fbd794be02422b13627dc7de822152f74e99e2bef95d29eceecde",
+                            "quay.io/prometheus/prometheus:v3.10.0"
+                        ],
+                        "sizeBytes": 132883649
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/agentops-platform@sha256:6a94b764ae700aa32da3da82ea939afe9232ddabf070c27adf471ece3f477f6e"
+                        ],
+                        "sizeBytes": 125859901
+                    },
+                    {
+                        "names": [
+                            "docker.io/prom/prometheus@sha256:63805ebb8d2b3920190daf1cb14a60871b16fd38bed42b857a3182bc621f4996",
+                            "docker.io/prom/prometheus:v3.5.0"
+                        ],
+                        "sizeBytes": 117159012
+                    },
+                    {
+                        "names": [
+                            "docker.io/moby/buildkit@sha256:f8a833b2de9d68e27f0815e4a737abdfaf8a2e4c615650557df11025101557b4",
+                            "docker.io/moby/buildkit:buildx-stable-1-rootless"
+                        ],
+                        "sizeBytes": 116348327
+                    },
+                    {
+                        "names": [
+                            "public.ecr.aws/docker/library/postgres@sha256:ef257d85f76e48da1c64832459b59fcaba1a4dac97bf5d7450c77753542eee94",
+                            "public.ecr.aws/docker/library/postgres:17.6-alpine"
+                        ],
+                        "sizeBytes": 106582257
+                    },
+                    {
+                        "names": [
+                            "gcr.io/istio-release/proxyv2@sha256:fd734e6031566b4fb92be38f0f6bb02fdba6c199c45c2db5dc988bbc4fdee026",
+                            "gcr.io/istio-release/proxyv2:1.26.1"
+                        ],
+                        "sizeBytes": 106288074
+                    },
+                    {
+                        "names": [
+                            "docker.io/otel/opentelemetry-collector-contrib@sha256:45392d534c1edcc809c2d112394029246bc679d2ae5ea7081414a1fc74f2c621",
+                            "docker.io/otel/opentelemetry-collector-contrib:0.136.0"
+                        ],
+                        "sizeBytes": 81910136
+                    },
+                    {
+                        "names": [
+                            "docker.io/kubeedge/iptables-manager@sha256:0f5f2806875a92667cc57efbd91d2a6d6a5b68590fcbfcb42a9398aa47aa939a",
+                            "docker.io/kubeedge/iptables-manager:v1.23.0"
+                        ],
+                        "sizeBytes": 77228799
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/state-aggregator@sha256:05fe65ce2085264486d462dc513ab9243e0ebb6e9433ccf3a13308a3d1f1c086"
+                        ],
+                        "sizeBytes": 62241581
+                    },
+                    {
+                        "names": [
+                            "quay.io/minio/minio@sha256:a1ea29fa28355559ef137d71fc570e508a214ec84ff8083e39bc5428980b015e",
+                            "quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z"
+                        ],
+                        "sizeBytes": 59344841
+                    },
+                    {
+                        "names": [
+                            "nvcr.io/nvidia/k8s-device-plugin@sha256:75eff5962176618e486da18d73eae57870369b69f186fc8d193973166d1cfad9",
+                            "nvcr.io/nvidia/k8s-device-plugin:v0.19.0"
+                        ],
+                        "sizeBytes": 51352292
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:57f7bb3fe29c18ab3cc1dfc4b0296dbfb707c45fd872ab0315b4997c7f577a3a"
+                        ],
+                        "sizeBytes": 49182044
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:0ef6c159496b37a657613214faab49989df9051fb8b6aa29d08fcdce5c8643f3"
+                        ],
+                        "sizeBytes": 49178563
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/python@sha256:6c5ae9d998f4cc06f892f428d7af53a566c24ad0dc29fa572696b647cf2762a7",
+                            "docker.io/library/python@sha256:9534e5a8e315485d4061ed659af0fd78a284c015f9b73661b41d6bab25604534",
+                            "docker.io/library/python:3.11-slim"
+                        ],
+                        "sizeBytes": 49175765
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edgeai/processing-runner@sha256:4223426bcfa7f37e1d23e8bbb6d8f48da962f76869cc9d261230a85eea4b4619"
+                        ],
+                        "sizeBytes": 45970481
+                    },
+                    {
+                        "names": [
+                            "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                            "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f"
+                        ],
+                        "sizeBytes": 45878127
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-runner@sha256:eaa0d78a0ef7187667993a2833adea2b62c0447c7a77539ffd56b9556d09a9cf"
+                        ],
+                        "sizeBytes": 45781457
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-runner@sha256:8a2f8067c0bd3d5a10e76b2c46e145b045d8a0789c3f01c10984e1af915ac2ff"
+                        ],
+                        "sizeBytes": 45781037
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/python@sha256:782412e85d0f0984994c290652577d4018aff08145c85b262bb63dc0c7522254"
+                        ],
+                        "sizeBytes": 45102813
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/runtime-contract-demo@sha256:0c70aaa5f6f1d3f01bb71e6e6656ceac5bdc197cd23ac0f5c1239883d67d8005"
+                        ],
+                        "sizeBytes": 45097352
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/python@sha256:5024f48ba9441d4b13a95d3945abc6365538e3a31109833367a1923523c6efed"
+                        ],
+                        "sizeBytes": 44456642
+                    },
+                    {
+                        "names": [
+                            "192.168.0.56:5000/edgemesh-agent@sha256:48532316ea9949dd18c0f66cbe0216c87e2358193eda45a40c7e14bdec81e65a"
+                        ],
+                        "sizeBytes": 40733645
+                    },
+                    {
+                        "names": [
+                            "quay.io/prometheus/alertmanager@sha256:88b605de9aba0410775c1eb3438f951115054e0d307f23f274a4c705f51630c1",
+                            "quay.io/prometheus/alertmanager:v0.31.1"
+                        ],
+                        "sizeBytes": 36331869
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/flannel-io/flannel@sha256:8e5228b764002ef674af9519fb848e8d2004b8d03d7d18edc3333c749b87fadf",
+                            "ghcr.io/flannel-io/flannel:v0.28.3"
+                        ],
+                        "sizeBytes": 34042255
+                    },
+                    {
+                        "names": [
+                            "docker.io/grafana/tempo@sha256:0ef775495967cd5d7a6b2e146b6ea695d624803c8db8349fb8ce4164f719f9b7",
+                            "docker.io/grafana/tempo:2.8.2"
+                        ],
+                        "sizeBytes": 31897068
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/kube-proxy@sha256:f5f3e526c5f433817fefd0acfe1d602d87af0692358e9d55e4ff9f70f440f018",
+                            "registry.k8s.io/kube-proxy:v1.31.14"
+                        ],
+                        "sizeBytes": 27104870
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/python@sha256:0d55920083f1ce1e38ac292e2772f924b4f8bb4188d336c79bf66963039e6146",
+                            "docker.io/library/python:3.11-alpine"
+                        ],
+                        "sizeBytes": 23786162
+                    },
+                    {
+                        "names": [
+                            "docker.io/kubeedge/edgemesh-agent@sha256:460c6061b6088d507bb547d362a8d803b75c7eeddd23758a4b218a5da9138364"
+                        ],
+                        "sizeBytes": 23237002
+                    },
+                    {
+                        "names": [
+                            "docker.io/rancher/local-path-provisioner@sha256:34ff0847cc47ebf69656ba44a3de9324596d0036b66ffd323b21614dd8221530",
+                            "docker.io/rancher/local-path-provisioner:v0.0.35"
+                        ],
+                        "sizeBytes": 20511413
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/python@sha256:4c47124a8391cb7a9f571164147d154777cf012a4ece5f86097130d7a4478111",
+                            "docker.io/library/python:3.12-alpine"
+                        ],
+                        "sizeBytes": 18537164
+                    },
+                    {
+                        "names": [
+                            "quay.io/prometheus-operator/prometheus-operator@sha256:fea93ca9be807eee2f51f4d997b7a2bf073d4051d9012b45b3c84a7b9e8b3f25",
+                            "quay.io/prometheus-operator/prometheus-operator:v0.89.0"
+                        ],
+                        "sizeBytes": 18080476
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/redis@sha256:bb186d083732f669da90be8b0f975a37812b15e913465bb14d845db72a4e3e08",
+                            "docker.io/library/redis:7.4.5-alpine"
+                        ],
+                        "sizeBytes": 17687367
+                    },
+                    {
+                        "names": [
+                            "quay.io/prometheus-operator/prometheus-config-reloader@sha256:cb4ac6a56555bef0e202bec11e367dfe07ffb241cf4d30566b12b864692607a8",
+                            "quay.io/prometheus-operator/prometheus-config-reloader:v0.89.0"
+                        ],
+                        "sizeBytes": 13589334
+                    },
+                    {
+                        "names": [
+                            "quay.io/prometheus/node-exporter@sha256:337ff1d356b68d39cef853e8c6345de11ce7556bb34cda8bd205bcf2ed30b565",
+                            "quay.io/prometheus/node-exporter:v1.10.2"
+                        ],
+                        "sizeBytes": 12148838
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/flannel-io/flannel-cni-plugin@sha256:7c3377e977b4b77b8efdad96e207ebee371537d6dcd7b9c40853cf0c0f0aade3",
+                            "ghcr.io/flannel-io/flannel-cni-plugin:v1.9.1-flannel1"
+                        ],
+                        "sizeBytes": 5378444
+                    },
+                    {
+                        "names": [
+                            "public.ecr.aws/docker/library/alpine@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8",
+                            "public.ecr.aws/docker/library/alpine:3.22"
+                        ],
+                        "sizeBytes": 4133954
+                    },
+                    {
+                        "names": [
+                            "docker.io/library/busybox@sha256:dc2d74b28e4cf8984fa52af1f39bc7c3d9c73760b41a74d629f5d11b1ab28616",
+                            "docker.io/library/busybox:latest"
+                        ],
+                        "sizeBytes": 1925780
+                    },
+                    {
+                        "names": [
+                            "registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a",
+                            "registry.k8s.io/pause:3.10"
+                        ],
+                        "sizeBytes": 267933
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "arm64",
+                    "bootID": "b35055b9-72bc-49ae-8ae9-49ffc38584e3",
+                    "containerRuntimeVersion": "containerd://2.2.1",
+                    "kernelVersion": "6.17.0-1032-nvidia",
+                    "kubeProxyVersion": "v1.31.14",
+                    "kubeletVersion": "v1.31.14",
+                    "machineID": "7af66f30966a49b6886e00e2fce4b42f",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 24.04.3 LTS",
+                    "systemUUID": "d3c4fa1c-bfde-11d3-8000-4cbb477ff4a0"
+                },
+                "runtimeHandlers": [
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": ""
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "nvidia"
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "runc"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Node",
+            "metadata": {
+                "annotations": {
+                    "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"7e:95:94:5e:71:12\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "10.254.70.183",
+                    "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///run/containerd/containerd.sock",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                },
+                "creationTimestamp": "2026-09-09T10:23:19Z",
+                "labels": {
+                    "beta.kubernetes.io/arch": "amd64",
+                    "beta.kubernetes.io/os": "linux",
+                    "environment": "cloud",
+                    "kubernetes.io/arch": "amd64",
+                    "kubernetes.io/hostname": "etri-ser0004-cgnms0",
+                    "kubernetes.io/os": "linux",
+                    "mobilint.com/npu.present": "true",
+                    "node-role.kubernetes.io/worker": ""
+                },
+                "name": "etri-ser0004-cgnms0",
+                "resourceVersion": "51553871",
+                "uid": "704727e7-eae5-4cad-b85c-1745be0e2b09"
+            },
+            "spec": {
+                "podCIDR": "10.244.5.0/24",
+                "podCIDRs": [
+                    "10.244.5.0/24"
+                ]
+            },
+            "status": {
+                "addresses": [
+                    {
+                        "address": "10.254.70.183",
+                        "type": "InternalIP"
+                    },
+                    {
+                        "address": "etri-ser0004-cgnms0",
+                        "type": "Hostname"
+                    }
+                ],
+                "allocatable": {
+                    "cpu": "16",
+                    "ephemeral-storage": "423276679287",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "32532748Ki",
+                    "mobilint.com/npu": "1",
+                    "pods": "110"
+                },
+                "capacity": {
+                    "cpu": "16",
+                    "ephemeral-storage": "459284592Ki",
+                    "hugepages-1Gi": "0",
+                    "hugepages-2Mi": "0",
+                    "memory": "32635148Ki",
+                    "mobilint.com/npu": "1",
+                    "pods": "110"
+                },
+                "conditions": [
+                    {
+                        "lastHeartbeatTime": "2026-10-19T06:39:56Z",
+                        "lastTransitionTime": "2026-10-19T06:39:56Z",
+                        "message": "Flannel is running on this node",
+                        "reason": "FlannelIsUp",
+                        "status": "False",
+                        "type": "NetworkUnavailable"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:01Z",
+                        "lastTransitionTime": "2026-10-19T06:39:50Z",
+                        "message": "kubelet has sufficient memory available",
+                        "reason": "KubeletHasSufficientMemory",
+                        "status": "False",
+                        "type": "MemoryPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:01Z",
+                        "lastTransitionTime": "2026-10-19T06:39:50Z",
+                        "message": "kubelet has no disk pressure",
+                        "reason": "KubeletHasNoDiskPressure",
+                        "status": "False",
+                        "type": "DiskPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:01Z",
+                        "lastTransitionTime": "2026-10-19T06:39:50Z",
+                        "message": "kubelet has sufficient PID available",
+                        "reason": "KubeletHasSufficientPID",
+                        "status": "False",
+                        "type": "PIDPressure"
+                    },
+                    {
+                        "lastHeartbeatTime": "2026-10-22T05:35:01Z",
+                        "lastTransitionTime": "2026-10-19T06:39:50Z",
+                        "message": "kubelet is posting ready status",
+                        "reason": "KubeletReady",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                        "Port": 10250
+                    }
+                },
+                "images": [
+                    {
+                        "names": [
+                            "ghcr.io/mlflow/mlflow@sha256:06058cc872276873e9759c635e773342aca4731e240f6d20d88ea43774083984"
+                        ],
+                        "sizeBytes": 290376944
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:843441433303e894c48d65da3a82e35cc8a22ad8ffe6260ee4ccafcdcac7d23a"
+                        ],
+                        "sizeBytes": 150398506
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:df9c93f22ab3e24562aae1bb0b3bc332cb50bc270c0601c98ca52a845e07c8a8"
+                        ],
+                        "sizeBytes": 150395854
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:a050bf2b0baef7dc647d6c950cc2d1d5bb68de08490022dd83ead6701c311699"
+                        ],
+                        "sizeBytes": 150367271
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:1004636ac85c09bbeb82d8874f226c743d5744e35031ad9ee5d4bcf2128da72e"
+                        ],
+                        "sizeBytes": 150356065
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:19f18f87c1cab10553e0fc66a8d390cadbc363a457498b0a58cdfaa6e113d314"
+                        ],
+                        "sizeBytes": 150332368
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:37974615f6034c2a230aaca567960d4df4a0a2700753f71718f4778a76fd6edb"
+                        ],
+                        "sizeBytes": 150329328
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:dbef2ee53e1da2148a685053474ddc3fdd1ed7a0e01b70e10680b1f623c45ede"
+                        ],
+                        "sizeBytes": 150308500
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:e3dfdd9ba98a30717b9fffc6578a34744cf1041ffaa886f9674d9622d591b318"
+                        ],
+                        "sizeBytes": 150302638
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:742b47ee1706ddc02a5646e27cee7d8fad007d21af6851ceeee0f434bad0d198"
+                        ],
+                        "sizeBytes": 150298220
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:c2860b661d3b67ac045316016bf93e34412b8d9887a007d0653d35577ed0b8fe"
+                        ],
+                        "sizeBytes": 150296046
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:0b6693a1f784f0005cebe21c0c8cb300ba6eb6848a6d648f014ba29c9a516596"
+                        ],
+                        "sizeBytes": 150294483
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:4777003510d061fd0c7b00ad8121640524711598f97d1aefd928da39b97205e5"
+                        ],
+                        "sizeBytes": 150287975
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:efef59865dcd2a7e77d09f7f467ee6758f22dc3d9a28b8bb284e221e6dc647b8"
+                        ],
+                        "sizeBytes": 150282412
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:eb63b6d864d676c82ccc78679f0e5d08695498dcbf34d04ca9e72d9b10a0d202"
+                        ],
+                        "sizeBytes": 150279315
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:cc42f75df3978ac51512c937d931d1344cb99566b7cfe247e7eeed23d8efc33d"
+                        ],
+                        "sizeBytes": 150267541
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:049900915248acb2e96c94a099c79c53397bff3632f5584f4fdcd3077a9ce26e"
+                        ],
+                        "sizeBytes": 150265086
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:54f9c8c466c81a3c93c8b24fa740ac24b01281ebb8b2f013e3b5811d846fe8ab"
+                        ],
+                        "sizeBytes": 150264718
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:6253d8853b78bd313570f5381bd874f8925ee8542f91816813bce54252c25100"
+                        ],
+                        "sizeBytes": 150262629
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:fafdfb9713d7ff00b55deacfb21f7d64633c570e993c8e360b229c81d3bf2c79"
+                        ],
+                        "sizeBytes": 150254787
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:38f10cc4475f770fb12b5cbbab13da9c148021f40ae08cdad36841300055d9c5"
+                        ],
+                        "sizeBytes": 150250853
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:55c365522dec7052d71b563dd48e8d515cf1985bfeceb20741140c142e156850"
+                        ],
+                        "sizeBytes": 150222856
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:514d880abd25f607041f30d1df617efc1a5be8bc862c6c35cfd4e3946f93d858"
+                        ],
+                        "sizeBytes": 150219528
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:df508d112c565b09ef85836956528bc175b2a2927e63445b2006d558a0e2fb89"
+                        ],
+                        "sizeBytes": 150193321
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:d1631b6a61ff56836964c5d03ef1dec52800c83791700708d9412b4123379eac"
+                        ],
+                        "sizeBytes": 150186936
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:6a2125aaaa9e18a275499f146be5a1c5197bc475a505f0ba4f413291791edb59"
+                        ],
+                        "sizeBytes": 150178288
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:4226587a22e640775862d9230c9db7898133e4e395b510ddd4a70b10695f656f"
+                        ],
+                        "sizeBytes": 150144975
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:591091122d3a8898727b4ddf13c98123313709d782a2b3294703bc54c938ae0f"
+                        ],
+                        "sizeBytes": 150138447
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:a93a5a7b20be662d0499e5dbb99686bb7e4f9d2f26050046e6d451da2d036fe2"
+                        ],
+                        "sizeBytes": 150113264
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:3c2464a30bb7fc8b917ce2cad25241657afd44afa03448ae26f4f2b306507f4c"
+                        ],
+                        "sizeBytes": 150108099
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:1d037087882509e617cd7ba86451069e3c3c06120e729a9b7efb3298ec63ba25"
+                        ],
+                        "sizeBytes": 149834399
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:74c69be16c44069a6ff652443a7e9ad7fbb874306da42bd706f38c38ef333743"
+                        ],
+                        "sizeBytes": 149811637
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:3fd58efc707b0364318c464033d8ed0677d8ee395a45b5b85cd4e62f8fcfdbf5"
+                        ],
+                        "sizeBytes": 149796750
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:ceb15e5bafeec4d2109baae0cca6567dcabb5be6fa1bd46007c91329cc017d27"
+                        ],
+                        "sizeBytes": 149787083
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:b13fc88b0f89463f98c101a6c5fafd12f074eb049068af20b2fbc547b2d1b149"
+                        ],
+                        "sizeBytes": 149775313
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:01d22ab391c82b29d0a35b6267b1a10421127ba1e0126dd766776faf2aa5c898"
+                        ],
+                        "sizeBytes": 149751336
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:0b07c0987b38b88cab9212c92746a86656708aec87709811b7203d9a295189a1"
+                        ],
+                        "sizeBytes": 149732100
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:5bed78a7e9258101bb51d7d3973fe29f1b3989ce590941f4ba1612768b92b4de"
+                        ],
+                        "sizeBytes": 149703615
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:933b114bd2e2e1dd98d5273b4fd575816673a69b3995acecf8c5a7acda7e844c"
+                        ],
+                        "sizeBytes": 149698840
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:673d11d870ca8ceb9d65a8233b3725e10e9241eb59377cace42b070c8cba5bde"
+                        ],
+                        "sizeBytes": 149659380
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:c124f87d512e2ca96d976927caff64e204161aa1216a5bd2ca7a8e86f1b4884f"
+                        ],
+                        "sizeBytes": 149642364
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:d45788bd03ccb8bdfec74da8936b746e712fd4cc5bb44831168c0291ea9221b9"
+                        ],
+                        "sizeBytes": 149625561
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:112df3ee8b95b2318284d6a4626a4571ed5e0e5539ba84c7d1ea7622e1f6e3f3"
+                        ],
+                        "sizeBytes": 149601820
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:850ed06f6f1696fa8f6cf458cd43eb53a20d71bfd1c160f3a26ac24b092b3509"
+                        ],
+                        "sizeBytes": 149589785
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:b1ccdfb0543e851841f4581560e22006d10571f9ce39aa7687d5e9877a392f96"
+                        ],
+                        "sizeBytes": 149579647
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:a09959fe41eed8140ffd93e86eeb3052274887fa66a40b0828d594ddd1492595"
+                        ],
+                        "sizeBytes": 149559248
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:8b8e89c433158659d9ec8fc72e23160d4b9bc94ce57a655ef99b8aaa42fe4850"
+                        ],
+                        "sizeBytes": 149551457
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:817961b9a5cb9c56cf42fda02ceccc1eac3b7c2e9d7fbc9405c4a569b24574fc"
+                        ],
+                        "sizeBytes": 149551411
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:55ef39953e30ca62b3b6a9dc8e1a1132f7843dae9704013a63383622c769793c"
+                        ],
+                        "sizeBytes": 149542583
+                    },
+                    {
+                        "names": [
+                            "ghcr.io/dsa04156/edgeai-api@sha256:c08052d470d4297016883c63d30a4c01d07dbef9d3ac11e21619a410a4fd7e61"
+                        ],
+                        "sizeBytes": 149495718
+                    }
+                ],
+                "nodeInfo": {
+                    "architecture": "amd64",
+                    "bootID": "069fb011-c13a-4f17-9f91-69a5f1691d4a",
+                    "containerRuntimeVersion": "containerd://2.2.1",
+                    "kernelVersion": "6.8.0-138-generic",
+                    "kubeProxyVersion": "v1.31.14",
+                    "kubeletVersion": "v1.31.14",
+                    "machineID": "87397e3c273140e6a2fcbc1f22d80a23",
+                    "operatingSystem": "linux",
+                    "osImage": "Ubuntu 22.04.5 LTS",
+                    "systemUUID": "2f8be700-4c29-11eb-987b-933563722000"
+                },
+                "runtimeHandlers": [
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": ""
+                    },
+                    {
+                        "features": {
+                            "recursiveReadOnlyMounts": true,
+                            "userNamespaces": true
+                        },
+                        "name": "runc"
+                    }
+                ]
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

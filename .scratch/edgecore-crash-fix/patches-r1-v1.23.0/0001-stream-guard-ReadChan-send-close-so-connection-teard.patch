@@ -1,0 +1,561 @@
+From ffd81d3a7e1f3dff98ffa1d42827591d96051398 Mon Sep 17 00:00:00 2001
+From: local-patch <local@invalid>
+Date: Thu, 22 Oct 2026 16:37:34 +0900
+Subject: [PATCH 1/2] stream: guard ReadChan send/close so connection teardown
+ never panics or deadlocks the tunnel reader
+
+CacheTunnelMessage blocks (backpressure) only while the connection is open;
+CloseReadChannel first releases blocked senders, then closes ReadChan once,
+so DeleteLocalConnection cannot panic a sender (v1.23.0) nor deadlock on a
+full ReadChan without consumer (kubeedge/kubeedge#6836 holds localConsLock
+across the send).
+---
+ edge/pkg/edgestream/tunnel.go                |   4 +-
+ edge/pkg/edgestream/tunnel_lifecycle_test.go | 300 +++++++++++++++++++
+ pkg/stream/edgedattachconnection.go          |  17 +-
+ pkg/stream/edgedexecconnection.go            |  17 +-
+ pkg/stream/edgedlogconnection.go             |  15 +-
+ pkg/stream/edgedmetricsconnection.go         |  15 +-
+ pkg/stream/readchan.go                       |  53 ++++
+ 7 files changed, 389 insertions(+), 32 deletions(-)
+ create mode 100644 edge/pkg/edgestream/tunnel_lifecycle_test.go
+ create mode 100644 pkg/stream/readchan.go
+
+diff --git a/edge/pkg/edgestream/tunnel.go b/edge/pkg/edgestream/tunnel.go
+index 4b933efa5..f539f74c6 100644
+--- a/edge/pkg/edgestream/tunnel.go
++++ b/edge/pkg/edgestream/tunnel.go
+@@ -72,7 +72,7 @@ func (s *TunnelSession) serveContainerExecConnection(m *stream.Message) error {
+ 	}
+ 
+ 	s.AddLocalConnection(m.ConnectID, execCon)
+-	klog.V(6).Infof("Get Exec Connection info: %+v", *execCon)
++	klog.V(6).Infof("Get Exec Connection info: %+v", execCon)
+ 	return execCon.Serve(s.Tunnel)
+ }
+ 
+@@ -87,7 +87,7 @@ func (s *TunnelSession) serveContainerAttachConnection(m *stream.Message) error
+ 	}
+ 
+ 	s.AddLocalConnection(m.ConnectID, attachCon)
+-	klog.V(6).Infof("Get Attach Connection info: %+v", *attachCon)
++	klog.V(6).Infof("Get Attach Connection info: %+v", attachCon)
+ 	return attachCon.Serve(s.Tunnel)
+ }
+ 
+diff --git a/edge/pkg/edgestream/tunnel_lifecycle_test.go b/edge/pkg/edgestream/tunnel_lifecycle_test.go
+new file mode 100644
+index 000000000..be3acd628
+--- /dev/null
++++ b/edge/pkg/edgestream/tunnel_lifecycle_test.go
+@@ -0,0 +1,300 @@
++package edgestream
++
++import (
++	"encoding/json"
++	"fmt"
++	"net"
++	"net/http"
++	"net/url"
++	"runtime"
++	"sync"
++	"testing"
++	"time"
++
++	"github.com/kubeedge/kubeedge/pkg/stream"
++)
++
++type connCase struct {
++	name string
++	new  func(readCap int) (stream.EdgedConnection, chan *stream.Message)
++}
++
++var connCases = []connCase{
++	{"exec", func(n int) (stream.EdgedConnection, chan *stream.Message) {
++		c := &stream.EdgedExecConnection{ReadChan: make(chan *stream.Message, n), Stop: make(chan struct{}, 2)}
++		return c, c.ReadChan
++	}},
++	{"attach", func(n int) (stream.EdgedConnection, chan *stream.Message) {
++		c := &stream.EdgedAttachConnection{ReadChan: make(chan *stream.Message, n), Stop: make(chan struct{}, 2)}
++		return c, c.ReadChan
++	}},
++	{"logs", func(n int) (stream.EdgedConnection, chan *stream.Message) {
++		c := &stream.EdgedLogsConnection{ReadChan: make(chan *stream.Message, n), Stop: make(chan struct{}, 2)}
++		return c, c.ReadChan
++	}},
++	{"metrics", func(n int) (stream.EdgedConnection, chan *stream.Message) {
++		c := &stream.EdgedMetricsConnection{ReadChan: make(chan *stream.Message, n), Stop: make(chan struct{}, 2)}
++		return c, c.ReadChan
++	}},
++}
++
++func waitDone(t *testing.T, what string, ch <-chan struct{}, d time.Duration) {
++	t.Helper()
++	select {
++	case <-ch:
++	case <-time.After(d):
++		t.Fatalf("%s did not finish within %v (deadlock/stall)", what, d)
++	}
++}
++
++// writeRecover runs WriteToLocalConnection and reports a panic instead of
++// crashing the test binary.
++func writeRecover(s *TunnelSession, m *stream.Message) (p interface{}) {
++	defer func() { p = recover() }()
++	s.WriteToLocalConnection(m)
++	return nil
++}
++
++// TestDeleteWithFullBufferAndNoConsumer: the tunnel reader is blocked in
++// CacheTunnelMessage on a full ReadChan whose consumer never started (e.g. exec
++// dial failed). DeleteLocalConnection must neither panic the sender (v1.23.0)
++// nor deadlock against it (PR #6836 holds localConsLock across the send).
++func TestDeleteWithFullBufferAndNoConsumer(t *testing.T) {
++	for _, tc := range connCases {
++		t.Run(tc.name, func(t *testing.T) {
++			s := &TunnelSession{localCons: make(map[uint64]stream.EdgedConnection)}
++			con, rc := tc.new(1)
++			s.AddLocalConnection(1, con)
++			rc <- stream.NewMessage(1, stream.MessageTypeData, []byte("fill"))
++
++			writerDone := make(chan struct{})
++			var p interface{}
++			go func() {
++				defer close(writerDone)
++				p = writeRecover(s, stream.NewMessage(1, stream.MessageTypeData, []byte("blocked")))
++			}()
++			time.Sleep(50 * time.Millisecond)
++
++			delDone := make(chan struct{})
++			go func() { defer close(delDone); s.DeleteLocalConnection(1) }()
++			waitDone(t, "DeleteLocalConnection", delDone, 3*time.Second)
++			waitDone(t, "blocked writer", writerDone, 3*time.Second)
++			if p != nil {
++				t.Fatalf("writer panicked: %v", p)
++			}
++			// other connections keep working: the session lock is free.
++			lockFree := make(chan struct{})
++			go func() { defer close(lockFree); s.AddLocalConnection(2, con) }()
++			waitDone(t, "AddLocalConnection after delete", lockFree, time.Second)
++		})
++	}
++}
++
++// TestExecDialFailureWithFullBuffer drives the real ServeConnection path: the
++// exec dial hangs (server accepts but never completes TLS), the cloud keeps sending
++// stdin until ReadChan (128) is full and the tunnel reader blocks, then the
++// dial fails. Serve returns before receiveFromCloudStream ever started.
++func TestExecDialFailureWithFullBuffer(t *testing.T) {
++	ln, err := net.Listen("tcp", "127.0.0.1:0")
++	if err != nil {
++		t.Fatal(err)
++	}
++	var mu sync.Mutex
++	var accepted []net.Conn
++	go func() {
++		for {
++			c, err := ln.Accept()
++			if err != nil {
++				return
++			}
++			mu.Lock()
++			accepted = append(accepted, c)
++			mu.Unlock()
++		}
++	}()
++
++	const id = 42
++	execInfo := &stream.EdgedExecConnection{
++		MessID: id,
++		// https: the TLS handshake blocks against the silent server, so the
++		// dial is in progress (no consumer yet) until we close the server.
++		URL:    url.URL{Scheme: "https", Host: ln.Addr().String(), Path: "/exec/ns/pod/c"},
++		Header: http.Header{},
++		Method: http.MethodPost,
++	}
++	data, err := json.Marshal(execInfo)
++	if err != nil {
++		t.Fatal(err)
++	}
++	s := &TunnelSession{localCons: make(map[uint64]stream.EdgedConnection)}
++	serveDone := make(chan struct{})
++	go func() {
++		defer close(serveDone)
++		s.ServeConnection(stream.NewMessage(id, stream.MessageTypeExecConnect, data))
++	}()
++
++	var con stream.EdgedConnection
++	for deadline := time.Now().Add(3 * time.Second); ; {
++		var ok bool
++		if con, ok = s.GetLocalConnection(id); ok {
++			break
++		}
++		if time.Now().After(deadline) {
++			t.Fatal("exec connection never registered")
++		}
++		time.Sleep(5 * time.Millisecond)
++	}
++	rc := con.(*stream.EdgedExecConnection).ReadChan
++
++	writerDone := make(chan struct{})
++	var p interface{}
++	go func() {
++		defer close(writerDone)
++		for i := 0; i < cap(rc)+16 && p == nil; i++ {
++			p = writeRecover(s, stream.NewMessage(id, stream.MessageTypeData, []byte(fmt.Sprint(i))))
++		}
++	}()
++	for deadline := time.Now().Add(3 * time.Second); len(rc) < cap(rc); {
++		if time.Now().After(deadline) {
++			serveFinished := false
++			select {
++			case <-serveDone:
++				serveFinished = true
++			default:
++			}
++			buf := make([]byte, 1<<20)
++			n := runtime.Stack(buf, true)
++			t.Fatalf("ReadChan never filled: len=%d serveFinished=%v writerPanic=%v\n%s", len(rc), serveFinished, p, buf[:n])
++		}
++		time.Sleep(5 * time.Millisecond)
++	}
++	time.Sleep(50 * time.Millisecond) // writer is now blocked on the full channel
++
++	// make the dial fail
++	_ = ln.Close()
++	mu.Lock()
++	for _, c := range accepted {
++		_ = c.Close()
++	}
++	mu.Unlock()
++
++	waitDone(t, "ServeConnection", serveDone, 5*time.Second)
++	waitDone(t, "tunnel writer", writerDone, 5*time.Second)
++	if p != nil {
++		t.Fatalf("tunnel writer panicked: %v", p)
++	}
++	if _, ok := s.GetLocalConnection(id); ok {
++		t.Fatal("connection still registered")
++	}
++}
++
++// TestNoDropWithLiveConsumer: with a slow but live consumer every message is
++// delivered in order (backpressure, no dropping in the normal path).
++func TestNoDropWithLiveConsumer(t *testing.T) {
++	for _, tc := range connCases {
++		t.Run(tc.name, func(t *testing.T) {
++			s := &TunnelSession{localCons: make(map[uint64]stream.EdgedConnection)}
++			con, rc := tc.new(2)
++			s.AddLocalConnection(1, con)
++			const n = 500
++			got := make(chan []string, 1)
++			go func() {
++				var out []string
++				for m := range rc {
++					out = append(out, string(m.Data))
++					if len(out)%50 == 0 {
++						time.Sleep(time.Millisecond)
++					}
++				}
++				got <- out
++			}()
++			for i := 0; i < n; i++ {
++				if p := writeRecover(s, stream.NewMessage(1, stream.MessageTypeData, []byte(fmt.Sprint(i)))); p != nil {
++					t.Fatalf("panic: %v", p)
++				}
++			}
++			s.DeleteLocalConnection(1)
++			var out []string
++			select {
++			case out = <-got:
++			case <-time.After(3 * time.Second):
++				t.Fatal("consumer did not finish: ReadChan not closed after delete")
++			}
++			if len(out) != n {
++				t.Fatalf("delivered %d of %d messages", len(out), n)
++			}
++			for i, v := range out {
++				if v != fmt.Sprint(i) {
++					t.Fatalf("message %d out of order: %q", i, v)
++				}
++			}
++		})
++	}
++}
++
++// TestCloseReadChannelIdempotent: double close and send-after-close are safe.
++func TestCloseReadChannelIdempotent(t *testing.T) {
++	for _, tc := range connCases {
++		t.Run(tc.name, func(t *testing.T) {
++			con, _ := tc.new(1)
++			func() {
++				defer func() {
++					if p := recover(); p != nil {
++						t.Fatalf("panic: %v", p)
++					}
++				}()
++				con.CloseReadChannel()
++				con.CloseReadChannel()
++				done := make(chan struct{})
++				go func() {
++					defer close(done)
++					con.CacheTunnelMessage(stream.NewMessage(1, stream.MessageTypeData, nil))
++				}()
++				waitDone(t, "CacheTunnelMessage after close", done, time.Second)
++			}()
++		})
++	}
++}
++
++// TestConcurrentWriteDelete hammers lookup+send against delete with consumers
++// that may or may not be running; run with -race.
++func TestConcurrentWriteDelete(t *testing.T) {
++	s := &TunnelSession{localCons: make(map[uint64]stream.EdgedConnection)}
++	var panics sync.Map
++	var wg sync.WaitGroup
++	for i := uint64(0); i < 400; i++ {
++		tc := connCases[i%uint64(len(connCases))]
++		con, rc := tc.new(2)
++		s.AddLocalConnection(i, con)
++		if i%2 == 0 {
++			go func() {
++				for range rc {
++				}
++			}()
++		}
++		wg.Add(3)
++		for w := 0; w < 2; w++ {
++			go func(id uint64) {
++				defer wg.Done()
++				for j := 0; j < 8; j++ {
++					if p := writeRecover(s, stream.NewMessage(id, stream.MessageTypeData, []byte("x"))); p != nil {
++						panics.Store(id, fmt.Sprint(p))
++						return
++					}
++				}
++			}(i)
++		}
++		go func(id uint64) {
++			defer wg.Done()
++			s.DeleteLocalConnection(id)
++			s.DeleteLocalConnection(id)
++		}(i)
++	}
++	done := make(chan struct{})
++	go func() { wg.Wait(); close(done) }()
++	waitDone(t, "concurrent writers/deletes", done, 10*time.Second)
++	panics.Range(func(k, v interface{}) bool {
++		t.Errorf("connection %v panicked: %v", k, v)
++		return true
++	})
++}
+diff --git a/pkg/stream/edgedattachconnection.go b/pkg/stream/edgedattachconnection.go
+index 164bdd5c2..db9b77152 100644
+--- a/pkg/stream/edgedattachconnection.go
++++ b/pkg/stream/edgedattachconnection.go
+@@ -30,12 +30,13 @@ import (
+ )
+ 
+ type EdgedAttachConnection struct {
+-	ReadChan chan *Message `json:"-"`
+-	Stop     chan struct{} `json:"-"`
+-	MessID   uint64
+-	URL      url.URL     `json:"url"`
+-	Header   http.Header `json:"header"`
+-	Method   string      `json:"method"`
++	ReadChan  chan *Message `json:"-"`
++	Stop      chan struct{} `json:"-"`
++	readGuard readChanGuard
++	MessID    uint64
++	URL       url.URL     `json:"url"`
++	Header    http.Header `json:"header"`
++	Method    string      `json:"method"`
+ }
+ 
+ func (ah *EdgedAttachConnection) CreateConnectMessage() (*Message, error) {
+@@ -55,11 +56,11 @@ func (ah *EdgedAttachConnection) String() string {
+ }
+ 
+ func (ah *EdgedAttachConnection) CacheTunnelMessage(msg *Message) {
+-	ah.ReadChan <- msg
++	ah.readGuard.send(ah.ReadChan, msg)
+ }
+ 
+ func (ah *EdgedAttachConnection) CloseReadChannel() {
+-	close(ah.ReadChan)
++	ah.readGuard.close(ah.ReadChan)
+ }
+ 
+ func (ah *EdgedAttachConnection) CleanChannel() {
+diff --git a/pkg/stream/edgedexecconnection.go b/pkg/stream/edgedexecconnection.go
+index 15fe6d967..ef620195f 100644
+--- a/pkg/stream/edgedexecconnection.go
++++ b/pkg/stream/edgedexecconnection.go
+@@ -14,12 +14,13 @@ import (
+ )
+ 
+ type EdgedExecConnection struct {
+-	ReadChan chan *Message `json:"-"`
+-	Stop     chan struct{} `json:"-"`
+-	MessID   uint64
+-	URL      url.URL     `json:"url"`
+-	Header   http.Header `json:"header"`
+-	Method   string      `json:"method"`
++	ReadChan  chan *Message `json:"-"`
++	Stop      chan struct{} `json:"-"`
++	readGuard readChanGuard
++	MessID    uint64
++	URL       url.URL     `json:"url"`
++	Header    http.Header `json:"header"`
++	Method    string      `json:"method"`
+ }
+ 
+ func (e *EdgedExecConnection) CreateConnectMessage() (*Message, error) {
+@@ -39,11 +40,11 @@ func (e *EdgedExecConnection) String() string {
+ }
+ 
+ func (e *EdgedExecConnection) CacheTunnelMessage(msg *Message) {
+-	e.ReadChan <- msg
++	e.readGuard.send(e.ReadChan, msg)
+ }
+ 
+ func (e *EdgedExecConnection) CloseReadChannel() {
+-	close(e.ReadChan)
++	e.readGuard.close(e.ReadChan)
+ }
+ 
+ func (e *EdgedExecConnection) CleanChannel() {
+diff --git a/pkg/stream/edgedlogconnection.go b/pkg/stream/edgedlogconnection.go
+index 3ba9baa8a..8deca9e8a 100644
+--- a/pkg/stream/edgedlogconnection.go
++++ b/pkg/stream/edgedlogconnection.go
+@@ -29,11 +29,12 @@ import (
+ )
+ 
+ type EdgedLogsConnection struct {
+-	ReadChan chan *Message `json:"-"`
+-	Stop     chan struct{} `json:"-"`
+-	MessID   uint64        // message id
+-	URL      url.URL       `json:"url"`
+-	Header   http.Header   `json:"header"`
++	ReadChan  chan *Message `json:"-"`
++	Stop      chan struct{} `json:"-"`
++	readGuard readChanGuard
++	MessID    uint64      // message id
++	URL       url.URL     `json:"url"`
++	Header    http.Header `json:"header"`
+ }
+ 
+ func (l *EdgedLogsConnection) GetMessageID() uint64 {
+@@ -41,11 +42,11 @@ func (l *EdgedLogsConnection) GetMessageID() uint64 {
+ }
+ 
+ func (l *EdgedLogsConnection) CacheTunnelMessage(msg *Message) {
+-	l.ReadChan <- msg
++	l.readGuard.send(l.ReadChan, msg)
+ }
+ 
+ func (l *EdgedLogsConnection) CloseReadChannel() {
+-	close(l.ReadChan)
++	l.readGuard.close(l.ReadChan)
+ }
+ 
+ func (l *EdgedLogsConnection) CleanChannel() {
+diff --git a/pkg/stream/edgedmetricsconnection.go b/pkg/stream/edgedmetricsconnection.go
+index 55e671fe2..1ccdd4627 100644
+--- a/pkg/stream/edgedmetricsconnection.go
++++ b/pkg/stream/edgedmetricsconnection.go
+@@ -27,11 +27,12 @@ import (
+ )
+ 
+ type EdgedMetricsConnection struct {
+-	ReadChan chan *Message `json:"-"`
+-	Stop     chan struct{} `json:"-"`
+-	MessID   uint64        // message id
+-	URL      url.URL       `json:"url"`
+-	Header   http.Header   `json:"header"`
++	ReadChan  chan *Message `json:"-"`
++	Stop      chan struct{} `json:"-"`
++	readGuard readChanGuard
++	MessID    uint64      // message id
++	URL       url.URL     `json:"url"`
++	Header    http.Header `json:"header"`
+ }
+ 
+ func (ms *EdgedMetricsConnection) GetMessageID() uint64 {
+@@ -39,11 +40,11 @@ func (ms *EdgedMetricsConnection) GetMessageID() uint64 {
+ }
+ 
+ func (ms *EdgedMetricsConnection) CacheTunnelMessage(msg *Message) {
+-	ms.ReadChan <- msg
++	ms.readGuard.send(ms.ReadChan, msg)
+ }
+ 
+ func (ms *EdgedMetricsConnection) CloseReadChannel() {
+-	close(ms.ReadChan)
++	ms.readGuard.close(ms.ReadChan)
+ }
+ 
+ func (ms *EdgedMetricsConnection) CleanChannel() {
+diff --git a/pkg/stream/readchan.go b/pkg/stream/readchan.go
+new file mode 100644
+index 000000000..8614ab719
+--- /dev/null
++++ b/pkg/stream/readchan.go
+@@ -0,0 +1,53 @@
++package stream
++
++import "sync"
++
++// readChanGuard makes sends to a connection's ReadChan safe against the
++// connection being closed concurrently. Senders block while the consumer is
++// alive (no message is dropped in normal operation), but a close first
++// releases any blocked sender, so closing never panics a sender ("send on
++// closed channel") and never waits on a ReadChan whose consumer is gone, e.g.
++// when Serve fails before starting it. The zero value is ready to use.
++type readChanGuard struct {
++	initOnce  sync.Once
++	closeOnce sync.Once
++	done      chan struct{}
++
++	mu     sync.RWMutex
++	closed bool
++}
++
++func (g *readChanGuard) doneChan() chan struct{} {
++	g.initOnce.Do(func() { g.done = make(chan struct{}) })
++	return g.done
++}
++
++// send delivers msg to ch, blocking until it is received or the guard is
++// closed. It reports whether msg was delivered.
++func (g *readChanGuard) send(ch chan *Message, msg *Message) bool {
++	done := g.doneChan()
++	g.mu.RLock()
++	defer g.mu.RUnlock()
++	if g.closed {
++		return false
++	}
++	select {
++	case ch <- msg:
++		return true
++	case <-done:
++		return false
++	}
++}
++
++// close releases blocked senders, waits for in-flight sends to return and
++// closes ch so the consumer's range loop ends. It is idempotent.
++func (g *readChanGuard) close(ch chan *Message) {
++	done := g.doneChan()
++	g.closeOnce.Do(func() {
++		close(done)
++		g.mu.Lock()
++		defer g.mu.Unlock()
++		g.closed = true
++		close(ch)
++	})
++}
+-- 
+2.43.0
+

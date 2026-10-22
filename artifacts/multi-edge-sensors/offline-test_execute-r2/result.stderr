@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1105, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1100, in main
+    collect(session)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1023, in collect
+    reference = calibration_reference(session)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 550, in calibration_reference
+    result = reference_module.compute(session.prepared_dir, session.out, session.scenario['inputs']['calibration'],
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'reference' has no attribute 'compute'

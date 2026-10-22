@@ -1,0 +1,19 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "get",
+    "pods",
+    "-A",
+    "-o",
+    "jsonpath={range .items[*]}{.metadata.uid}{\"\\t\"}{.metadata.namespace}{\"\\t\"}{.metadata.name}{\"\\t\"}{.status.phase}{\"\\t\"}{.status.conditions[?(@.type==\"Ready\")].status}{\"\\n\"}{end}"
+  ],
+  "finished_at": "2026-10-21T11:47:02.693676+00:00",
+  "returncode": 0,
+  "started_at": "2026-10-21T11:47:02.379445+00:00",
+  "status": "completed",
+  "timeout_s": 30,
+  "wall_ms": 314.25985699934245
+}

@@ -1,0 +1,169 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"run-id\":\"dev0009-registry-fix-20261022\"},\"name\":\"dev0009-registry-fix-maint\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":120,\"automountServiceAccountToken\":false,\"containers\":[{\"args\":[\"d=/host-certs.d/10.254.192.47:5000\\nif [ -e \\\"$d/hosts.toml\\\" ]; then echo \\\"EXISTS_ABORT\\\"; cat \\\"$d/hosts.toml\\\"; exit 3; fi\\nmkdir -p \\\"$d\\\"\\nprintf '%s\\\\n' 'server = \\\"http://10.254.192.47:5000\\\"' '[host.\\\"http://10.254.192.47:5000\\\"]' '  capabilities = [\\\"pull\\\", \\\"resolve\\\"]' \\u003e \\\"$d/.hosts.toml.tmp\\\"\\nmv \\\"$d/.hosts.toml.tmp\\\" \\\"$d/hosts.toml\\\"\\nls -la /host-certs.d \\\"$d\\\"\\nsha256sum \\\"$d/hosts.toml\\\"\\ncat \\\"$d/hosts.toml\\\"\\necho HOSTS_TOML_WRITTEN\\n\"],\"command\":[\"/bin/sh\",\"-ec\"],\"image\":\"ghcr.io/flannel-io/flannel:v0.28.3\",\"imagePullPolicy\":\"Never\",\"name\":\"maint\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"16Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/host-certs.d\",\"name\":\"certs\"}]}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0009-jetorn\"},\"restartPolicy\":\"Never\",\"terminationGracePeriodSeconds\":1,\"volumes\":[{\"hostPath\":{\"path\":\"/etc/containerd/certs.d\",\"type\":\"DirectoryOrCreate\"},\"name\":\"certs\"}]}}\n"
+        },
+        "creationTimestamp": "2026-10-22T04:33:57Z",
+        "labels": {
+            "run-id": "dev0009-registry-fix-20261022"
+        },
+        "name": "dev0009-registry-fix-maint",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51514787",
+        "uid": "2a8ad26b-febc-47cf-9c94-39239498be63"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 120,
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "args": [
+                    "d=/host-certs.d/10.254.192.47:5000\nif [ -e \"$d/hosts.toml\" ]; then echo \"EXISTS_ABORT\"; cat \"$d/hosts.toml\"; exit 3; fi\nmkdir -p \"$d\"\nprintf '%s\\n' 'server = \"http://10.254.192.47:5000\"' '[host.\"http://10.254.192.47:5000\"]' '  capabilities = [\"pull\", \"resolve\"]' \u003e \"$d/.hosts.toml.tmp\"\nmv \"$d/.hosts.toml.tmp\" \"$d/hosts.toml\"\nls -la /host-certs.d \"$d\"\nsha256sum \"$d/hosts.toml\"\ncat \"$d/hosts.toml\"\necho HOSTS_TOML_WRITTEN\n"
+                ],
+                "command": [
+                    "/bin/sh",
+                    "-ec"
+                ],
+                "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                "imagePullPolicy": "Never",
+                "name": "maint",
+                "resources": {
+                    "limits": {
+                        "cpu": "100m",
+                        "memory": "64Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/host-certs.d",
+                        "name": "certs"
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0009-jetorn",
+        "nodeSelector": {
+            "kubernetes.io/hostname": "etri-dev0009-jetorn"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 1,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "hostPath": {
+                    "path": "/etc/containerd/certs.d",
+                    "type": "DirectoryOrCreate"
+                },
+                "name": "certs"
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:34:01Z",
+                "status": "False",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:33:57Z",
+                "reason": "PodCompleted",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:33:57Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:33:57Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:33:57Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://e0d7882b8b11e422dd78d68c244cdd30002fecdc95a8c68104317477b8316566",
+                "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                "imageID": "ghcr.io/flannel-io/flannel@sha256:8e5228b764002ef674af9519fb848e8d2004b8d03d7d18edc3333c749b87fadf",
+                "lastState": {},
+                "name": "maint",
+                "ready": false,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://e0d7882b8b11e422dd78d68c244cdd30002fecdc95a8c68104317477b8316566",
+                        "exitCode": 0,
+                        "finishedAt": "2026-10-22T04:33:59Z",
+                        "reason": "Completed",
+                        "startedAt": "2026-10-22T04:33:59Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/host-certs.d",
+                        "name": "certs"
+                    }
+                ]
+            }
+        ],
+        "hostIP": "10.254.192.128",
+        "hostIPs": [
+            {
+                "ip": "10.254.192.128"
+            }
+        ],
+        "phase": "Succeeded",
+        "podIP": "10.244.11.8",
+        "podIPs": [
+            {
+                "ip": "10.244.11.8"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-22T04:33:57Z"
+    }
+}

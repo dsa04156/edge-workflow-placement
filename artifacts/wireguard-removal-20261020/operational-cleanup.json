@@ -1,0 +1,56 @@
+[
+  {
+    "target": 0,
+    "rc": 0,
+    "out": "etri-ser0001-CG0MSB\n-A FORWARD -m comment --comment edgeai-wireguard-transit -j EDGEAI_WG_TRANSIT\n-A EDGEAI_WG_TRANSIT -s 10.77.0.0/24 -d 10.77.0.0/24 -i wg0 -j ACCEPT\n-A EDGEAI_WG_TRANSIT -s 10.77.0.0/24 -d 192.168.0.7/32 -i wg0 -j ACCEPT\n-A EDGEAI_WG_TRANSIT -s 192.168.0.7/32 -d 10.77.0.0/24 -o wg0 -j ACCEPT\n",
+    "err": ""
+  },
+  {
+    "target": 1,
+    "rc": 0,
+    "out": "etri-dev0003-raspi5\n",
+    "err": ""
+  },
+  {
+    "target": 2,
+    "rc": 0,
+    "out": "etri-ser0003-cg0ms0\n",
+    "err": ""
+  },
+  {
+    "target": 3,
+    "rc": 0,
+    "out": "etri-ser0004-cgnms0\n",
+    "err": ""
+  },
+  {
+    "target": "10.254.192.123",
+    "rc": 0,
+    "out": "etri-dev0002-raspi5\n",
+    "err": ""
+  },
+  {
+    "target": "10.254.164.136",
+    "rc": 0,
+    "out": "etri-dev0006-raspi5\n",
+    "err": "bash: warning: setlocale: LC_ALL: cannot change locale (ko_KR.UTF-8): No such file or directory\nbash: warning: setlocale: LC_ALL: cannot change locale (ko_KR.UTF-8): No such file or directory\n"
+  },
+  {
+    "target": "10.254.192.111",
+    "rc": 0,
+    "out": "etri-dev0008-raspi5\n",
+    "err": ""
+  },
+  {
+    "target": "10.254.192.128",
+    "rc": 0,
+    "out": "etri-dev0009-jetorn\n",
+    "err": "bash: warning: setlocale: LC_ALL: cannot change locale (ko_KR.UTF-8)\nbash: warning: setlocale: LC_ALL: cannot change locale (ko_KR.UTF-8)\n"
+  },
+  {
+    "target": "10.254.192.129",
+    "rc": 0,
+    "out": "etri-ser0002-CGNMSB\n",
+    "err": ""
+  }
+]

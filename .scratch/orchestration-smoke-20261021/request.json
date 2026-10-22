@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "requestId": "smoke-request",
+  "runId": "smoke-20261021",
+  "phase": "smoke",
+  "agentId": "opus-smoke",
+  "parentAgentId": "codex-host",
+  "kind": "host_validation",
+  "lead": {
+    "id": "opus-smoke",
+    "model": "claude-opus-5-5",
+    "route": "subscription"
+  },
+  "objective": "Verify delegated solo execution with a tiny scoped file task",
+  "workspace": "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021",
+  "acceptanceChecks": [
+    "Write result.txt containing exactly ORCHESTRATION_SMOKE_OK and a newline",
+    "Do not modify any other project file"
+  ],
+  "checks": [
+    "Verify subscription and exact model from runtime metadata"
+  ],
+  "budget": {
+    "authorized": true,
+    "usd": 1
+  },
+  "paths": [
+    "/home/jinuk/codex-work/scheduler/.scratch/orchestration-smoke-20261021/result.txt"
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "status": "incomplete",
+  "errors": [
+    "all active conditions represented",
+    "pilot completion marker",
+    "restore: full calibration/deployment coverage"
+  ],
+  "phases": [
+    {
+      "phase": "eval-0-b0-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 1020.4236960271373,
+      "failures": 0
+    },
+    {
+      "phase": "eval-0-b0-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 1088.8593043588724,
+      "failures": 0
+    },
+    {
+      "phase": "eval-1-b0-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 887.850244063884,
+      "failures": 0
+    },
+    {
+      "phase": "eval-1-b0-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 905.9694637156402,
+      "failures": 0
+    },
+    {
+      "phase": "eval-2-b0-compressed-10-warm",
+      "warmup": true,
+      "attempts": 2,
+      "successes": 2,
+      "mean_ms": 1001.8876609392464,
+      "failures": 0
+    },
+    {
+      "phase": "eval-2-b0-compressed-10",
+      "warmup": false,
+      "attempts": 6,
+      "successes": 6,
+      "mean_ms": 957.3377068930616,
+      "failures": 0
+    }
+  ],
+  "evaluation_attempts": 18,
+  "evaluation_successes": 18,
+  "successes_including_warmup": 24,
+  "receipts": 72,
+  "max_score_abs_error": 1.0132789611816406e-06,
+  "protected": {
+    "protected_count": 199,
+    "changes": [
+      {
+        "uid": "cdb5a60e-54ee-4e8e-9360-33e9c4ea145f",
+        "before": {
+          "name": "hailo-device-plugin-lmgzr",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": {
+          "name": "hailo-device-plugin-lmgzr",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "False"
+        }
+      },
+      {
+        "uid": "cca0b53c-3e67-4741-af51-47c759ba8ef8",
+        "before": {
+          "name": "node-gpu-exporter-xb4fv",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": {
+          "name": "node-gpu-exporter-xb4fv",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "False"
+        }
+      },
+      {
+        "uid": "41fb7933-f129-484e-8a46-dfd57cd7e981",
+        "before": {
+          "name": "node-hardware-inventory-pgxnh",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": {
+          "name": "node-hardware-inventory-pgxnh",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "False"
+        }
+      },
+      {
+        "uid": "5c60b274-732f-44b8-9182-a427da58c455",
+        "before": {
+          "name": "nvidia-jetson-device-plugin-nzgxx",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": {
+          "name": "nvidia-jetson-device-plugin-nzgxx",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "False"
+        }
+      },
+      {
+        "uid": "6cbd9efc-213d-445f-85a1-f24fe2b45bfd",
+        "before": {
+          "name": "prometheus-prometheus-node-exporter-z89n7",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "True"
+        },
+        "after": {
+          "name": "prometheus-prometheus-node-exporter-z89n7",
+          "namespace": "kube-system",
+          "phase": "Running",
+          "ready": "False"
+        }
+      }
+    ]
+  },
+  "scope": "partial first10Mbps block only; no second block or2Mbps control; final restore unverified; cleanup independently checked",
+  "verifier_sha256": "d3d27c179ecc71f93130c5da5018c37bdb5cd6563cef8dc13e7b71f27fa8f86e",
+  "observed_evidence_status": "passed",
+  "unexpected_errors": [],
+  "completed_groups": [
+    "eval-0-b0-compressed-10",
+    "eval-1-b0-compressed-10",
+    "eval-2-b0-compressed-10"
+  ],
+  "missing_groups": [
+    "eval-3-b0-compressed-2",
+    "eval-4-b1-compressed-2",
+    "eval-5-b1-compressed-10",
+    "eval-6-b1-compressed-10",
+    "eval-7-b1-compressed-10"
+  ],
+  "mapping": {
+    "b0-compressed-10": {
+      "greedy": "eval-0-b0-compressed-10",
+      "heft": "eval-0-b0-compressed-10",
+      "ours": "eval-1-b0-compressed-10",
+      "greedy-swap": "eval-2-b0-compressed-10"
+    }
+  },
+  "observations": {
+    "eval-0-b0-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 1088.8593043588724,
+      "failures": []
+    },
+    "eval-1-b0-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 905.9694637156402,
+      "failures": []
+    },
+    "eval-2-b0-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 957.3377068930616,
+      "failures": []
+    }
+  },
+  "derivation": "Temporary linked view; summary/map derived from frozen jobs and original rows. No synthetic observations or completion marker.",
+  "partial_auditor_sha256": "c9fdce7b7f8a32f4f62d512cce582bd8527eda6a5ccc226823b4410cb529d880"
+}

@@ -1,0 +1,137 @@
+{
+  "provenance": "measured",
+  "evidence_id": "/home/jinuk/codex-work/scheduler-owned-hardware/artifacts/topology-profile-live/wan-20261020t015739",
+  "namespace": "topology-profile-lab",
+  "nodes": {
+    "etri-dev0002-raspi5": {
+      "cpu_free_m": 1905.0,
+      "memory_free_mib": 14310.921875
+    },
+    "etri-dev0003-raspi5": {
+      "cpu_free_m": 3090.0,
+      "memory_free_mib": 7214.9375
+    },
+    "etri-ser0002-cgnmsb": {
+      "cpu_free_m": 21205.0,
+      "memory_free_mib": 25713.5390625
+    }
+  },
+  "tasks": [
+    {
+      "id": "vision",
+      "candidates": [
+        "etri-dev0003-raspi5",
+        "etri-dev0002-raspi5",
+        "etri-ser0002-cgnmsb"
+      ],
+      "compute_ms": {
+        "etri-dev0003-raspi5": 666.6706108953804,
+        "etri-dev0002-raspi5": 712.8065742435865,
+        "etri-ser0002-cgnmsb": 122.060552759649
+      },
+      "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+      "cpu_m": 1010,
+      "memory_mib": 2080,
+      "inputs": [
+        {
+          "source_node": "etri-dev0003-raspi5",
+          "bytes": 165243.15,
+          "transfer_ms": {
+            "etri-dev0003-raspi5|etri-dev0003-raspi5": 2.348990354221314,
+            "etri-dev0003-raspi5|etri-dev0002-raspi5": 22.08835765486583,
+            "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 369.2621623631567
+          }
+        }
+      ]
+    },
+    {
+      "id": "speech",
+      "candidates": [
+        "etri-dev0003-raspi5",
+        "etri-dev0002-raspi5",
+        "etri-ser0002-cgnmsb"
+      ],
+      "compute_ms": {
+        "etri-dev0003-raspi5": 1408.9748071855865,
+        "etri-dev0002-raspi5": 1401.4104763627984,
+        "etri-ser0002-cgnmsb": 205.23690324625932
+      },
+      "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+      "cpu_m": 1010,
+      "memory_mib": 2080,
+      "inputs": [
+        {
+          "source_node": "etri-dev0002-raspi5",
+          "bytes": 35057.65,
+          "transfer_ms": {
+            "etri-dev0002-raspi5|etri-dev0003-raspi5": 5.511012161150575,
+            "etri-dev0002-raspi5|etri-dev0002-raspi5": 1.9364834879525006,
+            "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 166.44280753098428
+          }
+        }
+      ]
+    },
+    {
+      "id": "fusion",
+      "candidates": [
+        "etri-dev0003-raspi5",
+        "etri-dev0002-raspi5",
+        "etri-ser0002-cgnmsb"
+      ],
+      "compute_ms": {
+        "etri-dev0003-raspi5": 623.2061474584043,
+        "etri-dev0002-raspi5": 605.6827384745702,
+        "etri-ser0002-cgnmsb": 21.610433752357494
+      },
+      "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+      "cpu_m": 1010,
+      "memory_mib": 2080,
+      "inputs": [
+        {
+          "task": "vision",
+          "bytes": 2176,
+          "transfer_ms": {
+            "etri-dev0003-raspi5|etri-dev0003-raspi5": 1.7659052973613143,
+            "etri-dev0003-raspi5|etri-dev0002-raspi5": 2.1717548952437937,
+            "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 87.57806598441675,
+            "etri-dev0002-raspi5|etri-dev0003-raspi5": 2.4122491013258696,
+            "etri-dev0002-raspi5|etri-dev0002-raspi5": 1.7429152503609657,
+            "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 87.6735135097988,
+            "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 88.06253649891005,
+            "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 87.32439050436369,
+            "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 2.985923503729282
+          }
+        },
+        {
+          "task": "speech",
+          "bytes": 33.4,
+          "transfer_ms": {
+            "etri-dev0003-raspi5|etri-dev0003-raspi5": 1.7486282158643007,
+            "etri-dev0003-raspi5|etri-dev0002-raspi5": 2.303045417647809,
+            "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 88.34632043726742,
+            "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.969691482372582,
+            "etri-dev0002-raspi5|etri-dev0002-raspi5": 1.5969202504493296,
+            "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 87.65629236586392,
+            "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 85.87095849725301,
+            "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 86.86242374096764,
+            "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 2.847837244189577
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "task": "fusion",
+      "destination_node": "etri-dev0003-raspi5",
+      "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 3.515394637361169,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 4.658924706745893,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 175.07612977351528
+      }
+    }
+  ],
+  "representation": "compressed",
+  "condition": "compressed-10",
+  "model": "p75 isolated compute + payload echo RPC proxies + one open-control RPC proxy plus final-payload echo proxy; no queue/contention prediction"
+}

@@ -1,0 +1,476 @@
+{
+  "apiVersion": "v1",
+  "kind": "Node",
+  "metadata": {
+    "annotations": {
+      "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"fa:53:14:67:ea:93\"}",
+      "flannel.alpha.coreos.com/backend-type": "vxlan",
+      "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+      "flannel.alpha.coreos.com/public-ip": "10.254.192.129",
+      "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/containerd/containerd.sock",
+      "node.alpha.kubernetes.io/ttl": "0",
+      "placement.edgeai.etrilab/profiles": "{\"mobilenetv2-12\":{\"batch_size\":1,\"execution_provider\":\"CPUExecutionProvider\",\"inference_backend\":\"onnxruntime\",\"inference_ms\":4.709341066666667,\"input_shape\":[1,3,224,224],\"mean_inference_ms\":4.709341066666667,\"measured_runs\":30,\"median_inference_ms\":4.7081415,\"p95_inference_ms\":4.79140155,\"p99_inference_ms\":4.88194304,\"record_fingerprint\":\"87be6f32bde3201b7cc4638fa51b398cdb65ba05eeb0a22397f13e4c60ab4c6b\",\"throughput_rps\":211.53746025478833,\"timestamp\":\"2026-08-31T11:33:51.209720+00:00\"},\"resnet18-v1-7\":{\"batch_size\":1,\"execution_provider\":\"CPUExecutionProvider\",\"inference_backend\":\"onnxruntime\",\"inference_ms\":23.146589933333335,\"input_shape\":[1,3,224,224],\"mean_inference_ms\":23.146589933333335,\"measured_runs\":30,\"median_inference_ms\":23.146148500000002,\"p95_inference_ms\":23.37548565,\"p99_inference_ms\":23.48416734,\"record_fingerprint\":\"9d4caeaa83671a078ddcda34da51fa1439efcc6a43b7abac6a381cc497b2d7c1\",\"throughput_rps\":43.154554616747184,\"timestamp\":\"2026-08-31T12:19:51.622832+00:00\"}}",
+      "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+    },
+    "creationTimestamp": "2026-04-09T07:01:07Z",
+    "labels": {
+      "accelerator": "nvidia-gpu",
+      "beta.kubernetes.io/arch": "amd64",
+      "beta.kubernetes.io/os": "linux",
+      "environment": "cloud",
+      "gpu": "on",
+      "gpu.platform": "server",
+      "hairp.io/multi-gpu-poc": "true",
+      "hairp.io/scheduling-lab": "gpu",
+      "kubernetes.io/arch": "amd64",
+      "kubernetes.io/hostname": "etri-ser0002-cgnmsb",
+      "kubernetes.io/os": "linux",
+      "llm": "inference",
+      "node-role.kubernetes.io/worker": "worker"
+    },
+    "name": "etri-ser0002-cgnmsb",
+    "resourceVersion": "50142279",
+    "uid": "4b770e6c-dcac-4293-9932-a08f1989e91a"
+  },
+  "spec": {
+    "podCIDR": "10.244.8.0/24",
+    "podCIDRs": [
+      "10.244.8.0/24"
+    ]
+  },
+  "status": {
+    "addresses": [
+      {
+        "address": "10.254.192.129",
+        "type": "InternalIP"
+      },
+      {
+        "address": "etri-ser0002-cgnmsb",
+        "type": "Hostname"
+      }
+    ],
+    "allocatable": {
+      "cpu": "24",
+      "ephemeral-storage": "927870306816",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "memory": "31998504Ki",
+      "npu.intel.com/accel": "1",
+      "nvidia.com/gpu": "1",
+      "pods": "110"
+    },
+    "capacity": {
+      "cpu": "24",
+      "ephemeral-storage": "1006803720Ki",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "memory": "32100904Ki",
+      "npu.intel.com/accel": "1",
+      "nvidia.com/gpu": "1",
+      "pods": "110"
+    },
+    "conditions": [
+      {
+        "lastHeartbeatTime": "2026-10-20T11:30:30Z",
+        "lastTransitionTime": "2026-10-20T11:30:30Z",
+        "message": "Flannel is running on this node",
+        "reason": "FlannelIsUp",
+        "status": "False",
+        "type": "NetworkUnavailable"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-20T11:30:22Z",
+        "lastTransitionTime": "2026-10-20T11:26:59Z",
+        "message": "kubelet has sufficient memory available",
+        "reason": "KubeletHasSufficientMemory",
+        "status": "False",
+        "type": "MemoryPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-20T11:30:22Z",
+        "lastTransitionTime": "2026-10-20T11:26:59Z",
+        "message": "kubelet has no disk pressure",
+        "reason": "KubeletHasNoDiskPressure",
+        "status": "False",
+        "type": "DiskPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-20T11:30:22Z",
+        "lastTransitionTime": "2026-10-20T11:26:59Z",
+        "message": "kubelet has sufficient PID available",
+        "reason": "KubeletHasSufficientPID",
+        "status": "False",
+        "type": "PIDPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-20T11:30:22Z",
+        "lastTransitionTime": "2026-10-20T11:26:59Z",
+        "message": "kubelet is posting ready status",
+        "reason": "KubeletReady",
+        "status": "True",
+        "type": "Ready"
+      }
+    ],
+    "daemonEndpoints": {
+      "kubeletEndpoint": {
+        "Port": 10250
+      }
+    },
+    "images": [
+      {
+        "names": [
+          "docker.io/nvidia/cuda@sha256:da6791294b0b04d7e65d87b7451d6f2390b4d36225ab0701ee7dfec5769829f5",
+          "docker.io/nvidia/cuda:12.4.1-devel-ubuntu22.04"
+        ],
+        "sizeBytes": 4112402589
+      },
+      {
+        "names": [
+          "docker.io/ollama/ollama@sha256:5600a652d1081050f398152127c584222546354491f27fe47ccbc6351bc870bd",
+          "docker.io/ollama/ollama:latest"
+        ],
+        "sizeBytes": 3766395940
+      },
+      {
+        "names": [
+          "docker.io/ollama/ollama@sha256:662109db8037f17257cfc6e816289c0d4c9ae8a2a4ff760b653d8d410e234ba0"
+        ],
+        "sizeBytes": 3710971950
+      },
+      {
+        "names": [
+          "nvcr.io/nvidia/cuda@sha256:c4e81887e4aa9f13b1119337323cba89601319ecb282383b879c4ba50510fd17",
+          "nvcr.io/nvidia/cuda:12.2.0-devel-ubuntu22.04"
+        ],
+        "sizeBytes": 3532598949
+      },
+      {
+        "names": [
+          "docker.io/ollama/ollama@sha256:020e4134285e2ef4d8fd801234176de3b4faadc992a3eb06c8e66a2f9d4c4ba2"
+        ],
+        "sizeBytes": 3383207082
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/resource-advisor/inference-cuda@sha256:0e0498c82b7442e9b69c54785ebf099e853d76af927780817d7bcedd35c94adf"
+        ],
+        "sizeBytes": 2699265855
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-pool-cuda@sha256:21cf10aef3f5360f95e4d6e9ef46b2a6aaa06d8660b0cc3738e408666811fddc"
+        ],
+        "sizeBytes": 2699261093
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-candy-cuda@sha256:29012d0aea4548c27852090fe5a38db22374e0b3298f840fd3177f23d5b638ea"
+        ],
+        "sizeBytes": 2559094643
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-candy-cuda@sha256:862aa71e29c3a3f46545fc177d3e2bd5c3ad0aefaa96c457018fbde9e5ec8f3b"
+        ],
+        "sizeBytes": 2459245463
+      },
+      {
+        "names": [
+          "ghcr.io/kubeflow/kfp-visualization-server@sha256:7a0a27674889d66f721939ef742eaec9c3a9487d2648c40e2772550c51dace3d",
+          "ghcr.io/kubeflow/kfp-visualization-server:2.17.0"
+        ],
+        "sizeBytes": 1082092973
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/rpi-image-analyzer@sha256:97ff66ee75fe8d2b43d385642615a9cb1e1c1d2470eaeeb59ebec52216c49f07",
+          "192.168.0.56:5000/rpi-image-analyzer:0.1"
+        ],
+        "sizeBytes": 826807440
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/resource-advisor/services@sha256:eabeb52f254b8180042d2839b4a7308146bb4b1620d969e43b2e9dabf110c1b2"
+        ],
+        "sizeBytes": 662569277
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a"
+        ],
+        "sizeBytes": 504118028
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-npu-intel@sha256:09dedfc5150d8e67a310e7213862e04ffb6a696421945921ccd26cf3e7077d26"
+        ],
+        "sizeBytes": 504111899
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-npu-intel@sha256:07d94ebdab7bd2138ed44c95af607c1a922a41e6e5d460165dc5083bf40141df"
+        ],
+        "sizeBytes": 504110674
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-npu-intel@sha256:3f58dc0d5e217481451d4787fd4ea5f11678a2b47d4eb30f75cfa4407b000828"
+        ],
+        "sizeBytes": 504105349
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/ra-npu-intel@sha256:e2e9a25c97e9d3ece4bdcb7457015cbac3f4bc3e28068f5bffa8d263c9122df0"
+        ],
+        "sizeBytes": 504105342
+      },
+      {
+        "names": [
+          "docker.io/projecthami/hami@sha256:a5658595f9de6d52fbb768a758fa32053554a5b813f88904fcb4ddea1079dfb9",
+          "docker.io/projecthami/hami:v2.9.0"
+        ],
+        "sizeBytes": 386226123
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/resource-advisor/services@sha256:c9b47a2da68f8582c6ca9de2c0dd9d60937ceb0d33d9a9e59153d863a88650d7"
+        ],
+        "sizeBytes": 369572062
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/resource-advisor/cuda-probe@sha256:eccb4ba1dcfee01ffa5eeca481bf71247b24c12f733f785c58110b2b733c8194"
+        ],
+        "sizeBytes": 363888796
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:634da17e11322bc7230d08e494f02fba3d947577aceca1212606ce7fc2d5cb9c"
+        ],
+        "sizeBytes": 340094790
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:5200ecc66482f4be2e0b560672c4ac0bd1d9e46ba4dbc7c5139d5216a7f3bbe3"
+        ],
+        "sizeBytes": 340088981
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:ff8eeedda18be1612a321bf94dfd78fd51de68679eb6827b585df9a4648f3f6f",
+          "192.168.0.56:5000/edge-agent:0.2"
+        ],
+        "sizeBytes": 340088841
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:9a403f1844a9e01b69b18fca7fbaf8302e11d770a73da2f0706cc7a9766a1e78",
+          "192.168.0.56:5000/edge-agent:0.1"
+        ],
+        "sizeBytes": 340088721
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:a3f4756eb75a0b227f53c2e9f4f1779cb5048a3165fe2deab35d7f4df4f19c27"
+        ],
+        "sizeBytes": 340083880
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:e35366e9c4248524561942fc029c466a5a26efb2553112f28e1b2b36e7bec72c"
+        ],
+        "sizeBytes": 340083747
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:6d60069af847ec8ef0318ab5e2393a951a4706d327162badbabdd276f8f6ab45"
+        ],
+        "sizeBytes": 340083377
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:8122f352d5f6bceff8eedc803d4f532953d515aeae0a93678f60919eee920405"
+        ],
+        "sizeBytes": 340083190
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:055077446942cfca01f9f7509b11d981187d2e5509f8dede7a004b2df94f9ed9"
+        ],
+        "sizeBytes": 340080643
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/edge-agent@sha256:7e954d40ad501aff61604f9bad4f4583e365e5df1057f314251470f37c8ce8a5",
+          "192.168.0.56:5000/edge-agent:latest"
+        ],
+        "sizeBytes": 340080435
+      },
+      {
+        "names": [
+          "ghcr.io/kubeflow/kfp-cache-deployer@sha256:a713d1e3cafc089c0d530bd9818bc5cc228cb9cafea5c1d1de8eed45adbba26a",
+          "ghcr.io/kubeflow/kfp-cache-deployer:2.17.0"
+        ],
+        "sizeBytes": 337950284
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/resource-advisor/launcher@sha256:9a54d33c0a3a3a93d48133a29564fb1f45ec538fe815b1950861a18ec7a1273b"
+        ],
+        "sizeBytes": 306388720
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:0f16d643c4d74be0b396415bfa9a0b767a081c885a9e68dcdb40a506f1666479"
+        ],
+        "sizeBytes": 293635376
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:b06ad91f17d6d5d220403c33df29bb8a04023cbe140d3ad435d19f6e0c0de994"
+        ],
+        "sizeBytes": 293634829
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:b31d45e138c431cc3f6a04be5757b0244942338cd2387b01ef7825359f464c1c"
+        ],
+        "sizeBytes": 293633325
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:b239f85ed5097205c914934122d23e8fd4fae26bdc6b219e7c573447b0041ead"
+        ],
+        "sizeBytes": 293586482
+      },
+      {
+        "names": [
+          "ghcr.io/mlflow/mlflow@sha256:06058cc872276873e9759c635e773342aca4731e240f6d20d88ea43774083984"
+        ],
+        "sizeBytes": 290376944
+      },
+      {
+        "names": [
+          "docker.io/grafana/grafana@sha256:83749231c3835e390a3144e5e940203e42b9589761f20ef3169c716e734ad505",
+          "docker.io/grafana/grafana:12.4.2"
+        ],
+        "sizeBytes": 213873728
+      },
+      {
+        "names": [
+          "docker.io/nicolaka/netshoot@sha256:47b907d662d139d1e2f22bfe14f4efca1e3f1feed283572f47c970c780c03b61",
+          "docker.io/nicolaka/netshoot:latest",
+          "docker.io/nicolaka/netshoot:v0.15"
+        ],
+        "sizeBytes": 212842400
+      },
+      {
+        "names": [
+          "docker.io/grafana/grafana@sha256:a1701c2180249361737a99a01bc770db39381640e4d631825d38ff4535efa47d",
+          "docker.io/grafana/grafana:12.1.1"
+        ],
+        "sizeBytes": 201615524
+      },
+      {
+        "names": [
+          "ghcr.io/kubeflow/kfp-frontend@sha256:d28a5d7e15d23e68cdd0fc6099062b2910548e756465dcc0481203094dfef695",
+          "ghcr.io/kubeflow/kfp-frontend:2.17.0"
+        ],
+        "sizeBytes": 200412869
+      },
+      {
+        "names": [
+          "quay.io/argoproj/argocd@sha256:9ab6baab65a6b283044a7d7b7dbe50f589564de9c8898d67c77d84b2b5df46bc",
+          "quay.io/argoproj/argocd:v3.2.3"
+        ],
+        "sizeBytes": 195026890
+      },
+      {
+        "names": [
+          "192.168.0.56:5000/sensor-anomaly-demo-server1@sha256:385deb3f4ab7a6d8b41ca5514e6758b93f433bfff2f8daea0aa19e469a26b40c"
+        ],
+        "sizeBytes": 192648409
+      },
+      {
+        "names": [
+          "docker.io/projecthami/hami-webui-fe-oss@sha256:48fd142b9a70c61f7a4883688fe1fd0dd16ea2041fda2d7f95d4aed57c326b7a",
+          "docker.io/projecthami/hami-webui-fe-oss:v1.2.0"
+        ],
+        "sizeBytes": 153959716
+      },
+      {
+        "names": [
+          "ghcr.io/dsa04156/edgeai-api@sha256:19f18f87c1cab10553e0fc66a8d390cadbc363a457498b0a58cdfaa6e113d314"
+        ],
+        "sizeBytes": 150332368
+      },
+      {
+        "names": [
+          "ghcr.io/dsa04156/edgeai-api@sha256:37974615f6034c2a230aaca567960d4df4a0a2700753f71718f4778a76fd6edb"
+        ],
+        "sizeBytes": 150329328
+      },
+      {
+        "names": [
+          "ghcr.io/dsa04156/edgeai-api@sha256:efef59865dcd2a7e77d09f7f467ee6758f22dc3d9a28b8bb284e221e6dc647b8"
+        ],
+        "sizeBytes": 150282412
+      },
+      {
+        "names": [
+          "ghcr.io/dsa04156/edgeai-api@sha256:cc42f75df3978ac51512c937d931d1344cb99566b7cfe247e7eeed23d8efc33d"
+        ],
+        "sizeBytes": 150267541
+      },
+      {
+        "names": [
+          "quay.io/prometheus/prometheus@sha256:7571a304e67fbd794be02422b13627dc7de822152f74e99e2bef95d29eceecde",
+          "quay.io/prometheus/prometheus:v3.10.0"
+        ],
+        "sizeBytes": 143646693
+      },
+      {
+        "names": [
+          "nvcr.io/nvidia/gpu-operator@sha256:64ef3dafb9dd28eebe645010e9a5df1efccddea8ad2d61bb6e0a0c4e12eea310",
+          "nvcr.io/nvidia/gpu-operator:v26.3.0"
+        ],
+        "sizeBytes": 138212965
+      }
+    ],
+    "nodeInfo": {
+      "architecture": "amd64",
+      "bootID": "d0b17d24-d6c2-468b-b8cb-6b2a13a25914",
+      "containerRuntimeVersion": "containerd://2.2.4",
+      "kernelVersion": "7.0.0-38-generic",
+      "kubeProxyVersion": "v1.31.14",
+      "kubeletVersion": "v1.31.14",
+      "machineID": "86f7842cea214f42825d0de1caeca950",
+      "operatingSystem": "linux",
+      "osImage": "Ubuntu 24.04.4 LTS",
+      "systemUUID": "4f2bdbd3-f8a3-5123-73fe-60cf84aa3a75"
+    },
+    "runtimeHandlers": [
+      {
+        "features": {
+          "recursiveReadOnlyMounts": true,
+          "userNamespaces": true
+        },
+        "name": ""
+      },
+      {
+        "features": {
+          "recursiveReadOnlyMounts": true,
+          "userNamespaces": true
+        },
+        "name": "nvidia"
+      },
+      {
+        "features": {
+          "recursiveReadOnlyMounts": true,
+          "userNamespaces": true
+        },
+        "name": "runc"
+      }
+    ]
+  }
+}

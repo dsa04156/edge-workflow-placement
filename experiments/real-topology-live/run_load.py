@@ -18,6 +18,9 @@ from run_smoke import ASSETS, HERE, IMAGE, NODES, NS
 
 
 class Session:
+    # Placement aliases; a collector may inject an explicit topology per instance.
+    nodes = NODES
+
     def __init__(self):
         self.run = datetime.now(timezone.utc).strftime('wan-%Y%m%dt%H%M%S')
         self.out = ASSETS / self.run
@@ -104,7 +107,7 @@ class Session:
         spec=dict(schedulerName='default-scheduler',automountServiceAccountToken=False,restartPolicy='Never',
             activeDeadlineSeconds=10800,terminationGracePeriodSeconds=3,securityContext={'fsGroup':65532},
             affinity={'nodeAffinity':{'requiredDuringSchedulingIgnoredDuringExecution':{'nodeSelectorTerms':[
-                {'matchFields':[{'key':'metadata.name','operator':'In','values':[NODES[zone]]}]}]}}},containers=containers,
+                {'matchFields':[{'key':'metadata.name','operator':'In','values':[self.nodes[zone]]}]}]}}},containers=containers,
             volumes=[{'name':'work','emptyDir':{'sizeLimit':'8Gi'}}])
         if task!='cache':spec['volumes'].append({'name':'config','configMap':{'name':self.run}})
         return dict(apiVersion='v1',kind='Pod',metadata=self.meta(self.run+'-'+key),spec=spec)

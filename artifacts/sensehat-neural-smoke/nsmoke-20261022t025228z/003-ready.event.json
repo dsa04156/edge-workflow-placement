@@ -1,0 +1,22 @@
+{
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "wait",
+    "pods",
+    "-n",
+    "topology-profile-lab",
+    "-l",
+    "run-id=nsmoke-20261022t025228z",
+    "--for=condition=Ready",
+    "--timeout=120s"
+  ],
+  "finished_at": "2026-10-22T02:52:30.730177+00:00",
+  "returncode": 0,
+  "started_at": "2026-10-22T02:52:29.364143+00:00",
+  "status": "completed",
+  "timeout_s": 130,
+  "wall_ms": 1366.0484770007315
+}

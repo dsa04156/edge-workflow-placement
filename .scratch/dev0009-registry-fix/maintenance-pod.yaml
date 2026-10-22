@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dev0009-registry-fix-maint
+  namespace: topology-profile-lab
+  labels: {run-id: dev0009-registry-fix-20261022}
+spec:
+  nodeSelector: {kubernetes.io/hostname: etri-dev0009-jetorn}
+  restartPolicy: Never
+  automountServiceAccountToken: false
+  activeDeadlineSeconds: 120
+  terminationGracePeriodSeconds: 1
+  containers:
+  - name: maint
+    image: ghcr.io/flannel-io/flannel:v0.28.3
+    imagePullPolicy: Never
+    command: ["/bin/sh", "-ec"]
+    args:
+    - |
+      d=/host-certs.d/10.254.192.47:5000
+      if [ -e "$d/hosts.toml" ]; then echo "EXISTS_ABORT"; cat "$d/hosts.toml"; exit 3; fi
+      mkdir -p "$d"
+      printf '%s\n' 'server = "http://10.254.192.47:5000"' '[host."http://10.254.192.47:5000"]' '  capabilities = ["pull", "resolve"]' > "$d/.hosts.toml.tmp"
+      mv "$d/.hosts.toml.tmp" "$d/hosts.toml"
+      ls -la /host-certs.d "$d"
+      sha256sum "$d/hosts.toml"
+      cat "$d/hosts.toml"
+      echo HOSTS_TOML_WRITTEN
+    resources:
+      requests: {cpu: 10m, memory: 16Mi}
+      limits: {cpu: 100m, memory: 64Mi}
+    volumeMounts:
+    - {name: certs, mountPath: /host-certs.d}
+  volumes:
+  - name: certs
+    hostPath: {path: /etc/containerd/certs.d, type: DirectoryOrCreate}

@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T04:40:38.169875+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t043924-cache",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import urllib.request,json,time,hashlib;from concurrent.futures import ThreadPoolExecutor;from pathlib import Path;b=Path('/work/corpus/1713820-image.npy').read_bytes();op=urllib.request.build_opener(urllib.request.ProxyHandler({}));start=time.monotonic();\ndef upload(url):\n for _ in range(4):\n  r=json.loads(op.open(urllib.request.Request(url,json.dumps({'data':__import__('base64').b64encode(b).decode()}).encode(),{'Content-Type':'application/json'}),timeout=60).read());assert r['sha256']==hashlib.sha256(b).hexdigest()\nwith ThreadPoolExecutor(2) as pool:list(pool.map(upload,['http://10.244.8.121:8080/to/source-e0/sink', 'http://10.244.8.121:8080/to/source-e1/sink']))\nprint(json.dumps({'payload_bytes':len(b)*8,'wire_base64_bytes':((len(b)+2)//3*4)*8,'elapsed_s':time.monotonic()-start,'hashes_ok':True}))"
+  ],
+  "timeout_s": 150,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T04:41:15.184444+00:00"
+}

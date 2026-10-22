@@ -1,0 +1,267 @@
+test_dropped_sample_is_rejected (test_execute.Audit.test_dropped_sample_is_rejected) ... ERROR
+test_input_mismatch_is_rejected (test_execute.Audit.test_input_mismatch_is_rejected) ... ERROR
+test_model_mismatch_is_rejected (test_execute.Audit.test_model_mismatch_is_rejected) ... ERROR
+test_reference_is_written_and_golden_run_passes_as_offline (test_execute.Audit.test_reference_is_written_and_golden_run_passes_as_offline) ... ERROR
+test_same_placement_counted_twice_is_rejected (test_execute.Audit.test_same_placement_counted_twice_is_rejected) ... ERROR
+test_source_replaced_by_server_is_rejected (test_execute.Audit.test_source_replaced_by_server_is_rejected) ... ERROR
+test_collection_completes_and_cleans_up_owned_resources (test_execute.Collection.test_collection_completes_and_cleans_up_owned_resources) ... FAIL
+test_every_scheduled_attempt_is_recorded_once (test_execute.Collection.test_every_scheduled_attempt_is_recorded_once) ... ERROR
+test_every_source_publishes_from_its_own_edge (test_execute.Collection.test_every_source_publishes_from_its_own_edge) ... ok
+test_f_transfer_bytes_are_actual_run_bodies_including_receipts (test_execute.Collection.test_f_transfer_bytes_are_actual_run_bodies_including_receipts) ... ERROR
+test_failed_node_is_recorded_and_excluded_not_filled (test_execute.Collection.test_failed_node_is_recorded_and_excluded_not_filled) ... ERROR
+test_numerically_wrong_node_is_excluded_before_planning_with_reasons (test_execute.Collection.test_numerically_wrong_node_is_excluded_before_planning_with_reasons) ... ERROR
+test_protected_pod_env_is_never_persisted (test_execute.Collection.test_protected_pod_env_is_never_persisted) ... ok
+test_v_planning_cost_is_decode_plus_inference_per_row (test_execute.Collection.test_v_planning_cost_is_decode_plus_inference_per_row) ... ERROR
+
+======================================================================
+ERROR: test_dropped_sample_is_rejected (test_execute.Audit.test_dropped_sample_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 201, in test_dropped_sample_is_rejected
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, lambda rows: rows[:-1]))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 157, in mutated
+    change(run)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 201, in <lambda>
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, lambda rows: rows[:-1]))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 161, in rewrite_attempts
+    rows = attempts(run)
+           ^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 60, in attempts
+    return [json.loads(line) for line in ((run or RUN['run'])/'attempts.jsonl').read_text().splitlines()]
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/tmpm5yhtzuc/mes-fake/attempts.jsonl'
+
+======================================================================
+ERROR: test_input_mismatch_is_rejected (test_execute.Audit.test_input_mismatch_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 196, in test_input_mismatch_is_rejected
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, edit))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 157, in mutated
+    change(run)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 196, in <lambda>
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, edit))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 161, in rewrite_attempts
+    rows = attempts(run)
+           ^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 60, in attempts
+    return [json.loads(line) for line in ((run or RUN['run'])/'attempts.jsonl').read_text().splitlines()]
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/tmpxmwx8r5s/mes-fake/attempts.jsonl'
+
+======================================================================
+ERROR: test_model_mismatch_is_rejected (test_execute.Audit.test_model_mismatch_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 187, in test_model_mismatch_is_rejected
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, edit))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 157, in mutated
+    change(run)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 187, in <lambda>
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, edit))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 161, in rewrite_attempts
+    rows = attempts(run)
+           ^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 60, in attempts
+    return [json.loads(line) for line in ((run or RUN['run'])/'attempts.jsonl').read_text().splitlines()]
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/tmp6ubki7h4/mes-fake/attempts.jsonl'
+
+======================================================================
+ERROR: test_reference_is_written_and_golden_run_passes_as_offline (test_execute.Audit.test_reference_is_written_and_golden_run_passes_as_offline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 166, in test_reference_is_written_and_golden_run_passes_as_offline
+    self.assertEqual(RUN['reference'].returncode, 0, RUN['reference'].stderr[-3000:])
+                     ~~~^^^^^^^^^^^^^
+KeyError: 'reference'
+
+======================================================================
+ERROR: test_same_placement_counted_twice_is_rejected (test_execute.Audit.test_same_placement_counted_twice_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 215, in test_same_placement_counted_twice_is_rejected
+    result, summary = self.mutated(change)
+                      ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 157, in mutated
+    change(run)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 207, in change
+    schedule = read('schedule-frozen.json', run)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 56, in read
+    return json.loads(((run or RUN['run'])/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/tmpf8dtmpid/mes-fake/schedule-frozen.json'
+
+======================================================================
+ERROR: test_source_replaced_by_server_is_rejected (test_execute.Audit.test_source_replaced_by_server_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 178, in test_source_replaced_by_server_is_rejected
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, edit))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 157, in mutated
+    change(run)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 178, in <lambda>
+    result, summary = self.mutated(lambda run: self.rewrite_attempts(run, edit))
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 161, in rewrite_attempts
+    rows = attempts(run)
+           ^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 60, in attempts
+    return [json.loads(line) for line in ((run or RUN['run'])/'attempts.jsonl').read_text().splitlines()]
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/tmpcuuj57ko/mes-fake/attempts.jsonl'
+
+======================================================================
+ERROR: test_every_scheduled_attempt_is_recorded_once (test_execute.Collection.test_every_scheduled_attempt_is_recorded_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 138, in test_every_scheduled_attempt_is_recorded_once
+    jobs = read('schedule-frozen.json')['jobs']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 56, in read
+    return json.loads(((run or RUN['run'])/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/runs/mes-fake/schedule-frozen.json'
+
+======================================================================
+ERROR: test_f_transfer_bytes_are_actual_run_bodies_including_receipts (test_execute.Collection.test_f_transfer_bytes_are_actual_run_bodies_including_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 127, in test_f_transfer_bytes_are_actual_run_bodies_including_receipts
+    sizes = read('profiles-frozen.json')['payload_sizes']
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 56, in read
+    return json.loads(((run or RUN['run'])/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/runs/mes-fake/profiles-frozen.json'
+
+======================================================================
+ERROR: test_failed_node_is_recorded_and_excluded_not_filled (test_execute.Collection.test_failed_node_is_recorded_and_excluded_not_filled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 92, in test_failed_node_is_recorded_and_excluded_not_filled
+    nodes = read('qualification.json')['nodes']
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 56, in read
+    return json.loads(((run or RUN['run'])/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/runs/mes-fake/qualification.json'
+
+======================================================================
+ERROR: test_numerically_wrong_node_is_excluded_before_planning_with_reasons (test_execute.Collection.test_numerically_wrong_node_is_excluded_before_planning_with_reasons)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 100, in test_numerically_wrong_node_is_excluded_before_planning_with_reasons
+    quality = read('candidate-quality.json')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 56, in read
+    return json.loads(((run or RUN['run'])/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/runs/mes-fake/candidate-quality.json'
+
+======================================================================
+ERROR: test_v_planning_cost_is_decode_plus_inference_per_row (test_execute.Collection.test_v_planning_cost_is_decode_plus_inference_per_row)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 115, in test_v_planning_cost_is_decode_plus_inference_per_row
+    qual = read('qualification.json')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 56, in read
+    return json.loads(((run or RUN['run'])/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmphhetke5a/runs/mes-fake/qualification.json'
+
+======================================================================
+FAIL: test_collection_completes_and_cleans_up_owned_resources (test_execute.Collection.test_collection_completes_and_cleans_up_owned_resources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/test_execute.py", line 72, in test_collection_completes_and_cleans_up_owned_resources
+    self.assertEqual(RUN['result'].returncode, 0, RUN['result'].stderr[-3000:])
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1105, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1100, in main
+    collect(session)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1023, in collect
+    reference = calibration_reference(session)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 550, in calibration_reference
+    result = reference_module.compute(session.prepared_dir, session.out, session.scenario['inputs']['calibration'],
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'reference' has no attribute 'compute'
+
+
+----------------------------------------------------------------------
+Ran 14 tests in 13.588s
+
+FAILED (failures=1, errors=11)
+exit=1

@@ -1,0 +1,111 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "DaemonSet",
+  "metadata": {
+    "name": "nvidia-jetson-device-plugin-orin9",
+    "namespace": "kube-system"
+  },
+  "spec": {
+    "revisionHistoryLimit": 10,
+    "selector": {
+      "matchLabels": {
+        "app": "nvidia-jetson-device-plugin-orin9"
+      }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "nvidia-jetson-device-plugin-orin9"
+        }
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "args": [
+              "--config-file=/config/config.yaml"
+            ],
+            "env": [
+              {
+                "name": "NVIDIA_VISIBLE_DEVICES",
+                "value": "all"
+              },
+              {
+                "name": "NVIDIA_DRIVER_CAPABILITIES",
+                "value": "compute,utility"
+              }
+            ],
+            "image": "nvcr.io/nvidia/k8s-device-plugin@sha256:d2569d771ea77b94371b58e430fbf4a36ac7d2a79874cd0c5617ebd9cb1da220",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "device-plugin",
+            "resources": {
+              "limits": {
+                "cpu": "200m",
+                "memory": "128Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/lib/kubelet/device-plugins",
+                "name": "device-plugin"
+              },
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "nodeSelector": {
+          "kubernetes.io/arch": "arm64",
+          "kubernetes.io/hostname": "etri-dev0009-jetorn",
+          "kubernetes.io/os": "linux"
+        },
+        "priorityClassName": "system-node-critical",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "terminationGracePeriodSeconds": 30,
+        "volumes": [
+          {
+            "hostPath": {
+              "path": "/var/lib/kubelet/device-plugins",
+              "type": "Directory"
+            },
+            "name": "device-plugin"
+          },
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "nvidia-jetson-timeslicing-nano-58gh76b6t8"
+            },
+            "name": "config"
+          }
+        ]
+      }
+    },
+    "updateStrategy": {
+      "rollingUpdate": {
+        "maxSurge": 0,
+        "maxUnavailable": 1
+      },
+      "type": "RollingUpdate"
+    }
+  }
+}

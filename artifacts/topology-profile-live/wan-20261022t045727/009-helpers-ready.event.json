@@ -1,0 +1,22 @@
+{
+  "started_at": "2026-10-22T04:57:45.149956+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "wait",
+    "pods",
+    "-n",
+    "topology-profile-lab",
+    "-l",
+    "run-id=wan-20261022t045727",
+    "--for=condition=Ready",
+    "--timeout=240s"
+  ],
+  "timeout_s": 250,
+  "returncode": 1,
+  "status": "error",
+  "error": "RuntimeError('009-helpers-ready failed; inspect phase stderr')",
+  "finished_at": "2026-10-22T05:01:45.212930+00:00"
+}

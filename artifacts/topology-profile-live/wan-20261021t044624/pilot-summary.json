@@ -1,0 +1,256 @@
+{
+  "mapping": {
+    "b0-compressed-10": {
+      "greedy": "eval-0-b0-compressed-10",
+      "heft": "eval-0-b0-compressed-10",
+      "ours": "eval-1-b0-compressed-10",
+      "greedy-swap": "eval-1-b0-compressed-10"
+    },
+    "b0-compressed-2": {
+      "greedy": "eval-2-b0-compressed-2",
+      "heft": "eval-2-b0-compressed-2",
+      "ours": "eval-2-b0-compressed-2",
+      "greedy-swap": "eval-2-b0-compressed-2"
+    },
+    "b1-compressed-2": {
+      "greedy": "eval-3-b1-compressed-2",
+      "heft": "eval-3-b1-compressed-2",
+      "ours": "eval-3-b1-compressed-2",
+      "greedy-swap": "eval-3-b1-compressed-2"
+    },
+    "b1-compressed-10": {
+      "ours": "eval-4-b1-compressed-10",
+      "greedy-swap": "eval-4-b1-compressed-10",
+      "greedy": "eval-5-b1-compressed-10",
+      "heft": "eval-5-b1-compressed-10"
+    }
+  },
+  "observations": {
+    "eval-0-b0-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 1124.540684511885,
+      "failures": []
+    },
+    "eval-1-b0-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 890.5318784915531,
+      "failures": []
+    },
+    "eval-2-b0-compressed-2": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 893.699763653179,
+      "failures": []
+    },
+    "eval-3-b1-compressed-2": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 911.6220995783806,
+      "failures": []
+    },
+    "eval-4-b1-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 885.6495713116601,
+      "failures": []
+    },
+    "eval-5-b1-compressed-10": {
+      "attempts": 6,
+      "success": 6,
+      "mean_ms": 1111.0739696693297,
+      "failures": []
+    }
+  },
+  "plans": {
+    "b0-compressed-10": {
+      "greedy": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-ser0002-cgnmsb",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-dev0003-raspi5"
+        },
+        "predicted_e2e_proxy_ms": 1247.4489183659898,
+        "profile_sha256": "3f1389596cd76407981a97b24e83315ad5b4131bdf8b5e30b5d344aed9e1ee78",
+        "decision_ms": 0.23505499120801687
+      },
+      "heft": {
+        "status": "ok",
+        "placement": {
+          "speech": "etri-ser0002-cgnmsb",
+          "vision": "etri-ser0002-cgnmsb",
+          "fusion": "etri-dev0003-raspi5"
+        },
+        "predicted_e2e_proxy_ms": 1247.4489183659898,
+        "profile_sha256": "3f1389596cd76407981a97b24e83315ad5b4131bdf8b5e30b5d344aed9e1ee78",
+        "decision_ms": 0.1667509786784649
+      },
+      "ours": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 956.954117755231,
+        "profile_sha256": "3f1389596cd76407981a97b24e83315ad5b4131bdf8b5e30b5d344aed9e1ee78",
+        "decision_ms": 0.15245701069943607
+      },
+      "greedy-swap": {
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 956.954117755231,
+        "status": "ok",
+        "profile_sha256": "3f1389596cd76407981a97b24e83315ad5b4131bdf8b5e30b5d344aed9e1ee78",
+        "decision_ms": 0.26149500627070665,
+        "decision_scope": "repair diagnostics after greedy; excludes original greedy selection"
+      }
+    },
+    "b0-compressed-2": {
+      "greedy": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "profile_sha256": "ec0f985807a75eeb14a4e26110523544a46ac19408440e63a5b77d31a08bde54",
+        "decision_ms": 2.720237011089921
+      },
+      "heft": {
+        "status": "ok",
+        "placement": {
+          "speech": "etri-ser0002-cgnmsb",
+          "vision": "etri-dev0003-raspi5",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "profile_sha256": "ec0f985807a75eeb14a4e26110523544a46ac19408440e63a5b77d31a08bde54",
+        "decision_ms": 0.23281198809854686
+      },
+      "ours": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "profile_sha256": "ec0f985807a75eeb14a4e26110523544a46ac19408440e63a5b77d31a08bde54",
+        "decision_ms": 0.14977299724705517
+      },
+      "greedy-swap": {
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "status": "ok",
+        "profile_sha256": "ec0f985807a75eeb14a4e26110523544a46ac19408440e63a5b77d31a08bde54",
+        "decision_ms": 0.28266399749554694,
+        "decision_scope": "repair diagnostics after greedy; excludes original greedy selection"
+      }
+    },
+    "b1-compressed-2": {
+      "greedy": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "profile_sha256": "33e1ebe5071def62f7f095ad7d789d4a61c06a8628e878e443a48d1d584848d1",
+        "decision_ms": 0.17400100477971137
+      },
+      "heft": {
+        "status": "ok",
+        "placement": {
+          "speech": "etri-ser0002-cgnmsb",
+          "vision": "etri-dev0003-raspi5",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "profile_sha256": "33e1ebe5071def62f7f095ad7d789d4a61c06a8628e878e443a48d1d584848d1",
+        "decision_ms": 0.14988199109211564
+      },
+      "ours": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "profile_sha256": "33e1ebe5071def62f7f095ad7d789d4a61c06a8628e878e443a48d1d584848d1",
+        "decision_ms": 0.15634301234968007
+      },
+      "greedy-swap": {
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 952.9907701071352,
+        "status": "ok",
+        "profile_sha256": "33e1ebe5071def62f7f095ad7d789d4a61c06a8628e878e443a48d1d584848d1",
+        "decision_ms": 0.2229020174127072,
+        "decision_scope": "repair diagnostics after greedy; excludes original greedy selection"
+      }
+    },
+    "b1-compressed-10": {
+      "greedy": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-ser0002-cgnmsb",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-dev0003-raspi5"
+        },
+        "predicted_e2e_proxy_ms": 1247.4489183659898,
+        "profile_sha256": "0423e03e2afeee7fa10e24a0da8c23468b38fe6ec34902964d55b45391affc9f",
+        "decision_ms": 0.19458201131783426
+      },
+      "heft": {
+        "status": "ok",
+        "placement": {
+          "speech": "etri-ser0002-cgnmsb",
+          "vision": "etri-ser0002-cgnmsb",
+          "fusion": "etri-dev0003-raspi5"
+        },
+        "predicted_e2e_proxy_ms": 1247.4489183659898,
+        "profile_sha256": "0423e03e2afeee7fa10e24a0da8c23468b38fe6ec34902964d55b45391affc9f",
+        "decision_ms": 0.17072600894607604
+      },
+      "ours": {
+        "status": "ok",
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 956.954117755231,
+        "profile_sha256": "0423e03e2afeee7fa10e24a0da8c23468b38fe6ec34902964d55b45391affc9f",
+        "decision_ms": 0.15171899576671422
+      },
+      "greedy-swap": {
+        "placement": {
+          "vision": "etri-dev0003-raspi5",
+          "speech": "etri-ser0002-cgnmsb",
+          "fusion": "etri-ser0002-cgnmsb"
+        },
+        "predicted_e2e_proxy_ms": 956.954117755231,
+        "status": "ok",
+        "profile_sha256": "0423e03e2afeee7fa10e24a0da8c23468b38fe6ec34902964d55b45391affc9f",
+        "decision_ms": 0.2224509953521192,
+        "decision_scope": "repair diagnostics after greedy; excludes original greedy selection"
+      }
+    }
+  }
+}

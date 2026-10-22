@@ -1,0 +1,94 @@
+{
+  "cleanup_errors": [],
+  "error": null,
+  "live_elapsed_including_cleanup_s": 10.100652588997036,
+  "model": {
+    "activation": "ReLU",
+    "bytes": 1216584,
+    "dtype": "float32",
+    "layers": [
+      64,
+      512,
+      512,
+      16
+    ],
+    "parameters": 304144,
+    "sha256": "993c1d851754f2f6bb6230957d94858b7d6a2f704b8d57824953da31848bfdc4"
+  },
+  "run_id": "nsmoke-20261022t025228z",
+  "sites": {
+    "edge": {
+      "kubectl_exec_wall_ms": 815.8278670016443,
+      "machine": "aarch64",
+      "model_sha256_matches": true,
+      "node": "etri-dev0003-raspi5",
+      "numpy": "1.26.4",
+      "parity_vs_local_reference": {
+        "atol": 0.001,
+        "max_abs_diff": 1.9073486328125e-06,
+        "ok": true
+      },
+      "pod_uid": "a4259f7e-c91e-4ee9-929b-2704a5787ec7",
+      "python": "3.11.16",
+      "timed_forward_cpu_ms": [
+        0.095,
+        0.095389,
+        0.093703
+      ],
+      "timed_forward_wall_ms": [
+        0.095221,
+        0.095314,
+        0.093722
+      ],
+      "warmup_forward_wall_ms": [
+        0.153814
+      ]
+    },
+    "server": {
+      "kubectl_exec_wall_ms": 314.16162900131894,
+      "machine": "x86_64",
+      "model_sha256_matches": true,
+      "node": "etri-ser0002-cgnmsb",
+      "numpy": "1.26.4",
+      "parity_vs_local_reference": {
+        "atol": 0.001,
+        "max_abs_diff": 1.9073486328125e-06,
+        "ok": true
+      },
+      "pod_uid": "32396e24-f74d-4b9b-a1e3-88f72bd91fdd",
+      "python": "3.11.16",
+      "timed_forward_cpu_ms": [
+        0.039593,
+        0.038934,
+        0.038469
+      ],
+      "timed_forward_wall_ms": [
+        0.039613,
+        0.038886,
+        0.038464
+      ],
+      "warmup_forward_wall_ms": [
+        0.067364
+      ]
+    }
+  },
+  "status": "ok",
+  "test_mae": {
+    "last_value_mae": 0.28856712166625675,
+    "model_mae": 0.26866722342991595,
+    "note": "MAE over all test windows x 16 horizons; overlapping windows from one 180-row span",
+    "windows": 101
+  },
+  "training": {
+    "adam_updates": 50,
+    "batch": 32,
+    "host": "local coordinator host (not a cluster Pod)",
+    "hyperparameter_search": false,
+    "loss_first": 2.3223495483398438,
+    "loss_last": 0.3948749601840973,
+    "lr": 0.001,
+    "numpy": "1.26.4",
+    "seed": 20261022,
+    "wall_s": 0.18485425999824656
+  }
+}

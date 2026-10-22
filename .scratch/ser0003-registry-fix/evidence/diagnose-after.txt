@@ -1,0 +1,12 @@
+runtime=containerd://2.2.1
+2:imports = ["/etc/containerd/conf.d/*.toml"]
+47:    use_local_image_pull = true
+56:      config_path = "/etc/containerd/certs.d:/etc/docker/certs.d"
+168:    plugin_config_path = "/etc/nri/conf.d"
+243:    config_path = ""
+## certs.d/10.254.192.47:5000
+server = "http://10.254.192.47:5000"
+[host."http://10.254.192.47:5000"]
+  capabilities = ["pull", "resolve"]
+## /host/root/etc/docker/certs.d/10.254.192.47:5000
+cat: can't open '/host/root/etc/docker/certs.d/10.254.192.47:5000/hosts.toml': No such file or directory

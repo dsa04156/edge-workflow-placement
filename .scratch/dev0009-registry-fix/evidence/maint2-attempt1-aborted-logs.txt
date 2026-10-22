@@ -1,0 +1,25 @@
+pre_sha=27b61697b146c7e2ac31b3af9310ff9fcb686a729f5b1e8c241da1b6aaec32c4
+backup_sha=27b61697b146c7e2ac31b3af9310ff9fcb686a729f5b1e8c241da1b6aaec32c4
+post_sha=17b4a5d6e587b67150136dff612a13345c6783a52597a43c03462f9600d8d9e4
+--- diff
+--- /etc/containerd/config.toml.bak-dev0009-registry-fix-20261022	2026-10-20 11:37:21.963674830 +0000
++++ /etc/containerd/config.toml	2026-10-22 04:37:45.013504681 +0000
+@@ -53,7 +53,7 @@
+       sandbox = "registry.k8s.io/pause:3.10.1"
+ 
+     [plugins."io.containerd.cri.v1.images".registry]
+-      config_path = "/etc/containerd/certs.d:/etc/docker/certs.d"
++      config_path = "/etc/containerd/certs.d"
+ 
+   [plugins."io.containerd.cri.v1.runtime"]
+     cdi_spec_dirs = ["/etc/cdi", "/var/run/cdi"]
+--- config dump (validation, selected keys)
+8:imports = ['/etc/containerd/conf.d/*.toml']
+48:    use_local_image_pull = false
+54:      config_path = '/etc/containerd/certs.d'
+80:      default_runtime_name = 'nvidia'
+101:            BinaryName = '/usr/bin/nvidia-container-runtime'
+127:            BinaryName = ''
+195:    plugin_config_path = '/etc/nri/conf.d'
+271:    config_path = ''
+EFFECTIVE_NOT_UPDATED_RESTORE

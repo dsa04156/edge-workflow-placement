@@ -1,0 +1,67 @@
+{
+  "frozen_results_sha256": "d20a941d64230ae290ba4f48f538965a40d89139735af1a67732baf52519f2bb",
+  "frozen_sha_matches_developer_report": true,
+  "final_results_sha256": "0e4fbeaebf296fdd6c9c328783b88104fe09cb93365d1282d01ec8fc318db3ae",
+  "top_level_non_time_differing_keys": [
+    "environment",
+    "source_files",
+    "summary"
+  ],
+  "environment": [
+    {
+      "python": "3.12.3",
+      "argv": [
+        "experiments/decision-focused-placement/run_synthetic_v2.py",
+        "--output",
+        "artifacts/decision-focused-placement/synthetic-v2"
+      ]
+    },
+    {
+      "python": "3.12.3",
+      "argv": [
+        "experiments/decision-focused-placement/run_synthetic_v2.py",
+        "--output",
+        "artifacts/decision-focused-placement/synthetic-v2-final"
+      ]
+    }
+  ],
+  "source_files_differing": {
+    "policies_v2.py": [
+      "8831ea64e9537e09da3bc597bac69fb596a55ab804cf918d5bcf161a07a77d6b",
+      "986e1d45ff7e2e1c09101129adcad1c5724495d29db6c1aa708732aca31af73b"
+    ],
+    "test_synthetic_v2.py": [
+      "2143e549a8fe154cbd362620b0944a718d588bcc4cb49a34cb096f580f1af2b6",
+      "eb0cd68864518ba73b40bb24e5e782ddc2e541f63793ec5510cf88b6b683e017"
+    ]
+  },
+  "final_source_hashes_match_disk": true,
+  "n_source_files": 12,
+  "runs": [
+    750,
+    750
+  ],
+  "run_keys_equal": true,
+  "run_non_time_mismatches": [],
+  "probe_records_total": [
+    55925,
+    55925
+  ],
+  "terminations_final": {
+    "certified": 446,
+    "budget_probes": 254,
+    "censored_uncertified": 50
+  },
+  "run_counts": {
+    "expected": 750,
+    "completed": 750,
+    "skipped": 0
+  },
+  "excluded_time_fields": [
+    "started_at",
+    "finished_at",
+    "total_wall_time_s",
+    "runs[].planner_wall_time_s",
+    "runs[].probe_records[].planner_time_used_before_s"
+  ]
+}

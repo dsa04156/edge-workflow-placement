@@ -1,0 +1,33 @@
+{
+  "default_scheduler": {
+    "execution": "re-pinned to the matching pool Pods; scheduler probe overhead reported separately",
+    "nodes": {
+      "t1": "etri-ser0002-cgnmsb",
+      "t2": "etri-ser0002-cgnmsb",
+      "t3": "etri-ser0002-cgnmsb"
+    },
+    "shares_with": "server-all",
+    "sites": {
+      "t1": "server",
+      "t2": "server",
+      "t3": "server"
+    }
+  },
+  "fixed": {
+    "edge-all": {
+      "t1": "edge",
+      "t2": "edge",
+      "t3": "edge"
+    },
+    "mixed": {
+      "t1": "edge",
+      "t2": "server",
+      "t3": "server"
+    },
+    "server-all": {
+      "t1": "server",
+      "t2": "server",
+      "t3": "server"
+    }
+  }
+}

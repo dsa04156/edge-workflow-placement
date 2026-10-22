@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T05:34:20.300368+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t053336-source-e0",
+    "-c",
+    "worker",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import sys,json,time;sys.path.insert(0,'/work/config');from pathlib import Path;from http_runtime import request,digest;b=Path('/work/corpus/1713820-image.npy').read_bytes();start=time.monotonic();rows=[];\nfor i in range(4):\n r=request('http://10.244.8.155:8080/to/fusion/sink',{'data':b},timeout=60);assert r['sha256']==digest(b) and r['bytes']==len(b);rows.append(r)\nprint(json.dumps({'bytes':len(b)*4,'elapsed_s':time.monotonic()-start,'hashes_ok':True}))"
+  ],
+  "timeout_s": 150,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T05:34:48.370603+00:00"
+}

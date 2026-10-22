@@ -1,0 +1,9 @@
+=== RUN   TestWriteToLocalConnectionDoesNotPanicOnConcurrentDelete
+    tunnel_race_test.go:65: WriteToLocalConnection panicked: send on closed channel
+--- FAIL: TestWriteToLocalConnectionDoesNotPanicOnConcurrentDelete (0.20s)
+=== RUN   TestWriteToLocalConnectionStress
+    tunnel_race_test.go:107: connection 1099 panicked: send on closed channel
+--- FAIL: TestWriteToLocalConnectionStress (0.00s)
+FAIL
+FAIL	github.com/kubeedge/kubeedge/edge/pkg/edgestream	0.221s
+FAIL

@@ -1,0 +1,63 @@
+I1020 11:42:36.874849       1 main.go:250] "Starting NVIDIA Device Plugin" version=<
+	1ae8e5f0-arm64
+	commit: 1ae8e5f02a47ad80e2b4fcc6c35a757c61ddd81f
+ >
+I1020 11:42:36.875091       1 main.go:253] Starting FS watcher for /var/lib/kubelet/device-plugins
+I1020 11:42:36.875318       1 main.go:260] Starting OS watcher.
+I1020 11:42:36.876065       1 main.go:275] Starting Plugins.
+I1020 11:42:36.876088       1 main.go:332] Loading configuration.
+I1020 11:42:36.879188       1 main.go:358] Updating config with default resource matching patterns.
+I1020 11:42:36.879375       1 main.go:369] 
+Running with config:
+{
+  "version": "v1",
+  "flags": {
+    "migStrategy": "none",
+    "failOnInitError": true,
+    "mpsRoot": "",
+    "nvidiaDriverRoot": "/",
+    "nvidiaDevRoot": "/",
+    "gdrcopyEnabled": true,
+    "gdsEnabled": true,
+    "mofedEnabled": true,
+    "useNodeFeatureAPI": null,
+    "deviceDiscoveryStrategy": "tegra",
+    "plugin": {
+      "passDeviceSpecs": false,
+      "deviceListStrategy": [
+        "envvar"
+      ],
+      "deviceIDStrategy": "index",
+      "cdiAnnotationPrefix": "cdi.k8s.io/",
+      "nvidiaCTKPath": "/usr/bin/nvidia-ctk",
+      "containerDriverRoot": "/driver-root"
+    }
+  },
+  "resources": {
+    "gpus": [
+      {
+        "pattern": "*",
+        "name": "nvidia.com/gpu"
+      }
+    ]
+  },
+  "sharing": {
+    "timeSlicing": {
+      "renameByDefault": true,
+      "failRequestsGreaterThanOne": true,
+      "resources": [
+        {
+          "name": "nvidia.com/gpu",
+          "rename": "nvidia.com/gpu.shared",
+          "devices": "all",
+          "replicas": 2
+        }
+      ]
+    }
+  },
+  "imex": {}
+}
+I1020 11:42:36.879398       1 main.go:372] Retrieving plugins.
+I1020 11:42:36.886931       1 server.go:198] Starting GRPC server for 'nvidia.com/gpu.shared'
+I1020 11:42:36.888828       1 server.go:142] Starting to serve 'nvidia.com/gpu.shared' on /var/lib/kubelet/device-plugins/nvidia-gpu.shared.sock
+I1020 11:42:36.895543       1 server.go:149] Registered device plugin for 'nvidia.com/gpu.shared' with Kubelet

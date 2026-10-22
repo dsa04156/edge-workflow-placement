@@ -1,0 +1,314 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"run-id\":\"registry-check-20261022t042941\"},\"name\":\"registry-check-20261022t042941-e8\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":180,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-c\",\"import platform;print(\\\"REGISTRY_IMAGE_OK\\\",platform.machine())\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"Always\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]}}}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0008-raspi5\"},\"restartPolicy\":\"Never\",\"terminationGracePeriodSeconds\":1}}\n"
+        },
+        "creationTimestamp": "2026-10-22T04:29:45Z",
+        "labels": {
+          "run-id": "registry-check-20261022t042941"
+        },
+        "name": "registry-check-20261022t042941-e8",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51512540",
+        "uid": "f6e6154b-4feb-43aa-9bdc-305d518bc715"
+      },
+      "spec": {
+        "activeDeadlineSeconds": 180,
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python3",
+              "-c",
+              "import platform;print(\"REGISTRY_IMAGE_OK\",platform.machine())"
+            ],
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "Always",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0008-raspi5",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0008-raspi5"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 1,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:51Z",
+            "status": "False",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:47Z",
+            "reason": "PodCompleted",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:50Z",
+            "reason": "PodCompleted",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:50Z",
+            "reason": "PodCompleted",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:45Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://701cf879cad96548923c4f5d83af1874f773f49e6cbb128aa5a26a984114fc72",
+            "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+            "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "lastState": {},
+            "name": "probe",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "containerID": "containerd://701cf879cad96548923c4f5d83af1874f773f49e6cbb128aa5a26a984114fc72",
+                "exitCode": 0,
+                "finishedAt": "2026-10-22T04:29:49Z",
+                "reason": "Completed",
+                "startedAt": "2026-10-22T04:29:48Z"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.254.192.111",
+        "hostIPs": [
+          {
+            "ip": "10.254.192.111"
+          }
+        ],
+        "phase": "Succeeded",
+        "podIP": "10.244.10.6",
+        "podIPs": [
+          {
+            "ip": "10.244.10.6"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-22T04:29:47Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"run-id\":\"registry-check-20261022t042941\"},\"name\":\"registry-check-20261022t042941-e9\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":180,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-c\",\"import platform;print(\\\"REGISTRY_IMAGE_OK\\\",platform.machine())\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"Always\",\"name\":\"probe\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]}}}],\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0009-jetorn\"},\"restartPolicy\":\"Never\",\"terminationGracePeriodSeconds\":1}}\n"
+        },
+        "creationTimestamp": "2026-10-22T04:29:46Z",
+        "labels": {
+          "run-id": "registry-check-20261022t042941"
+        },
+        "name": "registry-check-20261022t042941-e9",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51512749",
+        "uid": "2032685a-9e08-4d6e-b8fc-369e83695386"
+      },
+      "spec": {
+        "activeDeadlineSeconds": 180,
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python3",
+              "-c",
+              "import platform;print(\"REGISTRY_IMAGE_OK\",platform.machine())"
+            ],
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imagePullPolicy": "Always",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "32Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0009-jetorn",
+        "nodeSelector": {
+          "kubernetes.io/hostname": "etri-dev0009-jetorn"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 1,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ]
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:30:12Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:49Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:49Z",
+            "message": "containers with unready status: [probe]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:49Z",
+            "message": "containers with unready status: [probe]",
+            "reason": "ContainersNotReady",
+            "status": "False",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-22T04:29:47Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "imageID": "",
+            "lastState": {},
+            "name": "probe",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "waiting": {
+                "message": "failed to pull and unpack image \"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\": failed to resolve image: failed to do request: Head \"https://10.254.192.47:5000/v2/node-inventory-python/manifests/sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\": http: server gave HTTP response to HTTPS client",
+                "reason": "ErrImagePull"
+              }
+            }
+          }
+        ],
+        "hostIP": "10.254.192.128",
+        "hostIPs": [
+          {
+            "ip": "10.254.192.128"
+          }
+        ],
+        "phase": "Pending",
+        "podIP": "10.244.11.7",
+        "podIPs": [
+          {
+            "ip": "10.244.11.7"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-22T04:29:49Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

@@ -1,0 +1,172 @@
+[
+ {
+  "seq": 0,
+  "frame_png_sha256": "8b46bc90cf3a5b97dec0d25ee2b502777b5e202c3af66836414f8bafde6c4358",
+  "frame_matches_freeze": true,
+  "v_receipt_input_matches": true,
+  "t_receipt_input_matches": true,
+  "detections": [
+   "person",
+   "person",
+   "person",
+   "bus",
+   "person"
+  ],
+  "text": "Event 0000 at gate 2: operator reports a tie near the parking lane, vibration 9.2 mm/s, status awaiting inspection.",
+  "text_top_class": "tie",
+  "fused": {
+   "top_class": "bus",
+   "top_fused": 0.17474886967712155,
+   "alert": false,
+   "top3": [
+    {
+     "name": "bus",
+     "fused": 0.17474886967712155
+    },
+    {
+     "name": "person",
+     "fused": 0.10530368676459467
+    },
+    {
+     "name": "zebra",
+     "fused": 0.0
+    }
+   ],
+   "detections": 5,
+   "text_top_class": "tie",
+   "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+  },
+  "problems": {
+   "V": [],
+   "T": [],
+   "F": []
+  }
+ },
+ {
+  "seq": 3,
+  "frame_png_sha256": "a4bc65c48f1ea2db680b133abaef581e55a364700af2849e75a261136bbf512c",
+  "frame_matches_freeze": true,
+  "v_receipt_input_matches": true,
+  "t_receipt_input_matches": true,
+  "detections": [
+   "person",
+   "person",
+   "bus",
+   "person"
+  ],
+  "text": "Alert 0003: sports ball detected by staff at the storage rack while line speed was 11.5 m/min; check requested.",
+  "text_top_class": "sports ball",
+  "fused": {
+   "top_class": "bus",
+   "top_fused": 0.18209776482303042,
+   "alert": false,
+   "top3": [
+    {
+     "name": "bus",
+     "fused": 0.18209776482303042
+    },
+    {
+     "name": "person",
+     "fused": 0.09616200698129118
+    },
+    {
+     "name": "zebra",
+     "fused": 0.0
+    }
+   ],
+   "detections": 4,
+   "text_top_class": "sports ball",
+   "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+  },
+  "problems": {
+   "V": [],
+   "T": [],
+   "F": []
+  }
+ },
+ {
+  "seq": 4,
+  "frame_png_sha256": "851973aa0fa4d4a19d36ce6f3dc2e005506f2a82b19cfd3f62f3758c6912e1e8",
+  "frame_matches_freeze": true,
+  "v_receipt_input_matches": true,
+  "t_receipt_input_matches": true,
+  "detections": [
+   "bus",
+   "person",
+   "person"
+  ],
+  "text": "Shift log 0004: a chair was seen close to the crosswalk; temperature 20.9 C, check requested.",
+  "text_top_class": "chair",
+  "fused": {
+   "top_class": "bus",
+   "top_fused": 0.21528548757032695,
+   "alert": true,
+   "top3": [
+    {
+     "name": "bus",
+     "fused": 0.21528548757032695
+    },
+    {
+     "name": "person",
+     "fused": 0.17904917310112367
+    },
+    {
+     "name": "zebra",
+     "fused": 0.0
+    }
+   ],
+   "detections": 3,
+   "text_top_class": "chair",
+   "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+  },
+  "problems": {
+   "V": [],
+   "T": [],
+   "F": []
+  }
+ },
+ {
+  "seq": 5,
+  "frame_png_sha256": "2944c450ae5b9804f5aef80c8f1e2fddd7254f33829183dfb7f2ad19df3d23db",
+  "frame_matches_freeze": true,
+  "v_receipt_input_matches": true,
+  "t_receipt_input_matches": true,
+  "detections": [
+   "person",
+   "person",
+   "bus",
+   "person",
+   "person",
+   "truck"
+  ],
+  "text": "Alert 0005: bus detected by staff at the assembly line while line speed was 1.8 m/min; operator notified.",
+  "text_top_class": "bus",
+  "fused": {
+   "top_class": "bus",
+   "top_fused": 0.34181006326629415,
+   "alert": true,
+   "top3": [
+    {
+     "name": "bus",
+     "fused": 0.34181006326629415
+    },
+    {
+     "name": "truck",
+     "fused": 0.05164147431557797
+    },
+    {
+     "name": "person",
+     "fused": 0.04805655886585747
+    }
+   ],
+   "detections": 6,
+   "text_top_class": "bus",
+   "rule": "fused_c = max_det_score_c * max(0, cosine_c); alert >= 0.2"
+  },
+  "problems": {
+   "V": [],
+   "T": [],
+   "F": []
+  }
+ }
+]

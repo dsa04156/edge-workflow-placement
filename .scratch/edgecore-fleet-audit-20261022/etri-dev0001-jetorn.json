@@ -1,0 +1,54 @@
+{
+  "host": "etri-dev0001-jetorn",
+  "addresses": "lo               UNKNOWN        127.0.0.1/8 ::1/128 \ncan0             DOWN           \nenP8p1s0         UP             10.254.164.139/24 fe80::6ce0:b210:4d4d:6c91/64 \nwlP1p1s0         DOWN           \nl4tbr0           DOWN           \nusb0             DOWN           \nusb1             DOWN           \nedgemesh0        DOWN           169.254.96.16/32 \nflannel.1        UNKNOWN        10.244.2.0/32 fe80::5c48:55ff:febc:4349/64 \ncni0             UP             10.244.2.1/24 fe80::d02b:6aff:fe90:339/64 \nvethba8c0403@if3 UP             fe80::485e:24ff:fe3a:9ddd/64 \nveth25e16977@if3 UP             fe80::c04:84ff:fe08:9db3/64 \n",
+  "edgecore": "MainPID=335817\nNRestarts=4\nActiveState=active\nActiveEnterTimestamp=Thu 2026-10-22 14:59:55 KST\n",
+  "endpoint_config": [
+    "httpServer: https://10.254.192.47:10002",
+    "server: 10.254.192.47:10001",
+    "server: 10.254.192.47:10000",
+    "server: 10.254.192.47:10004",
+    "hostnameOverride: etri-dev0001-jetorn",
+    "readOnlyPort: 10350",
+    "server: 127.0.0.1:10550",
+    "server: 127.0.0.1"
+  ],
+  "binary_sha": "d17f777d0ac97dc2cdb534e499f1df38401aa1434fba834e5ab19431e04682ac  /usr/local/bin/edgecore\n",
+  "arch": "aarch64\n",
+  "log_events": [],
+  "deleted_mounts": [
+    {
+      "pid": "181274",
+      "mounts": [
+        "1618 1609 179:1 /var/lib/kubelet/pods/ffedfea1-266e-4687-ac8f-e552414a68bc/volumes/kubernetes.io~configmap/psk//deleted /etc/edgemesh ro,relatime"
+      ]
+    },
+    {
+      "pid": "206400",
+      "mounts": [
+        "1676 1669 179:1 /var/lib/kubelet/pods/166f2772-2a0f-4380-aaf0-556b397fa099/volumes/kubernetes.io~configmap/network-interfaces//deleted /etc/kube-flannel-network ro,relatime",
+        "1678 1669 179:1 /var/lib/kubelet/pods/166f2772-2a0f-4380-aaf0-556b397fa099/volumes/kubernetes.io~configmap/flannel-cfg//deleted /etc/kube-flannel ro,relatime"
+      ]
+    },
+    {
+      "pid": "206868",
+      "mounts": [
+        "2096 2087 179:1 /var/lib/kubelet/pods/342e95a2-fecc-4024-8b17-c1a4f4dec4d8/volumes/kubernetes.io~configmap/code//deleted /app ro,relatime"
+      ]
+    },
+    {
+      "pid": "2291791",
+      "mounts": [
+        "885 884 179:1 /var/lib/kubelet/pods/81bdffc9-b91f-4baf-9c06-633ff2fb8e09/volumes/kubernetes.io~configmap/config//deleted /config ro,relatime"
+      ]
+    },
+    {
+      "pid": "3780840",
+      "mounts": [
+        "2447 2440 179:1 /var/lib/kubelet/pods/29da800c-1344-4e40-beb3-74c5ed3167d9/volumes/kubernetes.io~configmap/code//deleted /app ro,relatime"
+      ]
+    }
+  ],
+  "registry_config": {
+    "/etc/containerd/certs.d/192.168.0.56:5000/hosts.toml": "server = \"http://192.168.0.56:5000\"\n\n[host.\"http://10.77.0.1:5000\"]\n  capabilities = [\"pull\", \"resolve\"]\n\n[host.\"http://192.168.0.56:5000\"]\n  capabilities = [\"pull\", \"resolve\"]\n  skip_verify = true\n\n"
+  }
+}

@@ -1,0 +1,150 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"run-id\":\"dev0009-registry-fix-20261022\"},\"name\":\"dev0009-registry-fix-maint2\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":180,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"/bin/sh\",\"-c\",\"set -eu\\nH=\\\"nsenter -t 1 -m -u -i -n -p --\\\"\\nF=/etc/containerd/config.toml\\nB=/etc/containerd/config.toml.bak-dev0009-registry-fix-20261022\\nEXP_SHA=27b61697b146c7e2ac31b3af9310ff9fcb686a729f5b1e8c241da1b6aaec32c4\\nOLD='      config_path = \\\"/etc/containerd/certs.d:/etc/docker/certs.d\\\"'\\nNEW='      config_path = \\\"/etc/containerd/certs.d\\\"'\\ncur=$($H sha256sum $F | cut -d' ' -f1)\\necho \\\"pre_sha=$cur\\\"\\n[ \\\"$cur\\\" = \\\"$EXP_SHA\\\" ] || { echo \\\"UNEXPECTED_SHA_ABORT\\\"; exit 3; }\\n[ \\\"$($H grep -c -x -F \\\"$OLD\\\" $F)\\\" = 1 ] || { echo \\\"OLD_LINE_NOT_UNIQUE_ABORT\\\"; exit 3; }\\nif $H test -e $B; then [ \\\"$($H sha256sum $B | cut -d' ' -f1)\\\" = \\\"$EXP_SHA\\\" ] || { echo \\\"BACKUP_MISMATCH_ABORT\\\"; exit 3; }; echo \\\"backup_preexisting_kept\\\"; else $H cp -a $F $B; fi\\necho \\\"backup_sha=$($H sha256sum $B | cut -d' ' -f1)\\\"\\n$H sed -i \\\"s#^      config_path = \\\\\\\"/etc/containerd/certs.d:/etc/docker/certs.d\\\\\\\"\\\\$#$NEW#\\\" $F\\necho \\\"post_sha=$($H sha256sum $F | cut -d' ' -f1)\\\"\\necho \\\"--- diff\\\"; $H diff -u $B $F || true\\necho \\\"--- config dump (validation, selected keys)\\\"\\nif ! $H containerd config dump \\u003e /tmp/dump.$$ 2\\u003e\\u00261; then echo \\\"DUMP_FAILED_RESTORE\\\"; head -5 /tmp/dump.$$; $H cp -a $B $F; exit 4; fi\\ngrep -n -E \\\"config_path|default_runtime_name|BinaryName|use_local_image_pull|^imports\\\" /tmp/dump.$$ || true\\ngrep -q -x -F \\\"      config_path = '/etc/containerd/certs.d'\\\" /tmp/dump.$$ || { echo \\\"EFFECTIVE_NOT_UPDATED_RESTORE\\\"; $H cp -a $B $F; exit 4; }\\necho \\\"--- restart containerd only\\\"\\necho \\\"pre_restart_active=$($H systemctl is-active containerd) pid=$($H systemctl show -p MainPID --value containerd)\\\"\\n$H systemctl restart containerd\\nsleep 3\\necho \\\"post_restart_active=$($H systemctl is-active containerd) pid=$($H systemctl show -p MainPID --value containerd)\\\"\\necho \\\"edgecore_active=$($H systemctl is-active edgecore)\\\"\\necho CONFIG_PATH_FIX_DONE\\n\"],\"image\":\"ghcr.io/flannel-io/flannel:v0.28.3\",\"imagePullPolicy\":\"Never\",\"name\":\"maint\",\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"16Mi\"}},\"securityContext\":{\"privileged\":true}}],\"hostPID\":true,\"nodeSelector\":{\"kubernetes.io/hostname\":\"etri-dev0009-jetorn\"},\"restartPolicy\":\"Never\",\"terminationGracePeriodSeconds\":1}}\n"
+        },
+        "creationTimestamp": "2026-10-22T04:38:04Z",
+        "labels": {
+            "run-id": "dev0009-registry-fix-20261022"
+        },
+        "name": "dev0009-registry-fix-maint2",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "51517331",
+        "uid": "84481ce2-8da4-4bbb-aa26-46a7144b201d"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 180,
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "/bin/sh",
+                    "-c",
+                    "set -eu\nH=\"nsenter -t 1 -m -u -i -n -p --\"\nF=/etc/containerd/config.toml\nB=/etc/containerd/config.toml.bak-dev0009-registry-fix-20261022\nEXP_SHA=27b61697b146c7e2ac31b3af9310ff9fcb686a729f5b1e8c241da1b6aaec32c4\nOLD='      config_path = \"/etc/containerd/certs.d:/etc/docker/certs.d\"'\nNEW='      config_path = \"/etc/containerd/certs.d\"'\ncur=$($H sha256sum $F | cut -d' ' -f1)\necho \"pre_sha=$cur\"\n[ \"$cur\" = \"$EXP_SHA\" ] || { echo \"UNEXPECTED_SHA_ABORT\"; exit 3; }\n[ \"$($H grep -c -x -F \"$OLD\" $F)\" = 1 ] || { echo \"OLD_LINE_NOT_UNIQUE_ABORT\"; exit 3; }\nif $H test -e $B; then [ \"$($H sha256sum $B | cut -d' ' -f1)\" = \"$EXP_SHA\" ] || { echo \"BACKUP_MISMATCH_ABORT\"; exit 3; }; echo \"backup_preexisting_kept\"; else $H cp -a $F $B; fi\necho \"backup_sha=$($H sha256sum $B | cut -d' ' -f1)\"\n$H sed -i \"s#^      config_path = \\\"/etc/containerd/certs.d:/etc/docker/certs.d\\\"\\$#$NEW#\" $F\necho \"post_sha=$($H sha256sum $F | cut -d' ' -f1)\"\necho \"--- diff\"; $H diff -u $B $F || true\necho \"--- config dump (validation, selected keys)\"\nif ! $H containerd config dump \u003e /tmp/dump.$$ 2\u003e\u00261; then echo \"DUMP_FAILED_RESTORE\"; head -5 /tmp/dump.$$; $H cp -a $B $F; exit 4; fi\ngrep -n -E \"config_path|default_runtime_name|BinaryName|use_local_image_pull|^imports\" /tmp/dump.$$ || true\ngrep -q -x -F \"      config_path = '/etc/containerd/certs.d'\" /tmp/dump.$$ || { echo \"EFFECTIVE_NOT_UPDATED_RESTORE\"; $H cp -a $B $F; exit 4; }\necho \"--- restart containerd only\"\necho \"pre_restart_active=$($H systemctl is-active containerd) pid=$($H systemctl show -p MainPID --value containerd)\"\n$H systemctl restart containerd\nsleep 3\necho \"post_restart_active=$($H systemctl is-active containerd) pid=$($H systemctl show -p MainPID --value containerd)\"\necho \"edgecore_active=$($H systemctl is-active edgecore)\"\necho CONFIG_PATH_FIX_DONE\n"
+                ],
+                "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                "imagePullPolicy": "Never",
+                "name": "maint",
+                "resources": {
+                    "limits": {
+                        "cpu": "200m",
+                        "memory": "64Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "16Mi"
+                    }
+                },
+                "securityContext": {
+                    "privileged": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File"
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "hostPID": true,
+        "nodeName": "etri-dev0009-jetorn",
+        "nodeSelector": {
+            "kubernetes.io/hostname": "etri-dev0009-jetorn"
+        },
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 1,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:12Z",
+                "status": "False",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:04Z",
+                "reason": "PodCompleted",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:10Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:10Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-22T04:38:04Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://cb6af8d6b4ab67ad8e51c6819027179e7376a0228556b8cd89ab40a8e02e2378",
+                "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+                "imageID": "ghcr.io/flannel-io/flannel@sha256:8e5228b764002ef674af9519fb848e8d2004b8d03d7d18edc3333c749b87fadf",
+                "lastState": {},
+                "name": "maint",
+                "ready": false,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://cb6af8d6b4ab67ad8e51c6819027179e7376a0228556b8cd89ab40a8e02e2378",
+                        "exitCode": 0,
+                        "finishedAt": "2026-10-22T04:38:10Z",
+                        "reason": "Completed",
+                        "startedAt": "2026-10-22T04:38:05Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.254.192.128",
+        "hostIPs": [
+            {
+                "ip": "10.254.192.128"
+            }
+        ],
+        "phase": "Succeeded",
+        "podIP": "10.244.11.11",
+        "podIPs": [
+            {
+                "ip": "10.244.11.11"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-22T04:38:04Z"
+    }
+}

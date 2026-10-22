@@ -1,0 +1,1292 @@
+{
+ "profiles": {
+  "w1": {
+   "provenance": "measured",
+   "evidence_id": "mes-fake/qualification+transfer-probes",
+   "namespace": "topology-profile-lab",
+   "nodes": {
+    "etri-dev0003-raspi5": {
+     "cpu_free_m": 2990.0,
+     "memory_free_mib": 7408.0
+    },
+    "etri-dev0002-raspi5": {
+     "cpu_free_m": 3900.0,
+     "memory_free_mib": 8064.0
+    },
+    "etri-ser0002-cgnmsb": {
+     "cpu_free_m": 3300.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0006-raspi5": {
+     "cpu_free_m": 3000.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0008-raspi5": {
+     "cpu_free_m": 3000.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0009-jetorn": {
+     "cpu_free_m": 3900.0,
+     "memory_free_mib": 8064.0
+    },
+    "etri-ser0001-cg0msb": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    },
+    "etri-ser0003-cg0ms0": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    },
+    "etri-ser0004-cgnms0": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    }
+   },
+   "tasks": [
+    {
+     "id": "V",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 44.580988,
+      "etri-dev0002-raspi5": 43.281344000000004,
+      "etri-ser0002-cgnmsb": 45.305336999999994,
+      "etri-dev0006-raspi5": 45.303635,
+      "etri-dev0008-raspi5": 43.775776,
+      "etri-dev0009-jetorn": 43.24821,
+      "etri-ser0001-cg0msb": 46.793107000000006
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 2000.0,
+     "memory_mib": 1536.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0003-raspi5",
+       "bytes": 440490,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.7413610001094639,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.775633001467213,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.8430110028712079,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.770665006712079,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.8013720071176067,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.7954159955261275,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.7607299921801314
+       }
+      }
+     ]
+    },
+    {
+     "id": "T",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 17.309413,
+      "etri-dev0002-raspi5": 8.745985,
+      "etri-ser0002-cgnmsb": 12.409644,
+      "etri-dev0006-raspi5": 7.551629,
+      "etri-dev0008-raspi5": 7.560178,
+      "etri-dev0009-jetorn": 10.636496,
+      "etri-ser0001-cg0msb": 11.091102
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 1000.0,
+     "memory_mib": 1024.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0002-raspi5",
+       "bytes": 215,
+       "transfer_ms": {
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.3880000042263418,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.6293040059972554,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.6546549993799999,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.6446119950851426,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.597302001551725,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.7052580040181056,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.6323400011751801
+       }
+      }
+     ]
+    },
+    {
+     "id": "F",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 0.042298,
+      "etri-dev0002-raspi5": 0.042171,
+      "etri-ser0002-cgnmsb": 0.044336,
+      "etri-dev0006-raspi5": 0.045255,
+      "etri-dev0008-raspi5": 0.043696,
+      "etri-dev0009-jetorn": 0.043495,
+      "etri-ser0001-cg0msb": 0.045053
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 250.0,
+     "memory_mib": 384.0,
+     "inputs": [
+      {
+       "task": "V",
+       "bytes": 1651,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.605845998506993,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.5423570109996945,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.4917309997836128,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.5059449904365465,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.6020810105837882,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.5245610082056373,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.49600399506744,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.4819409950869158,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.40501999319531024,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.5878819938516244,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.4610250034602359,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.4556009953375906,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.4722890007542446,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.47211699711624533,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.6108329980634153,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 0.4882060020463541,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.4832210106542334,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.4610460018739104,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.5947780009591952,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 0.4630920011550188,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.47214199730660766,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.0375449928687885,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.6901550077600405,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 2.3073940101312473,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.49919099546968937,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 0.8708370005479082,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.4496890032896772,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.4315349942771718,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.1805859976448119,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.7116829947335646,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.295106005272828,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.4561629903037101,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.7675920060137287,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.4709579952759668,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.42118098645005375,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.6396719982149079,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.6750760076101869,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.6047370008891448,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.4503270029090345,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.5747679970227182,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.4893040022579953,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.5369179998524487,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.5378610076149926,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.0668109898688272,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 2.1921370062045753,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.45277198660187423,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9489740041317418,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 0.4581419925671071,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.5457859952002764
+       }
+      },
+      {
+       "task": "T",
+       "bytes": 2623,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.5042029952164739,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.49805399612523615,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.5225740023888648,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.46111599658615887,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.4799739981535822,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.49953100096900016,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.4906349931843579,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.4903980006929487,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.6226679979590699,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.4606870061252266,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.458120004623197,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.48231099208351225,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.44891399738844484,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.48007600707933307,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.68823600304313,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 0.5237280129222199,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 1.0300010035280138,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.3945380012737587,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.5892070039408281,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 0.47231400094460696,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.4365009954199195,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.159145002020523,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.8947580063249916,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.212560004205443,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.4684899904532358,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.1059089883929119,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.4423500067787245,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.43547801033128053,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 0.9276229975512251,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.5269719986245036,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.0940559877781197,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.42801299423445016,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.5902949924347922,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.44311099918559194,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.464805998490192,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.49768299504648894,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.837601997773163,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 2.1642220090143383,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.43735301005654037,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.6745459977537394,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.4723369929706678,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.4414180002640933,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.6652280135313049,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.6492279974045232,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 2.2444649948738515,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.44761900790035725,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 1.2783929996658117,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 0.37610500294249505,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.5792099982500076
+       }
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "task": "F",
+     "destination_node": "etri-dev0003-raspi5",
+     "transfer_ms": {
+      "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.4746170016005635,
+      "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.5194260011194274,
+      "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.4751959932036698,
+      "etri-dev0006-raspi5|etri-dev0003-raspi5": 0.4538649955065921,
+      "etri-dev0008-raspi5|etri-dev0003-raspi5": 0.47799300227779895,
+      "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.4509860009420663,
+      "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.4346499918028712
+     }
+    }
+   ],
+   "workflow": "w1",
+   "representation": "frozen decoded PNG frame / UTF-8 sentence"
+  },
+  "w2": {
+   "provenance": "measured",
+   "evidence_id": "mes-fake/qualification+transfer-probes",
+   "namespace": "topology-profile-lab",
+   "nodes": {
+    "etri-dev0003-raspi5": {
+     "cpu_free_m": 2990.0,
+     "memory_free_mib": 7408.0
+    },
+    "etri-dev0002-raspi5": {
+     "cpu_free_m": 3900.0,
+     "memory_free_mib": 8064.0
+    },
+    "etri-ser0002-cgnmsb": {
+     "cpu_free_m": 3300.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0006-raspi5": {
+     "cpu_free_m": 3000.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0008-raspi5": {
+     "cpu_free_m": 3000.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0009-jetorn": {
+     "cpu_free_m": 3900.0,
+     "memory_free_mib": 8064.0
+    },
+    "etri-ser0001-cg0msb": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    },
+    "etri-ser0003-cg0ms0": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    },
+    "etri-ser0004-cgnms0": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    }
+   },
+   "tasks": [
+    {
+     "id": "V",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 47.037294,
+      "etri-dev0002-raspi5": 42.213594,
+      "etri-ser0002-cgnmsb": 41.380637,
+      "etri-dev0006-raspi5": 45.710702,
+      "etri-dev0008-raspi5": 42.71046,
+      "etri-dev0009-jetorn": 42.782187,
+      "etri-ser0001-cg0msb": 44.303224
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 2000.0,
+     "memory_mib": 1536.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0006-raspi5",
+       "bytes": 283900,
+       "transfer_ms": {
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 0.6911300006322563,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.7164359994931147,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 0.7286920008482412,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.7302059966605157,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 0.7206640002550557,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.7035419985186309,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.7235079974634573
+       }
+      }
+     ]
+    },
+    {
+     "id": "T",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 12.737506,
+      "etri-dev0002-raspi5": 10.882937,
+      "etri-ser0002-cgnmsb": 11.803012,
+      "etri-dev0006-raspi5": 7.702676,
+      "etri-dev0008-raspi5": 15.62651,
+      "etri-dev0009-jetorn": 13.895496,
+      "etri-ser0001-cg0msb": 10.603704
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 1000.0,
+     "memory_mib": 1024.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0009-jetorn",
+       "bytes": 202,
+       "transfer_ms": {
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 1.18233599641826,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.6707220018142834,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 0.6124180072220042,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.5709160031983629,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 1.4359970082296059,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.9395100059919059,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.8689800015417859
+       }
+      }
+     ]
+    },
+    {
+     "id": "F",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 0.039405,
+      "etri-dev0002-raspi5": 0.039431,
+      "etri-ser0002-cgnmsb": 0.04212,
+      "etri-dev0006-raspi5": 0.041316,
+      "etri-dev0008-raspi5": 0.039387,
+      "etri-dev0009-jetorn": 0.040275,
+      "etri-ser0001-cg0msb": 0.041984
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 250.0,
+     "memory_mib": 384.0,
+     "inputs": [
+      {
+       "task": "V",
+       "bytes": 1641,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.605845998506993,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.5423570109996945,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.4917309997836128,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.5059449904365465,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.6020810105837882,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.5245610082056373,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.49600399506744,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.4819409950869158,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.40501999319531024,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.5878819938516244,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.4610250034602359,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.4556009953375906,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.4722890007542446,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.47211699711624533,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.6108329980634153,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 0.4882060020463541,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.4832210106542334,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.4610460018739104,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.5947780009591952,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 0.4630920011550188,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.47214199730660766,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.0375449928687885,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.6901550077600405,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 2.3073940101312473,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.49919099546968937,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 0.8708370005479082,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.4496890032896772,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.4315349942771718,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.1805859976448119,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.7116829947335646,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.295106005272828,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.4561629903037101,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.7675920060137287,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.4709579952759668,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.42118098645005375,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.6396719982149079,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.6750760076101869,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.6047370008891448,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.4503270029090345,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.5747679970227182,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.4893040022579953,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.5369179998524487,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.5378610076149926,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.0668109898688272,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 2.1921370062045753,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.45277198660187423,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9489740041317418,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 0.4581419925671071,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.5457859952002764
+       }
+      },
+      {
+       "task": "T",
+       "bytes": 2610,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.5042029952164739,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.49805399612523615,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.5225740023888648,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.46111599658615887,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.4799739981535822,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.49953100096900016,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.4906349931843579,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.4903980006929487,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.6226679979590699,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.4606870061252266,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.458120004623197,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.48231099208351225,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.44891399738844484,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.48007600707933307,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.68823600304313,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 0.5237280129222199,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 1.0300010035280138,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.3945380012737587,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.5892070039408281,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 0.47231400094460696,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.4365009954199195,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.159145002020523,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.8947580063249916,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.212560004205443,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.4684899904532358,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.1059089883929119,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.4423500067787245,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.43547801033128053,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 0.9276229975512251,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.5269719986245036,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.0940559877781197,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.42801299423445016,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.5902949924347922,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.44311099918559194,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.464805998490192,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.49768299504648894,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.837601997773163,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 2.1642220090143383,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.43735301005654037,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.6745459977537394,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.4723369929706678,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.4414180002640933,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.6652280135313049,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.6492279974045232,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 2.2444649948738515,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.44761900790035725,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 1.2783929996658117,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 0.37610500294249505,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.5792099982500076
+       }
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "task": "F",
+     "destination_node": "etri-dev0006-raspi5",
+     "transfer_ms": {
+      "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.5225030035944656,
+      "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.48767600674182177,
+      "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.49621000653132796,
+      "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.4522259987425059,
+      "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.4680699930759147,
+      "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.486161996377632,
+      "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.46343199210241437
+     }
+    }
+   ],
+   "workflow": "w2",
+   "representation": "frozen decoded PNG frame / UTF-8 sentence"
+  },
+  "w3": {
+   "provenance": "measured",
+   "evidence_id": "mes-fake/qualification+transfer-probes",
+   "namespace": "topology-profile-lab",
+   "nodes": {
+    "etri-dev0003-raspi5": {
+     "cpu_free_m": 2990.0,
+     "memory_free_mib": 7408.0
+    },
+    "etri-dev0002-raspi5": {
+     "cpu_free_m": 3900.0,
+     "memory_free_mib": 8064.0
+    },
+    "etri-ser0002-cgnmsb": {
+     "cpu_free_m": 3300.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0006-raspi5": {
+     "cpu_free_m": 3000.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0008-raspi5": {
+     "cpu_free_m": 3000.0,
+     "memory_free_mib": 7424.0
+    },
+    "etri-dev0009-jetorn": {
+     "cpu_free_m": 3900.0,
+     "memory_free_mib": 8064.0
+    },
+    "etri-ser0001-cg0msb": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    },
+    "etri-ser0003-cg0ms0": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    },
+    "etri-ser0004-cgnms0": {
+     "cpu_free_m": 4000.0,
+     "memory_free_mib": 8192.0
+    }
+   },
+   "tasks": [
+    {
+     "id": "V",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 48.970259999999996,
+      "etri-dev0002-raspi5": 44.095026,
+      "etri-ser0002-cgnmsb": 43.4065,
+      "etri-dev0006-raspi5": 42.165723,
+      "etri-dev0008-raspi5": 44.393804,
+      "etri-dev0009-jetorn": 44.512358,
+      "etri-ser0001-cg0msb": 43.759620000000005
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 2000.0,
+     "memory_mib": 1536.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0008-raspi5",
+       "bytes": 486627,
+       "transfer_ms": {
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 0.7573900074930862,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.7757790008326992,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 0.7527250127168372,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.772062994656153,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.808347002021037,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.7395720022032037,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.7545690023107454
+       }
+      }
+     ]
+    },
+    {
+     "id": "T",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 17.309413,
+      "etri-dev0002-raspi5": 8.745985,
+      "etri-ser0002-cgnmsb": 12.409644,
+      "etri-dev0006-raspi5": 7.551629,
+      "etri-dev0008-raspi5": 7.560178,
+      "etri-dev0009-jetorn": 10.636496,
+      "etri-ser0001-cg0msb": 11.091102
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 1000.0,
+     "memory_mib": 1024.0,
+     "inputs": [
+      {
+       "source_node": "etri-dev0002-raspi5",
+       "bytes": 215,
+       "transfer_ms": {
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 1.3880000042263418,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.6293040059972554,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.6546549993799999,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.6446119950851426,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.597302001551725,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.7052580040181056,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.6323400011751801
+       }
+      }
+     ]
+    },
+    {
+     "id": "F",
+     "candidates": [
+      "etri-dev0003-raspi5",
+      "etri-dev0002-raspi5",
+      "etri-ser0002-cgnmsb",
+      "etri-dev0006-raspi5",
+      "etri-dev0008-raspi5",
+      "etri-dev0009-jetorn",
+      "etri-ser0001-cg0msb"
+     ],
+     "compute_ms": {
+      "etri-dev0003-raspi5": 0.039321,
+      "etri-dev0002-raspi5": 0.039155,
+      "etri-ser0002-cgnmsb": 0.038558,
+      "etri-dev0006-raspi5": 0.03823,
+      "etri-dev0008-raspi5": 0.037945,
+      "etri-dev0009-jetorn": 0.038877,
+      "etri-ser0001-cg0msb": 0.040212
+     },
+     "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+     "cpu_m": 250.0,
+     "memory_mib": 384.0,
+     "inputs": [
+      {
+       "task": "V",
+       "bytes": 1628,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.605845998506993,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.5423570109996945,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.4917309997836128,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.5059449904365465,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.6020810105837882,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.5245610082056373,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.49600399506744,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.4819409950869158,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.40501999319531024,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.5878819938516244,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.4610250034602359,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.4556009953375906,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.4722890007542446,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.47211699711624533,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.6108329980634153,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 0.4882060020463541,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 0.4832210106542334,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.4610460018739104,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.5947780009591952,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 0.4630920011550188,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.47214199730660766,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.0375449928687885,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.6901550077600405,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 2.3073940101312473,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.49919099546968937,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 0.8708370005479082,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.4496890032896772,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.4315349942771718,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 1.1805859976448119,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.7116829947335646,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.295106005272828,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.4561629903037101,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.7675920060137287,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.4709579952759668,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.42118098645005375,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.6396719982149079,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.6750760076101869,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 1.6047370008891448,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.4503270029090345,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.5747679970227182,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.4893040022579953,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.5369179998524487,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.5378610076149926,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.0668109898688272,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 2.1921370062045753,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.45277198660187423,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.9489740041317418,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 0.4581419925671071,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.5457859952002764
+       }
+      },
+      {
+       "task": "T",
+       "bytes": 2623,
+       "transfer_ms": {
+        "etri-dev0003-raspi5|etri-dev0003-raspi5": 0.5042029952164739,
+        "etri-dev0003-raspi5|etri-dev0002-raspi5": 0.49805399612523615,
+        "etri-dev0003-raspi5|etri-ser0002-cgnmsb": 0.5225740023888648,
+        "etri-dev0003-raspi5|etri-dev0006-raspi5": 0.46111599658615887,
+        "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.4799739981535822,
+        "etri-dev0003-raspi5|etri-dev0009-jetorn": 0.49953100096900016,
+        "etri-dev0003-raspi5|etri-ser0001-cg0msb": 0.4906349931843579,
+        "etri-dev0002-raspi5|etri-dev0003-raspi5": 0.4903980006929487,
+        "etri-dev0002-raspi5|etri-dev0002-raspi5": 0.6226679979590699,
+        "etri-dev0002-raspi5|etri-ser0002-cgnmsb": 0.4606870061252266,
+        "etri-dev0002-raspi5|etri-dev0006-raspi5": 0.458120004623197,
+        "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.48231099208351225,
+        "etri-dev0002-raspi5|etri-dev0009-jetorn": 0.44891399738844484,
+        "etri-dev0002-raspi5|etri-ser0001-cg0msb": 0.48007600707933307,
+        "etri-ser0002-cgnmsb|etri-dev0003-raspi5": 0.68823600304313,
+        "etri-ser0002-cgnmsb|etri-dev0002-raspi5": 0.5237280129222199,
+        "etri-ser0002-cgnmsb|etri-ser0002-cgnmsb": 1.0300010035280138,
+        "etri-ser0002-cgnmsb|etri-dev0006-raspi5": 0.3945380012737587,
+        "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.5892070039408281,
+        "etri-ser0002-cgnmsb|etri-dev0009-jetorn": 0.47231400094460696,
+        "etri-ser0002-cgnmsb|etri-ser0001-cg0msb": 0.4365009954199195,
+        "etri-dev0006-raspi5|etri-dev0003-raspi5": 1.159145002020523,
+        "etri-dev0006-raspi5|etri-dev0002-raspi5": 0.8947580063249916,
+        "etri-dev0006-raspi5|etri-ser0002-cgnmsb": 1.212560004205443,
+        "etri-dev0006-raspi5|etri-dev0006-raspi5": 0.4684899904532358,
+        "etri-dev0006-raspi5|etri-dev0008-raspi5": 1.1059089883929119,
+        "etri-dev0006-raspi5|etri-dev0009-jetorn": 0.4423500067787245,
+        "etri-dev0006-raspi5|etri-ser0001-cg0msb": 0.43547801033128053,
+        "etri-dev0008-raspi5|etri-dev0003-raspi5": 0.9276229975512251,
+        "etri-dev0008-raspi5|etri-dev0002-raspi5": 0.5269719986245036,
+        "etri-dev0008-raspi5|etri-ser0002-cgnmsb": 1.0940559877781197,
+        "etri-dev0008-raspi5|etri-dev0006-raspi5": 0.42801299423445016,
+        "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.5902949924347922,
+        "etri-dev0008-raspi5|etri-dev0009-jetorn": 0.44311099918559194,
+        "etri-dev0008-raspi5|etri-ser0001-cg0msb": 0.464805998490192,
+        "etri-dev0009-jetorn|etri-dev0003-raspi5": 0.49768299504648894,
+        "etri-dev0009-jetorn|etri-dev0002-raspi5": 0.837601997773163,
+        "etri-dev0009-jetorn|etri-ser0002-cgnmsb": 2.1642220090143383,
+        "etri-dev0009-jetorn|etri-dev0006-raspi5": 0.43735301005654037,
+        "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.6745459977537394,
+        "etri-dev0009-jetorn|etri-dev0009-jetorn": 0.4723369929706678,
+        "etri-dev0009-jetorn|etri-ser0001-cg0msb": 0.4414180002640933,
+        "etri-ser0001-cg0msb|etri-dev0003-raspi5": 0.6652280135313049,
+        "etri-ser0001-cg0msb|etri-dev0002-raspi5": 1.6492279974045232,
+        "etri-ser0001-cg0msb|etri-ser0002-cgnmsb": 2.2444649948738515,
+        "etri-ser0001-cg0msb|etri-dev0006-raspi5": 0.44761900790035725,
+        "etri-ser0001-cg0msb|etri-dev0008-raspi5": 1.2783929996658117,
+        "etri-ser0001-cg0msb|etri-dev0009-jetorn": 0.37610500294249505,
+        "etri-ser0001-cg0msb|etri-ser0001-cg0msb": 0.5792099982500076
+       }
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "task": "F",
+     "destination_node": "etri-dev0008-raspi5",
+     "transfer_ms": {
+      "etri-dev0003-raspi5|etri-dev0008-raspi5": 0.5370050057535991,
+      "etri-dev0002-raspi5|etri-dev0008-raspi5": 0.5165430047782138,
+      "etri-ser0002-cgnmsb|etri-dev0008-raspi5": 0.4671659989980981,
+      "etri-dev0006-raspi5|etri-dev0008-raspi5": 0.4929120041197166,
+      "etri-dev0008-raspi5|etri-dev0008-raspi5": 0.44142399565316737,
+      "etri-dev0009-jetorn|etri-dev0008-raspi5": 0.4439290059963241,
+      "etri-ser0001-cg0msb|etri-dev0008-raspi5": 0.4205799923511222
+     }
+    }
+   ],
+   "workflow": "w3",
+   "representation": "frozen decoded PNG frame / UTF-8 sentence"
+  }
+ },
+ "candidates": {
+  "w1": {
+   "candidates": {
+    "V": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ],
+    "T": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ],
+    "F": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ]
+   },
+   "removed_for_missing_transfer": [],
+   "cost_components": {
+    "V": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 7.326158,
+      "compute_ms": 37.25483
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 6.881511,
+      "compute_ms": 36.399833
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 7.569687,
+      "compute_ms": 37.171293
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 6.274017,
+      "compute_ms": 38.085758
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 6.272529,
+      "compute_ms": 36.555673
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 5.964564,
+      "compute_ms": 37.283646
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 6.644102,
+      "compute_ms": 40.148067
+     }
+    },
+    "T": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 17.309413
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 8.745985
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0.0,
+      "compute_ms": 12.409644
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 7.551629
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 7.560178
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0.0,
+      "compute_ms": 10.636496
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0.0,
+      "compute_ms": 11.091102
+     }
+    },
+    "F": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.042298
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.042171
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0,
+      "compute_ms": 0.044336
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.045255
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.043696
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0,
+      "compute_ms": 0.043495
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0,
+      "compute_ms": 0.045053
+     }
+    }
+   },
+   "cost_rule": "V execution = median(decode_ms + compute_ms) per row; T/F = median(compute_ms); fetch_ms is transfer",
+   "excluded_by_quality": {
+    "V": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "T": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "F": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ]
+   }
+  },
+  "w2": {
+   "candidates": {
+    "V": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ],
+    "T": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ],
+    "F": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ]
+   },
+   "removed_for_missing_transfer": [],
+   "cost_components": {
+    "V": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 7.743658,
+      "compute_ms": 39.293636
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 6.038054,
+      "compute_ms": 36.17554
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 5.280732,
+      "compute_ms": 36.099905
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 7.47874,
+      "compute_ms": 37.960475
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 6.401455,
+      "compute_ms": 36.309005
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 5.889895,
+      "compute_ms": 36.868354
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 7.474691,
+      "compute_ms": 36.490726
+     }
+    },
+    "T": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 12.737506
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 10.882937
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0.0,
+      "compute_ms": 11.803012
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 7.702676
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 15.62651
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0.0,
+      "compute_ms": 13.895496
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0.0,
+      "compute_ms": 10.603704
+     }
+    },
+    "F": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.039405
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.039431
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0,
+      "compute_ms": 0.04212
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.041316
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.039387
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0,
+      "compute_ms": 0.040275
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0,
+      "compute_ms": 0.041984
+     }
+    }
+   },
+   "cost_rule": "V execution = median(decode_ms + compute_ms) per row; T/F = median(compute_ms); fetch_ms is transfer",
+   "excluded_by_quality": {
+    "V": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "T": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "F": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ]
+   }
+  },
+  "w3": {
+   "candidates": {
+    "V": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ],
+    "T": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ],
+    "F": [
+     "etri-dev0003-raspi5",
+     "etri-dev0002-raspi5",
+     "etri-ser0002-cgnmsb",
+     "etri-dev0006-raspi5",
+     "etri-dev0008-raspi5",
+     "etri-dev0009-jetorn",
+     "etri-ser0001-cg0msb"
+    ]
+   },
+   "removed_for_missing_transfer": [],
+   "cost_components": {
+    "V": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 7.863119,
+      "compute_ms": 41.107141
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 7.727236,
+      "compute_ms": 36.703122
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 6.587134,
+      "compute_ms": 36.819366
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 6.359917,
+      "compute_ms": 35.589071
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 6.029954,
+      "compute_ms": 37.466497
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 7.863736,
+      "compute_ms": 38.677004
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 6.469806,
+      "compute_ms": 36.787881
+     }
+    },
+    "T": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 17.309413
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 8.745985
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0.0,
+      "compute_ms": 12.409644
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 7.551629
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0.0,
+      "compute_ms": 7.560178
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0.0,
+      "compute_ms": 10.636496
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0.0,
+      "compute_ms": 11.091102
+     }
+    },
+    "F": {
+     "etri-dev0003-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.039321
+     },
+     "etri-dev0002-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.039155
+     },
+     "etri-ser0002-cgnmsb": {
+      "decode_ms": 0,
+      "compute_ms": 0.038558
+     },
+     "etri-dev0006-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.03823
+     },
+     "etri-dev0008-raspi5": {
+      "decode_ms": 0,
+      "compute_ms": 0.037945
+     },
+     "etri-dev0009-jetorn": {
+      "decode_ms": 0,
+      "compute_ms": 0.038877
+     },
+     "etri-ser0001-cg0msb": {
+      "decode_ms": 0,
+      "compute_ms": 0.040212
+     }
+    }
+   },
+   "cost_rule": "V execution = median(decode_ms + compute_ms) per row; T/F = median(compute_ms); fetch_ms is transfer",
+   "excluded_by_quality": {
+    "V": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "T": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ],
+    "F": [
+     "etri-ser0003-cg0ms0",
+     "etri-ser0004-cgnms0"
+    ]
+   }
+  }
+ },
+ "payload_sizes": {
+  "w1": {
+   "frame": 440490,
+   "text": 215,
+   "V": 1651,
+   "T": 2623,
+   "categories": {
+    "V_task_bytes": 737,
+    "T_task_bytes": 1717,
+    "F_task_bytes": 340,
+    "F_receipt_envelope_bytes": 2473
+   },
+   "F": 2816
+  },
+  "w2": {
+   "frame": 283900,
+   "text": 202,
+   "V": 1641,
+   "T": 2610,
+   "categories": {
+    "V_task_bytes": 728,
+    "T_task_bytes": 1705,
+    "F_task_bytes": 326,
+    "F_receipt_envelope_bytes": 2474
+   },
+   "F": 2800
+  },
+  "w3": {
+   "frame": 486627,
+   "text": 215,
+   "V": 1628,
+   "T": 2623,
+   "categories": {
+    "V_task_bytes": 714,
+    "T_task_bytes": 1717,
+    "F_task_bytes": 342,
+    "F_receipt_envelope_bytes": 2476
+   },
+   "F": 2818
+  }
+ }
+}

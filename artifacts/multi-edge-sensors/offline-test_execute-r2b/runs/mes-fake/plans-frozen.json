@@ -1,0 +1,253 @@
+{
+ "w1": {
+  "task-fastest": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0009-jetorn",
+    "T": "etri-dev0006-raspi5",
+    "F": "etri-dev0002-raspi5"
+   },
+   "predicted_ms": 45.280299004255745,
+   "selection": [
+    {
+     "task": "V",
+     "node": "etri-dev0009-jetorn",
+     "cost_ms": 43.24821,
+     "skipped_for_resources": []
+    },
+    {
+     "task": "T",
+     "node": "etri-dev0006-raspi5",
+     "cost_ms": 7.551629,
+     "skipped_for_resources": []
+    },
+    {
+     "task": "F",
+     "node": "etri-dev0002-raspi5",
+     "cost_ms": 0.042171,
+     "skipped_for_resources": []
+    }
+   ],
+   "decision_ms": 0.07839000318199396
+  },
+  "greedy-network": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0009-jetorn",
+    "T": "etri-dev0008-raspi5",
+    "F": "etri-dev0006-raspi5"
+   },
+   "predicted_ms": 44.99307299394175,
+   "decision_ms": 4.846562995226122
+  },
+  "exact": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0009-jetorn",
+    "T": "etri-dev0002-raspi5",
+    "F": "etri-dev0006-raspi5"
+   },
+   "predicted_ms": 44.99307299394175,
+   "decision_ms": 3.3506609906908125
+  },
+  "source-local": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0003-raspi5",
+    "T": "etri-dev0002-raspi5",
+    "F": "etri-dev0003-raspi5"
+   },
+   "predicted_ms": 46.44511000021702,
+   "decision_ms": 0.018288003047928214
+  },
+  "server-fixed": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0002-cgnmsb",
+    "T": "etri-ser0002-cgnmsb",
+    "F": "etri-ser0002-cgnmsb"
+   },
+   "predicted_ms": 47.15110100672911,
+   "decision_ms": 0.014774996088817716
+  },
+  "kube-default": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0001-cg0msb",
+    "T": "etri-ser0001-cg0msb",
+    "F": "etri-ser0001-cg0msb"
+   },
+   "profile_feasible": true,
+   "predicted_ms": 48.57932597918329,
+   "source": "scheduler-w1.json"
+  }
+ },
+ "w2": {
+  "task-fastest": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0002-cgnmsb",
+    "T": "etri-dev0006-raspi5",
+    "F": "etri-dev0008-raspi5"
+   },
+   "predicted_ms": 43.21156399488335,
+   "selection": [
+    {
+     "task": "V",
+     "node": "etri-ser0002-cgnmsb",
+     "cost_ms": 41.380637,
+     "skipped_for_resources": []
+    },
+    {
+     "task": "T",
+     "node": "etri-dev0006-raspi5",
+     "cost_ms": 7.702676,
+     "skipped_for_resources": []
+    },
+    {
+     "task": "F",
+     "node": "etri-dev0008-raspi5",
+     "cost_ms": 0.039387,
+     "skipped_for_resources": []
+    }
+   ],
+   "decision_ms": 0.049762005801312625
+  },
+  "greedy-network": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0002-cgnmsb",
+    "T": "etri-dev0006-raspi5",
+    "F": "etri-dev0006-raspi5"
+   },
+   "predicted_ms": 43.06391700146466,
+   "decision_ms": 2.82931599940639
+  },
+  "exact": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0002-cgnmsb",
+    "T": "etri-dev0002-raspi5",
+    "F": "etri-dev0006-raspi5"
+   },
+   "predicted_ms": 43.06391700146466,
+   "decision_ms": 1.4811169967288151
+  },
+  "source-local": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0006-raspi5",
+    "T": "etri-dev0009-jetorn",
+    "F": "etri-dev0006-raspi5"
+   },
+   "predicted_ms": 47.43364099087271,
+   "decision_ms": 0.00674299371894449
+  },
+  "server-fixed": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0002-cgnmsb",
+    "T": "etri-ser0002-cgnmsb",
+    "F": "etri-ser0002-cgnmsb"
+   },
+   "predicted_ms": 43.1308800180338,
+   "decision_ms": 0.0052209943532943726
+  },
+  "kube-default": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0001-cg0msb",
+    "T": "etri-ser0001-cg0msb",
+    "F": "etri-ser0001-cg0msb"
+   },
+   "profile_feasible": true,
+   "predicted_ms": 46.07793398476615,
+   "source": "scheduler-w2.json"
+  }
+ },
+ "w3": {
+  "task-fastest": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0006-raspi5",
+    "T": "etri-dev0006-raspi5",
+    "F": "etri-dev0008-raspi5"
+   },
+   "predicted_ms": 44.28799199085723,
+   "selection": [
+    {
+     "task": "V",
+     "node": "etri-dev0006-raspi5",
+     "cost_ms": 42.165723,
+     "skipped_for_resources": []
+    },
+    {
+     "task": "T",
+     "node": "etri-dev0006-raspi5",
+     "cost_ms": 7.551629,
+     "skipped_for_resources": []
+    },
+    {
+     "task": "F",
+     "node": "etri-dev0008-raspi5",
+     "cost_ms": 0.037945,
+     "skipped_for_resources": [
+      "etri-dev0006-raspi5"
+     ]
+    }
+   ],
+   "decision_ms": 0.017883998225443065
+  },
+  "greedy-network": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0006-raspi5",
+    "T": "etri-dev0008-raspi5",
+    "F": "etri-ser0001-cg0msb"
+   },
+   "predicted_ms": 43.830112981284444,
+   "decision_ms": 1.4599479909520596
+  },
+  "exact": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0006-raspi5",
+    "T": "etri-dev0002-raspi5",
+    "F": "etri-ser0001-cg0msb"
+   },
+   "predicted_ms": 43.830112981284444,
+   "decision_ms": 1.409343007253483
+  },
+  "source-local": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-dev0008-raspi5",
+    "T": "etri-dev0002-raspi5",
+    "F": "etri-dev0008-raspi5"
+   },
+   "predicted_ms": 46.44911200368794,
+   "decision_ms": 0.005603011231869459
+  },
+  "server-fixed": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0002-cgnmsb",
+    "T": "etri-ser0002-cgnmsb",
+    "F": "etri-ser0002-cgnmsb"
+   },
+   "predicted_ms": 45.14817002236917,
+   "decision_ms": 0.005669004167430103
+  },
+  "kube-default": {
+   "status": "ok",
+   "placement": {
+    "V": "etri-ser0001-cg0msb",
+    "T": "etri-ser0001-cg0msb",
+    "F": "etri-ser0001-cg0msb"
+   },
+   "profile_feasible": true,
+   "predicted_ms": 45.520766989862146,
+   "source": "scheduler-w3.json"
+  }
+ }
+}

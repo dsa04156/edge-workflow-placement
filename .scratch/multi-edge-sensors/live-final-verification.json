@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-10-22T10:43:52.391149+00:00",
+  "run": "mes-live-20261022t101935z",
+  "actual_environment": "cluster",
+  "audit_status": "passed",
+  "quality": {
+    "checked_rows": 68,
+    "ok_rows": 68,
+    "violations": []
+  },
+  "attempts": 68,
+  "evaluation_rows": 51,
+  "median_ms": {
+    "w1": {
+      "greedy-network": 89.87610298208892,
+      "server-fixed": 97.22148510627449,
+      "exact": 90.18376795575023,
+      "kube-default": 100.18828208558261,
+      "task-fastest": 95.55862518027425
+    },
+    "w2": {
+      "task-fastest": 55.45457103289664,
+      "greedy-network": 53.747416008263826,
+      "source-local": 224.04686990194023,
+      "server-fixed": 53.27191879041493,
+      "kube-default": 57.36882099881768,
+      "exact": 53.08627290651202
+    },
+    "w3": {
+      "greedy-network": 52.834892994724214,
+      "kube-default": 56.670341989956796,
+      "task-fastest": 54.82713400851935,
+      "server-fixed": 54.75601099897176,
+      "exact": 53.03130502579734,
+      "source-local": 214.65366700431332
+    }
+  },
+  "exact_reduction_pct": {
+    "w1": {
+      "task-fastest": 5.624669897023099,
+      "kube-default": 9.985712821471829,
+      "greedy-network": -0.3423212216072797
+    },
+    "w2": {
+      "task-fastest": 4.270699569526378,
+      "kube-default": 7.464940045384442,
+      "greedy-network": 1.2300928134854923
+    },
+    "w3": {
+      "task-fastest": 3.2754383667819806,
+      "kube-default": 6.421413452568143,
+      "greedy-network": -0.3717468134036645
+    }
+  },
+  "formula": "100 * (median_reference - median_exact) / median_reference",
+  "rtsp_probe_count": 27,
+  "rtsp_decoded_equal_frozen_counts": {
+    "6/6": 18,
+    "0/6": 9
+  },
+  "independent_run_label_query_remaining": 0,
+  "accepted_source_hashes_unchanged": 24,
+  "preexisting_tracked_hashes_unchanged": 8084,
+  "limits": [
+    "n=3 per unique placement, descriptive only",
+    "warm frozen-PNG DAG latency, separate live RTSP protocol probes",
+    "CPU only, sequential low load, no dynamic network or net-gain claim",
+    "RTSP decode hash mismatch cause not established"
+  ]
+}

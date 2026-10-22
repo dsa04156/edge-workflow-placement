@@ -1,0 +1,30 @@
+=== RUN   TestSourcesNotReadyUntilKubeletProcessesInitialPods
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestSourcesNotReadyUntilKubeletProcessesInitialPods
+        --- PASS: TestSourcesNotReadyUntilKubeletProcessesInitialPods (1.50s)
+        PASS
+--- PASS: TestSourcesNotReadyUntilKubeletProcessesInitialPods (1.52s)
+=== RUN   TestPreListPodUpdateDoesNotOpenWindow
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestPreListPodUpdateDoesNotOpenWindow
+            sources_ready_test.go:113: sources ready while initial pod uid-a is not in podManager (map[uid-early:early]): volume reconciler would tear down its volumes
+        --- FAIL: TestPreListPodUpdateDoesNotOpenWindow (0.20s)
+        FAIL
+    sources_ready_test.go:46: isolated run failed: exit status 1
+--- FAIL: TestPreListPodUpdateDoesNotOpenWindow (0.22s)
+=== RUN   TestNoStallOnEmptyStaleOrFilteredPods
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestNoStallOnEmptyStaleOrFilteredPods
+        I1022 16:39:34.544751 1536187 config.go:363] "Pod failed validation due to duplicate pod name, ignoring" index=1 pod="default/source-e9" source="api"
+        --- PASS: TestNoStallOnEmptyStaleOrFilteredPods (0.00s)
+        PASS
+--- PASS: TestNoStallOnEmptyStaleOrFilteredPods (0.02s)
+=== RUN   TestNoStallOnEmptyList
+    sources_ready_test.go:44: isolated run output:
+        === RUN   TestNoStallOnEmptyList
+        --- PASS: TestNoStallOnEmptyList (0.05s)
+        PASS
+--- PASS: TestNoStallOnEmptyList (0.08s)
+FAIL
+FAIL	github.com/kubeedge/kubeedge/edge/pkg/edged	1.853s
+FAIL

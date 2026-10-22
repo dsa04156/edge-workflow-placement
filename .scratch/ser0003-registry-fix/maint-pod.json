@@ -1,0 +1,46 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "ser0003-registry-fix-maint",
+    "namespace": "topology-profile-lab",
+    "labels": {
+      "run-id": "ser0003-registry-fix-20261022"
+    }
+  },
+  "spec": {
+    "nodeSelector": {
+      "kubernetes.io/hostname": "etri-ser0003-cg0ms0"
+    },
+    "restartPolicy": "Never",
+    "automountServiceAccountToken": false,
+    "hostPID": true,
+    "activeDeadlineSeconds": 120,
+    "terminationGracePeriodSeconds": 1,
+    "containers": [
+      {
+        "name": "maint",
+        "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+        "imagePullPolicy": "Never",
+        "command": [
+          "/bin/sh",
+          "-c",
+          "# Runs inside the owned maint Pod (hostPID, privileged). Adds only certs.d/10.254.192.47:5000/hosts.toml.\n# No config.toml edit, no restart: use_local_image_pull=true splits config_path and reads hosts dirs per pull.\nset -eu\nH=\"nsenter -t 1 -m -u -i -n -p --\"\nD=/etc/containerd/certs.d/10.254.192.47:5000\necho \"containerd_pid=$($H systemctl show -p MainPID --value containerd) since=$($H systemctl show -p ActiveEnterTimestamp --value containerd)\"\n$H containerd config dump > /tmp/dump.$$ 2>&1 || { echo \"DUMP_FAILED_ABORT\"; head -5 /tmp/dump.$$; exit 4; }\ngrep -n -E \"config_path|use_local_image_pull|default_runtime_name|BinaryName|^imports\" /tmp/dump.$$ || true\ngrep -q -x -F \"    use_local_image_pull = true\" /tmp/dump.$$ || { echo \"NOT_LOCAL_PULL_ABORT\"; exit 3; }\ngrep -q -x -F \"      config_path = '/etc/containerd/certs.d:/etc/docker/certs.d'\" /tmp/dump.$$ || { echo \"CONFIG_PATH_UNEXPECTED_ABORT\"; exit 3; }\nif $H test -e \"$D\"; then echo \"EXISTS_ABORT\"; $H ls -la \"$D\"; exit 3; fi\n$H mkdir -p \"$D\"\nprintf '%s\\n' 'server = \"http://10.254.192.47:5000\"' '[host.\"http://10.254.192.47:5000\"]' '  capabilities = [\"pull\", \"resolve\"]' | $H sh -c \"cat > '$D/.hosts.toml.tmp' && mv '$D/.hosts.toml.tmp' '$D/hosts.toml'\"\n$H ls -la /etc/containerd/certs.d \"$D\"\n$H sha256sum \"$D/hosts.toml\" /etc/containerd/config.toml /etc/containerd/conf.d/99-nvidia.toml\n$H cat \"$D/hosts.toml\"\necho \"containerd_pid_after=$($H systemctl show -p MainPID --value containerd) active=$($H systemctl is-active containerd)\"\necho HOSTS_TOML_WRITTEN\n"
+        ],
+        "securityContext": {
+          "privileged": true
+        },
+        "resources": {
+          "requests": {
+            "cpu": "10m",
+            "memory": "16Mi"
+          },
+          "limits": {
+            "cpu": "200m",
+            "memory": "64Mi"
+          }
+        }
+      }
+    ]
+  }
+}

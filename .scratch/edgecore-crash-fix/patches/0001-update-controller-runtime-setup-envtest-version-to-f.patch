@@ -1,0 +1,50 @@
+From 8eec7566b4f4cd452c5e4092dfd1204cbc1863cc Mon Sep 17 00:00:00 2001
+From: Shelley-BaoYue <baoyue2@huawei.com>
+Date: Mon, 9 Mar 2026 11:36:01 +0800
+Subject: [PATCH 1/2] update controller-runtime setup-envtest version to fix
+ integration test
+
+Signed-off-by: Shelley-BaoYue <baoyue2@huawei.com>
+---
+ cloud/test/integration/scripts/execute.sh | 6 +++---
+ keadm/cmd/keadm/app/cmd/helm/cloudcore.go | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/cloud/test/integration/scripts/execute.sh b/cloud/test/integration/scripts/execute.sh
+index 3d1b93d26..04cad8482 100755
+--- a/cloud/test/integration/scripts/execute.sh
++++ b/cloud/test/integration/scripts/execute.sh
+@@ -22,14 +22,14 @@ ENVTEST_BIN_DIR=""
+ 
+ function do_preparation() {
+     which setup-envtest &> /dev/null || {
+-        go install sigs.k8s.io/controller-runtime/tools/setup-envtest@release-0.16
++        go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest
+         sudo cp $GOPATH/bin/setup-envtest /usr/bin/
+     }
+ 
+-    ENVTEST_BIN_DIR=$(setup-envtest use 1.22.1 --bin-dir=${ENVTEST_DOWNLOAD_DIR} -p path)
++    ENVTEST_BIN_DIR=$(setup-envtest use 1.29.0 --bin-dir=${ENVTEST_DOWNLOAD_DIR} -p path)
+ 
+     which ginkgo &>/dev/null || {
+-        go install github.com/onsi/ginkgo/ginkgo@latest
++        go install github.com/onsi/ginkgo/v2/ginkgo@latest
+         sudo cp $GOPATH/bin/ginkgo /usr/bin/
+     }
+ }
+diff --git a/keadm/cmd/keadm/app/cmd/helm/cloudcore.go b/keadm/cmd/keadm/app/cmd/helm/cloudcore.go
+index f6d27b671..34b4efc4f 100644
+--- a/keadm/cmd/keadm/app/cmd/helm/cloudcore.go
++++ b/keadm/cmd/keadm/app/cmd/helm/cloudcore.go
+@@ -302,7 +302,7 @@ func (c *CloudCoreHelmTool) Uninstall(opts *types.ResetOptions) error {
+ func (c *CloudCoreHelmTool) verifyCloudCoreProcessRunning() error {
+ 	cloudcoreRunning, err := c.Common.OSTypeInstaller.IsKubeEdgeProcessRunning(util.KubeCloudBinaryName)
+ 	if err != nil {
+-		return fmt.Errorf("failed to verify the cloudcore binnary already running, err: %v", err)
++		return fmt.Errorf("failed to verify the cloudcore binary already running, err: %v", err)
+ 	}
+ 	if cloudcoreRunning {
+ 		return fmt.Errorf("the cloudcore is already running on this node, please run reset to clean up first")
+-- 
+2.43.0
+

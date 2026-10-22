@@ -1,0 +1,65 @@
+E....EE
+======================================================================
+ERROR: test_failed_ready9_snapshot_capacity (test_baseline_comparison.CapacityPersistenceTests.test_failed_ready9_snapshot_capacity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/test_baseline_comparison.py", line 724, in test_failed_ready9_snapshot_capacity
+    self.assertEqual(capacity(pods), expected)
+                     ^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/test_baseline_comparison.py", line 707, in capacity
+    return pilot.capacity()
+           ^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py", line 296, in capacity
+    result = super().capacity()
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_budget_placement.py", line 52, in capacity
+    self.current_capacity=super().capacity()
+                          ^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py", line 273, in capacity
+    raise RuntimeError('Restartable init containers need explicit resource accounting')
+RuntimeError: Restartable init containers need explicit resource accounting
+
+======================================================================
+ERROR: test_restartable_init_capacity_can_go_negative (test_baseline_comparison.CapacityPersistenceTests.test_restartable_init_capacity_can_go_negative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/test_baseline_comparison.py", line 687, in test_restartable_init_capacity_can_go_negative
+    _, _, capacity = self.capacity(temp, pods)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/test_baseline_comparison.py", line 619, in capacity
+    return pilot, kubectl, pilot.capacity()
+                           ^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py", line 296, in capacity
+    result = super().capacity()
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_budget_placement.py", line 52, in capacity
+    self.current_capacity=super().capacity()
+                          ^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py", line 273, in capacity
+    raise RuntimeError('Restartable init containers need explicit resource accounting')
+RuntimeError: Restartable init containers need explicit resource accounting
+
+======================================================================
+ERROR: test_restartable_init_containers_follow_pod_requests (test_baseline_comparison.CapacityPersistenceTests.test_restartable_init_containers_follow_pod_requests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/test_baseline_comparison.py", line 665, in test_restartable_init_containers_follow_pod_requests
+    _, _, capacity = self.capacity(temp, pods)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/test_baseline_comparison.py", line 619, in capacity
+    return pilot, kubectl, pilot.capacity()
+                           ^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_baseline_comparison.py", line 296, in capacity
+    result = super().capacity()
+             ^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_budget_placement.py", line 52, in capacity
+    self.current_capacity=super().capacity()
+                          ^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/real-topology-live/run_placement.py", line 273, in capacity
+    raise RuntimeError('Restartable init containers need explicit resource accounting')
+RuntimeError: Restartable init containers need explicit resource accounting
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.026s
+
+FAILED (errors=3)

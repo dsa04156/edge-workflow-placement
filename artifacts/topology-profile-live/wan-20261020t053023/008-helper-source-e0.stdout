@@ -1,0 +1,390 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"experiment\":\"topology-profile\",\"run-id\":\"wan-20261020t053023\"},\"name\":\"wan-20261020t053023-source-e0\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":10800,\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchFields\":[{\"key\":\"metadata.name\",\"operator\":\"In\",\"values\":[\"etri-dev0003-raspi5\"]}]}]}}},\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"exec(compile('\\\"\\\"\\\"Verify and copy launch code into a Pod-private directory before readiness.\\\"\\\"\\\"\\\\nimport hashlib\\\\nimport json\\\\nfrom pathlib import Path\\\\n\\\\n\\\\ndef freeze_config(source, destination, expected):\\\\n    source,destination=Path(source),Path(destination)\\\\n    data={name:(source/name).read_bytes() for name in expected}\\\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\\\n        raise ValueError(\\\\'Mounted launch code does not match frozen collector source\\\\')\\\\n    destination.mkdir(exist_ok=False)\\\\n    for name,content in data.items():\\\\n        if Path(name).name!=name:raise ValueError(\\\\'Expected flat launch files\\\\')\\\\n        (destination/name).write_bytes(content)\\\\n    (destination/\\\\'code-freeze.json\\\\').write_text(json.dumps(expected,sort_keys=True))\\\\n    print(json.dumps(dict(event=\\\\'code_frozen\\\\',directory=str(destination),sha256=expected)),flush=True)\\\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"TASK_ID\",\"value\":\"source\"},{\"name\":\"TMPDIR\",\"value\":\"/work/tmp\"},{\"name\":\"PYTHONDONTWRITEBYTECODE\",\"value\":\"1\"},{\"name\":\"HF_HUB_OFFLINE\",\"value\":\"1\"},{\"name\":\"TRANSFORMERS_OFFLINE\",\"value\":\"1\"},{\"name\":\"ASSET_URL\",\"value\":\"http://10.244.8.148:8080\"},{\"name\":\"CONFIG_ROOT\",\"value\":\"/work/config\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/config\"}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"ephemeral-storage\":\"8Gi\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"128Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]},{\"command\":[\"python3\",\"-u\",\"-c\",\"exec(compile('\\\"\\\"\\\"Verify and copy launch code into a Pod-private directory before readiness.\\\"\\\"\\\"\\\\nimport hashlib\\\\nimport json\\\\nfrom pathlib import Path\\\\n\\\\n\\\\ndef freeze_config(source, destination, expected):\\\\n    source,destination=Path(source),Path(destination)\\\\n    data={name:(source/name).read_bytes() for name in expected}\\\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\\\n        raise ValueError(\\\\'Mounted launch code does not match frozen collector source\\\\')\\\\n    destination.mkdir(exist_ok=False)\\\\n    for name,content in data.items():\\\\n        if Path(name).name!=name:raise ValueError(\\\\'Expected flat launch files\\\\')\\\\n        (destination/name).write_bytes(content)\\\\n    (destination/\\\\'code-freeze.json\\\\').write_text(json.dumps(expected,sort_keys=True))\\\\n    print(json.dumps(dict(event=\\\\'code_frozen\\\\',directory=str(destination),sha256=expected)),flush=True)\\\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.148:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)\"],\"env\":[{\"name\":\"RESEARCH_LINK_CONTROL\",\"value\":\"owned-pod-netns\"},{\"name\":\"PYTHONPATH\",\"value\":\"/work/net:/work/net-config\"},{\"name\":\"POD_UID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.uid\"}}},{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"name\":\"netctl\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path;assert Path('/work/netctl-ready').is_file()\"]},\"periodSeconds\":2,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"1\",\"memory\":\"96Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_ADMIN\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/config\",\"name\":\"config\",\"readOnly\":true}]}],\"restartPolicy\":\"Never\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{\"fsGroup\":65532},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Gi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"wan-20261020t053023\"},\"name\":\"config\"}]}}\n"
+        },
+        "creationTimestamp": "2026-10-20T05:30:38Z",
+        "labels": {
+            "experiment": "topology-profile",
+            "run-id": "wan-20261020t053023"
+        },
+        "name": "wan-20261020t053023-source-e0",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "49945062",
+        "uid": "d671ae15-5e75-45ff-90b4-de4a840fb5c6"
+    },
+    "spec": {
+        "activeDeadlineSeconds": 10800,
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "etri-dev0003-raspi5"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "automountServiceAccountToken": false,
+        "containers": [
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import os,runpy;os.makedirs('/work/tmp',exist_ok=True);runpy.run_path('/work/config/bootstrap.py',run_name='__main__')"
+                ],
+                "env": [
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "TASK_ID",
+                        "value": "source"
+                    },
+                    {
+                        "name": "TMPDIR",
+                        "value": "/work/tmp"
+                    },
+                    {
+                        "name": "PYTHONDONTWRITEBYTECODE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "HF_HUB_OFFLINE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "TRANSFORMERS_OFFLINE",
+                        "value": "1"
+                    },
+                    {
+                        "name": "ASSET_URL",
+                        "value": "http://10.244.8.148:8080"
+                    },
+                    {
+                        "name": "CONFIG_ROOT",
+                        "value": "/work/config"
+                    },
+                    {
+                        "name": "PYTHONPATH",
+                        "value": "/work/config"
+                    }
+                ],
+                "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "worker",
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health",
+                        "port": 8080,
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 5,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "ephemeral-storage": "8Gi",
+                        "memory": "512Mi"
+                    },
+                    "requests": {
+                        "cpu": "100m",
+                        "ephemeral-storage": "128Mi",
+                        "memory": "256Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            },
+            {
+                "command": [
+                    "python3",
+                    "-u",
+                    "-c",
+                    "exec(compile('\"\"\"Verify and copy launch code into a Pod-private directory before readiness.\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef freeze_config(source, destination, expected):\\n    source,destination=Path(source),Path(destination)\\n    data={name:(source/name).read_bytes() for name in expected}\\n    if any(hashlib.sha256(content).hexdigest()!=expected[name] for name,content in data.items()):\\n        raise ValueError(\\'Mounted launch code does not match frozen collector source\\')\\n    destination.mkdir(exist_ok=False)\\n    for name,content in data.items():\\n        if Path(name).name!=name:raise ValueError(\\'Expected flat launch files\\')\\n        (destination/name).write_bytes(content)\\n    (destination/\\'code-freeze.json\\').write_text(json.dumps(expected,sort_keys=True))\\n    print(json.dumps(dict(event=\\'code_frozen\\',directory=str(destination),sha256=expected)),flush=True)\\n','frozen-config-copier','exec'));freeze_config('/config','/work/net-config',{'http_runtime.py': '4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5', 'edge_client.py': '9dbdac46f3c45b2dd1e06a79655d54193476174c0f8464a8821503ec9893d83a', 'model_adapter.py': '33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4', 'bootstrap.py': '22ec2c4afc82c7cb95c171a9cdc99ef6685c29975864df43171ca875da53ba0e', 'load_trace.py': '305525fec149b67e5dfe392c52a9cb607135d03464dd9bedef61d69bb9b76156', 'net_control.py': '192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6', 'wan_gateway.py': '7e6ad541ab699d4f26816f58c1063bfcde87ac4ead7eb0e3f829ef621fd1e1ae', 'bundles.json': '4d32506fcf67d2fe2e210ba7a1d5f16b061a2c86a9829a8f26aedfb445c4c04f'});import urllib.request,io,zipfile,hashlib,time;op=urllib.request.build_opener(urllib.request.ProxyHandler({}));b=op.open('http://10.244.8.148:8080/pyroute2-0.9.6-py3-none-any.whl').read();assert hashlib.sha256(b).hexdigest()=='3334091326e560a506635449af03b26920d22d4e5a7996aed354363d106fcef8';zipfile.ZipFile(io.BytesIO(b)).extractall('/work/net');__import__('pathlib').Path('/work/netctl-ready').write_text('ready');print('netctl-ready',flush=True);time.sleep(10800)"
+                ],
+                "env": [
+                    {
+                        "name": "RESEARCH_LINK_CONTROL",
+                        "value": "owned-pod-netns"
+                    },
+                    {
+                        "name": "PYTHONPATH",
+                        "value": "/work/net:/work/net-config"
+                    },
+                    {
+                        "name": "POD_UID",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.uid"
+                            }
+                        }
+                    },
+                    {
+                        "name": "NODE_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "spec.nodeName"
+                            }
+                        }
+                    }
+                ],
+                "image": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "netctl",
+                "readinessProbe": {
+                    "exec": {
+                        "command": [
+                            "python3",
+                            "-c",
+                            "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+                        ]
+                    },
+                    "failureThreshold": 3,
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 3
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "memory": "96Mi"
+                    },
+                    "requests": {
+                        "cpu": "10m",
+                        "memory": "32Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "add": [
+                            "NET_ADMIN"
+                        ],
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true,
+                    "runAsNonRoot": false,
+                    "runAsUser": 0
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "etri-dev0003-raspi5",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Never",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "fsGroup": 65532
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 3,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "emptyDir": {
+                    "sizeLimit": "8Gi"
+                },
+                "name": "work"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "wan-20261020t053023"
+                },
+                "name": "config"
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-20T05:30:39Z",
+                "status": "True",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-20T05:30:38Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-20T05:30:53Z",
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-20T05:30:53Z",
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-10-20T05:30:38Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://1fe9a6140663444d605b2274759a0a8b0fddbbb8acbe4a7d3e408a2ccbc28bfd",
+                "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "lastState": {},
+                "name": "netctl",
+                "ready": true,
+                "restartCount": 0,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-10-20T05:30:39Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            },
+            {
+                "containerID": "containerd://79039bae65628fbe02fc0f57ada5e11cf4090eac509b042b60364846dcf080c1",
+                "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                "imageID": "192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                "lastState": {},
+                "name": "worker",
+                "ready": true,
+                "restartCount": 0,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-10-20T05:30:39Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/work",
+                        "name": "work"
+                    },
+                    {
+                        "mountPath": "/config",
+                        "name": "config",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            }
+        ],
+        "hostIP": "10.254.164.138",
+        "hostIPs": [
+            {
+                "ip": "10.254.164.138"
+            }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.4.196",
+        "podIPs": [
+            {
+                "ip": "10.244.4.196"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-20T05:30:38Z"
+    }
+}

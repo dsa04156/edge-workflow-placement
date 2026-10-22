@@ -1,0 +1,22 @@
+{
+ "started_at": "2026-10-22T10:14:29.056481+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-fake-q-f-c4",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "error",
+ "returncode": 1,
+ "error": "RuntimeError('0157-qualify-F-ready failed rc=1; see saved stderr')",
+ "finished_at": "2026-10-22T10:14:49.315619+00:00",
+ "duration_ms": 20259.157079999568,
+ "tag": "0157-qualify-F-ready"
+}

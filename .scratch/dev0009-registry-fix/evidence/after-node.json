@@ -1,0 +1,150 @@
+{
+    "apiVersion": "v1",
+    "kind": "Node",
+    "metadata": {
+        "annotations": {
+            "cloudcore": "10.254.192.47",
+            "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"8a:5c:64:49:8a:ed\"}",
+            "flannel.alpha.coreos.com/backend-type": "vxlan",
+            "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+            "flannel.alpha.coreos.com/public-ip": "10.254.192.128",
+            "node.alpha.kubernetes.io/ttl": "0",
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+        },
+        "creationTimestamp": "2026-10-20T11:38:27Z",
+        "labels": {
+            "beta.kubernetes.io/arch": "arm64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "arm64",
+            "kubernetes.io/hostname": "etri-dev0009-jetorn",
+            "kubernetes.io/os": "linux",
+            "node-role.kubernetes.io/agent": "",
+            "node-role.kubernetes.io/edge": ""
+        },
+        "name": "etri-dev0009-jetorn",
+        "resourceVersion": "51517300",
+        "uid": "be03daca-c9e9-4800-b2ca-6d9636c9e981"
+    },
+    "spec": {
+        "podCIDR": "10.244.11.0/24",
+        "podCIDRs": [
+            "10.244.11.0/24"
+        ]
+    },
+    "status": {
+        "addresses": [
+            {
+                "address": "10.254.192.128",
+                "type": "InternalIP"
+            },
+            {
+                "address": "etri-dev0009-jetorn",
+                "type": "Hostname"
+            }
+        ],
+        "allocatable": {
+            "cpu": "6",
+            "ephemeral-storage": "111429948027",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "hugepages-32Mi": "0",
+            "hugepages-64Ki": "0",
+            "memory": "7562884Ki",
+            "nvidia.com/gpu.shared": "2",
+            "pods": "110"
+        },
+        "capacity": {
+            "cpu": "6",
+            "ephemeral-storage": "120909232Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "hugepages-32Mi": "0",
+            "hugepages-64Ki": "0",
+            "memory": "7665284Ki",
+            "nvidia.com/gpu.shared": "2",
+            "pods": "110"
+        },
+        "conditions": [
+            {
+                "lastHeartbeatTime": "2026-10-20T11:38:59Z",
+                "lastTransitionTime": "2026-10-20T11:38:59Z",
+                "message": "Flannel is running on this node",
+                "reason": "FlannelIsUp",
+                "status": "False",
+                "type": "NetworkUnavailable"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-22T04:38:09Z",
+                "lastTransitionTime": "2026-10-21T09:56:39Z",
+                "message": "kubelet has sufficient memory available",
+                "reason": "KubeletHasSufficientMemory",
+                "status": "False",
+                "type": "MemoryPressure"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-22T04:38:09Z",
+                "lastTransitionTime": "2026-10-21T09:56:39Z",
+                "message": "kubelet has no disk pressure",
+                "reason": "KubeletHasNoDiskPressure",
+                "status": "False",
+                "type": "DiskPressure"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-22T04:38:09Z",
+                "lastTransitionTime": "2026-10-21T09:56:39Z",
+                "message": "kubelet has sufficient PID available",
+                "reason": "KubeletHasSufficientPID",
+                "status": "False",
+                "type": "PIDPressure"
+            },
+            {
+                "lastHeartbeatTime": "2026-10-22T04:38:09Z",
+                "lastTransitionTime": "2026-10-21T09:56:39Z",
+                "message": "edge is posting ready status",
+                "reason": "EdgeReady",
+                "status": "True",
+                "type": "Ready"
+            }
+        ],
+        "daemonEndpoints": {
+            "kubeletEndpoint": {
+                "Port": 10369
+            }
+        },
+        "nodeInfo": {
+            "architecture": "arm64",
+            "bootID": "d00792b2-d9e5-4ab6-9b8b-97d6e9d12a22",
+            "containerRuntimeVersion": "containerd://2.2.1",
+            "kernelVersion": "6.8.12-1021-tegra",
+            "kubeProxyVersion": "v0.0.0-master+$Format:%H$",
+            "kubeletVersion": "v1.32.10-kubeedge-v1.23.0",
+            "machineID": "522f9e052aa04d23b889d2575fb08096",
+            "operatingSystem": "linux",
+            "osImage": "Ubuntu 24.04.4 LTS",
+            "systemUUID": "f39fe123-dd66-5c2d-9edc-d6ea14e51b88"
+        },
+        "runtimeHandlers": [
+            {
+                "features": {
+                    "recursiveReadOnlyMounts": true,
+                    "userNamespaces": true
+                },
+                "name": ""
+            },
+            {
+                "features": {
+                    "recursiveReadOnlyMounts": true,
+                    "userNamespaces": true
+                },
+                "name": "nvidia"
+            },
+            {
+                "features": {
+                    "recursiveReadOnlyMounts": true,
+                    "userNamespaces": true
+                },
+                "name": "runc"
+            }
+        ]
+    }
+}

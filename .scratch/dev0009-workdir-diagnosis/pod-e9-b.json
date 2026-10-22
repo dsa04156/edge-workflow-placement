@@ -1,0 +1,124 @@
+{
+ "apiVersion": "v1",
+ "kind": "Pod",
+ "metadata": {
+  "name": "diag-wd-e9-b",
+  "namespace": "topology-profile-lab",
+  "labels": {
+   "experiment": "dev0009-workdir-diagnosis",
+   "diag-owner": "task_25483a5c9141"
+  }
+ },
+ "spec": {
+  "activeDeadlineSeconds": 3600,
+  "automountServiceAccountToken": false,
+  "restartPolicy": "Never",
+  "terminationGracePeriodSeconds": 3,
+  "nodeName": "etri-dev0009-jetorn",
+  "securityContext": {
+   "fsGroup": 65532
+  },
+  "containers": [
+   {
+    "name": "worker",
+    "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+    "imagePullPolicy": "IfNotPresent",
+    "command": [
+     "python3",
+     "-u",
+     "-c",
+     "import os,time,json;os.makedirs('/work/config');os.makedirs('/work/tmp',exist_ok=True);print(json.dumps(dict(event='worker_ready',ino=os.stat('/work').st_ino)),flush=True);time.sleep(3600)"
+    ],
+    "resources": {
+     "limits": {
+      "cpu": "200m",
+      "memory": "64Mi",
+      "ephemeral-storage": "8Gi"
+     },
+     "requests": {
+      "cpu": "10m",
+      "memory": "32Mi",
+      "ephemeral-storage": "128Mi"
+     }
+    },
+    "securityContext": {
+     "allowPrivilegeEscalation": false,
+     "capabilities": {
+      "drop": [
+       "ALL"
+      ]
+     },
+     "readOnlyRootFilesystem": true,
+     "runAsGroup": 65532,
+     "runAsNonRoot": true,
+     "runAsUser": 65532
+    },
+    "volumeMounts": [
+     {
+      "mountPath": "/work",
+      "name": "work"
+     }
+    ]
+   },
+   {
+    "name": "netctl",
+    "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+    "command": [
+     "python3",
+     "-u",
+     "-c",
+     "import os,time,json,pathlib;os.makedirs('/work/net-config');pathlib.Path('/work/netctl-ready').write_text('ready');print(json.dumps(dict(event='netctl_ready',ino=os.stat('/work').st_ino)),flush=True);time.sleep(3600)"
+    ],
+    "readinessProbe": {
+     "exec": {
+      "command": [
+       "python3",
+       "-c",
+       "from pathlib import Path;assert Path('/work/netctl-ready').is_file()"
+      ]
+     },
+     "periodSeconds": 2,
+     "timeoutSeconds": 3
+    },
+    "resources": {
+     "limits": {
+      "cpu": "200m",
+      "memory": "96Mi"
+     },
+     "requests": {
+      "cpu": "10m",
+      "memory": "32Mi"
+     }
+    },
+    "securityContext": {
+     "allowPrivilegeEscalation": false,
+     "capabilities": {
+      "add": [
+       "NET_ADMIN"
+      ],
+      "drop": [
+       "ALL"
+      ]
+     },
+     "readOnlyRootFilesystem": true,
+     "runAsNonRoot": false,
+     "runAsUser": 0
+    },
+    "volumeMounts": [
+     {
+      "mountPath": "/work",
+      "name": "work"
+     }
+    ]
+   }
+  ],
+  "volumes": [
+   {
+    "name": "work",
+    "emptyDir": {
+     "sizeLimit": "8Gi"
+    }
+   }
+  ]
+ }
+}

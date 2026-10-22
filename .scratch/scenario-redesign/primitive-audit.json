@@ -1,0 +1,1155 @@
+{
+  "scope": "read-only frozen-profile algebra and acquisition audit; no live collection or new algorithm result",
+  "source_run": "artifacts/topology-profile-live/wan-20261021t044624",
+  "source_hash_checks": {
+    "experiments/real-topology-live/run_placement.py": true,
+    "experiments/real-topology-live/edge_client.py": true,
+    "experiments/real-topology-live/http_runtime.py": true,
+    "experiments/real-topology-live/budget_placement.py": true,
+    "experiments/real-topology-live/placement_policies.py": true,
+    "experiments/real-topology-profile/prepare.py": true
+  },
+  "qualification_calibration_counts": {
+    "fusion|etri-dev0002-raspi5": 20,
+    "fusion|etri-dev0003-raspi5": 20,
+    "fusion|etri-ser0002-cgnmsb": 20,
+    "speech|etri-dev0002-raspi5": 20,
+    "speech|etri-dev0003-raspi5": 20,
+    "speech|etri-ser0002-cgnmsb": 20,
+    "vision|etri-dev0002-raspi5": 20,
+    "vision|etri-dev0003-raspi5": 20,
+    "vision|etri-ser0002-cgnmsb": 20
+  },
+  "conditions": {
+    "10": {
+      "profile_sha256": {
+        "artifacts/topology-profile-live/wan-20261021t044624/profile-b0-compressed-10.json": "2717b5f3465efeea3923f25fb91507ee138937c53d1f5536bf397c949aca9807"
+      },
+      "primitive_count": 39,
+      "transfer_primitive_count": 30,
+      "feasible_count": 19,
+      "rejected": [
+        {
+          "placement": "E0/E1/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E0/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E1/E0",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E1/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E1/C",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/C/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "C/E1/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "C/C/C",
+          "reasons": [
+            "C:cpu"
+          ]
+        }
+      ],
+      "globally_common_additive_primitives": [],
+      "unused_primitives": [
+        "transfer:speech:etri-dev0002-raspi5|etri-dev0002-raspi5",
+        "transfer:vision:etri-dev0002-raspi5|etri-dev0002-raspi5"
+      ],
+      "transfer_raw_counts": {
+        "samples": 600,
+        "responses": 600
+      },
+      "best": "E0/C/C",
+      "gap_to_second_proxy_ms": 198.64776829490438,
+      "placements": [
+        {
+          "placement": "E0/C/C",
+          "proxy_ms": 956.954117755231,
+          "vision_path_ms": 956.954117755231,
+          "speech_path_ms": 569.2047861448373,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/C/C",
+          "proxy_ms": 1155.6018860501354,
+          "vision_path_ms": 1155.6018860501354,
+          "speech_path_ms": 569.2047861448373,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/C/E0",
+          "proxy_ms": 1247.4489183659898,
+          "vision_path_ms": 1247.4489183659898,
+          "speech_path_ms": 1134.9380730680423,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/C/E0",
+          "proxy_ms": 1351.4035325497389,
+          "vision_path_ms": 1351.4035325497389,
+          "speech_path_ms": 1134.9380730680423,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/C/E0",
+          "proxy_ms": 1550.870801846031,
+          "vision_path_ms": 1550.870801846031,
+          "speech_path_ms": 1134.9380730680423,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/C/E1",
+          "proxy_ms": 1671.1964597197948,
+          "vision_path_ms": 1671.1964597197948,
+          "speech_path_ms": 1555.088493412768,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/C/E1",
+          "proxy_ms": 1774.7195829288103,
+          "vision_path_ms": 1774.7195829288103,
+          "speech_path_ms": 1555.088493412768,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E0/C",
+          "proxy_ms": 1847.3681400719215,
+          "vision_path_ms": 683.6156961871893,
+          "speech_path_ms": 1847.3681400719215,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E0/C",
+          "proxy_ms": 1847.3681400719215,
+          "vision_path_ms": 956.954117755231,
+          "speech_path_ms": 1847.3681400719215,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/E0/C",
+          "proxy_ms": 1847.3681400719215,
+          "vision_path_ms": 1155.6018860501354,
+          "speech_path_ms": 1847.3681400719215,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E1/C",
+          "proxy_ms": 1965.3842165789683,
+          "vision_path_ms": 683.6156961871893,
+          "speech_path_ms": 1965.3842165789683,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E1/C",
+          "proxy_ms": 1965.3842165789683,
+          "vision_path_ms": 956.954117755231,
+          "speech_path_ms": 1965.3842165789683,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E0/E0",
+          "proxy_ms": 2242.640222015325,
+          "vision_path_ms": 1247.4489183659898,
+          "speech_path_ms": 2242.640222015325,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E0/E0",
+          "proxy_ms": 2242.640222015325,
+          "vision_path_ms": 1351.4035325497389,
+          "speech_path_ms": 2242.640222015325,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/E0/E0",
+          "proxy_ms": 2242.640222015325,
+          "vision_path_ms": 1550.870801846031,
+          "speech_path_ms": 2242.640222015325,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E1/E0",
+          "proxy_ms": 2362.5033018761314,
+          "vision_path_ms": 1247.4489183659898,
+          "speech_path_ms": 2362.5033018761314,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E1/E0",
+          "proxy_ms": 2362.5033018761314,
+          "vision_path_ms": 1351.4035325497389,
+          "speech_path_ms": 2362.5033018761314,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E0/E1",
+          "proxy_ms": 2665.937971556559,
+          "vision_path_ms": 1671.1964597197948,
+          "speech_path_ms": 2665.937971556559,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E0/E1",
+          "proxy_ms": 2665.937971556559,
+          "vision_path_ms": 1774.7195829288103,
+          "speech_path_ms": 2665.937971556559,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        }
+      ]
+    },
+    "2": {
+      "profile_sha256": {
+        "artifacts/topology-profile-live/wan-20261021t044624/profile-b0-compressed-2.json": "47df3a745671185402bbc5de2c15448324ae0aee01cd694e3a76d7a9eaf750d2"
+      },
+      "primitive_count": 39,
+      "transfer_primitive_count": 30,
+      "feasible_count": 19,
+      "rejected": [
+        {
+          "placement": "E0/E1/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E0/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E1/E0",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E1/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/E1/C",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "E1/C/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "C/E1/E1",
+          "reasons": [
+            "E1:cpu"
+          ]
+        },
+        {
+          "placement": "C/C/C",
+          "reasons": [
+            "C:cpu"
+          ]
+        }
+      ],
+      "globally_common_additive_primitives": [],
+      "unused_primitives": [
+        "transfer:speech:etri-dev0002-raspi5|etri-dev0002-raspi5",
+        "transfer:vision:etri-dev0002-raspi5|etri-dev0002-raspi5"
+      ],
+      "transfer_raw_counts": {
+        "samples": 600,
+        "responses": 600
+      },
+      "best": "E0/C/C",
+      "gap_to_second_proxy_ms": 196.95550296455622,
+      "placements": [
+        {
+          "placement": "E0/C/C",
+          "proxy_ms": 952.9907701071352,
+          "vision_path_ms": 952.9907701071352,
+          "speech_path_ms": 671.6241610120051,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/C/C",
+          "proxy_ms": 1149.9462730716914,
+          "vision_path_ms": 1149.9462730716914,
+          "speech_path_ms": 671.6241610120051,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/C/E0",
+          "proxy_ms": 1351.8937719636597,
+          "vision_path_ms": 1351.8937719636597,
+          "speech_path_ms": 1238.6425946097006,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/C/E0",
+          "proxy_ms": 1551.9972362671979,
+          "vision_path_ms": 1551.9972362671979,
+          "speech_path_ms": 1238.6425946097006,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/C/E1",
+          "proxy_ms": 1775.5168519797735,
+          "vision_path_ms": 1775.5168519797735,
+          "speech_path_ms": 1661.330526942038,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E0/C",
+          "proxy_ms": 1842.8696970222518,
+          "vision_path_ms": 1411.551475081069,
+          "speech_path_ms": 1842.8696970222518,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E0/C",
+          "proxy_ms": 1842.8696970222518,
+          "vision_path_ms": 952.9907701071352,
+          "speech_path_ms": 1842.8696970222518,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/E0/C",
+          "proxy_ms": 1842.8696970222518,
+          "vision_path_ms": 1149.9462730716914,
+          "speech_path_ms": 1842.8696970222518,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E1/C",
+          "proxy_ms": 1961.1836183466949,
+          "vision_path_ms": 1411.551475081069,
+          "speech_path_ms": 1961.1836183466949,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E1/C",
+          "proxy_ms": 1961.1836183466949,
+          "vision_path_ms": 952.9907701071352,
+          "speech_path_ms": 1961.1836183466949,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:fusion:etri-ser0002-cgnmsb",
+              "transfer:return:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-ser0002-cgnmsb"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/C/E0",
+          "proxy_ms": 1977.823710658413,
+          "vision_path_ms": 1977.823710658413,
+          "speech_path_ms": 1238.6425946097006,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E0/E0",
+          "proxy_ms": 2243.2356395293027,
+          "vision_path_ms": 1977.823710658413,
+          "speech_path_ms": 2243.2356395293027,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E0/E0",
+          "proxy_ms": 2243.2356395293027,
+          "vision_path_ms": 1351.8937719636597,
+          "speech_path_ms": 2243.2356395293027,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E1/E0/E0",
+          "proxy_ms": 2243.2356395293027,
+          "vision_path_ms": 1551.9972362671979,
+          "speech_path_ms": 2243.2356395293027,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:vision:etri-dev0002-raspi5",
+              "transfer:vision:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E1/E0",
+          "proxy_ms": 2363.3181558689103,
+          "vision_path_ms": 1977.823710658413,
+          "speech_path_ms": 2363.3181558689103,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E1/E0",
+          "proxy_ms": 2363.3181558689103,
+          "vision_path_ms": 1351.8937719636597,
+          "speech_path_ms": 2363.3181558689103,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0002-raspi5",
+              "compute:speech:etri-dev0002-raspi5",
+              "transfer:speech:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:fusion:etri-dev0003-raspi5",
+              "transfer:return:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0003-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/C/E1",
+          "proxy_ms": 2400.667677517049,
+          "vision_path_ms": 2400.667677517049,
+          "speech_path_ms": 1661.330526942038,
+          "critical_branch": "vision",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-ser0002-cgnmsb",
+              "compute:speech:etri-ser0002-cgnmsb",
+              "transfer:speech:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "C/E0/E1",
+          "proxy_ms": 2666.5982718695886,
+          "vision_path_ms": 2400.667677517049,
+          "speech_path_ms": 2666.5982718695886,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-ser0002-cgnmsb",
+              "compute:vision:etri-ser0002-cgnmsb",
+              "transfer:vision:etri-ser0002-cgnmsb|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        },
+        {
+          "placement": "E0/E0/E1",
+          "proxy_ms": 2666.5982718695886,
+          "vision_path_ms": 1775.5168519797735,
+          "speech_path_ms": 2666.5982718695886,
+          "critical_branch": "speech",
+          "paths": [
+            [
+              "transfer:image:etri-dev0003-raspi5|etri-dev0003-raspi5",
+              "compute:vision:etri-dev0003-raspi5",
+              "transfer:vision:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ],
+            [
+              "transfer:audio:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "compute:speech:etri-dev0003-raspi5",
+              "transfer:speech:etri-dev0003-raspi5|etri-dev0002-raspi5",
+              "compute:fusion:etri-dev0002-raspi5",
+              "transfer:return:etri-dev0002-raspi5|etri-dev0003-raspi5",
+              "transfer:control:etri-dev0003-raspi5|etri-dev0002-raspi5"
+            ]
+          ],
+          "formula_error_ms": 0.0
+        }
+      ]
+    }
+  }
+}

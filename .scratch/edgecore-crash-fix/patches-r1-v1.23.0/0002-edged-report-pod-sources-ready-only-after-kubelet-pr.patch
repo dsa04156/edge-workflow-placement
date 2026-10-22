@@ -1,0 +1,379 @@
+From da0ee076a31934ad53387fc44f8ee2a2bafea71d Mon Sep 17 00:00:00 2001
+From: local-patch <local@invalid>
+Date: Thu, 22 Oct 2026 16:40:45 +0900
+Subject: [PATCH 2/2] edged: report pod sources ready only after kubelet
+ processed the initial pods
+
+The kubeedge kubernetes fork (a2eaf54ed8) made PodConfig.SeenAllSources
+return initPodReady only, which edged sets right after queueing the pod
+list. While kubelet's syncLoop skips pod updates (runtime/PLEG not yet
+healthy) the volume populator then finishes with an empty pod manager and
+the reconciler tears down volumes of running pods. Restore the upstream
+seenSources check (kubelet processed an update from every source, every
+source sent its first SET) on top of initPodReady, and defer pod messages
+received before the initial list so the first apiserver-source update is
+the initial SET.
+---
+ edge/pkg/edged/edged.go                       |  57 +++--
+ edge/pkg/edged/sources_ready_test.go          | 219 ++++++++++++++++++
+ .../kubernetes/pkg/kubelet/config/config.go   |  24 +-
+ 3 files changed, 283 insertions(+), 17 deletions(-)
+ create mode 100644 edge/pkg/edged/sources_ready_test.go
+
+diff --git a/edge/pkg/edged/edged.go b/edge/pkg/edged/edged.go
+index ed4009db3..0ea3e19eb 100644
+--- a/edge/pkg/edged/edged.go
++++ b/edge/pkg/edged/edged.go
+@@ -287,6 +287,11 @@ func (e *edged) syncPod(podCfg *config.PodConfig) {
+ 	beehiveContext.Send(modules.MetaManagerModuleName, *info)
+ 	// rawUpdateChan receives the update events from metamanager or edgecontroller
+ 	rawUpdateChan := podCfg.Channel(beehiveContext.GetContext(), kubelettypes.ApiserverSource)
++	// Pod messages received before the initial pod list are replayed after it,
++	// so the first update kubelet sees from this source is the initial SET and
++	// sources become ready only after kubelet has processed the initial pods.
++	initListSent := false
++	var pendingPodMsgs []pendingPodMsg
+ 
+ 	for {
+ 		select {
+@@ -330,24 +335,21 @@ func (e *edged) syncPod(podCfg *config.PodConfig) {
+ 					continue
+ 				}
+ 				podCfg.SetInitPodReady(true)
+-			} else if op == model.UnholdUpgradeOperation {
+-				key := fmt.Sprintf("%s/%s", ns, resID)
+-				if updates, exists := e.heldPodUpdates[key]; exists {
+-					klog.V(4).Infof("Unholding pod upgrade: %s", key)
+-					for _, update := range updates {
+-						rawUpdateChan <- update
+-					}
+-					delete(e.heldPodUpdates, key)
+-				} else {
+-					klog.V(4).Infof("No held updates found for pod %s", key)
+-				}
+-				continue
+ 			} else {
+-				err = e.handlePod(op, content, rawUpdateChan)
+-				if err != nil {
+-					klog.Errorf("handle pod failed: %v", err)
++				if !initListSent {
++					klog.V(4).Infof("Defer pod message %s %s/%s until the initial pod list is sent", op, ns, resID)
++					pendingPodMsgs = append(pendingPodMsgs, pendingPodMsg{ns: ns, op: op, resID: resID, content: content})
+ 					continue
+ 				}
++				e.handlePodMessage(ns, op, resID, content, rawUpdateChan)
++				continue
++			}
++			if !initListSent {
++				initListSent = true
++				for _, m := range pendingPodMsgs {
++					e.handlePodMessage(m.ns, m.op, m.resID, m.content, rawUpdateChan)
++				}
++				pendingPodMsgs = nil
+ 			}
+ 		case constants.CSIResourceTypeVolume:
+ 			klog.Infof("volume operation type: %s", op)
+@@ -365,6 +367,31 @@ func (e *edged) syncPod(podCfg *config.PodConfig) {
+ 	}
+ }
+ 
++type pendingPodMsg struct {
++	ns, op, resID string
++	content       []byte
++}
++
++// handlePodMessage handles a single pod message that is not a pod list.
++func (e *edged) handlePodMessage(ns, op, resID string, content []byte, rawUpdateChan chan<- interface{}) {
++	if op == model.UnholdUpgradeOperation {
++		key := fmt.Sprintf("%s/%s", ns, resID)
++		if updates, exists := e.heldPodUpdates[key]; exists {
++			klog.V(4).Infof("Unholding pod upgrade: %s", key)
++			for _, update := range updates {
++				rawUpdateChan <- update
++			}
++			delete(e.heldPodUpdates, key)
++		} else {
++			klog.V(4).Infof("No held updates found for pod %s", key)
++		}
++		return
++	}
++	if err := e.handlePod(op, content, rawUpdateChan); err != nil {
++		klog.Errorf("handle pod failed: %v", err)
++	}
++}
++
+ // MakeKubeClientBridge make kubeclient bridge to replace kubeclient with metaclient
+ func MakeKubeClientBridge(kubeletDeps *kubelet.Dependencies) {
+ 	client := kubebridge.NewSimpleClientset(metaclient.New())
+diff --git a/edge/pkg/edged/sources_ready_test.go b/edge/pkg/edged/sources_ready_test.go
+new file mode 100644
+index 000000000..f96d327ee
+--- /dev/null
++++ b/edge/pkg/edged/sources_ready_test.go
+@@ -0,0 +1,219 @@
++package edged
++
++import (
++	"encoding/json"
++	"os"
++	"os/exec"
++	"testing"
++	"time"
++
++	v1 "k8s.io/api/core/v1"
++	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
++	"k8s.io/apimachinery/pkg/types"
++	"k8s.io/client-go/tools/record"
++	"k8s.io/kubernetes/pkg/kubelet/config"
++	kubelettypes "k8s.io/kubernetes/pkg/kubelet/types"
++	kubeletutil "k8s.io/kubernetes/pkg/kubelet/util"
++
++	"github.com/kubeedge/beehive/pkg/common"
++	beehiveContext "github.com/kubeedge/beehive/pkg/core/context"
++	"github.com/kubeedge/beehive/pkg/core/model"
++	"github.com/kubeedge/kubeedge/edge/pkg/common/modules"
++)
++
++// These tests reproduce the dev0009 restart teardown with the real edged
++// syncPod loop and the real (vendored kubeedge fork) kubelet PodConfig and
++// SourcesReady. Only kubelet's syncLoop is simulated, exactly as in
++// Kubelet.syncLoopIteration: take one update from PodConfig.Updates(),
++// apply it to the pod manager, then sourcesReady.AddSource(u.Source). The
++// volume populator finishes its initial pass as soon as AllReady() is true,
++// so AllReady() must never be true while podManager misses an initial pod.
++//
++// syncPod listens on the global beehive "edged" queue and never returns, so
++// every scenario runs in its own test process.
++
++const isolatedEnv = "EDGED_SOURCES_READY_CASE"
++
++func runIsolated(t *testing.T) bool {
++	if os.Getenv(isolatedEnv) == t.Name() {
++		return true
++	}
++	cmd := exec.Command(os.Args[0], "-test.run=^"+t.Name()+"$", "-test.v")
++	cmd.Env = append(os.Environ(), isolatedEnv+"="+t.Name())
++	out, err := cmd.CombinedOutput()
++	t.Logf("isolated run output:\n%s", out)
++	if err != nil {
++		t.Fatalf("isolated run failed: %v", err)
++	}
++	return false
++}
++
++const testNode = "edge-node"
++
++type fakeKubelet struct {
++	t            *testing.T
++	podCfg       *config.PodConfig
++	sourcesReady config.SourcesReady
++	podManager   map[types.UID]string
++}
++
++func startEdged(t *testing.T) *fakeKubelet {
++	beehiveContext.InitContext([]string{common.MsgCtxTypeChannel})
++	for _, m := range []string{modules.EdgedModuleName, modules.MetaManagerModuleName} {
++		beehiveContext.AddModule(&common.ModuleInfo{ModuleName: m, ModuleType: common.MsgCtxTypeChannel})
++	}
++	podCfg := config.NewPodConfig(config.PodConfigNotificationIncremental, record.NewFakeRecorder(100), kubeletutil.NewPodStartupLatencyTracker())
++	k := &fakeKubelet{
++		t:            t,
++		podCfg:       podCfg,
++		sourcesReady: config.NewSourcesReady(podCfg.SeenAllSources), // as kubelet.NewMainKubelet
++		podManager:   map[types.UID]string{},
++	}
++	// kubelet's makePodSourceConfig registers the static pod file source,
++	// which sends an (empty) SET on its first listing.
++	fileCh := podCfg.Channel(beehiveContext.GetContext(), kubelettypes.FileSource)
++	fileCh <- kubelettypes.PodUpdate{Op: kubelettypes.SET, Source: kubelettypes.FileSource}
++
++	e := &edged{nodeName: testNode, namespace: "default", heldPodUpdates: map[string][]kubelettypes.PodUpdate{}}
++	go e.syncPod(podCfg)
++	return k
++}
++
++// step applies one update the way syncLoopIteration does.
++func (k *fakeKubelet) step(timeout time.Duration) (kubelettypes.PodUpdate, bool) {
++	select {
++	case u := <-k.podCfg.Updates():
++		for _, p := range u.Pods {
++			switch u.Op {
++			case kubelettypes.ADD, kubelettypes.UPDATE, kubelettypes.DELETE:
++				k.podManager[p.UID] = p.Name
++			case kubelettypes.REMOVE:
++				delete(k.podManager, p.UID)
++			}
++		}
++		k.sourcesReady.AddSource(u.Source)
++		return u, true
++	case <-time.After(timeout):
++		return kubelettypes.PodUpdate{}, false
++	}
++}
++
++// drainUntilReady runs the syncLoop simulation until AllReady and asserts the
++// populator invariant at every point where readiness could be observed.
++func (k *fakeKubelet) drainUntilReady(required ...types.UID) {
++	deadline := time.Now().Add(5 * time.Second)
++	for !k.sourcesReady.AllReady() {
++		if time.Now().After(deadline) {
++			k.t.Fatalf("sources never became ready (podManager=%v)", k.podManager)
++		}
++		k.step(50 * time.Millisecond)
++	}
++	for _, uid := range required {
++		if _, ok := k.podManager[uid]; !ok {
++			k.t.Fatalf("sources ready while initial pod %s is not in podManager (%v): volume reconciler would tear down its volumes", uid, k.podManager)
++		}
++	}
++}
++
++func pod(name string, uid types.UID) *v1.Pod {
++	return &v1.Pod{
++		ObjectMeta: metav1.ObjectMeta{Name: name, Namespace: "default", UID: uid},
++		Spec:       v1.PodSpec{NodeName: testNode},
++	}
++}
++
++func sendPodList(t *testing.T, pods ...*v1.Pod) {
++	items := []string{}
++	for _, p := range pods {
++		b, err := json.Marshal(p)
++		if err != nil {
++			t.Fatal(err)
++		}
++		items = append(items, string(b))
++	}
++	content, err := json.Marshal(items)
++	if err != nil {
++		t.Fatal(err)
++	}
++	msg := model.NewMessage("").BuildRouter(modules.MetaManagerModuleName, modules.MetaGroup,
++		"default/"+model.ResourceTypePod, model.ResponseOperation).FillBody(content)
++	beehiveContext.Send(modules.EdgedModuleName, *msg)
++}
++
++func sendPodOp(t *testing.T, op string, p *v1.Pod) {
++	b, err := json.Marshal(p)
++	if err != nil {
++		t.Fatal(err)
++	}
++	msg := model.NewMessage("").BuildRouter("edgecontroller", "resource",
++		"default/"+model.ResourceTypePod+"/"+p.Name, op).FillBody(b)
++	beehiveContext.Send(modules.EdgedModuleName, *msg)
++}
++
++// Kubelet syncLoop is skipping (PLEG not healthy) when the list arrives:
++// sources must stay not ready however long that lasts (no fail-open timeout),
++// and become ready only once kubelet has processed the initial pods.
++func TestSourcesNotReadyUntilKubeletProcessesInitialPods(t *testing.T) {
++	if !runIsolated(t) {
++		return
++	}
++	k := startEdged(t)
++	sendPodList(t, pod("source-e9", "uid-a"), pod("sink-e9", "uid-b"))
++
++	for i := 0; i < 15; i++ { // 1.5s of "Skipping pod synchronization"
++		time.Sleep(100 * time.Millisecond)
++		if k.sourcesReady.AllReady() {
++			t.Fatalf("sources ready after %dms while kubelet has processed no pod updates", (i+1)*100)
++		}
++	}
++	k.drainUntilReady("uid-a", "uid-b") // late recovery
++}
++
++// A pod update from the cloud that arrives before the metamanager list must
++// not let readiness overtake the initial list.
++func TestPreListPodUpdateDoesNotOpenWindow(t *testing.T) {
++	if !runIsolated(t) {
++		return
++	}
++	k := startEdged(t)
++	sendPodOp(t, model.UpdateOperation, pod("early", "uid-early"))
++	time.Sleep(100 * time.Millisecond)
++	sendPodList(t, pod("source-e9", "uid-a"))
++	time.Sleep(100 * time.Millisecond)
++
++	k.drainUntilReady("uid-a")
++	// the early update is not lost
++	deadline := time.Now().Add(3 * time.Second)
++	for {
++		if _, ok := k.podManager["uid-early"]; ok {
++			break
++		}
++		if time.Now().After(deadline) {
++			t.Fatalf("pre-list pod update was dropped (podManager=%v)", k.podManager)
++		}
++		k.step(50 * time.Millisecond)
++	}
++}
++
++// No dependence on pod identity: an empty list, a stale pod deleted right
++// after the list, and a duplicate-name pod that kubelet's config filters out
++// must all reach readiness (no permanent stall).
++func TestNoStallOnEmptyStaleOrFilteredPods(t *testing.T) {
++	if !runIsolated(t) {
++		return
++	}
++	k := startEdged(t)
++	dup := pod("source-e9", "uid-dup") // same full name: filtered as invalid
++	sendPodList(t, pod("source-e9", "uid-a"), dup, pod("stale", "uid-stale"))
++	sendPodOp(t, model.DeleteOperation, pod("stale", "uid-stale"))
++	k.drainUntilReady("uid-a")
++}
++
++func TestNoStallOnEmptyList(t *testing.T) {
++	if !runIsolated(t) {
++		return
++	}
++	k := startEdged(t)
++	sendPodList(t)
++	k.drainUntilReady()
++}
+diff --git a/vendor/k8s.io/kubernetes/pkg/kubelet/config/config.go b/vendor/k8s.io/kubernetes/pkg/kubelet/config/config.go
+index 08899eb73..b1449293f 100644
+--- a/vendor/k8s.io/kubernetes/pkg/kubelet/config/config.go
++++ b/vendor/k8s.io/kubernetes/pkg/kubelet/config/config.go
+@@ -105,10 +105,24 @@ func (c *PodConfig) Channel(ctx context.Context, source string) chan<- interface
+ 
+ // SeenAllSources returns true if seenSources contains all sources in the
+ // config, and also this config has received a SET message from each source.
++//
++// KubeEdge: edged additionally reports initPodReady once it has queued the
++// initial pod list. initPodReady alone is not enough: kubelet's syncLoop does
++// not consume pod updates until the runtime is healthy, and readiness before
++// that lets the volume manager unmount volumes of running pods. So keep the
++// upstream check that kubelet has processed an update from every source
++// (seenSources, recorded by syncLoopIteration) and that each source has sent
++// its first SET.
+ func (c *PodConfig) SeenAllSources(seenSources sets.Set[string]) bool {
+ 	c.podReadyLock.RLock()
+-	defer c.podReadyLock.RUnlock()
+-	return c.initPodReady
++	initPodReady := c.initPodReady
++	c.podReadyLock.RUnlock()
++	if !initPodReady || c.pods == nil {
++		return false
++	}
++	c.sourcesLock.Lock()
++	defer c.sourcesLock.Unlock()
++	return seenSources.HasAll(sets.List(c.sources)...) && c.pods.seenSources(sets.List(c.sources)...)
+ }
+ 
+ // SetInitPodReady is used to safely set initPodReady flag
+@@ -333,6 +347,12 @@ func (s *podStorage) markSourceSet(source string) {
+ 	s.sourcesSeen.Insert(source)
+ }
+ 
++func (s *podStorage) seenSources(sources ...string) bool {
++	s.sourcesSeenLock.RLock()
++	defer s.sourcesSeenLock.RUnlock()
++	return s.sourcesSeen.HasAll(sources...)
++}
++
+ func filterInvalidPods(pods []*v1.Pod, source string, recorder record.EventRecorder) (filtered []*v1.Pod) {
+ 	names := sets.Set[string]{}
+ 	for i, pod := range pods {
+-- 
+2.43.0
+

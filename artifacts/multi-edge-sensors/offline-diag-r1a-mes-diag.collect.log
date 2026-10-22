@@ -1,0 +1,13 @@
+evidence /tmp/claude-1002/-home-jinuk-codex-work-scheduler/ee27a4b4-507a-4c62-ab3e-50f335bf8073/scratchpad/fk3/runs/mes-diag remaining 0
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1020, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 1015, in main
+    collect(session)
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 943, in collect
+    session.sizes = payload_sizes(session, qual, quality)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jinuk/codex-work/scheduler/experiments/multi-edge-sensors/collect.py", line 854, in payload_sizes
+    raise RuntimeError(f"No quality-valid calibration rows for every task of {flow['id']}")
+RuntimeError: No quality-valid calibration rows for every task of w1

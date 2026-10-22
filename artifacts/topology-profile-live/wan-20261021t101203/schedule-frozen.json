@@ -1,0 +1,59 @@
+{
+  "seed": 20261023,
+  "jobs": [
+    {
+      "condition": "compressed-10",
+      "mbps": 10,
+      "oneway_delay_ms": 20,
+      "representation": "compressed",
+      "placement": {
+        "vision": "etri-ser0002-cgnmsb",
+        "speech": "etri-ser0002-cgnmsb",
+        "fusion": "etri-ser0002-cgnmsb"
+      },
+      "policies": [
+        "kube-default",
+        "greedy",
+        "heft",
+        "greedy-swap",
+        "exact",
+        "no-network"
+      ],
+      "label": "eval-0-compressed-10"
+    },
+    {
+      "condition": "compressed-2",
+      "mbps": 2,
+      "oneway_delay_ms": 20,
+      "representation": "compressed",
+      "placement": {
+        "vision": "etri-ser0002-cgnmsb",
+        "speech": "etri-ser0002-cgnmsb",
+        "fusion": "etri-ser0002-cgnmsb"
+      },
+      "policies": [
+        "kube-default",
+        "no-network"
+      ],
+      "label": "eval-1-compressed-2"
+    },
+    {
+      "condition": "compressed-2",
+      "mbps": 2,
+      "oneway_delay_ms": 20,
+      "representation": "compressed",
+      "placement": {
+        "vision": "etri-dev0003-raspi5",
+        "speech": "etri-ser0002-cgnmsb",
+        "fusion": "etri-ser0002-cgnmsb"
+      },
+      "policies": [
+        "greedy",
+        "heft",
+        "greedy-swap",
+        "exact"
+      ],
+      "label": "eval-2-compressed-2"
+    }
+  ]
+}

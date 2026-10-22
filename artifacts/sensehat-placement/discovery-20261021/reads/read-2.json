@@ -1,0 +1,1421 @@
+{
+ "label": "read-2",
+ "capturedAt": "2026-10-21T10:51:35.256Z",
+ "catalog": {
+  "request": {
+   "requestedAt": "2026-10-21T10:51:35.256Z",
+   "fetchMs": 367.58679,
+   "status": 200,
+   "path": "/api/v1/data-store"
+  },
+  "asOf": "2026-10-21T10:51:35.276Z",
+  "collector": {
+   "status": "CONNECTING",
+   "storedDeliveries": 47717,
+   "rejectedDeliveries": 0,
+   "enabled": true
+  },
+  "sensehat": {
+   "yaw": {
+    "deviceId": "sensehat-001-yaw",
+    "deviceUid": "05bdb8db-9ccc-4048-8abb-3ed598e5fcf2",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "yaw",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "°"
+   },
+   "pitch": {
+    "deviceId": "sensehat-001-pitch",
+    "deviceUid": "0b892da0-4864-40ab-9fe1-97b7882ed5d3",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "pitch",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "°"
+   },
+   "compass": {
+    "deviceId": "sensehat-001-compass",
+    "deviceUid": "2b1ee4d0-f402-4e3d-828d-bd62c77c31a4",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "compass",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "°"
+   },
+   "humidity": {
+    "deviceId": "sensehat-001-humidity",
+    "deviceUid": "57ba9fd2-9bdc-499b-a2f8-67d276eded77",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "humidity",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "%RH"
+   },
+   "gyro_z": {
+    "deviceId": "sensehat-001-gyro-z",
+    "deviceUid": "837f9f68-9792-48e8-9602-5aecfbfd2cf3",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "gyro_z",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "rad/s"
+   },
+   "gyro_y": {
+    "deviceId": "sensehat-001-gyro-y",
+    "deviceUid": "ab7bec1e-590f-4ef8-9332-a0e21245ace1",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "gyro_y",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "rad/s"
+   },
+   "gyro_x": {
+    "deviceId": "sensehat-001-gyro-x",
+    "deviceUid": "b0db7c57-3a38-4775-afac-187dad68d429",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "gyro_x",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "rad/s"
+   },
+   "roll": {
+    "deviceId": "sensehat-001-roll",
+    "deviceUid": "c81a558a-fb81-4c96-80b8-40ac7a3195ff",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "roll",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "°"
+   },
+   "temp_humidity": {
+    "deviceId": "sensehat-001-temp-humidity",
+    "deviceUid": "caf05dfa-4181-4365-a0aa-77d3fce2e893",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "temp_humidity",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "°C"
+   },
+   "temp_pressure": {
+    "deviceId": "sensehat-001-temp-pressure",
+    "deviceUid": "d7fd345e-83bd-4376-800c-6b01897c7356",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "temp_pressure",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "°C"
+   },
+   "pressure": {
+    "deviceId": "sensehat-001-pressure",
+    "deviceUid": "f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8",
+    "namespace": "edgeai-devices",
+    "observedAt": "2026-10-21T10:51:34.672Z",
+    "property": "pressure",
+    "quality": "QUALIFIED",
+    "type": "float64",
+    "unit": "hPa"
+   }
+  }
+ },
+ "kube": [
+  {
+   "device": "sensehat-001-compass",
+   "deviceUid": "2b1ee4d0-f402-4e3d-828d-bd62c77c31a4",
+   "generation": 2,
+   "resourceVersion": "44096802",
+   "sourceGenerationAnnotation": "df2ced98-0311-450f-9c3c-dc50d2216cf8",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-895af93bd9b567248ced8492",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "compass",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-compass/compass",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "°",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "compass",
+    "configurationSha256": "sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33",
+    "sourceGeneration": "df2ced98-0311-450f-9c3c-dc50d2216cf8"
+   },
+   "deviceStatus": {
+    "generation": 59449,
+    "resourceVersion": "50930011",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:15Z",
+    "twins": [
+     {
+      "propertyName": "compass",
+      "reportedTimestampMs": "1792579887127",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579886669,
+       "configurationSha256": "sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33",
+       "value": "121.46308450103432"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-gyro-x",
+   "deviceUid": "b0db7c57-3a38-4775-afac-187dad68d429",
+   "generation": 2,
+   "resourceVersion": "44096805",
+   "sourceGenerationAnnotation": "59cdeff0-8009-4a15-b4dd-83e8a4f98b8e",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-b5aa856265c58ff28ffe29a3",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "gyro_x",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-gyro-x/gyro_x",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "rad/s",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "gyro_x",
+    "configurationSha256": "sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776",
+    "sourceGeneration": "59cdeff0-8009-4a15-b4dd-83e8a4f98b8e"
+   },
+   "deviceStatus": {
+    "generation": 59452,
+    "resourceVersion": "50930019",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:16Z",
+    "twins": [
+     {
+      "propertyName": "gyro_x",
+      "reportedTimestampMs": "1792579888228",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579887670,
+       "configurationSha256": "sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776",
+       "value": "0.02039133757352829"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-gyro-y",
+   "deviceUid": "ab7bec1e-590f-4ef8-9332-a0e21245ace1",
+   "generation": 2,
+   "resourceVersion": "44096807",
+   "sourceGenerationAnnotation": "377a46cc-45ad-43da-b5cc-31d61cd045c7",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-4b287de5bccfc0dec7cd7f37",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "gyro_y",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-gyro-y/gyro_y",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "rad/s",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "gyro_y",
+    "configurationSha256": "sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20",
+    "sourceGeneration": "377a46cc-45ad-43da-b5cc-31d61cd045c7"
+   },
+   "deviceStatus": {
+    "generation": 59447,
+    "resourceVersion": "50929988",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:23Z",
+    "twins": [
+     {
+      "propertyName": "gyro_y",
+      "reportedTimestampMs": "1792579871727",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579870664,
+       "configurationSha256": "sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20",
+       "value": "0.07705370336771011"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-gyro-z",
+   "deviceUid": "837f9f68-9792-48e8-9602-5aecfbfd2cf3",
+   "generation": 2,
+   "resourceVersion": "44096810",
+   "sourceGenerationAnnotation": "18880abf-01a5-4ed5-a296-4d306c64306f",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-d5fa0309e5406ba9406c4131",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "gyro_z",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-gyro-z/gyro_z",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "rad/s",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "gyro_z",
+    "configurationSha256": "sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff",
+    "sourceGeneration": "18880abf-01a5-4ed5-a296-4d306c64306f"
+   },
+   "deviceStatus": {
+    "generation": 59445,
+    "resourceVersion": "50930052",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:19Z",
+    "twins": [
+     {
+      "propertyName": "gyro_z",
+      "reportedTimestampMs": "1792579891527",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579890671,
+       "configurationSha256": "sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff",
+       "value": "0.0001359879970550537"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-humidity",
+   "deviceUid": "57ba9fd2-9bdc-499b-a2f8-67d276eded77",
+   "generation": 2,
+   "resourceVersion": "44096839",
+   "sourceGenerationAnnotation": "439dccc6-fdeb-4634-b9a9-d6aace8e509f",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-fc553d358e75120ee3f53526",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "humidity",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-humidity/humidity",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "%RH",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "humidity",
+    "configurationSha256": "sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15",
+    "sourceGeneration": "439dccc6-fdeb-4634-b9a9-d6aace8e509f"
+   },
+   "deviceStatus": {
+    "generation": 59446,
+    "resourceVersion": "50929991",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:24Z",
+    "twins": [
+     {
+      "propertyName": "humidity",
+      "reportedTimestampMs": "1792579872827",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579872664,
+       "configurationSha256": "sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15",
+       "value": "23.65076446533203"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-pitch",
+   "deviceUid": "0b892da0-4864-40ab-9fe1-97b7882ed5d3",
+   "generation": 2,
+   "resourceVersion": "44096842",
+   "sourceGenerationAnnotation": "251bebe9-dc34-43fd-96f6-07b6bef4045e",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-5317e91e629b74fe3028b103",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "pitch",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-pitch/pitch",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "°",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "pitch",
+    "configurationSha256": "sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75",
+    "sourceGeneration": "251bebe9-dc34-43fd-96f6-07b6bef4045e"
+   },
+   "deviceStatus": {
+    "generation": 59450,
+    "resourceVersion": "50930030",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:17Z",
+    "twins": [
+     {
+      "propertyName": "pitch",
+      "reportedTimestampMs": "1792579889326",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579888670,
+       "configurationSha256": "sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75",
+       "value": "41.917519804339406"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-pressure",
+   "deviceUid": "f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8",
+   "generation": 2,
+   "resourceVersion": "44096844",
+   "sourceGenerationAnnotation": "f89159b7-02e2-47e5-b6d8-3e2c314daee4",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-df79eb67c590c495048f7f01",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "pressure",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-pressure/pressure",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "hPa",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "pressure",
+    "configurationSha256": "sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90",
+    "sourceGeneration": "f89159b7-02e2-47e5-b6d8-3e2c314daee4"
+   },
+   "deviceStatus": {
+    "generation": 59448,
+    "resourceVersion": "50930044",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:18Z",
+    "twins": [
+     {
+      "propertyName": "pressure",
+      "reportedTimestampMs": "1792579890428",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579889670,
+       "configurationSha256": "sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90",
+       "value": "1024.7724609375"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-roll",
+   "deviceUid": "c81a558a-fb81-4c96-80b8-40ac7a3195ff",
+   "generation": 2,
+   "resourceVersion": "44096847",
+   "sourceGenerationAnnotation": "5848578b-6fbf-4991-805f-2a83ff1df46e",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-49df16ff40dfa78596bb3705",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "roll",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-roll/roll",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "°",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "roll",
+    "configurationSha256": "sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37",
+    "sourceGeneration": "5848578b-6fbf-4991-805f-2a83ff1df46e"
+   },
+   "deviceStatus": {
+    "generation": 59446,
+    "resourceVersion": "50930081",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:21Z",
+    "twins": [
+     {
+      "propertyName": "roll",
+      "reportedTimestampMs": "1792579894826",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579894672,
+       "configurationSha256": "sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37",
+       "value": "14.09503194201125"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-temp-humidity",
+   "deviceUid": "caf05dfa-4181-4365-a0aa-77d3fce2e893",
+   "generation": 2,
+   "resourceVersion": "44096849",
+   "sourceGenerationAnnotation": "5e1fa5d2-14ba-421a-aef2-67d81076e9a0",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-6f4f8196b33b658602f53ecb",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "temp_humidity",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-temp-humidity/temp_humidity",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "°C",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "temp_humidity",
+    "configurationSha256": "sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306",
+    "sourceGeneration": "5e1fa5d2-14ba-421a-aef2-67d81076e9a0"
+   },
+   "deviceStatus": {
+    "generation": 59450,
+    "resourceVersion": "50930060",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:20Z",
+    "twins": [
+     {
+      "propertyName": "temp_humidity",
+      "reportedTimestampMs": "1792579892627",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579891671,
+       "configurationSha256": "sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306",
+       "value": "43.128143310546875"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-temp-pressure",
+   "deviceUid": "d7fd345e-83bd-4376-800c-6b01897c7356",
+   "generation": 2,
+   "resourceVersion": "44096854",
+   "sourceGenerationAnnotation": "e09bc041-5e9c-4f02-87ab-49d1442c6d1f",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-a2c2d5f37977388bf4353127",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "temp_pressure",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-temp-pressure/temp_pressure",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "°C",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "temp_pressure",
+    "configurationSha256": "sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715",
+    "sourceGeneration": "e09bc041-5e9c-4f02-87ab-49d1442c6d1f"
+   },
+   "deviceStatus": {
+    "generation": 59448,
+    "resourceVersion": "50929975",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:22Z",
+    "twins": [
+     {
+      "propertyName": "temp_pressure",
+      "reportedTimestampMs": "1792579870627",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579869663,
+       "configurationSha256": "sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715",
+       "value": "39.43958282470703"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "device": "sensehat-001-yaw",
+   "deviceUid": "05bdb8db-9ccc-4048-8abb-3ed598e5fcf2",
+   "generation": 2,
+   "resourceVersion": "44096860",
+   "sourceGenerationAnnotation": "38466359-dda3-43d6-9d68-be203379c943",
+   "nodeName": "etri-dev0003-raspi5",
+   "deviceModel": "edgeai-model-4a35a11ec231a27d89bc8008",
+   "protocolName": "edgeai-sensehat",
+   "protocolConfig": {
+    "deviceId": "sensehat-001",
+    "devicePath": "/dev/i2c-1",
+    "timeoutMs": 4000
+   },
+   "property": "yaw",
+   "collectCycleMs": 1000,
+   "reportCycleMs": 5000,
+   "mqttTopic": "edgeai/devices/sensehat-001-yaw/yaw",
+   "visitor": {
+    "dataType": "float64",
+    "unit": "°",
+    "scale": 1,
+    "offset": 0,
+    "jsonPath": "yaw",
+    "configurationSha256": "sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e",
+    "sourceGeneration": "38466359-dda3-43d6-9d68-be203379c943"
+   },
+   "deviceStatus": {
+    "generation": 59450,
+    "resourceVersion": "50930007",
+    "state": "online",
+    "lastOnlineTime": "2026-10-21T10:51:13Z",
+    "twins": [
+     {
+      "propertyName": "yaw",
+      "reportedTimestampMs": "1792579886027",
+      "reportedEnvelope": {
+       "apiVersion": "edgeai.measurement/v1",
+       "collectedAt": 1792579885669,
+       "configurationSha256": "sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e",
+       "value": "121.3951241187927"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "kubeCapturedAt": "2026-10-21T10:51:35.702Z",
+ "latestOriginals": {
+  "temp_humidity": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.702Z",
+    "fetchMs": 20.738439,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/caf05dfa-4181-4365-a0aa-77d3fce2e893/temp_humidity/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "caf05dfa-4181-4365-a0aa-77d3fce2e893",
+    "from": "2026-10-21T09:51:35.703Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306",
+      "deviceId": "sensehat-001-temp-humidity",
+      "deviceUid": "caf05dfa-4181-4365-a0aa-77d3fce2e893",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "temp_humidity",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306\",\"deviceName\":\"sensehat-001-temp-humidity\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"temp_humidity\",\"receivedAt\":1792579894736,\"sequence\":1289,\"sessionId\":\"dmag2zeaemva\",\"sourceGeneration\":\"5e1fa5d2-14ba-421a-aef2-67d81076e9a0\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°C\",\"value\":43.14616394042969}",
+      "receivedAt": "2026-10-21T10:51:34.742Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaemva",
+      "sourceGeneration": "5e1fa5d2-14ba-421a-aef2-67d81076e9a0",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°C",
+      "value": 43.14616394042969
+     },
+     {
+      "configurationSha256": "sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306",
+      "deviceId": "sensehat-001-temp-humidity",
+      "deviceUid": "caf05dfa-4181-4365-a0aa-77d3fce2e893",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "temp_humidity",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306\",\"deviceName\":\"sensehat-001-temp-humidity\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"temp_humidity\",\"receivedAt\":1792579893736,\"sequence\":1288,\"sessionId\":\"dmag2zeaemva\",\"sourceGeneration\":\"5e1fa5d2-14ba-421a-aef2-67d81076e9a0\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°C\",\"value\":43.21825408935547}",
+      "receivedAt": "2026-10-21T10:51:33.741Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaemva",
+      "sourceGeneration": "5e1fa5d2-14ba-421a-aef2-67d81076e9a0",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°C",
+      "value": 43.21825408935547
+     },
+     {
+      "configurationSha256": "sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306",
+      "deviceId": "sensehat-001-temp-humidity",
+      "deviceUid": "caf05dfa-4181-4365-a0aa-77d3fce2e893",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:32.672Z",
+      "property": "temp_humidity",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:05a9e214aca431ef79f258977fc8b1206f435e76851dd59cb3ddc19a204ed306\",\"deviceName\":\"sensehat-001-temp-humidity\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579892672,\"property\":\"temp_humidity\",\"receivedAt\":1792579892736,\"sequence\":1287,\"sessionId\":\"dmag2zeaemva\",\"sourceGeneration\":\"5e1fa5d2-14ba-421a-aef2-67d81076e9a0\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°C\",\"value\":43.1101188659668}",
+      "receivedAt": "2026-10-21T10:51:32.741Z",
+      "sequence": 1287,
+      "sessionId": "dmag2zeaemva",
+      "sourceGeneration": "5e1fa5d2-14ba-421a-aef2-67d81076e9a0",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°C",
+      "value": 43.1101188659668
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMyLjY3MjAwMTI4N1p8NWUxZmE1ZDItMTRiYS00MjFhLWFlZjItNjdkODEwNzZlOWEwOmRtYWcyemVhZW12YTow",
+    "property": "temp_humidity",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.703Z",
+    "truncated": true
+   }
+  },
+  "temp_pressure": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.723Z",
+    "fetchMs": 24.220397,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/d7fd345e-83bd-4376-800c-6b01897c7356/temp_pressure/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "d7fd345e-83bd-4376-800c-6b01897c7356",
+    "from": "2026-10-21T09:51:35.724Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715",
+      "deviceId": "sensehat-001-temp-pressure",
+      "deviceUid": "d7fd345e-83bd-4376-800c-6b01897c7356",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "temp_pressure",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715\",\"deviceName\":\"sensehat-001-temp-pressure\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"temp_pressure\",\"receivedAt\":1792579894739,\"sequence\":1289,\"sessionId\":\"dmag2zeaemv8\",\"sourceGeneration\":\"e09bc041-5e9c-4f02-87ab-49d1442c6d1f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°C\",\"value\":39.412498474121094}",
+      "receivedAt": "2026-10-21T10:51:34.743Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaemv8",
+      "sourceGeneration": "e09bc041-5e9c-4f02-87ab-49d1442c6d1f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°C",
+      "value": 39.412498474121094
+     },
+     {
+      "configurationSha256": "sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715",
+      "deviceId": "sensehat-001-temp-pressure",
+      "deviceUid": "d7fd345e-83bd-4376-800c-6b01897c7356",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "temp_pressure",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715\",\"deviceName\":\"sensehat-001-temp-pressure\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"temp_pressure\",\"receivedAt\":1792579893736,\"sequence\":1288,\"sessionId\":\"dmag2zeaemv8\",\"sourceGeneration\":\"e09bc041-5e9c-4f02-87ab-49d1442c6d1f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°C\",\"value\":39.40416717529297}",
+      "receivedAt": "2026-10-21T10:51:33.740Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaemv8",
+      "sourceGeneration": "e09bc041-5e9c-4f02-87ab-49d1442c6d1f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°C",
+      "value": 39.40416717529297
+     },
+     {
+      "configurationSha256": "sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715",
+      "deviceId": "sensehat-001-temp-pressure",
+      "deviceUid": "d7fd345e-83bd-4376-800c-6b01897c7356",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:32.672Z",
+      "property": "temp_pressure",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:240c265ae04bf64413389900580f08b63c1efa87acd04160c4db2e58af9ce715\",\"deviceName\":\"sensehat-001-temp-pressure\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579892672,\"property\":\"temp_pressure\",\"receivedAt\":1792579892736,\"sequence\":1287,\"sessionId\":\"dmag2zeaemv8\",\"sourceGeneration\":\"e09bc041-5e9c-4f02-87ab-49d1442c6d1f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°C\",\"value\":39.40416717529297}",
+      "receivedAt": "2026-10-21T10:51:32.740Z",
+      "sequence": 1287,
+      "sessionId": "dmag2zeaemv8",
+      "sourceGeneration": "e09bc041-5e9c-4f02-87ab-49d1442c6d1f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°C",
+      "value": 39.40416717529297
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMyLjY3MjAwMTI4N1p8ZTA5YmMwNDEtNWU5Yy00ZjAyLTg3YWItNDlkMTQ0MmM2ZDFmOmRtYWcyemVhZW12ODow",
+    "property": "temp_pressure",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.724Z",
+    "truncated": true
+   }
+  },
+  "humidity": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.748Z",
+    "fetchMs": 19.874813,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/57ba9fd2-9bdc-499b-a2f8-67d276eded77/humidity/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "57ba9fd2-9bdc-499b-a2f8-67d276eded77",
+    "from": "2026-10-21T09:51:35.748Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15",
+      "deviceId": "sensehat-001-humidity",
+      "deviceUid": "57ba9fd2-9bdc-499b-a2f8-67d276eded77",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "humidity",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15\",\"deviceName\":\"sensehat-001-humidity\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"humidity\",\"receivedAt\":1792579894735,\"sequence\":1289,\"sessionId\":\"dmag2zeaemv9\",\"sourceGeneration\":\"439dccc6-fdeb-4634-b9a9-d6aace8e509f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"%RH\",\"value\":24.26806640625}",
+      "receivedAt": "2026-10-21T10:51:34.741Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaemv9",
+      "sourceGeneration": "439dccc6-fdeb-4634-b9a9-d6aace8e509f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "%RH",
+      "value": 24.26806640625
+     },
+     {
+      "configurationSha256": "sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15",
+      "deviceId": "sensehat-001-humidity",
+      "deviceUid": "57ba9fd2-9bdc-499b-a2f8-67d276eded77",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "humidity",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15\",\"deviceName\":\"sensehat-001-humidity\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"humidity\",\"receivedAt\":1792579893735,\"sequence\":1288,\"sessionId\":\"dmag2zeaemv9\",\"sourceGeneration\":\"439dccc6-fdeb-4634-b9a9-d6aace8e509f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"%RH\",\"value\":23.983158111572266}",
+      "receivedAt": "2026-10-21T10:51:33.740Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaemv9",
+      "sourceGeneration": "439dccc6-fdeb-4634-b9a9-d6aace8e509f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "%RH",
+      "value": 23.983158111572266
+     },
+     {
+      "configurationSha256": "sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15",
+      "deviceId": "sensehat-001-humidity",
+      "deviceUid": "57ba9fd2-9bdc-499b-a2f8-67d276eded77",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:32.672Z",
+      "property": "humidity",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:31af6a79f08f70fa4e2508a74a9b634a42d8ce0da33b47e9a616a074701d1a15\",\"deviceName\":\"sensehat-001-humidity\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579892672,\"property\":\"humidity\",\"receivedAt\":1792579892736,\"sequence\":1287,\"sessionId\":\"dmag2zeaemv9\",\"sourceGeneration\":\"439dccc6-fdeb-4634-b9a9-d6aace8e509f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"%RH\",\"value\":24.054384231567383}",
+      "receivedAt": "2026-10-21T10:51:32.741Z",
+      "sequence": 1287,
+      "sessionId": "dmag2zeaemv9",
+      "sourceGeneration": "439dccc6-fdeb-4634-b9a9-d6aace8e509f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "%RH",
+      "value": 24.054384231567383
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMyLjY3MjAwMTI4N1p8NDM5ZGNjYzYtZmRlYi00NjM0LWI5YTktZDZhYWNlOGU1MDlmOmRtYWcyemVhZW12OTow",
+    "property": "humidity",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.748Z",
+    "truncated": true
+   }
+  },
+  "pressure": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.767Z",
+    "fetchMs": 16.394279,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8/pressure/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8",
+    "from": "2026-10-21T09:51:35.768Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90",
+      "deviceId": "sensehat-001-pressure",
+      "deviceUid": "f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "pressure",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-pressure\",\"PropertyName\":\"pressure\",\"Namespace\":\"edgeai-devices\",\"Value\":\"1024.774169921875\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.741Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "hPa",
+      "value": 1024.774169921875
+     },
+     {
+      "configurationSha256": "sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90",
+      "deviceId": "sensehat-001-pressure",
+      "deviceUid": "f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "pressure",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90\",\"deviceName\":\"sensehat-001-pressure\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"pressure\",\"receivedAt\":1792579894735,\"sequence\":1289,\"sessionId\":\"dmag2zeaayrj\",\"sourceGeneration\":\"f89159b7-02e2-47e5-b6d8-3e2c314daee4\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"hPa\",\"value\":1024.771728515625}",
+      "receivedAt": "2026-10-21T10:51:34.738Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaayrj",
+      "sourceGeneration": "f89159b7-02e2-47e5-b6d8-3e2c314daee4",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "hPa",
+      "value": 1024.771728515625
+     },
+     {
+      "configurationSha256": "sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90",
+      "deviceId": "sensehat-001-pressure",
+      "deviceUid": "f0a6d8bc-c74c-420b-bda4-49b0dc1fd3b8",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "pressure",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:41148a96978696ff5758ef78ba8f05fdff5ae75d1d86bb8ae5ed5135b0956d90\",\"deviceName\":\"sensehat-001-pressure\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"pressure\",\"receivedAt\":1792579893735,\"sequence\":1288,\"sessionId\":\"dmag2zeaayrj\",\"sourceGeneration\":\"f89159b7-02e2-47e5-b6d8-3e2c314daee4\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"hPa\",\"value\":1024.763427734375}",
+      "receivedAt": "2026-10-21T10:51:33.740Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaayrj",
+      "sourceGeneration": "f89159b7-02e2-47e5-b6d8-3e2c314daee4",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "hPa",
+      "value": 1024.763427734375
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMzLjY3MjAwMTI4OFp8Zjg5MTU5YjctMDJlMi00N2U1LWI2ZDgtM2UyYzMxNGRhZWU0OmRtYWcyemVhYXlyajow",
+    "property": "pressure",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.768Z",
+    "truncated": true
+   }
+  },
+  "compass": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.784Z",
+    "fetchMs": 12.100541,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/2b1ee4d0-f402-4e3d-828d-bd62c77c31a4/compass/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "2b1ee4d0-f402-4e3d-828d-bd62c77c31a4",
+    "from": "2026-10-21T09:51:35.785Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33",
+      "deviceId": "sensehat-001-compass",
+      "deviceUid": "2b1ee4d0-f402-4e3d-828d-bd62c77c31a4",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "compass",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-compass\",\"PropertyName\":\"compass\",\"Namespace\":\"edgeai-devices\",\"Value\":\"121.5462488843684\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.739Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "°",
+      "value": 121.5462488843684
+     },
+     {
+      "configurationSha256": "sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33",
+      "deviceId": "sensehat-001-compass",
+      "deviceUid": "2b1ee4d0-f402-4e3d-828d-bd62c77c31a4",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "compass",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33\",\"deviceName\":\"sensehat-001-compass\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"compass\",\"receivedAt\":1792579894736,\"sequence\":1289,\"sessionId\":\"dmag2zeaayrl\",\"sourceGeneration\":\"df2ced98-0311-450f-9c3c-dc50d2216cf8\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":121.48260518168222}",
+      "receivedAt": "2026-10-21T10:51:34.740Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaayrl",
+      "sourceGeneration": "df2ced98-0311-450f-9c3c-dc50d2216cf8",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 121.48260518168222
+     },
+     {
+      "configurationSha256": "sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33",
+      "deviceId": "sensehat-001-compass",
+      "deviceUid": "2b1ee4d0-f402-4e3d-828d-bd62c77c31a4",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "compass",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:d049f3039b1f3885d93fd8288efd5bc586603b7d191eaa47299f66e0150d6b33\",\"deviceName\":\"sensehat-001-compass\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"compass\",\"receivedAt\":1792579893735,\"sequence\":1288,\"sessionId\":\"dmag2zeaayrl\",\"sourceGeneration\":\"df2ced98-0311-450f-9c3c-dc50d2216cf8\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":121.4429764241178}",
+      "receivedAt": "2026-10-21T10:51:33.739Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaayrl",
+      "sourceGeneration": "df2ced98-0311-450f-9c3c-dc50d2216cf8",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 121.4429764241178
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMzLjY3MjAwMTI4OFp8ZGYyY2VkOTgtMDMxMS00NTBmLTljM2MtZGM1MGQyMjE2Y2Y4OmRtYWcyemVhYXlybDow",
+    "property": "compass",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.785Z",
+    "truncated": true
+   }
+  },
+  "pitch": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.796Z",
+    "fetchMs": 15.344238,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/0b892da0-4864-40ab-9fe1-97b7882ed5d3/pitch/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "0b892da0-4864-40ab-9fe1-97b7882ed5d3",
+    "from": "2026-10-21T09:51:35.797Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75",
+      "deviceId": "sensehat-001-pitch",
+      "deviceUid": "0b892da0-4864-40ab-9fe1-97b7882ed5d3",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "pitch",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-pitch\",\"PropertyName\":\"pitch\",\"Namespace\":\"edgeai-devices\",\"Value\":\"41.79380117280838\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.738Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "°",
+      "value": 41.79380117280838
+     },
+     {
+      "configurationSha256": "sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75",
+      "deviceId": "sensehat-001-pitch",
+      "deviceUid": "0b892da0-4864-40ab-9fe1-97b7882ed5d3",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "pitch",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75\",\"deviceName\":\"sensehat-001-pitch\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"pitch\",\"receivedAt\":1792579894739,\"sequence\":1289,\"sessionId\":\"dmag2zeabg9o\",\"sourceGeneration\":\"251bebe9-dc34-43fd-96f6-07b6bef4045e\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":41.82284996734844}",
+      "receivedAt": "2026-10-21T10:51:34.743Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeabg9o",
+      "sourceGeneration": "251bebe9-dc34-43fd-96f6-07b6bef4045e",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 41.82284996734844
+     },
+     {
+      "configurationSha256": "sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75",
+      "deviceId": "sensehat-001-pitch",
+      "deviceUid": "0b892da0-4864-40ab-9fe1-97b7882ed5d3",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "pitch",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:2d9eca758e5a30a437d40a9956508ec3f7682552415a8776a36e7eaf422ccc75\",\"deviceName\":\"sensehat-001-pitch\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"pitch\",\"receivedAt\":1792579893735,\"sequence\":1288,\"sessionId\":\"dmag2zeabg9o\",\"sourceGeneration\":\"251bebe9-dc34-43fd-96f6-07b6bef4045e\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":41.84503783686723}",
+      "receivedAt": "2026-10-21T10:51:33.740Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeabg9o",
+      "sourceGeneration": "251bebe9-dc34-43fd-96f6-07b6bef4045e",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 41.84503783686723
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMzLjY3MjAwMTI4OFp8MjUxYmViZTktZGMzNC00M2ZkLTk2ZjYtMDdiNmJlZjQwNDVlOmRtYWcyemVhYmc5bzow",
+    "property": "pitch",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.797Z",
+    "truncated": true
+   }
+  },
+  "roll": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.811Z",
+    "fetchMs": 11.216984,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/c81a558a-fb81-4c96-80b8-40ac7a3195ff/roll/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "c81a558a-fb81-4c96-80b8-40ac7a3195ff",
+    "from": "2026-10-21T09:51:35.812Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37",
+      "deviceId": "sensehat-001-roll",
+      "deviceUid": "c81a558a-fb81-4c96-80b8-40ac7a3195ff",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "roll",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-roll\",\"PropertyName\":\"roll\",\"Namespace\":\"edgeai-devices\",\"Value\":\"14.171365282401666\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.740Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "°",
+      "value": 14.171365282401666
+     },
+     {
+      "configurationSha256": "sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37",
+      "deviceId": "sensehat-001-roll",
+      "deviceUid": "c81a558a-fb81-4c96-80b8-40ac7a3195ff",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "roll",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37\",\"deviceName\":\"sensehat-001-roll\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"roll\",\"receivedAt\":1792579894737,\"sequence\":1289,\"sessionId\":\"dmag2zeaemv6\",\"sourceGeneration\":\"5848578b-6fbf-4991-805f-2a83ff1df46e\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":14.09503194201125}",
+      "receivedAt": "2026-10-21T10:51:34.743Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaemv6",
+      "sourceGeneration": "5848578b-6fbf-4991-805f-2a83ff1df46e",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 14.09503194201125
+     },
+     {
+      "configurationSha256": "sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37",
+      "deviceId": "sensehat-001-roll",
+      "deviceUid": "c81a558a-fb81-4c96-80b8-40ac7a3195ff",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "roll",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:e34c84a5c18f00c9bb9d7f86b568442131ad8cff49d2b76a0a9e6291f9267d37\",\"deviceName\":\"sensehat-001-roll\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"roll\",\"receivedAt\":1792579893736,\"sequence\":1288,\"sessionId\":\"dmag2zeaemv6\",\"sourceGeneration\":\"5848578b-6fbf-4991-805f-2a83ff1df46e\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":14.173071975920523}",
+      "receivedAt": "2026-10-21T10:51:33.741Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaemv6",
+      "sourceGeneration": "5848578b-6fbf-4991-805f-2a83ff1df46e",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 14.173071975920523
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMzLjY3MjAwMTI4OFp8NTg0ODU3OGItNmZiZi00OTkxLTgwNWYtMmE4M2ZmMWRmNDZlOmRtYWcyemVhZW12Njow",
+    "property": "roll",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.812Z",
+    "truncated": true
+   }
+  },
+  "yaw": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.823Z",
+    "fetchMs": 16.669595,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/05bdb8db-9ccc-4048-8abb-3ed598e5fcf2/yaw/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "05bdb8db-9ccc-4048-8abb-3ed598e5fcf2",
+    "from": "2026-10-21T09:51:35.824Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e",
+      "deviceId": "sensehat-001-yaw",
+      "deviceUid": "05bdb8db-9ccc-4048-8abb-3ed598e5fcf2",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "yaw",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-yaw\",\"PropertyName\":\"yaw\",\"Namespace\":\"edgeai-devices\",\"Value\":\"121.5462488843684\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.739Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "°",
+      "value": 121.5462488843684
+     },
+     {
+      "configurationSha256": "sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e",
+      "deviceId": "sensehat-001-yaw",
+      "deviceUid": "05bdb8db-9ccc-4048-8abb-3ed598e5fcf2",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "yaw",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e\",\"deviceName\":\"sensehat-001-yaw\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"yaw\",\"receivedAt\":1792579894738,\"sequence\":1289,\"sessionId\":\"dmag2zeaayrk\",\"sourceGeneration\":\"38466359-dda3-43d6-9d68-be203379c943\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":121.48260518168222}",
+      "receivedAt": "2026-10-21T10:51:34.743Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaayrk",
+      "sourceGeneration": "38466359-dda3-43d6-9d68-be203379c943",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 121.48260518168222
+     },
+     {
+      "configurationSha256": "sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e",
+      "deviceId": "sensehat-001-yaw",
+      "deviceUid": "05bdb8db-9ccc-4048-8abb-3ed598e5fcf2",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:33.672Z",
+      "property": "yaw",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:390dd5fd557e319749b8cfe479b871b1c9869e3a4a791ef3fa7604b01494dd7e\",\"deviceName\":\"sensehat-001-yaw\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579893672,\"property\":\"yaw\",\"receivedAt\":1792579893735,\"sequence\":1288,\"sessionId\":\"dmag2zeaayrk\",\"sourceGeneration\":\"38466359-dda3-43d6-9d68-be203379c943\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"°\",\"value\":121.4429764241178}",
+      "receivedAt": "2026-10-21T10:51:33.739Z",
+      "sequence": 1288,
+      "sessionId": "dmag2zeaayrk",
+      "sourceGeneration": "38466359-dda3-43d6-9d68-be203379c943",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "°",
+      "value": 121.4429764241178
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjMzLjY3MjAwMTI4OFp8Mzg0NjYzNTktZGRhMy00M2Q2LTlkNjgtYmUyMDMzNzljOTQzOmRtYWcyemVhYXlyazow",
+    "property": "yaw",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.824Z",
+    "truncated": true
+   }
+  },
+  "gyro_x": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.839Z",
+    "fetchMs": 11.345995,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/b0db7c57-3a38-4775-afac-187dad68d429/gyro_x/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "b0db7c57-3a38-4775-afac-187dad68d429",
+    "from": "2026-10-21T09:51:35.840Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776",
+      "deviceId": "sensehat-001-gyro-x",
+      "deviceUid": "b0db7c57-3a38-4775-afac-187dad68d429",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "gyro_x",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776\",\"deviceName\":\"sensehat-001-gyro-x\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579895673,\"property\":\"gyro_x\",\"receivedAt\":1792579895737,\"sequence\":1290,\"sessionId\":\"dmag2zeaemvb\",\"sourceGeneration\":\"59cdeff0-8009-4a15-b4dd-83e8a4f98b8e\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"rad/s\",\"value\":0.022529371082782745}",
+      "receivedAt": "2026-10-21T10:51:35.743Z",
+      "sequence": 1290,
+      "sessionId": "dmag2zeaemvb",
+      "sourceGeneration": "59cdeff0-8009-4a15-b4dd-83e8a4f98b8e",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.022529371082782745
+     },
+     {
+      "configurationSha256": "sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776",
+      "deviceId": "sensehat-001-gyro-x",
+      "deviceUid": "b0db7c57-3a38-4775-afac-187dad68d429",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "gyro_x",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-gyro-x\",\"PropertyName\":\"gyro_x\",\"Namespace\":\"edgeai-devices\",\"Value\":\"0.022529371082782745\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.741Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.022529371082782745
+     },
+     {
+      "configurationSha256": "sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776",
+      "deviceId": "sensehat-001-gyro-x",
+      "deviceUid": "b0db7c57-3a38-4775-afac-187dad68d429",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "gyro_x",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:4f2442d93f4d27bb46faad5261a3a88d1597e9f63b698d5f68e731e7ba86f776\",\"deviceName\":\"sensehat-001-gyro-x\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"gyro_x\",\"receivedAt\":1792579894737,\"sequence\":1289,\"sessionId\":\"dmag2zeaemvb\",\"sourceGeneration\":\"59cdeff0-8009-4a15-b4dd-83e8a4f98b8e\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"rad/s\",\"value\":0.020085908472537994}",
+      "receivedAt": "2026-10-21T10:51:34.743Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaemvb",
+      "sourceGeneration": "59cdeff0-8009-4a15-b4dd-83e8a4f98b8e",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.020085908472537994
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjM0LjY3MjAwMTI4OVp8NTljZGVmZjAtODAwOS00YTE1LWI0ZGQtODNlOGE0Zjk4YjhlOmRtYWcyemVhZW12Yjow",
+    "property": "gyro_x",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.840Z",
+    "truncated": true
+   }
+  },
+  "gyro_y": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.851Z",
+    "fetchMs": 21.278129,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/ab7bec1e-590f-4ef8-9332-a0e21245ace1/gyro_y/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "ab7bec1e-590f-4ef8-9332-a0e21245ace1",
+    "from": "2026-10-21T09:51:35.852Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20",
+      "deviceId": "sensehat-001-gyro-y",
+      "deviceUid": "ab7bec1e-590f-4ef8-9332-a0e21245ace1",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "gyro_y",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20\",\"deviceName\":\"sensehat-001-gyro-y\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579895673,\"property\":\"gyro_y\",\"receivedAt\":1792579895736,\"sequence\":1290,\"sessionId\":\"dmag2zeaemv7\",\"sourceGeneration\":\"377a46cc-45ad-43da-b5cc-31d61cd045c7\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"rad/s\",\"value\":0.07644284516572952}",
+      "receivedAt": "2026-10-21T10:51:35.743Z",
+      "sequence": 1290,
+      "sessionId": "dmag2zeaemv7",
+      "sourceGeneration": "377a46cc-45ad-43da-b5cc-31d61cd045c7",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.07644284516572952
+     },
+     {
+      "configurationSha256": "sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20",
+      "deviceId": "sensehat-001-gyro-y",
+      "deviceUid": "ab7bec1e-590f-4ef8-9332-a0e21245ace1",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "gyro_y",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-gyro-y\",\"PropertyName\":\"gyro_y\",\"Namespace\":\"edgeai-devices\",\"Value\":\"0.07644284516572952\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.739Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.07644284516572952
+     },
+     {
+      "configurationSha256": "sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20",
+      "deviceId": "sensehat-001-gyro-y",
+      "deviceUid": "ab7bec1e-590f-4ef8-9332-a0e21245ace1",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "gyro_y",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:d81ffdda878aa546364bd4405f23dd5763d025a334a52df352a151f81580ed20\",\"deviceName\":\"sensehat-001-gyro-y\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"gyro_y\",\"receivedAt\":1792579894736,\"sequence\":1289,\"sessionId\":\"dmag2zeaemv7\",\"sourceGeneration\":\"377a46cc-45ad-43da-b5cc-31d61cd045c7\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"rad/s\",\"value\":0.07705370336771011}",
+      "receivedAt": "2026-10-21T10:51:34.739Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zeaemv7",
+      "sourceGeneration": "377a46cc-45ad-43da-b5cc-31d61cd045c7",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.07705370336771011
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjM0LjY3MjAwMTI4OVp8Mzc3YTQ2Y2MtNDVhZC00M2RhLWI1Y2MtMzFkNjFjZDA0NWM3OmRtYWcyemVhZW12Nzow",
+    "property": "gyro_y",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.852Z",
+    "truncated": true
+   }
+  },
+  "gyro_z": {
+   "request": {
+    "requestedAt": "2026-10-21T10:51:35.872Z",
+    "fetchMs": 10.4205,
+    "status": 200,
+    "path": "/api/v1/data-store/sensors/837f9f68-9792-48e8-9602-5aecfbfd2cf3/gyro_z/history?order=desc&limit=3"
+   },
+   "response": {
+    "deviceUid": "837f9f68-9792-48e8-9602-5aecfbfd2cf3",
+    "from": "2026-10-21T09:51:35.873Z",
+    "items": [
+     {
+      "configurationSha256": "sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff",
+      "deviceId": "sensehat-001-gyro-z",
+      "deviceUid": "837f9f68-9792-48e8-9602-5aecfbfd2cf3",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "gyro_z",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff\",\"deviceName\":\"sensehat-001-gyro-z\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579895673,\"property\":\"gyro_z\",\"receivedAt\":1792579895736,\"sequence\":1290,\"sessionId\":\"dmag2zea1467\",\"sourceGeneration\":\"18880abf-01a5-4ed5-a296-4d306c64306f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"rad/s\",\"value\":0.0004414208233356476}",
+      "receivedAt": "2026-10-21T10:51:35.743Z",
+      "sequence": 1290,
+      "sessionId": "dmag2zea1467",
+      "sourceGeneration": "18880abf-01a5-4ed5-a296-4d306c64306f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.0004414208233356476
+     },
+     {
+      "configurationSha256": "sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff",
+      "deviceId": "sensehat-001-gyro-z",
+      "deviceUid": "837f9f68-9792-48e8-9602-5aecfbfd2cf3",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:35.673Z",
+      "property": "gyro_z",
+      "quality": "UNVERIFIED",
+      "rawPayload": "{\"DeviceName\":\"sensehat-001-gyro-z\",\"PropertyName\":\"gyro_z\",\"Namespace\":\"edgeai-devices\",\"Value\":\"0.0004414208233356476\",\"Type\":\"double\",\"TimeStamp\":1792579895673}",
+      "receivedAt": "2026-10-21T10:51:35.741Z",
+      "timeBasis": "MAPPER_REPORTED",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.0004414208233356476
+     },
+     {
+      "configurationSha256": "sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff",
+      "deviceId": "sensehat-001-gyro-z",
+      "deviceUid": "837f9f68-9792-48e8-9602-5aecfbfd2cf3",
+      "namespace": "edgeai-devices",
+      "observedAt": "2026-10-21T10:51:34.672Z",
+      "property": "gyro_z",
+      "quality": "QUALIFIED",
+      "rawPayload": "{\"apiVersion\":\"edgeai.observation/v1\",\"configurationSha256\":\"sha256:ee7a789e069ff1a35270a98e98d136c7a72dafb42fc79fbd1e2c6d67ae21c8ff\",\"deviceName\":\"sensehat-001-gyro-z\",\"namespace\":\"edgeai-devices\",\"observedAt\":1792579894672,\"property\":\"gyro_z\",\"receivedAt\":1792579894738,\"sequence\":1289,\"sessionId\":\"dmag2zea1467\",\"sourceGeneration\":\"18880abf-01a5-4ed5-a296-4d306c64306f\",\"timeBasis\":\"SOURCE\",\"type\":\"float64\",\"unit\":\"rad/s\",\"value\":0.0004414208233356476}",
+      "receivedAt": "2026-10-21T10:51:34.743Z",
+      "sequence": 1289,
+      "sessionId": "dmag2zea1467",
+      "sourceGeneration": "18880abf-01a5-4ed5-a296-4d306c64306f",
+      "timeBasis": "SOURCE",
+      "type": "float64",
+      "unit": "rad/s",
+      "value": 0.0004414208233356476
+     }
+    ],
+    "nextCursor": "ZGVzY3wyMDI2LTEwLTIxVDEwOjUxOjM0LjY3MjAwMTI4OVp8MTg4ODBhYmYtMDFhNS00ZWQ1LWEyOTYtNGQzMDZjNjQzMDZmOmRtYWcyemVhMTQ2Nzow",
+    "property": "gyro_z",
+    "retentionDays": 30,
+    "to": "2026-10-21T10:51:35.873Z",
+    "truncated": true
+   }
+  }
+ }
+}

@@ -1,0 +1,844 @@
+{
+  "condition": "compressed-2",
+  "placement": {
+    "vision": "etri-ser0002-cgnmsb",
+    "speech": "etri-ser0002-cgnmsb",
+    "fusion": "etri-ser0002-cgnmsb"
+  },
+  "validation": "ok",
+  "candidates": [
+    "etri-dev0003-raspi5",
+    "etri-dev0002-raspi5",
+    "etri-ser0002-cgnmsb"
+  ],
+  "pods": {
+    "vision": {
+      "name": "wan-20261021t101203-vision",
+      "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300",
+      "node": "etri-ser0002-cgnmsb",
+      "scheduler": "default-scheduler",
+      "created_at": "2026-10-21T10:23:08Z",
+      "scheduled": {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-21T10:23:08Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    },
+    "speech": {
+      "name": "wan-20261021t101203-speech",
+      "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006",
+      "node": "etri-ser0002-cgnmsb",
+      "scheduler": "default-scheduler",
+      "created_at": "2026-10-21T10:23:08Z",
+      "scheduled": {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-21T10:23:08Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    },
+    "fusion": {
+      "name": "wan-20261021t101203-fusion",
+      "uid": "592a41d2-c0de-4662-a46d-67844ae0965f",
+      "node": "etri-ser0002-cgnmsb",
+      "scheduler": "default-scheduler",
+      "created_at": "2026-10-21T10:23:08Z",
+      "scheduled": {
+        "lastProbeTime": null,
+        "lastTransitionTime": "2026-10-21T10:23:08Z",
+        "status": "True",
+        "type": "PodScheduled"
+      }
+    }
+  },
+  "events": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:08Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913106",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:08Z",
+      "message": "Successfully assigned topology-profile-lab/wan-20261021t101203-fusion to etri-ser0002-cgnmsb",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:08Z",
+        "name": "wan-20261021t101203-fusion.18e0845d816a19e6",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913109",
+        "uid": "308b8a58-984f-4666-8a33-4f212e3e0f8f"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Container image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845d9f19cfda",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913116",
+        "uid": "b670fac7-019f-40a0-97e8-ab78237868f3"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Created container: worker",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845da0809a39",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913118",
+        "uid": "4144ce14-815a-498a-b2f1-c0d8863aaf7f"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Started container worker",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845da3ab1cad",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913123",
+        "uid": "846105eb-bbe1-4909-b1a6-0584b9201e55"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Container image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845da3afef99",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913124",
+        "uid": "c7e76327-e9c9-448b-96b1-66db55572e9a"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Created container: netctl",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845da63075f1",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913127",
+        "uid": "431b1bcd-f150-4be6-9ba7-71751896ab65"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Started container netctl",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845da998b6eb",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913130",
+        "uid": "e88cc116-21f7-403d-be8c-c361bce425ad"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 5,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-fusion",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913107",
+        "uid": "592a41d2-c0de-4662-a46d-67844ae0965f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:14Z",
+      "message": "Readiness probe failed: Get \"http://10.244.8.60:8080/health\": dial tcp 10.244.8.60:8080: connect: connection refused",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-fusion.18e0845dc555349f",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913195",
+        "uid": "a52e6988-510b-4b34-80ab-df07f94d8f99"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:08Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913102",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:08Z",
+      "message": "Successfully assigned topology-profile-lab/wan-20261021t101203-speech to etri-ser0002-cgnmsb",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:08Z",
+        "name": "wan-20261021t101203-speech.18e0845d80434e80",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913105",
+        "uid": "d412d18e-9fee-48bf-81aa-046c55cc8e2c"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Container image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845d9da8d989",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913114",
+        "uid": "9fcc8fd2-8155-440f-a0b7-8368c0ce0786"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Created container: worker",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845d9f5070fe",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913117",
+        "uid": "71e7aebb-248b-46f0-9bc6-5ae36b6c995d"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Started container worker",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845da257fe03",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913119",
+        "uid": "37c0ddf1-1560-4917-90c7-bd37782536d2"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Container image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845da25e4272",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913120",
+        "uid": "8ace9696-880b-4780-bdb6-7b15ae97e7a3"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Created container: netctl",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845da45e045d",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913125",
+        "uid": "c60a3f62-38ad-4b5f-ab1a-120dc8d7f66d"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Started container netctl",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845da876e083",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913129",
+        "uid": "6211b1c1-f80f-434d-bd27-7002e96fdb1b"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 6,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-speech",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913104",
+        "uid": "1c3f13b1-a3d0-45c2-87b0-670e447fb006"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:19Z",
+      "message": "Readiness probe failed: Get \"http://10.244.8.59:8080/health\": dial tcp 10.244.8.59:8080: connect: connection refused",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-speech.18e0845dc516ad06",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913237",
+        "uid": "20e7afea-ba57-446e-9d33-b9b21699d310"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:08Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913098",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:08Z",
+      "message": "Successfully assigned topology-profile-lab/wan-20261021t101203-vision to etri-ser0002-cgnmsb",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:08Z",
+        "name": "wan-20261021t101203-vision.18e0845d7eb9cb16",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913101",
+        "uid": "b9d782c3-3921-48c1-876a-303295869abe"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Container image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845d9c87145e",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913113",
+        "uid": "7ad6a8a9-9a27-48f4-8ac9-d202369dc0a6"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Created container: worker",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845d9e1c9b36",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913115",
+        "uid": "ddc66610-c93c-4463-9022-ae004080833a"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Started container worker",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845da25e42c5",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913121",
+        "uid": "7af95f7c-8023-49eb-8bef-c6751d8796be"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Container image \"192.168.0.56:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\" already present on machine",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845da26190db",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913122",
+        "uid": "8e241b53-6d7c-42b4-9757-56ad809aceeb"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Created container: netctl",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845da5459d2c",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913126",
+        "uid": "0ef2b7cf-3e25-47e5-8e3b-807b7d49b687"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{netctl}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:09Z",
+      "message": "Started container netctl",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845da876e094",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913128",
+        "uid": "019645ae-f807-4708-93f1-1f22c12c2d1a"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 5,
+      "eventTime": null,
+      "firstTimestamp": "2026-10-21T10:23:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{worker}",
+        "kind": "Pod",
+        "name": "wan-20261021t101203-vision",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913099",
+        "uid": "55e1f795-6585-4e0b-8e4d-33ec96fad300"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-10-21T10:23:14Z",
+      "message": "Readiness probe failed: Get \"http://10.244.8.58:8080/health\": dial tcp 10.244.8.58:8080: connect: connection refused",
+      "metadata": {
+        "creationTimestamp": "2026-10-21T10:23:09Z",
+        "name": "wan-20261021t101203-vision.18e0845dc5854d00",
+        "namespace": "topology-profile-lab",
+        "resourceVersion": "50913191",
+        "uid": "14377fe8-f0f6-44b9-8b23-4624eaeca815"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "etri-ser0002-cgnmsb",
+      "source": {
+        "component": "kubelet",
+        "host": "etri-ser0002-cgnmsb"
+      },
+      "type": "Warning"
+    }
+  ],
+  "scope": "actual scheduler selection only; later re-pinned evaluation excludes this scheduling overhead"
+}

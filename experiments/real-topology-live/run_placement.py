@@ -20,6 +20,7 @@ from placement_policies import prepare, select_policies
 
 TASKS = ('vision', 'speech', 'fusion')
 HELPERS = ('source-e0', 'source-e1', 'source-c', 'sink-e0', 'sink-e1', 'sink-c')
+LEGACY_ROLES = {'e0': 'edge', 'e1': 'edge', 'c': 'cloud'}
 
 
 def quantile(values, q=.75):
@@ -30,6 +31,9 @@ def quantile(values, q=.75):
 
 
 class Pilot(Session):
+    # Explicit zone per alias in self.nodes; the legacy default equals the old '-c' suffix rule.
+    roles = LEGACY_ROLES
+
     def __init__(self,spec_path=None):
         super().__init__()
         self.pairs = json.loads((ASSETS/'load-pairs.json').read_text())['pairs']
@@ -102,20 +106,23 @@ class Pilot(Session):
         cm=dict(apiVersion='v1',kind='ConfigMap',metadata=self.meta(self.run),data={f:(HERE/f).read_text() for f in files})
         cm['data']['bundles.json']=(ASSETS/'load-bundles.json').read_text()
         items=[cm,self.pod('gateway','c','gateway',self.cache_url)]
-        items += [self.pod('source-'+node,node,'source',self.cache_url) for node in NODES]
-        for node in NODES:
+        items += [self.pod('source-'+node,node,'source',self.cache_url) for node in self.nodes]
+        for node in self.nodes:
             sink=self.pod('sink-'+node,node,'source',self.cache_url)
             sink['spec']['containers'][0]['resources']['requests'].update(cpu='5m',memory='32Mi')
             items.append(sink)
         self.apply('helpers',items)
         self.call('helpers-ready',['wait','pods','-n',NS,'-l','run-id='+self.run,'--for=condition=Ready','--timeout=240s'],timeout=250)
-        self.actual={key:json.loads(self.call('helper-'+key,['get','pod','-n',NS,self.run+'-'+key,'-o','json'])) for key in (*HELPERS,'gateway')}
+        self.actual={key:json.loads(self.call('helper-'+key,['get','pod','-n',NS,self.run+'-'+key,'-o','json'])) for key in (*self.helpers(),'gateway')}
         self.urls={k:'http://'+p['status']['podIP']+':8080' for k,p in self.actual.items()}
-        self.zones={key:'cloud' if key.endswith('-c') else 'edge' for key in HELPERS}
+        self.zones={key:self.roles[key.split('-',1)[1]] for key in self.helpers()}
         self.refresh_network('helpers')
         # Preflight's sink is a helper, not an AI operator; unchanged probe bytes.
         self.urls['fusion']=self.urls['source-c']
         self.execute('gateway',"from pathlib import Path;import json;p=Path('/work/peers.json');d=json.loads(p.read_text());d['fusion']=d['source-c'];p.write_text(json.dumps(d))",'probe-alias')
+
+    def helpers(self):
+        return tuple(kind+'-'+node for kind in ('source','sink') for node in self.nodes)
 
     def refresh_network(self,label):
         peers={k:dict(url=self.urls[k],zone=z) for k,z in self.zones.items()}
@@ -157,12 +164,12 @@ class Pilot(Session):
         self.generation+=1
         start=time.monotonic()
         items=[]
-        reverse={name:node for node,name in NODES.items()}
+        reverse={name:node for node,name in self.nodes.items()}
         for task,node in placement.items():
             pod=self.pod(task,reverse[node] if node else 'c',task,self.cache_url)
             if node is None:
                 pod['spec']['affinity']['nodeAffinity']['requiredDuringSchedulingIgnoredDuringExecution']['nodeSelectorTerms']=[
-                    {'matchFields':[{'key':'metadata.name','operator':'In','values':[candidate]}]} for candidate in NODES.values()]
+                    {'matchFields':[{'key':'metadata.name','operator':'In','values':[candidate]}]} for candidate in self.nodes.values()]
             items.append(pod)
         self.apply(label,items)
         self.operators=list(placement)
@@ -173,7 +180,7 @@ class Pilot(Session):
             actual=self.actual[task]['spec']['nodeName']
             if placement[task] is not None and actual!=placement[task]:
                 raise RuntimeError('Planner pin did not match actual node')
-            self.zones[task]='cloud' if actual==NODES['c'] else 'edge'
+            self.zones[task]=self.roles[reverse[actual]]
         actual={t:self.actual[t]['spec']['nodeName'] for t in self.operators}
         self.save(label+'-deployment.json',dict(elapsed_ms=(time.monotonic()-start)*1000,placement=actual,
             pods={t:self.actual[t] for t in self.operators}))
@@ -197,10 +204,10 @@ class Pilot(Session):
     def qualify_all(self):
         rows=[]
         for task in TASKS:
-            for node in NODES:
+            for node in self.nodes:
                 label='qualify-'+task+'-'+node
                 print(label,flush=True)
-                self.deploy_operators({task:NODES[node]},label)
+                self.deploy_operators({task:self.nodes[node]},label)
                 health=self.rpc(self.urls[task]+'/health',{},label+'-health')
                 if health.get('serving_torch_threads')!=1: raise RuntimeError('Worker thread setting invalid')
                 for index,pair in enumerate([self.pairs[0]]*5+self.pairs):
@@ -228,16 +235,16 @@ class Pilot(Session):
                     else:
                         out=json.loads(body);ref=self.refs[q]
                         ok=out['answer_ids']==ref['answer_ids'] and max(abs(a-b) for a,b in zip(out['scores'],ref['scores']))<=1e-4
-                    row=dict(task=task,node=NODES[node],question_id=q,split=pair['split'],warmup=warmup,quality_ok=ok,receipt=receipt)
+                    row=dict(task=task,node=self.nodes[node],question_id=q,split=pair['split'],warmup=warmup,quality_ok=ok,receipt=receipt)
                     rows.append(row)
                     if not ok:
                         self.save('qualification-failed.json',rows)
                         raise RuntimeError('Quality mismatch; no input excluded')
                     if pair['split']=='calibration' and not warmup:
                         self.cal_outputs[(task,q)]=body
-                samples=[r['receipt']['compute_ms'] for r in rows if r['task']==task and r['node']==NODES[node] and r['split']=='calibration' and not r['warmup']]
-                self.compute[task][NODES[node]]=quantile(samples)
-                self.save(label+'-qualification.json',[r for r in rows if r['task']==task and r['node']==NODES[node]])
+                samples=[r['receipt']['compute_ms'] for r in rows if r['task']==task and r['node']==self.nodes[node] and r['split']=='calibration' and not r['warmup']]
+                self.compute[task][self.nodes[node]]=quantile(samples)
+                self.save(label+'-qualification.json',[r for r in rows if r['task']==task and r['node']==self.nodes[node]])
                 self.remove_operators(label)
         self.save('qualification-all.json',rows)
         self.save('compute-p75.json',self.compute)
@@ -254,19 +261,24 @@ class Pilot(Session):
         result={}
         for node in nodes:
             name=node['metadata']['name']
-            if name not in NODES.values():continue
+            if name not in self.nodes.values():continue
             if not any(c['type']=='Ready' and c['status']=='True' for c in node['status']['conditions']):raise RuntimeError('Candidate node not Ready')
             alloc=node['status']['allocatable'];cpu=amount(alloc['cpu'],True);mem=amount(alloc['memory'])
             for pod in pods:
                 if pod['spec'].get('nodeName')!=name or pod['status'].get('phase') in ('Succeeded','Failed'):continue
                 regular=[c.get('resources',{}).get('requests',{}) for c in pod['spec']['containers']]
-                init=[c.get('resources',{}).get('requests',{}) for c in pod['spec'].get('initContainers',[])]
-                # Refuse sidecar-init accounting ambiguity instead of undercounting.
-                if any(c.get('restartPolicy')=='Always' for c in pod['spec'].get('initContainers',[])):
-                    raise RuntimeError('Restartable init containers need explicit resource accounting')
                 overhead=pod['spec'].get('overhead',{})
-                cpu-=max(sum(amount(r.get('cpu',0),True) for r in regular),max((amount(r.get('cpu',0),True) for r in init),default=0))+amount(overhead.get('cpu',0),True)
-                mem-=max(sum(amount(r.get('memory',0)) for r in regular),max((amount(r.get('memory',0)) for r in init),default=0))+amount(overhead.get('memory',0))
+                # Kubernetes v1.31.14 PodRequests: sidecars (restartPolicy Always) join the steady sum;
+                # each init stage needs itself plus the sidecars started before it.
+                for key,is_cpu in (('cpu',True),('memory',False)):
+                    steady=sum(amount(r.get(key,0),is_cpu) for r in regular);sidecars=0;peak=0
+                    for c in pod['spec'].get('initContainers',[]):
+                        own=amount(c.get('resources',{}).get('requests',{}).get(key,0),is_cpu)
+                        peak=max(peak,own+sidecars)
+                        if c.get('restartPolicy')=='Always':sidecars+=own;steady+=own
+                    request=max(steady,peak)+amount(overhead.get(key,0),is_cpu)
+                    if is_cpu:cpu-=request
+                    else:mem-=request
             result[name]=dict(cpu_free_m=cpu,memory_free_mib=mem)
         return result
 
@@ -276,8 +288,8 @@ class Pilot(Session):
         sizes={kind:[] for kind in table}
         calibration=[p for p in self.pairs if p['split']=='calibration']
         for kind in table:
-            origins=['e0'] if kind=='image' else ['e1'] if kind=='audio' else list(NODES)
-            destinations=['e0'] if kind=='return' else list(NODES)
+            origins=['e0'] if kind=='image' else ['e1'] if kind=='audio' else list(self.nodes)
+            destinations=['e0'] if kind=='return' else list(self.nodes)
             if kind=='control': origins=['e0']
             for origin in origins:
                 for dest in destinations:
@@ -294,18 +306,18 @@ class Pilot(Session):
                         label=f'{condition}-{kind}-{origin}-{dest}-{index}'
                         row=self.rpc(self.urls['source-'+origin]+'/transfer_profile',dict(run_id=self.run,request_id=label,
                             target_url=self.route('source-'+origin,'sink-'+dest),data=base64.b64encode(content).decode(),count=1),label,timeout=125)
-                        if row['source_node']!=NODES[origin] or row['sha256']!=hashlib.sha256(content).hexdigest():raise RuntimeError('Transfer observation identity mismatch')
+                        if row['source_node']!=self.nodes[origin] or row['sha256']!=hashlib.sha256(content).hexdigest():raise RuntimeError('Transfer observation identity mismatch')
                         observations.extend(row['samples_ms']);sizes[kind].append(len(content))
-                    table[kind][NODES[origin]+'|'+NODES[dest]]=quantile(observations)
+                    table[kind][self.nodes[origin]+'|'+self.nodes[dest]]=quantile(observations)
         tasks=[]
         for task in TASKS:
             if task in ('vision','speech'):
                 kind='image' if task=='vision' else 'audio';source=NODES['e0' if task=='vision' else 'e1']
                 inputs=[dict(source_node=source,bytes=statistics.mean(sizes[kind]),transfer_ms=table[kind])]
             else:inputs=[dict(task=t,bytes=statistics.mean(sizes[t]),transfer_ms=table[t]) for t in ('vision','speech')]
-            tasks.append(dict(id=task,candidates=list(NODES.values()),compute_ms=self.compute[task],
+            tasks.append(dict(id=task,candidates=list(self.nodes.values()),compute_ms=self.compute[task],
                 image=IMAGE,cpu_m=1010,memory_mib=2080,inputs=inputs))
-        output={node+'|'+NODES['e0']:table['return'][node+'|'+NODES['e0']]+table['control'][NODES['e0']+'|'+node] for node in NODES.values()}
+        output={node+'|'+NODES['e0']:table['return'][node+'|'+NODES['e0']]+table['control'][NODES['e0']+'|'+node] for node in self.nodes.values()}
         config=dict(provenance='measured',evidence_id=str(self.out),namespace=NS,nodes=capacity,tasks=tasks,
             outputs=[dict(task='fusion',destination_node=NODES['e0'],transfer_ms=output)],
             representation=representation,condition=condition,
@@ -338,7 +350,7 @@ class Pilot(Session):
             network=self.net('gateway',dict(action='snapshot'),'drain-qdisc-'+label)
             self.save(label+f'-drain-network-{attempt}.json',network)
             idle=all(states[k]['serving_queue']==0 and not states[k]['serving_active'] and states[k]['http_active']==0 and states[k]['pending_joins']==0 for k in self.operators)
-            idle=idle and all(states[k]['active_requests']==0 for k in (*HELPERS,'gateway')) and network['backlog_bytes']==0
+            idle=idle and all(states[k]['active_requests']==0 for k in (*self.helpers(),'gateway')) and network['backlog_bytes']==0
             ledger.append(dict(attempt=attempt,idle=idle,states=states,backlog_bytes=network['backlog_bytes']))
             stable=stable+1 if idle else 0
             if stable>=2:

@@ -1,0 +1,1103 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"diag-owner\":\"edgecore-fleet-20261022\"},\"name\":\"diag-ec-fleet-20261022-e2\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":3600,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\\nwhile True:\\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\\u003c15\"]},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/cfg\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeName\":\"etri-dev0002-raspi5\",\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Mi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"diag-ec-fleet-20261022\"},\"name\":\"config\"}]}}\n"
+                },
+                "creationTimestamp": "2026-10-22T07:40:44Z",
+                "labels": {
+                    "diag-owner": "edgecore-fleet-20261022"
+                },
+                "name": "diag-ec-fleet-20261022-e2",
+                "namespace": "topology-profile-lab",
+                "resourceVersion": "51630204",
+                "uid": "e53190ea-1cdb-470d-a324-f51e23ccd020"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 3600,
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python3",
+                            "-u",
+                            "-c",
+                            "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+                        ],
+                        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "worker",
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "python3",
+                                    "-c",
+                                    "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\u003c15"
+                                ]
+                            },
+                            "failureThreshold": 3,
+                            "periodSeconds": 5,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0002-raspi5",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65532,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 3,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "8Mi"
+                        },
+                        "name": "work"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "diag-ec-fleet-20261022"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:59Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:57Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:01Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:01Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:57Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://b009dcd74d7804c543177377dde215e018cf8bace365312a367b2af61a203f03",
+                        "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                        "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "lastState": {},
+                        "name": "worker",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-22T07:48:59Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.123",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.123"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.244.1.200",
+                "podIPs": [
+                    {
+                        "ip": "10.244.1.200"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-22T07:48:57Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"diag-owner\":\"edgecore-fleet-20261022\"},\"name\":\"diag-ec-fleet-20261022-e3\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":3600,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\\nwhile True:\\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\\u003c15\"]},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/cfg\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeName\":\"etri-dev0003-raspi5\",\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Mi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"diag-ec-fleet-20261022\"},\"name\":\"config\"}]}}\n"
+                },
+                "creationTimestamp": "2026-10-22T07:40:44Z",
+                "labels": {
+                    "diag-owner": "edgecore-fleet-20261022"
+                },
+                "name": "diag-ec-fleet-20261022-e3",
+                "namespace": "topology-profile-lab",
+                "resourceVersion": "51630231",
+                "uid": "db063b57-c287-4dc3-8eac-617299fdefcf"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 3600,
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python3",
+                            "-u",
+                            "-c",
+                            "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+                        ],
+                        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "worker",
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "python3",
+                                    "-c",
+                                    "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\u003c15"
+                                ]
+                            },
+                            "failureThreshold": 3,
+                            "periodSeconds": 5,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0003-raspi5",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65532,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 3,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "8Mi"
+                        },
+                        "name": "work"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "diag-ec-fleet-20261022"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:59Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:57Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:05Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:05Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:57Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://b0c2f23c98052277d5cdb674d941759de092827f6fee09063917bbd59236dbed",
+                        "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                        "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "lastState": {},
+                        "name": "worker",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-22T07:48:58Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.164.138",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.164.138"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.244.4.13",
+                "podIPs": [
+                    {
+                        "ip": "10.244.4.13"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-22T07:48:57Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"diag-owner\":\"edgecore-fleet-20261022\"},\"name\":\"diag-ec-fleet-20261022-e6\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":3600,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\\nwhile True:\\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\\u003c15\"]},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/cfg\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeName\":\"etri-dev0006-raspi5\",\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Mi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"diag-ec-fleet-20261022\"},\"name\":\"config\"}]}}\n"
+                },
+                "creationTimestamp": "2026-10-22T07:40:44Z",
+                "labels": {
+                    "diag-owner": "edgecore-fleet-20261022"
+                },
+                "name": "diag-ec-fleet-20261022-e6",
+                "namespace": "topology-profile-lab",
+                "resourceVersion": "51630125",
+                "uid": "29dc7f2b-dca9-426a-b59e-e67ebb65075c"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 3600,
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python3",
+                            "-u",
+                            "-c",
+                            "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+                        ],
+                        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "worker",
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "python3",
+                                    "-c",
+                                    "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\u003c15"
+                                ]
+                            },
+                            "failureThreshold": 3,
+                            "periodSeconds": 5,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0006-raspi5",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65532,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 3,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "8Mi"
+                        },
+                        "name": "work"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "diag-ec-fleet-20261022"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:01Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:57Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:02Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:02Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:48:57Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://ba13a59b9a22ac668faeeb4dfe6d9788a2bda51fa9b38bd198c19f4492895c1f",
+                        "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                        "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "lastState": {},
+                        "name": "worker",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-22T07:49:00Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.164.136",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.164.136"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.244.9.17",
+                "podIPs": [
+                    {
+                        "ip": "10.244.9.17"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-22T07:48:57Z"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"diag-owner\":\"edgecore-fleet-20261022\"},\"name\":\"diag-ec-fleet-20261022-e8\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":3600,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\\nwhile True:\\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\\u003c15\"]},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/cfg\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeName\":\"etri-dev0008-raspi5\",\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Mi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"diag-ec-fleet-20261022\"},\"name\":\"config\"}]}}\n"
+                },
+                "creationTimestamp": "2026-10-22T07:40:44Z",
+                "deletionGracePeriodSeconds": 3,
+                "deletionTimestamp": "2026-10-22T07:45:47Z",
+                "labels": {
+                    "diag-owner": "edgecore-fleet-20261022"
+                },
+                "name": "diag-ec-fleet-20261022-e8",
+                "namespace": "topology-profile-lab",
+                "resourceVersion": "51627496",
+                "uid": "e939fef2-64fa-4d1e-9146-4528d2719813"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 3600,
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python3",
+                            "-u",
+                            "-c",
+                            "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+                        ],
+                        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "worker",
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "python3",
+                                    "-c",
+                                    "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\u003c15"
+                                ]
+                            },
+                            "failureThreshold": 3,
+                            "periodSeconds": 5,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0008-raspi5",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65532,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 3,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "8Mi"
+                        },
+                        "name": "work"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "diag-ec-fleet-20261022"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:45:44Z",
+                        "message": "Taint manager: deleting due to NoExecute taint",
+                        "reason": "DeletionByTaintManager",
+                        "status": "True",
+                        "type": "DisruptionTarget"
+                    }
+                ],
+                "phase": "Pending",
+                "qosClass": "Burstable"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"diag-owner\":\"edgecore-fleet-20261022\"},\"name\":\"diag-ec-fleet-20261022-e8r1\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":3600,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\\nwhile True:\\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\\u003c15\"]},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/cfg\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeName\":\"etri-dev0008-raspi5\",\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Mi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"diag-ec-fleet-20261022\"},\"name\":\"config\"}]}}\n"
+                },
+                "creationTimestamp": "2026-10-22T07:49:31Z",
+                "labels": {
+                    "diag-owner": "edgecore-fleet-20261022"
+                },
+                "name": "diag-ec-fleet-20261022-e8r1",
+                "namespace": "topology-profile-lab",
+                "resourceVersion": "51630871",
+                "uid": "04bc9388-a366-440f-8673-19ee9feb599b"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 3600,
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python3",
+                            "-u",
+                            "-c",
+                            "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+                        ],
+                        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "worker",
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "python3",
+                                    "-c",
+                                    "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\u003c15"
+                                ]
+                            },
+                            "failureThreshold": 3,
+                            "periodSeconds": 5,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0008-raspi5",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65532,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 3,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "8Mi"
+                        },
+                        "name": "work"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "diag-ec-fleet-20261022"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "phase": "Pending",
+                "qosClass": "Burstable"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"diag-owner\":\"edgecore-fleet-20261022\"},\"name\":\"diag-ec-fleet-20261022-e9\",\"namespace\":\"topology-profile-lab\"},\"spec\":{\"activeDeadlineSeconds\":3600,\"automountServiceAccountToken\":false,\"containers\":[{\"command\":[\"python3\",\"-u\",\"-c\",\"from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\\nwhile True:\\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)\"],\"image\":\"10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"worker\",\"readinessProbe\":{\"exec\":{\"command\":[\"python3\",\"-c\",\"from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\\u003c15\"]},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/work\",\"name\":\"work\"},{\"mountPath\":\"/cfg\",\"name\":\"config\",\"readOnly\":true}]}],\"nodeName\":\"etri-dev0009-jetorn\",\"restartPolicy\":\"Never\",\"securityContext\":{\"fsGroup\":65532,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationGracePeriodSeconds\":3,\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"8Mi\"},\"name\":\"work\"},{\"configMap\":{\"name\":\"diag-ec-fleet-20261022\"},\"name\":\"config\"}]}}\n"
+                },
+                "creationTimestamp": "2026-10-22T07:40:44Z",
+                "labels": {
+                    "diag-owner": "edgecore-fleet-20261022"
+                },
+                "name": "diag-ec-fleet-20261022-e9",
+                "namespace": "topology-profile-lab",
+                "resourceVersion": "51630655",
+                "uid": "cf23ac2d-e6e7-439f-ae9a-9c89d62936f9"
+            },
+            "spec": {
+                "activeDeadlineSeconds": 3600,
+                "automountServiceAccountToken": false,
+                "containers": [
+                    {
+                        "command": [
+                            "python3",
+                            "-u",
+                            "-c",
+                            "from pathlib import Path; import time; p=Path('/work'); (p/'marker').write_text('edgecore-fleet-20261022'); print('INITIALIZED',flush=True)\nwhile True:\n assert (p/'marker').read_text()=='edgecore-fleet-20261022'\n assert Path('/cfg/marker').read_text()=='edgecore-fleet-20261022'\n (p/'probe').mkdir(exist_ok=True); (p/'heartbeat').write_text(str(time.time())); time.sleep(2)"
+                        ],
+                        "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "worker",
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "python3",
+                                    "-c",
+                                    "from pathlib import Path; import time; assert time.time()-float(Path('/work/heartbeat').read_text())\u003c15"
+                                ]
+                            },
+                            "failureThreshold": 3,
+                            "periodSeconds": 5,
+                            "successThreshold": 1,
+                            "timeoutSeconds": 3
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "64Mi"
+                            },
+                            "requests": {
+                                "cpu": "10m",
+                                "memory": "32Mi"
+                            }
+                        },
+                        "securityContext": {
+                            "allowPrivilegeEscalation": false,
+                            "capabilities": {
+                                "drop": [
+                                    "ALL"
+                                ]
+                            },
+                            "readOnlyRootFilesystem": true
+                        },
+                        "terminationMessagePath": "/dev/termination-log",
+                        "terminationMessagePolicy": "File",
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true
+                            }
+                        ]
+                    }
+                ],
+                "dnsPolicy": "ClusterFirst",
+                "enableServiceLinks": true,
+                "nodeName": "etri-dev0009-jetorn",
+                "preemptionPolicy": "PreemptLowerPriority",
+                "priority": 0,
+                "restartPolicy": "Never",
+                "schedulerName": "default-scheduler",
+                "securityContext": {
+                    "fsGroup": 65532,
+                    "runAsGroup": 65532,
+                    "runAsNonRoot": true,
+                    "runAsUser": 65532,
+                    "seccompProfile": {
+                        "type": "RuntimeDefault"
+                    }
+                },
+                "serviceAccount": "default",
+                "serviceAccountName": "default",
+                "terminationGracePeriodSeconds": 3,
+                "tolerations": [
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/not-ready",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    },
+                    {
+                        "effect": "NoExecute",
+                        "key": "node.kubernetes.io/unreachable",
+                        "operator": "Exists",
+                        "tolerationSeconds": 300
+                    }
+                ],
+                "volumes": [
+                    {
+                        "emptyDir": {
+                            "sizeLimit": "8Mi"
+                        },
+                        "name": "work"
+                    },
+                    {
+                        "configMap": {
+                            "defaultMode": 420,
+                            "name": "diag-ec-fleet-20261022"
+                        },
+                        "name": "config"
+                    }
+                ]
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:11Z",
+                        "status": "True",
+                        "type": "PodReadyToStartContainers"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:09Z",
+                        "status": "True",
+                        "type": "Initialized"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:15Z",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:15Z",
+                        "status": "True",
+                        "type": "ContainersReady"
+                    },
+                    {
+                        "lastProbeTime": null,
+                        "lastTransitionTime": "2026-10-22T07:49:09Z",
+                        "status": "True",
+                        "type": "PodScheduled"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "containerID": "containerd://2af4541545fd62a8a612fa775713ad91b504870d354b1ca0f0095e480d515825",
+                        "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+                        "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+                        "lastState": {},
+                        "name": "worker",
+                        "ready": true,
+                        "restartCount": 0,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2026-10-22T07:49:11Z"
+                            }
+                        },
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/work",
+                                "name": "work"
+                            },
+                            {
+                                "mountPath": "/cfg",
+                                "name": "config",
+                                "readOnly": true,
+                                "recursiveReadOnly": "Disabled"
+                            }
+                        ]
+                    }
+                ],
+                "hostIP": "10.254.192.128",
+                "hostIPs": [
+                    {
+                        "ip": "10.254.192.128"
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "10.244.11.29",
+                "podIPs": [
+                    {
+                        "ip": "10.244.11.29"
+                    }
+                ],
+                "qosClass": "Burstable",
+                "startTime": "2026-10-22T07:49:09Z"
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-21T10:19:18.926983+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261021t101203-gateway",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "exec(compile('\"\"\"Same-Pod, at-most-once control execution across lost exec responses.\\n\\nThe receipt is a transport recovery mechanism, not a kernel state proof.\\nAn interrupted operation is deliberately never re-executed.\\n\"\"\"\\nimport hashlib\\nimport json\\nfrom pathlib import Path\\n\\n\\ndef run_once(root, operation, pod_uid, code, stdin):\\n    import contextlib\\n    import fcntl\\n    import io\\n    import os\\n    import re\\n    import sys\\n\\n    if not re.fullmatch(r\\'[a-f0-9]{32}\\', operation):\\n        raise ValueError(\\'Invalid operation ID\\')\\n    if os.environ.get(\\'POD_UID\\') != pod_uid:\\n        raise RuntimeError(\\'Pod UID changed\\')\\n    identity = hashlib.sha256(json.dumps(\\n        [operation, pod_uid, code, stdin], separators=(\\',\\', \\':\\')).encode()).hexdigest()\\n    directory = Path(root)\\n    directory.mkdir(parents=True, exist_ok=True, mode=0o700)\\n    receipt = directory / (operation + \\'.json\\')\\n\\n    def persist(value):\\n        temp = receipt.with_suffix(\\'.tmp\\')\\n        with temp.open(\\'w\\') as handle:\\n            json.dump(value, handle)\\n            handle.flush()\\n            os.fsync(handle.fileno())\\n        os.replace(temp, receipt)\\n\\n    with (directory / \\'control.lock\\').open(\\'a\\') as lock:\\n        fcntl.flock(lock, fcntl.LOCK_EX)\\n        if receipt.exists():\\n            result = json.loads(receipt.read_text())\\n            if result[\\'identity\\'] != identity:\\n                raise RuntimeError(\\'Operation identity changed\\')\\n            if result[\\'status\\'] != \\'completed\\':\\n                raise RuntimeError(\\'Indeterminate control; refusing replay\\')\\n            return result[\\'stdout\\']\\n        persist(dict(identity=identity, status=\\'started\\'))\\n        output = io.StringIO()\\n        previous_stdin = sys.stdin\\n        try:\\n            sys.stdin = io.StringIO(stdin or \\'\\')\\n            with contextlib.redirect_stdout(output):\\n                exec(compile(code, \\'<owned-control>\\', \\'exec\\'), {\\'__name__\\': \\'__main__\\'})\\n        except BaseException as error:\\n            persist(dict(identity=identity, status=\\'failed\\', error=repr(error),\\n                         stdout=output.getvalue()))\\n            raise\\n        finally:\\n            sys.stdin = previous_stdin\\n        persist(dict(identity=identity, status=\\'completed\\', stdout=output.getvalue()))\\n        return output.getvalue()\\n\\n\\ndef command(operation, pod_uid, code, stdin, root=\\'/work/control-receipts\\'):\\n    \"\"\"Embed the frozen module, so the model runtime/ConfigMap is unchanged.\"\"\"\\n    source = Path(__file__).read_text()\\n    return (\\n        \"exec(compile(\" + repr(source) + \",\\'<control-receipt>\\',\\'exec\\'));\"\\n        \"print(run_once(\" + \\',\\'.join(map(repr, [root, operation, pod_uid, code, stdin]))\\n        + \"),end=\\'\\')\"\\n    )\\n','<control-receipt>','exec'));print(run_once('/work/control-receipts','205e1a1d906a4284b497281d0c57b5dd','feeb61bf-5946-4201-abc7-4ea6a72d2555',\"import runpy,hashlib;from pathlib import Path;p=Path('/work/net-config/net_control.py');assert hashlib.sha256(p.read_bytes()).hexdigest()=='192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6';runpy.run_path(str(p),run_name='__main__')\",'{\"action\": \"shape\", \"mbps\": null, \"delay_ms\": 0, \"cloud\": [\"10.244.8.24\", \"10.244.8.25\"], \"edge\": [\"10.244.4.236\", \"10.244.1.176\", \"10.244.4.237\", \"10.244.1.177\"]}'),end='')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-21T10:19:19.341683+00:00"
+}

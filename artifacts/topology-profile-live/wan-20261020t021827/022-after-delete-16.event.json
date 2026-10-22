@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-20T02:20:55.492169+00:00",
+  "command": [
+    "rtk",
+    "proxy",
+    "kubectl",
+    "--request-timeout=20s",
+    "exec",
+    "-i",
+    "-n",
+    "topology-profile-lab",
+    "wan-20261020t021827-holder",
+    "-c",
+    "netctl",
+    "--",
+    "python3",
+    "-u",
+    "-c",
+    "import runpy;runpy.run_path('/config/probe.py',run_name='__main__')"
+  ],
+  "timeout_s": 60,
+  "returncode": 0,
+  "status": "completed",
+  "finished_at": "2026-10-20T02:20:57.510567+00:00"
+}

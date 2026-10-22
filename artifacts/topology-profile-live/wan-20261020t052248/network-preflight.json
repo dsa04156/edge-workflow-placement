@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "capacity": [
+    {
+      "mbps": 100,
+      "aggregate_payload_mbps": 43.02883673766825,
+      "collector_elapsed_s": 1.2167438390024472,
+      "sources": [
+        {
+          "bytes": 3272192,
+          "elapsed_s": 0.6812259638682008,
+          "hashes_ok": true
+        },
+        {
+          "bytes": 3272192,
+          "elapsed_s": 0.45985659887082875,
+          "hashes_ok": true
+        }
+      ]
+    },
+    {
+      "mbps": 10,
+      "aggregate_payload_mbps": 8.476892764950986,
+      "collector_elapsed_s": 6.176210252000601,
+      "sources": [
+        {
+          "bytes": 3272192,
+          "elapsed_s": 5.597531244158745,
+          "hashes_ok": true
+        },
+        {
+          "bytes": 3272192,
+          "elapsed_s": 4.40657460084185,
+          "hashes_ok": true
+        }
+      ]
+    },
+    {
+      "mbps": 2,
+      "aggregate_payload_mbps": 1.8620540251528295,
+      "collector_elapsed_s": 28.11683833700954,
+      "sources": [
+        {
+          "bytes": 3272192,
+          "elapsed_s": 27.592677603010088,
+          "hashes_ok": true
+        },
+        {
+          "bytes": 3272192,
+          "elapsed_s": 24.263151422142982,
+          "hashes_ok": true
+        }
+      ]
+    }
+  ],
+  "reverse": {
+    "payload_bytes": 6544384,
+    "wire_base64_bytes": 8725856,
+    "elapsed_s": 36.72607489299844,
+    "hashes_ok": true,
+    "wire_base64_mbps": 1.9007434963682486
+  },
+  "latency": [
+    {
+      "oneway_delay_ms": 0,
+      "application_roundtrip_ms": [
+        10.83306409418583,
+        3.7191619630903006,
+        4.1783449705690145,
+        4.413028946146369,
+        4.2722891084849834,
+        4.324158886447549,
+        3.341627074405551,
+        4.021567991003394,
+        3.695569932460785,
+        3.3979241270571947
+      ]
+    },
+    {
+      "oneway_delay_ms": 20,
+      "application_roundtrip_ms": [
+        93.14052597619593,
+        84.1815429739654,
+        82.99175393767655,
+        82.97116192989051,
+        86.52625209651887,
+        88.08137197047472,
+        87.81189098954201,
+        86.73452702350914,
+        88.25864805839956,
+        87.2735430020839
+      ]
+    }
+  ],
+  "semantics": "split TCP relay; application RTT includes multiple handshakes, not direct ICMP RTT"
+}

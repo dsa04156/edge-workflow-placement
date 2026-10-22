@@ -1,0 +1,21 @@
+{
+ "started_at": "2026-10-22T10:06:15.554837+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mes-fake-ctl",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "completed",
+ "returncode": 0,
+ "finished_at": "2026-10-22T10:06:15.618664+00:00",
+ "duration_ms": 63.831811989075504,
+ "tag": "0012-controller-ready"
+}

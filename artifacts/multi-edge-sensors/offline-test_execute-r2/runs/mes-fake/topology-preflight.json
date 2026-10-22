@@ -1,0 +1,157 @@
+{
+ "status": "passed",
+ "errors": [],
+ "candidates": [
+  {
+   "alias": "e0",
+   "name": "etri-dev0003-raspi5",
+   "role": "edge",
+   "arch": "arm64",
+   "ok": true
+  },
+  {
+   "alias": "e1",
+   "name": "etri-dev0002-raspi5",
+   "role": "edge",
+   "arch": "arm64",
+   "ok": true
+  },
+  {
+   "alias": "c",
+   "name": "etri-ser0002-cgnmsb",
+   "role": "cloud",
+   "arch": "amd64",
+   "ok": true
+  },
+  {
+   "alias": "e6",
+   "name": "etri-dev0006-raspi5",
+   "role": "edge",
+   "arch": "arm64",
+   "ok": true
+  },
+  {
+   "alias": "e8",
+   "name": "etri-dev0008-raspi5",
+   "role": "edge",
+   "arch": "arm64",
+   "ok": true
+  },
+  {
+   "alias": "e9",
+   "name": "etri-dev0009-jetorn",
+   "role": "edge",
+   "arch": "arm64",
+   "ok": true
+  },
+  {
+   "alias": "c1",
+   "name": "etri-ser0001-cg0msb",
+   "role": "cloud",
+   "arch": "amd64",
+   "ok": true
+  },
+  {
+   "alias": "c3",
+   "name": "etri-ser0003-cg0ms0",
+   "role": "cloud",
+   "arch": "arm64",
+   "ok": true
+  },
+  {
+   "alias": "c4",
+   "name": "etri-ser0004-cgnms0",
+   "role": "cloud",
+   "arch": "amd64",
+   "ok": true
+  }
+ ],
+ "excluded": {
+  "etri-dev0001-jetorn": {
+   "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+   "observed_ready": false
+  },
+  "etri-dev0004-tedger": {
+   "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+   "observed_ready": null
+  },
+  "etri-dev0007-jetagx": {
+   "reason": "NotReady with node.kubernetes.io/unreachable NoSchedule/NoExecute taints at inventory time",
+   "observed_ready": null
+  }
+ },
+ "unlisted_not_candidates": [],
+ "runtime": "image/runtime compatibility unverified until qualification; arch check uses previously qualified arches only",
+ "observed": [
+  {
+   "name": "etri-dev0003-raspi5",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  },
+  {
+   "name": "etri-dev0002-raspi5",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  },
+  {
+   "name": "etri-ser0002-cgnmsb",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "amd64"
+  },
+  {
+   "name": "etri-dev0006-raspi5",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  },
+  {
+   "name": "etri-dev0008-raspi5",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  },
+  {
+   "name": "etri-dev0009-jetorn",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  },
+  {
+   "name": "etri-ser0001-cg0msb",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "amd64"
+  },
+  {
+   "name": "etri-ser0003-cg0ms0",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  },
+  {
+   "name": "etri-ser0004-cgnms0",
+   "ready": true,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "amd64"
+  },
+  {
+   "name": "etri-dev0001-jetorn",
+   "ready": false,
+   "unschedulable": false,
+   "taints": [],
+   "arch": "arm64"
+  }
+ ]
+}

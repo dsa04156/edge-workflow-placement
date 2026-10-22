@@ -1,0 +1,88 @@
+{
+  "id": "395fc6d8-0ab9-4898-b7d8-2c3a562ba654",
+  "ok": true,
+  "result": {
+    "runId": "run_04d48d4d94da",
+    "taskId": "task_dc2998f1bb3a",
+    "dispatchId": "ctx_f75f27cefadb",
+    "state": "ready",
+    "stage": "input_accepted",
+    "turnStart": "observed",
+    "setup": {
+      "requested": "not_applicable",
+      "effective": "not_applicable",
+      "source": "existing_worktree",
+      "hookFound": false,
+      "startupPolicy": "start-immediately",
+      "state": "not_applicable"
+    },
+    "launch": {
+      "requested": {
+        "agent": "claude",
+        "model": "claude-opus-5-5",
+        "effort": null
+      },
+      "effective": {
+        "agent": "claude",
+        "model": "claude-opus-5-5",
+        "effort": null
+      }
+    },
+    "mode": {
+      "mode": "terminal",
+      "preferred": "terminal",
+      "reason": "user_default",
+      "detail": "Started a terminal agent worker, the default for new agent tabs in your settings."
+    },
+    "timeoutMs": 60000,
+    "effects": [
+      {
+        "kind": "worktree",
+        "action": "reused",
+        "id": "94b13dcb-6b93-4645-b000-5a37eab5cc65::/home/jinuk/codex-work/scheduler"
+      },
+      {
+        "kind": "setup",
+        "action": "not_applicable",
+        "state": "not_applicable"
+      },
+      {
+        "kind": "terminal",
+        "role": "agent",
+        "action": "created",
+        "id": "term_7f57d6f0-67f3-4fcf-b33f-df52073059e1",
+        "surface": "background",
+        "warning": "Terminal term_7f57d6f0-67f3-4fcf-b33f-df52073059e1 is running, but Orca could not make it discoverable. Run `orca terminal focus --terminal term_7f57d6f0-67f3-4fcf-b33f-df52073059e1` to reveal and focus it."
+      },
+      {
+        "kind": "dispatch_input",
+        "role": "agent",
+        "id": "term_7f57d6f0-67f3-4fcf-b33f-df52073059e1",
+        "state": "accepted"
+      }
+    ],
+    "prompt": {
+      "requestId": "643cf592-6575-4a76-8a84-3f23ebf83c27",
+      "stages": [
+        "input_accepted",
+        "turn_started"
+      ],
+      "provider": "claude",
+      "observation": "supported",
+      "processIncarnation": "9106b943-f42b-45b1-bf00-d80d1c18c2a8",
+      "generation": 70,
+      "baselineWorkingSequence": 0,
+      "baselineExplicitWorkingStartedAt": null,
+      "baselinePermissionSequence": 0
+    },
+    "residualResources": [],
+    "warning": "Terminal term_7f57d6f0-67f3-4fcf-b33f-df52073059e1 is running, but Orca could not make it discoverable. Run `orca terminal focus --terminal term_7f57d6f0-67f3-4fcf-b33f-df52073059e1` to reveal and focus it.",
+    "mutation": {
+      "requestId": "643cf592-6575-4a76-8a84-3f23ebf83c27",
+      "replayed": false
+    }
+  },
+  "_meta": {
+    "runtimeId": "17d515ec-3dac-48a7-a8f8-86fa09c631cb"
+  }
+}

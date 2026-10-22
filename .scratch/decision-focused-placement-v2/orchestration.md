@@ -1,0 +1,23 @@
+# 비교 보완 v2 오케스트레이션
+
+- Orca runtime1.4.235, `/home/jinuk/.orca/cli/bin/orca`의 orchestration 및 coordinator-loop 가이드 확인.
+- Run `run_861aa90850cf`, Developer Task `task_baa9790ca9e3`, Dispatch `ctx_ad9377d74395`.
+- launch requested/effective `claude-opus-5-5`. 실제 응답 모델은 완료 시 별도 확인한다.
+- 사전 `claude auth status`: claude.ai, firstParty, Max 구독 로그인. 호스트 provider override 환경 변수 없음. 자격 증명 값 기록 없음.
+- 호스트 세션은 구체적인 Astra 모델 여부를 확인할 수 없어 사용자에게 미확인으로 고지했다. 모델 변경이나 Astra 사칭 없음.
+- 기존 파일 고정점 `before/`, 기존 artifact3개 hash는 `frozen-artifact-hashes.json`. 미커밋 파일이므로 HEAD diff로 기존 구현 전체를 새 변경으로 취급하지 않는다.
+- 주 스킬 claude-implementer, 보조 tdd, 독립 검토 code-review. 기존 승인된 run_policy/CLI 경계를 재사용한다. 새 외부 라이브러리·API가 없어 이전 기술 조사 근거를 재사용한다.
+- 원래 결과를 본 후 설계한 후속 실험이다. v2 조건은 새 결과 확인 전에 spec.md에 고정했다. label-swap은 대응 검사이지 독립 표본이 아니다.
+- 시작 receipt의 terminal discoverability 경고는 UI 노출 경고다. turnStart observed, input accepted 확인. relay/tunnel/설정 변경하지 않았다.
+- 구현 완료: 유효한 worker_done 수신. 실제 Claude transcript의 assistant90건 모두 claude-opus-5-5 확인. 호스트68개 테스트 및750회 원시 결과 검증 통과.
+- Developer 터미널은 Orca user_takeover로 user_owned/retained 상태이므로 보존했다. 호스트가 release하거나 재사용하지 않았다.
+- 독립 Spec ctx_09d9f602ed44 / Task task_3349b936e997, Standards ctx_e6e3811245e5 / Task task_0c64133b5709. 각 launch requested/effective 및 실제 rollout turn_context 모델 gpt-6-astra 확인.
+- Standards 완료·release: 구현 차단 결함0, 절차 P2(파일 소유권/보존 불확실성)1건 및 P3(rtk 누락)1건. 이 편차는 코드 수정으로 소급 해소할 수 없어 그대로 기록한다. 상세 review-standards.md.
+- Developer의 로컬 훅 ECONNREFUSED127.0.0.1:3002와 절차 편차는 host-validation.md 및 developer-report.md에 기록. 설정 우회나 relay 변경 없음.
+- 1차 Spec 완료·release: P2 한 건(비공통 좌표가 무한일 때 유한 공통항 재측정). 고정15개 fixture 수치에는 영향 없음.
+- 수정 Developer Task task_6a4a0069a2f0 / Dispatch ctx_a9843c2588c7, requested/effective 및 실제 응답 claude-opus-5-5 확인. fix-task.md에 최소 수정·회귀 테스트·새 결과 경로 계약 전달.
+- 중간 reviewfix는 행동/비용 동일하지만 일부 rule label이 바뀌었다. 작업자가 기존 label 호환성을 복구해 final 신규 경로를 승인했다. 중간 결과를 보존하며 덮어쓰지 않는다.
+- 수정 Developer 완료·release. 호스트71개 테스트 통과 및 최종750회 모든 비시간 필드 일치 확인.
+- 2차 Spec ctx_01d52db43732 / Standards ctx_fe2d27086008 완료·release. 실제 rollout 모델 각각 gpt-6-astra 확인. Spec P2 해결, 새 구현 결함0; 양쪽에서 같은 README P3 문구1건 지적.
+- 문서 수정 Developer ctx_7338a180e684 / Task task_a0917428533c 완료·release. 실제 응답12건 claude-opus-5-5 확인. README 조건 문장만 정정, 호스트 코드 대조 및 Python hash 불변 확인. 3차 독립 리뷰를 받았다고 주장하지 않는다.
+- 최종 상태: 구현·합성 비교·검증 완료. 총7개 Dispatch worker_done, released6/user_takeover retained1, reclaimable0. 이전 절차상 P2/P3 이력은 남음. 커밋/push/클러스터 변경 없음.

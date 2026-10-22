@@ -1,0 +1,38 @@
+=== RUN   TestDeleteWithFullBufferAndNoConsumer
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/exec
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/attach
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/logs
+=== RUN   TestDeleteWithFullBufferAndNoConsumer/metrics
+--- PASS: TestDeleteWithFullBufferAndNoConsumer (0.20s)
+    --- PASS: TestDeleteWithFullBufferAndNoConsumer/exec (0.05s)
+    --- PASS: TestDeleteWithFullBufferAndNoConsumer/attach (0.05s)
+    --- PASS: TestDeleteWithFullBufferAndNoConsumer/logs (0.05s)
+    --- PASS: TestDeleteWithFullBufferAndNoConsumer/metrics (0.05s)
+=== RUN   TestExecDialFailureWithFullBuffer
+E1022 16:36:53.668415 1501379 edgedexecconnection.go:119] failed to dial, err: read tcp 127.0.0.1:38106->127.0.0.1:33617: read: connection reset by peer
+E1022 16:36:53.668547 1501379 tunnel.go:116] Serve Container Exec connection error MESSAGE: connectID 42 messageType EXEC_CONNECT
+--- PASS: TestExecDialFailureWithFullBuffer (0.06s)
+=== RUN   TestNoDropWithLiveConsumer
+=== RUN   TestNoDropWithLiveConsumer/exec
+=== RUN   TestNoDropWithLiveConsumer/attach
+=== RUN   TestNoDropWithLiveConsumer/logs
+=== RUN   TestNoDropWithLiveConsumer/metrics
+--- PASS: TestNoDropWithLiveConsumer (0.05s)
+    --- PASS: TestNoDropWithLiveConsumer/exec (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/attach (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/logs (0.01s)
+    --- PASS: TestNoDropWithLiveConsumer/metrics (0.01s)
+=== RUN   TestCloseReadChannelIdempotent
+=== RUN   TestCloseReadChannelIdempotent/exec
+=== RUN   TestCloseReadChannelIdempotent/attach
+=== RUN   TestCloseReadChannelIdempotent/logs
+=== RUN   TestCloseReadChannelIdempotent/metrics
+--- PASS: TestCloseReadChannelIdempotent (0.00s)
+    --- PASS: TestCloseReadChannelIdempotent/exec (0.00s)
+    --- PASS: TestCloseReadChannelIdempotent/attach (0.00s)
+    --- PASS: TestCloseReadChannelIdempotent/logs (0.00s)
+    --- PASS: TestCloseReadChannelIdempotent/metrics (0.00s)
+=== RUN   TestConcurrentWriteDelete
+--- PASS: TestConcurrentWriteDelete (0.01s)
+PASS
+ok  	github.com/kubeedge/kubeedge/edge/pkg/edgestream	1.397s

@@ -1,0 +1,46 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "dev0009-registry-fix-maint2",
+    "namespace": "topology-profile-lab",
+    "labels": {
+      "run-id": "dev0009-registry-fix-20261022"
+    }
+  },
+  "spec": {
+    "nodeSelector": {
+      "kubernetes.io/hostname": "etri-dev0009-jetorn"
+    },
+    "restartPolicy": "Never",
+    "automountServiceAccountToken": false,
+    "hostPID": true,
+    "activeDeadlineSeconds": 180,
+    "terminationGracePeriodSeconds": 1,
+    "containers": [
+      {
+        "name": "maint",
+        "image": "ghcr.io/flannel-io/flannel:v0.28.3",
+        "imagePullPolicy": "Never",
+        "command": [
+          "/bin/sh",
+          "-c",
+          "set -eu\nH=\"nsenter -t 1 -m -u -i -n -p --\"\nF=/etc/containerd/config.toml\nB=/etc/containerd/config.toml.bak-dev0009-registry-fix-20261022\nEXP_SHA=27b61697b146c7e2ac31b3af9310ff9fcb686a729f5b1e8c241da1b6aaec32c4\nOLD='      config_path = \"/etc/containerd/certs.d:/etc/docker/certs.d\"'\nNEW='      config_path = \"/etc/containerd/certs.d\"'\ncur=$($H sha256sum $F | cut -d' ' -f1)\necho \"pre_sha=$cur\"\n[ \"$cur\" = \"$EXP_SHA\" ] || { echo \"UNEXPECTED_SHA_ABORT\"; exit 3; }\n[ \"$($H grep -c -x -F \"$OLD\" $F)\" = 1 ] || { echo \"OLD_LINE_NOT_UNIQUE_ABORT\"; exit 3; }\nif $H test -e $B; then [ \"$($H sha256sum $B | cut -d' ' -f1)\" = \"$EXP_SHA\" ] || { echo \"BACKUP_MISMATCH_ABORT\"; exit 3; }; echo \"backup_preexisting_kept\"; else $H cp -a $F $B; fi\necho \"backup_sha=$($H sha256sum $B | cut -d' ' -f1)\"\n$H sed -i \"s#^      config_path = \\\"/etc/containerd/certs.d:/etc/docker/certs.d\\\"\\$#$NEW#\" $F\necho \"post_sha=$($H sha256sum $F | cut -d' ' -f1)\"\necho \"--- diff\"; $H diff -u $B $F || true\necho \"--- config dump (validation, selected keys)\"\nif ! $H containerd config dump > /tmp/dump.$$ 2>&1; then echo \"DUMP_FAILED_RESTORE\"; head -5 /tmp/dump.$$; $H cp -a $B $F; exit 4; fi\ngrep -n -E \"config_path|default_runtime_name|BinaryName|use_local_image_pull|^imports\" /tmp/dump.$$ || true\ngrep -q -x -F \"      config_path = '/etc/containerd/certs.d'\" /tmp/dump.$$ || { echo \"EFFECTIVE_NOT_UPDATED_RESTORE\"; $H cp -a $B $F; exit 4; }\necho \"--- restart containerd only\"\necho \"pre_restart_active=$($H systemctl is-active containerd) pid=$($H systemctl show -p MainPID --value containerd)\"\n$H systemctl restart containerd\nsleep 3\necho \"post_restart_active=$($H systemctl is-active containerd) pid=$($H systemctl show -p MainPID --value containerd)\"\necho \"edgecore_active=$($H systemctl is-active edgecore)\"\necho CONFIG_PATH_FIX_DONE\n"
+        ],
+        "securityContext": {
+          "privileged": true
+        },
+        "resources": {
+          "requests": {
+            "cpu": "10m",
+            "memory": "16Mi"
+          },
+          "limits": {
+            "cpu": "200m",
+            "memory": "64Mi"
+          }
+        }
+      }
+    ]
+  }
+}
