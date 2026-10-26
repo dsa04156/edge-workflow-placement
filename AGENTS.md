@@ -6,21 +6,26 @@
 
 ## 프로젝트 목적
 
-이 폴더는 이종 엣지 AI 환경에서 실제 AI 워크플로의 배치 정책을 비교하고, 네트워크·모델 실행환경이 변할 때 기존 방법의 한계가 드러나는 조건을 검증하는 연구 공간이다.
+이 폴더는 실제 다단계 AI 서비스가 요구하는 품질을 지키면서, 이종 엣지 노드의 연산 능력과 네트워크를 활용해 더 많은 요청을 제시간에 처리하는 실행 시스템을 연구하는 공간이다.
 
-현재 연구 주제는 **이종 엣지 AI 환경에서 실행 호환성과 데이터 이동 비용을 고려한 동적 워크플로우 배치 최적화**이다.
+현재 연구 주제는 **품질·네트워크 인지형 이기종 엣지 AI 파이프라인 오케스트레이션**이다.
 
-영문 제목: **Runtime- and Data-Aware Dynamic Workflow Placement for Heterogeneous Edge AI Systems**.
+영문 제목: **Quality- and Network-Aware Orchestration of Multi-Stage AI Inference on Heterogeneous Edge Nodes**.
 
-핵심 질문은 **개별 Task마다 가장 빠른 실행 가능 노드를 선택하는 것과 DAG 전체를 고려해 실행 위치를 결정하는 것 사이에 실제로 얼마나 차이가 나는가?**이다. 이어서 네트워크·모델 실행환경의 변화가 기존 DAG 배치 정책에 어떤 손실을 만들고, 기존 재최적화·단순 보완으로도 손실이 남는지 확인한다.
+핵심 질문은 **같은 자원과 서비스 품질 요구조건에서 기한 내 완료 요청 수를 늘릴 수 있는가?**이다. 이종 노드·품질·네트워크·DAG를 유지하며 Task별 fastest-feasible와 DAG 공동 배치 차이는 원인 분석으로 이어간다. 대표 평가 사례는 영상 분석·음성 인식·결합의 멀티모달 서비스이며, 멀티모달 자체나 단순 배치 알고리즘 변경을 신규성으로 전제하지 않는다.
 
-문서 진입점은 `README.md`, 문제 정의는 `docs/research/problem-definition.md`, 첫 비교 실험 계획은 `docs/research/workflow-placement-experiment-plan.md`를 따른다. 실제 환경은 `docs/experiments/e0-kubeedge.md`, 전달 프로파일은 `docs/experiments/e0-rpc-profile.md`, 정적 배치는 `docs/experiments/e1-dag.md`, 입력 위치·준비 상태는 `docs/experiments/e2-dynamic.md`, 입력 다양화·새 배포는 `docs/experiments/e3-input-replication.md`를 확인한다. 기존 KubeEdge 클러스터를 우선 사용하고, 자원 등록과 특정 모델의 실행 성공을 구분한다.
+문서 진입점은 `README.md`, 현재 문제 정의는 `docs/research/problem-definition.md`, 현재 실험 계획은 `docs/research/quality-network-experiment-plan.md`, 근접 선행 대조는 `docs/research/quality-network-orchestration-related-work.md`를 따른다. `docs/research/workflow-placement-experiment-plan.md`와 `docs/research/problem-definition-20261016.md`는 이전 방향의 기록이다. 기존 KubeEdge 클러스터를 우선 사용하고, 자원 등록과 특정 모델의 실행 성공을 구분한다. 과거 실측은 각 실행 결과와 동결 manifest의 조건·해석을 보존한다.
 
+- 주 지표는 서비스 품질 기준을 충족한 조건의 초당 기한 내 완료 요청 수다. 전체 유입 요청을 기준으로 완료율·실패·드롭·시간 초과·미완료와 품질/coverage를 함께 보고한다. 품질은 사전 데이터셋/요청 집단 수준의 기준이며 요청마다 정답임을 보장하지 않는다.
+- 품질은 모델·실행 설정·데이터셋의 평가 결과다. CPU reference 일치와 정답 품질을 분리하고, 단계별 정확도의 곱으로 최종 품질을 대신하지 않는다. 실제 파이프라인 출력으로 최종 서비스 품질을 검증한다.
+- 같은 모델·정밀도의 배치 비교부터 시작하고 지원 정밀도/모델 변형은 별도 단계로 확장한다. 모든 후보가 같은 품질을 만족하면 품질 제약 ablation의 이득이 없을 수 있다.
+- CPU·GPU·NPU를 포함하는 이기종 범위를 유지한다. 보유 노드·가속기 계열 전체를 후보 검증 표에 남기고, 특정 모델의 실행 실패는 해당 조합의 근거로 기록한다. CPU 전용 실험이나 편리한 일부 장비만으로 범위를 대체하여 완료 처리하지 않는다. 실제 가속기 실행·fallback 부재·최종 서비스 품질을 검증한 조합으로 본 비교를 수행한다.
+- 첫 구현은 사전 실측 프로파일과 현재 자원·큐·네트워크 관측을 사용한다. 대형 VLM 내부 레이어 분할·새 에이전트 프레임워크·미래 부하 예측 학습 모델은 필수 범위가 아니다. GPU 분할은 기반 기능이다.
 - 최적화에 고려하는 변수를 늘리는 것 자체를 연구 기여로 삼지 않는다.
 - 기존 방법이 실패하거나 성능이 저하되는 구체적인 조건을 먼저 확인하고, 그 원인에 필요한 범위에서만 새로운 방법을 설계한다.
-- 첫 비교 실험은 Kubernetes 환경의 3~5개 Task로 구성된 실제 AI 추론 워크플로를 대상으로 한다. E0의 SqueezeNet CPU fixture와 검증된 backend는 실행 결과 문서를 따른다. 주 비교의 DAG·모델·장비 부분집합, 실행 도구와 DRL 구현은 아직 확정하지 않았다.
+- 첫 비교는 실제 영상·음성 전처리/추론·결합 DAG를 대상으로 한다. 최종 서비스·정답 데이터·모델·장비 부분집합·품질 문턱·SLO는 아직 확정하지 않았다. CPU·GPU·NPU는 해당 모델/설정의 실제 실행과 품질 검증을 통과한 경우에만 후보로 사용한다. 과거 fixture 검증을 새 모델의 실행 근거로 사용하지 않는다.
 - 센서 입력은 엣지 디바이스에서 발생한다. 주 실험의 source는 엣지로 고정하고, 센서 위치와 T1 실행 위치를 구분한다. 서버 source 실험은 별도 진단으로만 보고하며 엣지 source와 균등 집계한 값을 주 연구 결과로 사용하지 않는다. 현재 JPEG 재생은 엣지 Pod에서 발생시킨 입력이며 실제 센서 스트림 수집을 검증한 것은 아니다.
-- kube-scheduler, Koordinator, 기존 DAG 최적화, DRL 정책을 비교한다. Task별 fastest-feasible 정책을 별도로 두어 DAG 공동 결정의 효과를 분리한다.
+- kube-scheduler·Koordinator는 운영 기준선으로, Task-fastest·통신 인지 greedy·기존 DAG 재최적화는 단순 기준선으로 둔다. 근접 품질·네트워크 인지 방법과 동일 자원/정보 비교를 우선한다. 기존 DRL 비교 계획은 유지하되 적합한 구현 선정과 비용 보고가 먼저이며 모든 정책군 전수 구현을 첫 파일럿의 조건으로 두지 않는다.
 - DRL은 비교 대상이다. 실험 전부터 새 DRL/GNN 알고리즘의 필요성이나 우월성을 전제하지 않는다.
 
 ## 연구의 출발점과 검증 과제
@@ -39,6 +44,9 @@
 - Kubernetes 계열 DRL의 이종 GPU/NPU 배치. EECRL 등의 직접 선행이 있으므로 'NPU 고려 연구가 없다'는 전제를 사용하지 않는다.
 
 추가 검증이 필요한 핵심 질문:
+
+- 같은 배치 방법에서 품질 제약 유무, 같은 품질 조건에서 통신비용 반영 유무가 최종 품질과 goodput을 어떻게 바꾸는가?
+- 가까운 기존 품질·네트워크 인지 시스템과 같은 정보·자원·실행 기회를 제공한 비교에서도 이익이 남는가?
 
 - 어떤 중간 데이터 크기·네트워크 조건에서 Task별 빠른 노드 선택보다 DAG 공동 배치가 유리하며, 차이가 거의 없는가?
 - 네트워크 변화·런타임 가용성·모델 준비 상태 변화에서 기존 정책의 실행 가능성과 종단 지연·SLO가 어떻게 달라지는가?
@@ -69,7 +77,7 @@
 - 최신 경로의 정적 비교는 `experiments/e0/fresh_placement.py`와 `docs/experiments/fresh-placement.md`를 따른다. 보정→입력별 품질 후보/비용표/계획 동결→별도 평가 순서를 지키고, 같은 계획은 관측을 공유한다. warm 고정 배치·선택시간 별도 측정을 동적 온라인 최적화 비교로 해석하지 않는다. 연결 오류로 중단한 첫 시도는 별도 보존하며 v2의 보정·평가에 합치지 않는다. runtime 소스가 바뀌면 새로 보정한다.
 - workflow 비용만 최소화한 계획을 관측·선택 위치의 state_validation까지 포함한 total_ms의 최적해로 부르지 않는다. fresh v2의 hubble 예측 순위 변화·chelsea total 역전은 보정 안정성과 비용 경계의 검증 과제다. 같은 정보의 단순 보완으로 해소 가능한지 확인하기 전에 선행 방법의 실패나 새 알고리즘 필요성으로 단정하지 않는다.
 
-- 고정 엣지·실제 전달 제약의 최신 결과는 `docs/experiments/edge-network-placement.md`다. 현재 regime의 사전 보정 표를 제공한 이상 정보 실험과 온라인 관측/재배치 전체를 구분한다. next step은 관측 지연·획득 비용·변화 지속시간 대조이며 큰 Task-fastest 손실만으로 새 알고리즘 필요성을 주장하지 않는다.
+- 고정 엣지·실제 전달 제약 결과는 `docs/experiments/edge-network-placement.md`다. 이후 `docs/experiments/topology-profile-load.md`의 공유 WAN·부하, `docs/experiments/multi-edge-sensors-heavy-20261022.md`의 연산 지배 반례도 대조한다. regime별 사전 비용표와 온라인 관측/재배치 전체를 구분한다. 현재 다음 단계는 서비스의 정답·품질·SLO 계약과 고정 모델 후보 검증이며, 과거 큰 Task-fastest 손실만으로 새 알고리즘 필요성을 주장하지 않는다.
 - 새 수집은 phase 시작/종료 event와 timeout 부분 stdout/stderr를 보존한다. Git이 mtime을 보존하지 않으므로 분석에서 checkout 시각을 실행 순서의 근거로 쓰지 않는다. 기존 artifact/동결 소스를 덮어쓰지 않는다.
 
 ## Agent skills

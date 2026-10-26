@@ -1,0 +1,20 @@
+{
+ "saturation_rps": 2.0,
+ "rule": "max pilot rate r (good network, any pilot policy) whose frozen scheduled cohort has >= 0.9 valid in-deadline answers and no admission drop; bracketed only if a larger tested rate failed, else censored at the largest tested rate",
+ "fractions": {
+  "low": 0.3,
+  "near_saturation": 0.8,
+  "high": 1.3
+ },
+ "loads_rps": {
+  "low": 0.6,
+  "near_saturation": 1.6,
+  "high": 2.6
+ },
+ "capacity": "censored_at_largest_tested_rate",
+ "upper_failure_rps": null,
+ "pilot_cells": 36,
+ "condition": "good",
+ "pilot_run": "artifacts/quality-network-baselines/qnb-pilot-r2",
+ "plan_sha256": "68c4f302228b2ff5c1a97ced11f9e7e74667260ff5b4721aa09622c0b8e9b034"
+}

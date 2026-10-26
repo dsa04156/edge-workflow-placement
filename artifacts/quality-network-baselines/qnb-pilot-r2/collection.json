@@ -1,0 +1,39 @@
+{
+ "stage": "pilot",
+ "elapsed_s": 1499.6862974999822,
+ "skipped": [],
+ "deadline_reached": false,
+ "candidates": {
+  "image_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "vision": [
+   "cpu-c",
+   "npu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "audio_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "speech": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "fusion": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ]
+ },
+ "fixed_plan": {
+  "image_preprocess": "cpu-c",
+  "vision": "npu-c",
+  "audio_preprocess": "cpu-e0",
+  "speech": "jgpu-dev0009-cu130",
+  "fusion": "cpu-c"
+ }
+}

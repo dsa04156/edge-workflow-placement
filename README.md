@@ -1,4 +1,26 @@
-# 이종 엣지 AI 워크플로 배치 연구
+# 품질·네트워크 인지형 이기종 엣지 AI 파이프라인 오케스트레이션
+
+## 2026-10-26 실측 결과
+
+[CPU·Jetson GPU·Intel NPU DAG 비교 결과](docs/experiments/quality-network-baseline-results.md): pilot 36개 구간과 비교 70개 구간을 수집했다. 비교의 마지막 구간은 CPU OOM 영향을 받았고 2개 구간은 미실행이다. 품질 0.355 < 기준 0.40으로 모든 수치는 진단이며, Mobilint 추론은 이 비교에 포함되지 않았다. [공개 증거와 원시 자료 범위](artifacts/quality-network-baselines/publication-20261026/README.md).
+
+
+**Quality- and Network-Aware Orchestration of Multi-Stage AI Inference on Heterogeneous Edge Nodes**
+
+## 2026-10-23 연구 방향 전환
+
+**AI 서비스가 요구하는 품질을 지키면서, 여러 엣지 장치의 서로 다른 연산 능력과 네트워크를 활용해 더 많은 요청을 제시간에 처리한다.**
+
+이종 노드·품질·네트워크·DAG를 유지하고, 연구의 초점을 실제 다단계 AI 서비스의 실행 시스템으로 옮긴다. 대표 평가 후보는 영상 분석과 음성 인식의 결과를 결합하는 멀티모달 서비스다. 주 지표는 **서비스 품질 기준을 충족한 조건의 초당 기한 내 완료 요청 수(goodput)**이며, 최종 품질·지연·실패·드롭·coverage를 함께 보고한다.
+
+[문제 정의](docs/research/problem-definition.md) · [현재 실험 계획](docs/research/quality-network-experiment-plan.md) · [이기종 실행 설계](docs/research/quality-network-heterogeneous-design.md) · [전체 장비 감사](docs/research/quality-network-heterogeneous-capability-audit.md) · [근접 선행 대조](docs/research/quality-network-orchestration-related-work.md)
+
+본 실험은 **CPU·GPU·NPU를 포함한 이기종 실행**을 대상으로 한다. 보유 장비 전체의 모델·런타임별 실행 가능성을 확인하고 실제 가속기 실행·최종 서비스 품질을 검증한 조합으로 DAG 배치·네트워크·goodput을 비교한다. CPU 전용으로 범위를 축소하지 않는다.
+
+[이기종 실행 구현·검증 기록](docs/experiments/quality-network-heterogeneous.md): 실행 `qnh-20261023t100710`에서 **Intel NPU 영상 → Jetson GPU 음성 → CPU 결합의 실제 혼합 요청 60/60건**을 완료했다. Jetson dev0009의 영상·음성·결합도 각각 60/60건 실행됐고 CUDA 출력·모델 hash·요청·Pod UID를 검증했다. NPU 영상은 60/60건, 별도 음성 probe는 27건 뒤 프로세스 종료로 33건이 실패했다. 5개 구성 모두 최종 평가 품질 0.355 < 0.40으로 본 goodput 비교는 아직 수행하지 않았다. 소유 자원 잔여 0개를 확인했으며, 보호 workload 감사는 별도 완료 Pod 소실로 partial이다. 전체 12개 노드의 CPU·GPU·NPU 검증 목록과 미확보 SDK·점유·장애·실행 실패 상태를 유지하고, 이전 실패 실행과 원본 자료도 보존한다.
+
+이미지·음성 질문 → 결합 응답 VQA용 [CPU 진단 구현](docs/experiments/quality-network-vqa-pilot.md)은 보존한다. 2026-10-23 실행 시도 `qnv-20261023t073121`은 준비 Pod가 배정되지 않아 **추론 0건**으로 종료했고 소유 자원은 정리했다. 같은 시각 제어면 장애 징후를 관측했으나 인과관계는 확정하지 않았다. 기존 reference 출력의 공식 VQA 재채점은 보정 0.515, 평가 0.355로 탐색용 품질 문턱 0.40에 미달했다. 이는 새 추론 결과나 이기종 본 실험 성과가 아니다. 기존 CPU reference 일치와 정답 기반 서비스 품질을 구분하고, 아래 과거 실험의 조건과 한계를 보존한다.
+
 
 ## 2026-10-22 무거운 모델 재실측 (YOLO11m·mpnet)
 
@@ -62,13 +84,9 @@ greedy 포함/제외 선택시간·구현 hash를 기록한다. 보존된 두 �
 
 [토폴로지·성능 프로파일 DAG 실행 계획](docs/experiments/topology-profile-cluster-plan.md)은 새 준비 브랜치 `e110d8b`를 분석하고 현재 KubeEdge 장비에 적용할 단계와 통과 조건을 정리한다. Pi2대+x86서버 CPU로 모델·직접 전달·합류를 검증한 뒤 실제 default-scheduler와 성분 제거/단순 기준선을 비교한다. **계획·읽기 전용 점검 완료이며 새 AI 실측 결과는 아니다.** [모델·공식 소스 확인](docs/research/topology-profile-system-source-check.md).
 
-**이종 엣지 AI 환경에서 실행 호환성과 데이터 이동 비용을 고려한 동적 워크플로우 배치 최적화**
+## 이전 배치 연구의 실험 이력
 
-**Runtime- and Data-Aware Dynamic Workflow Placement for Heterogeneous Edge AI Systems**
-
-핵심 질문은 **개별 Task마다 가장 빠른 노드를 선택하는 것과 DAG 전체를 고려해 실행 위치를 결정하는 것 사이에 실제로 얼마나 차이가 나는가?**이다.
-
-AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 최적화를 출발점으로 삼아, 네트워크·모델 실행환경이 동적으로 변할 때 기존 DAG 정책의 적용 경계와 실제 손실을 확인한다. AnchorDL은 공식 초록 확인 단계로 본문/코드는 아직 확보하지 못했다. 새 스케줄링 알고리즘이나 DRL의 필요성은 같은 정보를 제공한 비교 실험 결과를 보고 판단한다.
+아래 결과와 후속 과제는 당시 실험 범위의 기록이다. 현재 연구 목표와 우선순위는 상단의 2026-10-23 방향 전환 및 문제 정의를 따른다.
 
 ## 최신 결과: 센서 입력을 엣지에 고정
 
@@ -81,7 +99,7 @@ AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 �
 
 입력은 ARM 엣지 Pod의 JPEG 재생이며 실제 센서 스트림 검증은 아니다. 현재 비용표는 regime별 사전 보정 정보다. 다음 연구 질문은 온라인 관측 지연·보정 획득 비용·변화 지속시간을 포함해 기존 DAG 재최적화와 hysteresis 이후에도 손실이 남는지다. 논문 구현·kube-scheduler·Koordinator·DRL 본 비교는 남아 있다.
 
-## 현재 작업 범위
+## 이전 방향의 작업 범위와 검증 이력
 
 - Kubernetes에서 3~5개 Task의 실제 AI 추론 워크플로를 구성한다.
 - kube-scheduler·Koordinator·기존 DAG 최적화·DRL 정책을 비교한다.
@@ -119,14 +137,16 @@ AnchorDL의 데이터·모델 비용과 look-ahead, JellyBean·Atlas의 공동 �
 | [최신 보정표·품질 후보 동결 비교](docs/experiments/fresh-placement.md) | 3새 배포·평가679/측정485회, Task-fastest/greedy/DAG의 차이와 역전 사례·비용 경계 |
 | [idle 전달 연결 오류 진단](docs/experiments/transport-idle-diagnosis.md) | 첫 실패 보존·중첩 연결 최소 재현·POST 전 연결 교체·회귀 |
 | [E0 실행 결과](docs/experiments/e0-kubeedge.md) | 실제 환경 인벤토리·CPU 실행 로그·관측 문제·다음 검증 |
-| [첫 비교 실험 계획](docs/research/workflow-placement-experiment-plan.md) | 실제 DAG 후보·기준선·변화 시나리오·측정·진행 조건 |
+| [현재 실험 계획](docs/research/quality-network-experiment-plan.md) | 서비스 품질 계약·고정 모델 실측·goodput·성분 제거·근접 선행 비교 |
+| [근접 선행 대조](docs/research/quality-network-orchestration-related-work.md) | LMEdge·OctopInf·JellyBean·Atlas의 범위와 확인 수준 |
+| [이전 비교 실험 계획](docs/research/workflow-placement-experiment-plan.md) | 이전 DAG 배치 연구의 계획·검증 이력 |
 | [기존 방안 조사](docs/research/heterogeneous-resource-orchestration.md) | 넓은 자원 오케스트레이션 문헌 배경과 출처 |
 | [선행연구 비판](docs/research/heterogeneous-resource-orchestration-critique.md) | 기존 가정·범위와 반증 실험; 현재 주제 연결 절 포함 |
 | [AnchorDL 근접 선행 대조](docs/research/ieee-11662529-review.md) | 공식 초록의 data/model joint cost·look-ahead, 본문/코드 미확보와 비교 계약 |
 | [AnchorDL 비교 준비·재현 계약](docs/research/anchordl-reproduction-contract.md) | 실행기 의미 차이·동일 정보 비교 조건·원문 필요 항목; [탐색 기록](docs/research/anchordl-source-acquisition.md) |
 | [Kubernetes DRL·이종 가속기 조사](docs/research/kubernetes-drl-heterogeneous-accelerators.md) | NPU 포함 선행 근거와 확인 수준 |
 
-이전 조사 문서는 출처와 검증 이력을 보존한다. 현재 실험 우선순위는 문제 정의와 첫 비교 실험 계획을 따른다. 로컬 Markdown 이슈와 도메인 문서 운영 규칙은 [docs/agents](docs/agents/domain.md)에 있다.
+이전 조사 문서는 출처와 검증 이력을 보존한다. 현재 실험 우선순위는 문제 정의와 품질·네트워크 인지 실험 계획을 따른다. 로컬 Markdown 이슈와 도메인 문서 운영 규칙은 [docs/agents](docs/agents/domain.md)에 있다.
 
 
 - [보유 장비 자동 배치 파일럿 결과](docs/experiments/owned-hardware-placement-pilot.md): Pi2대+CPU 서버, 압축 입력4조건·고유 배치9개·54/54성공.

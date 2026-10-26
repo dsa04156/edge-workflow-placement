@@ -1,0 +1,60 @@
+{
+ "stage": "compare",
+ "elapsed_s": 5524.665897670027,
+ "skipped": [
+  {
+   "block": 1,
+   "condition": "limited",
+   "load": "high",
+   "rate_rps": 2.6,
+   "seed": 278207115,
+   "policy": "dag_static",
+   "label": "b1-limited-high-dag_static",
+   "reason": "not idle before trace (drain timeout)"
+  },
+  {
+   "block": 1,
+   "condition": "limited",
+   "load": "high",
+   "rate_rps": 2.6,
+   "seed": 278207115,
+   "policy": "dag_reopt",
+   "label": "b1-limited-high-dag_reopt",
+   "reason": "not idle before trace (drain timeout)"
+  }
+ ],
+ "deadline_reached": false,
+ "candidates": {
+  "image_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "vision": [
+   "cpu-c",
+   "npu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "audio_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "speech": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "fusion": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ]
+ },
+ "fixed_plan": {
+  "image_preprocess": "cpu-c",
+  "vision": "npu-c",
+  "audio_preprocess": "cpu-e0",
+  "speech": "jgpu-dev0009-cu130",
+  "fusion": "cpu-c"
+ }
+}

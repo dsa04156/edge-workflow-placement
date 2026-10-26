@@ -1,0 +1,919 @@
+{
+ "created_utc": "20261026T035723Z",
+ "experiment": "quality-network-baselines",
+ "namespace": "topology-profile-lab",
+ "inventory": {
+  "path": "artifacts/quality-network-baselines/preflight-20261026T034221Z/node-inventory.json",
+  "sha256": "f609670234893e461cdcdde22c68c43a0e004933e66143b046a8f9ec5e30ab46"
+ },
+ "workers": [
+  {
+   "key": "cpu-c",
+   "node": "etri-ser0002-cgnmsb",
+   "edge": false,
+   "backend": "cpu-torch",
+   "stages": [
+    "image_preprocess",
+    "vision",
+    "audio_preprocess",
+    "speech",
+    "fusion"
+   ],
+   "recipe": "cpu-x86_64-cp311",
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "resources": {},
+   "root": false,
+   "zone": "cloud",
+   "storage": {
+    "fetched_bytes": 818728077,
+    "jellybean_extract_bytes": 12513280,
+    "install_unpacked_bytes": 898790085,
+    "pip_staging_bytes": 898790085,
+    "largest_unpacked_wheel_bytes": 678502373,
+    "margin_bytes": 1073741824,
+    "total_bytes": 3702563351,
+    "quantity": "4Gi",
+    "image_note": "container image layers are node-level storage, checked separately"
+   }
+  },
+  {
+   "key": "npu-c",
+   "node": "etri-ser0002-cgnmsb",
+   "edge": false,
+   "backend": "openvino-npu",
+   "stages": [
+    "vision"
+   ],
+   "recipe": "npu-x86_64-cp312",
+   "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+   "resources": {
+    "npu.intel.com/accel": 1
+   },
+   "root": true,
+   "zone": "cloud",
+   "excluded": {
+    "speech": "NPU exact-length ASR probe ended exit 137 at 27/60 (qnh-20261023t100710); recipe not rerun"
+   },
+   "storage": {
+    "fetched_bytes": 624256330,
+    "jellybean_extract_bytes": 12513280,
+    "install_unpacked_bytes": 17537366,
+    "pip_staging_bytes": 17537366,
+    "largest_unpacked_wheel_bytes": 17537366,
+    "margin_bytes": 1073741824,
+    "total_bytes": 1745586166,
+    "quantity": "2Gi",
+    "image_note": "container image layers are node-level storage, checked separately"
+   }
+  },
+  {
+   "key": "cpu-e0",
+   "node": "etri-dev0003-raspi5",
+   "edge": true,
+   "backend": "cpu-torch",
+   "stages": [
+    "image_preprocess",
+    "vision",
+    "audio_preprocess",
+    "speech",
+    "fusion"
+   ],
+   "recipe": "cpu-aarch64-cp311",
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "resources": {},
+   "root": false,
+   "zone": "edge",
+   "storage": {
+    "fetched_bytes": 732192898,
+    "jellybean_extract_bytes": 12513280,
+    "install_unpacked_bytes": 620359244,
+    "pip_staging_bytes": 620359244,
+    "largest_unpacked_wheel_bytes": 411532747,
+    "margin_bytes": 1073741824,
+    "total_bytes": 3059166490,
+    "quantity": "3Gi",
+    "image_note": "container image layers are node-level storage, checked separately"
+   }
+  },
+  {
+   "key": "jgpu-dev0009-cu130",
+   "node": "etri-dev0009-jetorn",
+   "edge": true,
+   "backend": "cuda-torch",
+   "stages": [
+    "vision",
+    "speech",
+    "fusion"
+   ],
+   "recipe": "cu130-aarch64-cp311",
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "resources": {
+    "nvidia.com/gpu.shared": 1
+   },
+   "root": true,
+   "recipe_selection": {
+    "recipe": "cu130-aarch64-cp311",
+    "driver_api": 13020,
+    "l4t": "R39.2.1",
+    "evidence": "artifacts/quality-network-heterogeneous/qnh-20261023t090355/health-jgpu-dev0009-cu130-002.json (sha256 8ae211b2...) driver_version 13020, cu130 gate passed; revalidated .scratch/quality-network-heterogeneous/live-extra/dev0009-revalidation-0954.json (sha256 c2c0a565...: Ready, no taints/pressure, gpu.shared unallocated, root fs 68.69 GiB free) and dev0009-storage-budget-0955.json (fed121ed..., 13Gi); pair metadata .scratch/quality-network-heterogeneous/cu130-pair-metadata.json"
+   },
+   "image_assumption": null,
+   "zone": "edge",
+   "storage": {
+    "fetched_bytes": 3471863498,
+    "jellybean_extract_bytes": 12513280,
+    "install_unpacked_bytes": 4669196883,
+    "pip_staging_bytes": 4669196883,
+    "largest_unpacked_wheel_bytes": 950669839,
+    "margin_bytes": 1073741824,
+    "total_bytes": 13896512368,
+    "quantity": "13Gi",
+    "image_note": "container image layers are node-level storage, checked separately"
+   }
+  }
+ ],
+ "candidates": {
+  "image_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "vision": [
+   "cpu-c",
+   "npu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "audio_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "speech": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "fusion": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ]
+ },
+ "coverage": {
+  "cpu": true,
+  "gpu": true,
+  "npu": true,
+  "multi_choice_tasks": [
+   "image_preprocess",
+   "vision",
+   "audio_preprocess",
+   "speech",
+   "fusion"
+  ],
+  "ok": true,
+  "plans": 144
+ },
+ "fixed_plan": {
+  "image_preprocess": "cpu-c",
+  "vision": "npu-c",
+  "audio_preprocess": "cpu-e0",
+  "speech": "jgpu-dev0009-cu130",
+  "fusion": "cpu-c"
+ },
+ "dag_pairs": [
+  [
+   "cpu-c",
+   "cpu-c"
+  ],
+  [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  [
+   "cpu-c",
+   "jgpu-dev0009-cu130"
+  ],
+  [
+   "cpu-c",
+   "npu-c"
+  ],
+  [
+   "cpu-c",
+   "origin"
+  ],
+  [
+   "cpu-e0",
+   "cpu-c"
+  ],
+  [
+   "cpu-e0",
+   "cpu-e0"
+  ],
+  [
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  [
+   "cpu-e0",
+   "npu-c"
+  ],
+  [
+   "cpu-e0",
+   "origin"
+  ],
+  [
+   "jgpu-dev0009-cu130",
+   "cpu-c"
+  ],
+  [
+   "jgpu-dev0009-cu130",
+   "cpu-e0"
+  ],
+  [
+   "jgpu-dev0009-cu130",
+   "jgpu-dev0009-cu130"
+  ],
+  [
+   "jgpu-dev0009-cu130",
+   "origin"
+  ],
+  [
+   "npu-c",
+   "cpu-c"
+  ],
+  [
+   "npu-c",
+   "cpu-e0"
+  ],
+  [
+   "npu-c",
+   "jgpu-dev0009-cu130"
+  ],
+  [
+   "origin",
+   "cpu-c"
+  ],
+  [
+   "origin",
+   "cpu-e0"
+  ]
+ ],
+ "networks": {
+  "relay-unshaped": {
+   "mbps": null,
+   "delay_ms": 0,
+   "role": "control: relay overhead without shaping"
+  },
+  "good": {
+   "mbps": 100,
+   "delay_ms": 0,
+   "role": "comparison"
+  },
+  "limited": {
+   "mbps": 10,
+   "delay_ms": 20,
+   "role": "comparison"
+  }
+ },
+ "pilot": {
+  "conditions": [
+   "relay-unshaped",
+   "good",
+   "limited"
+  ],
+  "rates_rps": [
+   0.25,
+   0.5,
+   1.0,
+   2.0
+  ],
+  "window_s": 20.0,
+  "policies": [
+   "fixed",
+   "greedy_comm",
+   "dag_reopt"
+  ],
+  "seed": 20261026
+ },
+ "compare": {
+  "conditions": [
+   "good",
+   "limited"
+  ],
+  "window_s": 60.0,
+  "blocks": 2,
+  "seed": 20261027
+ },
+ "policies": [
+  {
+   "name": "fixed"
+  },
+  {
+   "name": "task_fastest"
+  },
+  {
+   "name": "greedy_comm"
+  },
+  {
+   "name": "dag_static"
+  },
+  {
+   "name": "dag_reopt"
+  },
+  {
+   "name": "dag_reopt_hysteresis",
+   "rel": 0.15,
+   "abs_ms": 50.0,
+   "dwell_s": 5.0
+  }
+ ],
+ "prior_adapters": {
+  "jellybean": {
+   "paper": "JellyBean (MLSys 2022)",
+   "status": "not_implemented",
+   "audit": "contract audit owned by the coordinator/root; not implemented here"
+  },
+  "octopinf": {
+   "paper": "OctopInf",
+   "status": "not_implemented",
+   "audit": "contract audit owned by the coordinator/root; not implemented here"
+  }
+ },
+ "budgets": {
+  "ready_window_s": 2100,
+  "cache_ready_s": 180,
+  "upload_timeout_s": 1800,
+  "probe_timeout_s": 60,
+  "profile_timeout_s": 1800,
+  "control_timeout_s": 30,
+  "poll_s": 5,
+  "drain_timeout_s": 60,
+  "drain_settle_s": 2,
+  "max_inflight": 32,
+  "dag_max_active": 96,
+  "deadline_s": 2.0,
+  "cancel_s": 10.0,
+  "obs_poll_s": 1.0,
+  "obs_poll_timeout_s": 0.5,
+  "profile_pairs": 8,
+  "profile_warmup": 1,
+  "probe_sizes": [
+   4096,
+   1048576
+  ],
+  "probe_reps": 3,
+  "probe_job_timeout_s": 1800,
+  "pilot_collection_s": 6000,
+  "compare_collection_s": 9000,
+  "cleanup_reserve_s": 900,
+  "worker_pod_lifetime_s": 12600,
+  "cache_pod_lifetime_s": 14700,
+  "gateway_upstream_cap_s": 60,
+  "control_max_body_bytes": 33554432
+ },
+ "budgets_sha256": "124bb959b3b011bc40197cc7bbe67082ecb269e9d0e2ee027a90e2ce12fae9d0",
+ "load_fractions": {
+  "low": 0.3,
+  "near_saturation": 0.8,
+  "high": 1.3
+ },
+ "saturation_rule": "max pilot rate r (good network, any pilot policy) whose frozen scheduled cohort has >= 0.9 valid in-deadline answers and no admission drop; bracketed only if a larger tested rate failed, else censored at the largest tested rate",
+ "quality": {
+  "mode": "diagnostic",
+  "qmin": 0.4,
+  "evidence": {},
+  "status": "no plan meets Qmin 0.40 (2026-10-23: cal 0.515 / eval 0.355 on the reused 60 pairs); every result is a diagnostic, not a same-quality comparison; parity is a separate diagnostic"
+ },
+ "inputs": {
+  "pairs": "artifacts/topology-profile-live/load-pairs.json",
+  "pairs_sha256": "bf342a8d6d29f6bd3106ecb5fdb76f95964bf95ed48e18e82f5c9a972326d5a4",
+  "gt": "artifacts/topology-profile-assets/20261019T091725Z/selected-data/pairs.json",
+  "gt_sha256": "d680aab23eac79a804800d372e6a49abe38aeeb7cca2ceca7caa81bf67930c97",
+  "trace_split": "evaluation (40, reused; diagnostic)",
+  "profile_split": "calibration (first profile_pairs)"
+ },
+ "pairs": [
+  {
+   "question_id": 1713820,
+   "split": "calibration"
+  },
+  {
+   "question_id": 3733440,
+   "split": "calibration"
+  },
+  {
+   "question_id": 4556100,
+   "split": "calibration"
+  },
+  {
+   "question_id": 3355890,
+   "split": "calibration"
+  },
+  {
+   "question_id": 5094680,
+   "split": "calibration"
+  },
+  {
+   "question_id": 2764340,
+   "split": "calibration"
+  },
+  {
+   "question_id": 913000,
+   "split": "calibration"
+  },
+  {
+   "question_id": 1522080,
+   "split": "calibration"
+  },
+  {
+   "question_id": 3336910,
+   "split": "calibration"
+  },
+  {
+   "question_id": 720200,
+   "split": "calibration"
+  },
+  {
+   "question_id": 4599120,
+   "split": "calibration"
+  },
+  {
+   "question_id": 5020240,
+   "split": "calibration"
+  },
+  {
+   "question_id": 1705500,
+   "split": "calibration"
+  },
+  {
+   "question_id": 5615230,
+   "split": "calibration"
+  },
+  {
+   "question_id": 3815630,
+   "split": "calibration"
+  },
+  {
+   "question_id": 5504310,
+   "split": "calibration"
+  },
+  {
+   "question_id": 4185630,
+   "split": "calibration"
+  },
+  {
+   "question_id": 3852040,
+   "split": "calibration"
+  },
+  {
+   "question_id": 5343730,
+   "split": "calibration"
+  },
+  {
+   "question_id": 644090,
+   "split": "calibration"
+  },
+  {
+   "question_id": 3506790,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 5341940,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 787710,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3344170,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 2748690,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 2196320,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1291130,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3706570,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3448780,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 256850,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3448970,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1154590,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 662630,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 650570,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 2069220,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 2254940,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 4833520,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3907310,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 228610,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 5030810,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1235850,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1941380,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 719180,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3148640,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 300340,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 5602720,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3567870,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1822130,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 749200,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 5042970,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3454990,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 491330,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1467420,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3003300,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 2431340,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3206120,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 4081030,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 2899430,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 3008140,
+   "split": "evaluation"
+  },
+  {
+   "question_id": 1701290,
+   "split": "evaluation"
+  }
+ ],
+ "assets_manifest_sha256": "f8e9528925b78b890169311483cffb441af8a8fbcc3a8f3c22a09813bdc1f450",
+ "corpus_sha256": "9228b41d466c24d9c3894c39b76a3a246b687988946aaf601b00695b0bf98b03",
+ "asset_bytes": 3985174922,
+ "model_provenance": {
+  "expectations": {
+   "cpu-c": {
+    "image_preprocess": {
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "chain": "no model file: torchvision transform in shipped stages.py (bound by shipped_sha256)"
+    },
+    "vision": {
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/resnet18-f37072fd.pth -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/resnet18-f37072fd.pth and hashes it"
+    },
+    "audio_preprocess": {
+     "model_sha256": "b225d617c025463b9e157e06afea8b90dc7078fc70b013c533328423e0486b4a",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/asr/preprocessor_config.json -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/asr/preprocessor_config.json and hashes it"
+    },
+    "speech": {
+     "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/asr/model.safetensors -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/asr/model.safetensors and hashes it"
+    },
+    "fusion": {
+     "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/mutan-resnet18.pth.tar -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/mutan-resnet18.pth.tar and hashes it"
+    }
+   },
+   "npu-c": {
+    "vision": {
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": "9be0337c8778d2b2afb8f3374b212a65a69dada4daab84d3cd52f4cb5781b6a1",
+     "chain": "export record original_model_sha256 = assets-manifest models/resnet18-f37072fd.pth; ONNX = export sha256 = assets-manifest onnx/vision-static-448.onnx -> bootstrap fetch check -> OpenVinoVision expected_onnx_sha256 check and hash of the read file"
+    }
+   },
+   "cpu-e0": {
+    "image_preprocess": {
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "chain": "no model file: torchvision transform in shipped stages.py (bound by shipped_sha256)"
+    },
+    "vision": {
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/resnet18-f37072fd.pth -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/resnet18-f37072fd.pth and hashes it"
+    },
+    "audio_preprocess": {
+     "model_sha256": "b225d617c025463b9e157e06afea8b90dc7078fc70b013c533328423e0486b4a",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/asr/preprocessor_config.json -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/asr/preprocessor_config.json and hashes it"
+    },
+    "speech": {
+     "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/asr/model.safetensors -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/asr/model.safetensors and hashes it"
+    },
+    "fusion": {
+     "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/mutan-resnet18.pth.tar -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/mutan-resnet18.pth.tar and hashes it"
+    }
+   },
+   "jgpu-dev0009-cu130": {
+    "vision": {
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/resnet18-f37072fd.pth -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/resnet18-f37072fd.pth and hashes it"
+    },
+    "speech": {
+     "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/asr/model.safetensors -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/asr/model.safetensors and hashes it"
+    },
+    "fusion": {
+     "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+     "derived_artifact_sha256": null,
+     "chain": "assets-manifest models/mutan-resnet18.pth.tar -> bootstrap fetch sha256 check -> stages.py loads MODEL_ROOT/mutan-resnet18.pth.tar and hashes it"
+    }
+   }
+  },
+  "export_manifest": "artifacts/quality-network-heterogeneous/export-20261023T075427Z/manifest.json",
+  "export_manifest_sha256": "29e5f5ac58f1f362db76f5232638f75e802d4b6372c6d29213dcdac26439401e",
+  "rule": "receipts and UID-checked /health must equal these plan-bound hashes; artifact identity only (numerical parity and answer quality are separate gates)"
+ },
+ "shipped_sources": {
+  "worker.py": "78a2da635275c230bbd55c007d6bcc4e5de0ccc24abb03445a4a4b3b5e163d69",
+  "stages.py": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f",
+  "bootstrap.py": "20029fed8e6f2c6c4a83529b476ce99743d258f30571f2fba7035711d3dbee4a",
+  "proc.py": "9afa0e1e1b6b021dfb1c144d8c2659094e2f2ece59cd3bd45ab56d09236489be",
+  "dag_worker.py": "46b791ffe1076af47f74c849ddae9b6c3c2fa571f7c6ae94a54226562c331ca1",
+  "generator.py": "8391450e4c94e28d2e2ef382c50e967918d44b06b5ab938444936e95eb447f40",
+  "policies.py": "c9f39b430a831ecc16004bda5ea6871125085949b87afa3d1621440576dd4888",
+  "gateway.py": "fd8be27e5bf90e3f336615d21f328c5372006b54ad18d26ea431303c4580ad54",
+  "bounded_http.py": "2a8be506e9ce64438145e2019b4b67ca864270ae875b458295082da0334bdce8",
+  "http_runtime.py": "4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5",
+  "net_control.py": "192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6"
+ },
+ "shipped_sha256": "ac426950bb1d8bdb8c41ada4ac26576f5063e8185c43860bc5329aaf5acdf17a",
+ "planner_sources": {
+  "baselines.py": "fddea1dbffa98f6223c09a0b05c2518c3e169bf4d34c4adc5efa370536c5d38c",
+  "design.py": "22076fbe1c56e851762ea3c322fd0511f1202415ff9e0de0bf71218b833129c5",
+  "live.py": "af914126c12f64724c029726aaafe98bcc534e510c3546235d6cee339173db00",
+  "analyze.py": "e415d67df76bd701a4f5cfdab3cb4a17dceca36433781205d955c91c5ed361a2",
+  "capture.py": "2e9e1e2eab2247d96adb29e4a5051c1eba810a77f518865cb25d29b5963258b9",
+  "policies.py": "c9f39b430a831ecc16004bda5ea6871125085949b87afa3d1621440576dd4888",
+  "generator.py": "8391450e4c94e28d2e2ef382c50e967918d44b06b5ab938444936e95eb447f40",
+  "dag_worker.py": "46b791ffe1076af47f74c849ddae9b6c3c2fa571f7c6ae94a54226562c331ca1",
+  "gateway.py": "fd8be27e5bf90e3f336615d21f328c5372006b54ad18d26ea431303c4580ad54",
+  "bounded_http.py": "2a8be506e9ce64438145e2019b4b67ca864270ae875b458295082da0334bdce8"
+ },
+ "reused_frozen_sources": {
+  "experiments/quality-network-heterogeneous/qualify.py": "79a9ee100fc60919a9370f829138cf2dffd5ccd9113ab9cbc4d18c8a749caf5e",
+  "experiments/quality-network-heterogeneous/catalog.py": "ae9c0e551ca314d6f23eff092d64c196f4422671c7b0ab9b2d82a9e1bb08a8f4",
+  "experiments/real-topology-live/http_runtime.py": "4ded5d962bf1b8440a63b95d13161c75688f1e42ad354d90522492088b4f30a5",
+  "experiments/real-topology-live/net_control.py": "192e675c5b34b9cabd1850016e40b082eaa854fefaac05b086d941a8e8262af6",
+  "experiments/multi-edge-sensors/collect.py": "aabcf190cc55e730b580cbc559d508b48a325148b2881b5f8f7f55bdbf4c6ec7",
+  "experiments/real-topology-live/run_baseline_comparison.py": "d0a0f1f4ddf041107ee9da5128df0c1c3fb6f249a67b51fba3fe394221db6edf",
+  "experiments/quality-network-vqa/vqa_eval.py": "32ee2b76a7a76291ace8e60b3e339b43268ae247708ead999e4be0c497093ae5"
+ },
+ "node_image_storage": {
+  "cpu-c": {
+   "node": "etri-ser0002-cgnmsb",
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "compressed_layer_bytes": null,
+   "note": "kubelet image filesystem; check node free space separately before release"
+  },
+  "npu-c": {
+   "node": "etri-ser0002-cgnmsb",
+   "image": "192.168.0.56:5000/ra-npu-intel@sha256:725d604c11e02c7ddce47c7ab4e362d98245860644ce40679bf9c5e2dec1ea1a",
+   "compressed_layer_bytes": null,
+   "note": "kubelet image filesystem; check node free space separately before release"
+  },
+  "cpu-e0": {
+   "node": "etri-dev0003-raspi5",
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "compressed_layer_bytes": null,
+   "note": "kubelet image filesystem; check node free space separately before release"
+  },
+  "jgpu-dev0009-cu130": {
+   "node": "etri-dev0009-jetorn",
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "compressed_layer_bytes": null,
+   "note": "kubelet image filesystem; check node free space separately before release"
+  }
+ },
+ "estimates": {
+  "pilot": {
+   "cells": 36,
+   "per_cell_s": 50.0,
+   "traces_s": 1800.0,
+   "conditions_s": 540,
+   "total_s": 2340.0,
+   "note": "planning estimate; bounded in execution by the collection budget"
+  },
+  "compare_per_frozen_loads": {
+   "cells": 72,
+   "per_cell_s": 90.0,
+   "traces_s": 6480.0,
+   "conditions_s": 360,
+   "total_s": 6840.0,
+   "note": "planning estimate; bounded in execution by the collection budget"
+  }
+ },
+ "not_deployed": [
+  {
+   "node": "etri-dev0001-jetorn",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-dev0001-jetorn",
+   "family": "nvidia-jetson-gpu",
+   "stage": "vision",
+   "status": "runtime_failed"
+  },
+  {
+   "node": "etri-dev0002-raspi5",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-dev0002-raspi5",
+   "family": "hailo-8",
+   "stage": "vision",
+   "status": "dependency_unavailable"
+  },
+  {
+   "node": "etri-dev0004-tedger",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "node_unavailable"
+  },
+  {
+   "node": "etri-dev0004-tedger",
+   "family": "rockchip-rk3399pro",
+   "stage": "vision",
+   "status": "node_unavailable"
+  },
+  {
+   "node": "etri-dev0006-raspi5",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-dev0006-raspi5",
+   "family": "hailo-8",
+   "stage": "vision",
+   "status": "occupied"
+  },
+  {
+   "node": "etri-dev0007-jetagx",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "node_unavailable"
+  },
+  {
+   "node": "etri-dev0007-jetagx",
+   "family": "nvidia-jetson-gpu",
+   "stage": "vision",
+   "status": "node_unavailable"
+  },
+  {
+   "node": "etri-dev0008-raspi5",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-dev0009-jetorn",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-ser0001-cg0msb",
+   "family": "cpu-amd64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-ser0001-cg0msb",
+   "family": "nvidia-server-gpu",
+   "stage": "vision",
+   "status": "occupied"
+  },
+  {
+   "node": "etri-ser0002-cgnmsb",
+   "family": "nvidia-server-gpu",
+   "stage": "vision",
+   "status": "occupied"
+  },
+  {
+   "node": "etri-ser0003-cg0ms0",
+   "family": "cpu-arm64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-ser0003-cg0ms0",
+   "family": "nvidia-server-gpu",
+   "stage": "vision",
+   "status": "occupied"
+  },
+  {
+   "node": "etri-ser0004-cgnms0",
+   "family": "cpu-amd64",
+   "stage": "vision",
+   "status": "not_attempted"
+  },
+  {
+   "node": "etri-ser0004-cgnms0",
+   "family": "mobilint",
+   "stage": "vision",
+   "status": "dependency_unavailable"
+  }
+ ]
+}

@@ -1,5 +1,7 @@
 # 동적 워크플로 배치: 첫 비교 실험 계획
 
+> 2026-10-23: 이 문서는 이전 방향의 계획과 당시 검증 상태를 보존한다. 현재 주 목표·지표·실험 우선순위는 [품질·네트워크 인지 실험 계획](quality-network-experiment-plan.md)을 따른다. 아래 p95 중심 목표·첫 워크플로 후보·필수 정책군의 우선순위를 현재 계획으로 해석하지 않는다.
+
 ## Material Passport
 
 - Origin Skill: academic-research-suite / experiment-agent
