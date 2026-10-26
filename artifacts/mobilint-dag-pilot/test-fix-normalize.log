@@ -1,0 +1,59 @@
+test_failures_missing_duplicates_and_accuracy (test_pilot.AnalyzeTest.test_failures_missing_duplicates_and_accuracy) ... ok
+test_foreign_or_malformed_identity_rejected (test_pilot.AnalyzeTest.test_foreign_or_malformed_identity_rejected)
+R1 repro: analysis re-verifies every ok row against identities.json and creation UIDs. ... ok
+test_ledger_fallbacks (test_pilot.AnalyzeTest.test_ledger_fallbacks) ... ok
+test_no_ledger (test_pilot.AnalyzeTest.test_no_ledger) ... ok
+test_parity_requires_identical_input (test_pilot.AnalyzeTest.test_parity_requires_identical_input) ... ok
+test_quantile (test_pilot.AnalyzeTest.test_quantile) ... ok
+test_mobilint_backend_has_no_cpu_path (test_pilot.BackendContractTest.test_mobilint_backend_has_no_cpu_path) ... ok
+test_onnx_contract_on_non_selected_image (test_pilot.BackendContractTest.test_onnx_contract_on_non_selected_image)
+Input contract check on one ImageNetV2 image that is NOT in the frozen evaluation/warmup selection. ... ok
+test_call_timeout_kills_and_never_reuses (test_pilot.BackendProcessTest.test_call_timeout_kills_and_never_reuses) ... 
+contract image imagenetv2-matched-frequency-format-val/986/838e9b4f82c96029ee35b303222bc3bc208b70a2.jpeg label 986 top5 [986, 951, 990, 945, 940]
+ok
+test_child_passes_writeable_uint8_copy (test_pilot.BackendProcessTest.test_child_passes_writeable_uint8_copy)
+Probe mdp-20261026t091406 regression: the backend receives a writeable uint8 HWC array with unchanged values. ... ok
+test_load_failure_reported (test_pilot.BackendProcessTest.test_load_failure_reported) ... ok
+test_load_timeout_kills_child_and_persists (test_pilot.BackendProcessTest.test_load_timeout_kills_child_and_persists) ... ok
+test_cleanup_runs_when_salvage_raises (test_pilot.CollectorTest.test_cleanup_runs_when_salvage_raises)
+R2: salvage OSError or KeyboardInterrupt still reaches cleanup and verification; the run is not complete. ... ok
+test_occupancy_must_be_exactly_owned (test_pilot.CollectorTest.test_occupancy_must_be_exactly_owned) ... ok
+test_persistent_failure_raises_after_deadline_with_checkpoint (test_pilot.CollectorTest.test_persistent_failure_raises_after_deadline_with_checkpoint) ... ok
+test_salvage_before_cleanup_and_original_error_kept (test_pilot.CollectorTest.test_salvage_before_cleanup_and_original_error_kept) ... ok
+test_salvage_ledger_independent_of_health (test_pilot.CollectorTest.test_salvage_ledger_independent_of_health)
+R2: a /health reset does not prevent the ledger GET, which is attempted first. ... ok
+test_transient_status_failure_keeps_polling_and_checkpoints (test_pilot.CollectorTest.test_transient_status_failure_keeps_polling_and_checkpoints)
+R1 repro: one /status reset no longer loses the ledger. ... ok
+test_unverified_cleanup_fails_completion (test_pilot.CollectorTest.test_unverified_cleanup_fails_completion)
+R1 repro: a delete error or a still-present UID makes the run fail, with the record preserved. ... ok
+test_verified_cleanup_succeeds_and_unresolved_fails (test_pilot.CollectorTest.test_verified_cleanup_succeeds_and_unresolved_fails) ... ok
+test_choose (test_pilot.LiveManifestTest.test_choose) ... ok
+test_dependency_closure_is_bound (test_pilot.LiveManifestTest.test_dependency_closure_is_bound)
+R1 repro: modules the collector executes (collect.py and its imports) are in the release hashes. ... ok
+test_pod_security_and_resources (test_pilot.LiveManifestTest.test_pod_security_and_resources) ... ok
+test_release_binding (test_pilot.LiveManifestTest.test_release_binding) ... ok
+test_stream_guard (test_pilot.LiveManifestTest.test_stream_guard) ... ok
+test_configure_requires_identities (test_pilot.LoopbackDagTest.test_configure_requires_identities) ... ok
+test_foreign_identity_is_never_ok (test_pilot.LoopbackDagTest.test_foreign_identity_is_never_ok)
+R1 repro: foreign request id / node / Pod UID / input / model / runtime / frozen hash -> identity_mismatch. ... ok
+test_infer_rejects_wrong_arm_and_tensor (test_pilot.LoopbackDagTest.test_infer_rejects_wrong_arm_and_tensor) ... ok
+test_not_ready_worker_refuses (test_pilot.LoopbackDagTest.test_not_ready_worker_refuses) ... ok
+test_timeout_and_errors_are_recorded_not_retried (test_pilot.LoopbackDagTest.test_timeout_and_errors_are_recorded_not_retried) ... ok
+test_trace_runs_frozen_schedule_on_both_arms (test_pilot.LoopbackDagTest.test_trace_runs_frozen_schedule_on_both_arms) ... ok
+test_frozen_file_consistent (test_pilot.ProtocolTest.test_frozen_file_consistent) ... ok
+test_members_validated (test_pilot.ProtocolTest.test_members_validated) ... ok
+test_schedule_pairs_every_sample_once_per_arm (test_pilot.ProtocolTest.test_schedule_pairs_every_sample_once_per_arm) ... ok
+test_selection_deterministic_and_disjoint (test_pilot.ProtocolTest.test_selection_deterministic_and_disjoint) ... ok
+test_torchvision_geometry (test_pilot.ProtocolTest.test_torchvision_geometry) ... ok
+test_mobilint_infer_feeds_vendor_float32 (test_pilot.StageTest.test_mobilint_infer_feeds_vendor_float32) ... ok
+test_normalize (test_pilot.StageTest.test_normalize) ... ok
+test_postprocess (test_pilot.StageTest.test_postprocess) ... ok
+test_preprocess_matches_manual_pil_path (test_pilot.StageTest.test_preprocess_matches_manual_pil_path) ... ok
+test_preprocess_shape_and_determinism (test_pilot.StageTest.test_preprocess_shape_and_determinism) ... ok
+test_vendor_hwc_normalization (test_pilot.StageTest.test_vendor_hwc_normalization)
+Mobilint arm input = mblt-vision Normalize(torch) on HWC: float32, same values as the CPU arm's NCHW input. ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 10.030s
+
+OK

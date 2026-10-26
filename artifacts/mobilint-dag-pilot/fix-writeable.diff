@@ -1,0 +1,12 @@
+--- /tmp/claude-1002/-home-jinuk-codex-work-scheduler/5ca6d312-f320-41e7-b909-ad24fb37ad34/scratchpad/worker-before-fix.py	2026-10-26 18:15:48.407401533 +0900
++++ worker.py	2026-10-26 18:15:48.425811462 +0900
+@@ -212,7 +212,8 @@
+         except EOFError:
+             return
+         try:
+-            arr = np.frombuffer(data, dtype=np.uint8).reshape(TENSOR_SHAPE)
++            # qbruntime rejects read-only buffers ('array is not writeable', probe mdp-20261026t091406): same values, own copy.
++            arr = np.frombuffer(data, dtype=np.uint8).reshape(TENSOR_SHAPE).copy()
+             t0 = time.perf_counter()
+             logits = backend.infer(arr)
+             infer_ms = (time.perf_counter()-t0)*1000

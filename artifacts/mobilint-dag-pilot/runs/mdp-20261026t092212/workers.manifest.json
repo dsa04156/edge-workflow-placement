@@ -1,0 +1,486 @@
+{
+ "apiVersion": "v1",
+ "kind": "List",
+ "items": [
+  {
+   "apiVersion": "v1",
+   "kind": "Pod",
+   "metadata": {
+    "name": "mdp-20261026t092212-mobilint",
+    "namespace": "topology-profile-lab",
+    "labels": {
+     "experiment": "mobilint-dag-pilot",
+     "run-id": "mdp-20261026t092212",
+     "component": "mobilint"
+    }
+   },
+   "spec": {
+    "automountServiceAccountToken": false,
+    "restartPolicy": "Never",
+    "enableServiceLinks": false,
+    "activeDeadlineSeconds": 3600,
+    "terminationGracePeriodSeconds": 3,
+    "securityContext": {
+     "seccompProfile": {
+      "type": "RuntimeDefault"
+     }
+    },
+    "affinity": {
+     "nodeAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": {
+       "nodeSelectorTerms": [
+        {
+         "matchFields": [
+          {
+           "key": "metadata.name",
+           "operator": "In",
+           "values": [
+            "etri-ser0004-cgnms0"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    },
+    "containers": [
+     {
+      "name": "worker",
+      "image": "10.254.192.47:5000/ra-npu-mobilint@sha256:3e1760cdef820206d262488dc60a5047acd551b95e81f914e1f516fda1a496da",
+      "imagePullPolicy": "IfNotPresent",
+      "command": [
+       "python3",
+       "-u",
+       "/config/worker.py"
+      ],
+      "env": [
+       {
+        "name": "NODE_NAME",
+        "valueFrom": {
+         "fieldRef": {
+          "fieldPath": "spec.nodeName"
+         }
+        }
+       },
+       {
+        "name": "POD_UID",
+        "valueFrom": {
+         "fieldRef": {
+          "fieldPath": "metadata.uid"
+         }
+        }
+       },
+       {
+        "name": "PYTHONDONTWRITEBYTECODE",
+        "value": "1"
+       },
+       {
+        "name": "OMP_NUM_THREADS",
+        "value": "1"
+       },
+       {
+        "name": "OPENBLAS_NUM_THREADS",
+        "value": "1"
+       },
+       {
+        "name": "TMPDIR",
+        "value": "/work"
+       },
+       {
+        "name": "ROLE",
+        "value": "mobilint"
+       },
+       {
+        "name": "CACHE_URL",
+        "value": "http://10.244.5.88:8080"
+       },
+       {
+        "name": "FROZEN_SHA256",
+        "value": "ecb4f920c01cc399611a49e501db90ba289e6a963a1d372f2d0a57b5880ce27b"
+       }
+      ],
+      "resources": {
+       "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "ephemeral-storage": "256Mi",
+        "mobilint.com/npu": "1"
+       },
+       "limits": {
+        "cpu": "1",
+        "memory": "2Gi",
+        "ephemeral-storage": "2Gi",
+        "mobilint.com/npu": "1"
+       }
+      },
+      "securityContext": {
+       "allowPrivilegeEscalation": false,
+       "capabilities": {
+        "drop": [
+         "ALL"
+        ]
+       }
+      },
+      "volumeMounts": [
+       {
+        "name": "work",
+        "mountPath": "/work"
+       },
+       {
+        "name": "config",
+        "mountPath": "/config",
+        "readOnly": true
+       }
+      ],
+      "readinessProbe": {
+       "httpGet": {
+        "path": "/health",
+        "port": 8080
+       },
+       "initialDelaySeconds": 1,
+       "periodSeconds": 3,
+       "timeoutSeconds": 3
+      }
+     }
+    ],
+    "volumes": [
+     {
+      "name": "work",
+      "emptyDir": {
+       "sizeLimit": "2Gi"
+      }
+     },
+     {
+      "name": "config",
+      "configMap": {
+       "name": "mdp-20261026t092212-code"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "v1",
+   "kind": "Pod",
+   "metadata": {
+    "name": "mdp-20261026t092212-cpu-fp32",
+    "namespace": "topology-profile-lab",
+    "labels": {
+     "experiment": "mobilint-dag-pilot",
+     "run-id": "mdp-20261026t092212",
+     "component": "cpu-fp32"
+    }
+   },
+   "spec": {
+    "automountServiceAccountToken": false,
+    "restartPolicy": "Never",
+    "enableServiceLinks": false,
+    "activeDeadlineSeconds": 3600,
+    "terminationGracePeriodSeconds": 3,
+    "securityContext": {
+     "seccompProfile": {
+      "type": "RuntimeDefault"
+     },
+     "runAsUser": 65532,
+     "runAsGroup": 65532,
+     "runAsNonRoot": true,
+     "fsGroup": 65532
+    },
+    "affinity": {
+     "nodeAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": {
+       "nodeSelectorTerms": [
+        {
+         "matchFields": [
+          {
+           "key": "metadata.name",
+           "operator": "In",
+           "values": [
+            "etri-ser0004-cgnms0"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    },
+    "containers": [
+     {
+      "name": "worker",
+      "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+      "imagePullPolicy": "IfNotPresent",
+      "command": [
+       "python3",
+       "-u",
+       "/config/worker.py"
+      ],
+      "env": [
+       {
+        "name": "NODE_NAME",
+        "valueFrom": {
+         "fieldRef": {
+          "fieldPath": "spec.nodeName"
+         }
+        }
+       },
+       {
+        "name": "POD_UID",
+        "valueFrom": {
+         "fieldRef": {
+          "fieldPath": "metadata.uid"
+         }
+        }
+       },
+       {
+        "name": "PYTHONDONTWRITEBYTECODE",
+        "value": "1"
+       },
+       {
+        "name": "OMP_NUM_THREADS",
+        "value": "1"
+       },
+       {
+        "name": "OPENBLAS_NUM_THREADS",
+        "value": "1"
+       },
+       {
+        "name": "TMPDIR",
+        "value": "/work"
+       },
+       {
+        "name": "ROLE",
+        "value": "cpu-fp32"
+       },
+       {
+        "name": "CACHE_URL",
+        "value": "http://10.244.5.88:8080"
+       },
+       {
+        "name": "FROZEN_SHA256",
+        "value": "ecb4f920c01cc399611a49e501db90ba289e6a963a1d372f2d0a57b5880ce27b"
+       }
+      ],
+      "resources": {
+       "requests": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "ephemeral-storage": "512Mi"
+       },
+       "limits": {
+        "cpu": "1",
+        "memory": "2Gi",
+        "ephemeral-storage": "2Gi"
+       }
+      },
+      "securityContext": {
+       "allowPrivilegeEscalation": false,
+       "capabilities": {
+        "drop": [
+         "ALL"
+        ]
+       },
+       "readOnlyRootFilesystem": true
+      },
+      "volumeMounts": [
+       {
+        "name": "work",
+        "mountPath": "/work"
+       },
+       {
+        "name": "config",
+        "mountPath": "/config",
+        "readOnly": true
+       }
+      ],
+      "readinessProbe": {
+       "httpGet": {
+        "path": "/health",
+        "port": 8080
+       },
+       "initialDelaySeconds": 1,
+       "periodSeconds": 3,
+       "timeoutSeconds": 3
+      }
+     }
+    ],
+    "volumes": [
+     {
+      "name": "work",
+      "emptyDir": {
+       "sizeLimit": "2Gi"
+      }
+     },
+     {
+      "name": "config",
+      "configMap": {
+       "name": "mdp-20261026t092212-code"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "apiVersion": "v1",
+   "kind": "Pod",
+   "metadata": {
+    "name": "mdp-20261026t092212-edge",
+    "namespace": "topology-profile-lab",
+    "labels": {
+     "experiment": "mobilint-dag-pilot",
+     "run-id": "mdp-20261026t092212",
+     "component": "edge"
+    }
+   },
+   "spec": {
+    "automountServiceAccountToken": false,
+    "restartPolicy": "Never",
+    "enableServiceLinks": false,
+    "activeDeadlineSeconds": 3600,
+    "terminationGracePeriodSeconds": 3,
+    "securityContext": {
+     "seccompProfile": {
+      "type": "RuntimeDefault"
+     },
+     "runAsUser": 65532,
+     "runAsGroup": 65532,
+     "runAsNonRoot": true,
+     "fsGroup": 65532
+    },
+    "affinity": {
+     "nodeAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": {
+       "nodeSelectorTerms": [
+        {
+         "matchFields": [
+          {
+           "key": "metadata.name",
+           "operator": "In",
+           "values": [
+            "etri-dev0003-raspi5"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    },
+    "containers": [
+     {
+      "name": "worker",
+      "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+      "imagePullPolicy": "IfNotPresent",
+      "command": [
+       "python3",
+       "-u",
+       "/config/worker.py"
+      ],
+      "env": [
+       {
+        "name": "NODE_NAME",
+        "valueFrom": {
+         "fieldRef": {
+          "fieldPath": "spec.nodeName"
+         }
+        }
+       },
+       {
+        "name": "POD_UID",
+        "valueFrom": {
+         "fieldRef": {
+          "fieldPath": "metadata.uid"
+         }
+        }
+       },
+       {
+        "name": "PYTHONDONTWRITEBYTECODE",
+        "value": "1"
+       },
+       {
+        "name": "OMP_NUM_THREADS",
+        "value": "1"
+       },
+       {
+        "name": "OPENBLAS_NUM_THREADS",
+        "value": "1"
+       },
+       {
+        "name": "TMPDIR",
+        "value": "/work"
+       },
+       {
+        "name": "ROLE",
+        "value": "edge"
+       },
+       {
+        "name": "CACHE_URL",
+        "value": "http://10.244.5.88:8080"
+       },
+       {
+        "name": "FROZEN_SHA256",
+        "value": "ecb4f920c01cc399611a49e501db90ba289e6a963a1d372f2d0a57b5880ce27b"
+       }
+      ],
+      "resources": {
+       "requests": {
+        "cpu": "750m",
+        "memory": "384Mi",
+        "ephemeral-storage": "512Mi"
+       },
+       "limits": {
+        "cpu": "750m",
+        "memory": "768Mi",
+        "ephemeral-storage": "2Gi"
+       }
+      },
+      "securityContext": {
+       "allowPrivilegeEscalation": false,
+       "capabilities": {
+        "drop": [
+         "ALL"
+        ]
+       },
+       "readOnlyRootFilesystem": true
+      },
+      "volumeMounts": [
+       {
+        "name": "work",
+        "mountPath": "/work"
+       },
+       {
+        "name": "config",
+        "mountPath": "/config",
+        "readOnly": true
+       }
+      ],
+      "readinessProbe": {
+       "httpGet": {
+        "path": "/health",
+        "port": 8080
+       },
+       "initialDelaySeconds": 1,
+       "periodSeconds": 3,
+       "timeoutSeconds": 3
+      }
+     }
+    ],
+    "volumes": [
+     {
+      "name": "work",
+      "emptyDir": {
+       "sizeLimit": "2Gi"
+      }
+     },
+     {
+      "name": "config",
+      "configMap": {
+       "name": "mdp-20261026t092212-code"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

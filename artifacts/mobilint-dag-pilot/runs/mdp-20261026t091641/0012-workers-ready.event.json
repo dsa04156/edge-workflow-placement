@@ -1,0 +1,21 @@
+{
+ "started_at": "2026-10-26T09:16:52.622550+00:00",
+ "command": [
+  "rtk",
+  "proxy",
+  "kubectl",
+  "wait",
+  "pod",
+  "-n",
+  "topology-profile-lab",
+  "mdp-20261026t091641-cpu-fp32",
+  "--for=condition=Ready",
+  "--timeout=20s"
+ ],
+ "timeout_s": 35,
+ "status": "completed",
+ "returncode": 0,
+ "finished_at": "2026-10-26T09:16:52.788660+00:00",
+ "duration_ms": 166.0922790179029,
+ "tag": "0012-workers-ready"
+}

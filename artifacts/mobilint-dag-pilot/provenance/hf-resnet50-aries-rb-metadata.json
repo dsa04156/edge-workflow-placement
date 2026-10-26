@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "model": "ResNet50_IMAGENET1K_V1",
+  "variant": "c0923-asym-gptq",
+  "qbcompiler": "1.4.0",
+  "qbruntime": "1.5.0",
+  "compile": {
+    "image_tag": "1.4-cuda12.8.1-ubuntu22.04",
+    "image_digest": "sha256:7910f1661605b82eb9616f6ac99fd6461dbb865dcadaa810cce22c638ceffd44",
+    "inference_scheme": "single",
+    "device": "gpu"
+  },
+  "evaluation": {
+    "dataset": "imagenet",
+    "sample_count": 50000,
+    "primary": {
+      "top1_accuracy": 0.7602
+    },
+    "secondary": {
+      "top5_accuracy": 0.92856
+    },
+    "protocol": null,
+    "eval_data_identity": null,
+    "identity_audit": "absent",
+    "inference_mode": "async",
+    "image_tag": "1.4-cpu-ubuntu22.04",
+    "image_digest": "sha256:62b5bc714571dffd94fb561275767ca80d15337a433630a3ae7936305d531a7b"
+  },
+  "retention_percent": {
+    "top1_accuracy": 99.83452840595697
+  },
+  "content_sha256": "a35d481fb5edcb68b21ed2c6ab6a5e309541d94d8449b40ee28fd3abbaee01e3",
+  "attempt_id": "srcmodes8-resnet50-imagenet1k-v1-20261009t164855",
+  "superseded_attempt_ids": [],
+  "sha256": "48b1ca4e669ac9d293148a748c06c352a7f542c5999f5f8eb2d1f5a31cf21e2d",
+  "format": "MXQv7",
+  "supported_modes": [
+    "single"
+  ],
+  "size": 26018637,
+  "ops_commits": {
+    "selection": "2505304b714b87f620665f0d55ac9ce99d6c57e6"
+  },
+  "arxiv_folder": "https://github.com/mobilint/mblt-model-arxiv/tree/main/models/image_classification/ResNet50_IMAGENET1K_V1",
+  "publication": {
+    "status": "public",
+    "reason": "approved"
+  }
+}

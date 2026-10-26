@@ -1,0 +1,5480 @@
+{
+ "experiment": "mobilint-dag-pilot",
+ "seed": 20261026,
+ "arms": [
+  "mobilint",
+  "cpu-fp32"
+ ],
+ "input": {
+  "resize_shorter": 256,
+  "crop": 224,
+  "interpolation": "PIL bilinear (antialiased)",
+  "layout": "HWC uint8 RGB"
+ },
+ "mean": [
+  0.485,
+  0.456,
+  0.406
+ ],
+ "std": [
+  0.229,
+  0.224,
+  0.225
+ ],
+ "hf": {
+  "repo": "mobilint/ResNet50.tv1_in1k",
+  "revision": "8adb91ca7578fae9395cb4e8e2311b2afc7041c0"
+ },
+ "assets": {
+  "resnet50_IMAGENET1K_V1.mxq": {
+   "sha256": "48b1ca4e669ac9d293148a748c06c352a7f542c5999f5f8eb2d1f5a31cf21e2d",
+   "bytes": 26018637,
+   "source": "https://huggingface.co/mobilint/ResNet50.tv1_in1k/resolve/8adb91ca7578fae9395cb4e8e2311b2afc7041c0/aries-rb/resnet50_IMAGENET1K_V1.mxq",
+   "license": "BSD-3-Clause (repository card)",
+   "role": "mobilint"
+  },
+  "resnet50_IMAGENET1K_V1.onnx": {
+   "sha256": "3a742b2337fc640cae0ebff4c00fee264379a03275a5b192e707cb3a3e62d58a",
+   "bytes": 102146392,
+   "source": "https://huggingface.co/mobilint/ResNet50.tv1_in1k/resolve/8adb91ca7578fae9395cb4e8e2311b2afc7041c0/resnet50_IMAGENET1K_V1.onnx",
+   "license": "BSD-3-Clause (repository card); weights torchvision IMAGENET1K_V1 (BSD-3-Clause)",
+   "role": "cpu-fp32"
+  },
+  "onnxruntime-1.23.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl": {
+   "sha256": "da44b99206e77734c5819aa2142c69e64f3b46edc3bd314f6a45a932defc0b3e",
+   "bytes": 17372080,
+   "source": "https://pypi.org/project/onnxruntime/1.23.2/",
+   "license": "MIT",
+   "role": "cpu-fp32"
+  }
+ },
+ "imagenetv2": {
+  "file": "imagenetv2-matched-frequency.tar.gz",
+  "sha256": "f0c37fdf925916b19ea1323cd9a2208cdb6959ba2c32eef2a7fc393835c9ca7c",
+  "bytes": 1264079360,
+  "format": "POSIX tar (despite .gz name)",
+  "license": "MIT (dataset card); images from Flickr",
+  "source": "https://huggingface.co/datasets/vaishaal/ImageNetV2/resolve/d626240be2538720e83103a0e1178d24aca8b12c/imagenetv2-matched-frequency.tar.gz",
+  "prefix": "imagenetv2-matched-frequency-format-val/"
+ },
+ "wheels": {
+  "numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "7ab55401287bfec946ced39700c053796e7cc0e3acbef09993a9ad2adba6ca6e",
+  "pillow-11.3.0-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl": "643f189248837533073c405ec2f0bb250ba54598cf80e8c1e043381a60632f58",
+  "numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": "666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5",
+  "onnxruntime-1.23.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl": "da44b99206e77734c5819aa2142c69e64f3b46edc3bd314f6a45a932defc0b3e"
+ },
+ "images": {
+  "mobilint": "10.254.192.47:5000/ra-npu-mobilint@sha256:3e1760cdef820206d262488dc60a5047acd551b95e81f914e1f516fda1a496da",
+  "python": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f"
+ },
+ "qbruntime": "1.4.0",
+ "server": "etri-ser0004-cgnms0",
+ "edge_candidates": [
+  "etri-dev0003-raspi5",
+  "etri-dev0002-raspi5",
+  "etri-dev0008-raspi5"
+ ],
+ "resources": {
+  "cache": {
+   "cpu": "250m",
+   "memory": "256Mi",
+   "memory_limit": "512Mi",
+   "disk": "1Gi"
+  },
+  "mobilint": {
+   "cpu": "1",
+   "memory": "1Gi",
+   "memory_limit": "2Gi",
+   "disk": "256Mi",
+   "npu": 1
+  },
+  "cpu-fp32": {
+   "cpu": "1",
+   "memory": "1Gi",
+   "memory_limit": "2Gi",
+   "disk": "512Mi"
+  },
+  "edge": {
+   "cpu": "750m",
+   "memory": "384Mi",
+   "memory_limit": "768Mi",
+   "disk": "512Mi"
+  }
+ },
+ "deadlines": {
+  "pod_ready_s": 600,
+  "install_s": 600,
+  "load_s": 120,
+  "request_s": 30,
+  "probe_s": 180,
+  "trace_s": 1200,
+  "active_deadline_s": 3600,
+  "delete_s": 120
+ },
+ "evaluation": [
+  {
+   "id": "v2-00142",
+   "label": 14,
+   "member": "imagenetv2-matched-frequency-format-val/14/8d77a436c91a15bc51e9346e4490d169bed70f56.jpeg",
+   "file": "images/v2-00142.jpeg",
+   "sha256": "dade56cbef3a6409cfe74d1cef8e8821ebad6dfb11a490ca2f2a048799e9102b",
+   "bytes": 27710
+  },
+  {
+   "id": "v2-00168",
+   "label": 16,
+   "member": "imagenetv2-matched-frequency-format-val/16/e96d18e2a543635d3d163ba154ea76c4b037a700.jpeg",
+   "file": "images/v2-00168.jpeg",
+   "sha256": "65154ff15add0445b6bfa512ac1141bd81716917b2b3549412d49675546caed3",
+   "bytes": 70450
+  },
+  {
+   "id": "v2-00175",
+   "label": 17,
+   "member": "imagenetv2-matched-frequency-format-val/17/490ccb58cf5c9813cee979a210dd8ed66062132b.jpeg",
+   "file": "images/v2-00175.jpeg",
+   "sha256": "cafd40d4924d6f5b40b3f800c879c3b47986453882e6e3b570b1c56a6a0900d1",
+   "bytes": 146394
+  },
+  {
+   "id": "v2-00194",
+   "label": 19,
+   "member": "imagenetv2-matched-frequency-format-val/19/995be57be2b951b198a952de0ae0ddcede08c253.jpeg",
+   "file": "images/v2-00194.jpeg",
+   "sha256": "86da764be3a476c3e62679c6af85b1fc6b789603ae0cf8bd3b8bb34fec95df5c",
+   "bytes": 23508
+  },
+  {
+   "id": "v2-00319",
+   "label": 31,
+   "member": "imagenetv2-matched-frequency-format-val/31/ff4faea4d650d435959c502d9df92e3785cb42a7.jpeg",
+   "file": "images/v2-00319.jpeg",
+   "sha256": "9ff3999cecd47011837c4e35b6598ae3b1d6bd8b750d7445c681a53e96f73099",
+   "bytes": 154488
+  },
+  {
+   "id": "v2-00577",
+   "label": 57,
+   "member": "imagenetv2-matched-frequency-format-val/57/ef8726ea86e9d5182d0c22df764297943e73651d.jpeg",
+   "file": "images/v2-00577.jpeg",
+   "sha256": "da50ed4848167d03d82e927967c14f0b0c90763602924812f367db25aea47373",
+   "bytes": 70708
+  },
+  {
+   "id": "v2-00607",
+   "label": 60,
+   "member": "imagenetv2-matched-frequency-format-val/60/d53fe9d4891568ff9f1e595dff165b82176dfca8.jpeg",
+   "file": "images/v2-00607.jpeg",
+   "sha256": "7e30b851eb7c2928df2a333fb777da3b996ea1500cea4fa9dd07933a7b70124b",
+   "bytes": 148879
+  },
+  {
+   "id": "v2-00794",
+   "label": 79,
+   "member": "imagenetv2-matched-frequency-format-val/79/8b27e1fb8873de8a3b38022a901296aa57ac99bb.jpeg",
+   "file": "images/v2-00794.jpeg",
+   "sha256": "154a45caee756741216e19eb433e716be6878002138c1ebf8dd3ef0370579315",
+   "bytes": 30316
+  },
+  {
+   "id": "v2-00866",
+   "label": 86,
+   "member": "imagenetv2-matched-frequency-format-val/86/e06363901084ca6baa5843616394634b0c50c98b.jpeg",
+   "file": "images/v2-00866.jpeg",
+   "sha256": "84200e7bacf0e25dd9ec2dd014bf0dd0bee2b682cd09e3e6f0a6a3eb071f4229",
+   "bytes": 120541
+  },
+  {
+   "id": "v2-00909",
+   "label": 90,
+   "member": "imagenetv2-matched-frequency-format-val/90/e4196eead0670dd768f934341b51a307dd1e8135.jpeg",
+   "file": "images/v2-00909.jpeg",
+   "sha256": "cac466a3df750c13e2c30479c9a4fdfd2c6c71657bbea69c87ef878b255c2e41",
+   "bytes": 98497
+  },
+  {
+   "id": "v2-00922",
+   "label": 92,
+   "member": "imagenetv2-matched-frequency-format-val/92/3806bec83f7e571fbfd4d473352be6a3b365236d.jpeg",
+   "file": "images/v2-00922.jpeg",
+   "sha256": "1552066b01bfdefd528714df5e49424fe8fee0c5d3d38a0bb7f7c106f33a3322",
+   "bytes": 89433
+  },
+  {
+   "id": "v2-00943",
+   "label": 94,
+   "member": "imagenetv2-matched-frequency-format-val/94/4a0cd34c19f2a9dcde4dc1ad386a2f37d505b5b9.jpeg",
+   "file": "images/v2-00943.jpeg",
+   "sha256": "62d7bf9f8e0435ebe711a4ab2ac9d89fed6e7c58069cde7b1beacab54216ac78",
+   "bytes": 69830
+  },
+  {
+   "id": "v2-00995",
+   "label": 99,
+   "member": "imagenetv2-matched-frequency-format-val/99/65bbb8c2b423b28949f28ee560c07058034d3a23.jpeg",
+   "file": "images/v2-00995.jpeg",
+   "sha256": "e7c28202ec2572709b874c844db2fdd08dc7557d4aa90d6fe5fc20dc3552646e",
+   "bytes": 187019
+  },
+  {
+   "id": "v2-01128",
+   "label": 112,
+   "member": "imagenetv2-matched-frequency-format-val/112/d59085bf226c5214823bc61a06819d12548aa686.jpeg",
+   "file": "images/v2-01128.jpeg",
+   "sha256": "322f71051c65d0e062a285c54e00908e008921fcf1e21a5ea3e88ac9cf2d4ee5",
+   "bytes": 102004
+  },
+  {
+   "id": "v2-01147",
+   "label": 114,
+   "member": "imagenetv2-matched-frequency-format-val/114/da64ba8d2d849f8e3c1c4e331b9a2206aa560a0a.jpeg",
+   "file": "images/v2-01147.jpeg",
+   "sha256": "a5a5c88b5f7e7581eeb90446576607dce2fad670d7c078f671da66ec9d2ad3c1",
+   "bytes": 207459
+  },
+  {
+   "id": "v2-01274",
+   "label": 127,
+   "member": "imagenetv2-matched-frequency-format-val/127/584ea7c6420451f50f1b56b3dca3633012017b63.jpeg",
+   "file": "images/v2-01274.jpeg",
+   "sha256": "5329f6d1ceeaae509d88c90d4b3e80c3c2fc5c2fa27f9face62e1cf665f9e131",
+   "bytes": 193509
+  },
+  {
+   "id": "v2-01287",
+   "label": 128,
+   "member": "imagenetv2-matched-frequency-format-val/128/ad27372a2e0fe66968707886ac257bbb4689ebff.jpeg",
+   "file": "images/v2-01287.jpeg",
+   "sha256": "61b3ca47a94d7e2b9c41b57fdc89e65aa955afc6320ed9cf5d84083a47c88a66",
+   "bytes": 209999
+  },
+  {
+   "id": "v2-01309",
+   "label": 130,
+   "member": "imagenetv2-matched-frequency-format-val/130/ee3d9dfb7476c55277fb5dc59d55ea0f37803ec6.jpeg",
+   "file": "images/v2-01309.jpeg",
+   "sha256": "e18074417a5640b16a24b61615536444c3ae38d3bf66e497a222e6d4fd366284",
+   "bytes": 29077
+  },
+  {
+   "id": "v2-01327",
+   "label": 132,
+   "member": "imagenetv2-matched-frequency-format-val/132/b8ca9e6f33d19a3478570bb3958741341c266ea6.jpeg",
+   "file": "images/v2-01327.jpeg",
+   "sha256": "fa7c07a7830bfca3d4e00cacd4452e33515c63533e856518b430edd473a61baf",
+   "bytes": 104878
+  },
+  {
+   "id": "v2-01330",
+   "label": 133,
+   "member": "imagenetv2-matched-frequency-format-val/133/06e3e8e39f69d4117bb1bf4c848043156709978b.jpeg",
+   "file": "images/v2-01330.jpeg",
+   "sha256": "17b47214c4048d3208c5dd243d9ddfe0369e31cd3e4ab0e0b109b5ebe02c68ac",
+   "bytes": 123079
+  },
+  {
+   "id": "v2-01362",
+   "label": 136,
+   "member": "imagenetv2-matched-frequency-format-val/136/30d2b813e15433a9e5c00645d09923ee7db34f57.jpeg",
+   "file": "images/v2-01362.jpeg",
+   "sha256": "54c1bec5d143e68732dd48b98b24179eedd5dc4757fe247f29836ac68a041920",
+   "bytes": 141699
+  },
+  {
+   "id": "v2-01388",
+   "label": 138,
+   "member": "imagenetv2-matched-frequency-format-val/138/92ac08342f4a0be7f88fd9698887d6dce76a1b6d.jpeg",
+   "file": "images/v2-01388.jpeg",
+   "sha256": "86d2c7c7bc2540082eec93444c0ca168fa3628a7d65e73193a8bcd598ce72855",
+   "bytes": 87640
+  },
+  {
+   "id": "v2-01467",
+   "label": 146,
+   "member": "imagenetv2-matched-frequency-format-val/146/f0e311bdb3e1c9180ecc0c597526d8dbc90e09dd.jpeg",
+   "file": "images/v2-01467.jpeg",
+   "sha256": "834b06629ad24b4bd99c04d05843ddbb21f3c90a2ceaf7f285852fe9287ab043",
+   "bytes": 51729
+  },
+  {
+   "id": "v2-01503",
+   "label": 150,
+   "member": "imagenetv2-matched-frequency-format-val/150/3bbfdb65e1907cd06f120e999e996b0ae1eb7b25.jpeg",
+   "file": "images/v2-01503.jpeg",
+   "sha256": "342481d587fb0400c63accaf1f6d47409996b8c83359ca0f488d3e2029b80334",
+   "bytes": 123483
+  },
+  {
+   "id": "v2-01560",
+   "label": 156,
+   "member": "imagenetv2-matched-frequency-format-val/156/03986d0c8148d92fac967529ac8d294d64455274.jpeg",
+   "file": "images/v2-01560.jpeg",
+   "sha256": "99fe69209d247773b5240add15c07b5790c4a951cc092a2654ab33be7029992c",
+   "bytes": 124250
+  },
+  {
+   "id": "v2-01603",
+   "label": 160,
+   "member": "imagenetv2-matched-frequency-format-val/160/663b22140d22ccfa0574386caecefe1b88d93687.jpeg",
+   "file": "images/v2-01603.jpeg",
+   "sha256": "08c32fd86aec1de68b038a00fbf96a8ad53f32211dbe159e197d92952bdb7de4",
+   "bytes": 152806
+  },
+  {
+   "id": "v2-01655",
+   "label": 165,
+   "member": "imagenetv2-matched-frequency-format-val/165/554efdb498d0ee7930163ae2ee8a81306152e344.jpeg",
+   "file": "images/v2-01655.jpeg",
+   "sha256": "d7b1a64854b23b95f5ad1792ea54e5c783514d14e84f212990622f0cdad1e014",
+   "bytes": 119447
+  },
+  {
+   "id": "v2-01804",
+   "label": 180,
+   "member": "imagenetv2-matched-frequency-format-val/180/24bea7788ff5ec6bb35e450a33403195f309bb60.jpeg",
+   "file": "images/v2-01804.jpeg",
+   "sha256": "a419e000a4b9136a869173faec534ac2cd980e742ae4be683831b008c0bff9ee",
+   "bytes": 131867
+  },
+  {
+   "id": "v2-01829",
+   "label": 182,
+   "member": "imagenetv2-matched-frequency-format-val/182/fea8e1564f75fb91d3f403b4ef06b03c27c19711.jpeg",
+   "file": "images/v2-01829.jpeg",
+   "sha256": "42400fa76c2a78daa398fc44ebd2c640d872a72b2f9ca211315bb8d425c46863",
+   "bytes": 141628
+  },
+  {
+   "id": "v2-01836",
+   "label": 183,
+   "member": "imagenetv2-matched-frequency-format-val/183/713869d3002742d659705ecc37b2f7ed2c1983e6.jpeg",
+   "file": "images/v2-01836.jpeg",
+   "sha256": "d9b2e9832e159c1c9a2d240d20c9afdb14846a81e6474589362227bdb8ce52bd",
+   "bytes": 39287
+  },
+  {
+   "id": "v2-01859",
+   "label": 185,
+   "member": "imagenetv2-matched-frequency-format-val/185/f77094da65a03b41c7b39e5c02c46c23e709806a.jpeg",
+   "file": "images/v2-01859.jpeg",
+   "sha256": "29339f502128b91333f2bd3d4835e2fcb3dbd4958dafeac1f5dbf451de61d2ee",
+   "bytes": 193330
+  },
+  {
+   "id": "v2-02088",
+   "label": 208,
+   "member": "imagenetv2-matched-frequency-format-val/208/a7a971c7d2fdf2ee048d1e8d190058e56fb5d8ba.jpeg",
+   "file": "images/v2-02088.jpeg",
+   "sha256": "1cd591e18cd13a0470affbfbef89099cac1bb639884090a312d0bf0aeddabdb7",
+   "bytes": 89263
+  },
+  {
+   "id": "v2-02090",
+   "label": 209,
+   "member": "imagenetv2-matched-frequency-format-val/209/04da696ea50b348bed98ba61fd58fe763a1691fe.jpeg",
+   "file": "images/v2-02090.jpeg",
+   "sha256": "16494f20cb06dc679afc66b043cb72de55c9983762118baaadf862c17c277af9",
+   "bytes": 143714
+  },
+  {
+   "id": "v2-02114",
+   "label": 211,
+   "member": "imagenetv2-matched-frequency-format-val/211/917045b03dcf2ce7d95b583c2fb05ed8b36ebfc3.jpeg",
+   "file": "images/v2-02114.jpeg",
+   "sha256": "3dd1a718993029a105078ed94dbad35b6b6f35161908c861fe05701f302843bf",
+   "bytes": 98912
+  },
+  {
+   "id": "v2-02159",
+   "label": 215,
+   "member": "imagenetv2-matched-frequency-format-val/215/d814ee7a3e5fc0621fad9de68c4ffa5d9a125e08.jpeg",
+   "file": "images/v2-02159.jpeg",
+   "sha256": "0fce8ce421cbea927c1aff78ceb4673ab4bc19e3d24e8693251d28228de13d00",
+   "bytes": 16176
+  },
+  {
+   "id": "v2-02178",
+   "label": 217,
+   "member": "imagenetv2-matched-frequency-format-val/217/c494c557cf84561f7d9f376ee1238d4e6c0cf508.jpeg",
+   "file": "images/v2-02178.jpeg",
+   "sha256": "6cfb2c2481eed7c633f5338095ab8218fd7cb2d2729754c31823d4d3ec853c86",
+   "bytes": 39077
+  },
+  {
+   "id": "v2-02179",
+   "label": 217,
+   "member": "imagenetv2-matched-frequency-format-val/217/ea6cc3196859223c2d2d5972797b274cfcd0acd8.jpeg",
+   "file": "images/v2-02179.jpeg",
+   "sha256": "820c136ae17a6b55d8c49fed4f37ce05c8db148da69ff0eff68d0f92dd706db0",
+   "bytes": 142761
+  },
+  {
+   "id": "v2-02200",
+   "label": 220,
+   "member": "imagenetv2-matched-frequency-format-val/220/0af7b09a02d6c5bd67c7783eca63713e4b3cd87c.jpeg",
+   "file": "images/v2-02200.jpeg",
+   "sha256": "5487b16d78a404a62c1e903fcf27ee77468836b4082b6d45864a365594aacc2e",
+   "bytes": 82950
+  },
+  {
+   "id": "v2-02315",
+   "label": 231,
+   "member": "imagenetv2-matched-frequency-format-val/231/931db77d4bfd4c0d7fe434458a1338f6a9bafaef.jpeg",
+   "file": "images/v2-02315.jpeg",
+   "sha256": "e9acdf42c13e247f0a75f424b21860cab30231e92f04f83bdf4510c11f4387f6",
+   "bytes": 165941
+  },
+  {
+   "id": "v2-02389",
+   "label": 238,
+   "member": "imagenetv2-matched-frequency-format-val/238/fda46695d758da09e2c4991993ee1c630676630f.jpeg",
+   "file": "images/v2-02389.jpeg",
+   "sha256": "ed6563b06832d2a9438982b3629b2c79359d3b4c9bbe9f2721bb74d89c5ea775",
+   "bytes": 201792
+  },
+  {
+   "id": "v2-02430",
+   "label": 243,
+   "member": "imagenetv2-matched-frequency-format-val/243/08b56fe3ce8ae3a98013d5c7b959f95db57dc823.jpeg",
+   "file": "images/v2-02430.jpeg",
+   "sha256": "84d2c8983d328447f7439ed9eafe9edaafa8ea5975ad9dab22dfd1eb9818a3b1",
+   "bytes": 106412
+  },
+  {
+   "id": "v2-02503",
+   "label": 250,
+   "member": "imagenetv2-matched-frequency-format-val/250/2b8170c4722d8c1e2dfbe2c47ef28e0fd1e35a44.jpeg",
+   "file": "images/v2-02503.jpeg",
+   "sha256": "adf79086919050fbdd0e58d0c59addca6d24eb1152166825cd64c01e9ed7f0ca",
+   "bytes": 148862
+  },
+  {
+   "id": "v2-02550",
+   "label": 255,
+   "member": "imagenetv2-matched-frequency-format-val/255/1da12232400ad23176297f2d3f393610cad7005a.jpeg",
+   "file": "images/v2-02550.jpeg",
+   "sha256": "002b40d5560fac0e3e912d284efedc22bb985118d4f48ecba9335f3086c3aeb0",
+   "bytes": 105118
+  },
+  {
+   "id": "v2-02589",
+   "label": 258,
+   "member": "imagenetv2-matched-frequency-format-val/258/f2cb1899155d5fde205528ad23365108d25d0fe7.jpeg",
+   "file": "images/v2-02589.jpeg",
+   "sha256": "fbfa7a93584feea64196eda20f7bc3c9b58057044101d01e632d160e092d53fc",
+   "bytes": 55712
+  },
+  {
+   "id": "v2-02602",
+   "label": 260,
+   "member": "imagenetv2-matched-frequency-format-val/260/70d4e3da0e8e4471700586f10e0daebab1838ba2.jpeg",
+   "file": "images/v2-02602.jpeg",
+   "sha256": "9effde2f738ae9b7b1494e5a241619d744d9fd566758b750881636a2ff21a552",
+   "bytes": 188688
+  },
+  {
+   "id": "v2-02692",
+   "label": 269,
+   "member": "imagenetv2-matched-frequency-format-val/269/71c24cbcd169fc8845f08c29304accb4f58ce5bb.jpeg",
+   "file": "images/v2-02692.jpeg",
+   "sha256": "cef20d78289755ce9918042dd63622198312bfdbe3a1ff5116278c8b43d9b858",
+   "bytes": 147432
+  },
+  {
+   "id": "v2-02834",
+   "label": 283,
+   "member": "imagenetv2-matched-frequency-format-val/283/4f4edf5b1e64a3cc872b24f177113d7e4ba1cc83.jpeg",
+   "file": "images/v2-02834.jpeg",
+   "sha256": "1a328bf4cbc5eacb4b74c64beed86c81c62d50e6a6cf82c42596dce3df313aee",
+   "bytes": 82325
+  },
+  {
+   "id": "v2-02891",
+   "label": 289,
+   "member": "imagenetv2-matched-frequency-format-val/289/160a944df64d753b11d0566935eb5a9bfda0c3a2.jpeg",
+   "file": "images/v2-02891.jpeg",
+   "sha256": "135f324092b489af0058a673960cfd63cbe0aa1d7418f38ac83900bd1cb45d84",
+   "bytes": 126950
+  },
+  {
+   "id": "v2-03026",
+   "label": 302,
+   "member": "imagenetv2-matched-frequency-format-val/302/814c76dff10f74ea4bc5495b0c495b05a3901470.jpeg",
+   "file": "images/v2-03026.jpeg",
+   "sha256": "02ca3c4c1a2182fa2913901bcdbc4ca481dc411c60246b4ce1391b74b8757aea",
+   "bytes": 203873
+  },
+  {
+   "id": "v2-03148",
+   "label": 314,
+   "member": "imagenetv2-matched-frequency-format-val/314/ba4d70d45e43508607ec7989c32f708f1b19cd8c.jpeg",
+   "file": "images/v2-03148.jpeg",
+   "sha256": "73b127ee8b02656a6bad1bf319d38805a5f5e8cd92fd9a87e7bd929a4686552c",
+   "bytes": 147160
+  },
+  {
+   "id": "v2-03152",
+   "label": 315,
+   "member": "imagenetv2-matched-frequency-format-val/315/43ef47e33d54d642de3ed0b211182d875c9c079c.jpeg",
+   "file": "images/v2-03152.jpeg",
+   "sha256": "bf69e9f932fbafa862fb4d460eff8480023e42c1c53c4fa96d638ef43fd79dcd",
+   "bytes": 76368
+  },
+  {
+   "id": "v2-03180",
+   "label": 318,
+   "member": "imagenetv2-matched-frequency-format-val/318/0b18143c2f12d256fb1a55536e0fdee551de347a.jpeg",
+   "file": "images/v2-03180.jpeg",
+   "sha256": "129b879cc42912d917c2e96f39ff69a7a48eda72b96669a8a608b1f863079d96",
+   "bytes": 45165
+  },
+  {
+   "id": "v2-03184",
+   "label": 318,
+   "member": "imagenetv2-matched-frequency-format-val/318/674f89265c0c7b4f16334e4636ea8c7a651dc72a.jpeg",
+   "file": "images/v2-03184.jpeg",
+   "sha256": "87c93e577403846e2ae00ea1f1d1451a8dfc33f1ee2ba4515154b79a39e1d83c",
+   "bytes": 92743
+  },
+  {
+   "id": "v2-03198",
+   "label": 319,
+   "member": "imagenetv2-matched-frequency-format-val/319/e31745f5755a91bbd15635c145c62dd68d37c9c8.jpeg",
+   "file": "images/v2-03198.jpeg",
+   "sha256": "28084b35dc9d7a0e8a6da9b775081379a28fd1ef784362d6fe7575430b162ba6",
+   "bytes": 94432
+  },
+  {
+   "id": "v2-03244",
+   "label": 324,
+   "member": "imagenetv2-matched-frequency-format-val/324/8279ddc743455183035b9db4ca2e1b08366c7dd9.jpeg",
+   "file": "images/v2-03244.jpeg",
+   "sha256": "d03a12239158c3b783e0a1f8125caec7ada6aa1f873e9bc3ea917fe077d6d62b",
+   "bytes": 110129
+  },
+  {
+   "id": "v2-03351",
+   "label": 335,
+   "member": "imagenetv2-matched-frequency-format-val/335/2fd6463c1ed1fed88b3896125cb603d71667aa42.jpeg",
+   "file": "images/v2-03351.jpeg",
+   "sha256": "89cad591a65c9f4530528ef63635b7dbd5a79901240fc7df6ee75062619ccb70",
+   "bytes": 133110
+  },
+  {
+   "id": "v2-03389",
+   "label": 338,
+   "member": "imagenetv2-matched-frequency-format-val/338/ca7bbf77f7cceb9870fef8c35271982eab9bddbe.jpeg",
+   "file": "images/v2-03389.jpeg",
+   "sha256": "07bb10d2822a2b08691677688f65fc9cb64cc9f0cc9b3c18acc66353516574ac",
+   "bytes": 99969
+  },
+  {
+   "id": "v2-03498",
+   "label": 349,
+   "member": "imagenetv2-matched-frequency-format-val/349/e4c91ecbaaee713ac6aa87497683783ccd0313dd.jpeg",
+   "file": "images/v2-03498.jpeg",
+   "sha256": "e744fe287a41b643ad51149f1cff21d323742160bda01d2b75f505ffedf6c40c",
+   "bytes": 116753
+  },
+  {
+   "id": "v2-03541",
+   "label": 354,
+   "member": "imagenetv2-matched-frequency-format-val/354/4ddec865fa4cf9bb821c880a8013df2064665f80.jpeg",
+   "file": "images/v2-03541.jpeg",
+   "sha256": "47a856e18112c2af08996a33068160026a4b40ced62ddbf186881b72571198cf",
+   "bytes": 103701
+  },
+  {
+   "id": "v2-03566",
+   "label": 356,
+   "member": "imagenetv2-matched-frequency-format-val/356/bc33fefe53d284d45c2911af859948aee2e08fbf.jpeg",
+   "file": "images/v2-03566.jpeg",
+   "sha256": "9aef5b055b874822c78729f0c46b569021821726fe3349b570c2b1929a9ee03e",
+   "bytes": 125073
+  },
+  {
+   "id": "v2-03583",
+   "label": 358,
+   "member": "imagenetv2-matched-frequency-format-val/358/40ae3298ef4427b5a2500384b5c2c0d541d648cc.jpeg",
+   "file": "images/v2-03583.jpeg",
+   "sha256": "1f5ff06deecad5b947badc6ecb7b2abe205679f0726b7e4215eb8a656798896a",
+   "bytes": 191505
+  },
+  {
+   "id": "v2-03585",
+   "label": 358,
+   "member": "imagenetv2-matched-frequency-format-val/358/6fe648e74a7084fd98d7ed48c6a5c7e625c28e3f.jpeg",
+   "file": "images/v2-03585.jpeg",
+   "sha256": "95c26b60f4e7ea7bc17a078913dfc07d51bc3c5c1e02f45419359869041dc477",
+   "bytes": 114355
+  },
+  {
+   "id": "v2-03662",
+   "label": 366,
+   "member": "imagenetv2-matched-frequency-format-val/366/71c87a4b1ab76b26a195ed411da6c2e2f4545c83.jpeg",
+   "file": "images/v2-03662.jpeg",
+   "sha256": "5a71fa2cc01952c19e4b3e060b52ce0015eef1fadeb297c9d486afb38950973b",
+   "bytes": 219781
+  },
+  {
+   "id": "v2-03668",
+   "label": 366,
+   "member": "imagenetv2-matched-frequency-format-val/366/fa31810fa06b5d6a1b7b6e6309f6a586dfe7deb2.jpeg",
+   "file": "images/v2-03668.jpeg",
+   "sha256": "9c7a2f9d7dd476c06d7abe22062863915996f4dd5329e6ce16d163c927180c45",
+   "bytes": 24845
+  },
+  {
+   "id": "v2-03729",
+   "label": 372,
+   "member": "imagenetv2-matched-frequency-format-val/372/c9a285d021a42142a0e01ff6dc912a634da90990.jpeg",
+   "file": "images/v2-03729.jpeg",
+   "sha256": "212cba36f105f9fef43f270191f7fd903f03e248a4c1e2049d9e9445ca5e2268",
+   "bytes": 188708
+  },
+  {
+   "id": "v2-03928",
+   "label": 392,
+   "member": "imagenetv2-matched-frequency-format-val/392/fc04120187555f22592ee462756ca457da2d7c25.jpeg",
+   "file": "images/v2-03928.jpeg",
+   "sha256": "f520a586859affb64cf27331195272814f9ffa363c9ffbbec966e9efdcef531b",
+   "bytes": 47780
+  },
+  {
+   "id": "v2-04136",
+   "label": 413,
+   "member": "imagenetv2-matched-frequency-format-val/413/b51cf193dee258593d6f8c807287306d7c2c6cab.jpeg",
+   "file": "images/v2-04136.jpeg",
+   "sha256": "48ef026ce74bd25dc4c01bac8f5bc51c7f625831acab0635c1110ddd9090f495",
+   "bytes": 57267
+  },
+  {
+   "id": "v2-04155",
+   "label": 415,
+   "member": "imagenetv2-matched-frequency-format-val/415/87000349608c52a07bbcde4ba7b4aec1a942293f.jpeg",
+   "file": "images/v2-04155.jpeg",
+   "sha256": "95e723c915de61f7cf588790e40551cd9a421f1b9b1d07c4ba0790edec4688a1",
+   "bytes": 88256
+  },
+  {
+   "id": "v2-04295",
+   "label": 429,
+   "member": "imagenetv2-matched-frequency-format-val/429/8847cddf4373d1a2c5e26ecb678549673d523f9c.jpeg",
+   "file": "images/v2-04295.jpeg",
+   "sha256": "e30efed05c8faf811e043df4e06b4f8ec92d86bcabfecd60ac0563ba9bf980e5",
+   "bytes": 132854
+  },
+  {
+   "id": "v2-04375",
+   "label": 437,
+   "member": "imagenetv2-matched-frequency-format-val/437/9b7c250e7a9aca9c446800a12bec2b0ca871a4ca.jpeg",
+   "file": "images/v2-04375.jpeg",
+   "sha256": "1cf610955086fb9b5654bf20a64a798db4ebf1302d155a096956916f258a18c2",
+   "bytes": 129650
+  },
+  {
+   "id": "v2-04440",
+   "label": 444,
+   "member": "imagenetv2-matched-frequency-format-val/444/0b81d217e659a7b3a003540bbe221fd226f15f68.jpeg",
+   "file": "images/v2-04440.jpeg",
+   "sha256": "f5224fcb7f981077b030fdd5959f322fb98893c3e29743ed9feebc7270bb058f",
+   "bytes": 209528
+  },
+  {
+   "id": "v2-04489",
+   "label": 448,
+   "member": "imagenetv2-matched-frequency-format-val/448/fdcd5deffbfe7780b4d9a1ee0b006d35e8892611.jpeg",
+   "file": "images/v2-04489.jpeg",
+   "sha256": "a5a9d0380f51364843903af4731af222761ec5ac5f5155b64d81c5a75a78c001",
+   "bytes": 110469
+  },
+  {
+   "id": "v2-04549",
+   "label": 454,
+   "member": "imagenetv2-matched-frequency-format-val/454/ffe7adb2f4ab1cfe5ede991fc37378b27cf912b6.jpeg",
+   "file": "images/v2-04549.jpeg",
+   "sha256": "b8888f7263fa716984dcaf39a78193dc1e520f706497cf1a20fa6849912baed6",
+   "bytes": 187456
+  },
+  {
+   "id": "v2-04575",
+   "label": 457,
+   "member": "imagenetv2-matched-frequency-format-val/457/6e4ab0d03c7609d56651cd4529c6de64fac6631c.jpeg",
+   "file": "images/v2-04575.jpeg",
+   "sha256": "8f0faa2d16cc561d7432993ea073008ba10e556ad954cca05186d09f7935e599",
+   "bytes": 31074
+  },
+  {
+   "id": "v2-04666",
+   "label": 466,
+   "member": "imagenetv2-matched-frequency-format-val/466/c660a3eb427dc924c12e6c493a44f9eec2eacb3e.jpeg",
+   "file": "images/v2-04666.jpeg",
+   "sha256": "fc6b660d7e3d15fa376fc069eb82d13aed12c79a4e9c8a06e02c9cbd53229ec7",
+   "bytes": 96102
+  },
+  {
+   "id": "v2-04686",
+   "label": 468,
+   "member": "imagenetv2-matched-frequency-format-val/468/599d5fc7f012825aab5984efef563841ce4d6a89.jpeg",
+   "file": "images/v2-04686.jpeg",
+   "sha256": "0b4dd3efecc87696990902509a45533b1e950632faf8d0457a6642c20b3caf05",
+   "bytes": 151689
+  },
+  {
+   "id": "v2-04822",
+   "label": 482,
+   "member": "imagenetv2-matched-frequency-format-val/482/44e4542ddc90e3e630d586ce43c67521816915c1.jpeg",
+   "file": "images/v2-04822.jpeg",
+   "sha256": "82aeb5e230be729473f0704314d5ea1ab548238aa250db7f2391b635f91cc5ad",
+   "bytes": 64608
+  },
+  {
+   "id": "v2-04852",
+   "label": 485,
+   "member": "imagenetv2-matched-frequency-format-val/485/2cbbf990968a664179d9f03d6bb1a5aaebffc279.jpeg",
+   "file": "images/v2-04852.jpeg",
+   "sha256": "c460a4f28af5ee9c41aeaf7b69e3bd83b1a11d846412af461b20ac257bf905ae",
+   "bytes": 141699
+  },
+  {
+   "id": "v2-04853",
+   "label": 485,
+   "member": "imagenetv2-matched-frequency-format-val/485/38d937fdd2270a8401cf19145eccfab2d15985fb.jpeg",
+   "file": "images/v2-04853.jpeg",
+   "sha256": "ed654b6de67e62d8223e0f72b5a11e1bf7aba70e825fd1e5476b68251b2262b3",
+   "bytes": 34647
+  },
+  {
+   "id": "v2-04881",
+   "label": 488,
+   "member": "imagenetv2-matched-frequency-format-val/488/1d0b77332ee27166d125aa4306cb4ed7fb63e022.jpeg",
+   "file": "images/v2-04881.jpeg",
+   "sha256": "005f1c79545e0590b5817e30e683ef159b4ea41e801ac54a6d4d17c2e6c58367",
+   "bytes": 61681
+  },
+  {
+   "id": "v2-04897",
+   "label": 489,
+   "member": "imagenetv2-matched-frequency-format-val/489/afad755a07c22b56b5a44bfd8bb15afe6470d39b.jpeg",
+   "file": "images/v2-04897.jpeg",
+   "sha256": "7812ea429c5b84b635949a707f81298d11bae54306fa7e539cedb18bab5b44cd",
+   "bytes": 108633
+  },
+  {
+   "id": "v2-04927",
+   "label": 492,
+   "member": "imagenetv2-matched-frequency-format-val/492/d8aac483ddcc4c5700f0aef522d1b84711fd70c6.jpeg",
+   "file": "images/v2-04927.jpeg",
+   "sha256": "7a2332a9fdc75f19c6df2bad9269c755cc8062e654ea62081cc580401a648590",
+   "bytes": 13227
+  },
+  {
+   "id": "v2-04939",
+   "label": 493,
+   "member": "imagenetv2-matched-frequency-format-val/493/e8dab047aef2bd66262da0739f1d2727698cd76a.jpeg",
+   "file": "images/v2-04939.jpeg",
+   "sha256": "72d23ca6a389c9adc33621b1a494927b1e764e3f984bdc40bf67d30d88cbd78c",
+   "bytes": 97554
+  },
+  {
+   "id": "v2-04948",
+   "label": 494,
+   "member": "imagenetv2-matched-frequency-format-val/494/a495097f8d6af5eaacfbfbe0d82e05b7d01b88f8.jpeg",
+   "file": "images/v2-04948.jpeg",
+   "sha256": "b44fd0dc71c171adf1a7072d8f8662f738bdb90a27b817e8dbee1357cfc19db5",
+   "bytes": 157552
+  },
+  {
+   "id": "v2-04950",
+   "label": 495,
+   "member": "imagenetv2-matched-frequency-format-val/495/09e4a3d87568e27673828533fbd366ae61606a4f.jpeg",
+   "file": "images/v2-04950.jpeg",
+   "sha256": "edaaae396bb40751763d9eeab2a5f7da71fc41474ff8ad522974c290ac6afe60",
+   "bytes": 93171
+  },
+  {
+   "id": "v2-05016",
+   "label": 501,
+   "member": "imagenetv2-matched-frequency-format-val/501/ae67b85f055f5747541dfdc35a77937e702cd1fb.jpeg",
+   "file": "images/v2-05016.jpeg",
+   "sha256": "9776be006220df238989e68f01683bf37ee45e3cffd846ebb41ca82e72adc1da",
+   "bytes": 42525
+  },
+  {
+   "id": "v2-05032",
+   "label": 503,
+   "member": "imagenetv2-matched-frequency-format-val/503/4596249223c4c148a275b7376b785ec24e6d35ab.jpeg",
+   "file": "images/v2-05032.jpeg",
+   "sha256": "bedbd2e9c2cba45b10a0609f765389c33e071e29cd9fc7cc792f88e375b6616d",
+   "bytes": 120246
+  },
+  {
+   "id": "v2-05044",
+   "label": 504,
+   "member": "imagenetv2-matched-frequency-format-val/504/6ee1687ed34bb38a6f370fec8e36dfbe5fdad9ea.jpeg",
+   "file": "images/v2-05044.jpeg",
+   "sha256": "c1c7821dfe472bf24bf8177479636d02b8470a0b416c6758a5f2ce6a1c90efcf",
+   "bytes": 99047
+  },
+  {
+   "id": "v2-05074",
+   "label": 507,
+   "member": "imagenetv2-matched-frequency-format-val/507/74c01272d252d452704ee53f272aa8a9cc1c5c49.jpeg",
+   "file": "images/v2-05074.jpeg",
+   "sha256": "9f18aa1ec0fcb192b92720dd60dc412abb8243271ba85484bb54d80514d43a04",
+   "bytes": 145939
+  },
+  {
+   "id": "v2-05151",
+   "label": 515,
+   "member": "imagenetv2-matched-frequency-format-val/515/22dada5a90d425f4b3d9f9930e27b37a2f61f6c0.jpeg",
+   "file": "images/v2-05151.jpeg",
+   "sha256": "c9224988b718acb158ec2846c1a5ce02970a630aac83cc5ba01a094f67b0e8f2",
+   "bytes": 75902
+  },
+  {
+   "id": "v2-05173",
+   "label": 517,
+   "member": "imagenetv2-matched-frequency-format-val/517/9e888e387f6e29b52aa0be3d6465869384bbdc04.jpeg",
+   "file": "images/v2-05173.jpeg",
+   "sha256": "66cb470fc21a6e579a9c0322ed595982d05a8696d4de23c96f0b445a55c8835d",
+   "bytes": 194740
+  },
+  {
+   "id": "v2-05211",
+   "label": 521,
+   "member": "imagenetv2-matched-frequency-format-val/521/24e569b7dfcdb7acf1c6d287a01ecaf8444d8142.jpeg",
+   "file": "images/v2-05211.jpeg",
+   "sha256": "a264fe5803d045f120a993d42e5101ed6edeb46e0abce472968682735e5044bd",
+   "bytes": 25789
+  },
+  {
+   "id": "v2-05264",
+   "label": 526,
+   "member": "imagenetv2-matched-frequency-format-val/526/3424ffb8769b55529d594cd47d2434c6bca47413.jpeg",
+   "file": "images/v2-05264.jpeg",
+   "sha256": "e92d82f33e8e75ec1a903388f97f1f43ddd90e80a9f7792b6d98e5dda004aa96",
+   "bytes": 122483
+  },
+  {
+   "id": "v2-05285",
+   "label": 528,
+   "member": "imagenetv2-matched-frequency-format-val/528/6392a4484951b673375f21878e63911ce9ac2f51.jpeg",
+   "file": "images/v2-05285.jpeg",
+   "sha256": "76453883a46684c7be2943cae4186492b371fbf5d80d58e339df75c01d15253e",
+   "bytes": 101288
+  },
+  {
+   "id": "v2-05411",
+   "label": 541,
+   "member": "imagenetv2-matched-frequency-format-val/541/60279128d4a62d457baf3ea8c04ea482cd7c5f4f.jpeg",
+   "file": "images/v2-05411.jpeg",
+   "sha256": "49c2408cff26eba4af5e89eb27c70ac02b5685a5b4260ed29dce14caa640e934",
+   "bytes": 151458
+  },
+  {
+   "id": "v2-05459",
+   "label": 545,
+   "member": "imagenetv2-matched-frequency-format-val/545/dd83dea86e1332a77105a14eb4f78a3ca83cc74b.jpeg",
+   "file": "images/v2-05459.jpeg",
+   "sha256": "6f8db44bfdbb1181233594ec8de4751f321893c2a5f862d332664e8b4ff700d7",
+   "bytes": 124591
+  },
+  {
+   "id": "v2-05538",
+   "label": 553,
+   "member": "imagenetv2-matched-frequency-format-val/553/9c330beaeead8ea4b7deb4426728dfb2cc179d6b.jpeg",
+   "file": "images/v2-05538.jpeg",
+   "sha256": "9c95652a1ecf6786e8755d1292bf513f45cdeaf9222dd758721ae65dd846f822",
+   "bytes": 48816
+  },
+  {
+   "id": "v2-05542",
+   "label": 554,
+   "member": "imagenetv2-matched-frequency-format-val/554/3c3348351eb707e39c04a326637d92b1d3d73b52.jpeg",
+   "file": "images/v2-05542.jpeg",
+   "sha256": "c7421611cfe6279c6f82e791137d19a10a076b6674cf1bced650e876ba4ee6b0",
+   "bytes": 115600
+  },
+  {
+   "id": "v2-05563",
+   "label": 556,
+   "member": "imagenetv2-matched-frequency-format-val/556/5b48fa70d049bc2904b814b3a8bd69f221b5900c.jpeg",
+   "file": "images/v2-05563.jpeg",
+   "sha256": "60072cb2c6023d4dd9c8c60460f5f951934c26073ba14b1c287091b4024a7962",
+   "bytes": 178859
+  },
+  {
+   "id": "v2-05596",
+   "label": 559,
+   "member": "imagenetv2-matched-frequency-format-val/559/c4b7baa05d95e5aa68ee11920876ed89ed3ff28e.jpeg",
+   "file": "images/v2-05596.jpeg",
+   "sha256": "eb44e1bedfc0121bf4c1483b72affdafa4d7dbe1323453bc63ddb955d740816f",
+   "bytes": 194183
+  },
+  {
+   "id": "v2-05597",
+   "label": 559,
+   "member": "imagenetv2-matched-frequency-format-val/559/c9571e68b60cf1c73e1a8c57cdf3374ebed0a6aa.jpeg",
+   "file": "images/v2-05597.jpeg",
+   "sha256": "1d87823965c88c302a6fb6c4af0271cd416bd6bde57af7627b4e31977e0ae8f9",
+   "bytes": 155228
+  },
+  {
+   "id": "v2-05628",
+   "label": 562,
+   "member": "imagenetv2-matched-frequency-format-val/562/ca12258cae2c11a9ad609083b184ae9e5a01e6c5.jpeg",
+   "file": "images/v2-05628.jpeg",
+   "sha256": "9fc1342c947e81d805f05c5c89a47790bf85b94e9011e2c87411ce9dcabde519",
+   "bytes": 217186
+  },
+  {
+   "id": "v2-05645",
+   "label": 564,
+   "member": "imagenetv2-matched-frequency-format-val/564/9b2c075cfe5295aaa5ced1433726adbfb253b691.jpeg",
+   "file": "images/v2-05645.jpeg",
+   "sha256": "570b9883e81df88595467441188aa856f1b155b430c9483424d9e7bac62e0679",
+   "bytes": 409564
+  },
+  {
+   "id": "v2-05770",
+   "label": 577,
+   "member": "imagenetv2-matched-frequency-format-val/577/44aac912e5ea74fb5446c3223bfe24e23b0c1b27.jpeg",
+   "file": "images/v2-05770.jpeg",
+   "sha256": "8c06a67df5370779dcb4f16e43bfe8a512afaa103867546f9bb87787e5272580",
+   "bytes": 53961
+  },
+  {
+   "id": "v2-05774",
+   "label": 577,
+   "member": "imagenetv2-matched-frequency-format-val/577/7fb047ad0486ae7e81d2d0a488b4ea712df1bf98.jpeg",
+   "file": "images/v2-05774.jpeg",
+   "sha256": "9fffaf8f549b473533c236c62ed7ca13511641fbcf5738dd76cd9e1e6cb88483",
+   "bytes": 111299
+  },
+  {
+   "id": "v2-05810",
+   "label": 581,
+   "member": "imagenetv2-matched-frequency-format-val/581/0a03fb0c8ed8bb4b60671f9890b1a80815896abd.jpeg",
+   "file": "images/v2-05810.jpeg",
+   "sha256": "4cc4d5313f4f2226798a01efef918f27e5049645d223c04d3e71c35cf61ab92b",
+   "bytes": 44494
+  },
+  {
+   "id": "v2-05814",
+   "label": 581,
+   "member": "imagenetv2-matched-frequency-format-val/581/c2156dd3e95c862dc57a5ec055b25f4d7fcf941a.jpeg",
+   "file": "images/v2-05814.jpeg",
+   "sha256": "4c747f3917b9be3684bb9300d35d27a6255ed5cbd88aed6a59b85c88d1f83bec",
+   "bytes": 161493
+  },
+  {
+   "id": "v2-05826",
+   "label": 582,
+   "member": "imagenetv2-matched-frequency-format-val/582/8ac8c1815f5d7e32bb877e8713a76d7ad5050fab.jpeg",
+   "file": "images/v2-05826.jpeg",
+   "sha256": "3768a896c3231e037e05ba7e55720020a280b18fbe4641f8a38f0d73342d9bb0",
+   "bytes": 79197
+  },
+  {
+   "id": "v2-05854",
+   "label": 585,
+   "member": "imagenetv2-matched-frequency-format-val/585/65b931164bee29ef57e94cbf36258e744a4b239d.jpeg",
+   "file": "images/v2-05854.jpeg",
+   "sha256": "833892e05a20f84ae8cf62aa8e264c979c91a196b38fe22a9b7826c2d7724a9a",
+   "bytes": 136504
+  },
+  {
+   "id": "v2-05868",
+   "label": 586,
+   "member": "imagenetv2-matched-frequency-format-val/586/e9ae22505535f66608c659b852ee470e126dafc2.jpeg",
+   "file": "images/v2-05868.jpeg",
+   "sha256": "ecfbff0bed166035f7d357f3563e135823c1394dcdaf604fa793cdddc74bd5e4",
+   "bytes": 27306
+  },
+  {
+   "id": "v2-05947",
+   "label": 594,
+   "member": "imagenetv2-matched-frequency-format-val/594/db4ade064f677c42f2d89786a3d70840a2364c6f.jpeg",
+   "file": "images/v2-05947.jpeg",
+   "sha256": "c451411a6503964d914a73dc4e0f408579a304af6dfde92f999632847c1c9af6",
+   "bytes": 90168
+  },
+  {
+   "id": "v2-05961",
+   "label": 596,
+   "member": "imagenetv2-matched-frequency-format-val/596/326f5d55ab05ba7cab9460df74bf110c9eb6d085.jpeg",
+   "file": "images/v2-05961.jpeg",
+   "sha256": "2efadff3dff7c57af5ed12697f0d8801d902a6d534971684d57785d32ef1e447",
+   "bytes": 118287
+  },
+  {
+   "id": "v2-05994",
+   "label": 599,
+   "member": "imagenetv2-matched-frequency-format-val/599/2c3d68314d5646bfeb99c8b63286c0aea97f15d1.jpeg",
+   "file": "images/v2-05994.jpeg",
+   "sha256": "a843cab42af8c7d1b8a782516c60a0d4ab91a2efc6d918c376a23ee0532222bc",
+   "bytes": 259072
+  },
+  {
+   "id": "v2-06037",
+   "label": 603,
+   "member": "imagenetv2-matched-frequency-format-val/603/c08aa3af9b325a60f82a1a6f5cb12c58a20b9331.jpeg",
+   "file": "images/v2-06037.jpeg",
+   "sha256": "da665dfa0f102c58c3e227d264e064e2e012c18671e5472ac8aca8a2f22842a6",
+   "bytes": 104247
+  },
+  {
+   "id": "v2-06079",
+   "label": 607,
+   "member": "imagenetv2-matched-frequency-format-val/607/f867ce8a7c5c65af20e94b8b8a09e489a81360a4.jpeg",
+   "file": "images/v2-06079.jpeg",
+   "sha256": "14e2ac58decb5a6f022244a7da208ca5e787289564d614401c6bfa65032e06c3",
+   "bytes": 31389
+  },
+  {
+   "id": "v2-06101",
+   "label": 610,
+   "member": "imagenetv2-matched-frequency-format-val/610/556482a7e5b4a003a7f106036ae240013e214fce.jpeg",
+   "file": "images/v2-06101.jpeg",
+   "sha256": "ce3fcd5c3689fc181524772e06251353346e21032ed8004a913858b4d5b2ce36",
+   "bytes": 202085
+  },
+  {
+   "id": "v2-06113",
+   "label": 611,
+   "member": "imagenetv2-matched-frequency-format-val/611/38a672141aae2ffe7d8d8e3bd8e725bb88144aac.jpeg",
+   "file": "images/v2-06113.jpeg",
+   "sha256": "b90a288065ef5a642720f1626a655333bb45ee8f3261be1c21ce370d7ad42509",
+   "bytes": 154802
+  },
+  {
+   "id": "v2-06118",
+   "label": 611,
+   "member": "imagenetv2-matched-frequency-format-val/611/cdcb8673367b30740111694466f5148338453473.jpeg",
+   "file": "images/v2-06118.jpeg",
+   "sha256": "0bf0fb6fa7b0faeea357cae1210bfcd767d9b767c969a5a243b5ba2e64813516",
+   "bytes": 215985
+  },
+  {
+   "id": "v2-06268",
+   "label": 626,
+   "member": "imagenetv2-matched-frequency-format-val/626/a0cf26d34bfb347b54f020367ca62b720f9e3f1b.jpeg",
+   "file": "images/v2-06268.jpeg",
+   "sha256": "8848910ae36896f26157d985dd97c11847b831313db5635411e933753b8cfa29",
+   "bytes": 95151
+  },
+  {
+   "id": "v2-06293",
+   "label": 629,
+   "member": "imagenetv2-matched-frequency-format-val/629/524d0bb9da8e277115625e8778dd8e5fa804d85a.jpeg",
+   "file": "images/v2-06293.jpeg",
+   "sha256": "2325cc76c20a9cd2a59bf10ed6af9af0b124560a0b7f2c6a681fe05e9bb1ffdb",
+   "bytes": 124678
+  },
+  {
+   "id": "v2-06350",
+   "label": 635,
+   "member": "imagenetv2-matched-frequency-format-val/635/0596647738be3b5f3df4cb9264998b459a16cfac.jpeg",
+   "file": "images/v2-06350.jpeg",
+   "sha256": "1b4b2a79f7dd06aa24ba81ed6eb77de527bcab28801e4e41df1e2c740371ecf1",
+   "bytes": 161533
+  },
+  {
+   "id": "v2-06405",
+   "label": 640,
+   "member": "imagenetv2-matched-frequency-format-val/640/72d06e1dfa99c844bf6c4c83d86e2ea836c1836d.jpeg",
+   "file": "images/v2-06405.jpeg",
+   "sha256": "54fd1092f746a2b89e23d9a89d15b54597bff70fdff2bac3b1b86ccabe077082",
+   "bytes": 263949
+  },
+  {
+   "id": "v2-06417",
+   "label": 641,
+   "member": "imagenetv2-matched-frequency-format-val/641/af4fd67d6354846628cc7cf749385dac3cc50b97.jpeg",
+   "file": "images/v2-06417.jpeg",
+   "sha256": "ed0530d044c3309f6f1eed1c78c2762ec30985130efa5c52f3faf020e376bb2f",
+   "bytes": 76946
+  },
+  {
+   "id": "v2-06420",
+   "label": 642,
+   "member": "imagenetv2-matched-frequency-format-val/642/0f10990dc89dfedb2ffe37c95e220235ba9a8613.jpeg",
+   "file": "images/v2-06420.jpeg",
+   "sha256": "62ee2f50e39141a52d5d0ec307be2a7a37c49115892ef3e3637904d6232d38e7",
+   "bytes": 119600
+  },
+  {
+   "id": "v2-06440",
+   "label": 644,
+   "member": "imagenetv2-matched-frequency-format-val/644/2abb2878d18b2d26c469126ad3e619efb5a01eb4.jpeg",
+   "file": "images/v2-06440.jpeg",
+   "sha256": "7bc2fecfbbed5e430465ed7f626af7dcb376eddfec079f172d72615e435de260",
+   "bytes": 102870
+  },
+  {
+   "id": "v2-06467",
+   "label": 646,
+   "member": "imagenetv2-matched-frequency-format-val/646/e5d37625efb385c17b4cc8b104a9bf5368ccef72.jpeg",
+   "file": "images/v2-06467.jpeg",
+   "sha256": "169078c8af521d6794cc1df89041178abe8837ba37f86e8bd2fc2a3624abbea1",
+   "bytes": 38376
+  },
+  {
+   "id": "v2-06562",
+   "label": 656,
+   "member": "imagenetv2-matched-frequency-format-val/656/6b7324d356132573918ef2866f66b7ae6785dfad.jpeg",
+   "file": "images/v2-06562.jpeg",
+   "sha256": "2281d6edc22c38f6de6b2e16eefaab4ddc2e716a16e559d0f967bd8a9a912bde",
+   "bytes": 15508
+  },
+  {
+   "id": "v2-06626",
+   "label": 662,
+   "member": "imagenetv2-matched-frequency-format-val/662/8ab2766016991c5834471f7a0eb229f514f2d707.jpeg",
+   "file": "images/v2-06626.jpeg",
+   "sha256": "a51710b65de11a77a0267904a10b3f0dbaa2ed4f1f3462294c519bf495371f20",
+   "bytes": 107342
+  },
+  {
+   "id": "v2-06671",
+   "label": 667,
+   "member": "imagenetv2-matched-frequency-format-val/667/158634ac6d352e9f3cb283da52c4e4b8ec5d6d20.jpeg",
+   "file": "images/v2-06671.jpeg",
+   "sha256": "f22ac13e57dad099ee4562c18354de0c17f61190bd87841ec756a0fc77e2c6ae",
+   "bytes": 223894
+  },
+  {
+   "id": "v2-06683",
+   "label": 668,
+   "member": "imagenetv2-matched-frequency-format-val/668/6ccc0bfec39796e470bc3f9e81b9bb9332771627.jpeg",
+   "file": "images/v2-06683.jpeg",
+   "sha256": "c35a9f53e5fc0ecbb3449f94314d68f1105ac8ce0cf4e3ffd7b57fe93e4b213b",
+   "bytes": 91288
+  },
+  {
+   "id": "v2-06702",
+   "label": 670,
+   "member": "imagenetv2-matched-frequency-format-val/670/502ab42c9e4eb4c5d7408d8adfb8ac940835bb5a.jpeg",
+   "file": "images/v2-06702.jpeg",
+   "sha256": "b20a015d0cc65c2b4b483c8f1dbf7b7ff1a46fd7ea61609cc8e2229814f9a7ac",
+   "bytes": 138839
+  },
+  {
+   "id": "v2-06737",
+   "label": 673,
+   "member": "imagenetv2-matched-frequency-format-val/673/d7cbc04be2ce19021bb1e6112ba552798246d4ea.jpeg",
+   "file": "images/v2-06737.jpeg",
+   "sha256": "4abbfc343065c927cf982b6fcb0d15f14c55c43eb96d98690b7cace79449936c",
+   "bytes": 84375
+  },
+  {
+   "id": "v2-06761",
+   "label": 676,
+   "member": "imagenetv2-matched-frequency-format-val/676/3e7bc1424f075dae13fcb0ba4d14437e567c129d.jpeg",
+   "file": "images/v2-06761.jpeg",
+   "sha256": "971caa09d631662883f2ad087e68e1f6b29b11fc786eb48826f3d19e1e452fe5",
+   "bytes": 53902
+  },
+  {
+   "id": "v2-06779",
+   "label": 677,
+   "member": "imagenetv2-matched-frequency-format-val/677/cbb523375b7f92ecfe598f5e36d17c0dc4dd76bf.jpeg",
+   "file": "images/v2-06779.jpeg",
+   "sha256": "74583e130865d4823ee92cb68f8b8469d8ff91d52ee2bfd0a5bb25395bc3547b",
+   "bytes": 141968
+  },
+  {
+   "id": "v2-06849",
+   "label": 684,
+   "member": "imagenetv2-matched-frequency-format-val/684/e53842a9f5046bf7b0fe5ec1f140323452f40cf0.jpeg",
+   "file": "images/v2-06849.jpeg",
+   "sha256": "73b1258112f9a4036603000f3a8cb9ff338d7d8498b3aae94d2bc41abbf72a58",
+   "bytes": 132368
+  },
+  {
+   "id": "v2-06923",
+   "label": 692,
+   "member": "imagenetv2-matched-frequency-format-val/692/3f300efd84e21e8f111f1c04607b1aa6dfda302f.jpeg",
+   "file": "images/v2-06923.jpeg",
+   "sha256": "f188ff01df99d8054a474d29f107c9ad55a2598881db896f2f8cebeae5ff1a43",
+   "bytes": 163980
+  },
+  {
+   "id": "v2-06928",
+   "label": 692,
+   "member": "imagenetv2-matched-frequency-format-val/692/e972bf8e3f237ed8f88c3c5296f45060576245b8.jpeg",
+   "file": "images/v2-06928.jpeg",
+   "sha256": "f038acdd9c4d45395986a72493adeaba37c7d8a14cdc50f8c092a8954b0e856d",
+   "bytes": 110041
+  },
+  {
+   "id": "v2-06965",
+   "label": 696,
+   "member": "imagenetv2-matched-frequency-format-val/696/7a12c66ac3928929e0373f7121734e179e1e839c.jpeg",
+   "file": "images/v2-06965.jpeg",
+   "sha256": "d9448aff863b6a972023e691c1d15ed485e3033782aea53e7758ed546a6d5b81",
+   "bytes": 151153
+  },
+  {
+   "id": "v2-07039",
+   "label": 703,
+   "member": "imagenetv2-matched-frequency-format-val/703/ed13ae101b0f6a98c039eb3b4e1fcfb712c90705.jpeg",
+   "file": "images/v2-07039.jpeg",
+   "sha256": "d09024152ce0b6840de4084657c53545cd30f86193654a92bb679f7272f5cddf",
+   "bytes": 159707
+  },
+  {
+   "id": "v2-07076",
+   "label": 707,
+   "member": "imagenetv2-matched-frequency-format-val/707/bfc0401201bc55187c84ba012c15e96acce90b88.jpeg",
+   "file": "images/v2-07076.jpeg",
+   "sha256": "0ca275c6c90a84393019bc5d1c579fb984d54fd78ae9672e70b8f6f8efb5a499",
+   "bytes": 96692
+  },
+  {
+   "id": "v2-07139",
+   "label": 713,
+   "member": "imagenetv2-matched-frequency-format-val/713/e612b49148a203bb9f9de0d71f34e9e8795e0f67.jpeg",
+   "file": "images/v2-07139.jpeg",
+   "sha256": "d26b7f8fd4e876d25a01298f1b44f7773ceabb33dba7880f4d511fb686dbbade",
+   "bytes": 56814
+  },
+  {
+   "id": "v2-07277",
+   "label": 727,
+   "member": "imagenetv2-matched-frequency-format-val/727/c4ef2495a0acfc0e52113b87f1bff8814a9c1258.jpeg",
+   "file": "images/v2-07277.jpeg",
+   "sha256": "2704124c04f36be3ebf4d542d6a5ee831710aa6d90351d73c2b07a1b379a03a4",
+   "bytes": 138431
+  },
+  {
+   "id": "v2-07332",
+   "label": 733,
+   "member": "imagenetv2-matched-frequency-format-val/733/31eeae10d0a78b9e5c484dd699985a24c5775924.jpeg",
+   "file": "images/v2-07332.jpeg",
+   "sha256": "d08fb0db447c6db831265b4f36633ccf940b2e965eb874017a681d2775e5a312",
+   "bytes": 81391
+  },
+  {
+   "id": "v2-07369",
+   "label": 736,
+   "member": "imagenetv2-matched-frequency-format-val/736/ff17da1dff9b826fe8893cbd8b566412d9393edb.jpeg",
+   "file": "images/v2-07369.jpeg",
+   "sha256": "d5be560a17b7284ceb17bfdb66e5d8b1d8bdb9d9184863e1a4d487607981a4ba",
+   "bytes": 12520
+  },
+  {
+   "id": "v2-07388",
+   "label": 738,
+   "member": "imagenetv2-matched-frequency-format-val/738/efbaa6c25d0ad08afc2e97dae9ff239a387b486a.jpeg",
+   "file": "images/v2-07388.jpeg",
+   "sha256": "7b0db68d51a05325d93a7477912a4334eb3afe81c03f7e92ffe7a32023a923ea",
+   "bytes": 125429
+  },
+  {
+   "id": "v2-07390",
+   "label": 739,
+   "member": "imagenetv2-matched-frequency-format-val/739/269da30a09d6ad123aa026d1400e0fedebcc8c26.jpeg",
+   "file": "images/v2-07390.jpeg",
+   "sha256": "9782b909eb15dcadea65694366def0c038be232a227aaab6bbae31e22e494a03",
+   "bytes": 115394
+  },
+  {
+   "id": "v2-07398",
+   "label": 739,
+   "member": "imagenetv2-matched-frequency-format-val/739/c9c636c0cb44bff9109148cbf4d126459e774e23.jpeg",
+   "file": "images/v2-07398.jpeg",
+   "sha256": "a22ab67eba5192e189260b31bd5c69369e6df62afc6da91134d9706bb71f8789",
+   "bytes": 66010
+  },
+  {
+   "id": "v2-07415",
+   "label": 741,
+   "member": "imagenetv2-matched-frequency-format-val/741/8eba03604f089f0dde8ae5b5b1649d6da1cc4cdc.jpeg",
+   "file": "images/v2-07415.jpeg",
+   "sha256": "3248922235031ebedfefea3d4c0471dad65332ee61a4a3bc6295642cf792c3d0",
+   "bytes": 56602
+  },
+  {
+   "id": "v2-07478",
+   "label": 747,
+   "member": "imagenetv2-matched-frequency-format-val/747/c585a48b88d819e4b71faae7b4b92866bd1ef2d7.jpeg",
+   "file": "images/v2-07478.jpeg",
+   "sha256": "08126301cd43ca22e24639f2986d409871a6bd20d31ac92924586bed873910cb",
+   "bytes": 96974
+  },
+  {
+   "id": "v2-07494",
+   "label": 749,
+   "member": "imagenetv2-matched-frequency-format-val/749/44d604b4c168505bcddf9031a169553362b19b92.jpeg",
+   "file": "images/v2-07494.jpeg",
+   "sha256": "5c37675e03aa35398cd131ad74db3ade3dec34f082b789a5e49c0e6eb4f03777",
+   "bytes": 39182
+  },
+  {
+   "id": "v2-07539",
+   "label": 753,
+   "member": "imagenetv2-matched-frequency-format-val/753/c44677289b397b71a75f51e34dbfa6648066a7cd.jpeg",
+   "file": "images/v2-07539.jpeg",
+   "sha256": "c84cc6a7b5689a81453224220a58e5870fbbe62b0260cb35d08298b85b1fb9ce",
+   "bytes": 134378
+  },
+  {
+   "id": "v2-07563",
+   "label": 756,
+   "member": "imagenetv2-matched-frequency-format-val/756/4bcdb0c825c4a089b3465abe2ad030a823362aa3.jpeg",
+   "file": "images/v2-07563.jpeg",
+   "sha256": "6dcb4173517603dfd91209fecbd1803914cf20cd68d0d5f21e9f4960fa71d70f",
+   "bytes": 142304
+  },
+  {
+   "id": "v2-07660",
+   "label": 766,
+   "member": "imagenetv2-matched-frequency-format-val/766/082a49570105ce2d9a8686edbaf6515b8a9a655e.jpeg",
+   "file": "images/v2-07660.jpeg",
+   "sha256": "8ceacacd2d389a971e0cfaff746b118e8201eed33ff3051fc388ca717b3649f9",
+   "bytes": 178968
+  },
+  {
+   "id": "v2-07690",
+   "label": 769,
+   "member": "imagenetv2-matched-frequency-format-val/769/1ae42753fa7acf593997a59e90d18d83cb535f94.jpeg",
+   "file": "images/v2-07690.jpeg",
+   "sha256": "aff5008d245bc6cbd28c1feb226e27dd08e00b2496d2aa46cc304256b4986757",
+   "bytes": 93925
+  },
+  {
+   "id": "v2-07799",
+   "label": 779,
+   "member": "imagenetv2-matched-frequency-format-val/779/f3eb78e6723996ab1ea3490cd87f79ffb6ed0901.jpeg",
+   "file": "images/v2-07799.jpeg",
+   "sha256": "eb341c4bc85a8a85e6b54749e61d45422f240c09c5036f0d0cad1dbc7e017d33",
+   "bytes": 158231
+  },
+  {
+   "id": "v2-07829",
+   "label": 782,
+   "member": "imagenetv2-matched-frequency-format-val/782/ed08dc96015c0d98f249f55cd6a4789fcdf1c36c.jpeg",
+   "file": "images/v2-07829.jpeg",
+   "sha256": "d063eaee9cd36590d109e0289be2be8d6b7573c7956fe12fe8eebd90e927f8d1",
+   "bytes": 43137
+  },
+  {
+   "id": "v2-07837",
+   "label": 783,
+   "member": "imagenetv2-matched-frequency-format-val/783/e2035f7f6fccf6900a188b25f81dffb555736ab5.jpeg",
+   "file": "images/v2-07837.jpeg",
+   "sha256": "f6c42972bf36067ae33bdd67ae5ec0ded9dab934f55c0ecd9b7158aa66562176",
+   "bytes": 99163
+  },
+  {
+   "id": "v2-07885",
+   "label": 788,
+   "member": "imagenetv2-matched-frequency-format-val/788/d16fbd8e19201f472944d18e16a1789d68347ed2.jpeg",
+   "file": "images/v2-07885.jpeg",
+   "sha256": "26491d6c350bcb1e1df0802f9a423401717756bdf5454b2f973df82a89ce977e",
+   "bytes": 123384
+  },
+  {
+   "id": "v2-07963",
+   "label": 796,
+   "member": "imagenetv2-matched-frequency-format-val/796/6782688501ee88e48fbb50c9f4cfb5b63245a172.jpeg",
+   "file": "images/v2-07963.jpeg",
+   "sha256": "5c0a80adf0abea9cb20f098a92ef2affd00a4048e8fa8572f471cd7e768b8a9b",
+   "bytes": 102018
+  },
+  {
+   "id": "v2-08036",
+   "label": 803,
+   "member": "imagenetv2-matched-frequency-format-val/803/ac3cb58b75c4a6e206b4d7f4187c4c4c78db9fc5.jpeg",
+   "file": "images/v2-08036.jpeg",
+   "sha256": "9d127df4d4cc2e99dcf96662213afff17841d6f85d5c99a485eb5019d8fbcf4c",
+   "bytes": 83672
+  },
+  {
+   "id": "v2-08076",
+   "label": 807,
+   "member": "imagenetv2-matched-frequency-format-val/807/a9f7db6ef41cd562181f31e0fdb638dbb4c4bcf3.jpeg",
+   "file": "images/v2-08076.jpeg",
+   "sha256": "4b32a31530484d44d6df29660ee2898a0f5e1d4d2410adf0021d46d791ed4870",
+   "bytes": 102336
+  },
+  {
+   "id": "v2-08131",
+   "label": 813,
+   "member": "imagenetv2-matched-frequency-format-val/813/56633d7c1ccc0a6a18d6d1e66a78e72fd597bbbe.jpeg",
+   "file": "images/v2-08131.jpeg",
+   "sha256": "d617ef055651838827599c513fbecd1f6c03bcb79ac2c0a1ed81bf435ba159ca",
+   "bytes": 223011
+  },
+  {
+   "id": "v2-08132",
+   "label": 813,
+   "member": "imagenetv2-matched-frequency-format-val/813/6b56227a3ae6a7e0ffaa7815aeda5868a4b46345.jpeg",
+   "file": "images/v2-08132.jpeg",
+   "sha256": "d984fd9063c0b863ae27ed47d209ac685af846e71441d37f9bba46c25a4e2ae8",
+   "bytes": 131690
+  },
+  {
+   "id": "v2-08161",
+   "label": 816,
+   "member": "imagenetv2-matched-frequency-format-val/816/15564d0229cec55c2a7aec5c7ff3a973ae07e3b2.jpeg",
+   "file": "images/v2-08161.jpeg",
+   "sha256": "14075284a9b41da10ceb375b3705ec8488f13fd6387aabacf56ade09edbd3c25",
+   "bytes": 26982
+  },
+  {
+   "id": "v2-08224",
+   "label": 822,
+   "member": "imagenetv2-matched-frequency-format-val/822/848a62ae29c478ca5c564da1c755e50dfa81bc00.jpeg",
+   "file": "images/v2-08224.jpeg",
+   "sha256": "d16e298723847e29148e5e25e550c304654618e55792324acc073de0a7aa91e2",
+   "bytes": 184205
+  },
+  {
+   "id": "v2-08292",
+   "label": 829,
+   "member": "imagenetv2-matched-frequency-format-val/829/73c38bed5cfcd555dfcca86336409a18bb265ae1.jpeg",
+   "file": "images/v2-08292.jpeg",
+   "sha256": "d1f33014351d8efc2b811a30ae158074209248c3dbd4326e9bb20f74165af5a2",
+   "bytes": 69370
+  },
+  {
+   "id": "v2-08454",
+   "label": 845,
+   "member": "imagenetv2-matched-frequency-format-val/845/a3a7032407412b9313ac33d940401519f4d2e1be.jpeg",
+   "file": "images/v2-08454.jpeg",
+   "sha256": "3fab6aedf36f2105fb971eae5f0f829c7147771c85d10f370d681eea3ccd1d23",
+   "bytes": 77272
+  },
+  {
+   "id": "v2-08465",
+   "label": 846,
+   "member": "imagenetv2-matched-frequency-format-val/846/a8b27ea37371709670658fcffdd53951c33afc35.jpeg",
+   "file": "images/v2-08465.jpeg",
+   "sha256": "a6bea609f864dce07a933607f93e38cc7b59a7bc17fb48bdfbee045f20d8fb79",
+   "bytes": 166823
+  },
+  {
+   "id": "v2-08477",
+   "label": 847,
+   "member": "imagenetv2-matched-frequency-format-val/847/b732a0e205344936bc8b6b0e1c7d2f63658b22fc.jpeg",
+   "file": "images/v2-08477.jpeg",
+   "sha256": "6a204c4c57b109656022a963113b3bcf4ac67a8ecf48f6057f8badfd457eb0c7",
+   "bytes": 253216
+  },
+  {
+   "id": "v2-08597",
+   "label": 859,
+   "member": "imagenetv2-matched-frequency-format-val/859/e0228b50e2af8cf352469ef00ecbbfcefcef1b58.jpeg",
+   "file": "images/v2-08597.jpeg",
+   "sha256": "528f65256941c5b4c47a7087eb7915a1a8a552374c5f109d5a7ed981eac72231",
+   "bytes": 117231
+  },
+  {
+   "id": "v2-08598",
+   "label": 859,
+   "member": "imagenetv2-matched-frequency-format-val/859/ea7de31066a415cb3570d7c855f33bb6f33ec141.jpeg",
+   "file": "images/v2-08598.jpeg",
+   "sha256": "8b62bbb09d672271cb91b01c07e025ff255021adb5306666589936dfe6bfbfae",
+   "bytes": 34281
+  },
+  {
+   "id": "v2-08612",
+   "label": 861,
+   "member": "imagenetv2-matched-frequency-format-val/861/1ecae9c9ebb326bfef0bbd33d3157bb5e1b44619.jpeg",
+   "file": "images/v2-08612.jpeg",
+   "sha256": "5badf34410eb70c8239c1c2d540ba417732c36744a35a9a94945d898c6986677",
+   "bytes": 72584
+  },
+  {
+   "id": "v2-08624",
+   "label": 862,
+   "member": "imagenetv2-matched-frequency-format-val/862/6b17f5510e64f1645e532c11d921cfb3fcc320c3.jpeg",
+   "file": "images/v2-08624.jpeg",
+   "sha256": "1dbd71e43065b54adcb0f0934a4756f025d7b7b2a38aabda96b1e49e3563af4e",
+   "bytes": 87778
+  },
+  {
+   "id": "v2-08661",
+   "label": 866,
+   "member": "imagenetv2-matched-frequency-format-val/866/10bc720d19e12ba94a018e8f3a471f6fc5ce7d8d.jpeg",
+   "file": "images/v2-08661.jpeg",
+   "sha256": "17e71c1732ee557e390172ada8f6561e3d41301c8fb9bb2ab13524942d3585c3",
+   "bytes": 227283
+  },
+  {
+   "id": "v2-08751",
+   "label": 875,
+   "member": "imagenetv2-matched-frequency-format-val/875/1a4bc7be37c2b7aaaf201cf52e4d1973ef4749e6.jpeg",
+   "file": "images/v2-08751.jpeg",
+   "sha256": "52e2a5ac88b085dafa0c1b97cbac128b53c96ee5fd8c2894a3c0aaf8d588e2e4",
+   "bytes": 35622
+  },
+  {
+   "id": "v2-08763",
+   "label": 876,
+   "member": "imagenetv2-matched-frequency-format-val/876/38322700c729e740549652051b764bef8ee5e316.jpeg",
+   "file": "images/v2-08763.jpeg",
+   "sha256": "d7a367aecc4d3d6e372d74603d14efed8999914d7a24a6f751cdb4bfebfba126",
+   "bytes": 59558
+  },
+  {
+   "id": "v2-08803",
+   "label": 880,
+   "member": "imagenetv2-matched-frequency-format-val/880/6026faffbf5a5dada8e178fbe5d003a1733de9f3.jpeg",
+   "file": "images/v2-08803.jpeg",
+   "sha256": "7421a638644bb2722b7e9c6c6cfc05415dca10ebb1364c90de4902cfb14b8370",
+   "bytes": 1984103
+  },
+  {
+   "id": "v2-08838",
+   "label": 883,
+   "member": "imagenetv2-matched-frequency-format-val/883/e82cbecc53e166b92f593c9a0ebb5be19d00f77e.jpeg",
+   "file": "images/v2-08838.jpeg",
+   "sha256": "a35cf39476fbea3396f374688951c50237ff5f806a8f3e4227bc56c9c7d3e475",
+   "bytes": 79381
+  },
+  {
+   "id": "v2-08879",
+   "label": 887,
+   "member": "imagenetv2-matched-frequency-format-val/887/f35f5b5336685ef2dcedaa5511485326fc4740e8.jpeg",
+   "file": "images/v2-08879.jpeg",
+   "sha256": "c6863ea29f0768d113e5dfa8ef837d12400b04d9c647c5c7632e9c5fe83919ab",
+   "bytes": 171047
+  },
+  {
+   "id": "v2-08922",
+   "label": 892,
+   "member": "imagenetv2-matched-frequency-format-val/892/22e60946117b92463fefddb5e1baf3b546aaefd6.jpeg",
+   "file": "images/v2-08922.jpeg",
+   "sha256": "be72c26b01dccdba30b4a03e1e50667e5c6331282822e389dc52a1f0c708fdd4",
+   "bytes": 224509
+  },
+  {
+   "id": "v2-08993",
+   "label": 899,
+   "member": "imagenetv2-matched-frequency-format-val/899/68ac4cd36d796a792841c74c3535ac4b8cd27585.jpeg",
+   "file": "images/v2-08993.jpeg",
+   "sha256": "8785ed874794d75152b86a296e0ca6254ffbb8fab3dcf25a13c41635fa045948",
+   "bytes": 127168
+  },
+  {
+   "id": "v2-09042",
+   "label": 904,
+   "member": "imagenetv2-matched-frequency-format-val/904/280ee4351db62b9bb61feea81e27d04223251fa9.jpeg",
+   "file": "images/v2-09042.jpeg",
+   "sha256": "f1cb5c69014b39a0244e15453a6af46fb45d7e01250d4038e50b64a33930d22d",
+   "bytes": 228731
+  },
+  {
+   "id": "v2-09131",
+   "label": 913,
+   "member": "imagenetv2-matched-frequency-format-val/913/2dacd0b977c1a87f87da499a14520efad6146060.jpeg",
+   "file": "images/v2-09131.jpeg",
+   "sha256": "5b848f04aea7f82ed350f253d380eae3d676bfedae2136db08e7b432b0ed1d99",
+   "bytes": 105883
+  },
+  {
+   "id": "v2-09239",
+   "label": 923,
+   "member": "imagenetv2-matched-frequency-format-val/923/fcbcfea9c3e6c71b4df34045bcaf0d75e9658b17.jpeg",
+   "file": "images/v2-09239.jpeg",
+   "sha256": "616c3bcaa9be0bf72d8aaa5701c7037c3f7ac3829ba1830a1161e9b0f1cf1072",
+   "bytes": 32343
+  },
+  {
+   "id": "v2-09245",
+   "label": 924,
+   "member": "imagenetv2-matched-frequency-format-val/924/9a684191d93d9edf6263020224a23b83d25cb5c8.jpeg",
+   "file": "images/v2-09245.jpeg",
+   "sha256": "7f520002f0c9764dda17f8958816ec41fe0a94a31a19a03a8a7d5ba6a657f727",
+   "bytes": 113421
+  },
+  {
+   "id": "v2-09313",
+   "label": 931,
+   "member": "imagenetv2-matched-frequency-format-val/931/39dbb411ced6e6b043f2d4cbc23400a63d843fa1.jpeg",
+   "file": "images/v2-09313.jpeg",
+   "sha256": "012a8c83db2321eabb63e2abe26a8e24b059e9e3246befad5b038ebd9262dd0f",
+   "bytes": 144589
+  },
+  {
+   "id": "v2-09319",
+   "label": 931,
+   "member": "imagenetv2-matched-frequency-format-val/931/d44e11e5c6f0e65ab837925083714acae816ec8b.jpeg",
+   "file": "images/v2-09319.jpeg",
+   "sha256": "62cbe57758c43c021bd0394630bdb45053a1f66995177a6f007e2fcb6c35a8bc",
+   "bytes": 89250
+  },
+  {
+   "id": "v2-09325",
+   "label": 932,
+   "member": "imagenetv2-matched-frequency-format-val/932/9183c3a9d69add14d137de02391a76e0919e30f3.jpeg",
+   "file": "images/v2-09325.jpeg",
+   "sha256": "3cf059d333f7cae3868eb7c9454fa89515b186431895df046a22771a87be86fe",
+   "bytes": 26629
+  },
+  {
+   "id": "v2-09420",
+   "label": 942,
+   "member": "imagenetv2-matched-frequency-format-val/942/019ccc4adf32fb0f49cdda41099c59916ec12d2c.jpeg",
+   "file": "images/v2-09420.jpeg",
+   "sha256": "078658074b67244334fc4805a94ca2c47b5fd1e7a925b100b4b1ebc72b8907b1",
+   "bytes": 146820
+  },
+  {
+   "id": "v2-09495",
+   "label": 949,
+   "member": "imagenetv2-matched-frequency-format-val/949/649fb1435ff119f04206bbc925a7160c386d3a62.jpeg",
+   "file": "images/v2-09495.jpeg",
+   "sha256": "a4c3009e1115702d958b7d2875f78d60703b26b0b3c177cddfe225efebc08954",
+   "bytes": 115761
+  },
+  {
+   "id": "v2-09515",
+   "label": 951,
+   "member": "imagenetv2-matched-frequency-format-val/951/a4a54b0a64882992f6540af9770e1c2a7325b808.jpeg",
+   "file": "images/v2-09515.jpeg",
+   "sha256": "680313217e014c77d98d591c9e1a27da5c1ed7a37fc523a2dcf332b1205b558a",
+   "bytes": 129630
+  },
+  {
+   "id": "v2-09550",
+   "label": 955,
+   "member": "imagenetv2-matched-frequency-format-val/955/1f63271d01bd32513f001543d7be64a27fc06884.jpeg",
+   "file": "images/v2-09550.jpeg",
+   "sha256": "ad04495449601a311be10bc4afce76d19c4ac3cccb89e6cfa20801a72b6eee76",
+   "bytes": 60094
+  },
+  {
+   "id": "v2-09574",
+   "label": 957,
+   "member": "imagenetv2-matched-frequency-format-val/957/6f7dce3edbb54ea82c3498e4042b44300a15f729.jpeg",
+   "file": "images/v2-09574.jpeg",
+   "sha256": "938ebc0bd6501c49bb89f4221626d554ea6a984e0871953ae4a69a06d72421e0",
+   "bytes": 143564
+  },
+  {
+   "id": "v2-09612",
+   "label": 961,
+   "member": "imagenetv2-matched-frequency-format-val/961/5b6981ebafd9b125752d7b66a468b83b49876f7d.jpeg",
+   "file": "images/v2-09612.jpeg",
+   "sha256": "2fe96cf466965474359c2ed7b07097836c2af6479754771b16a9f37fa04e69e3",
+   "bytes": 122402
+  },
+  {
+   "id": "v2-09679",
+   "label": 967,
+   "member": "imagenetv2-matched-frequency-format-val/967/e9d4e199663c8c53e37c3a4e49f505943b05ddcf.jpeg",
+   "file": "images/v2-09679.jpeg",
+   "sha256": "e09d3b5dbd2a7cb31d7c544f8e64a9873e0e571b4935a789f7a8e214b92a9201",
+   "bytes": 108662
+  },
+  {
+   "id": "v2-09692",
+   "label": 969,
+   "member": "imagenetv2-matched-frequency-format-val/969/2dfff380b03f00ed6dcec91a2462f8f3a7346128.jpeg",
+   "file": "images/v2-09692.jpeg",
+   "sha256": "646fa812f9577fde2738ab0ffb8aa40d4aba91569d376d2fe69a116716700384",
+   "bytes": 175979
+  },
+  {
+   "id": "v2-09720",
+   "label": 972,
+   "member": "imagenetv2-matched-frequency-format-val/972/182fa8c581d20fa7585ddda6bd91c97086235b90.jpeg",
+   "file": "images/v2-09720.jpeg",
+   "sha256": "ee6b922eb4f114a753a5c9dac6276774f918a0ab73e67dd2703315bf6bb311b4",
+   "bytes": 142653
+  },
+  {
+   "id": "v2-09892",
+   "label": 989,
+   "member": "imagenetv2-matched-frequency-format-val/989/37bf0519c229dd2a2bf81f765265aae88de52b4c.jpeg",
+   "file": "images/v2-09892.jpeg",
+   "sha256": "dc19e11d54673a876a6a56bce0fe4ad7913cd77013777e96d361f444fe35d853",
+   "bytes": 165656
+  },
+  {
+   "id": "v2-09911",
+   "label": 991,
+   "member": "imagenetv2-matched-frequency-format-val/991/1529a6c686e505cb515d8c4656b6189adf5b040d.jpeg",
+   "file": "images/v2-09911.jpeg",
+   "sha256": "b311b2cbe2a9a7b2841699d841e929dec6fc866f709d1decfe221f6d470dcadb",
+   "bytes": 171654
+  },
+  {
+   "id": "v2-09977",
+   "label": 997,
+   "member": "imagenetv2-matched-frequency-format-val/997/b027bb180dbd4f2c8cc6e01fe2dd51a7d92dd3b0.jpeg",
+   "file": "images/v2-09977.jpeg",
+   "sha256": "223bd5eadb8fc438ef1b831968053e95890343a4d9f0d0d2cce0b1f74cf2da5b",
+   "bytes": 103053
+  }
+ ],
+ "warmup": [
+  {
+   "id": "w2-01860",
+   "label": 186,
+   "member": "imagenetv2-matched-frequency-format-val/186/2d0bd6303e7838ba3e48bbb5dea4d73a0f46e267.jpeg",
+   "file": "images/w2-01860.jpeg",
+   "sha256": "3d3885712348f30711c1a48e724768acd192f4c25f6435b75a8575a384807229",
+   "bytes": 102620
+  },
+  {
+   "id": "w2-00919",
+   "label": 91,
+   "member": "imagenetv2-matched-frequency-format-val/91/fc2ed3dcbbdbd43ad7918d1b6220d32c64510d56.jpeg",
+   "file": "images/w2-00919.jpeg",
+   "sha256": "15fae14533d90f9097e877b100658052cb93a5838a6ff3a41cbe35388175d43a",
+   "bytes": 91130
+  },
+  {
+   "id": "w2-02404",
+   "label": 240,
+   "member": "imagenetv2-matched-frequency-format-val/240/ae69597fc87ff7d94bd28f27b5ed9360facbb00f.jpeg",
+   "file": "images/w2-02404.jpeg",
+   "sha256": "feab2ad8777a1514a05070682b8d5ee85dfb7857a7359d5ef41a275c797edf28",
+   "bytes": 228340
+  },
+  {
+   "id": "w2-07675",
+   "label": 767,
+   "member": "imagenetv2-matched-frequency-format-val/767/4c648b8c3f62bd5d3bf2c5dc4bd631cb1e4b4f87.jpeg",
+   "file": "images/w2-07675.jpeg",
+   "sha256": "8ca2e09aac7203b66a1c7ba34b8c1622970d1896ebceb6f7afff712d985d9645",
+   "bytes": 173413
+  },
+  {
+   "id": "w2-03655",
+   "label": 365,
+   "member": "imagenetv2-matched-frequency-format-val/365/7c05e916e2b4bdacee13d7a32dece12d4de34f2c.jpeg",
+   "file": "images/w2-03655.jpeg",
+   "sha256": "2fd9bda07ac2a7f22e0e5f1edb3b29c22cf430959bf3680739681b555edcba0a",
+   "bytes": 170423
+  },
+  {
+   "id": "w2-05543",
+   "label": 554,
+   "member": "imagenetv2-matched-frequency-format-val/554/3f464ec285d1e9156f617f08cf04323cccd4f291.jpeg",
+   "file": "images/w2-05543.jpeg",
+   "sha256": "b5ff2d849841b1ef58244621ba50d6cf60e105459bc0f700e69ae1f471a9f75a",
+   "bytes": 126579
+  },
+  {
+   "id": "w2-00031",
+   "label": 3,
+   "member": "imagenetv2-matched-frequency-format-val/3/0cf73b97b86415673e59550d200d3479f5640d04.jpeg",
+   "file": "images/w2-00031.jpeg",
+   "sha256": "44fb5a174dd92950f5f18396e1e5eff7a108a58c8b75f8c884e8d10556371fb9",
+   "bytes": 137359
+  },
+  {
+   "id": "w2-03469",
+   "label": 346,
+   "member": "imagenetv2-matched-frequency-format-val/346/f54da1b6580026213a86a557b47d00e754c04ec6.jpeg",
+   "file": "images/w2-03469.jpeg",
+   "sha256": "be94e25f96f1d8acabe0093d5edaae3798a6e28a9c739e21eeac4368b3f57d06",
+   "bytes": 118323
+  },
+  {
+   "id": "w2-05461",
+   "label": 546,
+   "member": "imagenetv2-matched-frequency-format-val/546/253338f7f3cab37afc0b7c4d48f43b15ae71067c.jpeg",
+   "file": "images/w2-05461.jpeg",
+   "sha256": "10d2474fe93fa4078c63e2ddbbe7dc5d5db04bee02d9ec72ac3ad9937d755c55",
+   "bytes": 126759
+  },
+  {
+   "id": "w2-09316",
+   "label": 931,
+   "member": "imagenetv2-matched-frequency-format-val/931/58d8f3060b841ea44731e72722e56f8dacd164cd.jpeg",
+   "file": "images/w2-09316.jpeg",
+   "sha256": "9f413544c71149a38fdacc385a70bb6953f05b40b5181110c6906a3349f0b933",
+   "bytes": 167818
+  }
+ ],
+ "parity": [
+  {
+   "id": "coco-000000022861",
+   "label": null,
+   "member": "COCO_val2014_000000022861.jpg",
+   "file": "images/coco-000000022861.jpeg",
+   "sha256": "8685336285d1c805cbd45bc39986767a40f98cd1e5b5f3e8731173bc8f43771f",
+   "bytes": 365460
+  },
+  {
+   "id": "coco-000000025685",
+   "label": null,
+   "member": "COCO_val2014_000000025685.jpg",
+   "file": "images/coco-000000025685.jpeg",
+   "sha256": "038e4b5ce2948a4f2a5f2e733eb6a0619221b3c3c75945da50e4a16bd0c83ef9",
+   "bytes": 186239
+  },
+  {
+   "id": "coco-000000030034",
+   "label": null,
+   "member": "COCO_val2014_000000030034.jpg",
+   "file": "images/coco-000000030034.jpeg",
+   "sha256": "bc7335567a86a0d71ddb34070f5f982f605513e3bac7923b32e6d14109ca3141",
+   "bytes": 133423
+  },
+  {
+   "id": "coco-000000049133",
+   "label": null,
+   "member": "COCO_val2014_000000049133.jpg",
+   "file": "images/coco-000000049133.jpeg",
+   "sha256": "b3e8a3694f2b57441c93cedb8d0698779a37197aea4fd415098c5bfb23c7554c",
+   "bytes": 230610
+  },
+  {
+   "id": "coco-000000064409",
+   "label": null,
+   "member": "COCO_val2014_000000064409.jpg",
+   "file": "images/coco-000000064409.jpeg",
+   "sha256": "34d0c28c09ad3f125c7e61fd0ffb5a4d8b0503c32cbfe03c5d23ebd7598d7bca",
+   "bytes": 99605
+  },
+  {
+   "id": "coco-000000065057",
+   "label": null,
+   "member": "COCO_val2014_000000065057.jpg",
+   "file": "images/coco-000000065057.jpeg",
+   "sha256": "36256e5d2bd07c2f97a573bfa2a5fbdcff1b8688a18144df114d5e210643c508",
+   "bytes": 124729
+  },
+  {
+   "id": "coco-000000066263",
+   "label": null,
+   "member": "COCO_val2014_000000066263.jpg",
+   "file": "images/coco-000000066263.jpeg",
+   "sha256": "80a1ce4d6e9061443eb735112a92a3c9a1117311f958beb739ca60eb08018148",
+   "bytes": 114065
+  },
+  {
+   "id": "coco-000000071918",
+   "label": null,
+   "member": "COCO_val2014_000000071918.jpg",
+   "file": "images/coco-000000071918.jpeg",
+   "sha256": "5ca0d9e8455820720bd6aae8d76de7d40194c9f699a07b0a4f79d94b79b76a05",
+   "bytes": 212688
+  },
+  {
+   "id": "coco-000000072020",
+   "label": null,
+   "member": "COCO_val2014_000000072020.jpg",
+   "file": "images/coco-000000072020.jpeg",
+   "sha256": "739313e58b899f3b29228df60ae3cea01c2d738c3c85ece5282c763daac57169",
+   "bytes": 208888
+  },
+  {
+   "id": "coco-000000074920",
+   "label": null,
+   "member": "COCO_val2014_000000074920.jpg",
+   "file": "images/coco-000000074920.jpeg",
+   "sha256": "a8de562993a771089dd9fe6a6d29330a010f8ec45baea6ee482650fc873ee857",
+   "bytes": 107167
+  },
+  {
+   "id": "coco-000000078771",
+   "label": null,
+   "member": "COCO_val2014_000000078771.jpg",
+   "file": "images/coco-000000078771.jpeg",
+   "sha256": "b7c8d564df5f49caf559da85bbe66dccb19437e625f4681ec598e93bf9b22fdb",
+   "bytes": 205348
+  },
+  {
+   "id": "coco-000000091300",
+   "label": null,
+   "member": "COCO_val2014_000000091300.jpg",
+   "file": "images/coco-000000091300.jpeg",
+   "sha256": "9fe86ed8621cb3f431a265dcb773926e8a52154564db7a5e727862dc654698bc",
+   "bytes": 230606
+  },
+  {
+   "id": "coco-000000115459",
+   "label": null,
+   "member": "COCO_val2014_000000115459.jpg",
+   "file": "images/coco-000000115459.jpeg",
+   "sha256": "b532ef510579a20a3d77214b794ffbb6bd1538d785424b016cfe2eb192ee180f",
+   "bytes": 214180
+  },
+  {
+   "id": "coco-000000123585",
+   "label": null,
+   "member": "COCO_val2014_000000123585.jpg",
+   "file": "images/coco-000000123585.jpeg",
+   "sha256": "fbd43dde415e77a49c89f2f8ed9c904a3d5a86bb04a9c6415b06be87a85200ae",
+   "bytes": 242407
+  },
+  {
+   "id": "coco-000000129113",
+   "label": null,
+   "member": "COCO_val2014_000000129113.jpg",
+   "file": "images/coco-000000129113.jpeg",
+   "sha256": "7afcf3b9fe07b838a808faf6cf1ba83e1527ad4e63fa79173f8a339bc3114d0d",
+   "bytes": 294374
+  },
+  {
+   "id": "coco-000000146742",
+   "label": null,
+   "member": "COCO_val2014_000000146742.jpg",
+   "file": "images/coco-000000146742.jpeg",
+   "sha256": "81ae33337c94cc0e560cc5bab2678defdff52aa4765a2f32142e3f36c308fada",
+   "bytes": 208661
+  },
+  {
+   "id": "coco-000000152208",
+   "label": null,
+   "member": "COCO_val2014_000000152208.jpg",
+   "file": "images/coco-000000152208.jpeg",
+   "sha256": "2140db149d0bb7044b5fa58ef7ac052dc1ed84bc7e548dc98c3876562e106dca",
+   "bytes": 170603
+  },
+  {
+   "id": "coco-000000170129",
+   "label": null,
+   "member": "COCO_val2014_000000170129.jpg",
+   "file": "images/coco-000000170129.jpeg",
+   "sha256": "a7df2bfcfca7d04f5b88c888947cfbd887a4ebb614ad52b248aad92d683b2995",
+   "bytes": 179342
+  },
+  {
+   "id": "coco-000000170550",
+   "label": null,
+   "member": "COCO_val2014_000000170550.jpg",
+   "file": "images/coco-000000170550.jpeg",
+   "sha256": "054e58f68f16336128b183208773ac864b7b835360b9ba0408a2dae4a20f90ef",
+   "bytes": 223040
+  },
+  {
+   "id": "coco-000000171382",
+   "label": null,
+   "member": "COCO_val2014_000000171382.jpg",
+   "file": "images/coco-000000171382.jpeg",
+   "sha256": "f96faf8870853b0f11e2746eb86cb0dbc7e34c1b4903e3d912aa857002ef9bf3",
+   "bytes": 222294
+  },
+  {
+   "id": "coco-000000182213",
+   "label": null,
+   "member": "COCO_val2014_000000182213.jpg",
+   "file": "images/coco-000000182213.jpeg",
+   "sha256": "1b0d211175dcd170b3d86e84783162069a2e59624f14af29d6e41d4669b29eba",
+   "bytes": 112454
+  },
+  {
+   "id": "coco-000000194138",
+   "label": null,
+   "member": "COCO_val2014_000000194138.jpg",
+   "file": "images/coco-000000194138.jpeg",
+   "sha256": "6ed046760af7d1c4b628955845eb0e6ec6a32b9ca03be1c2584a611aaa79d95e",
+   "bytes": 65163
+  },
+  {
+   "id": "coco-000000206922",
+   "label": null,
+   "member": "COCO_val2014_000000206922.jpg",
+   "file": "images/coco-000000206922.jpeg",
+   "sha256": "d13a3eb8a485044b1ee375f23dee496079619c6a20640ba21614ffaae0f22ee7",
+   "bytes": 134140
+  },
+  {
+   "id": "coco-000000219632",
+   "label": null,
+   "member": "COCO_val2014_000000219632.jpg",
+   "file": "images/coco-000000219632.jpeg",
+   "sha256": "d71b0fe32a5990abcb9447f4b3159c9e412fc7a33e724d73b388b53ed5b5fccb",
+   "bytes": 246918
+  },
+  {
+   "id": "coco-000000225494",
+   "label": null,
+   "member": "COCO_val2014_000000225494.jpg",
+   "file": "images/coco-000000225494.jpeg",
+   "sha256": "945ca505d9edf9df395d19744f9f833f7b4d0e803f9db7024c2757f0f0cee73f",
+   "bytes": 160933
+  },
+  {
+   "id": "coco-000000243134",
+   "label": null,
+   "member": "COCO_val2014_000000243134.jpg",
+   "file": "images/coco-000000243134.jpeg",
+   "sha256": "9acd8a1eb5b49bc93cc97e9f81457c468656a0ccde697f593f45e83fc5180af1",
+   "bytes": 174620
+  },
+  {
+   "id": "coco-000000274869",
+   "label": null,
+   "member": "COCO_val2014_000000274869.jpg",
+   "file": "images/coco-000000274869.jpeg",
+   "sha256": "5e092b1cadbcbaac8e2b1013efbdc8f73ee5cc6c2d0dea254cb31c42ca5e166e",
+   "bytes": 46464
+  },
+  {
+   "id": "coco-000000276434",
+   "label": null,
+   "member": "COCO_val2014_000000276434.jpg",
+   "file": "images/coco-000000276434.jpeg",
+   "sha256": "f9a0ee581309a7587135f760508c524635196621492b5e1000369ec5abf563ba",
+   "bytes": 106212
+  },
+  {
+   "id": "coco-000000289943",
+   "label": null,
+   "member": "COCO_val2014_000000289943.jpg",
+   "file": "images/coco-000000289943.jpeg",
+   "sha256": "35915630cde23388281c0019a5fccea682ac42c0732070ae10a2d25b680e3b98",
+   "bytes": 176893
+  },
+  {
+   "id": "coco-000000300330",
+   "label": null,
+   "member": "COCO_val2014_000000300330.jpg",
+   "file": "images/coco-000000300330.jpeg",
+   "sha256": "8bba1f8f846f7eaa55d57949fea41c320fb7d8975735025b824e7435ce11a183",
+   "bytes": 187637
+  },
+  {
+   "id": "coco-000000300814",
+   "label": null,
+   "member": "COCO_val2014_000000300814.jpg",
+   "file": "images/coco-000000300814.jpeg",
+   "sha256": "c3ca710790b90a3dc38c462fcbbaa42225333db78ab0f2ed280ebdca7bf164ce",
+   "bytes": 156544
+  },
+  {
+   "id": "coco-000000314864",
+   "label": null,
+   "member": "COCO_val2014_000000314864.jpg",
+   "file": "images/coco-000000314864.jpeg",
+   "sha256": "5ba5fac6db0ddafba2fdf16d4a4c4754cf5fca26460146656e5fd9f4e9c88716",
+   "bytes": 293917
+  },
+  {
+   "id": "coco-000000320612",
+   "label": null,
+   "member": "COCO_val2014_000000320612.jpg",
+   "file": "images/coco-000000320612.jpeg",
+   "sha256": "154a372140ba75e5d0b7801aa44f66aba884003a5503c5eaecce82a09a36835c",
+   "bytes": 302086
+  },
+  {
+   "id": "coco-000000333691",
+   "label": null,
+   "member": "COCO_val2014_000000333691.jpg",
+   "file": "images/coco-000000333691.jpeg",
+   "sha256": "38946698cbda2a1d2d06cac382bdd006bf036d11fdbdc16ed2840ede5bf6fb4f",
+   "bytes": 77718
+  },
+  {
+   "id": "coco-000000334417",
+   "label": null,
+   "member": "COCO_val2014_000000334417.jpg",
+   "file": "images/coco-000000334417.jpeg",
+   "sha256": "5acf3ce8da9a3a902f7b87139e810b0e584f2b9b49657c7bf0df795e10ea20da",
+   "bytes": 111199
+  },
+  {
+   "id": "coco-000000335589",
+   "label": null,
+   "member": "COCO_val2014_000000335589.jpg",
+   "file": "images/coco-000000335589.jpeg",
+   "sha256": "273379724ed01863095767739a3c5b2df5f53641b10a8f28d80125e29a8a7cf5",
+   "bytes": 229321
+  },
+  {
+   "id": "coco-000000344878",
+   "label": null,
+   "member": "COCO_val2014_000000344878.jpg",
+   "file": "images/coco-000000344878.jpeg",
+   "sha256": "68d8810a1b539834d1ce8d10f3607b85bfe246c44ccc630b680b426a4b79c493",
+   "bytes": 160383
+  },
+  {
+   "id": "coco-000000344897",
+   "label": null,
+   "member": "COCO_val2014_000000344897.jpg",
+   "file": "images/coco-000000344897.jpeg",
+   "sha256": "7ebfd53c95038e35a11bdfdca7d406c1bc78e9aeb907ff4a6a5e141cd49e9777",
+   "bytes": 270562
+  },
+  {
+   "id": "coco-000000345499",
+   "label": null,
+   "member": "COCO_val2014_000000345499.jpg",
+   "file": "images/coco-000000345499.jpeg",
+   "sha256": "4133f5260bfcc5944507d8ca4d28030fae938f1c880b5cf9802aa82edd88a73f",
+   "bytes": 206585
+  },
+  {
+   "id": "coco-000000350679",
+   "label": null,
+   "member": "COCO_val2014_000000350679.jpg",
+   "file": "images/coco-000000350679.jpeg",
+   "sha256": "0537f351c1e6a635677b02a01b09d1c87de545975ea1a3684c501c2ce4929014",
+   "bytes": 194087
+  },
+  {
+   "id": "coco-000000356787",
+   "label": null,
+   "member": "COCO_val2014_000000356787.jpg",
+   "file": "images/coco-000000356787.jpeg",
+   "sha256": "8362700c55a4d65ea62dab48db5a70fce22d255bebf80bde6ccedfb9a86c2bd9",
+   "bytes": 153236
+  },
+  {
+   "id": "coco-000000370657",
+   "label": null,
+   "member": "COCO_val2014_000000370657.jpg",
+   "file": "images/coco-000000370657.jpeg",
+   "sha256": "406e951bfc956f963b621ae46a569443e28e1133f5a6084c3f37bbb3c99d46f3",
+   "bytes": 292524
+  },
+  {
+   "id": "coco-000000373344",
+   "label": null,
+   "member": "COCO_val2014_000000373344.jpg",
+   "file": "images/coco-000000373344.jpeg",
+   "sha256": "d7483e0f96ad156659d23143fc90c51fe9927f55d35d539f3bbdfe3ea7f06a9e",
+   "bytes": 155880
+  },
+  {
+   "id": "coco-000000381563",
+   "label": null,
+   "member": "COCO_val2014_000000381563.jpg",
+   "file": "images/coco-000000381563.jpeg",
+   "sha256": "9f36e53d7c6835ae482e75622053517bc959e841ffebb396820145136509a16c",
+   "bytes": 181750
+  },
+  {
+   "id": "coco-000000385204",
+   "label": null,
+   "member": "COCO_val2014_000000385204.jpg",
+   "file": "images/coco-000000385204.jpeg",
+   "sha256": "4ff5ef7c0ee9d181bd0e6b46cc30e0806da522743cd6ebfa0a1003ca8868a819",
+   "bytes": 91548
+  },
+  {
+   "id": "coco-000000390731",
+   "label": null,
+   "member": "COCO_val2014_000000390731.jpg",
+   "file": "images/coco-000000390731.jpeg",
+   "sha256": "787d8dc95d029086d15a014fa263947cc9c9c581d05261115e217b70bd0add5c",
+   "bytes": 126477
+  },
+  {
+   "id": "coco-000000408103",
+   "label": null,
+   "member": "COCO_val2014_000000408103.jpg",
+   "file": "images/coco-000000408103.jpeg",
+   "sha256": "e816cc6da7b37b64c041a2c54327b6913f424fd08af723c0c69109077a33e0c4",
+   "bytes": 75993
+  },
+  {
+   "id": "coco-000000418563",
+   "label": null,
+   "member": "COCO_val2014_000000418563.jpg",
+   "file": "images/coco-000000418563.jpeg",
+   "sha256": "6cac8520f37cf8eb2d6c9402eb0c26a4d9c4ade2f9c309efc890df1884e624a6",
+   "bytes": 150380
+  },
+  {
+   "id": "coco-000000455610",
+   "label": null,
+   "member": "COCO_val2014_000000455610.jpg",
+   "file": "images/coco-000000455610.jpeg",
+   "sha256": "e1839fb39c75722fefbad2efaaac4969adf888a7dffb5061c67351c05003d52c",
+   "bytes": 297394
+  },
+  {
+   "id": "coco-000000459912",
+   "label": null,
+   "member": "COCO_val2014_000000459912.jpg",
+   "file": "images/coco-000000459912.jpeg",
+   "sha256": "e8618b25a7ae4a73d9479c76a4d748504bb2644e400e148eee221a3e4e956d70",
+   "bytes": 269481
+  },
+  {
+   "id": "coco-000000483352",
+   "label": null,
+   "member": "COCO_val2014_000000483352.jpg",
+   "file": "images/coco-000000483352.jpeg",
+   "sha256": "d55057889e8eea2bd5fed8421833e9e9ed88cf7ed0f438f8a42fa687059f46e1",
+   "bytes": 42621
+  },
+  {
+   "id": "coco-000000502024",
+   "label": null,
+   "member": "COCO_val2014_000000502024.jpg",
+   "file": "images/coco-000000502024.jpeg",
+   "sha256": "e5d5ed5d2292b1a2f5ecda2a4ec2c6114974c50beea1e099601477e2ab7bc5e4",
+   "bytes": 44075
+  },
+  {
+   "id": "coco-000000503081",
+   "label": null,
+   "member": "COCO_val2014_000000503081.jpg",
+   "file": "images/coco-000000503081.jpeg",
+   "sha256": "ff55350a26edff04acbe7d7221e90815e307a5c3397f53fac38341e401cce2ee",
+   "bytes": 271674
+  },
+  {
+   "id": "coco-000000504297",
+   "label": null,
+   "member": "COCO_val2014_000000504297.jpg",
+   "file": "images/coco-000000504297.jpeg",
+   "sha256": "cabe3391d50507ed9a99d9fb27db6d641f22cf79975c17a7f88380f607a0c616",
+   "bytes": 135205
+  },
+  {
+   "id": "coco-000000509468",
+   "label": null,
+   "member": "COCO_val2014_000000509468.jpg",
+   "file": "images/coco-000000509468.jpeg",
+   "sha256": "fe183ba27738a5c705bcce002b56d46566e63a3df433ecc574bcc2263260a73d",
+   "bytes": 141046
+  },
+  {
+   "id": "coco-000000534194",
+   "label": null,
+   "member": "COCO_val2014_000000534194.jpg",
+   "file": "images/coco-000000534194.jpeg",
+   "sha256": "f7fea2bbf881480e99194bb9528f8804288b8565b21fbe03fadf8ce96fcd10c1",
+   "bytes": 220163
+  },
+  {
+   "id": "coco-000000534373",
+   "label": null,
+   "member": "COCO_val2014_000000534373.jpg",
+   "file": "images/coco-000000534373.jpeg",
+   "sha256": "c3bff533ad93d8c7e27b2712d193fd29754e8c6a407050aae98dc902527ede8c",
+   "bytes": 223271
+  },
+  {
+   "id": "coco-000000550431",
+   "label": null,
+   "member": "COCO_val2014_000000550431.jpg",
+   "file": "images/coco-000000550431.jpeg",
+   "sha256": "33edc7aec4cabd5c20723726db794d854cb9ff184902b05a276ff0cc438334cd",
+   "bytes": 84162
+  },
+  {
+   "id": "coco-000000560272",
+   "label": null,
+   "member": "COCO_val2014_000000560272.jpg",
+   "file": "images/coco-000000560272.jpeg",
+   "sha256": "1c54ba633edcc0550488cc20691ad4e18c030badfa7d94533646922645076cc3",
+   "bytes": 128270
+  },
+  {
+   "id": "coco-000000561523",
+   "label": null,
+   "member": "COCO_val2014_000000561523.jpg",
+   "file": "images/coco-000000561523.jpeg",
+   "sha256": "414e994ab995c61fa9aecae1e501d728cbc4d0f7b6e3bc886edd1ab1a9222394",
+   "bytes": 97589
+  }
+ ],
+ "parity_source": {
+  "path": "/home/jinuk/codex-work/scheduler/artifacts/topology-profile-assets/20261019T091725Z/selected-data",
+  "note": "COCO val2014 JPEGs of the earlier VQA corpus; no ImageNet labels"
+ },
+ "schedule": [
+  {
+   "phase": "warmup",
+   "sample": "w2-01860",
+   "arm": "mobilint",
+   "seq": 0
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-00919",
+   "arm": "cpu-fp32",
+   "seq": 1
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-02404",
+   "arm": "mobilint",
+   "seq": 2
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-07675",
+   "arm": "cpu-fp32",
+   "seq": 3
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-03655",
+   "arm": "mobilint",
+   "seq": 4
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-05543",
+   "arm": "cpu-fp32",
+   "seq": 5
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-00031",
+   "arm": "mobilint",
+   "seq": 6
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-03469",
+   "arm": "cpu-fp32",
+   "seq": 7
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-05461",
+   "arm": "mobilint",
+   "seq": 8
+  },
+  {
+   "phase": "warmup",
+   "sample": "w2-09316",
+   "arm": "cpu-fp32",
+   "seq": 9
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05459",
+   "arm": "cpu-fp32",
+   "seq": 10
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05459",
+   "arm": "mobilint",
+   "seq": 11
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04549",
+   "arm": "cpu-fp32",
+   "seq": 12
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04549",
+   "arm": "mobilint",
+   "seq": 13
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05810",
+   "arm": "mobilint",
+   "seq": 14
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05810",
+   "arm": "cpu-fp32",
+   "seq": 15
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07539",
+   "arm": "mobilint",
+   "seq": 16
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07539",
+   "arm": "cpu-fp32",
+   "seq": 17
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01327",
+   "arm": "mobilint",
+   "seq": 18
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01327",
+   "arm": "cpu-fp32",
+   "seq": 19
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09574",
+   "arm": "cpu-fp32",
+   "seq": 20
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09574",
+   "arm": "mobilint",
+   "seq": 21
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01330",
+   "arm": "cpu-fp32",
+   "seq": 22
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01330",
+   "arm": "mobilint",
+   "seq": 23
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06683",
+   "arm": "cpu-fp32",
+   "seq": 24
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06683",
+   "arm": "mobilint",
+   "seq": 25
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02178",
+   "arm": "mobilint",
+   "seq": 26
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02178",
+   "arm": "cpu-fp32",
+   "seq": 27
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04440",
+   "arm": "cpu-fp32",
+   "seq": 28
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04440",
+   "arm": "mobilint",
+   "seq": 29
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06417",
+   "arm": "cpu-fp32",
+   "seq": 30
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06417",
+   "arm": "mobilint",
+   "seq": 31
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06702",
+   "arm": "mobilint",
+   "seq": 32
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06702",
+   "arm": "cpu-fp32",
+   "seq": 33
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01804",
+   "arm": "cpu-fp32",
+   "seq": 34
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01804",
+   "arm": "mobilint",
+   "seq": 35
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06928",
+   "arm": "cpu-fp32",
+   "seq": 36
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06928",
+   "arm": "mobilint",
+   "seq": 37
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03498",
+   "arm": "mobilint",
+   "seq": 38
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03498",
+   "arm": "cpu-fp32",
+   "seq": 39
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06293",
+   "arm": "mobilint",
+   "seq": 40
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06293",
+   "arm": "cpu-fp32",
+   "seq": 41
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00168",
+   "arm": "cpu-fp32",
+   "seq": 42
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00168",
+   "arm": "mobilint",
+   "seq": 43
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06671",
+   "arm": "cpu-fp32",
+   "seq": 44
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06671",
+   "arm": "mobilint",
+   "seq": 45
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06779",
+   "arm": "cpu-fp32",
+   "seq": 46
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06779",
+   "arm": "mobilint",
+   "seq": 47
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07660",
+   "arm": "mobilint",
+   "seq": 48
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07660",
+   "arm": "cpu-fp32",
+   "seq": 49
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09319",
+   "arm": "mobilint",
+   "seq": 50
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09319",
+   "arm": "cpu-fp32",
+   "seq": 51
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02430",
+   "arm": "cpu-fp32",
+   "seq": 52
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02430",
+   "arm": "mobilint",
+   "seq": 53
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08597",
+   "arm": "mobilint",
+   "seq": 54
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08597",
+   "arm": "cpu-fp32",
+   "seq": 55
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09977",
+   "arm": "mobilint",
+   "seq": 56
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09977",
+   "arm": "cpu-fp32",
+   "seq": 57
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03184",
+   "arm": "mobilint",
+   "seq": 58
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03184",
+   "arm": "cpu-fp32",
+   "seq": 59
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08922",
+   "arm": "cpu-fp32",
+   "seq": 60
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08922",
+   "arm": "mobilint",
+   "seq": 61
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04881",
+   "arm": "mobilint",
+   "seq": 62
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04881",
+   "arm": "cpu-fp32",
+   "seq": 63
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02834",
+   "arm": "mobilint",
+   "seq": 64
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02834",
+   "arm": "cpu-fp32",
+   "seq": 65
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06268",
+   "arm": "cpu-fp32",
+   "seq": 66
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06268",
+   "arm": "mobilint",
+   "seq": 67
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00194",
+   "arm": "cpu-fp32",
+   "seq": 68
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00194",
+   "arm": "mobilint",
+   "seq": 69
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05542",
+   "arm": "cpu-fp32",
+   "seq": 70
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05542",
+   "arm": "mobilint",
+   "seq": 71
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05264",
+   "arm": "cpu-fp32",
+   "seq": 72
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05264",
+   "arm": "mobilint",
+   "seq": 73
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04686",
+   "arm": "cpu-fp32",
+   "seq": 74
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04686",
+   "arm": "mobilint",
+   "seq": 75
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04489",
+   "arm": "mobilint",
+   "seq": 76
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04489",
+   "arm": "cpu-fp32",
+   "seq": 77
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04897",
+   "arm": "cpu-fp32",
+   "seq": 78
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04897",
+   "arm": "mobilint",
+   "seq": 79
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03351",
+   "arm": "mobilint",
+   "seq": 80
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03351",
+   "arm": "cpu-fp32",
+   "seq": 81
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06467",
+   "arm": "cpu-fp32",
+   "seq": 82
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06467",
+   "arm": "mobilint",
+   "seq": 83
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02891",
+   "arm": "cpu-fp32",
+   "seq": 84
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02891",
+   "arm": "mobilint",
+   "seq": 85
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00943",
+   "arm": "cpu-fp32",
+   "seq": 86
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00943",
+   "arm": "mobilint",
+   "seq": 87
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00577",
+   "arm": "mobilint",
+   "seq": 88
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00577",
+   "arm": "cpu-fp32",
+   "seq": 89
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01503",
+   "arm": "cpu-fp32",
+   "seq": 90
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01503",
+   "arm": "mobilint",
+   "seq": 91
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09239",
+   "arm": "mobilint",
+   "seq": 92
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09239",
+   "arm": "cpu-fp32",
+   "seq": 93
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01128",
+   "arm": "mobilint",
+   "seq": 94
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01128",
+   "arm": "cpu-fp32",
+   "seq": 95
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09692",
+   "arm": "mobilint",
+   "seq": 96
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09692",
+   "arm": "cpu-fp32",
+   "seq": 97
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08224",
+   "arm": "cpu-fp32",
+   "seq": 98
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08224",
+   "arm": "mobilint",
+   "seq": 99
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06113",
+   "arm": "cpu-fp32",
+   "seq": 100
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06113",
+   "arm": "mobilint",
+   "seq": 101
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09131",
+   "arm": "cpu-fp32",
+   "seq": 102
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09131",
+   "arm": "mobilint",
+   "seq": 103
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05016",
+   "arm": "mobilint",
+   "seq": 104
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05016",
+   "arm": "cpu-fp32",
+   "seq": 105
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08132",
+   "arm": "cpu-fp32",
+   "seq": 106
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08132",
+   "arm": "mobilint",
+   "seq": 107
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06626",
+   "arm": "cpu-fp32",
+   "seq": 108
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06626",
+   "arm": "mobilint",
+   "seq": 109
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07837",
+   "arm": "mobilint",
+   "seq": 110
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07837",
+   "arm": "cpu-fp32",
+   "seq": 111
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02550",
+   "arm": "cpu-fp32",
+   "seq": 112
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02550",
+   "arm": "mobilint",
+   "seq": 113
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00866",
+   "arm": "mobilint",
+   "seq": 114
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00866",
+   "arm": "cpu-fp32",
+   "seq": 115
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06420",
+   "arm": "cpu-fp32",
+   "seq": 116
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06420",
+   "arm": "mobilint",
+   "seq": 117
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02090",
+   "arm": "mobilint",
+   "seq": 118
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02090",
+   "arm": "cpu-fp32",
+   "seq": 119
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05770",
+   "arm": "mobilint",
+   "seq": 120
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05770",
+   "arm": "cpu-fp32",
+   "seq": 121
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08454",
+   "arm": "mobilint",
+   "seq": 122
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08454",
+   "arm": "cpu-fp32",
+   "seq": 123
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08751",
+   "arm": "mobilint",
+   "seq": 124
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08751",
+   "arm": "cpu-fp32",
+   "seq": 125
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09911",
+   "arm": "mobilint",
+   "seq": 126
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09911",
+   "arm": "cpu-fp32",
+   "seq": 127
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07332",
+   "arm": "mobilint",
+   "seq": 128
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07332",
+   "arm": "cpu-fp32",
+   "seq": 129
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03668",
+   "arm": "mobilint",
+   "seq": 130
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03668",
+   "arm": "cpu-fp32",
+   "seq": 131
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03585",
+   "arm": "cpu-fp32",
+   "seq": 132
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03585",
+   "arm": "mobilint",
+   "seq": 133
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08465",
+   "arm": "mobilint",
+   "seq": 134
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08465",
+   "arm": "cpu-fp32",
+   "seq": 135
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08036",
+   "arm": "mobilint",
+   "seq": 136
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08036",
+   "arm": "cpu-fp32",
+   "seq": 137
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06118",
+   "arm": "cpu-fp32",
+   "seq": 138
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06118",
+   "arm": "mobilint",
+   "seq": 139
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05868",
+   "arm": "cpu-fp32",
+   "seq": 140
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05868",
+   "arm": "mobilint",
+   "seq": 141
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09550",
+   "arm": "cpu-fp32",
+   "seq": 142
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09550",
+   "arm": "mobilint",
+   "seq": 143
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01655",
+   "arm": "mobilint",
+   "seq": 144
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01655",
+   "arm": "cpu-fp32",
+   "seq": 145
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01836",
+   "arm": "cpu-fp32",
+   "seq": 146
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01836",
+   "arm": "mobilint",
+   "seq": 147
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08292",
+   "arm": "cpu-fp32",
+   "seq": 148
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08292",
+   "arm": "mobilint",
+   "seq": 149
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03729",
+   "arm": "cpu-fp32",
+   "seq": 150
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03729",
+   "arm": "mobilint",
+   "seq": 151
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06037",
+   "arm": "cpu-fp32",
+   "seq": 152
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06037",
+   "arm": "mobilint",
+   "seq": 153
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04950",
+   "arm": "cpu-fp32",
+   "seq": 154
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04950",
+   "arm": "mobilint",
+   "seq": 155
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01309",
+   "arm": "mobilint",
+   "seq": 156
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01309",
+   "arm": "cpu-fp32",
+   "seq": 157
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05994",
+   "arm": "mobilint",
+   "seq": 158
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05994",
+   "arm": "cpu-fp32",
+   "seq": 159
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09495",
+   "arm": "cpu-fp32",
+   "seq": 160
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09495",
+   "arm": "mobilint",
+   "seq": 161
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02200",
+   "arm": "cpu-fp32",
+   "seq": 162
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02200",
+   "arm": "mobilint",
+   "seq": 163
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07885",
+   "arm": "cpu-fp32",
+   "seq": 164
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07885",
+   "arm": "mobilint",
+   "seq": 165
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06350",
+   "arm": "cpu-fp32",
+   "seq": 166
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06350",
+   "arm": "mobilint",
+   "seq": 167
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00319",
+   "arm": "mobilint",
+   "seq": 168
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00319",
+   "arm": "cpu-fp32",
+   "seq": 169
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03583",
+   "arm": "mobilint",
+   "seq": 170
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03583",
+   "arm": "cpu-fp32",
+   "seq": 171
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02692",
+   "arm": "cpu-fp32",
+   "seq": 172
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02692",
+   "arm": "mobilint",
+   "seq": 173
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06079",
+   "arm": "mobilint",
+   "seq": 174
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06079",
+   "arm": "cpu-fp32",
+   "seq": 175
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05151",
+   "arm": "mobilint",
+   "seq": 176
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05151",
+   "arm": "cpu-fp32",
+   "seq": 177
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06101",
+   "arm": "cpu-fp32",
+   "seq": 178
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06101",
+   "arm": "mobilint",
+   "seq": 179
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05628",
+   "arm": "mobilint",
+   "seq": 180
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05628",
+   "arm": "cpu-fp32",
+   "seq": 181
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06965",
+   "arm": "cpu-fp32",
+   "seq": 182
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06965",
+   "arm": "mobilint",
+   "seq": 183
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07076",
+   "arm": "cpu-fp32",
+   "seq": 184
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07076",
+   "arm": "mobilint",
+   "seq": 185
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00142",
+   "arm": "cpu-fp32",
+   "seq": 186
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00142",
+   "arm": "mobilint",
+   "seq": 187
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08598",
+   "arm": "mobilint",
+   "seq": 188
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08598",
+   "arm": "cpu-fp32",
+   "seq": 189
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04155",
+   "arm": "cpu-fp32",
+   "seq": 190
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04155",
+   "arm": "mobilint",
+   "seq": 191
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08879",
+   "arm": "cpu-fp32",
+   "seq": 192
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08879",
+   "arm": "mobilint",
+   "seq": 193
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08076",
+   "arm": "mobilint",
+   "seq": 194
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08076",
+   "arm": "cpu-fp32",
+   "seq": 195
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07139",
+   "arm": "mobilint",
+   "seq": 196
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07139",
+   "arm": "cpu-fp32",
+   "seq": 197
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08803",
+   "arm": "cpu-fp32",
+   "seq": 198
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08803",
+   "arm": "mobilint",
+   "seq": 199
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05597",
+   "arm": "mobilint",
+   "seq": 200
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05597",
+   "arm": "cpu-fp32",
+   "seq": 201
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01147",
+   "arm": "cpu-fp32",
+   "seq": 202
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01147",
+   "arm": "mobilint",
+   "seq": 203
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08131",
+   "arm": "mobilint",
+   "seq": 204
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08131",
+   "arm": "cpu-fp32",
+   "seq": 205
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08624",
+   "arm": "mobilint",
+   "seq": 206
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08624",
+   "arm": "cpu-fp32",
+   "seq": 207
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05074",
+   "arm": "cpu-fp32",
+   "seq": 208
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05074",
+   "arm": "mobilint",
+   "seq": 209
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08993",
+   "arm": "mobilint",
+   "seq": 210
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08993",
+   "arm": "cpu-fp32",
+   "seq": 211
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07369",
+   "arm": "mobilint",
+   "seq": 212
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07369",
+   "arm": "cpu-fp32",
+   "seq": 213
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08763",
+   "arm": "mobilint",
+   "seq": 214
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08763",
+   "arm": "cpu-fp32",
+   "seq": 215
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03148",
+   "arm": "cpu-fp32",
+   "seq": 216
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03148",
+   "arm": "mobilint",
+   "seq": 217
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02589",
+   "arm": "mobilint",
+   "seq": 218
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02589",
+   "arm": "cpu-fp32",
+   "seq": 219
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05854",
+   "arm": "mobilint",
+   "seq": 220
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05854",
+   "arm": "cpu-fp32",
+   "seq": 221
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05814",
+   "arm": "mobilint",
+   "seq": 222
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05814",
+   "arm": "cpu-fp32",
+   "seq": 223
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02503",
+   "arm": "mobilint",
+   "seq": 224
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02503",
+   "arm": "cpu-fp32",
+   "seq": 225
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08161",
+   "arm": "cpu-fp32",
+   "seq": 226
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08161",
+   "arm": "mobilint",
+   "seq": 227
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07799",
+   "arm": "cpu-fp32",
+   "seq": 228
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07799",
+   "arm": "mobilint",
+   "seq": 229
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09245",
+   "arm": "mobilint",
+   "seq": 230
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09245",
+   "arm": "cpu-fp32",
+   "seq": 231
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08477",
+   "arm": "mobilint",
+   "seq": 232
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08477",
+   "arm": "cpu-fp32",
+   "seq": 233
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07398",
+   "arm": "mobilint",
+   "seq": 234
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07398",
+   "arm": "cpu-fp32",
+   "seq": 235
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05044",
+   "arm": "cpu-fp32",
+   "seq": 236
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05044",
+   "arm": "mobilint",
+   "seq": 237
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09042",
+   "arm": "cpu-fp32",
+   "seq": 238
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09042",
+   "arm": "mobilint",
+   "seq": 239
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01829",
+   "arm": "mobilint",
+   "seq": 240
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01829",
+   "arm": "cpu-fp32",
+   "seq": 241
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06923",
+   "arm": "mobilint",
+   "seq": 242
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06923",
+   "arm": "cpu-fp32",
+   "seq": 243
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09313",
+   "arm": "mobilint",
+   "seq": 244
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09313",
+   "arm": "cpu-fp32",
+   "seq": 245
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02159",
+   "arm": "mobilint",
+   "seq": 246
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02159",
+   "arm": "cpu-fp32",
+   "seq": 247
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07478",
+   "arm": "cpu-fp32",
+   "seq": 248
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07478",
+   "arm": "mobilint",
+   "seq": 249
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04666",
+   "arm": "cpu-fp32",
+   "seq": 250
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04666",
+   "arm": "mobilint",
+   "seq": 251
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07829",
+   "arm": "cpu-fp32",
+   "seq": 252
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07829",
+   "arm": "mobilint",
+   "seq": 253
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02088",
+   "arm": "cpu-fp32",
+   "seq": 254
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02088",
+   "arm": "mobilint",
+   "seq": 255
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01287",
+   "arm": "mobilint",
+   "seq": 256
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01287",
+   "arm": "cpu-fp32",
+   "seq": 257
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05211",
+   "arm": "mobilint",
+   "seq": 258
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05211",
+   "arm": "cpu-fp32",
+   "seq": 259
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07963",
+   "arm": "cpu-fp32",
+   "seq": 260
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07963",
+   "arm": "mobilint",
+   "seq": 261
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05645",
+   "arm": "cpu-fp32",
+   "seq": 262
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05645",
+   "arm": "mobilint",
+   "seq": 263
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08612",
+   "arm": "cpu-fp32",
+   "seq": 264
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08612",
+   "arm": "mobilint",
+   "seq": 265
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06405",
+   "arm": "mobilint",
+   "seq": 266
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06405",
+   "arm": "cpu-fp32",
+   "seq": 267
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09515",
+   "arm": "cpu-fp32",
+   "seq": 268
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09515",
+   "arm": "mobilint",
+   "seq": 269
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03389",
+   "arm": "cpu-fp32",
+   "seq": 270
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03389",
+   "arm": "mobilint",
+   "seq": 271
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06761",
+   "arm": "cpu-fp32",
+   "seq": 272
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06761",
+   "arm": "mobilint",
+   "seq": 273
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01274",
+   "arm": "mobilint",
+   "seq": 274
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01274",
+   "arm": "cpu-fp32",
+   "seq": 275
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03152",
+   "arm": "mobilint",
+   "seq": 276
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03152",
+   "arm": "cpu-fp32",
+   "seq": 277
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04822",
+   "arm": "cpu-fp32",
+   "seq": 278
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04822",
+   "arm": "mobilint",
+   "seq": 279
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05032",
+   "arm": "cpu-fp32",
+   "seq": 280
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05032",
+   "arm": "mobilint",
+   "seq": 281
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06737",
+   "arm": "cpu-fp32",
+   "seq": 282
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06737",
+   "arm": "mobilint",
+   "seq": 283
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05538",
+   "arm": "mobilint",
+   "seq": 284
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05538",
+   "arm": "cpu-fp32",
+   "seq": 285
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03662",
+   "arm": "cpu-fp32",
+   "seq": 286
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03662",
+   "arm": "mobilint",
+   "seq": 287
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00909",
+   "arm": "cpu-fp32",
+   "seq": 288
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00909",
+   "arm": "mobilint",
+   "seq": 289
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02179",
+   "arm": "cpu-fp32",
+   "seq": 290
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02179",
+   "arm": "mobilint",
+   "seq": 291
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04575",
+   "arm": "cpu-fp32",
+   "seq": 292
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04575",
+   "arm": "mobilint",
+   "seq": 293
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05961",
+   "arm": "mobilint",
+   "seq": 294
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05961",
+   "arm": "cpu-fp32",
+   "seq": 295
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05173",
+   "arm": "mobilint",
+   "seq": 296
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05173",
+   "arm": "cpu-fp32",
+   "seq": 297
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08661",
+   "arm": "cpu-fp32",
+   "seq": 298
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08661",
+   "arm": "mobilint",
+   "seq": 299
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07415",
+   "arm": "mobilint",
+   "seq": 300
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07415",
+   "arm": "cpu-fp32",
+   "seq": 301
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07390",
+   "arm": "cpu-fp32",
+   "seq": 302
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07390",
+   "arm": "mobilint",
+   "seq": 303
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08838",
+   "arm": "cpu-fp32",
+   "seq": 304
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-08838",
+   "arm": "mobilint",
+   "seq": 305
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01560",
+   "arm": "cpu-fp32",
+   "seq": 306
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01560",
+   "arm": "mobilint",
+   "seq": 307
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07563",
+   "arm": "mobilint",
+   "seq": 308
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07563",
+   "arm": "cpu-fp32",
+   "seq": 309
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05285",
+   "arm": "mobilint",
+   "seq": 310
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05285",
+   "arm": "cpu-fp32",
+   "seq": 311
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07494",
+   "arm": "mobilint",
+   "seq": 312
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07494",
+   "arm": "cpu-fp32",
+   "seq": 313
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04939",
+   "arm": "mobilint",
+   "seq": 314
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04939",
+   "arm": "cpu-fp32",
+   "seq": 315
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05596",
+   "arm": "mobilint",
+   "seq": 316
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05596",
+   "arm": "cpu-fp32",
+   "seq": 317
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06849",
+   "arm": "cpu-fp32",
+   "seq": 318
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06849",
+   "arm": "mobilint",
+   "seq": 319
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02315",
+   "arm": "cpu-fp32",
+   "seq": 320
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02315",
+   "arm": "mobilint",
+   "seq": 321
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04852",
+   "arm": "cpu-fp32",
+   "seq": 322
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04852",
+   "arm": "mobilint",
+   "seq": 323
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01388",
+   "arm": "mobilint",
+   "seq": 324
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01388",
+   "arm": "cpu-fp32",
+   "seq": 325
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04375",
+   "arm": "cpu-fp32",
+   "seq": 326
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04375",
+   "arm": "mobilint",
+   "seq": 327
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09679",
+   "arm": "mobilint",
+   "seq": 328
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09679",
+   "arm": "cpu-fp32",
+   "seq": 329
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07039",
+   "arm": "cpu-fp32",
+   "seq": 330
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07039",
+   "arm": "mobilint",
+   "seq": 331
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07388",
+   "arm": "mobilint",
+   "seq": 332
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07388",
+   "arm": "cpu-fp32",
+   "seq": 333
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04853",
+   "arm": "mobilint",
+   "seq": 334
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04853",
+   "arm": "cpu-fp32",
+   "seq": 335
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04295",
+   "arm": "mobilint",
+   "seq": 336
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04295",
+   "arm": "cpu-fp32",
+   "seq": 337
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03244",
+   "arm": "cpu-fp32",
+   "seq": 338
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03244",
+   "arm": "mobilint",
+   "seq": 339
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01859",
+   "arm": "mobilint",
+   "seq": 340
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01859",
+   "arm": "cpu-fp32",
+   "seq": 341
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00175",
+   "arm": "mobilint",
+   "seq": 342
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00175",
+   "arm": "cpu-fp32",
+   "seq": 343
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01467",
+   "arm": "mobilint",
+   "seq": 344
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01467",
+   "arm": "cpu-fp32",
+   "seq": 345
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04927",
+   "arm": "mobilint",
+   "seq": 346
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04927",
+   "arm": "cpu-fp32",
+   "seq": 347
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05411",
+   "arm": "cpu-fp32",
+   "seq": 348
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05411",
+   "arm": "mobilint",
+   "seq": 349
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04136",
+   "arm": "mobilint",
+   "seq": 350
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04136",
+   "arm": "cpu-fp32",
+   "seq": 351
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09892",
+   "arm": "cpu-fp32",
+   "seq": 352
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09892",
+   "arm": "mobilint",
+   "seq": 353
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09612",
+   "arm": "cpu-fp32",
+   "seq": 354
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09612",
+   "arm": "mobilint",
+   "seq": 355
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04948",
+   "arm": "cpu-fp32",
+   "seq": 356
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-04948",
+   "arm": "mobilint",
+   "seq": 357
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06440",
+   "arm": "mobilint",
+   "seq": 358
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06440",
+   "arm": "cpu-fp32",
+   "seq": 359
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03180",
+   "arm": "cpu-fp32",
+   "seq": 360
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03180",
+   "arm": "mobilint",
+   "seq": 361
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02602",
+   "arm": "mobilint",
+   "seq": 362
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02602",
+   "arm": "cpu-fp32",
+   "seq": 363
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05563",
+   "arm": "mobilint",
+   "seq": 364
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05563",
+   "arm": "cpu-fp32",
+   "seq": 365
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03928",
+   "arm": "mobilint",
+   "seq": 366
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03928",
+   "arm": "cpu-fp32",
+   "seq": 367
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03198",
+   "arm": "cpu-fp32",
+   "seq": 368
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03198",
+   "arm": "mobilint",
+   "seq": 369
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09420",
+   "arm": "cpu-fp32",
+   "seq": 370
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09420",
+   "arm": "mobilint",
+   "seq": 371
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03566",
+   "arm": "cpu-fp32",
+   "seq": 372
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03566",
+   "arm": "mobilint",
+   "seq": 373
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05947",
+   "arm": "cpu-fp32",
+   "seq": 374
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05947",
+   "arm": "mobilint",
+   "seq": 375
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01362",
+   "arm": "mobilint",
+   "seq": 376
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01362",
+   "arm": "cpu-fp32",
+   "seq": 377
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00922",
+   "arm": "mobilint",
+   "seq": 378
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00922",
+   "arm": "cpu-fp32",
+   "seq": 379
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07277",
+   "arm": "cpu-fp32",
+   "seq": 380
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07277",
+   "arm": "mobilint",
+   "seq": 381
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09325",
+   "arm": "cpu-fp32",
+   "seq": 382
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09325",
+   "arm": "mobilint",
+   "seq": 383
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05826",
+   "arm": "mobilint",
+   "seq": 384
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05826",
+   "arm": "cpu-fp32",
+   "seq": 385
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06562",
+   "arm": "cpu-fp32",
+   "seq": 386
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-06562",
+   "arm": "mobilint",
+   "seq": 387
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00794",
+   "arm": "mobilint",
+   "seq": 388
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00794",
+   "arm": "cpu-fp32",
+   "seq": 389
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00607",
+   "arm": "mobilint",
+   "seq": 390
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00607",
+   "arm": "cpu-fp32",
+   "seq": 391
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03541",
+   "arm": "cpu-fp32",
+   "seq": 392
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03541",
+   "arm": "mobilint",
+   "seq": 393
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01603",
+   "arm": "mobilint",
+   "seq": 394
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-01603",
+   "arm": "cpu-fp32",
+   "seq": 395
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05774",
+   "arm": "mobilint",
+   "seq": 396
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-05774",
+   "arm": "cpu-fp32",
+   "seq": 397
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09720",
+   "arm": "mobilint",
+   "seq": 398
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-09720",
+   "arm": "cpu-fp32",
+   "seq": 399
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07690",
+   "arm": "mobilint",
+   "seq": 400
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-07690",
+   "arm": "cpu-fp32",
+   "seq": 401
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03026",
+   "arm": "mobilint",
+   "seq": 402
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-03026",
+   "arm": "cpu-fp32",
+   "seq": 403
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02114",
+   "arm": "mobilint",
+   "seq": 404
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02114",
+   "arm": "cpu-fp32",
+   "seq": 405
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00995",
+   "arm": "cpu-fp32",
+   "seq": 406
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-00995",
+   "arm": "mobilint",
+   "seq": 407
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02389",
+   "arm": "cpu-fp32",
+   "seq": 408
+  },
+  {
+   "phase": "eval",
+   "sample": "v2-02389",
+   "arm": "mobilint",
+   "seq": 409
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000483352",
+   "arm": "cpu-fp32",
+   "seq": 410
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000483352",
+   "arm": "mobilint",
+   "seq": 411
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000370657",
+   "arm": "mobilint",
+   "seq": 412
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000370657",
+   "arm": "cpu-fp32",
+   "seq": 413
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000072020",
+   "arm": "cpu-fp32",
+   "seq": 414
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000072020",
+   "arm": "mobilint",
+   "seq": 415
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000074920",
+   "arm": "mobilint",
+   "seq": 416
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000074920",
+   "arm": "cpu-fp32",
+   "seq": 417
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000276434",
+   "arm": "cpu-fp32",
+   "seq": 418
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000276434",
+   "arm": "mobilint",
+   "seq": 419
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000314864",
+   "arm": "mobilint",
+   "seq": 420
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000314864",
+   "arm": "cpu-fp32",
+   "seq": 421
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000385204",
+   "arm": "mobilint",
+   "seq": 422
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000385204",
+   "arm": "cpu-fp32",
+   "seq": 423
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000455610",
+   "arm": "mobilint",
+   "seq": 424
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000455610",
+   "arm": "cpu-fp32",
+   "seq": 425
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000170550",
+   "arm": "cpu-fp32",
+   "seq": 426
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000170550",
+   "arm": "mobilint",
+   "seq": 427
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000225494",
+   "arm": "cpu-fp32",
+   "seq": 428
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000225494",
+   "arm": "mobilint",
+   "seq": 429
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000333691",
+   "arm": "cpu-fp32",
+   "seq": 430
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000333691",
+   "arm": "mobilint",
+   "seq": 431
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000334417",
+   "arm": "mobilint",
+   "seq": 432
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000334417",
+   "arm": "cpu-fp32",
+   "seq": 433
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000066263",
+   "arm": "cpu-fp32",
+   "seq": 434
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000066263",
+   "arm": "mobilint",
+   "seq": 435
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000274869",
+   "arm": "mobilint",
+   "seq": 436
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000274869",
+   "arm": "cpu-fp32",
+   "seq": 437
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000182213",
+   "arm": "mobilint",
+   "seq": 438
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000182213",
+   "arm": "cpu-fp32",
+   "seq": 439
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000146742",
+   "arm": "mobilint",
+   "seq": 440
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000146742",
+   "arm": "cpu-fp32",
+   "seq": 441
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000025685",
+   "arm": "cpu-fp32",
+   "seq": 442
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000025685",
+   "arm": "mobilint",
+   "seq": 443
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000373344",
+   "arm": "cpu-fp32",
+   "seq": 444
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000373344",
+   "arm": "mobilint",
+   "seq": 445
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000561523",
+   "arm": "cpu-fp32",
+   "seq": 446
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000561523",
+   "arm": "mobilint",
+   "seq": 447
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000243134",
+   "arm": "cpu-fp32",
+   "seq": 448
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000243134",
+   "arm": "mobilint",
+   "seq": 449
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000030034",
+   "arm": "cpu-fp32",
+   "seq": 450
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000030034",
+   "arm": "mobilint",
+   "seq": 451
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000503081",
+   "arm": "cpu-fp32",
+   "seq": 452
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000503081",
+   "arm": "mobilint",
+   "seq": 453
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000509468",
+   "arm": "mobilint",
+   "seq": 454
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000509468",
+   "arm": "cpu-fp32",
+   "seq": 455
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000335589",
+   "arm": "mobilint",
+   "seq": 456
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000335589",
+   "arm": "cpu-fp32",
+   "seq": 457
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000344897",
+   "arm": "cpu-fp32",
+   "seq": 458
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000344897",
+   "arm": "mobilint",
+   "seq": 459
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000390731",
+   "arm": "mobilint",
+   "seq": 460
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000390731",
+   "arm": "cpu-fp32",
+   "seq": 461
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000206922",
+   "arm": "cpu-fp32",
+   "seq": 462
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000206922",
+   "arm": "mobilint",
+   "seq": 463
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000345499",
+   "arm": "cpu-fp32",
+   "seq": 464
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000345499",
+   "arm": "mobilint",
+   "seq": 465
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000534194",
+   "arm": "mobilint",
+   "seq": 466
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000534194",
+   "arm": "cpu-fp32",
+   "seq": 467
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000123585",
+   "arm": "cpu-fp32",
+   "seq": 468
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000123585",
+   "arm": "mobilint",
+   "seq": 469
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000300814",
+   "arm": "cpu-fp32",
+   "seq": 470
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000300814",
+   "arm": "mobilint",
+   "seq": 471
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000078771",
+   "arm": "cpu-fp32",
+   "seq": 472
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000078771",
+   "arm": "mobilint",
+   "seq": 473
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000300330",
+   "arm": "cpu-fp32",
+   "seq": 474
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000300330",
+   "arm": "mobilint",
+   "seq": 475
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000129113",
+   "arm": "mobilint",
+   "seq": 476
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000129113",
+   "arm": "cpu-fp32",
+   "seq": 477
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000152208",
+   "arm": "cpu-fp32",
+   "seq": 478
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000152208",
+   "arm": "mobilint",
+   "seq": 479
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000502024",
+   "arm": "mobilint",
+   "seq": 480
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000502024",
+   "arm": "cpu-fp32",
+   "seq": 481
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000064409",
+   "arm": "cpu-fp32",
+   "seq": 482
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000064409",
+   "arm": "mobilint",
+   "seq": 483
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000356787",
+   "arm": "cpu-fp32",
+   "seq": 484
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000356787",
+   "arm": "mobilint",
+   "seq": 485
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000219632",
+   "arm": "mobilint",
+   "seq": 486
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000219632",
+   "arm": "cpu-fp32",
+   "seq": 487
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000115459",
+   "arm": "mobilint",
+   "seq": 488
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000115459",
+   "arm": "cpu-fp32",
+   "seq": 489
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000350679",
+   "arm": "mobilint",
+   "seq": 490
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000350679",
+   "arm": "cpu-fp32",
+   "seq": 491
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000171382",
+   "arm": "cpu-fp32",
+   "seq": 492
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000171382",
+   "arm": "mobilint",
+   "seq": 493
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000560272",
+   "arm": "cpu-fp32",
+   "seq": 494
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000560272",
+   "arm": "mobilint",
+   "seq": 495
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000418563",
+   "arm": "mobilint",
+   "seq": 496
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000418563",
+   "arm": "cpu-fp32",
+   "seq": 497
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000170129",
+   "arm": "mobilint",
+   "seq": 498
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000170129",
+   "arm": "cpu-fp32",
+   "seq": 499
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000344878",
+   "arm": "cpu-fp32",
+   "seq": 500
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000344878",
+   "arm": "mobilint",
+   "seq": 501
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000320612",
+   "arm": "cpu-fp32",
+   "seq": 502
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000320612",
+   "arm": "mobilint",
+   "seq": 503
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000504297",
+   "arm": "cpu-fp32",
+   "seq": 504
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000504297",
+   "arm": "mobilint",
+   "seq": 505
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000534373",
+   "arm": "mobilint",
+   "seq": 506
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000534373",
+   "arm": "cpu-fp32",
+   "seq": 507
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000049133",
+   "arm": "cpu-fp32",
+   "seq": 508
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000049133",
+   "arm": "mobilint",
+   "seq": 509
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000381563",
+   "arm": "mobilint",
+   "seq": 510
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000381563",
+   "arm": "cpu-fp32",
+   "seq": 511
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000289943",
+   "arm": "cpu-fp32",
+   "seq": 512
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000289943",
+   "arm": "mobilint",
+   "seq": 513
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000550431",
+   "arm": "cpu-fp32",
+   "seq": 514
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000550431",
+   "arm": "mobilint",
+   "seq": 515
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000022861",
+   "arm": "cpu-fp32",
+   "seq": 516
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000022861",
+   "arm": "mobilint",
+   "seq": 517
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000091300",
+   "arm": "cpu-fp32",
+   "seq": 518
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000091300",
+   "arm": "mobilint",
+   "seq": 519
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000065057",
+   "arm": "cpu-fp32",
+   "seq": 520
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000065057",
+   "arm": "mobilint",
+   "seq": 521
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000194138",
+   "arm": "cpu-fp32",
+   "seq": 522
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000194138",
+   "arm": "mobilint",
+   "seq": 523
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000071918",
+   "arm": "mobilint",
+   "seq": 524
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000071918",
+   "arm": "cpu-fp32",
+   "seq": 525
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000408103",
+   "arm": "mobilint",
+   "seq": 526
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000408103",
+   "arm": "cpu-fp32",
+   "seq": 527
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000459912",
+   "arm": "mobilint",
+   "seq": 528
+  },
+  {
+   "phase": "parity",
+   "sample": "coco-000000459912",
+   "arm": "cpu-fp32",
+   "seq": 529
+  }
+ ],
+ "claims": {
+  "allowed": [
+   "Mobilint execution with device receipts",
+   "per-stage/e2e latency (closed loop, c=1)",
+   "top-1/top-5 vs ImageNetV2 labels on 200 samples",
+   "MXQ vs FP32 ONNX reference parity"
+  ],
+  "excluded": [
+   "quality superiority",
+   "capacity/goodput",
+   "same numeric model",
+   "energy"
+  ]
+ }
+}

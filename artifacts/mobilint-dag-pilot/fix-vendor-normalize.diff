@@ -1,0 +1,29 @@
+--- /tmp/claude-1002/-home-jinuk-codex-work-scheduler/5ca6d312-f320-41e7-b909-ad24fb37ad34/scratchpad/worker-before-norm.py	2026-10-26 18:18:30.372439590 +0900
++++ worker.py	2026-10-26 18:18:30.390678128 +0900
+@@ -118,6 +118,17 @@
+     return [int(i) for i in top], [float(p[i]) for i in top]
+ 
+ 
++def normalize_hwc_vendor(arr):
++    """Official Mobilint input contract of this MXQ (mblt-vision-python 0.0.6 models/ResNet50.yaml IMAGENET1K_V1:
++    Reader pil, Resize 256 bilinear, CenterCrop 224, SetOrder HWC, Normalize torch; utils/preprocess/normalize.py math:
++    float32 /255, float64 mean/std, cast to float32). The MXQ declares Float32 input; qbruntime 1.4.0 rejected uint8
++    with Model_DtypeMismatched (probe mdp-20261026t091641)."""
++    import numpy as np
++    x = arr.astype(np.float32) / 255.0
++    x = (x - np.array(P.MEAN)) / np.array(P.STD)
++    return np.ascontiguousarray(x.astype(np.float32))
++
++
+ def normalize_nchw(arr):
+     import numpy as np
+     x = arr.astype(np.float32) / 255.0
+@@ -162,7 +173,7 @@
+ 
+     def infer(self, arr):
+         import numpy as np
+-        out = self.model.infer([arr])
++        out = self.model.infer([normalize_hwc_vendor(arr)])
+         if not out:
+             raise RuntimeError('qbruntime returned no output')
+         return np.asarray(out[0], dtype=np.float32).reshape(-1)

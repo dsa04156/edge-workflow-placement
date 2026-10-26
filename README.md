@@ -2,6 +2,8 @@
 
 ## 2026-10-26 실측 결과
 
+[Mobilint 실추론 DAG 파일럿](docs/experiments/mobilint-dag-pilot.md): Raspberry Pi의 전처리·후처리와 ser0004의 Mobilint NPU 추론을 연결하고, 같은 원본 모델의 CPU FP32 경로와 비교했다. 총 530/530회 성공. ImageNetV2 200장 기준 종단 지연 중앙값은 Mobilint 19.94ms / CPU 128.80ms, Top-1 정확도는 60.0% / 59.5%다. 단일 순차 실행 진단이며, 배치 정책·goodput 개선이나 품질 우월성을 뜻하지 않는다.
+
 [CPU·Jetson GPU·Intel NPU DAG 비교 결과](docs/experiments/quality-network-baseline-results.md): pilot 36개 구간과 비교 70개 구간을 수집했다. 비교의 마지막 구간은 CPU OOM 영향을 받았고 2개 구간은 미실행이다. 품질 0.355 < 기준 0.40으로 모든 수치는 진단이며, Mobilint 추론은 이 비교에 포함되지 않았다. [공개 증거와 원시 자료 범위](artifacts/quality-network-baselines/publication-20261026/README.md).
 
 

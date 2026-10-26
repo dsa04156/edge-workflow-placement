@@ -1,0 +1,39 @@
+{
+ "role": "mobilint",
+ "state": "ready",
+ "error": null,
+ "log": [],
+ "evidence": {
+  "runtime": "qbruntime",
+  "runtime_version": "1.4.0",
+  "target_cores": [
+   "CoreId(cluster=Cluster.Cluster0, core=Core.Core0)"
+  ],
+  "input_shape": [
+   224,
+   224,
+   3
+  ],
+  "dev_nodes": [
+   "aries0"
+  ],
+  "device_name": "aries-rb",
+  "input_dtype": "DataType.Float32",
+  "output_dtype": "DataType.Float32",
+  "output_shape": [
+   [
+    1,
+    1,
+    1000
+   ]
+  ],
+  "core_mode": "CoreMode.Single",
+  "model": "resnet50_IMAGENET1K_V1.mxq",
+  "model_sha256": "48b1ca4e669ac9d293148a748c06c352a7f542c5999f5f8eb2d1f5a31cf21e2d",
+  "load_ms": 289.94121705181897,
+  "child_pid": 11
+ },
+ "node": "etri-ser0004-cgnms0",
+ "pod_uid": "01fe312a-86f7-4680-968d-8001cbcef044",
+ "frozen_sha256": "ecb4f920c01cc399611a49e501db90ba289e6a963a1d372f2d0a57b5880ce27b"
+}
