@@ -1,0 +1,76 @@
+{
+  "created_for": "NAIS interview: one competency, two content slides",
+  "role_attribution": "User stated all project responsibilities were their own on 2026-10-27",
+  "sources": [
+    {
+      "path": "docs/experiments/edge-network-placement.md",
+      "sha256": "4dd5a388912d189e4ac2a4b103cb564a8b77f863032c1a134a834dab4c5957f9"
+    },
+    {
+      "path": "docs/experiments/quality-network-baseline-results.md",
+      "sha256": "85a8cd800084c12361ec8ebf0c7cff2cb96bfd897e9dee3118348ac221c4687f"
+    },
+    {
+      "path": "artifacts/mobilint-dag-pilot/runs/mdp-20261026t092212/analysis.json",
+      "sha256": "9d395e368cd3381cf3fcec4c54f51a14e130c0414f612ad5b5f3c906935b360a"
+    },
+    {
+      "path": "experiments/quality-network-baselines/design.py",
+      "sha256": "22076fbe1c56e851762ea3c322fd0511f1202415ff9e0de0bf71218b833129c5"
+    },
+    {
+      "path": "experiments/quality-network-baselines/live.py",
+      "sha256": "af914126c12f64724c029726aaafe98bcc534e510c3546235d6cee339173db00"
+    },
+    {
+      "path": "experiments/quality-network-baselines/generator.py",
+      "sha256": "8391450e4c94e28d2e2ef382c50e967918d44b06b5ab938444936e95eb447f40"
+    },
+    {
+      "path": "experiments/quality-network-baselines/policies.py",
+      "sha256": "c9f39b430a831ecc16004bda5ea6871125085949b87afa3d1621440576dd4888"
+    },
+    {
+      "path": "experiments/quality-network-baselines/dag_worker.py",
+      "sha256": "46b791ffe1076af47f74c849ddae9b6c3c2fa571f7c6ae94a54226562c331ca1"
+    },
+    {
+      "path": "experiments/quality-network-baselines/gateway.py",
+      "sha256": "fd8be27e5bf90e3f336615d21f328c5372006b54ad18d26ea431303c4580ad54"
+    },
+    {
+      "path": "experiments/quality-network-baselines/analyze.py",
+      "sha256": "e415d67df76bd701a4f5cfdab3cb4a17dceca36433781205d955c91c5ed361a2"
+    },
+    {
+      "path": "experiments/quality-network-heterogeneous/worker.py",
+      "sha256": "78a2da635275c230bbd55c007d6bcc4e5de0ccc24abb03445a4a4b3b5e163d69"
+    },
+    {
+      "path": "experiments/quality-network-heterogeneous/stages.py",
+      "sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+    },
+    {
+      "path": "experiments/mobilint-dag-pilot/worker.py",
+      "sha256": "46e51e606c33275b06bca9ce70c9da086c016da87f1a8f208a023061f48adfc7"
+    },
+    {
+      "path": "experiments/e0/run_edge_network_placement.py",
+      "sha256": "f84f8c155457a7547e55f73eac1f45c73f187ded76851fa94ce695475d8c297d"
+    },
+    {
+      "path": "docs/experiments/mobilint-dag-pilot.md",
+      "sha256": "4c076081c071a9fdef5257019f7f377b77ba06f7c0bc9c62bc95f26a4bc0efcf"
+    }
+  ],
+  "data_notes": {
+    "task-profile.csv": "Published rounded calibration medians (compare run), not end-to-end latency. Blank cells are non-candidates, never zero.",
+    "network-placement.csv": "Published rounded means for hubble/cap20; greedy and DAG share measurements. Full condition grid and counterexamples remain in source.",
+    "mobilint-results.csv": "Unrounded eval statistics directly from analysis.json; accuracy fractions in [0,1]. Separate model and experiment from other charts."
+  },
+  "software": {
+    "matplotlib": "3.11.2",
+    "font": "/usr/share/fonts/truetype/unfonts-core/UnDotum.ttf"
+  },
+  "architecture_notes": "architecture.md describes actual code, separates VQA, Mobilint and SqueezeNet experiments; model quality gate remains unmet in VQA diagnostics."
+}

@@ -1,0 +1,52 @@
+Use case: infographic-diagram.
+Create a polished, technically precise SYSTEM ARCHITECTURE IMAGE for a Korean engineering job interview. Landscape 16:9, high resolution, white background, crisp dark navy sans-serif typography, restrained blue/teal/orange accents, thin orthogonal arrows, ample whitespace, flat professional vector-like styling. No photographs, no decorative 3D, no logos, no charts. Korean labels must be correctly spelled and readable. Large title, compact exact labels, no paragraphs. Render the diagram itself, not a slide mockup on a screen.
+
+Title: "이기종 엣지 AI DAG 실행 아키텍처"
+Subtitle: "Quality- and Network-Aware Edge AI Orchestration"
+
+Organize into three clearly separated main horizontal bands plus a small detached footer panel:
+BAND 1, header "요청 발생 · 실행 위치 결정":
+At left a pale blue box titled "Raspberry Pi 5 · Edge Generator", with "이미지 + 음성 질문" and "요청 발생 / 최종 응답 수집".
+Inside this same enclosing box include a placement-policy block, labelled "배치 정책", with three concise input chips "실측 실행시간", "전송 비용", "현재 대기 상태", and a separate chip "품질 게이트".
+Arrow from placement policy to band2 labelled "요청별 Task → worker 선택".
+Right side of band1 small separate control box "실험 제어기" with "배포 · 검증 · 보정 · 수집". Use dashed control line to worker infrastructure band3. Do NOT place request origin in this external controller.
+A subtle note in band1: "기존 worker 선택 · Pod 이동 아님".
+
+BAND 2, header "논리 DAG · 5 Tasks":
+Draw EXACTLY five task boxes in a fork-join graph. Left branch start is image input, upper chain: "이미지 전처리" then "영상 추론 / ResNet18". Lower chain: "음성 전처리" then "음성 인식 / Wav2Vec2". Both chains join into the SAME one rightmost box "결합 / MUTAN", followed by a small "답" output. Solid arrows: image preprocessing to vision, audio preprocessing to speech, vision to fusion, speech to fusion, fusion to answer. Labels on arrows "이미지 tensor", "input_values", "512차원 특징", "질문 문장" as appropriate. Do NOT connect image branch to speech or combine before both results. Caption beneath DAG: "worker 간 실제 중간 데이터 전달 · 두 분기 완료 후 결합".
+Under task boxes small candidate labels: preprocessing both "CPU ×2", vision "CPU ×2 · GPU · NPU", speech "CPU ×2 · GPU", fusion "CPU ×2 · GPU".
+Between band2 and band3 one clearly labelled assignment connector "실행 가능 조합: 2 × 4 × 2 × 3 × 3 = 144". This denotes runtime mapping, not a sixth task.
+
+BAND 3, enclosing title "Kubernetes / KubeEdge · 물리 노드 3개 / 실행 worker 4개":
+Three well-spaced node cards left-to-right.
+1. "Raspberry Pi 5 · dev0003", zone tag "EDGE", inside "ARM CPU worker / PyTorch" and small "Generator 실행 위치".
+2. "Jetson Orin · dev0009", zone tag "EDGE", inside "GPU worker / CUDA · PyTorch".
+3. "x86 서버 · ser0002", zone tag "SERVER", TWO internal worker blocks: "CPU worker / PyTorch" and "Intel NPU worker / OpenVINO". Small auxiliary service label beneath "Gateway · Cache".
+A short routing strip under cards: "동일 zone: 직접 HTTP   |   edge ↔ server: Gateway HTTP".
+A dashed feedback arrow or simple feedback strip pointing toward placement-policy band1 labelled "실행 기록 · 대기 상태 → 관측 갱신".
+A very small legend "실선: 데이터 흐름   점선: 제어·관측".
+All node cards must remain inside the same cluster enclosing box; external experiment controller is outside.
+
+Detached FOOTER PANEL, separated with clear border and generous spacing, pale orange:
+Title "별도 검증 · Mobilint ARIES"
+One small linear chain with three boxes:
+"Pi CPU 전처리" → "ser0004 / ARIES · ResNet50" → "Pi CPU 후처리".
+Below this mini-chain: "VQA 144개 후보에 포함되지 않은 독립 실험".
+Also a subdued readable note outside this orange panel at bottom: "현재 VQA: 품질 0.355 < 기준 0.40 · 진단 실험".
+No arrows connecting Mobilint to the main worker pool. No measured speedup chart. No claims of proven quality-qualified goodput gains. No invented hardware, no SLURM, no DRL, no migration engine.
+
+Make the hierarchy instantly understandable: edge origin and policy → logical five-task DAG → heterogeneous existing workers, with separate experiment control and measured feedback. Keep all text within boxes, avoid line crossings through labels.
+
+--- EDIT PASS: inspected and corrected intermediate payload labels ---
+Edit this architecture diagram. Preserve the overall layout, typography, colors, all node cards, separate Mobilint strip, and five-task DAG topology. Correct these factual labels precisely, without changing any other task labels:
+1. The arrow from "이미지 입력" to "이미지 전처리" must read "JPEG" (currently incorrectly 이미지 tensor).
+2. The arrow from "이미지 전처리" to "영상 추론 / ResNet18" must read "이미지 tensor" (currently incorrectly 512차원 특징).
+3. Keep "512차원 특징" ONLY on the arrow from ResNet18 to MUTAN.
+4. The arrow from "음성 입력" to "음성 전처리" must read "음성 파일" (currently incorrectly input_values).
+5. The arrow from "음성 전처리" to "음성 인식 / Wav2Vec2" must read "input_values" (currently incorrectly 질문 문장).
+6. Keep "질문 문장" ONLY on the arrow from Wav2Vec2 to MUTAN.
+7. Change band1 header to "요청 발생 · 실행 위치 결정 (Pi Generator 내부)" to show that both input origin and placement policy execute inside the Pi generator.
+8. Fix the dashed line at the far right: it must be a SINGLE one-way control arrow FROM the experiment controller bottom DOWN and then LEFT INTO the Kubernetes infrastructure box. Do not make an arrowhead pointing into the controller. Replace its current label "실행 기록 · 대기 상태 → 관측 갱신" with "배포 · 검증 · 실험 제어".
+9. The separate telemetry feedback to policy should be expressed as a short text line within band1 underneath the policy chips: "worker 상태 · 실행 기록 → 관측 갱신". Make sufficient space without overlaps. No telemetry line to the external controller.
+10. Change legend first line to "실선: 데이터·실행 흐름", keep second line "점선: 제어".
+Retain all other facts exactly. Clean readable Korean. This is a technical diagram, factual arrow labels are essential.
