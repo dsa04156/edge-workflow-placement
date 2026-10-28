@@ -1,0 +1,14 @@
+test_audit_rows_are_byte_identical_across_hash_seeds (test_audit.Cli.test_audit_rows_are_byte_identical_across_hash_seeds) ... FAIL
+
+======================================================================
+FAIL: test_audit_rows_are_byte_identical_across_hash_seeds (test_audit.Cli.test_audit_rows_are_byte_identical_across_hash_seeds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 197, in test_audit_rows_are_byte_identical_across_hash_seeds
+    self.assertEqual(len(set(digests.values())), 1, digests)
+AssertionError: 2 != 1 : {'0': ('90ce618f06a85a74a6a255157aa816d9852893d50351834fa9c67d34163a24d7', '90ce618f06a85a74a6a255157aa816d9852893d50351834fa9c67d34163a24d7'), '1': ('90ce618f06a85a74a6a255157aa816d9852893d50351834fa9c67d34163a24d7', '90ce618f06a85a74a6a255157aa816d9852893d50351834fa9c67d34163a24d7'), '3': ('cb9cac831c6c5df8e20f009598abfb2564f8afdce282d985c150d685d6345790', 'cb9cac831c6c5df8e20f009598abfb2564f8afdce282d985c150d685d6345790')}
+
+----------------------------------------------------------------------
+Ran 1 test in 5.024s
+
+FAILED (failures=1)

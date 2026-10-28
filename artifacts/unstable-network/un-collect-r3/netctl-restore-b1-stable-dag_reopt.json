@@ -1,0 +1,241 @@
+{
+ "label": "b1-stable-dag_reopt",
+ "trace": "stable",
+ "trace_sha256": "8946264778a8a9249fc479e76aeab29c5cdecca790e6bc120ef257eac40cc5f8",
+ "state": "completed",
+ "events": [
+  {
+   "kind": "install",
+   "local": 714728.652328048,
+   "wall_utc": "2026-10-27T12:12:12.575+00:00",
+   "phase": 0,
+   "name": "good",
+   "condition": {
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "window_end",
+   "local": 714790.663510892,
+   "wall_utc": "2026-10-27T12:13:14.586+00:00",
+   "planned_offset_s": 60,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 94413087,
+      "packets": 82993,
+      "drops": 15,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 10724301,
+      "packets": 17021,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 83650509,
+      "packets": 65820,
+      "drops": 269,
+      "overlimits": 163532,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 10724301,
+      "packets": 17021,
+      "drops": 0,
+      "overlimits": 27547,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 83650509,
+      "packets": 65820,
+      "drops": 269,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "restore",
+   "local": 714793.745835738,
+   "wall_utc": "2026-10-27T12:13:17.668+00:00",
+   "condition": {
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   "ok": true,
+   "call_ms": 6.871226010844111,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 94427917,
+      "packets": 83096,
+      "drops": 15,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 10728801,
+      "packets": 17057,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 83654829,
+      "packets": 65866,
+      "drops": 269,
+      "overlimits": 163532,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 10728801,
+      "packets": 17057,
+      "drops": 0,
+      "overlimits": 27547,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 83654829,
+      "packets": 65866,
+      "drops": 269,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  }
+ ],
+ "cloud": [
+  "10.244.8.196",
+  "10.244.8.197"
+ ],
+ "edge": [
+  "10.244.4.40",
+  "10.244.11.56",
+  "10.244.4.41"
+ ],
+ "received_local": 714728.657059292,
+ "start_local": 714730.6555685459,
+ "delay_s": 1.9985092539573088
+}

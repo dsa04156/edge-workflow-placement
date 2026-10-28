@@ -1,0 +1,347 @@
+{
+  "cells": 36,
+  "comparable": 36,
+  "requests": 3462,
+  "counts": {
+    "ok": 2929,
+    "timeout": 81,
+    "admission_drop": 187,
+    "late_ok": 265
+  },
+  "policy_summary": [
+    {
+      "policy": "dag_static",
+      "burst": {
+        "ok": 172,
+        "requests": 172,
+        "fraction": 1.0,
+        "goodput_rps": 1.4333333333333333,
+        "blocks": [
+          {
+            "ok": 87,
+            "n": 87
+          },
+          {
+            "ok": 85,
+            "n": 85
+          }
+        ]
+      },
+      "slow": {
+        "ok": 215,
+        "requests": 215,
+        "fraction": 1.0,
+        "goodput_rps": 1.7916666666666667,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 112,
+            "n": 112
+          }
+        ]
+      },
+      "stable": {
+        "ok": 190,
+        "requests": 190,
+        "fraction": 1.0,
+        "goodput_rps": 1.5833333333333333,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 87,
+            "n": 87
+          }
+        ]
+      }
+    },
+    {
+      "policy": "dag_reopt_hysteresis",
+      "burst": {
+        "ok": 161,
+        "requests": 172,
+        "fraction": 0.936046511627907,
+        "goodput_rps": 1.3416666666666666,
+        "blocks": [
+          {
+            "ok": 86,
+            "n": 87
+          },
+          {
+            "ok": 75,
+            "n": 85
+          }
+        ]
+      },
+      "slow": {
+        "ok": 155,
+        "requests": 215,
+        "fraction": 0.7209302325581395,
+        "goodput_rps": 1.2916666666666667,
+        "blocks": [
+          {
+            "ok": 82,
+            "n": 103
+          },
+          {
+            "ok": 73,
+            "n": 112
+          }
+        ]
+      },
+      "stable": {
+        "ok": 190,
+        "requests": 190,
+        "fraction": 1.0,
+        "goodput_rps": 1.5833333333333333,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 87,
+            "n": 87
+          }
+        ]
+      }
+    },
+    {
+      "policy": "dag_reopt",
+      "burst": {
+        "ok": 143,
+        "requests": 172,
+        "fraction": 0.8313953488372093,
+        "goodput_rps": 1.1916666666666667,
+        "blocks": [
+          {
+            "ok": 72,
+            "n": 87
+          },
+          {
+            "ok": 71,
+            "n": 85
+          }
+        ]
+      },
+      "slow": {
+        "ok": 168,
+        "requests": 215,
+        "fraction": 0.7813953488372093,
+        "goodput_rps": 1.4,
+        "blocks": [
+          {
+            "ok": 93,
+            "n": 103
+          },
+          {
+            "ok": 75,
+            "n": 112
+          }
+        ]
+      },
+      "stable": {
+        "ok": 190,
+        "requests": 190,
+        "fraction": 1.0,
+        "goodput_rps": 1.5833333333333333,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 87,
+            "n": 87
+          }
+        ]
+      }
+    },
+    {
+      "policy": "greedy_comm",
+      "burst": {
+        "ok": 100,
+        "requests": 172,
+        "fraction": 0.5813953488372093,
+        "goodput_rps": 0.8333333333333334,
+        "blocks": [
+          {
+            "ok": 67,
+            "n": 87
+          },
+          {
+            "ok": 33,
+            "n": 85
+          }
+        ]
+      },
+      "slow": {
+        "ok": 206,
+        "requests": 215,
+        "fraction": 0.958139534883721,
+        "goodput_rps": 1.7166666666666666,
+        "blocks": [
+          {
+            "ok": 94,
+            "n": 103
+          },
+          {
+            "ok": 112,
+            "n": 112
+          }
+        ]
+      },
+      "stable": {
+        "ok": 190,
+        "requests": 190,
+        "fraction": 1.0,
+        "goodput_rps": 1.5833333333333333,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 87,
+            "n": 87
+          }
+        ]
+      }
+    },
+    {
+      "policy": "task_fastest",
+      "burst": {
+        "ok": 94,
+        "requests": 172,
+        "fraction": 0.5465116279069767,
+        "goodput_rps": 0.7833333333333333,
+        "blocks": [
+          {
+            "ok": 50,
+            "n": 87
+          },
+          {
+            "ok": 44,
+            "n": 85
+          }
+        ]
+      },
+      "slow": {
+        "ok": 150,
+        "requests": 215,
+        "fraction": 0.6976744186046512,
+        "goodput_rps": 1.25,
+        "blocks": [
+          {
+            "ok": 73,
+            "n": 103
+          },
+          {
+            "ok": 77,
+            "n": 112
+          }
+        ]
+      },
+      "stable": {
+        "ok": 190,
+        "requests": 190,
+        "fraction": 1.0,
+        "goodput_rps": 1.5833333333333333,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 87,
+            "n": 87
+          }
+        ]
+      }
+    },
+    {
+      "policy": "dag_reopt_no_network",
+      "burst": {
+        "ok": 89,
+        "requests": 172,
+        "fraction": 0.5174418604651163,
+        "goodput_rps": 0.7416666666666667,
+        "blocks": [
+          {
+            "ok": 47,
+            "n": 87
+          },
+          {
+            "ok": 42,
+            "n": 85
+          }
+        ]
+      },
+      "slow": {
+        "ok": 136,
+        "requests": 215,
+        "fraction": 0.6325581395348837,
+        "goodput_rps": 1.1333333333333333,
+        "blocks": [
+          {
+            "ok": 63,
+            "n": 103
+          },
+          {
+            "ok": 73,
+            "n": 112
+          }
+        ]
+      },
+      "stable": {
+        "ok": 190,
+        "requests": 190,
+        "fraction": 1.0,
+        "goodput_rps": 1.5833333333333333,
+        "blocks": [
+          {
+            "ok": 103,
+            "n": 103
+          },
+          {
+            "ok": 87,
+            "n": 87
+          }
+        ]
+      }
+    }
+  ],
+  "timing_max_ms": 122.64126195805147,
+  "receipt_devices": [
+    {
+      "backend": "cpu-torch",
+      "device": "cpu",
+      "node": "etri-dev0003-raspi5",
+      "count": 3873
+    },
+    {
+      "backend": "cuda-torch",
+      "device": "cuda:0",
+      "node": "etri-dev0009-jetorn",
+      "count": 9635
+    },
+    {
+      "backend": "cpu-torch",
+      "device": "cpu",
+      "node": "etri-ser0002-cgnmsb",
+      "count": 4190
+    },
+    {
+      "backend": "openvino-npu",
+      "device": "NPU",
+      "node": "etri-ser0002-cgnmsb",
+      "count": 1585
+    }
+  ],
+  "preserved_source_drift": []
+}

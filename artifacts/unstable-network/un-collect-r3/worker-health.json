@@ -1,0 +1,844 @@
+{
+ "health": {
+  "cpu-c": {
+   "status": "ready",
+   "backend": "cpu-torch",
+   "node": "etri-ser0002-cgnmsb",
+   "pod_uid": "f91dd2d9-ab48-4099-bb71-359ea42f3ff9",
+   "stages": {
+    "image_preprocess": {
+     "stage": "image_preprocess",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "torchvision 0.23.0+cpu Resize(448)+CenterCrop+Normalize",
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "load_ms": 325.8600980043411,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "x86_64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     }
+    },
+    "vision": {
+     "stage": "vision",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "resnet18-imagenet1k-v1-noatt-448",
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 11176512,
+     "load_ms": 93.01338903605938,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "x86_64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc"
+    },
+    "audio_preprocess": {
+     "stage": "audio_preprocess",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "wav2vec2-base-960h processor",
+     "model_sha256": "b225d617c025463b9e157e06afea8b90dc7078fc70b013c533328423e0486b4a",
+     "derived_artifact_sha256": null,
+     "load_ms": 420.56921299081296,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "x86_64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     }
+    },
+    "speech": {
+     "stage": "speech",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "wav2vec2-base-960h",
+     "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 94396320,
+     "load_ms": 230.85906903725117,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "x86_64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc"
+    },
+    "fusion": {
+     "stage": "fusion",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "MutanNoAtt-resnet18",
+     "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 33831140,
+     "load_ms": 231.36205098126084,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "x86_64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+     "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+     "strict_state_keys": 56
+    }
+   },
+   "errors": {},
+   "queue": {
+    "waiting": 0,
+    "active": 0,
+    "completed": 0
+   },
+   "joins_open": 0,
+   "dag_counters": {
+    "dag_requests": 0,
+    "forwarded": 0,
+    "forward_errors": 0,
+    "join_timeouts": 0,
+    "joins_completed": 0,
+    "rejected_joins": 0
+   },
+   "bootstrap": {
+    "phase": "loaded",
+    "started_utc": "2026-10-27T11:21:30Z",
+    "events": [
+     {
+      "kind": "fetched",
+      "ms": 613.7580861104652
+     },
+     {
+      "kind": "subprocess",
+      "name": "pip-install",
+      "command": [
+       "/usr/local/bin/python3",
+       "-m",
+       "pip",
+       "install",
+       "--no-index",
+       "--no-cache-dir",
+       "--disable-pip-version-check",
+       "--find-links"
+      ],
+      "started_utc": "2026-10-27T11:21:31Z",
+      "finished_utc": "2026-10-27T11:21:43Z",
+      "seconds": 11.899192129960284,
+      "timeout_s": 1200.0,
+      "timed_out": false,
+      "returncode": 0,
+      "pgid": 11,
+      "stdout": "/work/logs/pip-install.stdout",
+      "stderr": "/work/logs/pip-install.stderr",
+      "stdout_bytes": 4264,
+      "stderr_bytes": 0,
+      "retention": {
+       "stdout": {
+        "total_bytes": 4264,
+        "retained_head_bytes": 4264,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 4264,
+        "drained": true,
+        "write_error": null
+       },
+       "stderr": {
+        "total_bytes": 0,
+        "retained_head_bytes": 0,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 0,
+        "drained": true,
+        "write_error": null
+       }
+      },
+      "log_write_errors": {},
+      "stdout_tail": "-x86_64-cp311/cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from soundfile==0.13.1)\nProcessing /work/wheels/cpu-x86_64-cp311/pycparser-3.11-py3-none-any.whl (from cffi>=1.0->soundfile==0.13.1)\nProcessing /work/wheels/cpu-x86_64-cp311/hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from huggingface-hub<1.0,>=0.34.0->transformers==4.57.1)\nProcessing /work/wheels/cpu-x86_64-cp311/mpmath-1.3.0-py3-none-any.whl (from sympy>=1.13.3->torch==2.8.0+cpu)\nProcessing /work/wheels/cpu-x86_64-cp311/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from jinja2->torch==2.8.0+cpu)\nProcessing /work/wheels/cpu-x86_64-cp311/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cpu-x86_64-cp311/idna-3.20-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cpu-x86_64-cp311/urllib3-2.8.0-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cpu-x86_64-cp311/certifi-2026.10.18-py3-none-any.whl (from requests->transformers==4.57.1)\nInstalling collected packages: mpmath, urllib3, typing-extensions, tqdm, sympy, safetensors, regex, pyyaml, pycparser, pillow, packaging, numpy, networkx, MarkupSafe, idna, hf-xet, fsspec, filelock, charset_normalizer, certifi, requests, jinja2, cffi, torch, soundfile, huggingface-hub, torchvision, tokenizers, transformers\nSuccessfully installed MarkupSafe-3.0.4 certifi-2026.10.18 cffi-2.1.1 charset_normalizer-3.5.2 filelock-4.2.4 fsspec-2026.9.0 hf-xet-1.7.0 huggingface-hub-0.36.2 idna-3.20 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 numpy-1.26.4 packaging-26.3 pillow-11.3.0 pycparser-3.11 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 soundfile-0.13.1 sympy-1.14.0 tokenizers-0.22.2 torch-2.8.0+cpu torchvision-0.23.0+cpu tqdm-4.70.1 transformers-4.57.1 typing-extensions-4.16.0 urllib3-2.8.0\n",
+      "stderr_tail": ""
+     }
+    ],
+    "discovery": {
+     "machine": "x86_64",
+     "python": "3.11.16",
+     "kernel": "7.0.0-38-generic",
+     "node": "etri-ser0002-cgnmsb",
+     "/proc/device-tree/model": "unreadable: FileNotFoundError",
+     "/etc/nv_tegra_release": "unreadable: FileNotFoundError",
+     "dev": [],
+     "NVIDIA_VISIBLE_DEVICES": null,
+     "cuda_driver": {
+      "library": null,
+      "load_errors": [
+       "libcuda.so.1: libcuda.so.1: cannot open shared object file: No such file or directory",
+       "libcuda.so: libcuda.so: cannot open shared object file: No such file or directory"
+      ]
+     }
+    },
+    "recipe": "cpu-x86_64-cp311",
+    "finished_utc": "2026-10-27T11:21:45Z"
+   }
+  },
+  "npu-c": {
+   "status": "ready",
+   "backend": "openvino-npu",
+   "node": "etri-ser0002-cgnmsb",
+   "pod_uid": "3794152b-3cc6-471a-9719-85d3a95ea9b3",
+   "stages": {
+    "vision": {
+     "stage": "vision",
+     "backend": "openvino-npu",
+     "device": "NPU",
+     "execution_devices": [
+      "NPU"
+     ],
+     "execution_devices_raw": {
+      "type": "str",
+      "value": "NPU"
+     },
+     "full_device_name": "Intel(R) AI Boost",
+     "available_devices": [
+      "CPU",
+      "NPU"
+     ],
+     "openvino": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+     "npu_compiler_type": "CompilerType.DRIVER",
+     "derived_artifact_sha256": "9be0337c8778d2b2afb8f3374b212a65a69dada4daab84d3cd52f4cb5781b6a1",
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "precision": "model FP32 I/O; HW computation FP16 per OpenVINO 2026.3 npu-device.rst (not an FP32 device comparison)",
+     "read_ms": 42.11046593263745,
+     "compile_ms": 412.7568940166384,
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     }
+    }
+   },
+   "errors": {},
+   "queue": {
+    "waiting": 0,
+    "active": 0,
+    "completed": 0
+   },
+   "joins_open": 0,
+   "dag_counters": {
+    "dag_requests": 0,
+    "forwarded": 0,
+    "forward_errors": 0,
+    "join_timeouts": 0,
+    "joins_completed": 0,
+    "rejected_joins": 0
+   },
+   "bootstrap": {
+    "phase": "loaded",
+    "started_utc": "2026-10-27T11:21:30Z",
+    "events": [
+     {
+      "kind": "fetched",
+      "ms": 560.8867109986022
+     },
+     {
+      "kind": "subprocess",
+      "name": "pip-install",
+      "command": [
+       "/opt/venv/bin/python3",
+       "-m",
+       "pip",
+       "install",
+       "--no-index",
+       "--no-cache-dir",
+       "--disable-pip-version-check",
+       "--find-links"
+      ],
+      "started_utc": "2026-10-27T11:21:30Z",
+      "finished_utc": "2026-10-27T11:21:31Z",
+      "seconds": 0.36517900496255606,
+      "timeout_s": 1200.0,
+      "timed_out": false,
+      "returncode": 0,
+      "pgid": 11,
+      "stdout": "/work/logs/pip-install.stdout",
+      "stderr": "/work/logs/pip-install.stderr",
+      "stdout_bytes": 238,
+      "stderr_bytes": 0,
+      "retention": {
+       "stdout": {
+        "total_bytes": 238,
+        "retained_head_bytes": 238,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 238,
+        "drained": true,
+        "write_error": null
+       },
+       "stderr": {
+        "total_bytes": 0,
+        "retained_head_bytes": 0,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 0,
+        "drained": true,
+        "write_error": null
+       }
+      },
+      "log_write_errors": {},
+      "stdout_tail": "Looking in links: /work/wheels/npu-x86_64-cp312\nProcessing /work/wheels/npu-x86_64-cp312/pillow-11.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\nInstalling collected packages: pillow\nSuccessfully installed pillow-11.3.0\n",
+      "stderr_tail": ""
+     }
+    ],
+    "discovery": {
+     "machine": "x86_64",
+     "python": "3.12.3",
+     "kernel": "7.0.0-38-generic",
+     "node": "etri-ser0002-cgnmsb",
+     "/proc/device-tree/model": "unreadable: FileNotFoundError",
+     "/etc/nv_tegra_release": "unreadable: FileNotFoundError",
+     "dev": [
+      "accel"
+     ],
+     "NVIDIA_VISIBLE_DEVICES": null,
+     "cuda_driver": {
+      "library": null,
+      "load_errors": [
+       "libcuda.so.1: libcuda.so.1: cannot open shared object file: No such file or directory",
+       "libcuda.so: libcuda.so: cannot open shared object file: No such file or directory"
+      ]
+     }
+    },
+    "recipe": "npu-x86_64-cp312",
+    "finished_utc": "2026-10-27T11:21:32Z"
+   }
+  },
+  "cpu-e0": {
+   "status": "ready",
+   "backend": "cpu-torch",
+   "node": "etri-dev0003-raspi5",
+   "pod_uid": "c7b0910f-6404-4c0d-a2b8-b57c4df77e33",
+   "stages": {
+    "image_preprocess": {
+     "stage": "image_preprocess",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "torchvision 0.23.0 Resize(448)+CenterCrop+Normalize",
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "load_ms": 1899.589213076979,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     }
+    },
+    "vision": {
+     "stage": "vision",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "resnet18-imagenet1k-v1-noatt-448",
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 11176512,
+     "load_ms": 639.037478948012,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc"
+    },
+    "audio_preprocess": {
+     "stage": "audio_preprocess",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "wav2vec2-base-960h processor",
+     "model_sha256": "b225d617c025463b9e157e06afea8b90dc7078fc70b013c533328423e0486b4a",
+     "derived_artifact_sha256": null,
+     "load_ms": 2477.602113969624,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     }
+    },
+    "speech": {
+     "stage": "speech",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "wav2vec2-base-960h",
+     "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 94396320,
+     "load_ms": 940.8977390266955,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc"
+    },
+    "fusion": {
+     "stage": "fusion",
+     "backend": "cpu-torch",
+     "device": "cpu",
+     "model": "MutanNoAtt-resnet18",
+     "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 33831140,
+     "load_ms": 1044.8720001149923,
+     "settings": {
+      "torch": "2.8.0+cpu",
+      "torch_cuda_build": null,
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64"
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+     "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+     "strict_state_keys": 56
+    }
+   },
+   "errors": {},
+   "queue": {
+    "waiting": 0,
+    "active": 0,
+    "completed": 0
+   },
+   "joins_open": 0,
+   "dag_counters": {
+    "dag_requests": 0,
+    "forwarded": 0,
+    "forward_errors": 0,
+    "join_timeouts": 0,
+    "joins_completed": 0,
+    "rejected_joins": 0
+   },
+   "bootstrap": {
+    "phase": "loaded",
+    "started_utc": "2026-10-27T11:21:30Z",
+    "events": [
+     {
+      "kind": "fetched",
+      "ms": 11982.808416010812
+     },
+     {
+      "kind": "subprocess",
+      "name": "pip-install",
+      "command": [
+       "/usr/local/bin/python3",
+       "-m",
+       "pip",
+       "install",
+       "--no-index",
+       "--no-cache-dir",
+       "--disable-pip-version-check",
+       "--find-links"
+      ],
+      "started_utc": "2026-10-27T11:21:45Z",
+      "finished_utc": "2026-10-27T11:22:56Z",
+      "seconds": 70.73447917285375,
+      "timeout_s": 1200.0,
+      "timed_out": false,
+      "returncode": 0,
+      "pgid": 17,
+      "stdout": "/work/logs/pip-install.stdout",
+      "stderr": "/work/logs/pip-install.stderr",
+      "stdout_bytes": 4291,
+      "stderr_bytes": 0,
+      "retention": {
+       "stdout": {
+        "total_bytes": 4291,
+        "retained_head_bytes": 4291,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 4291,
+        "drained": true,
+        "write_error": null
+       },
+       "stderr": {
+        "total_bytes": 0,
+        "retained_head_bytes": 0,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 0,
+        "drained": true,
+        "write_error": null
+       }
+      },
+      "log_write_errors": {},
+      "stdout_tail": "els/cpu-aarch64-cp311/cffi-2.1.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (from soundfile==0.13.1)\nProcessing /work/wheels/cpu-aarch64-cp311/pycparser-3.11-py3-none-any.whl (from cffi>=1.0->soundfile==0.13.1)\nProcessing /work/wheels/cpu-aarch64-cp311/hf_xet-1.7.0-cp38-abi3-manylinux_2_28_aarch64.whl (from huggingface-hub<1.0,>=0.34.0->transformers==4.57.1)\nProcessing /work/wheels/cpu-aarch64-cp311/mpmath-1.3.0-py3-none-any.whl (from sympy>=1.13.3->torch==2.8.0+cpu)\nProcessing /work/wheels/cpu-aarch64-cp311/markupsafe-3.0.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (from jinja2->torch==2.8.0+cpu)\nProcessing /work/wheels/cpu-aarch64-cp311/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cpu-aarch64-cp311/idna-3.20-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cpu-aarch64-cp311/urllib3-2.8.0-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cpu-aarch64-cp311/certifi-2026.10.18-py3-none-any.whl (from requests->transformers==4.57.1)\nInstalling collected packages: mpmath, urllib3, typing-extensions, tqdm, sympy, safetensors, regex, pyyaml, pycparser, pillow, packaging, numpy, networkx, MarkupSafe, idna, hf-xet, fsspec, filelock, charset_normalizer, certifi, requests, jinja2, cffi, torch, soundfile, huggingface-hub, torchvision, tokenizers, transformers\nSuccessfully installed MarkupSafe-3.0.4 certifi-2026.10.18 cffi-2.1.1 charset_normalizer-3.5.2 filelock-4.2.4 fsspec-2026.9.0 hf-xet-1.7.0 huggingface-hub-0.36.2 idna-3.20 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 numpy-1.26.4 packaging-26.3 pillow-11.3.0 pycparser-3.11 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 soundfile-0.13.1 sympy-1.14.0 tokenizers-0.22.2 torch-2.8.0+cpu torchvision-0.23.0 tqdm-4.70.1 transformers-4.57.1 typing-extensions-4.16.0 urllib3-2.8.0\n",
+      "stderr_tail": ""
+     }
+    ],
+    "discovery": {
+     "machine": "aarch64",
+     "python": "3.11.16",
+     "kernel": "6.12.75+rpt-rpi-2712",
+     "node": "etri-dev0003-raspi5",
+     "/proc/device-tree/model": "unreadable: FileNotFoundError",
+     "/etc/nv_tegra_release": "unreadable: FileNotFoundError",
+     "dev": [],
+     "NVIDIA_VISIBLE_DEVICES": null,
+     "cuda_driver": {
+      "library": null,
+      "load_errors": [
+       "libcuda.so.1: libcuda.so.1: cannot open shared object file: No such file or directory",
+       "libcuda.so: libcuda.so: cannot open shared object file: No such file or directory"
+      ]
+     }
+    },
+    "recipe": "cpu-aarch64-cp311",
+    "finished_utc": "2026-10-27T11:23:06Z"
+   }
+  },
+  "jgpu-dev0009-cu130": {
+   "status": "ready",
+   "backend": "cuda-torch",
+   "node": "etri-dev0009-jetorn",
+   "pod_uid": "a370e216-311a-4bd0-ba0f-ad65d2b2fd71",
+   "stages": {
+    "vision": {
+     "stage": "vision",
+     "backend": "cuda-torch",
+     "device": "cuda:0",
+     "model": "resnet18-imagenet1k-v1-noatt-448",
+     "model_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 11176512,
+     "load_ms": 13307.284307025839,
+     "settings": {
+      "torch": "2.9.1+cu130",
+      "torch_cuda_build": "13.0",
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64",
+      "device_name": "Orin",
+      "capability": [
+       8,
+       7
+      ],
+      "device_total_memory": 7849254912,
+      "cudnn": 91300,
+      "matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cudnn_benchmark": false,
+      "arch_list": [
+       "sm_80",
+       "sm_90",
+       "sm_100",
+       "sm_110",
+       "sm_120",
+       "compute_120"
+      ]
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc"
+    },
+    "speech": {
+     "stage": "speech",
+     "backend": "cuda-torch",
+     "device": "cuda:0",
+     "model": "wav2vec2-base-960h",
+     "model_sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 94396320,
+     "load_ms": 14015.078441007063,
+     "settings": {
+      "torch": "2.9.1+cu130",
+      "torch_cuda_build": "13.0",
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64",
+      "device_name": "Orin",
+      "capability": [
+       8,
+       7
+      ],
+      "device_total_memory": 7849254912,
+      "cudnn": 91300,
+      "matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cudnn_benchmark": false,
+      "arch_list": [
+       "sm_80",
+       "sm_90",
+       "sm_100",
+       "sm_110",
+       "sm_120",
+       "compute_120"
+      ]
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc"
+    },
+    "fusion": {
+     "stage": "fusion",
+     "backend": "cuda-torch",
+     "device": "cuda:0",
+     "model": "MutanNoAtt-resnet18",
+     "model_sha256": "2674d468b6feceda739b9c347d4cc5858a134883304b9106a6a32560ac55c8fc",
+     "derived_artifact_sha256": null,
+     "parameter_elements": 33831140,
+     "load_ms": 3085.583948006388,
+     "settings": {
+      "torch": "2.9.1+cu130",
+      "torch_cuda_build": "13.0",
+      "threads": 1,
+      "precision": "float32",
+      "python": "3.11.16",
+      "machine": "aarch64",
+      "device_name": "Orin",
+      "capability": [
+       8,
+       7
+      ],
+      "device_total_memory": 7849254912,
+      "cudnn": 91300,
+      "matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cudnn_benchmark": false,
+      "arch_list": [
+       "sm_80",
+       "sm_90",
+       "sm_100",
+       "sm_110",
+       "sm_120",
+       "compute_120"
+      ]
+     },
+     "provenance": {
+      "legacy_adapter": "model_adapter.py",
+      "legacy_adapter_sha256": "33e4f879191cdee275ef4f4e752c8ea6fab362989206dbdae3fe8bf3ed81e9d4",
+      "legacy_adapter_present_sha256": null,
+      "reference_v1_adapter_sha256": "dad903088776a507d4dd7862cb3f362a9d78b261a5bcfb3aca0c678429d6103d",
+      "extraction_sha256": "e62c74e02fb67097f85d5c85817a719961be899f382fa0fcd71839fc3d9b255f"
+     },
+     "jellybean_commit": "65a1d67817946a4ae67b068eafb49d649bc061bc",
+     "vocab_sha256": "de86a3596f0bfdce3e733b03a810acae0f8527e49b6fa052001ed86d5cfbedda",
+     "strict_state_keys": 56
+    }
+   },
+   "errors": {},
+   "queue": {
+    "waiting": 0,
+    "active": 0,
+    "completed": 0
+   },
+   "joins_open": 0,
+   "dag_counters": {
+    "dag_requests": 0,
+    "forwarded": 0,
+    "forward_errors": 0,
+    "join_timeouts": 0,
+    "joins_completed": 0,
+    "rejected_joins": 0
+   },
+   "bootstrap": {
+    "phase": "loaded",
+    "started_utc": "2026-10-27T11:21:34Z",
+    "events": [
+     {
+      "kind": "fetched",
+      "ms": 153886.56853098655
+     },
+     {
+      "kind": "subprocess",
+      "name": "pip-install",
+      "command": [
+       "/usr/local/bin/python3",
+       "-m",
+       "pip",
+       "install",
+       "--no-index",
+       "--no-cache-dir",
+       "--disable-pip-version-check",
+       "--find-links"
+      ],
+      "started_utc": "2026-10-27T11:24:38Z",
+      "finished_utc": "2026-10-27T11:30:46Z",
+      "seconds": 368.4604578670114,
+      "timeout_s": 1200.0,
+      "timed_out": false,
+      "returncode": 0,
+      "pgid": 120,
+      "stdout": "/work/logs/pip-install.stdout",
+      "stderr": "/work/logs/pip-install.stderr",
+      "stdout_bytes": 7326,
+      "stderr_bytes": 222,
+      "retention": {
+       "stdout": {
+        "total_bytes": 7326,
+        "retained_head_bytes": 7326,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 7326,
+        "drained": true,
+        "write_error": null
+       },
+       "stderr": {
+        "total_bytes": 222,
+        "retained_head_bytes": 222,
+        "truncated_bytes": 0,
+        "retained_file_bytes": 222,
+        "drained": true,
+        "write_error": null
+       }
+      },
+      "log_write_errors": {},
+      "stdout_tail": "/work/wheels/cu130-aarch64-cp311/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cu130-aarch64-cp311/idna-3.20-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cu130-aarch64-cp311/urllib3-2.8.0-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cu130-aarch64-cp311/certifi-2026.10.19-py3-none-any.whl (from requests->transformers==4.57.1)\nInstalling collected packages: nvidia-cusparselt-cu13, mpmath, urllib3, typing-extensions, triton, tqdm, sympy, safetensors, regex, pyyaml, pycparser, pillow, packaging, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, nvidia-cublas, numpy, networkx, MarkupSafe, idna, hf-xet, fsspec, filelock, charset_normalizer, certifi, requests, nvidia-cusparse, nvidia-cufft, nvidia-cudnn-cu13, jinja2, cffi, soundfile, nvidia-cusolver, huggingface-hub, torch, tokenizers, transformers, torchvision\nSuccessfully installed MarkupSafe-3.0.4 certifi-2026.10.19 cffi-2.1.1 charset_normalizer-3.5.2 filelock-4.2.4 fsspec-2026.9.0 hf-xet-1.7.0 huggingface-hub-0.36.2 idna-3.20 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 numpy-1.26.4 nvidia-cublas-13.0.0.19 nvidia-cuda-cupti-13.0.48 nvidia-cuda-nvrtc-13.0.48 nvidia-cuda-runtime-13.0.48 nvidia-cudnn-cu13-9.13.0.50 nvidia-cufft-12.0.0.15 nvidia-cufile-1.15.0.42 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.3.29 nvidia-cusparse-12.6.2.49 nvidia-cusparselt-cu13-0.8.0 nvidia-nccl-cu13-2.27.7 nvidia-nvjitlink-13.0.39 nvidia-nvshmem-cu13-3.3.24 nvidia-nvtx-13.0.39 packaging-26.3 pillow-11.3.0 pycparser-3.12 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 soundfile-0.13.1 sympy-1.14.0 tokenizers-0.22.2 torch-2.9.1+cu130 torchvision-0.24.1 tqdm-4.70.1 transformers-4.57.1 triton-3.5.1 typing-extensions-4.16.0 urllib3-2.8.0\n",
+      "stderr_tail": "WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n"
+     }
+    ],
+    "discovery": {
+     "machine": "aarch64",
+     "python": "3.11.16",
+     "kernel": "6.8.12-1021-tegra",
+     "node": "etri-dev0009-jetorn",
+     "/proc/device-tree/model": "unreadable: FileNotFoundError",
+     "/etc/nv_tegra_release": "# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: generic, EABI: aarch64, DATE: Fri Aug  7 05:54:22 AM UTC 2026\n# KERNEL_VARIANT: oot\nTARGET_USERSPACE_LIB_DIR=nvidia\nTARGET_USERSPACE_LIB_DIR_PATH=usr/lib/aarch64-linux-gnu/nvidia\n",
+     "dev": [
+      "dri",
+      "nvgpu",
+      "nvhost-as-gpu",
+      "nvhost-ctrl-gpu",
+      "nvhost-ctxsw-gpu",
+      "nvhost-dbg-gpu",
+      "nvhost-gpu",
+      "nvhost-nvsched-gpu",
+      "nvhost-power-gpu",
+      "nvhost-prof-ctx-gpu",
+      "nvhost-prof-dev-gpu",
+      "nvhost-prof-gpu",
+      "nvhost-sched-gpu",
+      "nvhost-tsg-gpu",
+      "nvidia-modeset",
+      "nvidia0",
+      "nvidia1",
+      "nvidiactl",
+      "nvmap"
+     ],
+     "NVIDIA_VISIBLE_DEVICES": "void",
+     "cuda_driver": {
+      "library": "libcuda.so.1",
+      "cuInit": 0,
+      "cuDriverGetVersion": 0,
+      "driver_version": 13020,
+      "cuDeviceGetCount": 0,
+      "device_count": 1,
+      "device_names": [
+       "Orin"
+      ]
+     }
+    },
+    "recipe": "cu130-aarch64-cp311",
+    "finished_utc": "2026-10-27T11:31:28Z"
+   }
+  }
+ },
+ "removed": {}
+}

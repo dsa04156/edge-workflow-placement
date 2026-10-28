@@ -1,0 +1,112 @@
+{
+ "apiVersion": "v1",
+ "kind": "List",
+ "items": [
+  {
+   "apiVersion": "v1",
+   "kind": "Pod",
+   "metadata": {
+    "name": "un-collect-r3-cache",
+    "namespace": "topology-profile-lab",
+    "labels": {
+     "experiment": "unstable-network",
+     "run-id": "un-collect-r3",
+     "component": "cache"
+    }
+   },
+   "spec": {
+    "restartPolicy": "Never",
+    "activeDeadlineSeconds": 14700,
+    "terminationGracePeriodSeconds": 3,
+    "automountServiceAccountToken": false,
+    "securityContext": {
+     "fsGroup": 65532,
+     "seccompProfile": {
+      "type": "RuntimeDefault"
+     }
+    },
+    "affinity": {
+     "nodeAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": {
+       "nodeSelectorTerms": [
+        {
+         "matchFields": [
+          {
+           "key": "metadata.name",
+           "operator": "In",
+           "values": [
+            "etri-ser0002-cgnmsb"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    },
+    "containers": [
+     {
+      "name": "worker",
+      "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+      "imagePullPolicy": "IfNotPresent",
+      "command": [
+       "python3",
+       "-u",
+       "-m",
+       "http.server",
+       "8080",
+       "--directory",
+       "/work"
+      ],
+      "resources": {
+       "requests": {
+        "cpu": "100m",
+        "memory": "256Mi",
+        "ephemeral-storage": "1Gi"
+       },
+       "limits": {
+        "cpu": "1",
+        "memory": "1Gi",
+        "ephemeral-storage": "14Gi"
+       }
+      },
+      "readinessProbe": {
+       "httpGet": {
+        "path": "/",
+        "port": 8080
+       },
+       "periodSeconds": 5,
+       "timeoutSeconds": 3
+      },
+      "volumeMounts": [
+       {
+        "name": "work",
+        "mountPath": "/work"
+       }
+      ],
+      "securityContext": {
+       "runAsUser": 65532,
+       "runAsGroup": 65532,
+       "runAsNonRoot": true,
+       "allowPrivilegeEscalation": false,
+       "readOnlyRootFilesystem": true,
+       "capabilities": {
+        "drop": [
+         "ALL"
+        ]
+       }
+      }
+     }
+    ],
+    "volumes": [
+     {
+      "name": "work",
+      "emptyDir": {
+       "sizeLimit": "14Gi"
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

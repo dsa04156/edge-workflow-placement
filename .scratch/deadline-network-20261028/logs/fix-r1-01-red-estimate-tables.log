@@ -1,0 +1,81 @@
+test_logged_empty_estimate_tables_remain_valid (test_audit.Malformed.test_logged_empty_estimate_tables_remain_valid) ... ok
+test_malformed_snapshots_are_refused (test_audit.Malformed.test_malformed_snapshots_are_refused) ... ok
+test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) ... 
+  test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='compute_est', damage='missing') ... FAIL
+  test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='compute_est', damage='null') ... FAIL
+  test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='compute_est', damage='list') ... FAIL
+  test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='link_ms_per_byte', damage='missing') ... FAIL
+  test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='link_ms_per_byte', damage='null') ... FAIL
+  test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='link_ms_per_byte', damage='list') ... FAIL
+test_negative_estimate_durations_are_refused (test_audit.Malformed.test_negative_estimate_durations_are_refused) ... 
+  test_negative_estimate_durations_are_refused (test_audit.Malformed.test_negative_estimate_durations_are_refused) [compute] ... FAIL
+  test_negative_estimate_durations_are_refused (test_audit.Malformed.test_negative_estimate_durations_are_refused) [link] ... FAIL
+
+======================================================================
+FAIL: test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='compute_est', damage='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 126, in test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts
+    with self.subTest(table=table, damage=name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='compute_est', damage='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 126, in test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts
+    with self.subTest(table=table, damage=name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='compute_est', damage='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 126, in test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts
+    with self.subTest(table=table, damage=name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='link_ms_per_byte', damage='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 126, in test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts
+    with self.subTest(table=table, damage=name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='link_ms_per_byte', damage='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 126, in test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts
+    with self.subTest(table=table, damage=name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts (test_audit.Malformed.test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts) (table='link_ms_per_byte', damage='list')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 126, in test_missing_null_or_non_dict_estimate_tables_are_refused_not_read_as_no_receipts
+    with self.subTest(table=table, damage=name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_negative_estimate_durations_are_refused (test_audit.Malformed.test_negative_estimate_durations_are_refused) [compute]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 134, in test_negative_estimate_durations_are_refused
+    with self.subTest(name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_negative_estimate_durations_are_refused (test_audit.Malformed.test_negative_estimate_durations_are_refused) [link]
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_audit.py", line 134, in test_negative_estimate_durations_are_refused
+    with self.subTest(name), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.020s
+
+FAILED (failures=8)

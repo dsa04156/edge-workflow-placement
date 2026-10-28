@@ -1,0 +1,2004 @@
+{
+ "aggregation": {
+  "agreement": "guard plan == logged plan on the same snapshot, over rows with both a guard plan and a logged decision",
+  "anchor_kept": "guard plan == anchor, over rows with a guard plan (exact + fallback)",
+  "category": "no_snapshot: row has no observation (admission_drop / not_sent); fallback: guard falls back to the anchor on the reconstructed poll ages (exact); exact: guard decision fully determined by logged fields; non_reconstructible: the decision needs the queue estimate of a busy worker whose service_ms was not logged",
+  "logged_status": "the logged policy outcome of that row (its own plan); descriptive join only, never a guard outcome",
+  "missing_or_unsupported": "rows - (exact + fallback)",
+  "replay_fidelity": "greedy_comm / dag_reopt / dag_reopt_no_network re-decided on their own snapshot vs their logged decision (plan label and predicted_ms within 1e-06 ms, fallback reason)",
+  "totals": "sums of per-cell counts; by_policy/by_trace/by_block are the same sums over subsets",
+  "unit": "one ledger row (scheduled arrival) of one cell; requests inside a cell are not independent replicates"
+ },
+ "anchor_check": {
+  "dag_static_logged_equal_anchor": 577,
+  "dag_static_logged_rows": 577
+ },
+ "anchor_plan_label": "image_preprocess=cpu-e0|vision=jgpu-dev0009-cu130|audio_preprocess=cpu-e0|speech=jgpu-dev0009-cu130|fusion=jgpu-dev0009-cu130",
+ "arrivals": 3462,
+ "by_block": {
+  "0": {
+   "agree_with_logged": 509,
+   "category": {
+    "exact": 1379,
+    "fallback": 14,
+    "no_snapshot": 86,
+    "non_reconstructible": 279
+   },
+   "cells": 18,
+   "compared_with_logged": 1393,
+   "differ_from_logged": 884,
+   "guard_anchor_kept": 1382,
+   "guard_moved_from_anchor": 11,
+   "guard_plan_known": 1393,
+   "logged_plan_is_anchor": 644,
+   "logged_status_by_agreement": {
+    "agree|ok": 509,
+    "differ|late_ok": 96,
+    "differ|ok": 757,
+    "differ|timeout": 31
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 87,
+    "exact|ok": 1261,
+    "exact|timeout": 31,
+    "fallback|late_ok": 9,
+    "fallback|ok": 5,
+    "no_snapshot|admission_drop": 86,
+    "non_reconstructible|late_ok": 7,
+    "non_reconstructible|ok": 269,
+    "non_reconstructible|timeout": 3
+   },
+   "missing_or_unsupported": 365,
+   "reason": {
+    "anchor_within_budget": 1368,
+    "anchor_worker_busy_unlogged_service": 279,
+    "no_snapshot": 86,
+    "observation_fallback": 14,
+    "over_budget_reoptimized": 11
+   },
+   "replay_fidelity": {
+    "match": 646,
+    "non_reconstructible": 179,
+    "predicted_mismatch": 1
+   },
+   "rows": 1758
+  },
+  "1": {
+   "agree_with_logged": 445,
+   "category": {
+    "exact": 1242,
+    "fallback": 45,
+    "no_snapshot": 101,
+    "non_reconstructible": 316
+   },
+   "cells": 18,
+   "compared_with_logged": 1287,
+   "differ_from_logged": 842,
+   "guard_anchor_kept": 1280,
+   "guard_moved_from_anchor": 7,
+   "guard_plan_known": 1287,
+   "logged_plan_is_anchor": 548,
+   "logged_status_by_agreement": {
+    "agree|ok": 445,
+    "differ|late_ok": 107,
+    "differ|ok": 690,
+    "differ|timeout": 45
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 91,
+    "exact|ok": 1108,
+    "exact|timeout": 43,
+    "fallback|late_ok": 16,
+    "fallback|ok": 27,
+    "fallback|timeout": 2,
+    "no_snapshot|admission_drop": 101,
+    "non_reconstructible|late_ok": 55,
+    "non_reconstructible|ok": 259,
+    "non_reconstructible|timeout": 2
+   },
+   "missing_or_unsupported": 417,
+   "reason": {
+    "anchor_within_budget": 1235,
+    "anchor_worker_busy_unlogged_service": 316,
+    "no_snapshot": 101,
+    "observation_fallback": 45,
+    "over_budget_reoptimized": 7
+   },
+   "replay_fidelity": {
+    "match": 606,
+    "non_reconstructible": 181
+   },
+   "rows": 1704
+  }
+ },
+ "by_policy": {
+  "dag_reopt": {
+   "agree_with_logged": 174,
+   "category": {
+    "exact": 453,
+    "fallback": 17,
+    "no_snapshot": 17,
+    "non_reconstructible": 90
+   },
+   "cells": 6,
+   "compared_with_logged": 470,
+   "differ_from_logged": 296,
+   "guard_anchor_kept": 466,
+   "guard_moved_from_anchor": 4,
+   "guard_plan_known": 470,
+   "logged_plan_is_anchor": 198,
+   "logged_status_by_agreement": {
+    "agree|ok": 174,
+    "differ|late_ok": 27,
+    "differ|ok": 254,
+    "differ|timeout": 15
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 27,
+    "exact|ok": 411,
+    "exact|timeout": 15,
+    "fallback|ok": 17,
+    "no_snapshot|admission_drop": 17,
+    "non_reconstructible|late_ok": 14,
+    "non_reconstructible|ok": 73,
+    "non_reconstructible|timeout": 3
+   },
+   "missing_or_unsupported": 107,
+   "reason": {
+    "anchor_within_budget": 449,
+    "anchor_worker_busy_unlogged_service": 90,
+    "no_snapshot": 17,
+    "observation_fallback": 17,
+    "over_budget_reoptimized": 4
+   },
+   "replay_fidelity": {
+    "match": 447,
+    "non_reconstructible": 113
+   },
+   "rows": 577
+  },
+  "dag_reopt_hysteresis": {
+   "agree_with_logged": 184,
+   "category": {
+    "exact": 458,
+    "fallback": 11,
+    "no_snapshot": 28,
+    "non_reconstructible": 80
+   },
+   "cells": 6,
+   "compared_with_logged": 469,
+   "differ_from_logged": 285,
+   "guard_anchor_kept": 464,
+   "guard_moved_from_anchor": 5,
+   "guard_plan_known": 469,
+   "logged_plan_is_anchor": 225,
+   "logged_status_by_agreement": {
+    "agree|ok": 184,
+    "differ|late_ok": 35,
+    "differ|ok": 242,
+    "differ|timeout": 8
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 35,
+    "exact|ok": 415,
+    "exact|timeout": 8,
+    "fallback|ok": 11,
+    "no_snapshot|admission_drop": 28,
+    "non_reconstructible|ok": 80
+   },
+   "missing_or_unsupported": 108,
+   "reason": {
+    "anchor_within_budget": 453,
+    "anchor_worker_busy_unlogged_service": 80,
+    "no_snapshot": 28,
+    "observation_fallback": 11,
+    "over_budget_reoptimized": 5
+   },
+   "replay_fidelity": {},
+   "rows": 577
+  },
+  "dag_reopt_no_network": {
+   "agree_with_logged": 0,
+   "category": {
+    "exact": 428,
+    "fallback": 17,
+    "no_snapshot": 73,
+    "non_reconstructible": 59
+   },
+   "cells": 6,
+   "compared_with_logged": 445,
+   "differ_from_logged": 445,
+   "guard_anchor_kept": 445,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 445,
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 46,
+    "differ|ok": 365,
+    "differ|timeout": 34
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 32,
+    "exact|ok": 364,
+    "exact|timeout": 32,
+    "fallback|late_ok": 14,
+    "fallback|ok": 1,
+    "fallback|timeout": 2,
+    "no_snapshot|admission_drop": 73,
+    "non_reconstructible|late_ok": 9,
+    "non_reconstructible|ok": 50
+   },
+   "missing_or_unsupported": 132,
+   "reason": {
+    "anchor_within_budget": 428,
+    "anchor_worker_busy_unlogged_service": 59,
+    "no_snapshot": 73,
+    "observation_fallback": 17
+   },
+   "replay_fidelity": {
+    "match": 417,
+    "non_reconstructible": 86,
+    "predicted_mismatch": 1
+   },
+   "rows": 577
+  },
+  "dag_static": {
+   "agree_with_logged": 452,
+   "category": {
+    "exact": 456,
+    "non_reconstructible": 121
+   },
+   "cells": 6,
+   "compared_with_logged": 456,
+   "differ_from_logged": 4,
+   "guard_anchor_kept": 452,
+   "guard_moved_from_anchor": 4,
+   "guard_plan_known": 456,
+   "logged_plan_is_anchor": 577,
+   "logged_status_by_agreement": {
+    "agree|ok": 452,
+    "differ|ok": 4
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 456,
+    "non_reconstructible|ok": 121
+   },
+   "missing_or_unsupported": 121,
+   "reason": {
+    "anchor_within_budget": 452,
+    "anchor_worker_busy_unlogged_service": 121,
+    "over_budget_reoptimized": 4
+   },
+   "replay_fidelity": {},
+   "rows": 577
+  },
+  "greedy_comm": {
+   "agree_with_logged": 144,
+   "category": {
+    "exact": 385,
+    "fallback": 5,
+    "no_snapshot": 28,
+    "non_reconstructible": 159
+   },
+   "cells": 6,
+   "compared_with_logged": 390,
+   "differ_from_logged": 246,
+   "guard_anchor_kept": 385,
+   "guard_moved_from_anchor": 5,
+   "guard_plan_known": 390,
+   "logged_plan_is_anchor": 192,
+   "logged_status_by_agreement": {
+    "agree|ok": 144,
+    "differ|late_ok": 13,
+    "differ|ok": 225,
+    "differ|timeout": 8
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 10,
+    "exact|ok": 367,
+    "exact|timeout": 8,
+    "fallback|late_ok": 3,
+    "fallback|ok": 2,
+    "no_snapshot|admission_drop": 28,
+    "non_reconstructible|late_ok": 30,
+    "non_reconstructible|ok": 127,
+    "non_reconstructible|timeout": 2
+   },
+   "missing_or_unsupported": 187,
+   "reason": {
+    "anchor_within_budget": 380,
+    "anchor_worker_busy_unlogged_service": 159,
+    "no_snapshot": 28,
+    "observation_fallback": 5,
+    "over_budget_reoptimized": 5
+   },
+   "replay_fidelity": {
+    "match": 388,
+    "non_reconstructible": 161
+   },
+   "rows": 577
+  },
+  "task_fastest": {
+   "agree_with_logged": 0,
+   "category": {
+    "exact": 441,
+    "fallback": 9,
+    "no_snapshot": 41,
+    "non_reconstructible": 86
+   },
+   "cells": 6,
+   "compared_with_logged": 450,
+   "differ_from_logged": 450,
+   "guard_anchor_kept": 450,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 450,
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 82,
+    "differ|ok": 357,
+    "differ|timeout": 11
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 74,
+    "exact|ok": 356,
+    "exact|timeout": 11,
+    "fallback|late_ok": 8,
+    "fallback|ok": 1,
+    "no_snapshot|admission_drop": 41,
+    "non_reconstructible|late_ok": 9,
+    "non_reconstructible|ok": 77
+   },
+   "missing_or_unsupported": 127,
+   "reason": {
+    "anchor_within_budget": 441,
+    "anchor_worker_busy_unlogged_service": 86,
+    "no_snapshot": 41,
+    "observation_fallback": 9
+   },
+   "replay_fidelity": {},
+   "rows": 577
+  }
+ },
+ "by_trace": {
+  "burst": {
+   "agree_with_logged": 357,
+   "category": {
+    "exact": 704,
+    "fallback": 55,
+    "no_snapshot": 89,
+    "non_reconstructible": 184
+   },
+   "cells": 12,
+   "compared_with_logged": 759,
+   "differ_from_logged": 402,
+   "guard_anchor_kept": 757,
+   "guard_moved_from_anchor": 2,
+   "guard_plan_known": 759,
+   "logged_plan_is_anchor": 460,
+   "logged_status_by_agreement": {
+    "agree|ok": 357,
+    "differ|late_ok": 101,
+    "differ|ok": 257,
+    "differ|timeout": 44
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 76,
+    "exact|ok": 584,
+    "exact|timeout": 44,
+    "fallback|late_ok": 25,
+    "fallback|ok": 30,
+    "no_snapshot|admission_drop": 89,
+    "non_reconstructible|late_ok": 34,
+    "non_reconstructible|ok": 145,
+    "non_reconstructible|timeout": 5
+   },
+   "missing_or_unsupported": 273,
+   "reason": {
+    "anchor_within_budget": 702,
+    "anchor_worker_busy_unlogged_service": 184,
+    "no_snapshot": 89,
+    "observation_fallback": 55,
+    "over_budget_reoptimized": 2
+   },
+   "replay_fidelity": {
+    "match": 342,
+    "non_reconstructible": 108
+   },
+   "rows": 1032
+  },
+  "slow": {
+   "agree_with_logged": 400,
+   "category": {
+    "exact": 957,
+    "fallback": 4,
+    "no_snapshot": 98,
+    "non_reconstructible": 231
+   },
+   "cells": 12,
+   "compared_with_logged": 961,
+   "differ_from_logged": 561,
+   "guard_anchor_kept": 952,
+   "guard_moved_from_anchor": 9,
+   "guard_plan_known": 961,
+   "logged_plan_is_anchor": 496,
+   "logged_status_by_agreement": {
+    "agree|ok": 400,
+    "differ|late_ok": 102,
+    "differ|ok": 427,
+    "differ|timeout": 32
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 102,
+    "exact|ok": 825,
+    "exact|timeout": 30,
+    "fallback|ok": 2,
+    "fallback|timeout": 2,
+    "no_snapshot|admission_drop": 98,
+    "non_reconstructible|late_ok": 28,
+    "non_reconstructible|ok": 203
+   },
+   "missing_or_unsupported": 329,
+   "reason": {
+    "anchor_within_budget": 948,
+    "anchor_worker_busy_unlogged_service": 231,
+    "no_snapshot": 98,
+    "observation_fallback": 4,
+    "over_budget_reoptimized": 9
+   },
+   "replay_fidelity": {
+    "match": 454,
+    "non_reconstructible": 139
+   },
+   "rows": 1290
+  },
+  "stable": {
+   "agree_with_logged": 197,
+   "category": {
+    "exact": 960,
+    "non_reconstructible": 180
+   },
+   "cells": 12,
+   "compared_with_logged": 960,
+   "differ_from_logged": 763,
+   "guard_anchor_kept": 953,
+   "guard_moved_from_anchor": 7,
+   "guard_plan_known": 960,
+   "logged_plan_is_anchor": 236,
+   "logged_status_by_agreement": {
+    "agree|ok": 197,
+    "differ|ok": 763
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 960,
+    "non_reconstructible|ok": 180
+   },
+   "missing_or_unsupported": 180,
+   "reason": {
+    "anchor_within_budget": 953,
+    "anchor_worker_busy_unlogged_service": 180,
+    "over_budget_reoptimized": 7
+   },
+   "replay_fidelity": {
+    "match": 456,
+    "non_reconstructible": 113,
+    "predicted_mismatch": 1
+   },
+   "rows": 1140
+  }
+ },
+ "cell_count": 36,
+ "cells": [
+  {
+   "agree_with_logged": 32,
+   "block": 0,
+   "category": {
+    "exact": 52,
+    "fallback": 3,
+    "no_snapshot": 11,
+    "non_reconstructible": 21
+   },
+   "compared_with_logged": 55,
+   "differ_from_logged": 23,
+   "guard_anchor_kept": 55,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 55,
+   "label": "b0-burst-greedy_comm",
+   "logged_plan_is_anchor": 46,
+   "logged_status_by_agreement": {
+    "agree|ok": 32,
+    "differ|late_ok": 1,
+    "differ|ok": 16,
+    "differ|timeout": 6
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 46,
+    "exact|timeout": 6,
+    "fallback|late_ok": 1,
+    "fallback|ok": 2,
+    "no_snapshot|admission_drop": 11,
+    "non_reconstructible|ok": 19,
+    "non_reconstructible|timeout": 2
+   },
+   "missing_or_unsupported": 32,
+   "policy": "greedy_comm",
+   "reason": {
+    "anchor_within_budget": 52,
+    "anchor_worker_busy_unlogged_service": 21,
+    "no_snapshot": 11,
+    "observation_fallback": 3
+   },
+   "replay_fidelity": {
+    "match": 55,
+    "non_reconstructible": 21
+   },
+   "rows": 87,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 0,
+   "category": {
+    "exact": 59,
+    "fallback": 7,
+    "no_snapshot": 15,
+    "non_reconstructible": 6
+   },
+   "compared_with_logged": 66,
+   "differ_from_logged": 66,
+   "guard_anchor_kept": 66,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 66,
+   "label": "b0-burst-dag_reopt_no_network",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 13,
+    "differ|ok": 44,
+    "differ|timeout": 9
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 7,
+    "exact|ok": 43,
+    "exact|timeout": 9,
+    "fallback|late_ok": 6,
+    "fallback|ok": 1,
+    "no_snapshot|admission_drop": 15,
+    "non_reconstructible|late_ok": 3,
+    "non_reconstructible|ok": 3
+   },
+   "missing_or_unsupported": 21,
+   "policy": "dag_reopt_no_network",
+   "reason": {
+    "anchor_within_budget": 59,
+    "anchor_worker_busy_unlogged_service": 6,
+    "no_snapshot": 15,
+    "observation_fallback": 7
+   },
+   "replay_fidelity": {
+    "match": 60,
+    "non_reconstructible": 12
+   },
+   "rows": 87,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 62,
+   "block": 0,
+   "category": {
+    "exact": 62,
+    "non_reconstructible": 25
+   },
+   "compared_with_logged": 62,
+   "differ_from_logged": 0,
+   "guard_anchor_kept": 62,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 62,
+   "label": "b0-burst-dag_static",
+   "logged_plan_is_anchor": 87,
+   "logged_status_by_agreement": {
+    "agree|ok": 62
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 62,
+    "non_reconstructible|ok": 25
+   },
+   "missing_or_unsupported": 25,
+   "policy": "dag_static",
+   "reason": {
+    "anchor_within_budget": 62,
+    "anchor_worker_busy_unlogged_service": 25
+   },
+   "replay_fidelity": {},
+   "rows": 87,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 41,
+   "block": 0,
+   "category": {
+    "exact": 70,
+    "fallback": 1,
+    "no_snapshot": 4,
+    "non_reconstructible": 12
+   },
+   "compared_with_logged": 71,
+   "differ_from_logged": 30,
+   "guard_anchor_kept": 71,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 71,
+   "label": "b0-burst-dag_reopt",
+   "logged_plan_is_anchor": 51,
+   "logged_status_by_agreement": {
+    "agree|ok": 41,
+    "differ|late_ok": 9,
+    "differ|ok": 20,
+    "differ|timeout": 1
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 9,
+    "exact|ok": 60,
+    "exact|timeout": 1,
+    "fallback|ok": 1,
+    "no_snapshot|admission_drop": 4,
+    "non_reconstructible|ok": 11,
+    "non_reconstructible|timeout": 1
+   },
+   "missing_or_unsupported": 16,
+   "policy": "dag_reopt",
+   "reason": {
+    "anchor_within_budget": 70,
+    "anchor_worker_busy_unlogged_service": 12,
+    "no_snapshot": 4,
+    "observation_fallback": 1
+   },
+   "replay_fidelity": {
+    "match": 68,
+    "non_reconstructible": 15
+   },
+   "rows": 87,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 0,
+   "category": {
+    "exact": 61,
+    "fallback": 3,
+    "no_snapshot": 13,
+    "non_reconstructible": 10
+   },
+   "compared_with_logged": 64,
+   "differ_from_logged": 64,
+   "guard_anchor_kept": 64,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 64,
+   "label": "b0-burst-task_fastest",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 18,
+    "differ|ok": 40,
+    "differ|timeout": 6
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 16,
+    "exact|ok": 39,
+    "exact|timeout": 6,
+    "fallback|late_ok": 2,
+    "fallback|ok": 1,
+    "no_snapshot|admission_drop": 13,
+    "non_reconstructible|ok": 10
+   },
+   "missing_or_unsupported": 23,
+   "policy": "task_fastest",
+   "reason": {
+    "anchor_within_budget": 61,
+    "anchor_worker_busy_unlogged_service": 10,
+    "no_snapshot": 13,
+    "observation_fallback": 3
+   },
+   "replay_fidelity": {},
+   "rows": 87,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 57,
+   "block": 0,
+   "category": {
+    "exact": 74,
+    "non_reconstructible": 13
+   },
+   "compared_with_logged": 74,
+   "differ_from_logged": 17,
+   "guard_anchor_kept": 74,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 74,
+   "label": "b0-burst-dag_reopt_hysteresis",
+   "logged_plan_is_anchor": 70,
+   "logged_status_by_agreement": {
+    "agree|ok": 57,
+    "differ|late_ok": 1,
+    "differ|ok": 16
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 1,
+    "exact|ok": 73,
+    "non_reconstructible|ok": 13
+   },
+   "missing_or_unsupported": 13,
+   "policy": "dag_reopt_hysteresis",
+   "reason": {
+    "anchor_within_budget": 74,
+    "anchor_worker_busy_unlogged_service": 13
+   },
+   "replay_fidelity": {},
+   "rows": 87,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 43,
+   "block": 0,
+   "category": {
+    "exact": 89,
+    "non_reconstructible": 14
+   },
+   "compared_with_logged": 89,
+   "differ_from_logged": 46,
+   "guard_anchor_kept": 89,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 89,
+   "label": "b0-slow-dag_reopt",
+   "logged_plan_is_anchor": 55,
+   "logged_status_by_agreement": {
+    "agree|ok": 43,
+    "differ|late_ok": 8,
+    "differ|ok": 36,
+    "differ|timeout": 2
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 8,
+    "exact|ok": 79,
+    "exact|timeout": 2,
+    "non_reconstructible|ok": 14
+   },
+   "missing_or_unsupported": 14,
+   "policy": "dag_reopt",
+   "reason": {
+    "anchor_within_budget": 89,
+    "anchor_worker_busy_unlogged_service": 14
+   },
+   "replay_fidelity": {
+    "match": 88,
+    "non_reconstructible": 15
+   },
+   "rows": 103,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 0,
+   "category": {
+    "exact": 87,
+    "no_snapshot": 9,
+    "non_reconstructible": 7
+   },
+   "compared_with_logged": 87,
+   "differ_from_logged": 87,
+   "guard_anchor_kept": 87,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 87,
+   "label": "b0-slow-task_fastest",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 19,
+    "differ|ok": 68
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 19,
+    "exact|ok": 68,
+    "no_snapshot|admission_drop": 9,
+    "non_reconstructible|late_ok": 2,
+    "non_reconstructible|ok": 5
+   },
+   "missing_or_unsupported": 16,
+   "policy": "task_fastest",
+   "reason": {
+    "anchor_within_budget": 87,
+    "anchor_worker_busy_unlogged_service": 7,
+    "no_snapshot": 9
+   },
+   "replay_fidelity": {},
+   "rows": 103,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 35,
+   "block": 0,
+   "category": {
+    "exact": 72,
+    "no_snapshot": 11,
+    "non_reconstructible": 20
+   },
+   "compared_with_logged": 72,
+   "differ_from_logged": 37,
+   "guard_anchor_kept": 71,
+   "guard_moved_from_anchor": 1,
+   "guard_plan_known": 72,
+   "label": "b0-slow-dag_reopt_hysteresis",
+   "logged_plan_is_anchor": 44,
+   "logged_status_by_agreement": {
+    "agree|ok": 35,
+    "differ|late_ok": 10,
+    "differ|ok": 27
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 10,
+    "exact|ok": 62,
+    "no_snapshot|admission_drop": 11,
+    "non_reconstructible|ok": 20
+   },
+   "missing_or_unsupported": 31,
+   "policy": "dag_reopt_hysteresis",
+   "reason": {
+    "anchor_within_budget": 71,
+    "anchor_worker_busy_unlogged_service": 20,
+    "no_snapshot": 11,
+    "over_budget_reoptimized": 1
+   },
+   "replay_fidelity": {},
+   "rows": 103,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 46,
+   "block": 0,
+   "category": {
+    "exact": 82,
+    "no_snapshot": 3,
+    "non_reconstructible": 18
+   },
+   "compared_with_logged": 82,
+   "differ_from_logged": 36,
+   "guard_anchor_kept": 82,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 82,
+   "label": "b0-slow-greedy_comm",
+   "logged_plan_is_anchor": 51,
+   "logged_status_by_agreement": {
+    "agree|ok": 46,
+    "differ|late_ok": 6,
+    "differ|ok": 30
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 6,
+    "exact|ok": 76,
+    "no_snapshot|admission_drop": 3,
+    "non_reconstructible|ok": 18
+   },
+   "missing_or_unsupported": 21,
+   "policy": "greedy_comm",
+   "reason": {
+    "anchor_within_budget": 82,
+    "anchor_worker_busy_unlogged_service": 18,
+    "no_snapshot": 3
+   },
+   "replay_fidelity": {
+    "match": 81,
+    "non_reconstructible": 19
+   },
+   "rows": 103,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 0,
+   "category": {
+    "exact": 76,
+    "no_snapshot": 20,
+    "non_reconstructible": 7
+   },
+   "compared_with_logged": 76,
+   "differ_from_logged": 76,
+   "guard_anchor_kept": 76,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 76,
+   "label": "b0-slow-dag_reopt_no_network",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 11,
+    "differ|ok": 58,
+    "differ|timeout": 7
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 11,
+    "exact|ok": 58,
+    "exact|timeout": 7,
+    "no_snapshot|admission_drop": 20,
+    "non_reconstructible|late_ok": 2,
+    "non_reconstructible|ok": 5
+   },
+   "missing_or_unsupported": 27,
+   "policy": "dag_reopt_no_network",
+   "reason": {
+    "anchor_within_budget": 76,
+    "anchor_worker_busy_unlogged_service": 7,
+    "no_snapshot": 20
+   },
+   "replay_fidelity": {
+    "match": 67,
+    "non_reconstructible": 16
+   },
+   "rows": 103,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 83,
+   "block": 0,
+   "category": {
+    "exact": 86,
+    "non_reconstructible": 17
+   },
+   "compared_with_logged": 86,
+   "differ_from_logged": 3,
+   "guard_anchor_kept": 83,
+   "guard_moved_from_anchor": 3,
+   "guard_plan_known": 86,
+   "label": "b0-slow-dag_static",
+   "logged_plan_is_anchor": 103,
+   "logged_status_by_agreement": {
+    "agree|ok": 83,
+    "differ|ok": 3
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 86,
+    "non_reconstructible|ok": 17
+   },
+   "missing_or_unsupported": 17,
+   "policy": "dag_static",
+   "reason": {
+    "anchor_within_budget": 83,
+    "anchor_worker_busy_unlogged_service": 17,
+    "over_budget_reoptimized": 3
+   },
+   "replay_fidelity": {},
+   "rows": 103,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 84,
+   "block": 0,
+   "category": {
+    "exact": 84,
+    "non_reconstructible": 19
+   },
+   "compared_with_logged": 84,
+   "differ_from_logged": 0,
+   "guard_anchor_kept": 84,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 84,
+   "label": "b0-stable-dag_static",
+   "logged_plan_is_anchor": 103,
+   "logged_status_by_agreement": {
+    "agree|ok": 84
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 84,
+    "non_reconstructible|ok": 19
+   },
+   "missing_or_unsupported": 19,
+   "policy": "dag_static",
+   "reason": {
+    "anchor_within_budget": 84,
+    "anchor_worker_busy_unlogged_service": 19
+   },
+   "replay_fidelity": {},
+   "rows": 103,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 13,
+   "block": 0,
+   "category": {
+    "exact": 81,
+    "non_reconstructible": 22
+   },
+   "compared_with_logged": 81,
+   "differ_from_logged": 68,
+   "guard_anchor_kept": 81,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 81,
+   "label": "b0-stable-dag_reopt",
+   "logged_plan_is_anchor": 13,
+   "logged_status_by_agreement": {
+    "agree|ok": 13,
+    "differ|ok": 68
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 81,
+    "non_reconstructible|ok": 22
+   },
+   "missing_or_unsupported": 22,
+   "policy": "dag_reopt",
+   "reason": {
+    "anchor_within_budget": 81,
+    "anchor_worker_busy_unlogged_service": 22
+   },
+   "replay_fidelity": {
+    "match": 73,
+    "non_reconstructible": 30
+   },
+   "rows": 103,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 0,
+   "category": {
+    "exact": 91,
+    "non_reconstructible": 12
+   },
+   "compared_with_logged": 91,
+   "differ_from_logged": 91,
+   "guard_anchor_kept": 91,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 91,
+   "label": "b0-stable-task_fastest",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|ok": 91
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 91,
+    "non_reconstructible|ok": 12
+   },
+   "missing_or_unsupported": 12,
+   "policy": "task_fastest",
+   "reason": {
+    "anchor_within_budget": 91,
+    "anchor_worker_busy_unlogged_service": 12
+   },
+   "replay_fidelity": {},
+   "rows": 103,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 5,
+   "block": 0,
+   "category": {
+    "exact": 90,
+    "non_reconstructible": 13
+   },
+   "compared_with_logged": 90,
+   "differ_from_logged": 85,
+   "guard_anchor_kept": 86,
+   "guard_moved_from_anchor": 4,
+   "guard_plan_known": 90,
+   "label": "b0-stable-dag_reopt_hysteresis",
+   "logged_plan_is_anchor": 8,
+   "logged_status_by_agreement": {
+    "agree|ok": 5,
+    "differ|ok": 85
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 90,
+    "non_reconstructible|ok": 13
+   },
+   "missing_or_unsupported": 13,
+   "policy": "dag_reopt_hysteresis",
+   "reason": {
+    "anchor_within_budget": 86,
+    "anchor_worker_busy_unlogged_service": 13,
+    "over_budget_reoptimized": 4
+   },
+   "replay_fidelity": {},
+   "rows": 103,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 8,
+   "block": 0,
+   "category": {
+    "exact": 73,
+    "non_reconstructible": 30
+   },
+   "compared_with_logged": 73,
+   "differ_from_logged": 65,
+   "guard_anchor_kept": 70,
+   "guard_moved_from_anchor": 3,
+   "guard_plan_known": 73,
+   "label": "b0-stable-greedy_comm",
+   "logged_plan_is_anchor": 13,
+   "logged_status_by_agreement": {
+    "agree|ok": 8,
+    "differ|ok": 65
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 73,
+    "non_reconstructible|ok": 30
+   },
+   "missing_or_unsupported": 30,
+   "policy": "greedy_comm",
+   "reason": {
+    "anchor_within_budget": 70,
+    "anchor_worker_busy_unlogged_service": 30,
+    "over_budget_reoptimized": 3
+   },
+   "replay_fidelity": {
+    "match": 73,
+    "non_reconstructible": 30
+   },
+   "rows": 103,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 0,
+   "category": {
+    "exact": 90,
+    "non_reconstructible": 13
+   },
+   "compared_with_logged": 90,
+   "differ_from_logged": 90,
+   "guard_anchor_kept": 90,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 90,
+   "label": "b0-stable-dag_reopt_no_network",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|ok": 90
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 90,
+    "non_reconstructible|ok": 13
+   },
+   "missing_or_unsupported": 13,
+   "policy": "dag_reopt_no_network",
+   "reason": {
+    "anchor_within_budget": 90,
+    "anchor_worker_busy_unlogged_service": 13
+   },
+   "replay_fidelity": {
+    "match": 81,
+    "non_reconstructible": 21,
+    "predicted_mismatch": 1
+   },
+   "rows": 103,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 1,
+   "category": {
+    "exact": 61,
+    "fallback": 6,
+    "no_snapshot": 10,
+    "non_reconstructible": 8
+   },
+   "compared_with_logged": 67,
+   "differ_from_logged": 67,
+   "guard_anchor_kept": 67,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 67,
+   "label": "b1-burst-task_fastest",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 26,
+    "differ|ok": 36,
+    "differ|timeout": 5
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 20,
+    "exact|ok": 36,
+    "exact|timeout": 5,
+    "fallback|late_ok": 6,
+    "no_snapshot|admission_drop": 10,
+    "non_reconstructible|ok": 8
+   },
+   "missing_or_unsupported": 18,
+   "policy": "task_fastest",
+   "reason": {
+    "anchor_within_budget": 61,
+    "anchor_worker_busy_unlogged_service": 8,
+    "no_snapshot": 10,
+    "observation_fallback": 6
+   },
+   "replay_fidelity": {},
+   "rows": 85,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 53,
+   "block": 1,
+   "category": {
+    "exact": 59,
+    "fallback": 11,
+    "non_reconstructible": 15
+   },
+   "compared_with_logged": 70,
+   "differ_from_logged": 17,
+   "guard_anchor_kept": 70,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 70,
+   "label": "b1-burst-dag_reopt_hysteresis",
+   "logged_plan_is_anchor": 65,
+   "logged_status_by_agreement": {
+    "agree|ok": 53,
+    "differ|late_ok": 10,
+    "differ|ok": 7
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 10,
+    "exact|ok": 49,
+    "fallback|ok": 11,
+    "non_reconstructible|ok": 15
+   },
+   "missing_or_unsupported": 15,
+   "policy": "dag_reopt_hysteresis",
+   "reason": {
+    "anchor_within_budget": 59,
+    "anchor_worker_busy_unlogged_service": 15,
+    "observation_fallback": 11
+   },
+   "replay_fidelity": {},
+   "rows": 85,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 8,
+   "block": 1,
+   "category": {
+    "exact": 26,
+    "fallback": 2,
+    "no_snapshot": 14,
+    "non_reconstructible": 43
+   },
+   "compared_with_logged": 28,
+   "differ_from_logged": 20,
+   "guard_anchor_kept": 26,
+   "guard_moved_from_anchor": 2,
+   "guard_plan_known": 28,
+   "label": "b1-burst-greedy_comm",
+   "logged_plan_is_anchor": 13,
+   "logged_status_by_agreement": {
+    "agree|ok": 8,
+    "differ|late_ok": 6,
+    "differ|ok": 12,
+    "differ|timeout": 2
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 4,
+    "exact|ok": 20,
+    "exact|timeout": 2,
+    "fallback|late_ok": 2,
+    "no_snapshot|admission_drop": 14,
+    "non_reconstructible|late_ok": 30,
+    "non_reconstructible|ok": 13
+   },
+   "missing_or_unsupported": 57,
+   "policy": "greedy_comm",
+   "reason": {
+    "anchor_within_budget": 24,
+    "anchor_worker_busy_unlogged_service": 43,
+    "no_snapshot": 14,
+    "observation_fallback": 2,
+    "over_budget_reoptimized": 2
+   },
+   "replay_fidelity": {
+    "match": 27,
+    "non_reconstructible": 44
+   },
+   "rows": 85,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 1,
+   "category": {
+    "exact": 56,
+    "fallback": 8,
+    "no_snapshot": 19,
+    "non_reconstructible": 2
+   },
+   "compared_with_logged": 64,
+   "differ_from_logged": 64,
+   "guard_anchor_kept": 64,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 64,
+   "label": "b1-burst-dag_reopt_no_network",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 14,
+    "differ|ok": 40,
+    "differ|timeout": 10
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 6,
+    "exact|ok": 40,
+    "exact|timeout": 10,
+    "fallback|late_ok": 8,
+    "no_snapshot|admission_drop": 19,
+    "non_reconstructible|ok": 2
+   },
+   "missing_or_unsupported": 21,
+   "policy": "dag_reopt_no_network",
+   "reason": {
+    "anchor_within_budget": 56,
+    "anchor_worker_busy_unlogged_service": 2,
+    "no_snapshot": 19,
+    "observation_fallback": 8
+   },
+   "replay_fidelity": {
+    "match": 61,
+    "non_reconstructible": 5
+   },
+   "rows": 85,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 61,
+   "block": 1,
+   "category": {
+    "exact": 61,
+    "non_reconstructible": 24
+   },
+   "compared_with_logged": 61,
+   "differ_from_logged": 0,
+   "guard_anchor_kept": 61,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 61,
+   "label": "b1-burst-dag_static",
+   "logged_plan_is_anchor": 85,
+   "logged_status_by_agreement": {
+    "agree|ok": 61
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 61,
+    "non_reconstructible|ok": 24
+   },
+   "missing_or_unsupported": 24,
+   "policy": "dag_static",
+   "reason": {
+    "anchor_within_budget": 61,
+    "anchor_worker_busy_unlogged_service": 24
+   },
+   "replay_fidelity": {},
+   "rows": 85,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 43,
+   "block": 1,
+   "category": {
+    "exact": 63,
+    "fallback": 14,
+    "no_snapshot": 3,
+    "non_reconstructible": 5
+   },
+   "compared_with_logged": 77,
+   "differ_from_logged": 34,
+   "guard_anchor_kept": 77,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 77,
+   "label": "b1-burst-dag_reopt",
+   "logged_plan_is_anchor": 43,
+   "logged_status_by_agreement": {
+    "agree|ok": 43,
+    "differ|late_ok": 3,
+    "differ|ok": 26,
+    "differ|timeout": 5
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 3,
+    "exact|ok": 55,
+    "exact|timeout": 5,
+    "fallback|ok": 14,
+    "no_snapshot|admission_drop": 3,
+    "non_reconstructible|late_ok": 1,
+    "non_reconstructible|ok": 2,
+    "non_reconstructible|timeout": 2
+   },
+   "missing_or_unsupported": 8,
+   "policy": "dag_reopt",
+   "reason": {
+    "anchor_within_budget": 63,
+    "anchor_worker_busy_unlogged_service": 5,
+    "no_snapshot": 3,
+    "observation_fallback": 14
+   },
+   "replay_fidelity": {
+    "match": 71,
+    "non_reconstructible": 11
+   },
+   "rows": 85,
+   "trace": "burst"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 1,
+   "category": {
+    "exact": 65,
+    "fallback": 2,
+    "no_snapshot": 19,
+    "non_reconstructible": 26
+   },
+   "compared_with_logged": 67,
+   "differ_from_logged": 67,
+   "guard_anchor_kept": 67,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 67,
+   "label": "b1-slow-dag_reopt_no_network",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 8,
+    "differ|ok": 51,
+    "differ|timeout": 8
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 8,
+    "exact|ok": 51,
+    "exact|timeout": 6,
+    "fallback|timeout": 2,
+    "no_snapshot|admission_drop": 19,
+    "non_reconstructible|late_ok": 4,
+    "non_reconstructible|ok": 22
+   },
+   "missing_or_unsupported": 45,
+   "policy": "dag_reopt_no_network",
+   "reason": {
+    "anchor_within_budget": 65,
+    "anchor_worker_busy_unlogged_service": 26,
+    "no_snapshot": 19,
+    "observation_fallback": 2
+   },
+   "replay_fidelity": {
+    "match": 66,
+    "non_reconstructible": 27
+   },
+   "rows": 112,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 85,
+   "block": 1,
+   "category": {
+    "exact": 86,
+    "non_reconstructible": 26
+   },
+   "compared_with_logged": 86,
+   "differ_from_logged": 1,
+   "guard_anchor_kept": 85,
+   "guard_moved_from_anchor": 1,
+   "guard_plan_known": 86,
+   "label": "b1-slow-dag_static",
+   "logged_plan_is_anchor": 112,
+   "logged_status_by_agreement": {
+    "agree|ok": 85,
+    "differ|ok": 1
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 86,
+    "non_reconstructible|ok": 26
+   },
+   "missing_or_unsupported": 26,
+   "policy": "dag_static",
+   "reason": {
+    "anchor_within_budget": 85,
+    "anchor_worker_busy_unlogged_service": 26,
+    "over_budget_reoptimized": 1
+   },
+   "replay_fidelity": {},
+   "rows": 112,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 32,
+   "block": 1,
+   "category": {
+    "exact": 73,
+    "fallback": 2,
+    "no_snapshot": 10,
+    "non_reconstructible": 27
+   },
+   "compared_with_logged": 75,
+   "differ_from_logged": 43,
+   "guard_anchor_kept": 71,
+   "guard_moved_from_anchor": 4,
+   "guard_plan_known": 75,
+   "label": "b1-slow-dag_reopt",
+   "logged_plan_is_anchor": 34,
+   "logged_status_by_agreement": {
+    "agree|ok": 32,
+    "differ|late_ok": 7,
+    "differ|ok": 29,
+    "differ|timeout": 7
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 7,
+    "exact|ok": 59,
+    "exact|timeout": 7,
+    "fallback|ok": 2,
+    "no_snapshot|admission_drop": 10,
+    "non_reconstructible|late_ok": 13,
+    "non_reconstructible|ok": 14
+   },
+   "missing_or_unsupported": 37,
+   "policy": "dag_reopt",
+   "reason": {
+    "anchor_within_budget": 69,
+    "anchor_worker_busy_unlogged_service": 27,
+    "no_snapshot": 10,
+    "observation_fallback": 2,
+    "over_budget_reoptimized": 4
+   },
+   "replay_fidelity": {
+    "match": 73,
+    "non_reconstructible": 29
+   },
+   "rows": 112,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 1,
+   "category": {
+    "exact": 76,
+    "no_snapshot": 9,
+    "non_reconstructible": 27
+   },
+   "compared_with_logged": 76,
+   "differ_from_logged": 76,
+   "guard_anchor_kept": 76,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 76,
+   "label": "b1-slow-task_fastest",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|late_ok": 19,
+    "differ|ok": 57
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 19,
+    "exact|ok": 57,
+    "no_snapshot|admission_drop": 9,
+    "non_reconstructible|late_ok": 7,
+    "non_reconstructible|ok": 20
+   },
+   "missing_or_unsupported": 36,
+   "policy": "task_fastest",
+   "reason": {
+    "anchor_within_budget": 76,
+    "anchor_worker_busy_unlogged_service": 27,
+    "no_snapshot": 9
+   },
+   "replay_fidelity": {},
+   "rows": 112,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 28,
+   "block": 1,
+   "category": {
+    "exact": 86,
+    "no_snapshot": 17,
+    "non_reconstructible": 9
+   },
+   "compared_with_logged": 86,
+   "differ_from_logged": 58,
+   "guard_anchor_kept": 86,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 86,
+   "label": "b1-slow-dag_reopt_hysteresis",
+   "logged_plan_is_anchor": 30,
+   "logged_status_by_agreement": {
+    "agree|ok": 28,
+    "differ|late_ok": 14,
+    "differ|ok": 36,
+    "differ|timeout": 8
+   },
+   "logged_status_by_guard_category": {
+    "exact|late_ok": 14,
+    "exact|ok": 64,
+    "exact|timeout": 8,
+    "no_snapshot|admission_drop": 17,
+    "non_reconstructible|ok": 9
+   },
+   "missing_or_unsupported": 26,
+   "policy": "dag_reopt_hysteresis",
+   "reason": {
+    "anchor_within_budget": 86,
+    "anchor_worker_busy_unlogged_service": 9,
+    "no_snapshot": 17
+   },
+   "replay_fidelity": {},
+   "rows": 112,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 48,
+   "block": 1,
+   "category": {
+    "exact": 79,
+    "non_reconstructible": 33
+   },
+   "compared_with_logged": 79,
+   "differ_from_logged": 31,
+   "guard_anchor_kept": 79,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 79,
+   "label": "b1-slow-greedy_comm",
+   "logged_plan_is_anchor": 67,
+   "logged_status_by_agreement": {
+    "agree|ok": 48,
+    "differ|ok": 31
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 79,
+    "non_reconstructible|ok": 33
+   },
+   "missing_or_unsupported": 33,
+   "policy": "greedy_comm",
+   "reason": {
+    "anchor_within_budget": 79,
+    "anchor_worker_busy_unlogged_service": 33
+   },
+   "replay_fidelity": {
+    "match": 79,
+    "non_reconstructible": 33
+   },
+   "rows": 112,
+   "trace": "slow"
+  },
+  {
+   "agree_with_logged": 6,
+   "block": 1,
+   "category": {
+    "exact": 77,
+    "non_reconstructible": 10
+   },
+   "compared_with_logged": 77,
+   "differ_from_logged": 71,
+   "guard_anchor_kept": 77,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 77,
+   "label": "b1-stable-dag_reopt_hysteresis",
+   "logged_plan_is_anchor": 8,
+   "logged_status_by_agreement": {
+    "agree|ok": 6,
+    "differ|ok": 71
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 77,
+    "non_reconstructible|ok": 10
+   },
+   "missing_or_unsupported": 10,
+   "policy": "dag_reopt_hysteresis",
+   "reason": {
+    "anchor_within_budget": 77,
+    "anchor_worker_busy_unlogged_service": 10
+   },
+   "replay_fidelity": {},
+   "rows": 87,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 2,
+   "block": 1,
+   "category": {
+    "exact": 73,
+    "non_reconstructible": 14
+   },
+   "compared_with_logged": 73,
+   "differ_from_logged": 71,
+   "guard_anchor_kept": 73,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 73,
+   "label": "b1-stable-greedy_comm",
+   "logged_plan_is_anchor": 2,
+   "logged_status_by_agreement": {
+    "agree|ok": 2,
+    "differ|ok": 71
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 73,
+    "non_reconstructible|ok": 14
+   },
+   "missing_or_unsupported": 14,
+   "policy": "greedy_comm",
+   "reason": {
+    "anchor_within_budget": 73,
+    "anchor_worker_busy_unlogged_service": 14
+   },
+   "replay_fidelity": {
+    "match": 73,
+    "non_reconstructible": 14
+   },
+   "rows": 87,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 1,
+   "category": {
+    "exact": 82,
+    "non_reconstructible": 5
+   },
+   "compared_with_logged": 82,
+   "differ_from_logged": 82,
+   "guard_anchor_kept": 82,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 82,
+   "label": "b1-stable-dag_reopt_no_network",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|ok": 82
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 82,
+    "non_reconstructible|ok": 5
+   },
+   "missing_or_unsupported": 5,
+   "policy": "dag_reopt_no_network",
+   "reason": {
+    "anchor_within_budget": 82,
+    "anchor_worker_busy_unlogged_service": 5
+   },
+   "replay_fidelity": {
+    "match": 82,
+    "non_reconstructible": 5
+   },
+   "rows": 87,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 77,
+   "block": 1,
+   "category": {
+    "exact": 77,
+    "non_reconstructible": 10
+   },
+   "compared_with_logged": 77,
+   "differ_from_logged": 0,
+   "guard_anchor_kept": 77,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 77,
+   "label": "b1-stable-dag_static",
+   "logged_plan_is_anchor": 87,
+   "logged_status_by_agreement": {
+    "agree|ok": 77
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 77,
+    "non_reconstructible|ok": 10
+   },
+   "missing_or_unsupported": 10,
+   "policy": "dag_static",
+   "reason": {
+    "anchor_within_budget": 77,
+    "anchor_worker_busy_unlogged_service": 10
+   },
+   "replay_fidelity": {},
+   "rows": 87,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 2,
+   "block": 1,
+   "category": {
+    "exact": 77,
+    "non_reconstructible": 10
+   },
+   "compared_with_logged": 77,
+   "differ_from_logged": 75,
+   "guard_anchor_kept": 77,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 77,
+   "label": "b1-stable-dag_reopt",
+   "logged_plan_is_anchor": 2,
+   "logged_status_by_agreement": {
+    "agree|ok": 2,
+    "differ|ok": 75
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 77,
+    "non_reconstructible|ok": 10
+   },
+   "missing_or_unsupported": 10,
+   "policy": "dag_reopt",
+   "reason": {
+    "anchor_within_budget": 77,
+    "anchor_worker_busy_unlogged_service": 10
+   },
+   "replay_fidelity": {
+    "match": 74,
+    "non_reconstructible": 13
+   },
+   "rows": 87,
+   "trace": "stable"
+  },
+  {
+   "agree_with_logged": 0,
+   "block": 1,
+   "category": {
+    "exact": 65,
+    "non_reconstructible": 22
+   },
+   "compared_with_logged": 65,
+   "differ_from_logged": 65,
+   "guard_anchor_kept": 65,
+   "guard_moved_from_anchor": 0,
+   "guard_plan_known": 65,
+   "label": "b1-stable-task_fastest",
+   "logged_plan_is_anchor": 0,
+   "logged_status_by_agreement": {
+    "differ|ok": 65
+   },
+   "logged_status_by_guard_category": {
+    "exact|ok": 65,
+    "non_reconstructible|ok": 22
+   },
+   "missing_or_unsupported": 22,
+   "policy": "task_fastest",
+   "reason": {
+    "anchor_within_budget": 65,
+    "anchor_worker_busy_unlogged_service": 22
+   },
+   "replay_fidelity": {},
+   "rows": 87,
+   "trace": "stable"
+  }
+ ],
+ "claims": "none: no latency, deadline hit, goodput, completion or success rate of dag_deadline_guard is estimated; per-snapshot decisions are not a counterfactual trace",
+ "code_sha256": {
+  "audit.py": "fe759c124e4b3acd58aa377f94fb7913cb66c5d1331ce441d24fb0a8f639abf5",
+  "deadline_policies.py": "ae01b5f6a288c550f7c413bad43a66ce1ffc03cddb938ec9bebbd4fa94c6d9d0",
+  "frozen_unstable_policies.py": "f6ecfade9f52b6b2e70d4d39417b8086ac62f7e9a5e6ff9c6d9fd7cee0e88870"
+ },
+ "enumerated_plans": 144,
+ "input_sha256": {
+  "artifacts/unstable-network/plan-20261027T111532Z/plan.json": "ee0aba54e2dd92775e2e06526dcfa25e27562efbfc0c2b410beab6bd12e3c1e7",
+  "artifacts/unstable-network/un-collect-r3/cells.json": "aad4867b4549583c0683078f541eb445399110a2753471228edf22acb38562f2",
+  "artifacts/unstable-network/un-collect-r3/collection.json": "6c27f1797d2dfe649f2c3013b8b2d2c19031ff5139e57a77919eaead8c1289dc",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-burst-dag_reopt.json": "faf7f3dd5d3295ac9ae208da696c26db588281e3bcfcd3e9f4d933b43380748c",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-burst-dag_reopt_hysteresis.json": "13537f3cc2cf190830aa4ef6ab70899b124e6a2a74cf21d9c3937c25ab7c2230",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-burst-dag_reopt_no_network.json": "5c5961f350ee49041836bd333b303154879e8b00b443a0be96e2efcb68e1b2e9",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-burst-dag_static.json": "37776bb7d672e4eb402403be82ca50dfbfe8ebafb94add7e68a1cfd4047f76ff",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-burst-greedy_comm.json": "87d7fe5ccf050be5c284262f73d1f7333e6815a1825c043f767d918ba26a7dd0",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-burst-task_fastest.json": "e56c4e7526e2eae624f1423c490bb387836772d1e9d97dc82c63873d4ed42037",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-slow-dag_reopt.json": "5033309593b3ac198f2c5a0dbaf7c0528e64e00ff4b293cf648812faee87418d",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-slow-dag_reopt_hysteresis.json": "e1f2f03517161656086c19dee79742f62c3e1dbaac40913893ae29fe4b8c2048",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-slow-dag_reopt_no_network.json": "3db2c06e2a72d10c260f141d7262c3479cd4c033f5c4b8a7edda6b77742e0fbc",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-slow-dag_static.json": "1955674085aa9f38f9ee6e1f65c0993dd582f9eb45dfe1e07504f3935159dff2",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-slow-greedy_comm.json": "70ec53a91108724a1633a13a06356922af64802c4b54a07435c9e7f28c44462c",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-slow-task_fastest.json": "d0011c3151ead430e2ae0750a21f7d4c2110f0c1252b3271e035d9aea00e5e2a",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-stable-dag_reopt.json": "969ce0b8abe72cbc33035ac011ef06eb79625035983777bb97756f88cb8f8045",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-stable-dag_reopt_hysteresis.json": "6fbee59db5eeae5364a61fd144590a52a6f5410ff806bca58e1c525f7faf0ffa",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-stable-dag_reopt_no_network.json": "cb02c82e5b539629fc894816e5fcd680c0b7121be0e084693ccfbdc534c410a1",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-stable-dag_static.json": "7553d7a6c55629f3d70091941645cb754ffdd9393d4a4e65755daec3b1a23a47",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-stable-greedy_comm.json": "b08ba3ed3ae280dc4ce9cded6ee62eefe2ccf3a3b60f5922f54ab754e1b198f1",
+  "artifacts/unstable-network/un-collect-r3/ledger-b0-stable-task_fastest.json": "8f9fa0af0ba064f84626c0ff80805db04943d3d74b0977a2cee1cc4e7ded067f",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-burst-dag_reopt.json": "3aa7393d3975201ed43f41a1efdc382248e3920bf672000e645ad0fe68e00c71",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-burst-dag_reopt_hysteresis.json": "d7fc38e1a815eee06c315e880bafe860bf893deb798f4adfbb5bf15c08d141d8",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-burst-dag_reopt_no_network.json": "64eab377821c32bcd6cb885134e8470462305e328818b9621de23fc40351a621",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-burst-dag_static.json": "334de22aeacad48df754adbc52f6d604b9ad46f8168fc42a20853b5278d4c6a4",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-burst-greedy_comm.json": "d49f06df6500110d31fa3e9c97b21809640d35c5dd414b79ad9f7b108e4fcb86",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-burst-task_fastest.json": "c18a1a793ec512a7e6097215851ef55de0759b76b14e1248604d59b14b796d4a",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-slow-dag_reopt.json": "c02fa85cf99c0ce96a5d43a0ad4c3801f35910f5dad1843b4da9b30ac356596d",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-slow-dag_reopt_hysteresis.json": "03776354110336e7a7cd43e9ceeeff6fa3250733d89ef71326d7b8fd3b774c34",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-slow-dag_reopt_no_network.json": "75bda94d9df7f25db0a46532d2999abf53b8c9285dddab157a7ed23abafa5aa8",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-slow-dag_static.json": "58b01f2f5a66ad6ce4f1a845b176f7d1bfa16984642d98eefd8f4d76ca91dd7b",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-slow-greedy_comm.json": "96ed15e95c3c6cb317aee67840f72e28b1da41a13ad3a6a44505013838224ac9",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-slow-task_fastest.json": "348128e19683f6d83ddb56a500c79942cd1fbfca8770ac7deb7066a97fa0a13f",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-stable-dag_reopt.json": "add33160ca9eaeb56a7c73a420502c8df7a084c1a2d1358149cd78e64ddc09ed",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-stable-dag_reopt_hysteresis.json": "c4e472983e99d9eedd38393569614fe10a1ab65a619cb260959d74d915a3354f",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-stable-dag_reopt_no_network.json": "f2a7e337feeeba7f1155e646361361860c797b0b35c8139a32d820d552fbfcfb",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-stable-dag_static.json": "7c9f133c044f5ea8710db1fae4b03c2751448ae28b6379593d38fcd398a04093",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-stable-greedy_comm.json": "cd6d1754ba78f9df4565ffbc2e67851433e8c0a418e0e635ebe9f9c561cd47af",
+  "artifacts/unstable-network/un-collect-r3/ledger-b1-stable-task_fastest.json": "c6417e570d9a1665b0609e47b3db2af8e0e1f499129a0de5bc22eb57d1aca94d",
+  "artifacts/unstable-network/un-collect-r3/live-candidates.json": "eff85633a64e35da065dd8ffab4eb92d6c5764e11e6695222faa6fa51d01dfab",
+  "artifacts/unstable-network/un-collect-r3/profile-good.json": "fae52022f3c89c5f88240cea80ca81c761eb00873b627c83481c62f0a6dcd64e",
+  "artifacts/unstable-network/un-collect-r3/release.json": "9226a7529b42ad9d5bab45b750d0873ea163ecf921ecc5e9556753e7a53d75c8",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-burst-dag_reopt.request.json": "f883672201da95203d690cdd2dfccf64fac278af4daa12743930f26b7736baeb",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-burst-dag_reopt_hysteresis.request.json": "109e6ad806aea78e711113f8c85b2e004ae1a0422372f7d0a8a9d20e7792f13a",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-burst-dag_reopt_no_network.request.json": "d19e14bdb1b9ed9c9e0d12a1bcf23e4c46e121b3c54259a2d8feeac3ba8bee7e",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-burst-dag_static.request.json": "a5473bef038e251835263515a7dba61b409b30d2b676f0e43ff7a6d6e939a926",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-burst-greedy_comm.request.json": "bcaa613b51c93a9cc2cc4ac357901e4851cd552698dc2d3c7ca188cd2ba6bdcb",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-burst-task_fastest.request.json": "95b1bbc47ad08f8a288e6971bfe509584968b469c05288cf5ff2287d474dd365",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-slow-dag_reopt.request.json": "055decff368f2ba1c953bf3c40eba6569d8ef128cd62322f11a5914f47d7e92b",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-slow-dag_reopt_hysteresis.request.json": "a062112cbbc3438170785186d63eb5beae9c66213c7eb042c751213fadc26b74",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-slow-dag_reopt_no_network.request.json": "402e950b2dad45a280d4b40a0882730e8eb64c48c49fd020bd604adb3a15c10a",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-slow-dag_static.request.json": "ec5e2e04624567ca85e23573e9393ba3f6f23c6ae956aa746e1a83dd82985196",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-slow-greedy_comm.request.json": "e87fb102de02141b1d44267705b0bd29e4740ea66326395ac216313d6b1aaf3a",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-slow-task_fastest.request.json": "b3d1ac0fb5ccb85fda0128c974864b30f1caa3b5885eda93aa2e4be2937f1723",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-stable-dag_reopt.request.json": "e253e55b958a64f45949c011a31aefea90eda5b3901c77e9106751a024155bfc",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-stable-dag_reopt_hysteresis.request.json": "86e5883d727d899c95dd78c38b07ce7330af6043ee717248044c42caa2c9f5c4",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-stable-dag_reopt_no_network.request.json": "368803557a758b5da748eb1bf140152857281241c33fe058a248a390e0a33151",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-stable-dag_static.request.json": "78541f12e039d11a04153743a3904e2f02af2b24c9c8d55bce52ecd6a8ebaa44",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-stable-greedy_comm.request.json": "43d108a5795a92e8c60a438c7da265c3934039bd5d070b35c751e8b6ab088963",
+  "artifacts/unstable-network/un-collect-r3/trace-b0-stable-task_fastest.request.json": "0e597456457f976fd53bc883bdcde84a20049087bfa323d20a681bc02558fd75",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-burst-dag_reopt.request.json": "647897573ea9d3a26030ea74bd01676695749200a3f421879f08d12ef3802e37",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-burst-dag_reopt_hysteresis.request.json": "dce37401693104e04d99e219191d76bfea205bdc04b5d5572f19380646c1b1af",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-burst-dag_reopt_no_network.request.json": "b1426c1383c87ba9530e458a961904bde9c1913790684241e20dd3033078871d",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-burst-dag_static.request.json": "3a1540c0428ab605dd12e04f910d86e206d7e978164b398465a83eb2c55349ce",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-burst-greedy_comm.request.json": "bc2482e0ef2ef48383813a4f351d09781f5f2f2c4351f5923d1a98ed30c2109c",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-burst-task_fastest.request.json": "36c1f6ca60183db41e38ab19dd552a14bb81b1296e2062a4b9ec3bb7cc14300b",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-slow-dag_reopt.request.json": "e41de8a135f3411bbe13e743895e33fe0459a2124dedc23344cb0871333100e4",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-slow-dag_reopt_hysteresis.request.json": "774e1a936e85a7c012903e7ebb49b7b4f4fd164c6d5bb2fb7fcdff1f0cf7f1b7",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-slow-dag_reopt_no_network.request.json": "897830d075c1f3321fff26d97e9143f30339b38ab80d472b0ab06a29e5b9b4ab",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-slow-dag_static.request.json": "6a546e72aebb0b272b5877c8b83c472ba669a60080ea1e5e69dca0ca0c4d3b6d",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-slow-greedy_comm.request.json": "349278f81b992198847f8634fe8784c5cb9e5abc7fe8233ea483c11208c3b090",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-slow-task_fastest.request.json": "eda79810d2e618c10bb8c51a12c920d47c38c31f7fcb6b9fe5b61195b92ac460",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-stable-dag_reopt.request.json": "bb4c8c2947f324d0aa4b6d1f8b04216e6e521311583d49ac12a00314d8fe2e54",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-stable-dag_reopt_hysteresis.request.json": "4b942c6ff0ca2dae13a210972aac48e03b76fd883f2adea79d0511e590b8f559",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-stable-dag_reopt_no_network.request.json": "30ffb73c7cb71cbb1bd25b40cc722544b06ef72c8d8b956d03765073f4bff40f",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-stable-dag_static.request.json": "8010431baf16ea5459e5053a11408fb9c345f4cc947f45714b1b068dd77fae5e",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-stable-greedy_comm.request.json": "577f0b63f3f8edf8ac7159bf8d2eb67e9268af112e5c7c628f8be7af67061087",
+  "artifacts/unstable-network/un-collect-r3/trace-b1-stable-task_fastest.request.json": "a9ae957a9fe2c89220f850a68238756b438821151d4f8d6f0939bf5c997c4fbd"
+ },
+ "integration": {
+  "boundary": "experiments/unstable-network/generator.py imports its own policies.build and QualityGate; it does NOT accept dag_deadline_guard. A next runner must import deadline_policies.build (and ExecutionOnly) instead; that runner/generator copy is not part of this change.",
+  "build": "deadline_policies.build(spec, candidates, deadline_policies.ExecutionOnly(), profile, stale_after_s=stale_after_s)",
+  "deadline_rule": "spec.deadline_ms must equal the trace deadline_s x 1000 of the same run",
+  "decide": "policy.decide(observation, now) with the generator Observation (base Observation class) and its monotonic clock",
+  "log_for_next_run": "per decision: observation service_ms per worker and evidence ages of compute/link estimates (not logged by the base generator)"
+ },
+ "plan_sha256": "ee0aba54e2dd92775e2e06526dcfa25e27562efbfc0c2b410beab6bd12e3c1e7",
+ "policy_spec": {
+  "anchor_fraction": 0.75,
+  "deadline_ms": 2000.0,
+  "name": "dag_deadline_guard"
+ },
+ "rows_sha256": "90ce618f06a85a74a6a255157aa816d9852893d50351834fa9c67d34163a24d7",
+ "run": "un-collect-r3",
+ "total": {
+  "agree_with_logged": 954,
+  "category": {
+   "exact": 2621,
+   "fallback": 59,
+   "no_snapshot": 187,
+   "non_reconstructible": 595
+  },
+  "cells": 36,
+  "compared_with_logged": 2680,
+  "differ_from_logged": 1726,
+  "guard_anchor_kept": 2662,
+  "guard_moved_from_anchor": 18,
+  "guard_plan_known": 2680,
+  "logged_plan_is_anchor": 1192,
+  "logged_status_by_agreement": {
+   "agree|ok": 954,
+   "differ|late_ok": 203,
+   "differ|ok": 1447,
+   "differ|timeout": 76
+  },
+  "logged_status_by_guard_category": {
+   "exact|late_ok": 178,
+   "exact|ok": 2369,
+   "exact|timeout": 74,
+   "fallback|late_ok": 25,
+   "fallback|ok": 32,
+   "fallback|timeout": 2,
+   "no_snapshot|admission_drop": 187,
+   "non_reconstructible|late_ok": 62,
+   "non_reconstructible|ok": 528,
+   "non_reconstructible|timeout": 5
+  },
+  "missing_or_unsupported": 782,
+  "reason": {
+   "anchor_within_budget": 2603,
+   "anchor_worker_busy_unlogged_service": 595,
+   "no_snapshot": 187,
+   "observation_fallback": 59,
+   "over_budget_reoptimized": 18
+  },
+  "replay_fidelity": {
+   "match": 1252,
+   "non_reconstructible": 360,
+   "predicted_mismatch": 1
+  },
+  "rows": 3462
+ },
+ "workers": [
+  "cpu-c",
+  "cpu-e0",
+  "jgpu-dev0009-cu130",
+  "npu-c"
+ ]
+}

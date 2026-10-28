@@ -1,0 +1,14 @@
+{
+ "policy": {
+  "name": "dag_deadline_guard",
+  "deadline_ms": 2000.0,
+  "anchor_fraction": 0.75
+ },
+ "integration": {
+  "build": "deadline_policies.build(spec, candidates, deadline_policies.ExecutionOnly(), profile, stale_after_s=stale_after_s)",
+  "decide": "policy.decide(observation, now) with the generator Observation (base Observation class) and its monotonic clock",
+  "boundary": "experiments/unstable-network/generator.py imports its own policies.build and QualityGate; it does NOT accept dag_deadline_guard. A next runner must import deadline_policies.build (and ExecutionOnly) instead; that runner/generator copy is not part of this change.",
+  "deadline_rule": "spec.deadline_ms must equal the trace deadline_s x 1000 of the same run",
+  "log_for_next_run": "per decision: observation service_ms per worker and evidence ages of compute/link estimates (not logged by the base generator)"
+ }
+}

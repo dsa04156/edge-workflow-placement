@@ -1,0 +1,65 @@
+test_a_valid_integer_stale_after_s_still_triggers_the_fallback (test_deadline_policies.Config.test_a_valid_integer_stale_after_s_still_triggers_the_fallback) ... ok
+test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) ... 
+  test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=nan) ... FAIL
+  test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=inf) ... FAIL
+  test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=-1.0) ... FAIL
+  test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=0.0) ... FAIL
+  test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=True) ... FAIL
+  test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value='3') ... FAIL
+test_an_unknown_spec_key_is_refused (test_deadline_policies.Config.test_an_unknown_spec_key_is_refused) ... ok
+test_baseline_builds_keep_the_original_stale_after_s_handling (test_deadline_policies.Config.test_baseline_builds_keep_the_original_stale_after_s_handling) ... ok
+test_nonfinite_or_out_of_range_values_are_refused (test_deadline_policies.Config.test_nonfinite_or_out_of_range_values_are_refused) ... ok
+test_the_exact_default_spec (test_deadline_policies.Config.test_the_exact_default_spec) ... ok
+
+======================================================================
+FAIL: test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=nan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_deadline_policies.py", line 152, in test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback
+    with self.subTest(value=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=inf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_deadline_policies.py", line 152, in test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback
+    with self.subTest(value=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=-1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_deadline_policies.py", line 152, in test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback
+    with self.subTest(value=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=0.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_deadline_policies.py", line 152, in test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback
+    with self.subTest(value=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_deadline_policies.py", line 152, in test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback
+    with self.subTest(value=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) (value='3')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jinuk/codex-work/scheduler/experiments/deadline-network/test_deadline_policies.py", line 152, in test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback
+    with self.subTest(value=value), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.009s
+
+FAILED (failures=6)

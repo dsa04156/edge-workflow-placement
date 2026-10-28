@@ -1,0 +1,125 @@
+{
+ "compute_ms": {
+  "image_preprocess@cpu-c": 5.659524525981396,
+  "image_preprocess@cpu-e0": 18.542262027040124,
+  "audio_preprocess@cpu-c": 0.6999570177868009,
+  "audio_preprocess@cpu-e0": 2.2169119911268353,
+  "vision@cpu-c": 168.3902084478177,
+  "vision@npu-c": 11.457283515483141,
+  "vision@cpu-e0": 591.5074869990349,
+  "vision@jgpu-dev0009-cu130": 35.78800449031405,
+  "speech@cpu-c": 228.44380751485005,
+  "speech@cpu-e0": 1262.2657780302688,
+  "speech@jgpu-dev0009-cu130": 52.83289749058895,
+  "fusion@cpu-c": 27.26375247584656,
+  "fusion@cpu-e0": 588.1880514789373,
+  "fusion@jgpu-dev0009-cu130": 23.85549500468187
+ },
+ "links": {
+  "cpu-c->cpu-c": {
+   "latency_ms": 1.1459311132556667,
+   "ms_per_byte": 6.183623269202608e-07,
+   "effective_mbps": 12937.398757527508
+  },
+  "cpu-c->cpu-e0": {
+   "latency_ms": 4.1295907560589855,
+   "ms_per_byte": 8.51479886058965e-05,
+   "effective_mbps": 93.95406903887803
+  },
+  "cpu-c->jgpu-dev0009-cu130": {
+   "latency_ms": 3.593031818722831,
+   "ms_per_byte": 8.63327810008081e-05,
+   "effective_mbps": 92.6646855025453
+  },
+  "cpu-c->npu-c": {
+   "latency_ms": 2.488180063664913,
+   "ms_per_byte": 0.0,
+   "effective_mbps": null
+  },
+  "cpu-c->origin": {
+   "latency_ms": 1.7223247354302336,
+   "ms_per_byte": 8.781549855912625e-05,
+   "effective_mbps": 91.10009202548218
+  },
+  "cpu-e0->cpu-c": {
+   "latency_ms": 3.0802303030356475,
+   "ms_per_byte": 9.517251466568982e-05,
+   "effective_mbps": 84.05788192212222
+  },
+  "cpu-e0->cpu-e0": {
+   "latency_ms": 2.293337443295647,
+   "ms_per_byte": 4.898577251023037e-06,
+   "effective_mbps": 1633.127251046056
+  },
+  "cpu-e0->jgpu-dev0009-cu130": {
+   "latency_ms": 5.263659839207928,
+   "ms_per_byte": 9.78105466250175e-06,
+   "effective_mbps": 817.9077079151912
+  },
+  "cpu-e0->npu-c": {
+   "latency_ms": 4.236450337567458,
+   "ms_per_byte": 9.403534869645726e-05,
+   "effective_mbps": 85.07439075728547
+  },
+  "cpu-e0->origin": {
+   "latency_ms": 1.665407325159393,
+   "ms_per_byte": 3.2736127151093015e-06,
+   "effective_mbps": 2443.783274385556
+  },
+  "jgpu-dev0009-cu130->cpu-c": {
+   "latency_ms": 2.752735819804537,
+   "ms_per_byte": 0.00010654496972004862,
+   "effective_mbps": 75.08566590257931
+  },
+  "jgpu-dev0009-cu130->cpu-e0": {
+   "latency_ms": 2.403870295486687,
+   "ms_per_byte": 2.509245843264259e-05,
+   "effective_mbps": 318.8208927983262
+  },
+  "jgpu-dev0009-cu130->jgpu-dev0009-cu130": {
+   "latency_ms": 2.360671073399192,
+   "ms_per_byte": 4.545637076333543e-06,
+   "effective_mbps": 1759.9293268816577
+  },
+  "jgpu-dev0009-cu130->origin": {
+   "latency_ms": 3.0770728435349084,
+   "ms_per_byte": 1.9845260772390427e-05,
+   "effective_mbps": 403.11891548081553
+  },
+  "npu-c->cpu-c": {
+   "latency_ms": 3.6051729694008827,
+   "ms_per_byte": 0.0,
+   "effective_mbps": null
+  },
+  "npu-c->cpu-e0": {
+   "latency_ms": 2.072112512427802,
+   "ms_per_byte": 8.62911534505995e-05,
+   "effective_mbps": 92.70938769615462
+  },
+  "npu-c->jgpu-dev0009-cu130": {
+   "latency_ms": 2.9453601469011867,
+   "ms_per_byte": 8.738325585213984e-05,
+   "effective_mbps": 91.55072012350632
+  },
+  "origin->cpu-c": {
+   "latency_ms": 3.9332626296170785,
+   "ms_per_byte": 9.356185951308398e-05,
+   "effective_mbps": 85.50492734575519
+  },
+  "origin->cpu-e0": {
+   "latency_ms": 1.1639698691593081,
+   "ms_per_byte": 8.400177104668532e-06,
+   "effective_mbps": 952.3608729099143
+  }
+ },
+ "payload_bytes": {
+  "image_tensor": 2408576.0,
+  "input_values": 117992.0,
+  "feature": 2176.0,
+  "text": 37.0,
+  "answer": 210.0,
+  "image": 819968.0,
+  "audio": 117992.0
+ },
+ "source": "measured:un-collect-r3:good"
+}

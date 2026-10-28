@@ -1,0 +1,13 @@
+# Independent Spec review R1 — unstable-network
+
+You are an independent Codex gpt-6-astra reviewer. Follow only the Spec axis of /home/jinuk/.agents/skills/code-review/SKILL.md; the other axis is independently assigned. Do not launch nested agents. Use rtk/rtk proxy for all shell; repository cwd /home/jinuk/codex-work/scheduler. Read the exact Orca executable's version-matched orchestration guide. Verify actual model, never substitute.
+
+Ownership: only `.scratch/unstable-network-20261027/review-spec-r1.md` and review-only diagnostics under `.scratch/unstable-network-20261027/review-spec-evidence/`. No implementation edits, cluster actions, installs, downloads, git modifications, or edits to existing artifacts. You are not alone: preserve other workers' changes.
+
+Fixed baseline is d87bde1fde21f014c1baebd1132673984e960a51, no task commits were made. This change is a new untracked directory, so the review diff is the new files in `.scratch/unstable-network-20261027/review-source-r1/` versus /dev/null plus their differences from the origin modules in experiments/quality-network-baselines. Use `rtk proxy git diff --no-index -- /dev/null <new-file>` and `rtk proxy git diff --no-index -- experiments/quality-network-baselines/<file> <new-file>` where origin exists. The frozen review-source-r1 contains actual delivered source/tests; the SHA manifest is review-source-r1-manifest.json. Current implementation must match snapshot or report drift. Prior dirty files are out of scope.
+
+Spec: `.scratch/unstable-network-20261027/spec.md`. Read developer-report.md, exact proposed plan/dry-run, and relevant logs. Focus on requirements missing/partial, scope creep, and apparent implementation mistakes. Quote the spec for each finding, cite source lines and reproducible evidence. Compact primary report under400 words; evidence details may be linked separately.
+
+Prioritize release-blocking scientific validity: no future network trace/profile leakage; 36 matched cells and full offered cohort; correct no-network ablation; same resource/observation contract and honest quality diagnostic; temporal alignment bound, actual phase application and late/failed transition invalidity; no policy-dependent queue flush; failed polls never fresh zero; strict plan/source/model/data bindings; correct interpretation of arrivals crossing transitions. Review actual code, not just test summaries. Run only focused non-mutating/local tests as needed; no full repeated suite unless necessary.
+
+Return actionable defects or an evidence-based pass, distinguishing implementation defects from measured limitations. This is round1 of at most2. Send worker_done exactly once with actual model, outcome, file/report path, and no implementation edits.

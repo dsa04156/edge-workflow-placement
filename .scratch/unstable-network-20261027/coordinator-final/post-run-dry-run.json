@@ -1,0 +1,254 @@
+{
+ "stage": "collect",
+ "drift": [],
+ "release_binding": {
+  "release": "RELEASE",
+  "stage": "collect",
+  "run_id": "un-collect-r3",
+  "plan_sha256": "ee0aba54e2dd92775e2e06526dcfa25e27562efbfc0c2b410beab6bd12e3c1e7",
+  "shipped_sha256": "e358c10d53cde1874b7cda9027e81245028eb50dcfe192a69f0a51b09dad4bc1",
+  "budgets_sha256": "56dd2a43de55c4cb9f41ab52cc9b683989a9be9a6c6b8d28029d1038a47285f9",
+  "traces_sha256": "cec8c6d4f61b47c214f0bbb2bf6f42917d4087bd153e587f204ca43100067fb3",
+  "schedule_sha256": "00eb908d62f2b6355099d73751d04d78cb6da0749d4a881f2bc603a78852dc40"
+ },
+ "candidates": {
+  "image_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "vision": [
+   "cpu-c",
+   "npu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "audio_preprocess": [
+   "cpu-c",
+   "cpu-e0"
+  ],
+  "speech": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ],
+  "fusion": [
+   "cpu-c",
+   "cpu-e0",
+   "jgpu-dev0009-cu130"
+  ]
+ },
+ "coverage": {
+  "cpu": true,
+  "gpu": true,
+  "npu": true,
+  "multi_choice_tasks": [
+   "image_preprocess",
+   "vision",
+   "audio_preprocess",
+   "speech",
+   "fusion"
+  ],
+  "ok": true,
+  "plans": 144
+ },
+ "traces": {
+  "stable": [
+   {
+    "name": "good",
+    "start_s": 0,
+    "end_s": 60,
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   }
+  ],
+  "slow": [
+   {
+    "name": "good",
+    "start_s": 0,
+    "end_s": 20,
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   {
+    "name": "slow",
+    "start_s": 20,
+    "end_s": 40,
+    "mbps": 10,
+    "delay_ms": 20,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   {
+    "name": "good",
+    "start_s": 40,
+    "end_s": 60,
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   }
+  ],
+  "burst": [
+   {
+    "name": "good",
+    "start_s": 0,
+    "end_s": 10,
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   {
+    "name": "lossy",
+    "start_s": 10,
+    "end_s": 20,
+    "mbps": 10,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 0.5
+   },
+   {
+    "name": "narrow",
+    "start_s": 20,
+    "end_s": 28,
+    "mbps": 2,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 1.0
+   },
+   {
+    "name": "outage",
+    "start_s": 28,
+    "end_s": 30,
+    "mbps": 2,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 100.0
+   },
+   {
+    "name": "good",
+    "start_s": 30,
+    "end_s": 40,
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   {
+    "name": "lossy",
+    "start_s": 40,
+    "end_s": 50,
+    "mbps": 10,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 0.5
+   },
+   {
+    "name": "good",
+    "start_s": 50,
+    "end_s": 60,
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   }
+  ]
+ },
+ "policies": [
+  "task_fastest",
+  "greedy_comm",
+  "dag_static",
+  "dag_reopt",
+  "dag_reopt_hysteresis",
+  "dag_reopt_no_network"
+ ],
+ "cells": 36,
+ "order": [
+  "b0-burst-greedy_comm",
+  "b0-burst-dag_reopt_no_network",
+  "b0-burst-dag_static",
+  "b0-burst-dag_reopt",
+  "b0-burst-task_fastest",
+  "b0-burst-dag_reopt_hysteresis",
+  "b0-slow-dag_reopt",
+  "b0-slow-task_fastest",
+  "b0-slow-dag_reopt_hysteresis",
+  "b0-slow-greedy_comm",
+  "b0-slow-dag_reopt_no_network",
+  "b0-slow-dag_static",
+  "b0-stable-dag_static",
+  "b0-stable-dag_reopt",
+  "b0-stable-task_fastest",
+  "b0-stable-dag_reopt_hysteresis",
+  "b0-stable-greedy_comm",
+  "b0-stable-dag_reopt_no_network",
+  "b1-burst-task_fastest",
+  "b1-burst-dag_reopt_hysteresis",
+  "b1-burst-greedy_comm",
+  "b1-burst-dag_reopt_no_network",
+  "b1-burst-dag_static",
+  "b1-burst-dag_reopt",
+  "b1-slow-dag_reopt_no_network",
+  "b1-slow-dag_static",
+  "b1-slow-dag_reopt",
+  "b1-slow-task_fastest",
+  "b1-slow-dag_reopt_hysteresis",
+  "b1-slow-greedy_comm",
+  "b1-stable-dag_reopt_hysteresis",
+  "b1-stable-greedy_comm",
+  "b1-stable-dag_reopt_no_network",
+  "b1-stable-dag_static",
+  "b1-stable-dag_reopt",
+  "b1-stable-task_fastest"
+ ],
+ "estimate": {
+  "cells": 36,
+  "per_cell_s": 89.0,
+  "traces_s": 3204.0,
+  "request_minutes": 36.0,
+  "expected_arrivals": 3456,
+  "note": "planning estimate; bounded in execution by collection_s; deploy/upload/profile/probe extra (see report)"
+ },
+ "budgets": {
+  "ready_window_s": 2100,
+  "cache_ready_s": 180,
+  "upload_timeout_s": 1800,
+  "probe_timeout_s": 60,
+  "profile_timeout_s": 1800,
+  "control_timeout_s": 30,
+  "poll_s": 5,
+  "drain_timeout_s": 60,
+  "drain_settle_s": 2,
+  "max_inflight": 8,
+  "dag_max_active": 96,
+  "deadline_s": 2.0,
+  "cancel_s": 10.0,
+  "obs_poll_s": 1.0,
+  "obs_poll_timeout_s": 0.5,
+  "obs_stale_s": 3.0,
+  "profile_pairs": 8,
+  "profile_warmup": 1,
+  "probe_sizes": [
+   4096,
+   1048576
+  ],
+  "probe_reps": 3,
+  "probe_job_timeout_s": 1800,
+  "collection_s": 6000,
+  "cleanup_reserve_s": 300,
+  "worker_pod_lifetime_s": 12600,
+  "cache_pod_lifetime_s": 14700,
+  "gateway_upstream_cap_s": 60,
+  "control_max_body_bytes": 33554432,
+  "start_delay_s": 2.0,
+  "align_tolerance_ms": 250,
+  "netctl_port": 8081,
+  "wall_budget_s": 10800
+ },
+ "quality": "no plan meets Qmin 0.40 (2026-10-23: cal 0.515 / eval 0.355 on the reused 60 pairs); every result is a diagnostic, not a same-quality comparison; a quality miss does not block the network run",
+ "command": "rtk proxy /usr/bin/python3 experiments/unstable-network/unstable.py execute --plan artifacts/unstable-network/plan-20261027T111532Z --run-id un-collect-r3 --release <coordinator-release.json>"
+}

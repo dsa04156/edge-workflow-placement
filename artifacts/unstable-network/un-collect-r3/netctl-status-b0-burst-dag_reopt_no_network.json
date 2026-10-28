@@ -1,0 +1,739 @@
+{
+ "label": "b0-burst-dag_reopt_no_network",
+ "trace": "burst",
+ "trace_sha256": "88a16ccaa2016910dd705b611473d88e3bb5e653117780c02e073109121cddc6",
+ "state": "completed",
+ "events": [
+  {
+   "kind": "install",
+   "local": 712438.070359736,
+   "wall_utc": "2026-10-27T11:34:01.993+00:00",
+   "phase": 0,
+   "name": "good",
+   "condition": {
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 0,
+      "packets": 0,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "change",
+   "local": 712450.08691175,
+   "wall_utc": "2026-10-27T11:34:14.009+00:00",
+   "phase": 1,
+   "name": "lossy",
+   "planned_offset_s": 10,
+   "planned_local": 712450.0767467945,
+   "applied_start_local": 712450.07705802,
+   "applied_end_local": 712450.084688267,
+   "apply_lag_ms": 0.3112255362793803,
+   "call_ms": 7.630246924236417,
+   "condition": {
+    "mbps": 10,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 0.5
+   },
+   "ok": true,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 33934574,
+      "packets": 28316,
+      "drops": 3,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 1677761,
+      "packets": 3747,
+      "drops": 0,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 32251128,
+      "packets": 24536,
+      "drops": 96,
+      "overlimits": 50633,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 1677761,
+      "packets": 3747,
+      "drops": 0,
+      "overlimits": 2375,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 32251128,
+      "packets": 24536,
+      "drops": 96,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "change",
+   "local": 712460.087174167,
+   "wall_utc": "2026-10-27T11:34:24.009+00:00",
+   "phase": 2,
+   "name": "narrow",
+   "planned_offset_s": 20,
+   "planned_local": 712460.0767467945,
+   "applied_start_local": 712460.076826851,
+   "applied_end_local": 712460.084779268,
+   "apply_lag_ms": 0.08005648851394653,
+   "call_ms": 7.952417014166713,
+   "condition": {
+    "mbps": 2,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 1.0
+   },
+   "ok": true,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 44432261,
+      "packets": 38609,
+      "drops": 240,
+      "overlimits": 0,
+      "qlen": 49,
+      "backlog": 110336
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 2682011,
+      "packets": 6546,
+      "drops": 201,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 41740061,
+      "packets": 32007,
+      "drops": 132,
+      "overlimits": 71423,
+      "qlen": 49,
+      "backlog": 110336
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 2682011,
+      "packets": 6546,
+      "drops": 201,
+      "overlimits": 3094,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 41742749,
+      "packets": 32009,
+      "drops": 132,
+      "overlimits": 0,
+      "qlen": 49,
+      "backlog": 110336
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "change",
+   "local": 712468.086523082,
+   "wall_utc": "2026-10-27T11:34:32.009+00:00",
+   "phase": 3,
+   "name": "outage",
+   "planned_offset_s": 28,
+   "planned_local": 712468.0767467945,
+   "applied_start_local": 712468.076960562,
+   "applied_end_local": 712468.084069836,
+   "apply_lag_ms": 0.21376751828938723,
+   "call_ms": 7.109273923560977,
+   "condition": {
+    "mbps": 2,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 100.0
+   },
+   "ok": true,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 46569900,
+      "packets": 42071,
+      "drops": 564,
+      "overlimits": 0,
+      "qlen": 119,
+      "backlog": 126703
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 2811853,
+      "packets": 8337,
+      "drops": 375,
+      "overlimits": 0,
+      "qlen": 55,
+      "backlog": 3630
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 43743287,
+      "packets": 33654,
+      "drops": 282,
+      "overlimits": 82158,
+      "qlen": 64,
+      "backlog": 123073
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 2811853,
+      "packets": 8337,
+      "drops": 375,
+      "overlimits": 3094,
+      "qlen": 55,
+      "backlog": 3630
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 43745975,
+      "packets": 33656,
+      "drops": 282,
+      "overlimits": 0,
+      "qlen": 64,
+      "backlog": 123073
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "change",
+   "local": 712470.084905124,
+   "wall_utc": "2026-10-27T11:34:34.007+00:00",
+   "phase": 4,
+   "name": "good",
+   "planned_offset_s": 30,
+   "planned_local": 712470.0767467945,
+   "applied_start_local": 712470.07703695,
+   "applied_end_local": 712470.08250484,
+   "apply_lag_ms": 0.2901555271819234,
+   "call_ms": 5.467889946885407,
+   "condition": {
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   "ok": true,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 46696603,
+      "packets": 42226,
+      "drops": 842,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 2815483,
+      "packets": 8392,
+      "drops": 494,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 43866360,
+      "packets": 33754,
+      "drops": 441,
+      "overlimits": 82618,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 2815483,
+      "packets": 8392,
+      "drops": 494,
+      "overlimits": 3094,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 43866360,
+      "packets": 33754,
+      "drops": 441,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "change",
+   "local": 712480.08187777,
+   "wall_utc": "2026-10-27T11:34:44.004+00:00",
+   "phase": 5,
+   "name": "lossy",
+   "planned_offset_s": 40,
+   "planned_local": 712480.0767467945,
+   "applied_start_local": 712480.076839834,
+   "applied_end_local": 712480.07953259,
+   "apply_lag_ms": 0.09303947445005178,
+   "call_ms": 2.6927560102194548,
+   "condition": {
+    "mbps": 10,
+    "delay_ms": 20,
+    "jitter_ms": 5,
+    "loss_pct": 0.5
+   },
+   "ok": true,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 105916610,
+      "packets": 90406,
+      "drops": 844,
+      "overlimits": 0,
+      "qlen": 47,
+      "backlog": 63168
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 5704895,
+      "packets": 13793,
+      "drops": 494,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 100192380,
+      "packets": 76509,
+      "drops": 766,
+      "overlimits": 179499,
+      "qlen": 47,
+      "backlog": 63168
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 5704895,
+      "packets": 13793,
+      "drops": 494,
+      "overlimits": 9464,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 100193724,
+      "packets": 76510,
+      "drops": 766,
+      "overlimits": 0,
+      "qlen": 47,
+      "backlog": 63168
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "change",
+   "local": 712490.087457987,
+   "wall_utc": "2026-10-27T11:34:54.010+00:00",
+   "phase": 6,
+   "name": "good",
+   "planned_offset_s": 50,
+   "planned_local": 712490.0767467945,
+   "applied_start_local": 712490.076955883,
+   "applied_end_local": 712490.084707174,
+   "apply_lag_ms": 0.20908843725919724,
+   "call_ms": 7.751291035674512,
+   "condition": {
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   "ok": true,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 117133567,
+      "packets": 101536,
+      "drops": 1092,
+      "overlimits": 0,
+      "qlen": 51,
+      "backlog": 119616
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 7097189,
+      "packets": 17045,
+      "drops": 655,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 110012463,
+      "packets": 84363,
+      "drops": 853,
+      "overlimits": 202739,
+      "qlen": 51,
+      "backlog": 119616
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 7097189,
+      "packets": 17045,
+      "drops": 655,
+      "overlimits": 10644,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 110015151,
+      "packets": 84365,
+      "drops": 853,
+      "overlimits": 0,
+      "qlen": 51,
+      "backlog": 119616
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "window_end",
+   "local": 712500.08511425,
+   "wall_utc": "2026-10-27T11:35:04.007+00:00",
+   "planned_offset_s": 60,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 168126729,
+      "packets": 143163,
+      "drops": 1092,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 9235529,
+      "packets": 21599,
+      "drops": 655,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 158862699,
+      "packets": 121412,
+      "drops": 1018,
+      "overlimits": 282464,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 9235529,
+      "packets": 21599,
+      "drops": 655,
+      "overlimits": 14196,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 158862699,
+      "packets": 121412,
+      "drops": 1018,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  },
+  {
+   "kind": "restore",
+   "local": 712503.162012961,
+   "wall_utc": "2026-10-27T11:35:07.084+00:00",
+   "condition": {
+    "mbps": 100,
+    "delay_ms": 0,
+    "jitter_ms": 0,
+    "loss_pct": 0.0
+   },
+   "ok": true,
+   "call_ms": 6.252063089050353,
+   "stats": {
+    "observer": "native-TCA_STATS",
+    "netns": "net:[4026535732]",
+    "qdisc_summary": [
+     {
+      "handle": 65536,
+      "parent": 4294967295,
+      "kind": "prio",
+      "bytes": 168147993,
+      "packets": 143270,
+      "drops": 1092,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2162688,
+      "parent": 2097153,
+      "kind": "netem",
+      "bytes": 9240077,
+      "packets": 21636,
+      "drops": 655,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1048576,
+      "parent": 65537,
+      "kind": "tbf",
+      "bytes": 158866755,
+      "packets": 121454,
+      "drops": 1018,
+      "overlimits": 282464,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 2097152,
+      "parent": 65538,
+      "kind": "tbf",
+      "bytes": 9240077,
+      "packets": 21636,
+      "drops": 655,
+      "overlimits": 14196,
+      "qlen": 0,
+      "backlog": 0
+     },
+     {
+      "handle": 1114112,
+      "parent": 1048577,
+      "kind": "netem",
+      "bytes": 158866755,
+      "packets": 121454,
+      "drops": 1018,
+      "overlimits": 0,
+      "qlen": 0,
+      "backlog": 0
+     }
+    ],
+    "installed": true,
+    "filters": 15
+   }
+  }
+ ],
+ "cloud": [
+  "10.244.8.196",
+  "10.244.8.197"
+ ],
+ "edge": [
+  "10.244.4.40",
+  "10.244.11.56",
+  "10.244.4.41"
+ ],
+ "received_local": 712438.081578015,
+ "start_local": 712440.0767467945,
+ "delay_s": 1.9951687795110047
+}

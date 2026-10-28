@@ -1,0 +1,26 @@
+test_existing_reopt_on_the_same_observation_does_move (test_deadline_policies.AnchorHold.test_existing_reopt_on_the_same_observation_does_move) ... ok
+test_the_anchor_is_held_within_budget_although_reopt_would_move_to_a_faster_plan (test_deadline_policies.AnchorHold.test_the_anchor_is_held_within_budget_although_reopt_would_move_to_a_faster_plan) ... ok
+test_baseline_specs_decide_exactly_as_the_frozen_base (test_deadline_policies.Baselines.test_baseline_specs_decide_exactly_as_the_frozen_base) ... ok
+test_the_frozen_base_is_byte_identical_to_the_plan_bound_source (test_deadline_policies.Baselines.test_the_frozen_base_is_byte_identical_to_the_plan_bound_source) ... ok
+test_the_frozen_base_registry_is_not_extended (test_deadline_policies.Baselines.test_the_frozen_base_registry_is_not_extended) ... ok
+test_a_valid_integer_stale_after_s_still_triggers_the_fallback (test_deadline_policies.Config.test_a_valid_integer_stale_after_s_still_triggers_the_fallback) ... ok
+test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback (test_deadline_policies.Config.test_an_invalid_stale_after_s_is_refused_instead_of_disabling_the_fallback) ... ok
+test_an_unknown_spec_key_is_refused (test_deadline_policies.Config.test_an_unknown_spec_key_is_refused) ... ok
+test_baseline_builds_keep_the_original_stale_after_s_handling (test_deadline_policies.Config.test_baseline_builds_keep_the_original_stale_after_s_handling) ... ok
+test_nonfinite_or_out_of_range_values_are_refused (test_deadline_policies.Config.test_nonfinite_or_out_of_range_values_are_refused) ... ok
+test_the_exact_default_spec (test_deadline_policies.Config.test_the_exact_default_spec) ... ok
+test_a_never_observed_worker_falls_back_to_the_anchor (test_deadline_policies.Fallback.test_a_never_observed_worker_falls_back_to_the_anchor) ... ok
+test_a_stale_observation_falls_back_to_the_anchor_without_a_freshness_guarantee (test_deadline_policies.Fallback.test_a_stale_observation_falls_back_to_the_anchor_without_a_freshness_guarantee) ... ok
+test_no_observation_object_falls_back_to_the_anchor (test_deadline_policies.Fallback.test_no_observation_object_falls_back_to_the_anchor) ... ok
+test_renamed_workers_give_the_renamed_decisions (test_deadline_policies.NoGeography.test_renamed_workers_give_the_renamed_decisions) ... ok
+test_a_busy_npu_too_moves_vision_and_speech_to_the_gpu (test_deadline_policies.OverBudget.test_a_busy_npu_too_moves_vision_and_speech_to_the_gpu) ... ok
+test_a_high_observed_anchor_queue_moves_to_the_server_cpu_npu_plan (test_deadline_policies.OverBudget.test_a_high_observed_anchor_queue_moves_to_the_server_cpu_npu_plan) ... ok
+test_relief_returns_to_the_anchor_on_the_next_decision (test_deadline_policies.OverBudget.test_relief_returns_to_the_anchor_on_the_next_decision) ... ok
+test_two_deadlines_give_two_decisions_on_one_observation (test_deadline_policies.OverBudget.test_two_deadlines_give_two_decisions_on_one_observation) ... ok
+test_an_anchor_prediction_equal_to_the_threshold_keeps_the_anchor (test_deadline_policies.Threshold.test_an_anchor_prediction_equal_to_the_threshold_keeps_the_anchor) ... ok
+test_just_above_the_threshold_reoptimizes_and_may_still_pick_the_anchor (test_deadline_policies.Threshold.test_just_above_the_threshold_reoptimizes_and_may_still_pick_the_anchor) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.053s
+
+OK
