@@ -1,0 +1,465 @@
+{
+  "timestamp": "20261028T110131",
+  "epoch": 1793185292.0083394,
+  "run": "gmv-20261028t-sd-io-pair1",
+  "nodes": {
+    "etri-dev0009-jetorn": [
+      {
+        "lastHeartbeatTime": "2026-10-23T03:56:24Z",
+        "lastTransitionTime": "2026-10-23T03:56:24Z",
+        "message": "Flannel is running on this node",
+        "reason": "FlannelIsUp",
+        "status": "False",
+        "type": "NetworkUnavailable"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:56:53Z",
+        "lastTransitionTime": "2026-10-28T08:43:57Z",
+        "message": "kubelet has sufficient memory available",
+        "reason": "KubeletHasSufficientMemory",
+        "status": "False",
+        "type": "MemoryPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:56:53Z",
+        "lastTransitionTime": "2026-10-28T08:43:57Z",
+        "message": "kubelet has no disk pressure",
+        "reason": "KubeletHasNoDiskPressure",
+        "status": "False",
+        "type": "DiskPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:56:53Z",
+        "lastTransitionTime": "2026-10-28T08:43:57Z",
+        "message": "kubelet has sufficient PID available",
+        "reason": "KubeletHasSufficientPID",
+        "status": "False",
+        "type": "PIDPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:56:53Z",
+        "lastTransitionTime": "2026-10-28T08:43:57Z",
+        "message": "edge is posting ready status",
+        "reason": "EdgeReady",
+        "status": "True",
+        "type": "Ready"
+      }
+    ],
+    "etri-ser0004-cgnms0": [
+      {
+        "lastHeartbeatTime": "2026-10-19T06:39:56Z",
+        "lastTransitionTime": "2026-10-19T06:39:56Z",
+        "message": "Flannel is running on this node",
+        "reason": "FlannelIsUp",
+        "status": "False",
+        "type": "NetworkUnavailable"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:57:16Z",
+        "lastTransitionTime": "2026-10-19T06:39:50Z",
+        "message": "kubelet has sufficient memory available",
+        "reason": "KubeletHasSufficientMemory",
+        "status": "False",
+        "type": "MemoryPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:57:16Z",
+        "lastTransitionTime": "2026-10-19T06:39:50Z",
+        "message": "kubelet has no disk pressure",
+        "reason": "KubeletHasNoDiskPressure",
+        "status": "False",
+        "type": "DiskPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:57:16Z",
+        "lastTransitionTime": "2026-10-19T06:39:50Z",
+        "message": "kubelet has sufficient PID available",
+        "reason": "KubeletHasSufficientPID",
+        "status": "False",
+        "type": "PIDPressure"
+      },
+      {
+        "lastHeartbeatTime": "2026-10-28T10:57:16Z",
+        "lastTransitionTime": "2026-10-19T06:39:50Z",
+        "message": "kubelet is posting ready status",
+        "reason": "KubeletReady",
+        "status": "True",
+        "type": "Ready"
+      }
+    ]
+  },
+  "pods": {
+    "gmv-20261028t-sd-io-pair1-cache": {
+      "uid": "711623e3-76c9-4bc4-8b14-8a495bff41af",
+      "phase": "Running",
+      "deleting": null,
+      "node": "etri-ser0004-cgnms0",
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:42:36Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:42:35Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:42:36Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:42:36Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:42:35Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://464dc3981c171fc9c962a2e592bd9dde93e70ec7f2433047002fc57f58d52c5b",
+            "image": "sha256:274d131132dbdc6058ed77088525d77adaf0749a6d99f2cf7d42feb9a10737c8",
+            "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "lastState": {},
+            "name": "worker",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-28T09:42:36Z"
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/work",
+                "name": "work"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.254.70.183",
+        "hostIPs": [
+          {
+            "ip": "10.254.70.183"
+          }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.5.101",
+        "podIPs": [
+          {
+            "ip": "10.244.5.101"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-28T09:42:35Z"
+      }
+    },
+    "gmv-20261028t-sd-io-pair1-cuda": {
+      "uid": "646859b3-eb5c-4cb0-9618-109951eff181",
+      "phase": "Running",
+      "deleting": null,
+      "node": "etri-dev0009-jetorn",
+      "status": {
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:44:37Z",
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:44:33Z",
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T11:01:06Z",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T11:01:06Z",
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-28T09:44:33Z",
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "containerID": "containerd://ca87bfffade54b4e5ea14dc2e9dd2af2110ffd3643721c033779e053882c75dc",
+            "image": "sha256:829cc065f506a60d332260af9fc48c590d60cfeff8bfc20df57b7baf20edb879",
+            "imageID": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+            "lastState": {},
+            "name": "worker",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-28T09:44:36Z"
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/work",
+                "name": "work"
+              },
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/config",
+                "name": "config",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              },
+              {
+                "mountPath": "/cache",
+                "name": "cache"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.254.192.128",
+        "hostIPs": [
+          {
+            "ip": "10.254.192.128"
+          }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.11.63",
+        "podIPs": [
+          {
+            "ip": "10.244.11.63"
+          }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-10-28T09:44:33Z"
+      }
+    }
+  },
+  "health": {
+    "cuda": {
+      "status": "ready",
+      "backend": "cuda",
+      "node": "etri-dev0009-jetorn",
+      "pod_uid": "646859b3-eb5c-4cb0-9618-109951eff181",
+      "stages": {
+        "vlm": {
+          "backend": "cuda",
+          "device": "cuda:0",
+          "model_sha256": {
+            "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+          },
+          "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+          "evidence": {
+            "device": "cuda:0",
+            "runtime": "torch",
+            "runtime_version": "2.9.1+cu130",
+            "cuda": "13.0",
+            "device_name": "Orin",
+            "capability": [
+              8,
+              7
+            ],
+            "parameter_devices": [
+              "cuda:0"
+            ],
+            "buffer_devices": [
+              "cuda:0"
+            ],
+            "parameters": 2127532032,
+            "dtypes": [
+              "torch.bfloat16"
+            ],
+            "memory_allocated": 4256128000,
+            "backend": "cuda",
+            "model": "qwen3vl-2b-89644892",
+            "weights_sha256": {
+              "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+            },
+            "host_threads": 4,
+            "hash_ms": 50378.80433595274,
+            "load_ms": 106776.88799001044,
+            "pid": 1999
+          },
+          "process": {
+            "backend": "cuda",
+            "model": "qwen3vl-2b-89644892",
+            "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+            "load_deadline_s": 1200,
+            "call_deadline_s": 300,
+            "log": "/work/logs/vlm-cuda-child.log",
+            "started_at": 1793185071.7275121,
+            "load_wall_ms": 194216.56778099714,
+            "state": "ready",
+            "child_pid": 1999
+          }
+        }
+      },
+      "errors": {},
+      "queue": {
+        "waiting": 0,
+        "active": 0,
+        "completed": 0
+      },
+      "bootstrap": {
+        "phase": "loaded",
+        "started_utc": "2026-10-28T09:44:38Z",
+        "events": [
+          {
+            "kind": "cache_fill",
+            "transfers": 1,
+            "files": 19003,
+            "bytes": 8853614095,
+            "io": {
+              "written": 8858030582,
+              "synced": 8858030582,
+              "syncs": 8854,
+              "files": 19003,
+              "busy_pct": 0.0,
+              "rate_bps": 524288,
+              "paused": false,
+              "pause_s": 56.868635440885555,
+              "unsynced": 222183,
+              "pending_fds": 0,
+              "last_fsync_s": 0.007,
+              "max_fsync_s": 3.705,
+              "removed": 0,
+              "last_remove_s": null,
+              "max_remove_s": 0.0,
+              "samples": 4325,
+              "slowdowns": 58,
+              "ramps": 301,
+              "pauses": 17
+            },
+            "removed_staging": [],
+            "ms": 4393643.553351052,
+            "content_sha256": "4930008b67ad774fbf788e280e9d9fa4f671f88d4bcaed3a3040a3c369c6212f"
+          }
+        ],
+        "mode": "prepared",
+        "discovery": {
+          "machine": "aarch64",
+          "python": "3.11.16",
+          "kernel": "6.8.12-1021-tegra",
+          "node": "etri-dev0009-jetorn",
+          "/proc/device-tree/model": "unreadable: FileNotFoundError",
+          "/etc/nv_tegra_release": "# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: generic, EABI: aarch64, DATE: Fri Aug  7 05:54:22 AM UTC 2026\n# KERNEL_VARIANT: oot\nTARGET_USERSPACE_LIB_DIR=nvidia\nTARGET_USERSPACE_LIB_DIR_PATH=usr/lib/aarch64-linux-gnu/nvidia\n",
+          "dev": [
+            "dri",
+            "nvgpu",
+            "nvhost-as-gpu",
+            "nvhost-ctrl-gpu",
+            "nvhost-ctxsw-gpu",
+            "nvhost-dbg-gpu",
+            "nvhost-gpu",
+            "nvhost-nvsched-gpu",
+            "nvhost-power-gpu",
+            "nvhost-prof-ctx-gpu",
+            "nvhost-prof-dev-gpu",
+            "nvhost-prof-gpu",
+            "nvhost-sched-gpu",
+            "nvhost-tsg-gpu",
+            "nvidia-modeset",
+            "nvidia0",
+            "nvidia1",
+            "nvidiactl",
+            "nvmap"
+          ],
+          "NVIDIA_VISIBLE_DEVICES": "void",
+          "cuda_driver": {
+            "library": "libcuda.so.1",
+            "cuInit": 0,
+            "cuDriverGetVersion": 0,
+            "driver_version": 13020,
+            "cuDeviceGetCount": 0,
+            "device_count": 1,
+            "device_names": [
+              "Orin"
+            ]
+          }
+        },
+        "recipe": "cu130-aarch64-cp311",
+        "fetch_io": {
+          "io_profile": {
+            "chunk_max": 262144,
+            "fds_max": 32,
+            "fill_budget_s": 10800,
+            "max_bps": 4194304,
+            "min_bps": 262144,
+            "name": "sd-adaptive-v1",
+            "pause_busy_pct": 85,
+            "ramp_busy_pct": 40,
+            "ramp_hold_s": 10.0,
+            "resume_busy_pct": 50,
+            "resume_hold_s": 3.0,
+            "sample_s": 1.0,
+            "slow_busy_pct": 70,
+            "slow_fsync_s": 1.0,
+            "stall_s": 300,
+            "start_bps": 1048576,
+            "step_bps": 262144,
+            "unsynced_max": 1048576
+          },
+          "verify_rate_bps": 33554432
+        },
+        "fetch_progress": {
+          "written": 8858030582,
+          "synced": 8857808399,
+          "syncs": 8853,
+          "files": 19003,
+          "busy_pct": 0.0,
+          "rate_bps": 524288,
+          "paused": false,
+          "pause_s": 56.868635440885555,
+          "unsynced": 222183,
+          "pending_fds": 0,
+          "last_fsync_s": 0.077,
+          "max_fsync_s": 3.705,
+          "removed": 0,
+          "last_remove_s": null,
+          "max_remove_s": 0.0,
+          "samples": 4325,
+          "slowdowns": 58,
+          "ramps": 301,
+          "pauses": 17,
+          "elapsed_s": 4393.583
+        },
+        "finished_utc": "2026-10-28T11:01:06Z"
+      }
+    }
+  },
+  "metrics": {
+    "node_disk_io_time_seconds_total": 19783.08,
+    "node_disk_io_time_weighted_seconds_total": 746693.84,
+    "node_disk_written_bytes_total": 152670045184.0,
+    "node_filesystem_avail_bytes": 63698632704.0,
+    "node_memory_MemAvailable_bytes": 1253318656.0
+  },
+  "interval_s": 41.6,
+  "sd_busy_pct": 16.21,
+  "sd_write_MiBps": 0.1
+}

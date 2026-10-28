@@ -1,0 +1,47 @@
+test_cache_holds_the_whole_bundle_on_the_server (test_vlm.LivePlanTest.test_cache_holds_the_whole_bundle_on_the_server) ... ok
+test_preflight_accepts_free_nodes (test_vlm.LivePlanTest.test_preflight_accepts_free_nodes) ... ok
+test_preflight_refuses_foreign_holders_and_unready_nodes (test_vlm.LivePlanTest.test_preflight_refuses_foreign_holders_and_unready_nodes) ... ok
+test_workers_are_pinned_and_hold_exactly_their_one_accelerator (test_vlm.LivePlanTest.test_workers_are_pinned_and_hold_exactly_their_one_accelerator) ... ok
+test_default_is_the_pair_and_unknown_or_empty_selections_are_refused (test_vlm.ArmSelectionTest.test_default_is_the_pair_and_unknown_or_empty_selections_are_refused) ... ok
+test_mobilint_only_plan_has_one_worker_and_a_cache_sized_for_its_groups (test_vlm.ArmSelectionTest.test_mobilint_only_plan_has_one_worker_and_a_cache_sized_for_its_groups) ... ok
+test_one_arm_preflight_checks_only_its_node_and_accelerator (test_vlm.ArmSelectionTest.test_one_arm_preflight_checks_only_its_node_and_accelerator) ... ok
+test_release_must_name_the_selected_arms (test_vlm.ArmSelectionTest.test_release_must_name_the_selected_arms) ... ok
+test_only_the_cuda_worker_starts_the_owned_bootstrap_and_both_files_are_shipped (test_vlm.VlmBootstrapProvenanceTest.test_only_the_cuda_worker_starts_the_owned_bootstrap_and_both_files_are_shipped) ... ok
+test_only_the_header_and_the_bounded_fetch_lines_differ_from_the_unchanged_shared_helper (test_vlm.VlmBootstrapProvenanceTest.test_only_the_header_and_the_bounded_fetch_lines_differ_from_the_unchanged_shared_helper) ... ok
+test_a_same_name_replacement_is_refused_without_streaming (test_vlm.StreamFreshnessTest.test_a_same_name_replacement_is_refused_without_streaming) ... ok
+test_exec_into_the_owned_server_cache_follows_a_fresh_get (test_vlm.StreamFreshnessTest.test_exec_into_the_owned_server_cache_follows_a_fresh_get) ... ok
+test_server_logs_of_a_replacement_are_skipped_and_edge_logs_never_touch_kubectl (test_vlm.StreamFreshnessTest.test_server_logs_of_a_replacement_are_skipped_and_edge_logs_never_touch_kubectl) ... ok
+test_the_owned_pod_on_an_edge_node_or_with_foreign_labels_is_refused (test_vlm.StreamFreshnessTest.test_the_owned_pod_on_an_edge_node_or_with_foreign_labels_is_refused) ... ok
+test_a_cuda_receipt_whose_output_tensor_is_not_on_cuda_is_refused (test_vlm.ReceiptBindingTest.test_a_cuda_receipt_whose_output_tensor_is_not_on_cuda_is_refused) ... ok
+test_receipts_from_the_verified_arm_are_accepted_with_output_device_evidence (test_vlm.ReceiptBindingTest.test_receipts_from_the_verified_arm_are_accepted_with_output_device_evidence) ... ok
+test_receipts_not_bound_to_the_verified_arm_are_refused (test_vlm.ReceiptBindingTest.test_receipts_not_bound_to_the_verified_arm_are_refused) ... ok
+test_a_failed_call_is_appended_and_the_rest_of_the_schedule_never_runs (test_vlm.StopOnFailureTest.test_a_failed_call_is_appended_and_the_rest_of_the_schedule_never_runs) ... ok
+test_a_non_2xx_error_reply_is_kept_bounded (test_vlm.CollectorHttpTest.test_a_non_2xx_error_reply_is_kept_bounded) ... ok
+test_a_trickling_worker_reply_is_cut_at_the_absolute_deadline (test_vlm.CollectorHttpTest.test_a_trickling_worker_reply_is_cut_at_the_absolute_deadline) ... ----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 33548)
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/socketserver.py", line 692, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.12/socketserver.py", line 761, in __init__
+    self.handle()
+  File "/usr/lib/python3.12/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.12/http/server.py", line 424, in handle_one_request
+    method()
+  File "/home/jinuk/codex-work/scheduler/experiments/gpu-mobilint-vlm/test_vlm.py", line 818, in do_POST
+    handler(self, raw)
+  File "/home/jinuk/codex-work/scheduler/experiments/gpu-mobilint-vlm/test_vlm.py", line 859, in trickle
+    handler.wfile.write(b' ')
+  File "/usr/lib/python3.12/socketserver.py", line 840, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+ok
+test_an_oversized_error_body_is_refused_unread_and_framing_is_binary (test_vlm.CollectorHttpTest.test_an_oversized_error_body_is_refused_unread_and_framing_is_binary) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 9.371s
+
+OK

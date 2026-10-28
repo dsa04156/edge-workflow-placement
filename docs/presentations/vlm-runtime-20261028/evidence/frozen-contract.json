@@ -1,0 +1,162 @@
+{
+ "arms": {
+  "cuda": {
+   "image": "10.254.192.47:5000/node-inventory-python@sha256:370a8339507905053693d178e1cda8fbf77937f045ead58a3c32d8cead2ca67f",
+   "model": "qwen3vl-2b-89644892",
+   "node": "etri-dev0009-jetorn",
+   "recipe": "cu130-aarch64-cp311"
+  },
+  "mobilint": {
+   "image": "10.254.192.47:5000/ra-npu-mobilint@sha256:3e1760cdef820206d262488dc60a5047acd551b95e81f914e1f516fda1a496da",
+   "model": "mobilint-qwen3vl-2b-f4be563",
+   "node": "etri-ser0004-cgnms0",
+   "recipe": "mobilint-x86_64-cp311"
+  }
+ },
+ "cuda_dtype": "bfloat16",
+ "experiment": "gpu-mobilint-vlm",
+ "generation": {
+  "do_sample": false,
+  "eos_token_id": [
+   151645,
+   151643
+  ],
+  "max_new_tokens": 64,
+  "num_beams": 1,
+  "pad_token_id": 151643,
+  "repetition_penalty": 1.0,
+  "temperature": null,
+  "top_k": null,
+  "top_p": null
+ },
+ "host_threads": 4,
+ "image_size": {
+  "longest_edge": 200704,
+  "shortest_edge": 65536
+ },
+ "inputs": [
+  {
+   "id": "smoke-1713820",
+   "image_sha256": "55d53f1bd63ba04e083ac2794fe3205e88de8a10cd6657ea51cb3d1aae030196",
+   "prompt": "What is this gentlemen jumping with?\nAnswer the question using a single word or phrase.",
+   "question": "What is this gentlemen jumping with?",
+   "question_id": 1713820,
+   "role": "smoke",
+   "shape": [
+    426,
+    640,
+    3
+   ]
+  },
+  {
+   "id": "cal-3733440",
+   "image_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+   "prompt": "Is she laying on the grass?\nAnswer the question using a single word or phrase.",
+   "question": "Is she laying on the grass?",
+   "question_id": 3733440,
+   "role": "qualification",
+   "shape": [
+    426,
+    640,
+    3
+   ]
+  },
+  {
+   "id": "cal-4556100",
+   "image_sha256": "005d385d5195a4adcfb23986396a010fa5955dc2dac1e41fa3e932c575aba27b",
+   "prompt": "What kind of traffic marker is in the foreground near the red bike?\nAnswer the question using a single word or phrase.",
+   "question": "What kind of traffic marker is in the foreground near the red bike?",
+   "question_id": 4556100,
+   "role": "qualification",
+   "shape": [
+    408,
+    640,
+    3
+   ]
+  },
+  {
+   "id": "cal-3355890",
+   "image_sha256": "d5fbd6dc6b5aca024643e02c1a001c3e6f125553245cd68a179f52d021182e45",
+   "prompt": "What color is the ribbon on the envelope?\nAnswer the question using a single word or phrase.",
+   "question": "What color is the ribbon on the envelope?",
+   "question_id": 3355890,
+   "role": "qualification",
+   "shape": [
+    640,
+    640,
+    3
+   ]
+  }
+ ],
+ "messages_template": [
+  {
+   "content": [
+    {
+     "type": "image"
+    },
+    {
+     "text": null,
+     "type": "text"
+    }
+   ],
+   "role": "user"
+  }
+ ],
+ "models": {
+  "mobilint-qwen3vl-2b-f4be563": {
+   "repo": "mobilint/Qwen3-VL-2B-Instruct",
+   "revision": "f4be56382079d7553d1d175d9063e689cf0d8a0c",
+   "weights": {
+    "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+    "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+    "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+   }
+  },
+  "qwen3vl-2b-89644892": {
+   "repo": "Qwen/Qwen3-VL-2B-Instruct",
+   "revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+   "weights": {
+    "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+   }
+  }
+ },
+ "schedule": {
+  "probe": [
+   {
+    "arm": "mobilint",
+    "input": "smoke-1713820"
+   },
+   {
+    "arm": "cuda",
+    "input": "smoke-1713820"
+   }
+  ],
+  "qualification": [
+   {
+    "arm": "mobilint",
+    "input": "cal-3733440"
+   },
+   {
+    "arm": "cuda",
+    "input": "cal-3733440"
+   },
+   {
+    "arm": "mobilint",
+    "input": "cal-4556100"
+   },
+   {
+    "arm": "cuda",
+    "input": "cal-4556100"
+   },
+   {
+    "arm": "cuda",
+    "input": "cal-3355890"
+   },
+   {
+    "arm": "mobilint",
+    "input": "cal-3355890"
+   }
+  ]
+ },
+ "seed": 20261028
+}

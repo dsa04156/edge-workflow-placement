@@ -1,0 +1,582 @@
+{
+  "schema": 1,
+  "seed": 20261028,
+  "scope": "Descriptive pilot: one live Pod per arm, 4 fixed inputs repeated 10 times. No independent-device or dataset replication, inferential power/significance, quality score, SLO/goodput, or saturated-load claim. BF16 GPU versus W4V8 NPU; host/network/runtime differ.",
+  "warmup": "Existing frozen probe and qualification calls first, excluded from measured schedule.",
+  "stop_rule": "First failed call or invalid/non-increasing receipt sequence stops; preserve all failures and unattempted rows.",
+  "metrics": [
+    "collector_wall_ms",
+    "worker_wall_ms",
+    "host CPU ms/cores when available",
+    "generated tokens when available",
+    "success/failure/unattempted counts"
+  ],
+  "throughput": "Serial service rate = successful calls / sum collector call duration; excludes other-arm wait, not load-test throughput. Preserve overall benchmark elapsed too.",
+  "versions": {
+    "python": "3.11.15",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3"
+  },
+  "rows": [
+    {
+      "measurement_id": "m001",
+      "round": 1,
+      "pair": 1,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m002",
+      "round": 1,
+      "pair": 1,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m003",
+      "round": 1,
+      "pair": 2,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m004",
+      "round": 1,
+      "pair": 2,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m005",
+      "round": 1,
+      "pair": 3,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m006",
+      "round": 1,
+      "pair": 3,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m007",
+      "round": 1,
+      "pair": 4,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m008",
+      "round": 1,
+      "pair": 4,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m009",
+      "round": 2,
+      "pair": 5,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m010",
+      "round": 2,
+      "pair": 5,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m011",
+      "round": 2,
+      "pair": 6,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m012",
+      "round": 2,
+      "pair": 6,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m013",
+      "round": 2,
+      "pair": 7,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m014",
+      "round": 2,
+      "pair": 7,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m015",
+      "round": 2,
+      "pair": 8,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m016",
+      "round": 2,
+      "pair": 8,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m017",
+      "round": 3,
+      "pair": 9,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m018",
+      "round": 3,
+      "pair": 9,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m019",
+      "round": 3,
+      "pair": 10,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m020",
+      "round": 3,
+      "pair": 10,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m021",
+      "round": 3,
+      "pair": 11,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m022",
+      "round": 3,
+      "pair": 11,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m023",
+      "round": 3,
+      "pair": 12,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m024",
+      "round": 3,
+      "pair": 12,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m025",
+      "round": 4,
+      "pair": 13,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m026",
+      "round": 4,
+      "pair": 13,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m027",
+      "round": 4,
+      "pair": 14,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m028",
+      "round": 4,
+      "pair": 14,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m029",
+      "round": 4,
+      "pair": 15,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m030",
+      "round": 4,
+      "pair": 15,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m031",
+      "round": 4,
+      "pair": 16,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m032",
+      "round": 4,
+      "pair": 16,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m033",
+      "round": 5,
+      "pair": 17,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m034",
+      "round": 5,
+      "pair": 17,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m035",
+      "round": 5,
+      "pair": 18,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m036",
+      "round": 5,
+      "pair": 18,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m037",
+      "round": 5,
+      "pair": 19,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m038",
+      "round": 5,
+      "pair": 19,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m039",
+      "round": 5,
+      "pair": 20,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m040",
+      "round": 5,
+      "pair": 20,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m041",
+      "round": 6,
+      "pair": 21,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m042",
+      "round": 6,
+      "pair": 21,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m043",
+      "round": 6,
+      "pair": 22,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m044",
+      "round": 6,
+      "pair": 22,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m045",
+      "round": 6,
+      "pair": 23,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m046",
+      "round": 6,
+      "pair": 23,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m047",
+      "round": 6,
+      "pair": 24,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m048",
+      "round": 6,
+      "pair": 24,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m049",
+      "round": 7,
+      "pair": 25,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m050",
+      "round": 7,
+      "pair": 25,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m051",
+      "round": 7,
+      "pair": 26,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m052",
+      "round": 7,
+      "pair": 26,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m053",
+      "round": 7,
+      "pair": 27,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m054",
+      "round": 7,
+      "pair": 27,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m055",
+      "round": 7,
+      "pair": 28,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m056",
+      "round": 7,
+      "pair": 28,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m057",
+      "round": 8,
+      "pair": 29,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m058",
+      "round": 8,
+      "pair": 29,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m059",
+      "round": 8,
+      "pair": 30,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m060",
+      "round": 8,
+      "pair": 30,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m061",
+      "round": 8,
+      "pair": 31,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m062",
+      "round": 8,
+      "pair": 31,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m063",
+      "round": 8,
+      "pair": 32,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m064",
+      "round": 8,
+      "pair": 32,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m065",
+      "round": 9,
+      "pair": 33,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m066",
+      "round": 9,
+      "pair": 33,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m067",
+      "round": 9,
+      "pair": 34,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m068",
+      "round": 9,
+      "pair": 34,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m069",
+      "round": 9,
+      "pair": 35,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m070",
+      "round": 9,
+      "pair": 35,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m071",
+      "round": 9,
+      "pair": 36,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m072",
+      "round": 9,
+      "pair": 36,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m073",
+      "round": 10,
+      "pair": 37,
+      "arm": "cuda",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m074",
+      "round": 10,
+      "pair": 37,
+      "arm": "mobilint",
+      "input": "smoke-1713820"
+    },
+    {
+      "measurement_id": "m075",
+      "round": 10,
+      "pair": 38,
+      "arm": "cuda",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m076",
+      "round": 10,
+      "pair": 38,
+      "arm": "mobilint",
+      "input": "cal-3733440"
+    },
+    {
+      "measurement_id": "m077",
+      "round": 10,
+      "pair": 39,
+      "arm": "mobilint",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m078",
+      "round": 10,
+      "pair": 39,
+      "arm": "cuda",
+      "input": "cal-4556100"
+    },
+    {
+      "measurement_id": "m079",
+      "round": 10,
+      "pair": 40,
+      "arm": "mobilint",
+      "input": "cal-3355890"
+    },
+    {
+      "measurement_id": "m080",
+      "round": 10,
+      "pair": 40,
+      "arm": "cuda",
+      "input": "cal-3355890"
+    }
+  ]
+}

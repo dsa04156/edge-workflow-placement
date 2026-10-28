@@ -1,0 +1,91 @@
+{
+  "run": "gmv-20261028t-sd-io-pair1",
+  "node": "etri-dev0009-jetorn",
+  "storage": "SD mmcblk0p1",
+  "cache_event": {
+    "kind": "cache_fill",
+    "transfers": 1,
+    "files": 19003,
+    "bytes": 8853614095,
+    "io": {
+      "written": 8858030582,
+      "synced": 8858030582,
+      "syncs": 8854,
+      "files": 19003,
+      "busy_pct": 0.0,
+      "rate_bps": 524288,
+      "paused": false,
+      "pause_s": 56.868635440885555,
+      "unsynced": 222183,
+      "pending_fds": 0,
+      "last_fsync_s": 0.007,
+      "max_fsync_s": 3.705,
+      "removed": 0,
+      "last_remove_s": null,
+      "max_remove_s": 0.0,
+      "samples": 4325,
+      "slowdowns": 58,
+      "ramps": 301,
+      "pauses": 17
+    },
+    "removed_staging": [],
+    "ms": 4393643.553351052,
+    "content_sha256": "4930008b67ad774fbf788e280e9d9fa4f671f88d4bcaed3a3040a3c369c6212f"
+  },
+  "load": {
+    "backend": "cuda",
+    "device": "cuda:0",
+    "model_sha256": {
+      "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+      "device": "cuda:0",
+      "runtime": "torch",
+      "runtime_version": "2.9.1+cu130",
+      "cuda": "13.0",
+      "device_name": "Orin",
+      "capability": [
+        8,
+        7
+      ],
+      "parameter_devices": [
+        "cuda:0"
+      ],
+      "buffer_devices": [
+        "cuda:0"
+      ],
+      "parameters": 2127532032,
+      "dtypes": [
+        "torch.bfloat16"
+      ],
+      "memory_allocated": 4256128000,
+      "backend": "cuda",
+      "model": "qwen3vl-2b-89644892",
+      "weights_sha256": {
+        "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+      },
+      "host_threads": 4,
+      "hash_ms": 50378.80433595274,
+      "load_ms": 106776.88799001044,
+      "pid": 1999
+    },
+    "process": {
+      "backend": "cuda",
+      "model": "qwen3vl-2b-89644892",
+      "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+      "load_deadline_s": 1200,
+      "call_deadline_s": 300,
+      "log": "/work/logs/vlm-cuda-child.log",
+      "started_at": 1793185071.7275121,
+      "load_wall_ms": 194216.56778099714,
+      "state": "ready",
+      "child_pid": 1999
+    }
+  },
+  "sample_count": 73,
+  "ready_true_samples": 73,
+  "first_sample": "20261028T094535",
+  "last_sample": "20261028T105457",
+  "limitations": "Internal busy is the latest diskstats sample at external polling time; not the entire ~1s trace. No controlled intervention comparison. Download controller does not cap model-load reads. Ready only established at sampled points. 0 inference calls in preparation run."
+}
