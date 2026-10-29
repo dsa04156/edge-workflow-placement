@@ -1,0 +1,385 @@
+{
+ "run": "gmp-sensor-20261029t133741",
+ "decision_unit": "whole job on one server (GGG or NNN); not DAG placement",
+ "scheduled_requests": 4,
+ "counts": {
+  "ok": 4,
+  "late_ok": 0,
+  "failed": 0,
+  "integrity_failed": 0,
+  "worker_rejected": 0,
+  "timeout": 0,
+  "admission_drop": 0,
+  "not_sent": 0,
+  "outcome_unknown": 0
+ },
+ "unaccounted": [],
+ "deadline_met": 4,
+ "plans_sha256": "c1ba7ddc59704ffd0f2c7a7fe6d31aaa3e4e541d5ef74e13032d6dfd64be153b",
+ "aliases": {
+  "relay": {
+   "GGG": [
+    "fixed_gpu"
+   ],
+   "NNN": [
+    "compute_network",
+    "compute_only",
+    "fixed_npu"
+   ]
+  },
+  "npu_slow2": {
+   "GGG": [
+    "compute_network",
+    "fixed_gpu"
+   ],
+   "NNN": [
+    "compute_only",
+    "fixed_npu"
+   ]
+  }
+ },
+ "observed_choice": {
+  "relay": {
+   "compute_only": "NNN",
+   "compute_network": "NNN",
+   "network_changed_choice": false
+  },
+  "npu_slow2": {
+   "compute_only": "NNN",
+   "compute_network": "GGG",
+   "network_changed_choice": true
+  }
+ },
+ "sizes": {
+  "npy": 818048,
+  "png": {
+   "G": 593966,
+   "N": 593966
+  },
+  "vlm": {
+   "G": 625,
+   "N": 1246
+  },
+  "final": {
+   "G": 257,
+   "N": 257
+  }
+ },
+ "tables": {
+  "relay": {
+   "proc": {
+    "image_pack@G": 48.823690973222256,
+    "image_pack@N": 81.60605607554317,
+    "vlm@G": 2373.212548904121,
+    "vlm@N": 350.50381207838655,
+    "result_format@G": 0.040111830458045006,
+    "result_format@N": 0.14262297190725803
+   },
+   "link": {
+    "S->G#0": 23.024928057566285,
+    "S->N#0": 18.895322922617197,
+    "G->G#1": 2.778426045551896,
+    "N->N#1": 4.279862158000469,
+    "G->G#2": 0.9849851485341787,
+    "N->N#2": 2.889692084863782
+   }
+  },
+  "npu_slow2": {
+   "proc": {
+    "image_pack@G": 48.823690973222256,
+    "image_pack@N": 81.60605607554317,
+    "vlm@G": 2373.212548904121,
+    "vlm@N": 350.50381207838655,
+    "result_format@G": 0.040111830458045006,
+    "result_format@N": 0.14262297190725803
+   },
+   "link": {
+    "S->G#0": 28.164726914837956,
+    "S->N#0": 3444.784021936357,
+    "G->G#1": 2.6221838779747486,
+    "N->N#1": 5.074471002444625,
+    "G->G#2": 0.9264091495424509,
+    "N->N#2": 2.2089239209890366
+   }
+  }
+ },
+ "probe_evidence": {
+  "relay": [
+   {
+    "src": "S",
+    "dst": "G",
+    "edge": 0,
+    "kind": "npy",
+    "bytes": 818048,
+    "route": "gateway",
+    "median_ms": 23.024928057566285,
+    "effective_app_mbps": 284.2303777730777,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "S",
+    "dst": "N",
+    "edge": 0,
+    "kind": "npy",
+    "bytes": 818048,
+    "route": "gateway",
+    "median_ms": 18.895322922617197,
+    "effective_app_mbps": 346.34941285742974,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "G",
+    "dst": "G",
+    "edge": 1,
+    "kind": "png",
+    "bytes": 593966,
+    "route": "direct",
+    "median_ms": 2.778426045551896,
+    "effective_app_mbps": 1710.2229543259753,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "N",
+    "dst": "N",
+    "edge": 1,
+    "kind": "png",
+    "bytes": 593966,
+    "route": "direct",
+    "median_ms": 4.279862158000469,
+    "effective_app_mbps": 1110.2525793073635,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "G",
+    "dst": "G",
+    "edge": 2,
+    "kind": "vlm",
+    "bytes": 625,
+    "route": "direct",
+    "median_ms": 0.9849851485341787,
+    "effective_app_mbps": 5.0762186693279885,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "N",
+    "dst": "N",
+    "edge": 2,
+    "kind": "vlm",
+    "bytes": 1246,
+    "route": "direct",
+    "median_ms": 2.889692084863782,
+    "effective_app_mbps": 3.4495024754410415,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   }
+  ],
+  "npu_slow2": [
+   {
+    "src": "S",
+    "dst": "G",
+    "edge": 0,
+    "kind": "npy",
+    "bytes": 818048,
+    "route": "gateway",
+    "median_ms": 28.164726914837956,
+    "effective_app_mbps": 232.36099607101954,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "S",
+    "dst": "N",
+    "edge": 0,
+    "kind": "npy",
+    "bytes": 818048,
+    "route": "gateway",
+    "median_ms": 3444.784021936357,
+    "effective_app_mbps": 1.89979515648163,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "G",
+    "dst": "G",
+    "edge": 1,
+    "kind": "png",
+    "bytes": 593966,
+    "route": "direct",
+    "median_ms": 2.6221838779747486,
+    "effective_app_mbps": 1812.12615938666,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "N",
+    "dst": "N",
+    "edge": 1,
+    "kind": "png",
+    "bytes": 593966,
+    "route": "direct",
+    "median_ms": 5.074471002444625,
+    "effective_app_mbps": 936.398690171026,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "G",
+    "dst": "G",
+    "edge": 2,
+    "kind": "vlm",
+    "bytes": 625,
+    "route": "direct",
+    "median_ms": 0.9264091495424509,
+    "effective_app_mbps": 5.397183309846924,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   },
+   {
+    "src": "N",
+    "dst": "N",
+    "edge": 2,
+    "kind": "vlm",
+    "bytes": 1246,
+    "route": "direct",
+    "median_ms": 2.2089239209890366,
+    "effective_app_mbps": 4.512604488223782,
+    "note": "derived from actual size-matched synthetic probe bytes / probe RTT incl. HTTP/relay processing; not a link capacity"
+   }
+  ]
+ },
+ "route_unverified": [],
+ "network_claim": "relay: unshaped gateway control; npu_slow2: 2 Mbit/s tbf toward the NPU Pod only (owned gateway netns); no physical WAN/topology or shared-bottleneck claim",
+ "precision": {
+  "G": "Qwen/Qwen3-VL-2B-Instruct@89644892 BF16 on cuda:0 (torch)",
+  "N": "mobilint/Qwen3-VL-2B-Instruct@f4be563 W4V8 MXQ (vision+text) on ARIES via qbruntime"
+ },
+ "quality": "not evaluated (system diagnostic, not quality-eligible goodput)",
+ "comparisons": [],
+ "plan_stats": [
+  {
+   "regime": "npu_slow2",
+   "placement": "GGG",
+   "policies": "compute_network|fixed_gpu",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 2416.278613032773,
+   "p95_success_ms": 2416.278613032773,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:2416.278613032773"
+  },
+  {
+   "regime": "npu_slow2",
+   "placement": "NNN",
+   "policies": "compute_only|fixed_npu",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 3887.9456070717424,
+   "p95_success_ms": 3887.9456070717424,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:3887.9456070717424"
+  },
+  {
+   "regime": "relay",
+   "placement": "GGG",
+   "policies": "fixed_gpu",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 2444.4126919843256,
+   "p95_success_ms": 2444.4126919843256,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:2444.4126919843256"
+  },
+  {
+   "regime": "relay",
+   "placement": "NNN",
+   "policies": "compute_network|compute_only|fixed_npu",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 455.79332509078085,
+   "p95_success_ms": 455.79332509078085,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:455.79332509078085"
+  }
+ ],
+ "statistics": "descriptive only: one observation per (condition, server); singleton values, no interval, no significance test, no superiority/p95/goodput claim",
+ "limitations": [
+  "Whole-server decision: the whole job (image_pack, VLM, result_format) runs on one server, GGG or NNN; not DAG placement, no inter-server stage partitioning, no mixed route. The earlier GNG/GNN DAG pilot is separate frozen evidence.",
+  "G = ser0003 GB10 GPU (BF16), N = ser0004 Mobilint ARIES (W4V8), source dev0003 (JPEG/NPY replay from an edge Pod, not a verified live sensor stream). Different precisions; quality not evaluated.",
+  "One process block (one GPU Pod, one Mobilint Pod), one input cal-3733440, one observation per (condition, server), at most four main jobs: a low-load single-request diagnosis; no statistical superiority, p95, capacity or goodput claim.",
+  "fixed_gpu is a fixed GPU-first rule over the resource-eligible servers, not the actual kube-scheduler; fixed_npu is a reference. compute_only/compute_network are simple argmin baselines over two servers, not a new algorithm.",
+  "npu_slow2 is the unchanged net_control.py 2 Mbit/s tbf on the owned gateway egress toward the NPU Pod IP only (cloud=[N], edge=[]); G and source replies unshaped; both servers reached through the same gateway in both conditions. Not a measured physical WAN/topology; no shared-bottleneck claim.",
+  "Network cost is the application-path probe RTT of a size-matched synthetic payload (random bytes, the raw NPY byte count; not the sensor content) over the request route (HTTP/relay processing included), not a pure network time; derived effective throughput is not a link capacity or the configured rate. Main jobs used the frozen sensor input.",
+  "Same-host stage HTTP is part of the server processing estimate; T1/T3 are host-CPU support stages, only T2 runs neural inference on CUDA or Mobilint (no CPU fallback).",
+  "Policy labels selecting the same server share ONE observation (aliases), never independent samples. The chooser was not forced to switch: an unchanged choice across conditions is reported as observed."
+ ]
+}

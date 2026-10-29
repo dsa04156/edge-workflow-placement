@@ -1,0 +1,73 @@
+{
+  "state": "completed",
+  "run": "gmp-sensor-20261029t133741",
+  "started_at": "2026-10-29T13:37:41.528085+00:00",
+  "finished_at": "2026-10-29T13:45:23.987553+00:00",
+  "decision_unit": "entire sensor job on one GPU or NPU server",
+  "main_requests": 4,
+  "ok": 4,
+  "deadline_met": 4,
+  "slo_s": 5,
+  "route_verified": 4,
+  "cleanup_verified": true,
+  "conditions": {
+    "relay": {
+      "choices": {
+        "fixed_gpu": "G",
+        "fixed_npu": "N",
+        "compute_only": "N",
+        "compute_network": "N"
+      },
+      "servers": {
+        "G": {
+          "processing_estimate_ms": 2425.8397629018873,
+          "source_transfer_probe_ms": 23.024928057566285,
+          "predicted_total_ms": 2448.8646909594536,
+          "actual_e2e_ms": 2444.4126919843256,
+          "n": 1
+        },
+        "N": {
+          "processing_estimate_ms": 439.4220453687012,
+          "source_transfer_probe_ms": 18.895322922617197,
+          "predicted_total_ms": 458.3173682913184,
+          "actual_e2e_ms": 455.79332509078085,
+          "n": 1
+        }
+      }
+    },
+    "npu_slow2": {
+      "choices": {
+        "fixed_gpu": "G",
+        "fixed_npu": "N",
+        "compute_only": "N",
+        "compute_network": "G"
+      },
+      "servers": {
+        "G": {
+          "processing_estimate_ms": 2425.6249447353184,
+          "source_transfer_probe_ms": 28.164726914837956,
+          "predicted_total_ms": 2453.7896716501564,
+          "actual_e2e_ms": 2416.278613032773,
+          "n": 1
+        },
+        "N": {
+          "processing_estimate_ms": 439.53588604927063,
+          "source_transfer_probe_ms": 3444.784021936357,
+          "predicted_total_ms": 3884.3199079856277,
+          "actual_e2e_ms": 3887.9456070717424,
+          "n": 1
+        }
+      }
+    }
+  },
+  "quality_evaluated": false,
+  "precision": {
+    "G": "Qwen/Qwen3-VL-2B-Instruct@89644892 BF16 on cuda:0 (torch)",
+    "N": "mobilint/Qwen3-VL-2B-Instruct@f4be563 W4V8 MXQ (vision+text) on ARIES via qbruntime"
+  },
+  "statistics": "one observation per condition/server; no interval or significance claim",
+  "observed_reduction_percent": {
+    "normal_vs_fixed_gpu": 81.35366721890252,
+    "npu_slow_vs_compute_only": 37.85204688466243
+  }
+}

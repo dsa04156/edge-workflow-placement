@@ -1,0 +1,206 @@
+{
+ "label": "c0002-m1-npu_slow2-GGG-r1",
+ "state": "done",
+ "placement": "GGG",
+ "input_id": "cal-3733440",
+ "relay": true,
+ "policies": [
+  "compute_network",
+  "fixed_gpu"
+ ],
+ "slo_s": 5.0,
+ "timeout_s": 40.0,
+ "max_inflight": 1,
+ "max_seen_inflight": 1,
+ "inflight": 0,
+ "finished_offset_s": 2.41712408605963,
+ "generator": {
+  "node": "etri-dev0003-raspi5",
+  "pod_uid": "0f6d2860-7202-4e5f-807d-6bae63a47232"
+ },
+ "rows": [
+  {
+   "index": 0,
+   "request_id": "c0002-m1-npu_slow2-GGG-r1-0",
+   "scheduled_offset_s": 0.0,
+   "status": "ok",
+   "dispatch_lag_ms": 0.07568905130028725,
+   "inflight_at_arrival": 0,
+   "first_route": "gateway",
+   "first_payload_bytes": 818048,
+   "send_offset_s": 0.0003458161372691393,
+   "first_rpc_ms": 2415.9297039732337,
+   "completed_offset_s": 2.416278613032773,
+   "latency_ms": 2416.278613032773,
+   "receipts": [
+    {
+     "stage": "image_pack",
+     "backend": "cuda",
+     "device": "host-cpu",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "331d4b60-19f2-419e-9464-0f1b26157d4e",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "c0002-m1-npu_slow2-GGG-r1-0",
+     "sequence": 15,
+     "input_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_bytes": 593966,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 38.74058392830193,
+     "timing": {
+      "load_ms": 0.5623409524559975,
+      "encode_ms": 32.739619025960565,
+      "verify_ms": 5.426879972219467,
+      "total_ms": 38.72883995063603,
+      "input_bytes": 818048,
+      "output_bytes": 593966,
+      "shape": [
+       426,
+       640,
+       3
+      ],
+      "roundtrip_identical": true,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.005727866664528847,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "584762390cb15ffa018d36604609b71248c5037370326641d3872bf30237c395"
+    },
+    {
+     "stage": "vlm",
+     "backend": "cuda",
+     "device": "cuda:0",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "331d4b60-19f2-419e-9464-0f1b26157d4e",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "c0002-m1-npu_slow2-GGG-r1-0",
+     "sequence": 6,
+     "input_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_sha256": "c260e308d5ee5a93736ff26d4e1da3d0725ac4b7be1d66bda547977cc7584be6",
+     "output_bytes": 630,
+     "model_sha256": {
+      "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+     },
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 2349.0424840711057,
+     "timing": {
+      "preprocess_ms": 6.707772146910429,
+      "generate_ms": 2332.0294527802616,
+      "decode_text_ms": 0.0698890071362257,
+      "total_ms": 2338.8071139343083,
+      "ttft_ms": 2307.4124669656157,
+      "token_offsets_ms": [
+       2307.4124669656157,
+       2331.8691798485816
+      ],
+      "host": {
+       "cpu_s_preprocess": 0.01311736000000252,
+       "cpu_s_generate": 2.333025231999997,
+       "max_rss_kib": 5065300,
+       "streamer_token_puts": 2
+      },
+      "device_stats": {
+       "max_memory_allocated": 4309422080,
+       "output_device": "cuda:0"
+      },
+      "output_device": "cuda:0",
+      "png_decode_ms": 8.867118041962385,
+      "reconstructed_npy_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+      "reconstructed_npy_bytes": 818048,
+      "input_id": "cal-3733440"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.006383983418345451,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "1e00a0c43601761a4b95a752f9cf3c319fdd3c41b71fee80562d4fc459694e6a"
+    },
+    {
+     "stage": "result_format",
+     "backend": "cuda",
+     "device": "host-cpu",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "331d4b60-19f2-419e-9464-0f1b26157d4e",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "c0002-m1-npu_slow2-GGG-r1-0",
+     "sequence": 16,
+     "input_sha256": "c260e308d5ee5a93736ff26d4e1da3d0725ac4b7be1d66bda547977cc7584be6",
+     "output_sha256": "e3e8317304d371748b5b43c6a1dd98e92b8694e4231e1efe2cf7322517e707e0",
+     "output_bytes": 257,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 0.04960084334015846,
+     "timing": {
+      "total_ms": 0.04412909038364887,
+      "input_bytes": 630,
+      "output_bytes": 257,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.006607966497540474,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "bf771b4d61619ccb14d41eb253dbdc2981f89c47b23580dd8224d833bf6f6432"
+    }
+   ],
+   "hops": [
+    {
+     "src": "G",
+     "dst": "G",
+     "route": "direct",
+     "stage": "vlm",
+     "payload_bytes": 593966,
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "rpc_ms": 2353.7137100938708,
+     "status": "ok"
+    },
+    {
+     "src": "G",
+     "dst": "G",
+     "route": "direct",
+     "stage": "result_format",
+     "payload_bytes": 630,
+     "output_sha256": "c260e308d5ee5a93736ff26d4e1da3d0725ac4b7be1d66bda547977cc7584be6",
+     "rpc_ms": 2.3785170633345842,
+     "status": "ok"
+    }
+   ],
+   "deadline_met": true,
+   "final_bytes": 257,
+   "final_sha256": "e3e8317304d371748b5b43c6a1dd98e92b8694e4231e1efe2cf7322517e707e0",
+   "text": "no",
+   "token_ids": [
+    2152,
+    151645
+   ]
+  }
+ ],
+ "error": null,
+ "cell": {
+  "measurement_block": 1,
+  "repeat": 1,
+  "regime": "npu_slow2",
+  "input_id": "cal-3733440",
+  "placement": "GGG",
+  "policies": [
+   "compute_network",
+   "fixed_gpu"
+  ],
+  "arrivals": [
+   {
+    "index": 0,
+    "offset_s": 0.0
+   }
+  ],
+  "label": "c0002-m1-npu_slow2-GGG-r1"
+ }
+}

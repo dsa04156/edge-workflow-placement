@@ -1,0 +1,9 @@
+# PASS — Spec review r2
+
+Reviewed only `review-r2.diff` against `review-r1-baseline`, using the coordinator-amended `spec.md`, `fix-spec.md`, prior spec review and `fix-report-r1.md`. The actual four-file delta exactly matches the supplied diff; all 130 candidate hashes match `review-r2-hashes.json`. No new blocking findings.
+
+- **R1 probe issue resolved under the explicit clarification.** `chain_policy.py:7–10,168` and `chain_analyze.py:47–49` accurately label size-matched synthetic probe content and HTTP/relay overhead. Unchanged `chain_generator.py:243–254` retains random probe bytes; `load_corpus` verifies manifest hashes and `request` sends the selected frozen input bytes (`:161–167,287–295`). Main jobs therefore retain the frozen sensor input, separately from probes.
+- **R1 ingestion issue resolved.** `chain_policy.is_measurement` rejects booleans, strings, nonfinite and nonpositive values. `table_from` validates raw medians before `float`; `chain_live.profile_table:755–759` checks raw worker timings before conversion, records problems and excludes invalid rows. The existing profile caller aborts on any problems (`:463–467`). Both new public ingestion-to-decision tests cover the original bypasses and valid numeric controls.
+- **Evidence and scope preserved.** The developer transcript `ee2bf87b-2895-4a37-aafb-6312837b26cd.jsonl` records the specified targeted suite: **25 tests in 0.067s, OK**. All **36 release code hashes** match actual pinned source, including dynamically loaded `experiments/gpu-mobilint-vlm/live.py`; `approved_by` remains null. Design/generator hashes are unchanged, preserving whole-server placements, routes, input selection and measurement counts.
+
+No test reruns, cluster calls, Git operations or implementation edits were performed. This passes the scoped code/spec review; release authorization and live acceptance remain coordinator-owned.

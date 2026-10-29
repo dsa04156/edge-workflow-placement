@@ -1,0 +1,204 @@
+{
+ "label": "c0001-m1-relay-GGG-r1",
+ "state": "done",
+ "placement": "GGG",
+ "input_id": "cal-3733440",
+ "relay": true,
+ "policies": [
+  "fixed_gpu"
+ ],
+ "slo_s": 5.0,
+ "timeout_s": 40.0,
+ "max_inflight": 1,
+ "max_seen_inflight": 1,
+ "inflight": 0,
+ "finished_offset_s": 2.4459031021688133,
+ "generator": {
+  "node": "etri-dev0003-raspi5",
+  "pod_uid": "0f6d2860-7202-4e5f-807d-6bae63a47232"
+ },
+ "rows": [
+  {
+   "index": 0,
+   "request_id": "c0001-m1-relay-GGG-r1-0",
+   "scheduled_offset_s": 0.0,
+   "status": "ok",
+   "dispatch_lag_ms": 1.2110660318285227,
+   "inflight_at_arrival": 0,
+   "first_route": "gateway",
+   "first_payload_bytes": 818048,
+   "send_offset_s": 0.0017548941541463137,
+   "first_rpc_ms": 2442.654001992196,
+   "completed_offset_s": 2.4444126919843256,
+   "latency_ms": 2444.4126919843256,
+   "receipts": [
+    {
+     "stage": "image_pack",
+     "backend": "cuda",
+     "device": "host-cpu",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "331d4b60-19f2-419e-9464-0f1b26157d4e",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "c0001-m1-relay-GGG-r1-0",
+     "sequence": 13,
+     "input_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_bytes": 593966,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 38.308327086269855,
+     "timing": {
+      "load_ms": 0.44835591688752174,
+      "encode_ms": 32.41787408478558,
+      "verify_ms": 5.430304910987616,
+      "total_ms": 38.29653491266072,
+      "input_bytes": 818048,
+      "output_bytes": 593966,
+      "shape": [
+       426,
+       640,
+       3
+      ],
+      "roundtrip_identical": true,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.006079906597733498,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "584762390cb15ffa018d36604609b71248c5037370326641d3872bf30237c395"
+    },
+    {
+     "stage": "vlm",
+     "backend": "cuda",
+     "device": "cuda:0",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "331d4b60-19f2-419e-9464-0f1b26157d4e",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "c0001-m1-relay-GGG-r1-0",
+     "sequence": 5,
+     "input_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_sha256": "e56561b08372c9945db83586470d45088cbd9432d4e04ca2f3b6a39b925f92af",
+     "output_bytes": 629,
+     "model_sha256": {
+      "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+     },
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 2375.072432914749,
+     "timing": {
+      "preprocess_ms": 9.117074077948928,
+      "generate_ms": 2355.2202719729394,
+      "decode_text_ms": 0.07169600576162338,
+      "total_ms": 2364.40904205665,
+      "ttft_ms": 2330.342625034973,
+      "token_offsets_ms": [
+       2330.342625034973,
+       2355.0375818740577
+      ],
+      "host": {
+       "cpu_s_preprocess": 0.017355183999995916,
+       "cpu_s_generate": 2.3555344000000034,
+       "max_rss_kib": 5065300,
+       "streamer_token_puts": 2
+      },
+      "device_stats": {
+       "max_memory_allocated": 4309422080,
+       "output_device": "cuda:0"
+      },
+      "output_device": "cuda:0",
+      "png_decode_ms": 9.429283905774355,
+      "reconstructed_npy_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+      "reconstructed_npy_bytes": 818048,
+      "input_id": "cal-3733440"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.0064801424741744995,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "1e00a0c43601761a4b95a752f9cf3c319fdd3c41b71fee80562d4fc459694e6a"
+    },
+    {
+     "stage": "result_format",
+     "backend": "cuda",
+     "device": "host-cpu",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "331d4b60-19f2-419e-9464-0f1b26157d4e",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "c0001-m1-relay-GGG-r1-0",
+     "sequence": 14,
+     "input_sha256": "e56561b08372c9945db83586470d45088cbd9432d4e04ca2f3b6a39b925f92af",
+     "output_sha256": "7f37eb41ab1e485ba29e30d3b2cee472d828b297f3d96a4a666111bebf45c0fa",
+     "output_bytes": 257,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 0.05273590795695782,
+     "timing": {
+      "total_ms": 0.04657590761780739,
+      "input_bytes": 629,
+      "output_bytes": 257,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.007696915417909622,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "bf771b4d61619ccb14d41eb253dbdc2981f89c47b23580dd8224d833bf6f6432"
+    }
+   ],
+   "hops": [
+    {
+     "src": "G",
+     "dst": "G",
+     "route": "direct",
+     "stage": "vlm",
+     "payload_bytes": 593966,
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "rpc_ms": 2380.646562902257,
+     "status": "ok"
+    },
+    {
+     "src": "G",
+     "dst": "G",
+     "route": "direct",
+     "stage": "result_format",
+     "payload_bytes": 629,
+     "output_sha256": "e56561b08372c9945db83586470d45088cbd9432d4e04ca2f3b6a39b925f92af",
+     "rpc_ms": 1.9198090303689241,
+     "status": "ok"
+    }
+   ],
+   "deadline_met": true,
+   "final_bytes": 257,
+   "final_sha256": "7f37eb41ab1e485ba29e30d3b2cee472d828b297f3d96a4a666111bebf45c0fa",
+   "text": "no",
+   "token_ids": [
+    2152,
+    151645
+   ]
+  }
+ ],
+ "error": null,
+ "cell": {
+  "measurement_block": 1,
+  "repeat": 1,
+  "regime": "relay",
+  "input_id": "cal-3733440",
+  "placement": "GGG",
+  "policies": [
+   "fixed_gpu"
+  ],
+  "arrivals": [
+   {
+    "index": 0,
+    "offset_s": 0.0
+   }
+  ],
+  "label": "c0001-m1-relay-GGG-r1"
+ }
+}

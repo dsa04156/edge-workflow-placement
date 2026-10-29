@@ -1,0 +1,208 @@
+{
+ "label": "qual-relay-NNN",
+ "state": "done",
+ "placement": "NNN",
+ "input_id": "cal-3733440",
+ "relay": true,
+ "policies": [
+  "qualification"
+ ],
+ "slo_s": 5.0,
+ "timeout_s": 40.0,
+ "max_inflight": 1,
+ "max_seen_inflight": 1,
+ "inflight": 0,
+ "finished_offset_s": 0.43001872207969427,
+ "generator": {
+  "node": "etri-dev0003-raspi5",
+  "pod_uid": "0f6d2860-7202-4e5f-807d-6bae63a47232"
+ },
+ "rows": [
+  {
+   "index": 0,
+   "request_id": "qual-relay-NNN-0",
+   "scheduled_offset_s": 0.0,
+   "status": "ok",
+   "dispatch_lag_ms": 0.10122614912688732,
+   "inflight_at_arrival": 0,
+   "first_route": "gateway",
+   "first_payload_bytes": 818048,
+   "send_offset_s": 0.00046581518836319447,
+   "first_rpc_ms": 428.2099758274853,
+   "completed_offset_s": 0.428680069046095,
+   "latency_ms": 428.680069046095,
+   "receipts": [
+    {
+     "stage": "image_pack",
+     "backend": "mobilint",
+     "device": "host-cpu",
+     "node": "etri-ser0004-cgnms0",
+     "pod_uid": "741bb0ac-9ef4-4203-9805-b04f6256edcb",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "qual-relay-NNN-0",
+     "sequence": 9,
+     "input_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_bytes": 593966,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 80.66033781506121,
+     "timing": {
+      "load_ms": 0.48009189777076244,
+      "encode_ms": 68.35481198504567,
+      "verify_ms": 11.804149951785803,
+      "total_ms": 80.63905383460224,
+      "input_bytes": 818048,
+      "output_bytes": 593966,
+      "shape": [
+       426,
+       640,
+       3
+      ],
+      "roundtrip_identical": true,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.015289988368749619,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "7f1cfdebdf8ffd335632c00852838e2d4d004bb61a0e95bad8e64d280f17a09e"
+    },
+    {
+     "stage": "vlm",
+     "backend": "mobilint",
+     "device": "npu:aries-rb",
+     "node": "etri-ser0004-cgnms0",
+     "pod_uid": "741bb0ac-9ef4-4203-9805-b04f6256edcb",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "qual-relay-NNN-0",
+     "sequence": 3,
+     "input_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_sha256": "174b80371a060e8d9b9ac2098cd408015558af3f107ebea78275aa6d57d6610c",
+     "output_bytes": 1246,
+     "model_sha256": {
+      "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+      "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+      "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+     },
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 321.6572250239551,
+     "timing": {
+      "preprocess_ms": 9.80852311477065,
+      "generate_ms": 297.495094826445,
+      "decode_text_ms": 0.07000798359513283,
+      "total_ms": 307.37362592481077,
+      "ttft_ms": 249.5222338475287,
+      "token_offsets_ms": [
+       249.5222338475287,
+       297.37304896116257
+      ],
+      "host": {
+       "cpu_s_preprocess": 0.030907259999999326,
+       "cpu_s_generate": 0.2408766870000001,
+       "max_rss_kib": 550996,
+       "streamer_token_puts": 2
+      },
+      "device_stats": {
+       "npu_timing": {
+        "available": false,
+        "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)",
+        "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing."
+       },
+       "output_tensor_device": "cpu",
+       "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+      },
+      "png_decode_ms": 12.928538024425507,
+      "reconstructed_npy_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+      "reconstructed_npy_bytes": 818048,
+      "input_id": "cal-3733440"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.011977972462773323,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "3546b643ad5f807085c109b9a91eb7da5434c6948a5d6a9c49d329ad95ce8775"
+    },
+    {
+     "stage": "result_format",
+     "backend": "mobilint",
+     "device": "host-cpu",
+     "node": "etri-ser0004-cgnms0",
+     "pod_uid": "741bb0ac-9ef4-4203-9805-b04f6256edcb",
+     "run_id": "gmp-sensor-20261029t133741",
+     "request_id": "qual-relay-NNN-0",
+     "sequence": 10,
+     "input_sha256": "174b80371a060e8d9b9ac2098cd408015558af3f107ebea78275aa6d57d6610c",
+     "output_sha256": "da609537ff896208d95032051a7411b8bfdca21fe6a7e54f792b37db9f286bf1",
+     "output_bytes": 257,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 0.08529797196388245,
+     "timing": {
+      "total_ms": 0.07719499990344048,
+      "input_bytes": 1246,
+      "output_bytes": 257,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.010650837793946266,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "f8ab3e13b60e43c74f697d77a3ea1da5e9768c21edc7b04ab35dcc4ae64a0960"
+    }
+   ],
+   "hops": [
+    {
+     "src": "N",
+     "dst": "N",
+     "route": "direct",
+     "stage": "vlm",
+     "payload_bytes": 593966,
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "rpc_ms": 326.7527059651911,
+     "status": "ok"
+    },
+    {
+     "src": "N",
+     "dst": "N",
+     "route": "direct",
+     "stage": "result_format",
+     "payload_bytes": 1246,
+     "output_sha256": "174b80371a060e8d9b9ac2098cd408015558af3f107ebea78275aa6d57d6610c",
+     "rpc_ms": 1.9341169390827417,
+     "status": "ok"
+    }
+   ],
+   "deadline_met": true,
+   "final_bytes": 257,
+   "final_sha256": "da609537ff896208d95032051a7411b8bfdca21fe6a7e54f792b37db9f286bf1",
+   "text": "no",
+   "token_ids": [
+    2152,
+    151645
+   ]
+  }
+ ],
+ "error": null,
+ "cell": {
+  "label": "qual-relay-NNN",
+  "regime": "relay",
+  "placement": "NNN",
+  "input_id": "cal-3733440",
+  "arrivals": [
+   {
+    "index": 0,
+    "offset_s": 0.0
+   }
+  ],
+  "policies": [
+   "qualification"
+  ]
+ }
+}
