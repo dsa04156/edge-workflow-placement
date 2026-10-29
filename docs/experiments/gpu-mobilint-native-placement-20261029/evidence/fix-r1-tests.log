@@ -1,0 +1,47 @@
+................................----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57352)
+Traceback (most recent call last):
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/http/server.py", line 428, in handle_one_request
+    method()
+  File "/home/jinuk/codex-work/scheduler/.scratch/gpu-spark-dag-20261029/staged/experiments/quality-network-heterogeneous/worker.py", line 211, in do_POST
+    self._send(status, value)
+  File "/home/jinuk/codex-work/scheduler/.scratch/gpu-spark-dag-20261029/staged/experiments/quality-network-heterogeneous/worker.py", line 176, in _send
+    self.wfile.write(raw)
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+..----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57756)
+Traceback (most recent call last):
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/http/server.py", line 428, in handle_one_request
+    method()
+  File "/home/jinuk/codex-work/scheduler/.scratch/gpu-spark-dag-20261029/staged/experiments/quality-network-heterogeneous/worker.py", line 211, in do_POST
+    self._send(status, value)
+  File "/home/jinuk/codex-work/scheduler/.scratch/gpu-spark-dag-20261029/staged/experiments/quality-network-heterogeneous/worker.py", line 176, in _send
+    self.wfile.write(raw)
+  File "/home/jinuk/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+.................
+----------------------------------------------------------------------
+Ran 51 tests in 12.297s
+
+OK

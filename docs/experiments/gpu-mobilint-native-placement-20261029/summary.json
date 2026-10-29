@@ -1,0 +1,63 @@
+{
+  "run": "gmp-spark-20261029t122604",
+  "scope": "Native LAN; warm single-input DAG placement; one request per unique placement",
+  "source": "etri-dev0003-raspi5",
+  "gpu": "etri-ser0003-cg0ms0 / NVIDIA GB10 / BF16",
+  "npu": "etri-ser0004-cgnms0 / Mobilint ARIES / W4V8 MXQ",
+  "scheduled": 4,
+  "ok": 4,
+  "deadline_met": 4,
+  "slo_s": 5,
+  "quality_evaluated": false,
+  "cleanup_verified": true,
+  "observations": [
+    {
+      "placement": "GNG",
+      "policies": [
+        "task_fastest"
+      ],
+      "e2e_ms": 408.94221398048103,
+      "predicted_ms": 417.71293187048286,
+      "n": 1,
+      "output": "no"
+    },
+    {
+      "placement": "NNN",
+      "policies": [
+        "static_npu"
+      ],
+      "e2e_ms": 447.55827402696013,
+      "predicted_ms": 463.84957258123904,
+      "n": 1,
+      "output": "no"
+    },
+    {
+      "placement": "GNN",
+      "policies": [
+        "dag",
+        "network_greedy"
+      ],
+      "e2e_ms": 401.61692001856863,
+      "predicted_ms": 417.5799557706341,
+      "n": 1,
+      "output": "no"
+    },
+    {
+      "placement": "GGG",
+      "policies": [
+        "static_gpu"
+      ],
+      "e2e_ms": 2391.2089949008077,
+      "predicted_ms": 2397.372702253051,
+      "n": 1,
+      "output": "no"
+    }
+  ],
+  "observed_reduction_percent": {
+    "GGG": 83.20444089684312,
+    "NNN": 10.264887652512499,
+    "GNG": 1.7912785013341814
+  },
+  "inference": "Descriptive singleton values only; no CI, hypothesis test, tail latency or throughput claim; Greedy and DAG share one observation",
+  "raw_files": 331
+}

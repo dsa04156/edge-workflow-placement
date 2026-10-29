@@ -1,0 +1,210 @@
+{
+ "label": "c0000-m1-native-GNG-r1",
+ "state": "done",
+ "placement": "GNG",
+ "input_id": "cal-3733440",
+ "relay": false,
+ "policies": [
+  "task_fastest"
+ ],
+ "slo_s": 5.0,
+ "timeout_s": 40.0,
+ "max_inflight": 1,
+ "max_seen_inflight": 1,
+ "inflight": 0,
+ "finished_offset_s": 0.410228218883276,
+ "generator": {
+  "node": "etri-dev0003-raspi5",
+  "pod_uid": "51e30402-f668-4ba1-bfa6-d0ae10c7da4b"
+ },
+ "rows": [
+  {
+   "index": 0,
+   "request_id": "c0000-m1-native-GNG-r1-0",
+   "scheduled_offset_s": 0.0,
+   "status": "ok",
+   "dispatch_lag_ms": 0.10829907841980457,
+   "inflight_at_arrival": 0,
+   "first_route": "direct",
+   "first_payload_bytes": 818048,
+   "send_offset_s": 0.0005311090499162674,
+   "first_rpc_ms": 408.4064750932157,
+   "completed_offset_s": 0.40894221398048103,
+   "latency_ms": 408.94221398048103,
+   "receipts": [
+    {
+     "stage": "image_pack",
+     "backend": "cuda",
+     "device": "host-cpu",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "da447859-96c9-4bb0-ae36-86adfe0657a8",
+     "run_id": "gmp-spark-20261029t122604",
+     "request_id": "c0000-m1-native-GNG-r1-0",
+     "sequence": 13,
+     "input_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_bytes": 593966,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 38.056195015087724,
+     "timing": {
+      "load_ms": 0.4449589177966118,
+      "encode_ms": 32.299046171829104,
+      "verify_ms": 5.298126023262739,
+      "total_ms": 38.042131112888455,
+      "input_bytes": 818048,
+      "output_bytes": 593966,
+      "shape": [
+       426,
+       640,
+       3
+      ],
+      "roundtrip_identical": true,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.005328096449375153,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "584762390cb15ffa018d36604609b71248c5037370326641d3872bf30237c395"
+    },
+    {
+     "stage": "vlm",
+     "backend": "mobilint",
+     "device": "npu:aries-rb",
+     "node": "etri-ser0004-cgnms0",
+     "pod_uid": "81e3cc2a-5888-4f5f-8ecb-c37da23864a5",
+     "run_id": "gmp-spark-20261029t122604",
+     "request_id": "c0000-m1-native-GNG-r1-0",
+     "sequence": 4,
+     "input_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "output_sha256": "b821a1d36c830631a9ba13d91940bf1fcc93f3c83a89adc81c339c389024e9e5",
+     "output_bytes": 1247,
+     "model_sha256": {
+      "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+      "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+      "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+     },
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 342.9645309224725,
+     "timing": {
+      "preprocess_ms": 9.302688064053655,
+      "generate_ms": 311.4657551050186,
+      "decode_text_ms": 0.14867191202938557,
+      "total_ms": 320.91711508110166,
+      "ttft_ms": 256.9810620043427,
+      "token_offsets_ms": [
+       256.9810620043427,
+       311.1633120570332
+      ],
+      "host": {
+       "cpu_s_preprocess": 0.028678016999998945,
+       "cpu_s_generate": 0.3825755449999999,
+       "max_rss_kib": 555560,
+       "streamer_token_puts": 2
+      },
+      "device_stats": {
+       "npu_timing": {
+        "available": false,
+        "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)",
+        "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing."
+       },
+       "output_tensor_device": "cpu",
+       "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+      },
+      "png_decode_ms": 19.46983695961535,
+      "reconstructed_npy_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+      "reconstructed_npy_bytes": 818048,
+      "input_id": "cal-3733440"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.024616019800305367,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "4b5d9f1ce28aef7a855f6f91cd9e4fca7a3eb1d7d8ac4181e437e5ad85af2377"
+    },
+    {
+     "stage": "result_format",
+     "backend": "cuda",
+     "device": "host-cpu",
+     "node": "etri-ser0003-cg0ms0",
+     "pod_uid": "da447859-96c9-4bb0-ae36-86adfe0657a8",
+     "run_id": "gmp-spark-20261029t122604",
+     "request_id": "c0000-m1-native-GNG-r1-0",
+     "sequence": 14,
+     "input_sha256": "b821a1d36c830631a9ba13d91940bf1fcc93f3c83a89adc81c339c389024e9e5",
+     "output_sha256": "7487a6734ef4ca4d75565b50a4054756a25c7a6e7f53f56db218e839daecf074",
+     "output_bytes": 257,
+     "model_sha256": null,
+     "derived_artifact_sha256": null,
+     "worker_wall_ms": 0.05911989137530327,
+     "timing": {
+      "total_ms": 0.05283183418214321,
+      "input_bytes": 1247,
+      "output_bytes": 257,
+      "device": "host-cpu"
+     },
+     "input_kind": "raw",
+     "queue_wait_ms": 0.006624031811952591,
+     "queue_at_arrival": {
+      "waiting": 0,
+      "active": 0
+     },
+     "static_sha256": "bf771b4d61619ccb14d41eb253dbdc2981f89c47b23580dd8224d833bf6f6432"
+    }
+   ],
+   "hops": [
+    {
+     "src": "G",
+     "dst": "N",
+     "route": "direct",
+     "stage": "vlm",
+     "payload_bytes": 593966,
+     "output_sha256": "5d4d5adce02192fe842278f978b464ca4c6a2c59053ea0faf1c3b7ff23f514df",
+     "rpc_ms": 357.267257058993,
+     "status": "ok"
+    },
+    {
+     "src": "N",
+     "dst": "G",
+     "route": "direct",
+     "stage": "result_format",
+     "payload_bytes": 1247,
+     "output_sha256": "b821a1d36c830631a9ba13d91940bf1fcc93f3c83a89adc81c339c389024e9e5",
+     "rpc_ms": 3.4125959500670433,
+     "status": "ok"
+    }
+   ],
+   "deadline_met": true,
+   "final_bytes": 257,
+   "final_sha256": "7487a6734ef4ca4d75565b50a4054756a25c7a6e7f53f56db218e839daecf074",
+   "text": "no",
+   "token_ids": [
+    2152,
+    151645
+   ]
+  }
+ ],
+ "error": null,
+ "cell": {
+  "measurement_block": 1,
+  "repeat": 1,
+  "regime": "native",
+  "input_id": "cal-3733440",
+  "placement": "GNG",
+  "policies": [
+   "task_fastest"
+  ],
+  "arrivals": [
+   {
+    "index": 0,
+    "offset_s": 0.0
+   }
+  ],
+  "label": "c0000-m1-native-GNG-r1"
+ }
+}

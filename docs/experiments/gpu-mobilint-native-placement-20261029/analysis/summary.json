@@ -1,0 +1,217 @@
+{
+ "run": "gmp-spark-20261029t122604",
+ "scheduled_requests": 4,
+ "counts": {
+  "ok": 4,
+  "late_ok": 0,
+  "failed": 0,
+  "integrity_failed": 0,
+  "worker_rejected": 0,
+  "timeout": 0,
+  "admission_drop": 0,
+  "not_sent": 0,
+  "outcome_unknown": 0
+ },
+ "unaccounted": [],
+ "deadline_met": 4,
+ "plans_sha256": "b12e6cc9efa637ead40c9195fe9135445b06d032868382eb8ebc27474907ca0d",
+ "aliases": {
+  "native": {
+   "GGG": [
+    "static_gpu"
+   ],
+   "NNN": [
+    "static_npu"
+   ],
+   "GNG": [
+    "task_fastest"
+   ],
+   "GNN": [
+    "dag",
+    "network_greedy"
+   ]
+  }
+ },
+ "sizes": {
+  "npy": 818048,
+  "png": {
+   "G": 593966,
+   "N": 593966
+  },
+  "vlm": {
+   "G": 633,
+   "N": 1253
+  },
+  "final": {
+   "G": 257,
+   "N": 257
+  }
+ },
+ "tables": {
+  "native": {
+   "proc": {
+    "image_pack@G": 37.873730063438416,
+    "image_pack@N": 87.70446595735848,
+    "vlm@G": 2342.3149690497667,
+    "vlm@N": 354.4185138307512,
+    "result_format@G": 0.03890402149409056,
+    "result_format@N": 0.08355488535016775
+   },
+   "link": {
+    "S->G#0": 13.126028934493661,
+    "S->N#0": 14.295035973191261,
+    "G->G#1": 2.923311199992895,
+    "G->N#1": 9.59381996653974,
+    "N->G#1": 9.153255028650165,
+    "N->N#1": 4.863693844527006,
+    "G->G#2": 1.0957589838653803,
+    "G->N#2": 2.6048310101032257,
+    "N->G#2": 2.6619350537657738,
+    "N->N#2": 2.4843080900609493
+   }
+  }
+ },
+ "shared_bottleneck": null,
+ "shaped2_claim": "not applicable: native regime only; no shared-link contention claim",
+ "precision": {
+  "G": "Qwen/Qwen3-VL-2B-Instruct@89644892 BF16 on cuda:0 (torch)",
+  "N": "mobilint/Qwen3-VL-2B-Instruct@f4be563 W4V8 MXQ (vision+text) on ARIES via qbruntime"
+ },
+ "quality": "not evaluated (system diagnostic, not quality-eligible goodput)",
+ "comparisons": [],
+ "plan_stats": [
+  {
+   "regime": "native",
+   "placement": "GGG",
+   "policies": "static_gpu",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 2391.2089949008077,
+   "p95_success_ms": 2391.2089949008077,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:2391.2089949008077"
+  },
+  {
+   "regime": "native",
+   "placement": "GNG",
+   "policies": "task_fastest",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 408.94221398048103,
+   "p95_success_ms": 408.94221398048103,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:408.94221398048103"
+  },
+  {
+   "regime": "native",
+   "placement": "GNN",
+   "policies": "dag|network_greedy",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 401.61692001856863,
+   "p95_success_ms": 401.61692001856863,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:401.61692001856863"
+  },
+  {
+   "regime": "native",
+   "placement": "NNN",
+   "policies": "static_npu",
+   "scheduled": 1,
+   "n_ok": 1,
+   "n_late_ok": 0,
+   "n_failed": 0,
+   "n_integrity_failed": 0,
+   "n_worker_rejected": 0,
+   "n_timeout": 0,
+   "n_admission_drop": 0,
+   "n_not_sent": 0,
+   "n_outcome_unknown": 0,
+   "deadline_met": 1,
+   "deadline_met_rate_all_scheduled": 1.0,
+   "success_n": 1,
+   "p50_success_ms": 447.55827402696013,
+   "p95_success_ms": 447.55827402696013,
+   "p50_block_boot95_lo_ms": null,
+   "p50_block_boot95_hi_ms": null,
+   "p95_block_boot95_lo_ms": null,
+   "p95_block_boot95_hi_ms": null,
+   "uncertainty_blocks": 1,
+   "uncertainty_resamples": 0,
+   "uncertainty_empty_resample_weight": null,
+   "uncertainty_note": "fewer than 2 temporal blocks: no uncertainty estimate; singleton values only",
+   "latency_note": "conditional on success (ok/late_ok); failures/timeouts excluded, never assigned a latency",
+   "block_success_medians_ms": "1:447.55827402696013"
+  }
+ ],
+ "statistics": "empirical quantiles conditional on success with exact block-bootstrap 95% percentile intervals over the temporal blocks; block-paired exact sign-flip tests over temporal blocks of the same warm processes (not independent hardware/process replication); no power claimed",
+ "limitations": [
+  "Staged native-only variant: G = ser0003 GB10 GPU, N = ser0004 Mobilint, source dev0003; one observation per unique placement (1 block x 1 repeat), no relay/shaped regime, no significance test, no shared-link contention claim.",
+  "One process block (one GPU Pod, one Mobilint Pod); repetitions, if any, are temporal inside the same Pods and the same host/OS cache.",
+  "Single input cal-3733440; single sequential requests (in-flight 1): a low-load latency diagnosis, not capacity or goodput.",
+  "GPU arm Qwen3-VL-2B-Instruct BF16 (CUDA) vs Mobilint arm vendor W4V8 MXQ: different precisions; quality not evaluated.",
+  "T1 image_pack and T3 result_format are host-CPU support stages; only T2 runs neural inference on CUDA or Mobilint.",
+  "shaped2 is the unchanged net_control.py per-direction 2 Mbit/s gateway shaping (cloud band / edge band); not a combined bidirectional cap and not a measured physical topology. Shared-bottleneck claim only if the two-flow check verified it.",
+  "Link costs are application-path probe RTTs (HTTP/relay overhead included), not pure network times; nested reply bytes are a small-response approximation inside each hop RTT.",
+  "Policy labels selecting the same placement share ONE observation (aliases), never independent samples.",
+  "No Resource Advisor/JCT or physical topology validation claim.",
+  "Quantile uncertainty: exact block bootstrap over the temporal blocks (all C(2B-1,B) multisets of blocks, 6435 for B=8). Eight blocks give a coarse interval that tends to under-cover; the p95 of at most 64 pooled observations rests on its few largest values, so its interval is especially rough. Blocks share the same warm processes: no process/hardware replication."
+ ]
+}
