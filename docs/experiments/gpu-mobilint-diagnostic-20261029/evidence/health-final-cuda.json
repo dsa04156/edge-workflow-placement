@@ -1,0 +1,155 @@
+{
+ "status": "ready",
+ "backend": "cuda",
+ "node": "etri-dev0009-jetorn",
+ "pod_uid": "086c18e1-1366-43ec-a790-6407f1ce584b",
+ "stages": {
+  "vlm": {
+   "backend": "cuda",
+   "device": "cuda:0",
+   "model_sha256": {
+    "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+   },
+   "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+   "evidence": {
+    "device": "cuda:0",
+    "runtime": "torch",
+    "runtime_version": "2.9.1+cu130",
+    "cuda": "13.0",
+    "device_name": "Orin",
+    "capability": [
+     8,
+     7
+    ],
+    "parameter_devices": [
+     "cuda:0"
+    ],
+    "buffer_devices": [
+     "cuda:0"
+    ],
+    "parameters": 2127532032,
+    "dtypes": [
+     "torch.bfloat16"
+    ],
+    "memory_allocated": 4256128000,
+    "backend": "cuda",
+    "model": "qwen3vl-2b-89644892",
+    "weights_sha256": {
+     "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "host_threads": 4,
+    "hash_ms": 50897.46244694106,
+    "load_ms": 97230.7949650567,
+    "pid": 220,
+    "diagnostic": {
+     "hooked_modules": {
+      "vision": "Qwen3VLVisionModel",
+      "language": "Qwen3VLTextModel",
+      "lm_head": "Linear"
+     },
+     "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time"
+    }
+   },
+   "process": {
+    "backend": "cuda",
+    "model": "qwen3vl-2b-89644892",
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "load_deadline_s": 1200,
+    "call_deadline_s": 300,
+    "log": "/work/logs/vlm-cuda-child.log",
+    "started_at": 1793260903.3466308,
+    "load_wall_ms": 185157.83472103067,
+    "state": "ready",
+    "child_pid": 220
+   }
+  }
+ },
+ "errors": {},
+ "queue": {
+  "waiting": 0,
+  "active": 0,
+  "completed": 4
+ },
+ "bootstrap": {
+  "phase": "loaded",
+  "started_utc": "2026-10-29T07:54:48Z",
+  "events": [
+   {
+    "kind": "cache_hit",
+    "transfers": 0,
+    "files": 19003,
+    "bytes": 8853614095,
+    "ms": 414729.10230292473,
+    "content_sha256": "4930008b67ad774fbf788e280e9d9fa4f671f88d4bcaed3a3040a3c369c6212f"
+   }
+  ],
+  "mode": "prepared",
+  "discovery": {
+   "machine": "aarch64",
+   "python": "3.11.16",
+   "kernel": "6.8.12-1021-tegra",
+   "node": "etri-dev0009-jetorn",
+   "/proc/device-tree/model": "unreadable: FileNotFoundError",
+   "/etc/nv_tegra_release": "# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: generic, EABI: aarch64, DATE: Fri Aug  7 05:54:22 AM UTC 2026\n# KERNEL_VARIANT: oot\nTARGET_USERSPACE_LIB_DIR=nvidia\nTARGET_USERSPACE_LIB_DIR_PATH=usr/lib/aarch64-linux-gnu/nvidia\n",
+   "dev": [
+    "dri",
+    "nvgpu",
+    "nvhost-as-gpu",
+    "nvhost-ctrl-gpu",
+    "nvhost-ctxsw-gpu",
+    "nvhost-dbg-gpu",
+    "nvhost-gpu",
+    "nvhost-nvsched-gpu",
+    "nvhost-power-gpu",
+    "nvhost-prof-ctx-gpu",
+    "nvhost-prof-dev-gpu",
+    "nvhost-prof-gpu",
+    "nvhost-sched-gpu",
+    "nvhost-tsg-gpu",
+    "nvidia-modeset",
+    "nvidia0",
+    "nvidia1",
+    "nvidiactl",
+    "nvmap"
+   ],
+   "NVIDIA_VISIBLE_DEVICES": "void",
+   "cuda_driver": {
+    "library": "libcuda.so.1",
+    "cuInit": 0,
+    "cuDriverGetVersion": 0,
+    "driver_version": 13020,
+    "cuDeviceGetCount": 0,
+    "device_count": 1,
+    "device_names": [
+     "Orin"
+    ]
+   }
+  },
+  "recipe": "cu130-aarch64-cp311",
+  "fetch_io": {
+   "io_profile": {
+    "chunk_max": 262144,
+    "fds_max": 32,
+    "fill_budget_s": 10800,
+    "max_bps": 4194304,
+    "min_bps": 262144,
+    "name": "sd-adaptive-v1",
+    "pause_busy_pct": 85,
+    "ramp_busy_pct": 40,
+    "ramp_hold_s": 10.0,
+    "resume_busy_pct": 50,
+    "resume_hold_s": 3.0,
+    "sample_s": 1.0,
+    "slow_busy_pct": 70,
+    "slow_fsync_s": 1.0,
+    "stall_s": 300,
+    "start_bps": 1048576,
+    "step_bps": 262144,
+    "unsynced_max": 1048576
+   },
+   "verify_rate_bps": 33554432
+  },
+  "fetch_progress": null,
+  "finished_utc": "2026-10-29T08:04:48Z"
+ }
+}

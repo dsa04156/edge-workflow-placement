@@ -1,0 +1,1796 @@
+[
+ {
+  "status": "ok",
+  "data": "eyJkZXZpY2UiOnsibnB1X3RpbWluZyI6eyJhdmFpbGFibGUiOmZhbHNlLCJyZWFzb24iOiJwaW5uZWQgdHJhbnNmb3JtZXJzLW1ibHQgMC42LjEgUXdlbjMtVkwgbm9uLWJhdGNoIHBhdGg6IGNvdW50X25wdV90aW1lIGRlZmF1bHRzIEZhbHNlIGFuZCB0aGUgcGVyLWZvcndhcmQgbnB1X3RpbWUgaXMgbm90IGFnZ3JlZ2F0ZWQgaW50byBnZXRfbnB1X3RpbWluZygpOyBjb3VudGVycyBzdGF5IGF0IHJlc2V0IHZhbHVlcywgc28gbm8gbWVhc3VyZWQgTlBVIHRpbWUgaXMgY2xhaW1lZC4gQ29hcnNlIGdlbmVyYXRlX21zL3R0ZnRfbXMvdG9rZW4gb2Zmc2V0cyBhbmQgaG9zdCBjcHVfc18qIGFyZSB0aGUgbWVhc3VyZWQgdGltaW5nLiIsInNjb3BlIjoidmVuZG9yIGFnZ3JlZ2F0ZSBjb3VudGVycyAodGV4dCBkZWNvZGVyIHByZWZpbGwvZGVjb2RlOyB2aXNpb24gTVhRIG5ldmVyIGluY2x1ZGVkKSJ9LCJvdXRwdXRfdGVuc29yX2RldmljZSI6ImNwdSIsIm91dHB1dF90ZW5zb3Jfbm90ZSI6Imhvc3QgdGVuc29yIGV4cGVjdGVkOiBnZW5lcmF0ZSByZXR1cm5zIHRva2VuIGlkcyBvbiB0aGUgaG9zdDsgdGhlIHZpc2lvbi90ZXh0IE1YUSBjb21wdXRhdGlvbiBydW5zIG9uIHRoZSBOUFUgYW5kIGlzIGV2aWRlbmNlZCBieSB0aGUgbG9hZC10aW1lIGJhY2tlbmQgY29tcG9uZW50cywgbm90IGJ5IHRoaXMgdGVuc29yIn0sImRpYWdub3N0aWMiOnsiZW52aXJvbm1lbnQiOnsiYWZ0ZXIiOnsiYXQiOjE3OTMyNjExMjEuODIxMDg5LCJjZ3JvdXAiOnsiY3B1Lm1heCI6IjQwMDAwMCAxMDAwMDAiLCJjcHUucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0yMDU3MlxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MjA1NzIiLCJjcHUuc3RhdCI6InVzYWdlX3VzZWMgMzY4NDc1MDhcbnVzZXJfdXNlYyAzMjE0ODIyMlxuc3lzdGVtX3VzZWMgNDY5OTI4NlxuY29yZV9zY2hlZC5mb3JjZV9pZGxlX3VzZWMgMFxubnJfcGVyaW9kcyA3ODRcbm5yX3Rocm90dGxlZCAwXG50aHJvdHRsZWRfdXNlYyAwXG5ucl9idXJzdHMgMFxuYnVyc3RfdXNlYyAwIiwiaW8ucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD00NzYxMlxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9NDc2MTIiLCJtZW1vcnkuY3VycmVudCI6IjQ2MTcwOTcyMTYiLCJtZW1vcnkubWF4IjoiODU4OTkzNDU5MiIsIm1lbW9yeS5wZWFrIjoiNDYxNzgyMjIwOCIsIm1lbW9yeS5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTMxOFxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzE4In0sImRldmZyZXEiOiJ1bmF2YWlsYWJsZTogbm8gZGV2ZnJlcS9ncHUgbG9hZCBzeXNmcyBwYXRoIHZpc2libGUiLCJsb2FkYXZnIjoiMC4zMSAwLjQyIDAuNjAgNS8xNjYyIDMwMyIsIm1lbW9yeV9zdGF0Ijp7ImFub24iOiI0NjA2NTY2NDAiLCJmaWxlIjoiNDAwMDY3Mzc5MiIsInBnZmF1bHQiOiIyMjY1NDkiLCJwZ21hamZhdWx0IjoiMCIsInBnc2NhbiI6IjEyODQ0OCIsInBnc3RlYWwiOiIxMjg0NDgiLCJ3b3JraW5nc2V0X3JlZmF1bHRfYW5vbiI6IjAiLCJ3b3JraW5nc2V0X3JlZmF1bHRfZmlsZSI6IjEyODQ0NyJ9LCJwc2kiOnsiY3B1Ijoic29tZSBhdmcxMD0xLjQyIGF2ZzYwPTEuNjcgYXZnMzAwPTEuNzAgdG90YWw9NDk2NzI1NzgwODNcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTAiLCJpbyI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTE3MDYxNzUyMVxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MTYxNDQwNzQ1IiwibWVtb3J5Ijoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzYwNTA4NVxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzU2MTE3NiJ9LCJ0aHJlYWRzIjoiMjEiLCJ0b3JjaF90aHJlYWRzIjo0fSwiYmVmb3JlIjp7ImF0IjoxNzkzMjYxMTIxLjQ4MTUzNTIsImNncm91cCI6eyJjcHUubWF4IjoiNDAwMDAwIDEwMDAwMCIsImNwdS5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTIwNDc2XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0yMDQ3NiIsImNwdS5zdGF0IjoidXNhZ2VfdXNlYyAzNjM3MDI2NlxudXNlcl91c2VjIDMxNjcwOTgwXG5zeXN0ZW1fdXNlYyA0Njk5Mjg2XG5jb3JlX3NjaGVkLmZvcmNlX2lkbGVfdXNlYyAwXG5ucl9wZXJpb2RzIDc4MFxubnJfdGhyb3R0bGVkIDBcbnRocm90dGxlZF91c2VjIDBcbm5yX2J1cnN0cyAwXG5idXJzdF91c2VjIDAiLCJpby5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTQ3NjEyXG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD00NzYxMiIsIm1lbW9yeS5jdXJyZW50IjoiNDYxNjk3MDI0MCIsIm1lbW9yeS5tYXgiOiI4NTg5OTM0NTkyIiwibWVtb3J5LnBlYWsiOiI0NjE3ODIyMjA4IiwibWVtb3J5LnByZXNzdXJlIjoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzE4XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zMTgifSwiZGV2ZnJlcSI6InVuYXZhaWxhYmxlOiBubyBkZXZmcmVxL2dwdSBsb2FkIHN5c2ZzIHBhdGggdmlzaWJsZSIsImxvYWRhdmciOiIwLjMxIDAuNDIgMC42MCAyLzE2NjMgMzAzIiwibWVtb3J5X3N0YXQiOnsiYW5vbiI6IjQ2MDYyMzg3MiIsImZpbGUiOiI0MDAwNjczNzkyIiwicGdmYXVsdCI6IjIyNjUzNCIsInBnbWFqZmF1bHQiOiIwIiwicGdzY2FuIjoiMTI4NDQ4IiwicGdzdGVhbCI6IjEyODQ0OCIsIndvcmtpbmdzZXRfcmVmYXVsdF9hbm9uIjoiMCIsIndvcmtpbmdzZXRfcmVmYXVsdF9maWxlIjoiMTI4NDQ3In0sInBzaSI6eyJjcHUiOiJzb21lIGF2ZzEwPTEuNDIgYXZnNjA9MS42NyBhdmczMDA9MS43MCB0b3RhbD00OTY3MjU1NzI3MFxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MCIsImlvIjoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MTcwNjE3MzIzXG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0xNjE0NDA1ODQiLCJtZW1vcnkiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zNjA1MDg1XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zNTYxMTc2In0sInRocmVhZHMiOiIyMSIsInRvcmNoX3RocmVhZHMiOjR9fSwic2NvcGUiOiJlbnZpcm9ubWVudCBzbmFwc2hvdHMgb25seTsgdmVuZG9yIE1YUSBtb2RlbCBub3QgaW5zdHJ1bWVudGVkIn0sImhvc3QiOnsiY3B1X3NfZ2VuZXJhdGUiOjAuNDI2MjcwODUzOTk5OTk4NCwiY3B1X3NfcHJlcHJvY2VzcyI6MC4wNDg3MzA5MDEwMDAwMDA3NywibWF4X3Jzc19raWIiOjU1MTUyNCwic3RyZWFtZXJfdG9rZW5fcHV0cyI6Mn0sImltYWdlX2dyaWRfdGh3IjpbWzEsMjIsMzRdXSwiaW5wdXRfaWQiOiJjYWwtMzczMzQ0MCIsInByb2Nlc3Nvcl9zaGEyNTYiOiI2ZTBjYzViMDYyYzgyZTcyYmRmZDk1ZWRjZmQwNzVhZDhjYWE4YTYwMDhhNTZiM2M3MThmZDljOGI2YzllYzVhIiwicHJvbXB0X3Rva2VucyI6MjE0LCJ0ZXh0Ijoibm8iLCJ0aW1pbmciOnsiZGVjb2RlX3RleHRfbXMiOjAuMTQxNzQ4OTI1NjcwOTgxNCwiZ2VuZXJhdGVfbXMiOjMyMi45NzMwMTAxMzAyMjY2LCJwcmVwcm9jZXNzX21zIjoxNC42NjM0Mzc4NDcwNDgwNDQsInRva2VuX29mZnNldHNfbXMiOlsyNjcuNDIwMzgwMTQzNDQ4NywzMjIuNzE4OTczMDM4NzE4MV0sInRvdGFsX21zIjozMzcuNzc4MTk2OTAyOTQ1NjQsInR0ZnRfbXMiOjI2Ny40MjAzODAxNDM0NDg3fSwidG9rZW5faWRzIjpbMjE1MiwxNTE2NDVdfQ==",
+  "receipt": {
+   "stage": "vlm",
+   "backend": "mobilint",
+   "device": "npu:aries-rb",
+   "node": "etri-ser0004-cgnms0",
+   "pod_uid": "d7a9f61a-dba2-46ca-a1a1-886a09cc4bce",
+   "run_id": "gmv-diag-20261029t0749",
+   "request_id": "cal-3733440-mobilint",
+   "sequence": 2,
+   "input_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+   "output_sha256": "da35c91fa9aababfd325c15b49885ee1487ec325b3a7ac6a4b9a366ebd2b1c83",
+   "output_bytes": 4105,
+   "model_sha256": {
+    "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+    "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+    "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+   },
+   "derived_artifact_sha256": null,
+   "worker_wall_ms": 342.1758599579334,
+   "timing": {
+    "preprocess_ms": 14.663437847048044,
+    "generate_ms": 322.9730101302266,
+    "decode_text_ms": 0.1417489256709814,
+    "total_ms": 337.77819690294564,
+    "ttft_ms": 267.4203801434487,
+    "token_offsets_ms": [
+     267.4203801434487,
+     322.7189730387181
+    ],
+    "host": {
+     "cpu_s_preprocess": 0.04873090100000077,
+     "cpu_s_generate": 0.4262708539999984,
+     "max_rss_kib": 551524,
+     "streamer_token_puts": 2
+    },
+    "device_stats": {
+     "npu_timing": {
+      "available": false,
+      "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)",
+      "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing."
+     },
+     "output_tensor_device": "cpu",
+     "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+    }
+   },
+   "static": {
+    "backend": "mobilint",
+    "device": "npu:aries-rb",
+    "model_sha256": {
+     "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+     "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+     "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+     "device": "npu:aries-rb",
+     "runtime": "qbruntime",
+     "runtime_version": "v1.4.0",
+     "components": {
+      "vision": {
+       "target_device": "aries-rb",
+       "core_mode": "global8",
+       "mxq": "Qwen3-VL-2B-Instruct_vision-W4V8.mxq",
+       "slots": 1,
+       "dev_no": [
+        0
+       ],
+       "input_shapes": [
+        "(1, -1, 1536)",
+        "(1, -1, 1024)",
+        "(1, -1, 128)"
+       ],
+       "output_shapes": [
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)"
+       ]
+      },
+      "text": {
+       "target_device": "aries-rb",
+       "core_mode": "global8",
+       "mxq": "Qwen3-VL-2B-Instruct_text-W4V8.mxq",
+       "slots": 1,
+       "dev_no": [
+        0
+       ],
+       "input_shapes": [
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 256)"
+       ],
+       "output_shapes": [
+        "(1, 1, 151936)"
+       ]
+      }
+     },
+     "dev_nodes": [
+      "aries0"
+     ],
+     "host_parameters": {
+      "model.visual.pos_embed.weight": {
+       "device": "cpu",
+       "dtype": "torch.float32",
+       "numel": 2359296
+      },
+      "model.language_model.embed_tokens.weight": {
+       "device": "cpu",
+       "dtype": "torch.float32",
+       "numel": 311164928
+      }
+     },
+     "backend": "mobilint",
+     "model": "mobilint-qwen3vl-2b-f4be563",
+     "weights_sha256": {
+      "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+      "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+      "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+     },
+     "host_threads": 4,
+     "hash_ms": 2273.4205138403922,
+     "load_ms": 3618.8248561229557,
+     "pid": 29,
+     "diagnostic": {
+      "hooked_modules": null,
+      "event_note": null
+     }
+    },
+    "process": {
+     "backend": "mobilint",
+     "model": "mobilint-qwen3vl-2b-f4be563",
+     "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+     "load_deadline_s": 900,
+     "call_deadline_s": 300,
+     "log": "/work/logs/vlm-mobilint-child.log",
+     "started_at": 1793260508.3062716,
+     "load_wall_ms": 6945.798065047711,
+     "state": "ready",
+     "child_pid": 29
+    }
+   },
+   "input_kind": "raw",
+   "queue_wait_ms": 0.011551892384886742,
+   "queue_at_arrival": {
+    "waiting": 0,
+    "active": 0
+   }
+  },
+  "arm": "mobilint",
+  "input": "cal-3733440",
+  "request_id": "cal-3733440-mobilint",
+  "collector_wall_ms": 354.52925600111485,
+  "result": {
+   "device": {
+    "npu_timing": {
+     "available": false,
+     "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing.",
+     "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)"
+    },
+    "output_tensor_device": "cpu",
+    "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+   },
+   "diagnostic": {
+    "environment": {
+     "after": {
+      "at": 1793261121.821089,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=20572\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=20572",
+       "cpu.stat": "usage_usec 36847508\nuser_usec 32148222\nsystem_usec 4699286\ncore_sched.force_idle_usec 0\nnr_periods 784\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=47612\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47612",
+       "memory.current": "4617097216",
+       "memory.max": "8589934592",
+       "memory.peak": "4617822208",
+       "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=318\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=318"
+      },
+      "devfreq": "unavailable: no devfreq/gpu load sysfs path visible",
+      "loadavg": "0.31 0.42 0.60 5/1662 303",
+      "memory_stat": {
+       "anon": "460656640",
+       "file": "4000673792",
+       "pgfault": "226549",
+       "pgmajfault": "0",
+       "pgscan": "128448",
+       "pgsteal": "128448",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "128447"
+      },
+      "psi": {
+       "cpu": "some avg10=1.42 avg60=1.67 avg300=1.70 total=49672578083\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+       "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=170617521\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=161440745",
+       "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=3605085\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=3561176"
+      },
+      "threads": "21",
+      "torch_threads": 4
+     },
+     "before": {
+      "at": 1793261121.4815352,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=20476\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=20476",
+       "cpu.stat": "usage_usec 36370266\nuser_usec 31670980\nsystem_usec 4699286\ncore_sched.force_idle_usec 0\nnr_periods 780\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=47612\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47612",
+       "memory.current": "4616970240",
+       "memory.max": "8589934592",
+       "memory.peak": "4617822208",
+       "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=318\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=318"
+      },
+      "devfreq": "unavailable: no devfreq/gpu load sysfs path visible",
+      "loadavg": "0.31 0.42 0.60 2/1663 303",
+      "memory_stat": {
+       "anon": "460623872",
+       "file": "4000673792",
+       "pgfault": "226534",
+       "pgmajfault": "0",
+       "pgscan": "128448",
+       "pgsteal": "128448",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "128447"
+      },
+      "psi": {
+       "cpu": "some avg10=1.42 avg60=1.67 avg300=1.70 total=49672557270\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+       "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=170617323\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=161440584",
+       "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=3605085\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=3561176"
+      },
+      "threads": "21",
+      "torch_threads": 4
+     }
+    },
+    "scope": "environment snapshots only; vendor MXQ model not instrumented"
+   },
+   "host": {
+    "cpu_s_generate": 0.4262708539999984,
+    "cpu_s_preprocess": 0.04873090100000077,
+    "max_rss_kib": 551524,
+    "streamer_token_puts": 2
+   },
+   "image_grid_thw": [
+    [
+     1,
+     22,
+     34
+    ]
+   ],
+   "input_id": "cal-3733440",
+   "processor_sha256": "6e0cc5b062c82e72bdfd95edcfd075ad8caa8a6008a56b3c718fd9c8b6c9ec5a",
+   "prompt_tokens": 214,
+   "text": "no",
+   "timing": {
+    "decode_text_ms": 0.1417489256709814,
+    "generate_ms": 322.9730101302266,
+    "preprocess_ms": 14.663437847048044,
+    "token_offsets_ms": [
+     267.4203801434487,
+     322.7189730387181
+    ],
+    "total_ms": 337.77819690294564,
+    "ttft_ms": 267.4203801434487
+   },
+   "token_ids": [
+    2152,
+    151645
+   ]
+  },
+  "output_evidence": {
+   "output_tensor_device": "cpu",
+   "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+  }
+ },
+ {
+  "status": "ok",
+  "data": "eyJkZXZpY2UiOnsibWF4X21lbW9yeV9hbGxvY2F0ZWQiOjQzMDk0MjIwODAsIm91dHB1dF9kZXZpY2UiOiJjdWRhOjAifSwiZGlhZ25vc3RpYyI6eyJkcm9wcGVkX3Jvd3MiOjAsImVudmlyb25tZW50Ijp7ImFmdGVyIjp7ImF0IjoxNzkzMjYxMTQwLjc2OTk5NDcsImNncm91cCI6eyJjcHUubWF4IjoiNDAwMDAwIDEwMDAwMCIsImNwdS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsImNwdS5zdGF0IjoidXNhZ2VfdXNlYyAxNTIwNzU3NzFcbnVzZXJfdXNlYyAxMTAyMzcwODRcbnN5c3RlbV91c2VjIDQxODM4Njg2XG5ucl9wZXJpb2RzIDY1MzNcbm5yX3Rocm90dGxlZCAwXG50aHJvdHRsZWRfdXNlYyAwXG5ucl9idXJzdHMgMFxuYnVyc3RfdXNlYyAwIiwiaW8ucHJlc3N1cmUiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJtZW1vcnkuY3VycmVudCI6IjYxNDU2MTM4MjQiLCJtZW1vcnkubWF4IjoiNjk3OTMyMTg1NiIsIm1lbW9yeS5wZWFrIjoiNjMzOTgzNzk1MiIsIm1lbW9yeS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciJ9LCJjdWRhX21lbW9yeV9hbGxvY2F0ZWQiOjQyNjU2OTY3NjgsImN1ZGFfbWVtb3J5X3Jlc2VydmVkIjo0MzYyMDc2MTYwLCJkZXZmcmVxIjp7Ii9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM0MDAwMC52aWMvY3VyX2ZyZXEiOiI0MzUyMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTUzNDAwMDAudmljL21heF9mcmVxIjoiNDM1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzQwMDAwLnZpYy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9jdXJfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9tYXhfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9jdXJfZnJlcSI6IjUyNDgwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9tYXhfZnJlcSI6IjUyNDgwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9jdXJfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9tYXhfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNWE1MDAwMC5vZmEvY3VyX2ZyZXEiOiI1Mzc2MDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTVhNTAwMDAub2ZhL21heF9mcmVxIjoiNTM3NjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1YTUwMDAwLm9mYS9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNzAwMDAwMC5ncHUvY3VyX2ZyZXEiOiI5MTgwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTcwMDAwMDAuZ3B1L21heF9mcmVxIjoiOTE4MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE3MDAwMDAwLmdwdS9taW5fZnJlcSI6IjMwNjAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS9id21nci9jdXJfZnJlcSI6IjMxOTkwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvYndtZ3IvbWF4X2ZyZXEiOiIzMTk5MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL21pbl9mcmVxIjoiMjA0MDAwMDAwIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtLzE3MDAwMDAwLmdwdS9sb2FkIjoiNzg3IiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2J1c0AwLzE3MDAwMDAwLmdwdS9sb2FkIjoiNzg3IiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2J1c0AwL2dwdS4wL2xvYWQiOiI3ODciLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vZ3B1LjAvbG9hZCI6Ijc4NyJ9LCJsb2FkYXZnIjoiMy4zOCAyLjc3IDEuNTggMi82NzEgMzQ1IiwibWVtb3J5X3N0YXQiOnsiYW5vbiI6IjE0MzY2MTQ2NTYiLCJmaWxlIjoiMjIzNDY1NDcyIiwicGdmYXVsdCI6IjQxNDkwMSIsInBnbWFqZmF1bHQiOiIxNDY2IiwicGdzY2FuIjoiNDE1NjI4OSIsInBnc3RlYWwiOiIyNjgxNTM3Iiwid29ya2luZ3NldF9yZWZhdWx0X2Fub24iOiIwIiwid29ya2luZ3NldF9yZWZhdWx0X2ZpbGUiOiIxOTM4OTIzIn0sInBzaSI6eyJjcHUiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJpbyI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsIm1lbW9yeSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciJ9LCJ0aHJlYWRzIjoiMTciLCJ0b3JjaF90aHJlYWRzIjo0fSwiYmVmb3JlIjp7ImF0IjoxNzkzMjYxMTIxLjg2MTA1MzIsImNncm91cCI6eyJjcHUubWF4IjoiNDAwMDAwIDEwMDAwMCIsImNwdS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsImNwdS5zdGF0IjoidXNhZ2VfdXNlYyAxMzM0NjYzMjFcbnVzZXJfdXNlYyA5MTcyMjU0Mlxuc3lzdGVtX3VzZWMgNDE3NDM3Nzhcbm5yX3BlcmlvZHMgNjM0NFxubnJfdGhyb3R0bGVkIDBcbnRocm90dGxlZF91c2VjIDBcbm5yX2J1cnN0cyAwXG5idXJzdF91c2VjIDAiLCJpby5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsIm1lbW9yeS5jdXJyZW50IjoiNjI1NDUwNTk4NCIsIm1lbW9yeS5tYXgiOiI2OTc5MzIxODU2IiwibWVtb3J5LnBlYWsiOiI2MzM5ODM3OTUyIiwibWVtb3J5LnByZXNzdXJlIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIn0sImN1ZGFfbWVtb3J5X2FsbG9jYXRlZCI6NDI2NTY5Njc2OCwiY3VkYV9tZW1vcnlfcmVzZXJ2ZWQiOjQzNjIwNzYxNjAsImRldmZyZXEiOnsiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzQwMDAwLnZpYy9jdXJfZnJlcSI6IjQzNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM0MDAwMC52aWMvbWF4X2ZyZXEiOiI0MzUyMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTUzNDAwMDAudmljL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL2N1cl9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL21heF9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL2N1cl9mcmVxIjoiNTI0ODAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL21heF9mcmVxIjoiNTI0ODAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL2N1cl9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL21heF9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1YTUwMDAwLm9mYS9jdXJfZnJlcSI6IjUzNzYwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNWE1MDAwMC5vZmEvbWF4X2ZyZXEiOiI1Mzc2MDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTVhNTAwMDAub2ZhL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE3MDAwMDAwLmdwdS9jdXJfZnJlcSI6IjMwNjAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNzAwMDAwMC5ncHUvbWF4X2ZyZXEiOiI5MTgwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTcwMDAwMDAuZ3B1L21pbl9mcmVxIjoiMzA2MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL2N1cl9mcmVxIjoiNjY1NjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL21heF9mcmVxIjoiMzE5OTAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS9id21nci9taW5fZnJlcSI6IjIwNDAwMDAwMCIsIi9zeXMvZGV2aWNlcy9wbGF0Zm9ybS8xNzAwMDAwMC5ncHUvbG9hZCI6IjAiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vYnVzQDAvMTcwMDAwMDAuZ3B1L2xvYWQiOiIwIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2J1c0AwL2dwdS4wL2xvYWQiOiIwIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2dwdS4wL2xvYWQiOiIwIn0sImxvYWRhdmciOiIzLjY3IDIuNzkgMS41NyAxLzY3MCAzMzciLCJtZW1vcnlfc3RhdCI6eyJhbm9uIjoiMTQxNzcwNzUyMCIsImZpbGUiOiIzNTA3OTM3MjgiLCJwZ2ZhdWx0IjoiNDEwNzcxIiwicGdtYWpmYXVsdCI6IjE0NjIiLCJwZ3NjYW4iOiI0MTE5MzA2IiwicGdzdGVhbCI6IjI2NDkwNjciLCJ3b3JraW5nc2V0X3JlZmF1bHRfYW5vbiI6IjAiLCJ3b3JraW5nc2V0X3JlZmF1bHRfZmlsZSI6IjE5Mzc1MzkifSwicHNpIjp7ImNwdSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsImlvIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIiwibWVtb3J5IjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIn0sInRocmVhZHMiOiIxNyIsInRvcmNoX3RocmVhZHMiOjR9fSwiZXZlbnRfbm90ZSI6ImN1ZGFfZXZlbnRfc3Bhbl9tczogc3RyZWFtIHRpbWUgYmV0d2VlbiB0d28gcmVjb3JkZWQgZXZlbnRzIChpbmNsdWRlcyBxdWV1ZWluZy9nYXBzKTsgbm90IGtlcm5lbC1hY3RpdmUgdGltZSIsInByb2JlX2Vycm9ycyI6W10sInNjb3BlIjoiY3VkYTogaG9va2VkIHZpc2lvbi9sYW5ndWFnZV9tb2RlbC9sbV9oZWFkIGNhbGxzOyBob3N0IHdhbGwvdGhyZWFkL3Byb2Nlc3Mgc3BhbnMgKyBDVURBIGV2ZW50IHNwYW5zIiwic3BsaXQiOnsiZGVjb2RlIjpbeyJjdWRhX2V2ZW50X3NwYW5fbXMiOjEyNC45Mzk3NDMwNDE5OTIxOSwiaG9zdF9tcyI6MTI1LjA2NDExMjAxMzIwNTg5LCJwcm9jX2NwdV9tcyI6MTI0LjU3NzUwNDAwMDAwMTIzLCJ0aHJlYWRfY3B1X21zIjoxMjQuNTA5OTgzOTk5OTk5NDZ9XSwiZGVjb2RlX3NlcXMiOlsxXSwiZmlyc3RfbG1faGVhZCI6eyJjdWRhX2V2ZW50X3NwYW5fbXMiOjkuMzU1NDU2MzUyMjMzODg3LCJob3N0X21zIjowLjMxOTA4MTk0MDY4ODE5Mjg0LCJwcm9jX2NwdV9tcyI6MC4zMTgzMzU5OTk5OTIzMTQxLCJ0aHJlYWRfY3B1X21zIjowLjMxODY1NjAwMDAwNDU4MDE2fSwiZmlyc3RfdG9rZW5fYWZ0ZXJfbG1faGVhZF9tcyI6MzAuNDg2MTQ3OTY3MTY3MiwibGFuZ3VhZ2VfY2FsbHMiOjIsImxtX2hlYWRfY2FsbHMiOjIsInByZV92aXNpb25fZ2FwX21zIjo5LjQ1MTQzNDAxNjIyNzcyMiwicHJlZmlsbCI6eyJjdWRhX2V2ZW50X3NwYW5fbXMiOjE2NC40NTE1NTMzNDQ3MjY1NiwiaG9zdF9tcyI6MTQzLjM0MzA1NzAxNzc3MzQsInByb2NfY3B1X21zIjoxMzguNDU5NzExOTk5OTk5NSwidGhyZWFkX2NwdV9tcyI6MTM4LjQyODM1MTk5OTk5MTE1fSwicHJlZmlsbF9zZXEiOjIxNCwicHJlZmlsbF9zdGFydF9tcyI6MTg0OTEuNDEzNjgzOTc5NzcyLCJ0dGZ0X21zIjoxODY2NS44MzMyNzQ5NTAyNzMsInZpc2lvbiI6W3siY3VkYV9ldmVudF9zcGFuX21zIjoxODQ3NC42MDc0MjE4NzUsImhvc3RfbXMiOjE4NDczLjg2MzMwNTk4OTY1MywicHJvY19jcHVfbXMiOjE4MTg1LjgxNzQzOTk5OTk5NSwidGhyZWFkX2NwdV9tcyI6MTgxNzkuNjA4NzM2MDAwMDA2fV0sInZpc2lvbl9jYWxscyI6MSwidmlzaW9uX3RvX3ByZWZpbGxfZ2FwX21zIjo4LjA5ODk0Mzk3Mzg5MTQzN319LCJob3N0Ijp7ImNwdV9zX2dlbmVyYXRlIjoxOC40NzQ3MzEzMjgwMDAwMDQsImNwdV9zX3ByZXByb2Nlc3MiOjAuMTA3MTU1NzExOTk5OTkzNzQsIm1heF9yc3Nfa2liIjo2MDc5MTA4LCJzdHJlYW1lcl90b2tlbl9wdXRzIjoyfSwiaW1hZ2VfZ3JpZF90aHciOltbMSwyMiwzNF1dLCJpbnB1dF9pZCI6ImNhbC0zNzMzNDQwIiwicHJvY2Vzc29yX3NoYTI1NiI6IjZlMGNjNWIwNjJjODJlNzJiZGZkOTVlZGNmZDA3NWFkOGNhYThhNjAwOGE1NmIzYzcxOGZkOWM4YjZjOWVjNWEiLCJwcm9tcHRfdG9rZW5zIjoyMTQsInRleHQiOiJubyIsInRpbWluZyI6eyJkZWNvZGVfdGV4dF9tcyI6MC4zNjIxMjQwNjEyMTE5NDM2LCJnZW5lcmF0ZV9tcyI6MTg4MDYuNDM2MjQ0OTgwNDMyLCJwcmVwcm9jZXNzX21zIjo4NS45MjQwOTEwNTA0MDEzMywidG9rZW5fb2Zmc2V0c19tcyI6WzE4NjY2LjE4Nzk0Mjk1OTM3LDE4ODA1LjA2MDA3Mzk2NjE2XSwidG90YWxfbXMiOjE4ODkyLjcyMjQ2MDA5MjA0NSwidHRmdF9tcyI6MTg2NjYuMTg3OTQyOTU5Mzd9LCJ0b2tlbl9pZHMiOlsyMTUyLDE1MTY0NV19",
+  "receipt": {
+   "stage": "vlm",
+   "backend": "cuda",
+   "device": "cuda:0",
+   "node": "etri-dev0009-jetorn",
+   "pod_uid": "086c18e1-1366-43ec-a790-6407f1ce584b",
+   "run_id": "gmv-diag-20261029t0749",
+   "request_id": "cal-3733440-cuda",
+   "sequence": 2,
+   "input_sha256": "46519e9b7f58875f52724607e99ff5199066fd1b50f10e9dab189b602950d550",
+   "output_sha256": "08eea2c3db4f16c6b4484bfee15870b3942a83be0c8d5555d2fe945a75926512",
+   "output_bytes": 6369,
+   "model_sha256": {
+    "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+   },
+   "derived_artifact_sha256": null,
+   "worker_wall_ms": 18924.99448696617,
+   "timing": {
+    "preprocess_ms": 85.92409105040133,
+    "generate_ms": 18806.436244980432,
+    "decode_text_ms": 0.3621240612119436,
+    "total_ms": 18892.722460092045,
+    "ttft_ms": 18666.18794295937,
+    "token_offsets_ms": [
+     18666.18794295937,
+     18805.06007396616
+    ],
+    "host": {
+     "cpu_s_preprocess": 0.10715571199999374,
+     "cpu_s_generate": 18.474731328000004,
+     "max_rss_kib": 6079108,
+     "streamer_token_puts": 2
+    },
+    "device_stats": {
+     "max_memory_allocated": 4309422080,
+     "output_device": "cuda:0"
+    },
+    "output_device": "cuda:0"
+   },
+   "static": {
+    "backend": "cuda",
+    "device": "cuda:0",
+    "model_sha256": {
+     "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+     "device": "cuda:0",
+     "runtime": "torch",
+     "runtime_version": "2.9.1+cu130",
+     "cuda": "13.0",
+     "device_name": "Orin",
+     "capability": [
+      8,
+      7
+     ],
+     "parameter_devices": [
+      "cuda:0"
+     ],
+     "buffer_devices": [
+      "cuda:0"
+     ],
+     "parameters": 2127532032,
+     "dtypes": [
+      "torch.bfloat16"
+     ],
+     "memory_allocated": 4256128000,
+     "backend": "cuda",
+     "model": "qwen3vl-2b-89644892",
+     "weights_sha256": {
+      "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+     },
+     "host_threads": 4,
+     "hash_ms": 50897.46244694106,
+     "load_ms": 97230.7949650567,
+     "pid": 220,
+     "diagnostic": {
+      "hooked_modules": {
+       "vision": "Qwen3VLVisionModel",
+       "language": "Qwen3VLTextModel",
+       "lm_head": "Linear"
+      },
+      "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time"
+     }
+    },
+    "process": {
+     "backend": "cuda",
+     "model": "qwen3vl-2b-89644892",
+     "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+     "load_deadline_s": 1200,
+     "call_deadline_s": 300,
+     "log": "/work/logs/vlm-cuda-child.log",
+     "started_at": 1793260903.3466308,
+     "load_wall_ms": 185157.83472103067,
+     "state": "ready",
+     "child_pid": 220
+    }
+   },
+   "input_kind": "raw",
+   "queue_wait_ms": 0.030273105949163437,
+   "queue_at_arrival": {
+    "waiting": 0,
+    "active": 0
+   }
+  },
+  "arm": "cuda",
+  "input": "cal-3733440",
+  "request_id": "cal-3733440-cuda",
+  "collector_wall_ms": 18939.058456002385,
+  "result": {
+   "device": {
+    "max_memory_allocated": 4309422080,
+    "output_device": "cuda:0"
+   },
+   "diagnostic": {
+    "dropped_rows": 0,
+    "environment": {
+     "after": {
+      "at": 1793261140.7699947,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "unavailable: FileNotFoundError",
+       "cpu.stat": "usage_usec 152075771\nuser_usec 110237084\nsystem_usec 41838686\nnr_periods 6533\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "unavailable: FileNotFoundError",
+       "memory.current": "6145613824",
+       "memory.max": "6979321856",
+       "memory.peak": "6339837952",
+       "memory.pressure": "unavailable: FileNotFoundError"
+      },
+      "cuda_memory_allocated": 4265696768,
+      "cuda_memory_reserved": 4362076160,
+      "devfreq": {
+       "/sys/class/devfreq/15340000.vic/cur_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/max_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/min_freq": "115200000",
+       "/sys/class/devfreq/15380000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15480000.nvdec/cur_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/max_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/min_freq": "115200000",
+       "/sys/class/devfreq/15540000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15a50000.ofa/cur_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/max_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/min_freq": "115200000",
+       "/sys/class/devfreq/17000000.gpu/cur_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/max_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/min_freq": "306000000",
+       "/sys/class/devfreq/bwmgr/cur_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/max_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/min_freq": "204000000",
+       "/sys/devices/platform/17000000.gpu/load": "787",
+       "/sys/devices/platform/bus@0/17000000.gpu/load": "787",
+       "/sys/devices/platform/bus@0/gpu.0/load": "787",
+       "/sys/devices/platform/gpu.0/load": "787"
+      },
+      "loadavg": "3.38 2.77 1.58 2/671 345",
+      "memory_stat": {
+       "anon": "1436614656",
+       "file": "223465472",
+       "pgfault": "414901",
+       "pgmajfault": "1466",
+       "pgscan": "4156289",
+       "pgsteal": "2681537",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "1938923"
+      },
+      "psi": {
+       "cpu": "unavailable: FileNotFoundError",
+       "io": "unavailable: FileNotFoundError",
+       "memory": "unavailable: FileNotFoundError"
+      },
+      "threads": "17",
+      "torch_threads": 4
+     },
+     "before": {
+      "at": 1793261121.8610532,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "unavailable: FileNotFoundError",
+       "cpu.stat": "usage_usec 133466321\nuser_usec 91722542\nsystem_usec 41743778\nnr_periods 6344\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "unavailable: FileNotFoundError",
+       "memory.current": "6254505984",
+       "memory.max": "6979321856",
+       "memory.peak": "6339837952",
+       "memory.pressure": "unavailable: FileNotFoundError"
+      },
+      "cuda_memory_allocated": 4265696768,
+      "cuda_memory_reserved": 4362076160,
+      "devfreq": {
+       "/sys/class/devfreq/15340000.vic/cur_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/max_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/min_freq": "115200000",
+       "/sys/class/devfreq/15380000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15480000.nvdec/cur_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/max_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/min_freq": "115200000",
+       "/sys/class/devfreq/15540000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15a50000.ofa/cur_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/max_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/min_freq": "115200000",
+       "/sys/class/devfreq/17000000.gpu/cur_freq": "306000000",
+       "/sys/class/devfreq/17000000.gpu/max_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/min_freq": "306000000",
+       "/sys/class/devfreq/bwmgr/cur_freq": "665600000",
+       "/sys/class/devfreq/bwmgr/max_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/min_freq": "204000000",
+       "/sys/devices/platform/17000000.gpu/load": "0",
+       "/sys/devices/platform/bus@0/17000000.gpu/load": "0",
+       "/sys/devices/platform/bus@0/gpu.0/load": "0",
+       "/sys/devices/platform/gpu.0/load": "0"
+      },
+      "loadavg": "3.67 2.79 1.57 1/670 337",
+      "memory_stat": {
+       "anon": "1417707520",
+       "file": "350793728",
+       "pgfault": "410771",
+       "pgmajfault": "1462",
+       "pgscan": "4119306",
+       "pgsteal": "2649067",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "1937539"
+      },
+      "psi": {
+       "cpu": "unavailable: FileNotFoundError",
+       "io": "unavailable: FileNotFoundError",
+       "memory": "unavailable: FileNotFoundError"
+      },
+      "threads": "17",
+      "torch_threads": 4
+     }
+    },
+    "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time",
+    "probe_errors": [],
+    "scope": "cuda: hooked vision/language_model/lm_head calls; host wall/thread/process spans + CUDA event spans",
+    "split": {
+     "decode": [
+      {
+       "cuda_event_span_ms": 124.93974304199219,
+       "host_ms": 125.06411201320589,
+       "proc_cpu_ms": 124.57750400000123,
+       "thread_cpu_ms": 124.50998399999946
+      }
+     ],
+     "decode_seqs": [
+      1
+     ],
+     "first_lm_head": {
+      "cuda_event_span_ms": 9.355456352233887,
+      "host_ms": 0.31908194068819284,
+      "proc_cpu_ms": 0.3183359999923141,
+      "thread_cpu_ms": 0.31865600000458016
+     },
+     "first_token_after_lm_head_ms": 30.4861479671672,
+     "language_calls": 2,
+     "lm_head_calls": 2,
+     "pre_vision_gap_ms": 9.451434016227722,
+     "prefill": {
+      "cuda_event_span_ms": 164.45155334472656,
+      "host_ms": 143.3430570177734,
+      "proc_cpu_ms": 138.4597119999995,
+      "thread_cpu_ms": 138.42835199999115
+     },
+     "prefill_seq": 214,
+     "prefill_start_ms": 18491.413683979772,
+     "ttft_ms": 18665.833274950273,
+     "vision": [
+      {
+       "cuda_event_span_ms": 18474.607421875,
+       "host_ms": 18473.863305989653,
+       "proc_cpu_ms": 18185.817439999995,
+       "thread_cpu_ms": 18179.608736000006
+      }
+     ],
+     "vision_calls": 1,
+     "vision_to_prefill_gap_ms": 8.098943973891437
+    }
+   },
+   "host": {
+    "cpu_s_generate": 18.474731328000004,
+    "cpu_s_preprocess": 0.10715571199999374,
+    "max_rss_kib": 6079108,
+    "streamer_token_puts": 2
+   },
+   "image_grid_thw": [
+    [
+     1,
+     22,
+     34
+    ]
+   ],
+   "input_id": "cal-3733440",
+   "processor_sha256": "6e0cc5b062c82e72bdfd95edcfd075ad8caa8a6008a56b3c718fd9c8b6c9ec5a",
+   "prompt_tokens": 214,
+   "text": "no",
+   "timing": {
+    "decode_text_ms": 0.3621240612119436,
+    "generate_ms": 18806.436244980432,
+    "preprocess_ms": 85.92409105040133,
+    "token_offsets_ms": [
+     18666.18794295937,
+     18805.06007396616
+    ],
+    "total_ms": 18892.722460092045,
+    "ttft_ms": 18666.18794295937
+   },
+   "token_ids": [
+    2152,
+    151645
+   ]
+  },
+  "output_evidence": {
+   "output_device": "cuda:0"
+  }
+ },
+ {
+  "status": "ok",
+  "data": "eyJkZXZpY2UiOnsibnB1X3RpbWluZyI6eyJhdmFpbGFibGUiOmZhbHNlLCJyZWFzb24iOiJwaW5uZWQgdHJhbnNmb3JtZXJzLW1ibHQgMC42LjEgUXdlbjMtVkwgbm9uLWJhdGNoIHBhdGg6IGNvdW50X25wdV90aW1lIGRlZmF1bHRzIEZhbHNlIGFuZCB0aGUgcGVyLWZvcndhcmQgbnB1X3RpbWUgaXMgbm90IGFnZ3JlZ2F0ZWQgaW50byBnZXRfbnB1X3RpbWluZygpOyBjb3VudGVycyBzdGF5IGF0IHJlc2V0IHZhbHVlcywgc28gbm8gbWVhc3VyZWQgTlBVIHRpbWUgaXMgY2xhaW1lZC4gQ29hcnNlIGdlbmVyYXRlX21zL3R0ZnRfbXMvdG9rZW4gb2Zmc2V0cyBhbmQgaG9zdCBjcHVfc18qIGFyZSB0aGUgbWVhc3VyZWQgdGltaW5nLiIsInNjb3BlIjoidmVuZG9yIGFnZ3JlZ2F0ZSBjb3VudGVycyAodGV4dCBkZWNvZGVyIHByZWZpbGwvZGVjb2RlOyB2aXNpb24gTVhRIG5ldmVyIGluY2x1ZGVkKSJ9LCJvdXRwdXRfdGVuc29yX2RldmljZSI6ImNwdSIsIm91dHB1dF90ZW5zb3Jfbm90ZSI6Imhvc3QgdGVuc29yIGV4cGVjdGVkOiBnZW5lcmF0ZSByZXR1cm5zIHRva2VuIGlkcyBvbiB0aGUgaG9zdDsgdGhlIHZpc2lvbi90ZXh0IE1YUSBjb21wdXRhdGlvbiBydW5zIG9uIHRoZSBOUFUgYW5kIGlzIGV2aWRlbmNlZCBieSB0aGUgbG9hZC10aW1lIGJhY2tlbmQgY29tcG9uZW50cywgbm90IGJ5IHRoaXMgdGVuc29yIn0sImRpYWdub3N0aWMiOnsiZW52aXJvbm1lbnQiOnsiYWZ0ZXIiOnsiYXQiOjE3OTMyNjExNDEuMTI3NTE5NCwiY2dyb3VwIjp7ImNwdS5tYXgiOiI0MDAwMDAgMTAwMDAwIiwiY3B1LnByZXNzdXJlIjoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MjExNThcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTIxMTU4IiwiY3B1LnN0YXQiOiJ1c2FnZV91c2VjIDM3NjM2NTkxXG51c2VyX3VzZWMgMzI5MjMzNTdcbnN5c3RlbV91c2VjIDQ3MTMyMzRcbmNvcmVfc2NoZWQuZm9yY2VfaWRsZV91c2VjIDBcbm5yX3BlcmlvZHMgODA0XG5ucl90aHJvdHRsZWQgMFxudGhyb3R0bGVkX3VzZWMgMFxubnJfYnVyc3RzIDBcbmJ1cnN0X3VzZWMgMCIsImlvLnByZXNzdXJlIjoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9NDc2MTJcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTQ3NjEyIiwibWVtb3J5LmN1cnJlbnQiOiI0NjE3MTc1MDQwIiwibWVtb3J5Lm1heCI6Ijg1ODk5MzQ1OTIiLCJtZW1vcnkucGVhayI6IjQ2MTc5MDgyMjQiLCJtZW1vcnkucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zMThcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTMxOCJ9LCJkZXZmcmVxIjoidW5hdmFpbGFibGU6IG5vIGRldmZyZXEvZ3B1IGxvYWQgc3lzZnMgcGF0aCB2aXNpYmxlIiwibG9hZGF2ZyI6IjAuNTkgMC40NyAwLjYyIDQvMTY2NCAzMTMiLCJtZW1vcnlfc3RhdCI6eyJhbm9uIjoiNDYwNzEzOTg0IiwiZmlsZSI6IjQwMDA2NzM3OTIiLCJwZ2ZhdWx0IjoiMjI2NTg0IiwicGdtYWpmYXVsdCI6IjAiLCJwZ3NjYW4iOiIxMjg0NDgiLCJwZ3N0ZWFsIjoiMTI4NDQ4Iiwid29ya2luZ3NldF9yZWZhdWx0X2Fub24iOiIwIiwid29ya2luZ3NldF9yZWZhdWx0X2ZpbGUiOiIxMjg0NDcifSwicHNpIjp7ImNwdSI6InNvbWUgYXZnMTA9MS45MSBhdmc2MD0xLjc0IGF2ZzMwMD0xLjcyIHRvdGFsPTQ5NjcyOTc5OTI3XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0wIiwiaW8iOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0xNzA2MjExNDdcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTE2MTQ0NDEzOSIsIm1lbW9yeSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTM2MDUwODVcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTM1NjExNzYifSwidGhyZWFkcyI6IjIxIiwidG9yY2hfdGhyZWFkcyI6NH0sImJlZm9yZSI6eyJhdCI6MTc5MzI2MTE0MC43OTA0NzE4LCJjZ3JvdXAiOnsiY3B1Lm1heCI6IjQwMDAwMCAxMDAwMDAiLCJjcHUucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0yMTA2N1xuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MjEwNjciLCJjcHUuc3RhdCI6InVzYWdlX3VzZWMgMzcwMzE0NjNcbnVzZXJfdXNlYyAzMjMyMDA2Nlxuc3lzdGVtX3VzZWMgNDcxMTM5N1xuY29yZV9zY2hlZC5mb3JjZV9pZGxlX3VzZWMgMFxubnJfcGVyaW9kcyA4MDBcbm5yX3Rocm90dGxlZCAwXG50aHJvdHRsZWRfdXNlYyAwXG5ucl9idXJzdHMgMFxuYnVyc3RfdXNlYyAwIiwiaW8ucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD00NzYxMlxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9NDc2MTIiLCJtZW1vcnkuY3VycmVudCI6IjQ2MTc2NDYwODAiLCJtZW1vcnkubWF4IjoiODU4OTkzNDU5MiIsIm1lbW9yeS5wZWFrIjoiNDYxNzg3NTQ1NiIsIm1lbW9yeS5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTMxOFxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzE4In0sImRldmZyZXEiOiJ1bmF2YWlsYWJsZTogbm8gZGV2ZnJlcS9ncHUgbG9hZCBzeXNmcyBwYXRoIHZpc2libGUiLCJsb2FkYXZnIjoiMC4zOCAwLjQzIDAuNjEgMS8xNjY0IDMxMyIsIm1lbW9yeV9zdGF0Ijp7ImFub24iOiI0NjA2ODEyMTYiLCJmaWxlIjoiNDAwMDY3Mzc5MiIsInBnZmF1bHQiOiIyMjY1NjUiLCJwZ21hamZhdWx0IjoiMCIsInBnc2NhbiI6IjEyODQ0OCIsInBnc3RlYWwiOiIxMjg0NDgiLCJ3b3JraW5nc2V0X3JlZmF1bHRfYW5vbiI6IjAiLCJ3b3JraW5nc2V0X3JlZmF1bHRfZmlsZSI6IjEyODQ0NyJ9LCJwc2kiOnsiY3B1Ijoic29tZSBhdmcxMD0xLjkxIGF2ZzYwPTEuNzQgYXZnMzAwPTEuNzIgdG90YWw9NDk2NzI5NzQ2NjJcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTAiLCJpbyI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTE3MDYyMTE0N1xuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MTYxNDQ0MTM5IiwibWVtb3J5Ijoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzYwNTA4NVxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzU2MTE3NiJ9LCJ0aHJlYWRzIjoiMjEiLCJ0b3JjaF90aHJlYWRzIjo0fX0sInNjb3BlIjoiZW52aXJvbm1lbnQgc25hcHNob3RzIG9ubHk7IHZlbmRvciBNWFEgbW9kZWwgbm90IGluc3RydW1lbnRlZCJ9LCJob3N0Ijp7ImNwdV9zX2dlbmVyYXRlIjowLjU3MDIwMjExMzk5OTk5ODksImNwdV9zX3ByZXByb2Nlc3MiOjAuMDMyNjQ0NTk5MDAwMDAxMDUsIm1heF9yc3Nfa2liIjo1NTIyOTIsInN0cmVhbWVyX3Rva2VuX3B1dHMiOjJ9LCJpbWFnZV9ncmlkX3RodyI6W1sxLDIyLDM0XV0sImlucHV0X2lkIjoiY2FsLTQ1NTYxMDAiLCJwcm9jZXNzb3Jfc2hhMjU2IjoiOGU4YzFkYjYxNjlkM2JkYjVlNzkwZmJmN2RmMDA0NDhkNTBkYjY0MDBjYTk0NDAxMTkxY2I3YjAwM2YzOWZkZiIsInByb21wdF90b2tlbnMiOjIyMSwidGV4dCI6ImNvbmUiLCJ0aW1pbmciOnsiZGVjb2RlX3RleHRfbXMiOjAuMTQ5MTI3MDk1OTM3NzI4ODgsImdlbmVyYXRlX21zIjozMjQuMTk4NDQyMDQ1NTk5MiwicHJlcHJvY2Vzc19tcyI6MTEuMDk3MDUxOTAxNzQyODE2LCJ0b2tlbl9vZmZzZXRzX21zIjpbMjY0Ljg0NDYzODk5Mzk2MzYsMzIzLjk0NDQwMDk5NTk2OThdLCJ0b3RhbF9tcyI6MzM1LjQ0NDYyMTA0MzI3OTc3LCJ0dGZ0X21zIjoyNjQuODQ0NjM4OTkzOTYzNn0sInRva2VuX2lkcyI6WzU4MDgyLDE1MTY0NV19",
+  "receipt": {
+   "stage": "vlm",
+   "backend": "mobilint",
+   "device": "npu:aries-rb",
+   "node": "etri-ser0004-cgnms0",
+   "pod_uid": "d7a9f61a-dba2-46ca-a1a1-886a09cc4bce",
+   "run_id": "gmv-diag-20261029t0749",
+   "request_id": "cal-4556100-mobilint",
+   "sequence": 3,
+   "input_sha256": "005d385d5195a4adcfb23986396a010fa5955dc2dac1e41fa3e932c575aba27b",
+   "output_sha256": "c67a839c3d689d4ec969e41c11a1be91545986ebd6abff9c14373262ffef7a9f",
+   "output_bytes": 4110,
+   "model_sha256": {
+    "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+    "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+    "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+   },
+   "derived_artifact_sha256": null,
+   "worker_wall_ms": 340.0540971197188,
+   "timing": {
+    "preprocess_ms": 11.097051901742816,
+    "generate_ms": 324.1984420455992,
+    "decode_text_ms": 0.14912709593772888,
+    "total_ms": 335.44462104327977,
+    "ttft_ms": 264.8446389939636,
+    "token_offsets_ms": [
+     264.8446389939636,
+     323.9444009959698
+    ],
+    "host": {
+     "cpu_s_preprocess": 0.03264459900000105,
+     "cpu_s_generate": 0.5702021139999989,
+     "max_rss_kib": 552292,
+     "streamer_token_puts": 2
+    },
+    "device_stats": {
+     "npu_timing": {
+      "available": false,
+      "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)",
+      "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing."
+     },
+     "output_tensor_device": "cpu",
+     "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+    }
+   },
+   "static": {
+    "backend": "mobilint",
+    "device": "npu:aries-rb",
+    "model_sha256": {
+     "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+     "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+     "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+     "device": "npu:aries-rb",
+     "runtime": "qbruntime",
+     "runtime_version": "v1.4.0",
+     "components": {
+      "vision": {
+       "target_device": "aries-rb",
+       "core_mode": "global8",
+       "mxq": "Qwen3-VL-2B-Instruct_vision-W4V8.mxq",
+       "slots": 1,
+       "dev_no": [
+        0
+       ],
+       "input_shapes": [
+        "(1, -1, 1536)",
+        "(1, -1, 1024)",
+        "(1, -1, 128)"
+       ],
+       "output_shapes": [
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)"
+       ]
+      },
+      "text": {
+       "target_device": "aries-rb",
+       "core_mode": "global8",
+       "mxq": "Qwen3-VL-2B-Instruct_text-W4V8.mxq",
+       "slots": 1,
+       "dev_no": [
+        0
+       ],
+       "input_shapes": [
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 256)"
+       ],
+       "output_shapes": [
+        "(1, 1, 151936)"
+       ]
+      }
+     },
+     "dev_nodes": [
+      "aries0"
+     ],
+     "host_parameters": {
+      "model.visual.pos_embed.weight": {
+       "device": "cpu",
+       "dtype": "torch.float32",
+       "numel": 2359296
+      },
+      "model.language_model.embed_tokens.weight": {
+       "device": "cpu",
+       "dtype": "torch.float32",
+       "numel": 311164928
+      }
+     },
+     "backend": "mobilint",
+     "model": "mobilint-qwen3vl-2b-f4be563",
+     "weights_sha256": {
+      "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+      "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+      "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+     },
+     "host_threads": 4,
+     "hash_ms": 2273.4205138403922,
+     "load_ms": 3618.8248561229557,
+     "pid": 29,
+     "diagnostic": {
+      "hooked_modules": null,
+      "event_note": null
+     }
+    },
+    "process": {
+     "backend": "mobilint",
+     "model": "mobilint-qwen3vl-2b-f4be563",
+     "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+     "load_deadline_s": 900,
+     "call_deadline_s": 300,
+     "log": "/work/logs/vlm-mobilint-child.log",
+     "started_at": 1793260508.3062716,
+     "load_wall_ms": 6945.798065047711,
+     "state": "ready",
+     "child_pid": 29
+    }
+   },
+   "input_kind": "raw",
+   "queue_wait_ms": 0.01693982630968094,
+   "queue_at_arrival": {
+    "waiting": 0,
+    "active": 0
+   }
+  },
+  "arm": "mobilint",
+  "input": "cal-4556100",
+  "request_id": "cal-4556100-mobilint",
+  "collector_wall_ms": 354.79095099435654,
+  "result": {
+   "device": {
+    "npu_timing": {
+     "available": false,
+     "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing.",
+     "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)"
+    },
+    "output_tensor_device": "cpu",
+    "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+   },
+   "diagnostic": {
+    "environment": {
+     "after": {
+      "at": 1793261141.1275194,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=21158\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=21158",
+       "cpu.stat": "usage_usec 37636591\nuser_usec 32923357\nsystem_usec 4713234\ncore_sched.force_idle_usec 0\nnr_periods 804\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=47612\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47612",
+       "memory.current": "4617175040",
+       "memory.max": "8589934592",
+       "memory.peak": "4617908224",
+       "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=318\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=318"
+      },
+      "devfreq": "unavailable: no devfreq/gpu load sysfs path visible",
+      "loadavg": "0.59 0.47 0.62 4/1664 313",
+      "memory_stat": {
+       "anon": "460713984",
+       "file": "4000673792",
+       "pgfault": "226584",
+       "pgmajfault": "0",
+       "pgscan": "128448",
+       "pgsteal": "128448",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "128447"
+      },
+      "psi": {
+       "cpu": "some avg10=1.91 avg60=1.74 avg300=1.72 total=49672979927\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+       "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=170621147\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=161444139",
+       "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=3605085\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=3561176"
+      },
+      "threads": "21",
+      "torch_threads": 4
+     },
+     "before": {
+      "at": 1793261140.7904718,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=21067\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=21067",
+       "cpu.stat": "usage_usec 37031463\nuser_usec 32320066\nsystem_usec 4711397\ncore_sched.force_idle_usec 0\nnr_periods 800\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=47612\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47612",
+       "memory.current": "4617646080",
+       "memory.max": "8589934592",
+       "memory.peak": "4617875456",
+       "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=318\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=318"
+      },
+      "devfreq": "unavailable: no devfreq/gpu load sysfs path visible",
+      "loadavg": "0.38 0.43 0.61 1/1664 313",
+      "memory_stat": {
+       "anon": "460681216",
+       "file": "4000673792",
+       "pgfault": "226565",
+       "pgmajfault": "0",
+       "pgscan": "128448",
+       "pgsteal": "128448",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "128447"
+      },
+      "psi": {
+       "cpu": "some avg10=1.91 avg60=1.74 avg300=1.72 total=49672974662\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+       "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=170621147\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=161444139",
+       "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=3605085\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=3561176"
+      },
+      "threads": "21",
+      "torch_threads": 4
+     }
+    },
+    "scope": "environment snapshots only; vendor MXQ model not instrumented"
+   },
+   "host": {
+    "cpu_s_generate": 0.5702021139999989,
+    "cpu_s_preprocess": 0.03264459900000105,
+    "max_rss_kib": 552292,
+    "streamer_token_puts": 2
+   },
+   "image_grid_thw": [
+    [
+     1,
+     22,
+     34
+    ]
+   ],
+   "input_id": "cal-4556100",
+   "processor_sha256": "8e8c1db6169d3bdb5e790fbf7df00448d50db6400ca94401191cb7b003f39fdf",
+   "prompt_tokens": 221,
+   "text": "cone",
+   "timing": {
+    "decode_text_ms": 0.14912709593772888,
+    "generate_ms": 324.1984420455992,
+    "preprocess_ms": 11.097051901742816,
+    "token_offsets_ms": [
+     264.8446389939636,
+     323.9444009959698
+    ],
+    "total_ms": 335.44462104327977,
+    "ttft_ms": 264.8446389939636
+   },
+   "token_ids": [
+    58082,
+    151645
+   ]
+  },
+  "output_evidence": {
+   "output_tensor_device": "cpu",
+   "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+  }
+ },
+ {
+  "status": "ok",
+  "data": "eyJkZXZpY2UiOnsibWF4X21lbW9yeV9hbGxvY2F0ZWQiOjQzMTA2MDE3MjgsIm91dHB1dF9kZXZpY2UiOiJjdWRhOjAifSwiZGlhZ25vc3RpYyI6eyJkcm9wcGVkX3Jvd3MiOjAsImVudmlyb25tZW50Ijp7ImFmdGVyIjp7ImF0IjoxNzkzMjYxMTU5Ljc2MDU3NzIsImNncm91cCI6eyJjcHUubWF4IjoiNDAwMDAwIDEwMDAwMCIsImNwdS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsImNwdS5zdGF0IjoidXNhZ2VfdXNlYyAxNzA0NjIzNTVcbnVzZXJfdXNlYyAxMjg1Nzg1MDFcbnN5c3RlbV91c2VjIDQxODgzODU0XG5ucl9wZXJpb2RzIDY3MjFcbm5yX3Rocm90dGxlZCAwXG50aHJvdHRsZWRfdXNlYyAwXG5ucl9idXJzdHMgMFxuYnVyc3RfdXNlYyAwIiwiaW8ucHJlc3N1cmUiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJtZW1vcnkuY3VycmVudCI6IjYxMTc2NzA5MTIiLCJtZW1vcnkubWF4IjoiNjk3OTMyMTg1NiIsIm1lbW9yeS5wZWFrIjoiNjMzOTgzNzk1MiIsIm1lbW9yeS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciJ9LCJjdWRhX21lbW9yeV9hbGxvY2F0ZWQiOjQyNjU2OTY3NjgsImN1ZGFfbWVtb3J5X3Jlc2VydmVkIjo0MzYyMDc2MTYwLCJkZXZmcmVxIjp7Ii9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM0MDAwMC52aWMvY3VyX2ZyZXEiOiI0MzUyMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTUzNDAwMDAudmljL21heF9mcmVxIjoiNDM1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzQwMDAwLnZpYy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9jdXJfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9tYXhfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9jdXJfZnJlcSI6IjUyNDgwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9tYXhfZnJlcSI6IjUyNDgwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9jdXJfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9tYXhfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNWE1MDAwMC5vZmEvY3VyX2ZyZXEiOiI1Mzc2MDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTVhNTAwMDAub2ZhL21heF9mcmVxIjoiNTM3NjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1YTUwMDAwLm9mYS9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNzAwMDAwMC5ncHUvY3VyX2ZyZXEiOiI5MTgwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTcwMDAwMDAuZ3B1L21heF9mcmVxIjoiOTE4MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE3MDAwMDAwLmdwdS9taW5fZnJlcSI6IjMwNjAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS9id21nci9jdXJfZnJlcSI6IjIxMzMwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvYndtZ3IvbWF4X2ZyZXEiOiIzMTk5MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL21pbl9mcmVxIjoiMjA0MDAwMDAwIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtLzE3MDAwMDAwLmdwdS9sb2FkIjoiNDgyIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2J1c0AwLzE3MDAwMDAwLmdwdS9sb2FkIjoiNDgyIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2J1c0AwL2dwdS4wL2xvYWQiOiI0ODIiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vZ3B1LjAvbG9hZCI6IjQ4MiJ9LCJsb2FkYXZnIjoiMy4wNCAyLjczIDEuNjAgMS82NjkgMzU1IiwibWVtb3J5X3N0YXQiOnsiYW5vbiI6IjE0MzY3OTA3ODQiLCJmaWxlIjoiMTk1MzQyMzM2IiwicGdmYXVsdCI6IjQxNDk1OSIsInBnbWFqZmF1bHQiOiIxNDY2IiwicGdzY2FuIjoiNDE2MzY3OCIsInBnc3RlYWwiOiIyNjg4NDAzIiwid29ya2luZ3NldF9yZWZhdWx0X2Fub24iOiIwIiwid29ya2luZ3NldF9yZWZhdWx0X2ZpbGUiOiIxOTM4OTIzIn0sInBzaSI6eyJjcHUiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJpbyI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsIm1lbW9yeSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciJ9LCJ0aHJlYWRzIjoiMTciLCJ0b3JjaF90aHJlYWRzIjo0fSwiYmVmb3JlIjp7ImF0IjoxNzkzMjYxMTQxLjE3MDQwMjUsImNncm91cCI6eyJjcHUubWF4IjoiNDAwMDAwIDEwMDAwMCIsImNwdS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsImNwdS5zdGF0IjoidXNhZ2VfdXNlYyAxNTIwODk3MjRcbnVzZXJfdXNlYyAxMTAyNDUwNzhcbnN5c3RlbV91c2VjIDQxODQ0NjQ2XG5ucl9wZXJpb2RzIDY1MzVcbm5yX3Rocm90dGxlZCAwXG50aHJvdHRsZWRfdXNlYyAwXG5ucl9idXJzdHMgMFxuYnVyc3RfdXNlYyAwIiwiaW8ucHJlc3N1cmUiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJtZW1vcnkuY3VycmVudCI6IjYxNDU5MDQ2NDAiLCJtZW1vcnkubWF4IjoiNjk3OTMyMTg1NiIsIm1lbW9yeS5wZWFrIjoiNjMzOTgzNzk1MiIsIm1lbW9yeS5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciJ9LCJjdWRhX21lbW9yeV9hbGxvY2F0ZWQiOjQyNjU2OTY3NjgsImN1ZGFfbWVtb3J5X3Jlc2VydmVkIjo0MzYyMDc2MTYwLCJkZXZmcmVxIjp7Ii9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM0MDAwMC52aWMvY3VyX2ZyZXEiOiI0MzUyMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTUzNDAwMDAudmljL21heF9mcmVxIjoiNDM1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzQwMDAwLnZpYy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9jdXJfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9tYXhfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM4MDAwMC5udmpwZy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9jdXJfZnJlcSI6IjUyNDgwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9tYXhfZnJlcSI6IjUyNDgwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTQ4MDAwMC5udmRlYy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9jdXJfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9tYXhfZnJlcSI6IjQ5OTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTU0MDAwMC5udmpwZy9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNWE1MDAwMC5vZmEvY3VyX2ZyZXEiOiI1Mzc2MDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTVhNTAwMDAub2ZhL21heF9mcmVxIjoiNTM3NjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1YTUwMDAwLm9mYS9taW5fZnJlcSI6IjExNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNzAwMDAwMC5ncHUvY3VyX2ZyZXEiOiIzMDYwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTcwMDAwMDAuZ3B1L21heF9mcmVxIjoiOTE4MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE3MDAwMDAwLmdwdS9taW5fZnJlcSI6IjMwNjAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS9id21nci9jdXJfZnJlcSI6IjIxMzMwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvYndtZ3IvbWF4X2ZyZXEiOiIzMTk5MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL21pbl9mcmVxIjoiMjA0MDAwMDAwIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtLzE3MDAwMDAwLmdwdS9sb2FkIjoiMCIsIi9zeXMvZGV2aWNlcy9wbGF0Zm9ybS9idXNAMC8xNzAwMDAwMC5ncHUvbG9hZCI6IjAiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vYnVzQDAvZ3B1LjAvbG9hZCI6IjAiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vZ3B1LjAvbG9hZCI6IjAifSwibG9hZGF2ZyI6IjMuNDMgMi43OSAxLjYwIDQvNjY5IDM0NyIsIm1lbW9yeV9zdGF0Ijp7ImFub24iOiIxNDM2NjIyODQ4IiwiZmlsZSI6IjIyMzQ2NTQ3MiIsInBnZmF1bHQiOiI0MTQ5MDUiLCJwZ21hamZhdWx0IjoiMTQ2NiIsInBnc2NhbiI6IjQxNTYyODkiLCJwZ3N0ZWFsIjoiMjY4MTUzNyIsIndvcmtpbmdzZXRfcmVmYXVsdF9hbm9uIjoiMCIsIndvcmtpbmdzZXRfcmVmYXVsdF9maWxlIjoiMTkzODkyMyJ9LCJwc2kiOnsiY3B1IjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIiwiaW8iOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJtZW1vcnkiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IifSwidGhyZWFkcyI6IjE3IiwidG9yY2hfdGhyZWFkcyI6NH19LCJldmVudF9ub3RlIjoiY3VkYV9ldmVudF9zcGFuX21zOiBzdHJlYW0gdGltZSBiZXR3ZWVuIHR3byByZWNvcmRlZCBldmVudHMgKGluY2x1ZGVzIHF1ZXVlaW5nL2dhcHMpOyBub3Qga2VybmVsLWFjdGl2ZSB0aW1lIiwicHJvYmVfZXJyb3JzIjpbXSwic2NvcGUiOiJjdWRhOiBob29rZWQgdmlzaW9uL2xhbmd1YWdlX21vZGVsL2xtX2hlYWQgY2FsbHM7IGhvc3Qgd2FsbC90aHJlYWQvcHJvY2VzcyBzcGFucyArIENVREEgZXZlbnQgc3BhbnMiLCJzcGxpdCI6eyJkZWNvZGUiOlt7ImN1ZGFfZXZlbnRfc3Bhbl9tcyI6MTI0LjY5OTkzNTkxMzA4NTk0LCJob3N0X21zIjoxMjQuNzA4Mzg2OTUyOTg4OCwicHJvY19jcHVfbXMiOjEyMy44OTAxNzU5OTk5ODkwOCwidGhyZWFkX2NwdV9tcyI6MTIzLjg2MTU5OTk5OTk5Nzl9XSwiZGVjb2RlX3NlcXMiOlsxXSwiZmlyc3RfbG1faGVhZCI6eyJjdWRhX2V2ZW50X3NwYW5fbXMiOjkuMjg2NTYwMDU4NTkzNzUsImhvc3RfbXMiOjAuMzE2NDI2MDQxNTM2MDMzMTUsInByb2NfY3B1X21zIjowLjMxNTk5OTk5OTk5Nzk4NDU2LCJ0aHJlYWRfY3B1X21zIjowLjMxNjE5MTk5OTk5OTY1OTg2fSwiZmlyc3RfdG9rZW5fYWZ0ZXJfbG1faGVhZF9tcyI6MzQuNjU1NzE4OTQ3NzYwNzYsImxhbmd1YWdlX2NhbGxzIjoyLCJsbV9oZWFkX2NhbGxzIjoyLCJwcmVfdmlzaW9uX2dhcF9tcyI6Ni44MzYxODM5NTEyMzYzMDgsInByZWZpbGwiOnsiY3VkYV9ldmVudF9zcGFuX21zIjoxNjIuNTEyODkzNjc2NzU3OCwiaG9zdF9tcyI6MTM3LjEzNDAyNjk2ODg1MTY5LCJwcm9jX2NwdV9tcyI6MTMxLjgyNDg5NTk5OTk5NzcsInRocmVhZF9jcHVfbXMiOjEzMS43NjU3MjgwMDAwMDQ4Nn0sInByZWZpbGxfc2VxIjoyMjEsInByZWZpbGxfc3RhcnRfbXMiOjE4MjM4LjU3MjYxOTA0MDQ5NywidHRmdF9tcyI6MTg0MTAuOTMzNjQ2OTU1NTI3LCJ2aXNpb24iOlt7ImN1ZGFfZXZlbnRfc3Bhbl9tcyI6MTgyMjUuNTY0NDUzMTI1LCJob3N0X21zIjoxODIyNC4zNjI4OTAwMDMyNSwicHJvY19jcHVfbXMiOjE4MDE2LjQxMTkwMzk5OTk5MywidGhyZWFkX2NwdV9tcyI6MTgwMTAuNzM1NTg0MDAwMDAyfV0sInZpc2lvbl9jYWxscyI6MSwidmlzaW9uX3RvX3ByZWZpbGxfZ2FwX21zIjo3LjM3MzU0NTA4NjAxMTI5MDZ9fSwiaG9zdCI6eyJjcHVfc19nZW5lcmF0ZSI6MTguMjk0Mjk4NTYsImNwdV9zX3ByZXByb2Nlc3MiOjAuMDU2MDc2NzAzOTk5OTkxNjUsIm1heF9yc3Nfa2liIjo2MDc5MTA4LCJzdHJlYW1lcl90b2tlbl9wdXRzIjoyfSwiaW1hZ2VfZ3JpZF90aHciOltbMSwyMiwzNF1dLCJpbnB1dF9pZCI6ImNhbC00NTU2MTAwIiwicHJvY2Vzc29yX3NoYTI1NiI6IjhlOGMxZGI2MTY5ZDNiZGI1ZTc5MGZiZjdkZjAwNDQ4ZDUwZGI2NDAwY2E5NDQwMTE5MWNiN2IwMDNmMzlmZGYiLCJwcm9tcHRfdG9rZW5zIjoyMjEsInRleHQiOiJjb25lIiwidGltaW5nIjp7ImRlY29kZV90ZXh0X21zIjowLjM1MTQ2NjkzNjk5MDYxODcsImdlbmVyYXRlX21zIjoxODU1MC43NzE1OTk5ODQ3MjgsInByZXByb2Nlc3NfbXMiOjI5LjI4NTgyMTAxNTk0NjU2NywidG9rZW5fb2Zmc2V0c19tcyI6WzE4NDExLjE3NTE1ODkyMjU2LDE4NTQ5LjQ0NTg2MTk1MDUxN10sInRvdGFsX21zIjoxODU4MC40MDg4ODc5Mzc2NjUsInR0ZnRfbXMiOjE4NDExLjE3NTE1ODkyMjU2fSwidG9rZW5faWRzIjpbNTgwODIsMTUxNjQ1XX0=",
+  "receipt": {
+   "stage": "vlm",
+   "backend": "cuda",
+   "device": "cuda:0",
+   "node": "etri-dev0009-jetorn",
+   "pod_uid": "086c18e1-1366-43ec-a790-6407f1ce584b",
+   "run_id": "gmv-diag-20261029t0749",
+   "request_id": "cal-4556100-cuda",
+   "sequence": 3,
+   "input_sha256": "005d385d5195a4adcfb23986396a010fa5955dc2dac1e41fa3e932c575aba27b",
+   "output_sha256": "4052093db020dd80056bb2b75cf7156e486893de143ed6a901729a3bbd5f9bee",
+   "output_bytes": 6368,
+   "model_sha256": {
+    "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+   },
+   "derived_artifact_sha256": null,
+   "worker_wall_ms": 18610.489613958634,
+   "timing": {
+    "preprocess_ms": 29.285821015946567,
+    "generate_ms": 18550.771599984728,
+    "decode_text_ms": 0.3514669369906187,
+    "total_ms": 18580.408887937665,
+    "ttft_ms": 18411.17515892256,
+    "token_offsets_ms": [
+     18411.17515892256,
+     18549.445861950517
+    ],
+    "host": {
+     "cpu_s_preprocess": 0.05607670399999165,
+     "cpu_s_generate": 18.29429856,
+     "max_rss_kib": 6079108,
+     "streamer_token_puts": 2
+    },
+    "device_stats": {
+     "max_memory_allocated": 4310601728,
+     "output_device": "cuda:0"
+    },
+    "output_device": "cuda:0"
+   },
+   "static": {
+    "backend": "cuda",
+    "device": "cuda:0",
+    "model_sha256": {
+     "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+     "device": "cuda:0",
+     "runtime": "torch",
+     "runtime_version": "2.9.1+cu130",
+     "cuda": "13.0",
+     "device_name": "Orin",
+     "capability": [
+      8,
+      7
+     ],
+     "parameter_devices": [
+      "cuda:0"
+     ],
+     "buffer_devices": [
+      "cuda:0"
+     ],
+     "parameters": 2127532032,
+     "dtypes": [
+      "torch.bfloat16"
+     ],
+     "memory_allocated": 4256128000,
+     "backend": "cuda",
+     "model": "qwen3vl-2b-89644892",
+     "weights_sha256": {
+      "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+     },
+     "host_threads": 4,
+     "hash_ms": 50897.46244694106,
+     "load_ms": 97230.7949650567,
+     "pid": 220,
+     "diagnostic": {
+      "hooked_modules": {
+       "vision": "Qwen3VLVisionModel",
+       "language": "Qwen3VLTextModel",
+       "lm_head": "Linear"
+      },
+      "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time"
+     }
+    },
+    "process": {
+     "backend": "cuda",
+     "model": "qwen3vl-2b-89644892",
+     "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+     "load_deadline_s": 1200,
+     "call_deadline_s": 300,
+     "log": "/work/logs/vlm-cuda-child.log",
+     "started_at": 1793260903.3466308,
+     "load_wall_ms": 185157.83472103067,
+     "state": "ready",
+     "child_pid": 220
+    }
+   },
+   "input_kind": "raw",
+   "queue_wait_ms": 0.01756905112415552,
+   "queue_at_arrival": {
+    "waiting": 0,
+    "active": 0
+   }
+  },
+  "arm": "cuda",
+  "input": "cal-4556100",
+  "request_id": "cal-4556100-cuda",
+  "collector_wall_ms": 18623.415574998944,
+  "result": {
+   "device": {
+    "max_memory_allocated": 4310601728,
+    "output_device": "cuda:0"
+   },
+   "diagnostic": {
+    "dropped_rows": 0,
+    "environment": {
+     "after": {
+      "at": 1793261159.7605772,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "unavailable: FileNotFoundError",
+       "cpu.stat": "usage_usec 170462355\nuser_usec 128578501\nsystem_usec 41883854\nnr_periods 6721\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "unavailable: FileNotFoundError",
+       "memory.current": "6117670912",
+       "memory.max": "6979321856",
+       "memory.peak": "6339837952",
+       "memory.pressure": "unavailable: FileNotFoundError"
+      },
+      "cuda_memory_allocated": 4265696768,
+      "cuda_memory_reserved": 4362076160,
+      "devfreq": {
+       "/sys/class/devfreq/15340000.vic/cur_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/max_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/min_freq": "115200000",
+       "/sys/class/devfreq/15380000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15480000.nvdec/cur_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/max_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/min_freq": "115200000",
+       "/sys/class/devfreq/15540000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15a50000.ofa/cur_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/max_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/min_freq": "115200000",
+       "/sys/class/devfreq/17000000.gpu/cur_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/max_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/min_freq": "306000000",
+       "/sys/class/devfreq/bwmgr/cur_freq": "2133000000",
+       "/sys/class/devfreq/bwmgr/max_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/min_freq": "204000000",
+       "/sys/devices/platform/17000000.gpu/load": "482",
+       "/sys/devices/platform/bus@0/17000000.gpu/load": "482",
+       "/sys/devices/platform/bus@0/gpu.0/load": "482",
+       "/sys/devices/platform/gpu.0/load": "482"
+      },
+      "loadavg": "3.04 2.73 1.60 1/669 355",
+      "memory_stat": {
+       "anon": "1436790784",
+       "file": "195342336",
+       "pgfault": "414959",
+       "pgmajfault": "1466",
+       "pgscan": "4163678",
+       "pgsteal": "2688403",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "1938923"
+      },
+      "psi": {
+       "cpu": "unavailable: FileNotFoundError",
+       "io": "unavailable: FileNotFoundError",
+       "memory": "unavailable: FileNotFoundError"
+      },
+      "threads": "17",
+      "torch_threads": 4
+     },
+     "before": {
+      "at": 1793261141.1704025,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "unavailable: FileNotFoundError",
+       "cpu.stat": "usage_usec 152089724\nuser_usec 110245078\nsystem_usec 41844646\nnr_periods 6535\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "unavailable: FileNotFoundError",
+       "memory.current": "6145904640",
+       "memory.max": "6979321856",
+       "memory.peak": "6339837952",
+       "memory.pressure": "unavailable: FileNotFoundError"
+      },
+      "cuda_memory_allocated": 4265696768,
+      "cuda_memory_reserved": 4362076160,
+      "devfreq": {
+       "/sys/class/devfreq/15340000.vic/cur_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/max_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/min_freq": "115200000",
+       "/sys/class/devfreq/15380000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15480000.nvdec/cur_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/max_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/min_freq": "115200000",
+       "/sys/class/devfreq/15540000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15a50000.ofa/cur_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/max_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/min_freq": "115200000",
+       "/sys/class/devfreq/17000000.gpu/cur_freq": "306000000",
+       "/sys/class/devfreq/17000000.gpu/max_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/min_freq": "306000000",
+       "/sys/class/devfreq/bwmgr/cur_freq": "2133000000",
+       "/sys/class/devfreq/bwmgr/max_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/min_freq": "204000000",
+       "/sys/devices/platform/17000000.gpu/load": "0",
+       "/sys/devices/platform/bus@0/17000000.gpu/load": "0",
+       "/sys/devices/platform/bus@0/gpu.0/load": "0",
+       "/sys/devices/platform/gpu.0/load": "0"
+      },
+      "loadavg": "3.43 2.79 1.60 4/669 347",
+      "memory_stat": {
+       "anon": "1436622848",
+       "file": "223465472",
+       "pgfault": "414905",
+       "pgmajfault": "1466",
+       "pgscan": "4156289",
+       "pgsteal": "2681537",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "1938923"
+      },
+      "psi": {
+       "cpu": "unavailable: FileNotFoundError",
+       "io": "unavailable: FileNotFoundError",
+       "memory": "unavailable: FileNotFoundError"
+      },
+      "threads": "17",
+      "torch_threads": 4
+     }
+    },
+    "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time",
+    "probe_errors": [],
+    "scope": "cuda: hooked vision/language_model/lm_head calls; host wall/thread/process spans + CUDA event spans",
+    "split": {
+     "decode": [
+      {
+       "cuda_event_span_ms": 124.69993591308594,
+       "host_ms": 124.7083869529888,
+       "proc_cpu_ms": 123.89017599998908,
+       "thread_cpu_ms": 123.8615999999979
+      }
+     ],
+     "decode_seqs": [
+      1
+     ],
+     "first_lm_head": {
+      "cuda_event_span_ms": 9.28656005859375,
+      "host_ms": 0.31642604153603315,
+      "proc_cpu_ms": 0.31599999999798456,
+      "thread_cpu_ms": 0.31619199999965986
+     },
+     "first_token_after_lm_head_ms": 34.65571894776076,
+     "language_calls": 2,
+     "lm_head_calls": 2,
+     "pre_vision_gap_ms": 6.836183951236308,
+     "prefill": {
+      "cuda_event_span_ms": 162.5128936767578,
+      "host_ms": 137.13402696885169,
+      "proc_cpu_ms": 131.8248959999977,
+      "thread_cpu_ms": 131.76572800000486
+     },
+     "prefill_seq": 221,
+     "prefill_start_ms": 18238.572619040497,
+     "ttft_ms": 18410.933646955527,
+     "vision": [
+      {
+       "cuda_event_span_ms": 18225.564453125,
+       "host_ms": 18224.36289000325,
+       "proc_cpu_ms": 18016.411903999993,
+       "thread_cpu_ms": 18010.735584000002
+      }
+     ],
+     "vision_calls": 1,
+     "vision_to_prefill_gap_ms": 7.3735450860112906
+    }
+   },
+   "host": {
+    "cpu_s_generate": 18.29429856,
+    "cpu_s_preprocess": 0.05607670399999165,
+    "max_rss_kib": 6079108,
+    "streamer_token_puts": 2
+   },
+   "image_grid_thw": [
+    [
+     1,
+     22,
+     34
+    ]
+   ],
+   "input_id": "cal-4556100",
+   "processor_sha256": "8e8c1db6169d3bdb5e790fbf7df00448d50db6400ca94401191cb7b003f39fdf",
+   "prompt_tokens": 221,
+   "text": "cone",
+   "timing": {
+    "decode_text_ms": 0.3514669369906187,
+    "generate_ms": 18550.771599984728,
+    "preprocess_ms": 29.285821015946567,
+    "token_offsets_ms": [
+     18411.17515892256,
+     18549.445861950517
+    ],
+    "total_ms": 18580.408887937665,
+    "ttft_ms": 18411.17515892256
+   },
+   "token_ids": [
+    58082,
+    151645
+   ]
+  },
+  "output_evidence": {
+   "output_device": "cuda:0"
+  }
+ },
+ {
+  "status": "ok",
+  "data": "eyJkZXZpY2UiOnsibWF4X21lbW9yeV9hbGxvY2F0ZWQiOjQzMTI0ODc5MzYsIm91dHB1dF9kZXZpY2UiOiJjdWRhOjAifSwiZGlhZ25vc3RpYyI6eyJkcm9wcGVkX3Jvd3MiOjAsImVudmlyb25tZW50Ijp7ImFmdGVyIjp7ImF0IjoxNzkzMjYxMTc5LjEyMjkxNiwiY2dyb3VwIjp7ImNwdS5tYXgiOiI0MDAwMDAgMTAwMDAwIiwiY3B1LnByZXNzdXJlIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIiwiY3B1LnN0YXQiOiJ1c2FnZV91c2VjIDE4OTY0ODQ3M1xudXNlcl91c2VjIDE0Nzc0MDA3MVxuc3lzdGVtX3VzZWMgNDE5MDg0MDFcbm5yX3BlcmlvZHMgNjkxNFxubnJfdGhyb3R0bGVkIDBcbnRocm90dGxlZF91c2VjIDBcbm5yX2J1cnN0cyAwXG5idXJzdF91c2VjIDAiLCJpby5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsIm1lbW9yeS5jdXJyZW50IjoiNjA5OTM2MTc5MiIsIm1lbW9yeS5tYXgiOiI2OTc5MzIxODU2IiwibWVtb3J5LnBlYWsiOiI2MzM5ODM3OTUyIiwibWVtb3J5LnByZXNzdXJlIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIn0sImN1ZGFfbWVtb3J5X2FsbG9jYXRlZCI6NDI2NTY5Njc2OCwiY3VkYV9tZW1vcnlfcmVzZXJ2ZWQiOjQzNjIwNzYxNjAsImRldmZyZXEiOnsiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzQwMDAwLnZpYy9jdXJfZnJlcSI6IjQzNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM0MDAwMC52aWMvbWF4X2ZyZXEiOiI0MzUyMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTUzNDAwMDAudmljL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL2N1cl9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL21heF9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL2N1cl9mcmVxIjoiNTI0ODAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL21heF9mcmVxIjoiNTI0ODAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL2N1cl9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL21heF9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1YTUwMDAwLm9mYS9jdXJfZnJlcSI6IjUzNzYwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNWE1MDAwMC5vZmEvbWF4X2ZyZXEiOiI1Mzc2MDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTVhNTAwMDAub2ZhL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE3MDAwMDAwLmdwdS9jdXJfZnJlcSI6IjkxODAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNzAwMDAwMC5ncHUvbWF4X2ZyZXEiOiI5MTgwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTcwMDAwMDAuZ3B1L21pbl9mcmVxIjoiMzA2MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL2N1cl9mcmVxIjoiMjEzMzAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS9id21nci9tYXhfZnJlcSI6IjMxOTkwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvYndtZ3IvbWluX2ZyZXEiOiIyMDQwMDAwMDAiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vMTcwMDAwMDAuZ3B1L2xvYWQiOiI2NzEiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vYnVzQDAvMTcwMDAwMDAuZ3B1L2xvYWQiOiI2NzEiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vYnVzQDAvZ3B1LjAvbG9hZCI6IjY3MSIsIi9zeXMvZGV2aWNlcy9wbGF0Zm9ybS9ncHUuMC9sb2FkIjoiNjcxIn0sImxvYWRhdmciOiIyLjYxIDIuNjUgMS42MCAxLzY3MCAzNjUiLCJtZW1vcnlfc3RhdCI6eyJhbm9uIjoiMTQ0MTk1MTc0NCIsImZpbGUiOiIxNzE4NTk5NjgiLCJwZ2ZhdWx0IjoiNDE2MjM1IiwicGdtYWpmYXVsdCI6IjE0NjYiLCJwZ3NjYW4iOiI0MTY5NTQwIiwicGdzdGVhbCI6IjI2OTQxMzYiLCJ3b3JraW5nc2V0X3JlZmF1bHRfYW5vbiI6IjAiLCJ3b3JraW5nc2V0X3JlZmF1bHRfZmlsZSI6IjE5Mzg5MjMifSwicHNpIjp7ImNwdSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsImlvIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIiwibWVtb3J5IjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIn0sInRocmVhZHMiOiIxNyIsInRvcmNoX3RocmVhZHMiOjR9LCJiZWZvcmUiOnsiYXQiOjE3OTMyNjExNTkuODE5MjQ1MywiY2dyb3VwIjp7ImNwdS5tYXgiOiI0MDAwMDAgMTAwMDAwIiwiY3B1LnByZXNzdXJlIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIiwiY3B1LnN0YXQiOiJ1c2FnZV91c2VjIDE3MDQ4MDA2MFxudXNlcl91c2VjIDEyODU4NjYzMlxuc3lzdGVtX3VzZWMgNDE4OTM0Mjdcbm5yX3BlcmlvZHMgNjcyMVxubnJfdGhyb3R0bGVkIDBcbnRocm90dGxlZF91c2VjIDBcbm5yX2J1cnN0cyAwXG5idXJzdF91c2VjIDAiLCJpby5wcmVzc3VyZSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsIm1lbW9yeS5jdXJyZW50IjoiNjExODY3MDMzNiIsIm1lbW9yeS5tYXgiOiI2OTc5MzIxODU2IiwibWVtb3J5LnBlYWsiOiI2MzM5ODM3OTUyIiwibWVtb3J5LnByZXNzdXJlIjoidW5hdmFpbGFibGU6IEZpbGVOb3RGb3VuZEVycm9yIn0sImN1ZGFfbWVtb3J5X2FsbG9jYXRlZCI6NDI2NTY5Njc2OCwiY3VkYV9tZW1vcnlfcmVzZXJ2ZWQiOjQzNjIwNzYxNjAsImRldmZyZXEiOnsiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzQwMDAwLnZpYy9jdXJfZnJlcSI6IjQzNTIwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNTM0MDAwMC52aWMvbWF4X2ZyZXEiOiI0MzUyMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTUzNDAwMDAudmljL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL2N1cl9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL21heF9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1MzgwMDAwLm52anBnL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL2N1cl9mcmVxIjoiNTI0ODAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL21heF9mcmVxIjoiNTI0ODAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NDgwMDAwLm52ZGVjL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL2N1cl9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL21heF9mcmVxIjoiNDk5MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1NTQwMDAwLm52anBnL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE1YTUwMDAwLm9mYS9jdXJfZnJlcSI6IjUzNzYwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNWE1MDAwMC5vZmEvbWF4X2ZyZXEiOiI1Mzc2MDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTVhNTAwMDAub2ZhL21pbl9mcmVxIjoiMTE1MjAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxLzE3MDAwMDAwLmdwdS9jdXJfZnJlcSI6IjkxODAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS8xNzAwMDAwMC5ncHUvbWF4X2ZyZXEiOiI5MTgwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvMTcwMDAwMDAuZ3B1L21pbl9mcmVxIjoiMzA2MDAwMDAwIiwiL3N5cy9jbGFzcy9kZXZmcmVxL2J3bWdyL2N1cl9mcmVxIjoiMjEzMzAwMDAwMCIsIi9zeXMvY2xhc3MvZGV2ZnJlcS9id21nci9tYXhfZnJlcSI6IjMxOTkwMDAwMDAiLCIvc3lzL2NsYXNzL2RldmZyZXEvYndtZ3IvbWluX2ZyZXEiOiIyMDQwMDAwMDAiLCIvc3lzL2RldmljZXMvcGxhdGZvcm0vMTcwMDAwMDAuZ3B1L2xvYWQiOiIwIiwiL3N5cy9kZXZpY2VzL3BsYXRmb3JtL2J1c0AwLzE3MDAwMDAwLmdwdS9sb2FkIjoiMCIsIi9zeXMvZGV2aWNlcy9wbGF0Zm9ybS9idXNAMC9ncHUuMC9sb2FkIjoiMCIsIi9zeXMvZGV2aWNlcy9wbGF0Zm9ybS9ncHUuMC9sb2FkIjoiMCJ9LCJsb2FkYXZnIjoiMy4wNCAyLjczIDEuNjAgMS82NjkgMzU3IiwibWVtb3J5X3N0YXQiOnsiYW5vbiI6IjE0Mzc1ODEzMTIiLCJmaWxlIjoiMTk1MzQyMzM2IiwicGdmYXVsdCI6IjQxNTE1NCIsInBnbWFqZmF1bHQiOiIxNDY2IiwicGdzY2FuIjoiNDE2MzY3OCIsInBnc3RlYWwiOiIyNjg4NDAzIiwid29ya2luZ3NldF9yZWZhdWx0X2Fub24iOiIwIiwid29ya2luZ3NldF9yZWZhdWx0X2ZpbGUiOiIxOTM4OTIzIn0sInBzaSI6eyJjcHUiOiJ1bmF2YWlsYWJsZTogRmlsZU5vdEZvdW5kRXJyb3IiLCJpbyI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciIsIm1lbW9yeSI6InVuYXZhaWxhYmxlOiBGaWxlTm90Rm91bmRFcnJvciJ9LCJ0aHJlYWRzIjoiMTciLCJ0b3JjaF90aHJlYWRzIjo0fX0sImV2ZW50X25vdGUiOiJjdWRhX2V2ZW50X3NwYW5fbXM6IHN0cmVhbSB0aW1lIGJldHdlZW4gdHdvIHJlY29yZGVkIGV2ZW50cyAoaW5jbHVkZXMgcXVldWVpbmcvZ2Fwcyk7IG5vdCBrZXJuZWwtYWN0aXZlIHRpbWUiLCJwcm9iZV9lcnJvcnMiOltdLCJzY29wZSI6ImN1ZGE6IGhvb2tlZCB2aXNpb24vbGFuZ3VhZ2VfbW9kZWwvbG1faGVhZCBjYWxsczsgaG9zdCB3YWxsL3RocmVhZC9wcm9jZXNzIHNwYW5zICsgQ1VEQSBldmVudCBzcGFucyIsInNwbGl0Ijp7ImRlY29kZSI6W3siY3VkYV9ldmVudF9zcGFuX21zIjoxMjMuMTEwMDE1ODY5MTQwNjIsImhvc3RfbXMiOjEyMy4yMjExMzkwNzQzMDMyMSwicHJvY19jcHVfbXMiOjEyMi44MDY0NjQwMDAwMDcwNSwidGhyZWFkX2NwdV9tcyI6MTIyLjc0NzI5Nn1dLCJkZWNvZGVfc2VxcyI6WzFdLCJmaXJzdF9sbV9oZWFkIjp7ImN1ZGFfZXZlbnRfc3Bhbl9tcyI6OS4yOTYyNTYwNjUzNjg2NTIsImhvc3RfbXMiOjAuMzA5NTc2OTc4OTA2OTg5MSwicHJvY19jcHVfbXMiOjAuMzA5MDU1OTk5OTkxODY5NiwidGhyZWFkX2NwdV9tcyI6MC4zMDkyMTYwMDAwMDUxMDgwN30sImZpcnN0X3Rva2VuX2FmdGVyX2xtX2hlYWRfbXMiOjM0LjIxNDEzNzAwNTYxOTcwNSwibGFuZ3VhZ2VfY2FsbHMiOjIsImxtX2hlYWRfY2FsbHMiOjIsInByZV92aXNpb25fZ2FwX21zIjo2LjUyNzE4MjA2NDAxOTE0NCwicHJlZmlsbCI6eyJjdWRhX2V2ZW50X3NwYW5fbXMiOjE2Ni4yOTkyMjQ4NTM1MTU2MiwiaG9zdF9tcyI6MTQxLjQzMjY5MDA4NDkxMTg4LCJwcm9jX2NwdV9tcyI6MTM2LjE2NTg1NTk5OTk5MDk4LCJ0aHJlYWRfY3B1X21zIjoxMzYuMTQwMzIwMDAwMDA5NzV9LCJwcmVmaWxsX3NlcSI6MjI1LCJwcmVmaWxsX3N0YXJ0X21zIjoxODkzOS4xOTEyNzM5OTU2NzUsInR0ZnRfbXMiOjE5MTE1LjQxMzMxOTA4NjY1NiwidmlzaW9uIjpbeyJjdWRhX2V2ZW50X3NwYW5fbXMiOjE4OTI1Ljk2Mjg5MDYyNSwiaG9zdF9tcyI6MTg5MjQuNzIxMzc2OTcwNDEsInByb2NfY3B1X21zIjoxODc4Mi44MTA3NTE5OTk5OSwidGhyZWFkX2NwdV9tcyI6MTg3NzguMDI0MzJ9XSwidmlzaW9uX2NhbGxzIjoxLCJ2aXNpb25fdG9fcHJlZmlsbF9nYXBfbXMiOjcuOTQyNzE0OTYxMjQ1NjU2fX0sImhvc3QiOnsiY3B1X3NfZ2VuZXJhdGUiOjE5LjA2NDk3MDgxNjAwMDAxMywiY3B1X3NfcHJlcHJvY2VzcyI6MC4wNzgwODg3NjgwMDAwMDA2NCwibWF4X3Jzc19raWIiOjYwNzkxMDgsInN0cmVhbWVyX3Rva2VuX3B1dHMiOjJ9LCJpbWFnZV9ncmlkX3RodyI6W1sxLDI4LDI4XV0sImlucHV0X2lkIjoiY2FsLTMzNTU4OTAiLCJwcm9jZXNzb3Jfc2hhMjU2IjoiODNmYWE4ZTI4YzJiY2E2YzZlNzM2N2I0OGI0MTgzNmI3NDllY2M5YTI4OWIyNDg5YjZlOWM5ZDk1YWY0NGQ4MSIsInByb21wdF90b2tlbnMiOjIyNSwidGV4dCI6InBpbmsiLCJ0aW1pbmciOnsiZGVjb2RlX3RleHRfbXMiOjAuMzg0NjIwMDQxNTg2NDU4NywiZ2VuZXJhdGVfbXMiOjE5MjU0LjczOTk4OTk5MjIzLCJwcmVwcm9jZXNzX21zIjozNy42Mjc1MjQ5MjkxMjExNCwidG9rZW5fb2Zmc2V0c19tcyI6WzE5MTE1LjcxMzQ4ODA3Nzc0NSwxOTI1My4xMDE0NzQwMjM0MjRdLCJ0b3RhbF9tcyI6MTkyOTIuNzUyMTM0OTYyOTQsInR0ZnRfbXMiOjE5MTE1LjcxMzQ4ODA3Nzc0NX0sInRva2VuX2lkcyI6WzYzMjQ5LDE1MTY0NV19",
+  "receipt": {
+   "stage": "vlm",
+   "backend": "cuda",
+   "device": "cuda:0",
+   "node": "etri-dev0009-jetorn",
+   "pod_uid": "086c18e1-1366-43ec-a790-6407f1ce584b",
+   "run_id": "gmv-diag-20261029t0749",
+   "request_id": "cal-3355890-cuda",
+   "sequence": 4,
+   "input_sha256": "d5fbd6dc6b5aca024643e02c1a001c3e6f125553245cd68a179f52d021182e45",
+   "output_sha256": "47d421f5fb8bb0bb112dbb2d30a5420021bc219a41ad2637dc14d4f522c4c3cd",
+   "output_bytes": 6360,
+   "model_sha256": {
+    "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+   },
+   "derived_artifact_sha256": null,
+   "worker_wall_ms": 19314.929220010526,
+   "timing": {
+    "preprocess_ms": 37.62752492912114,
+    "generate_ms": 19254.73998999223,
+    "decode_text_ms": 0.3846200415864587,
+    "total_ms": 19292.75213496294,
+    "ttft_ms": 19115.713488077745,
+    "token_offsets_ms": [
+     19115.713488077745,
+     19253.101474023424
+    ],
+    "host": {
+     "cpu_s_preprocess": 0.07808876800000064,
+     "cpu_s_generate": 19.064970816000013,
+     "max_rss_kib": 6079108,
+     "streamer_token_puts": 2
+    },
+    "device_stats": {
+     "max_memory_allocated": 4312487936,
+     "output_device": "cuda:0"
+    },
+    "output_device": "cuda:0"
+   },
+   "static": {
+    "backend": "cuda",
+    "device": "cuda:0",
+    "model_sha256": {
+     "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+     "device": "cuda:0",
+     "runtime": "torch",
+     "runtime_version": "2.9.1+cu130",
+     "cuda": "13.0",
+     "device_name": "Orin",
+     "capability": [
+      8,
+      7
+     ],
+     "parameter_devices": [
+      "cuda:0"
+     ],
+     "buffer_devices": [
+      "cuda:0"
+     ],
+     "parameters": 2127532032,
+     "dtypes": [
+      "torch.bfloat16"
+     ],
+     "memory_allocated": 4256128000,
+     "backend": "cuda",
+     "model": "qwen3vl-2b-89644892",
+     "weights_sha256": {
+      "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+     },
+     "host_threads": 4,
+     "hash_ms": 50897.46244694106,
+     "load_ms": 97230.7949650567,
+     "pid": 220,
+     "diagnostic": {
+      "hooked_modules": {
+       "vision": "Qwen3VLVisionModel",
+       "language": "Qwen3VLTextModel",
+       "lm_head": "Linear"
+      },
+      "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time"
+     }
+    },
+    "process": {
+     "backend": "cuda",
+     "model": "qwen3vl-2b-89644892",
+     "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+     "load_deadline_s": 1200,
+     "call_deadline_s": 300,
+     "log": "/work/logs/vlm-cuda-child.log",
+     "started_at": 1793260903.3466308,
+     "load_wall_ms": 185157.83472103067,
+     "state": "ready",
+     "child_pid": 220
+    }
+   },
+   "input_kind": "raw",
+   "queue_wait_ms": 0.020256033167243004,
+   "queue_at_arrival": {
+    "waiting": 0,
+    "active": 0
+   }
+  },
+  "arm": "cuda",
+  "input": "cal-3355890",
+  "request_id": "cal-3355890-cuda",
+  "collector_wall_ms": 19334.918078995543,
+  "result": {
+   "device": {
+    "max_memory_allocated": 4312487936,
+    "output_device": "cuda:0"
+   },
+   "diagnostic": {
+    "dropped_rows": 0,
+    "environment": {
+     "after": {
+      "at": 1793261179.122916,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "unavailable: FileNotFoundError",
+       "cpu.stat": "usage_usec 189648473\nuser_usec 147740071\nsystem_usec 41908401\nnr_periods 6914\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "unavailable: FileNotFoundError",
+       "memory.current": "6099361792",
+       "memory.max": "6979321856",
+       "memory.peak": "6339837952",
+       "memory.pressure": "unavailable: FileNotFoundError"
+      },
+      "cuda_memory_allocated": 4265696768,
+      "cuda_memory_reserved": 4362076160,
+      "devfreq": {
+       "/sys/class/devfreq/15340000.vic/cur_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/max_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/min_freq": "115200000",
+       "/sys/class/devfreq/15380000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15480000.nvdec/cur_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/max_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/min_freq": "115200000",
+       "/sys/class/devfreq/15540000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15a50000.ofa/cur_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/max_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/min_freq": "115200000",
+       "/sys/class/devfreq/17000000.gpu/cur_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/max_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/min_freq": "306000000",
+       "/sys/class/devfreq/bwmgr/cur_freq": "2133000000",
+       "/sys/class/devfreq/bwmgr/max_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/min_freq": "204000000",
+       "/sys/devices/platform/17000000.gpu/load": "671",
+       "/sys/devices/platform/bus@0/17000000.gpu/load": "671",
+       "/sys/devices/platform/bus@0/gpu.0/load": "671",
+       "/sys/devices/platform/gpu.0/load": "671"
+      },
+      "loadavg": "2.61 2.65 1.60 1/670 365",
+      "memory_stat": {
+       "anon": "1441951744",
+       "file": "171859968",
+       "pgfault": "416235",
+       "pgmajfault": "1466",
+       "pgscan": "4169540",
+       "pgsteal": "2694136",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "1938923"
+      },
+      "psi": {
+       "cpu": "unavailable: FileNotFoundError",
+       "io": "unavailable: FileNotFoundError",
+       "memory": "unavailable: FileNotFoundError"
+      },
+      "threads": "17",
+      "torch_threads": 4
+     },
+     "before": {
+      "at": 1793261159.8192453,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "unavailable: FileNotFoundError",
+       "cpu.stat": "usage_usec 170480060\nuser_usec 128586632\nsystem_usec 41893427\nnr_periods 6721\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "unavailable: FileNotFoundError",
+       "memory.current": "6118670336",
+       "memory.max": "6979321856",
+       "memory.peak": "6339837952",
+       "memory.pressure": "unavailable: FileNotFoundError"
+      },
+      "cuda_memory_allocated": 4265696768,
+      "cuda_memory_reserved": 4362076160,
+      "devfreq": {
+       "/sys/class/devfreq/15340000.vic/cur_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/max_freq": "435200000",
+       "/sys/class/devfreq/15340000.vic/min_freq": "115200000",
+       "/sys/class/devfreq/15380000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15380000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15480000.nvdec/cur_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/max_freq": "524800000",
+       "/sys/class/devfreq/15480000.nvdec/min_freq": "115200000",
+       "/sys/class/devfreq/15540000.nvjpg/cur_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/max_freq": "499200000",
+       "/sys/class/devfreq/15540000.nvjpg/min_freq": "115200000",
+       "/sys/class/devfreq/15a50000.ofa/cur_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/max_freq": "537600000",
+       "/sys/class/devfreq/15a50000.ofa/min_freq": "115200000",
+       "/sys/class/devfreq/17000000.gpu/cur_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/max_freq": "918000000",
+       "/sys/class/devfreq/17000000.gpu/min_freq": "306000000",
+       "/sys/class/devfreq/bwmgr/cur_freq": "2133000000",
+       "/sys/class/devfreq/bwmgr/max_freq": "3199000000",
+       "/sys/class/devfreq/bwmgr/min_freq": "204000000",
+       "/sys/devices/platform/17000000.gpu/load": "0",
+       "/sys/devices/platform/bus@0/17000000.gpu/load": "0",
+       "/sys/devices/platform/bus@0/gpu.0/load": "0",
+       "/sys/devices/platform/gpu.0/load": "0"
+      },
+      "loadavg": "3.04 2.73 1.60 1/669 357",
+      "memory_stat": {
+       "anon": "1437581312",
+       "file": "195342336",
+       "pgfault": "415154",
+       "pgmajfault": "1466",
+       "pgscan": "4163678",
+       "pgsteal": "2688403",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "1938923"
+      },
+      "psi": {
+       "cpu": "unavailable: FileNotFoundError",
+       "io": "unavailable: FileNotFoundError",
+       "memory": "unavailable: FileNotFoundError"
+      },
+      "threads": "17",
+      "torch_threads": 4
+     }
+    },
+    "event_note": "cuda_event_span_ms: stream time between two recorded events (includes queueing/gaps); not kernel-active time",
+    "probe_errors": [],
+    "scope": "cuda: hooked vision/language_model/lm_head calls; host wall/thread/process spans + CUDA event spans",
+    "split": {
+     "decode": [
+      {
+       "cuda_event_span_ms": 123.11001586914062,
+       "host_ms": 123.22113907430321,
+       "proc_cpu_ms": 122.80646400000705,
+       "thread_cpu_ms": 122.747296
+      }
+     ],
+     "decode_seqs": [
+      1
+     ],
+     "first_lm_head": {
+      "cuda_event_span_ms": 9.296256065368652,
+      "host_ms": 0.3095769789069891,
+      "proc_cpu_ms": 0.3090559999918696,
+      "thread_cpu_ms": 0.30921600000510807
+     },
+     "first_token_after_lm_head_ms": 34.214137005619705,
+     "language_calls": 2,
+     "lm_head_calls": 2,
+     "pre_vision_gap_ms": 6.527182064019144,
+     "prefill": {
+      "cuda_event_span_ms": 166.29922485351562,
+      "host_ms": 141.43269008491188,
+      "proc_cpu_ms": 136.16585599999098,
+      "thread_cpu_ms": 136.14032000000975
+     },
+     "prefill_seq": 225,
+     "prefill_start_ms": 18939.191273995675,
+     "ttft_ms": 19115.413319086656,
+     "vision": [
+      {
+       "cuda_event_span_ms": 18925.962890625,
+       "host_ms": 18924.72137697041,
+       "proc_cpu_ms": 18782.81075199999,
+       "thread_cpu_ms": 18778.02432
+      }
+     ],
+     "vision_calls": 1,
+     "vision_to_prefill_gap_ms": 7.942714961245656
+    }
+   },
+   "host": {
+    "cpu_s_generate": 19.064970816000013,
+    "cpu_s_preprocess": 0.07808876800000064,
+    "max_rss_kib": 6079108,
+    "streamer_token_puts": 2
+   },
+   "image_grid_thw": [
+    [
+     1,
+     28,
+     28
+    ]
+   ],
+   "input_id": "cal-3355890",
+   "processor_sha256": "83faa8e28c2bca6c6e7367b48b41836b749ecc9a289b2489b6e9c9d95af44d81",
+   "prompt_tokens": 225,
+   "text": "pink",
+   "timing": {
+    "decode_text_ms": 0.3846200415864587,
+    "generate_ms": 19254.73998999223,
+    "preprocess_ms": 37.62752492912114,
+    "token_offsets_ms": [
+     19115.713488077745,
+     19253.101474023424
+    ],
+    "total_ms": 19292.75213496294,
+    "ttft_ms": 19115.713488077745
+   },
+   "token_ids": [
+    63249,
+    151645
+   ]
+  },
+  "output_evidence": {
+   "output_device": "cuda:0"
+  }
+ },
+ {
+  "status": "ok",
+  "data": "eyJkZXZpY2UiOnsibnB1X3RpbWluZyI6eyJhdmFpbGFibGUiOmZhbHNlLCJyZWFzb24iOiJwaW5uZWQgdHJhbnNmb3JtZXJzLW1ibHQgMC42LjEgUXdlbjMtVkwgbm9uLWJhdGNoIHBhdGg6IGNvdW50X25wdV90aW1lIGRlZmF1bHRzIEZhbHNlIGFuZCB0aGUgcGVyLWZvcndhcmQgbnB1X3RpbWUgaXMgbm90IGFnZ3JlZ2F0ZWQgaW50byBnZXRfbnB1X3RpbWluZygpOyBjb3VudGVycyBzdGF5IGF0IHJlc2V0IHZhbHVlcywgc28gbm8gbWVhc3VyZWQgTlBVIHRpbWUgaXMgY2xhaW1lZC4gQ29hcnNlIGdlbmVyYXRlX21zL3R0ZnRfbXMvdG9rZW4gb2Zmc2V0cyBhbmQgaG9zdCBjcHVfc18qIGFyZSB0aGUgbWVhc3VyZWQgdGltaW5nLiIsInNjb3BlIjoidmVuZG9yIGFnZ3JlZ2F0ZSBjb3VudGVycyAodGV4dCBkZWNvZGVyIHByZWZpbGwvZGVjb2RlOyB2aXNpb24gTVhRIG5ldmVyIGluY2x1ZGVkKSJ9LCJvdXRwdXRfdGVuc29yX2RldmljZSI6ImNwdSIsIm91dHB1dF90ZW5zb3Jfbm90ZSI6Imhvc3QgdGVuc29yIGV4cGVjdGVkOiBnZW5lcmF0ZSByZXR1cm5zIHRva2VuIGlkcyBvbiB0aGUgaG9zdDsgdGhlIHZpc2lvbi90ZXh0IE1YUSBjb21wdXRhdGlvbiBydW5zIG9uIHRoZSBOUFUgYW5kIGlzIGV2aWRlbmNlZCBieSB0aGUgbG9hZC10aW1lIGJhY2tlbmQgY29tcG9uZW50cywgbm90IGJ5IHRoaXMgdGVuc29yIn0sImRpYWdub3N0aWMiOnsiZW52aXJvbm1lbnQiOnsiYWZ0ZXIiOnsiYXQiOjE3OTMyNjExNzkuNTA1NTI2LCJjZ3JvdXAiOnsiY3B1Lm1heCI6IjQwMDAwMCAxMDAwMDAiLCJjcHUucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0yMzEzN1xuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MjMxMzciLCJjcHUuc3RhdCI6InVzYWdlX3VzZWMgMzgzMzA4OTlcbnVzZXJfdXNlYyAzMzYwMDkyMVxuc3lzdGVtX3VzZWMgNDcyOTk3OFxuY29yZV9zY2hlZC5mb3JjZV9pZGxlX3VzZWMgMFxubnJfcGVyaW9kcyA4MzZcbm5yX3Rocm90dGxlZCAwXG50aHJvdHRsZWRfdXNlYyAwXG5ucl9idXJzdHMgMFxuYnVyc3RfdXNlYyAwIiwiaW8ucHJlc3N1cmUiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD00NzYxMlxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9NDc2MTIiLCJtZW1vcnkuY3VycmVudCI6IjQ2MTg0NjkzNzYiLCJtZW1vcnkubWF4IjoiODU4OTkzNDU5MiIsIm1lbW9yeS5wZWFrIjoiNDYxOTMwMDg2NCIsIm1lbW9yeS5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTMxOFxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzE4In0sImRldmZyZXEiOiJ1bmF2YWlsYWJsZTogbm8gZGV2ZnJlcS9ncHUgbG9hZCBzeXNmcyBwYXRoIHZpc2libGUiLCJsb2FkYXZnIjoiMC41NCAwLjQ3IDAuNjEgNy8xNjYwIDMzMSIsIm1lbW9yeV9zdGF0Ijp7ImFub24iOiI0NjE5ODc4NDAiLCJmaWxlIjoiNDAwMDY3Mzc5MiIsInBnZmF1bHQiOiIyMjY5MzUiLCJwZ21hamZhdWx0IjoiMCIsInBnc2NhbiI6IjEyODQ0OCIsInBnc3RlYWwiOiIxMjg0NDgiLCJ3b3JraW5nc2V0X3JlZmF1bHRfYW5vbiI6IjAiLCJ3b3JraW5nc2V0X3JlZmF1bHRfZmlsZSI6IjEyODQ0NyJ9LCJwc2kiOnsiY3B1Ijoic29tZSBhdmcxMD0xLjUyIGF2ZzYwPTEuNzAgYXZnMzAwPTEuNzEgdG90YWw9NDk2NzM4NTY0MzlcbmZ1bGwgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTAiLCJpbyI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTE3MDYyMjI3MFxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MTYxNDQ1MjIwIiwibWVtb3J5Ijoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzYwNTA4NVxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzU2MTE3NiJ9LCJ0aHJlYWRzIjoiMjEiLCJ0b3JjaF90aHJlYWRzIjo0fSwiYmVmb3JlIjp7ImF0IjoxNzkzMjYxMTc5LjE0ODkwNzQsImNncm91cCI6eyJjcHUubWF4IjoiNDAwMDAwIDEwMDAwMCIsImNwdS5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTIzMDM1XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0yMzAzNSIsImNwdS5zdGF0IjoidXNhZ2VfdXNlYyAzNzc3NjQyNVxudXNlcl91c2VjIDMzMDUxMjMzXG5zeXN0ZW1fdXNlYyA0NzI1MTkxXG5jb3JlX3NjaGVkLmZvcmNlX2lkbGVfdXNlYyAwXG5ucl9wZXJpb2RzIDgzMlxubnJfdGhyb3R0bGVkIDBcbnRocm90dGxlZF91c2VjIDBcbm5yX2J1cnN0cyAwXG5idXJzdF91c2VjIDAiLCJpby5wcmVzc3VyZSI6InNvbWUgYXZnMTA9MC4wMCBhdmc2MD0wLjAwIGF2ZzMwMD0wLjAwIHRvdGFsPTQ3NjEyXG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD00NzYxMiIsIm1lbW9yeS5jdXJyZW50IjoiNDYxODc3NjU3NiIsIm1lbW9yeS5tYXgiOiI4NTg5OTM0NTkyIiwibWVtb3J5LnBlYWsiOiI0NjE5MTI0NzM2IiwibWVtb3J5LnByZXNzdXJlIjoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MzE4XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zMTgifSwiZGV2ZnJlcSI6InVuYXZhaWxhYmxlOiBubyBkZXZmcmVxL2dwdSBsb2FkIHN5c2ZzIHBhdGggdmlzaWJsZSIsImxvYWRhdmciOiIwLjU0IDAuNDcgMC42MSAxLzE2NjAgMzI5IiwibWVtb3J5X3N0YXQiOnsiYW5vbiI6IjQ2MTk0Njg4MCIsImZpbGUiOiI0MDAwNjczNzkyIiwicGdmYXVsdCI6IjIyNjkwMSIsInBnbWFqZmF1bHQiOiIwIiwicGdzY2FuIjoiMTI4NDQ4IiwicGdzdGVhbCI6IjEyODQ0OCIsIndvcmtpbmdzZXRfcmVmYXVsdF9hbm9uIjoiMCIsIndvcmtpbmdzZXRfcmVmYXVsdF9maWxlIjoiMTI4NDQ3In0sInBzaSI6eyJjcHUiOiJzb21lIGF2ZzEwPTEuNTIgYXZnNjA9MS43MCBhdmczMDA9MS43MSB0b3RhbD00OTY3Mzg1NTQyOVxuZnVsbCBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MCIsImlvIjoic29tZSBhdmcxMD0wLjAwIGF2ZzYwPTAuMDAgYXZnMzAwPTAuMDAgdG90YWw9MTcwNjIyMjcwXG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0xNjE0NDUyMjAiLCJtZW1vcnkiOiJzb21lIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zNjA1MDg1XG5mdWxsIGF2ZzEwPTAuMDAgYXZnNjA9MC4wMCBhdmczMDA9MC4wMCB0b3RhbD0zNTYxMTc2In0sInRocmVhZHMiOiIyMSIsInRvcmNoX3RocmVhZHMiOjR9fSwic2NvcGUiOiJlbnZpcm9ubWVudCBzbmFwc2hvdHMgb25seTsgdmVuZG9yIE1YUSBtb2RlbCBub3QgaW5zdHJ1bWVudGVkIn0sImhvc3QiOnsiY3B1X3NfZ2VuZXJhdGUiOjAuNTEyODQ3NTYxMDAwMDAxLCJjcHVfc19wcmVwcm9jZXNzIjowLjAzNTIxNTk0NTk5OTk5OTIyLCJtYXhfcnNzX2tpYiI6NTUzNDQ0LCJzdHJlYW1lcl90b2tlbl9wdXRzIjoyfSwiaW1hZ2VfZ3JpZF90aHciOltbMSwyOCwyOF1dLCJpbnB1dF9pZCI6ImNhbC0zMzU1ODkwIiwicHJvY2Vzc29yX3NoYTI1NiI6IjgzZmFhOGUyOGMyYmNhNmM2ZTczNjdiNDhiNDE4MzZiNzQ5ZWNjOWEyODliMjQ4OWI2ZTljOWQ5NWFmNDRkODEiLCJwcm9tcHRfdG9rZW5zIjoyMjUsInRleHQiOiJwaW5rIiwidGltaW5nIjp7ImRlY29kZV90ZXh0X21zIjowLjI1MzAxMjE3MTAxNTE0MzQsImdlbmVyYXRlX21zIjozNDIuNTE4NzM0OTc4NTExOTMsInByZXByb2Nlc3NfbXMiOjEyLjM1Mzc1Mjk3MjU1ODE0LCJ0b2tlbl9vZmZzZXRzX21zIjpbMjc5LjkwMzIzNzk0MDc0MzU3LDM0MS45ODcwMDQwMzc5NDY0Nl0sInRvdGFsX21zIjozNTUuMTI1NTAwMTIyMDg1MiwidHRmdF9tcyI6Mjc5LjkwMzIzNzk0MDc0MzU3fSwidG9rZW5faWRzIjpbNjMyNDksMTUxNjQ1XX0=",
+  "receipt": {
+   "stage": "vlm",
+   "backend": "mobilint",
+   "device": "npu:aries-rb",
+   "node": "etri-ser0004-cgnms0",
+   "pod_uid": "d7a9f61a-dba2-46ca-a1a1-886a09cc4bce",
+   "run_id": "gmv-diag-20261029t0749",
+   "request_id": "cal-3355890-mobilint",
+   "sequence": 4,
+   "input_sha256": "d5fbd6dc6b5aca024643e02c1a001c3e6f125553245cd68a179f52d021182e45",
+   "output_sha256": "7c92def6b594271e2a2dea82972b9ab19b4b6dda83065d0fe1152ccf1eab1e94",
+   "output_bytes": 4109,
+   "model_sha256": {
+    "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+    "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+    "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+   },
+   "derived_artifact_sha256": null,
+   "worker_wall_ms": 361.548860790208,
+   "timing": {
+    "preprocess_ms": 12.35375297255814,
+    "generate_ms": 342.51873497851193,
+    "decode_text_ms": 0.2530121710151434,
+    "total_ms": 355.1255001220852,
+    "ttft_ms": 279.90323794074357,
+    "token_offsets_ms": [
+     279.90323794074357,
+     341.98700403794646
+    ],
+    "host": {
+     "cpu_s_preprocess": 0.03521594599999922,
+     "cpu_s_generate": 0.512847561000001,
+     "max_rss_kib": 553444,
+     "streamer_token_puts": 2
+    },
+    "device_stats": {
+     "npu_timing": {
+      "available": false,
+      "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)",
+      "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing."
+     },
+     "output_tensor_device": "cpu",
+     "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+    }
+   },
+   "static": {
+    "backend": "mobilint",
+    "device": "npu:aries-rb",
+    "model_sha256": {
+     "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+     "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+     "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+    },
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "evidence": {
+     "device": "npu:aries-rb",
+     "runtime": "qbruntime",
+     "runtime_version": "v1.4.0",
+     "components": {
+      "vision": {
+       "target_device": "aries-rb",
+       "core_mode": "global8",
+       "mxq": "Qwen3-VL-2B-Instruct_vision-W4V8.mxq",
+       "slots": 1,
+       "dev_no": [
+        0
+       ],
+       "input_shapes": [
+        "(1, -1, 1536)",
+        "(1, -1, 1024)",
+        "(1, -1, 128)"
+       ],
+       "output_shapes": [
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)"
+       ]
+      },
+      "text": {
+       "target_device": "aries-rb",
+       "core_mode": "global8",
+       "mxq": "Qwen3-VL-2B-Instruct_text-W4V8.mxq",
+       "slots": 1,
+       "dev_no": [
+        0
+       ],
+       "input_shapes": [
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 2048)",
+        "(1, -1, 256)"
+       ],
+       "output_shapes": [
+        "(1, 1, 151936)"
+       ]
+      }
+     },
+     "dev_nodes": [
+      "aries0"
+     ],
+     "host_parameters": {
+      "model.visual.pos_embed.weight": {
+       "device": "cpu",
+       "dtype": "torch.float32",
+       "numel": 2359296
+      },
+      "model.language_model.embed_tokens.weight": {
+       "device": "cpu",
+       "dtype": "torch.float32",
+       "numel": 311164928
+      }
+     },
+     "backend": "mobilint",
+     "model": "mobilint-qwen3vl-2b-f4be563",
+     "weights_sha256": {
+      "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+      "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+      "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+     },
+     "host_threads": 4,
+     "hash_ms": 2273.4205138403922,
+     "load_ms": 3618.8248561229557,
+     "pid": 29,
+     "diagnostic": {
+      "hooked_modules": null,
+      "event_note": null
+     }
+    },
+    "process": {
+     "backend": "mobilint",
+     "model": "mobilint-qwen3vl-2b-f4be563",
+     "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+     "load_deadline_s": 900,
+     "call_deadline_s": 300,
+     "log": "/work/logs/vlm-mobilint-child.log",
+     "started_at": 1793260508.3062716,
+     "load_wall_ms": 6945.798065047711,
+     "state": "ready",
+     "child_pid": 29
+    }
+   },
+   "input_kind": "raw",
+   "queue_wait_ms": 0.0138930045068264,
+   "queue_at_arrival": {
+    "waiting": 0,
+    "active": 0
+   }
+  },
+  "arm": "mobilint",
+  "input": "cal-3355890",
+  "request_id": "cal-3355890-mobilint",
+  "collector_wall_ms": 382.4046320078196,
+  "result": {
+   "device": {
+    "npu_timing": {
+     "available": false,
+     "reason": "pinned transformers-mblt 0.6.1 Qwen3-VL non-batch path: count_npu_time defaults False and the per-forward npu_time is not aggregated into get_npu_timing(); counters stay at reset values, so no measured NPU time is claimed. Coarse generate_ms/ttft_ms/token offsets and host cpu_s_* are the measured timing.",
+     "scope": "vendor aggregate counters (text decoder prefill/decode; vision MXQ never included)"
+    },
+    "output_tensor_device": "cpu",
+    "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+   },
+   "diagnostic": {
+    "environment": {
+     "after": {
+      "at": 1793261179.505526,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=23137\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=23137",
+       "cpu.stat": "usage_usec 38330899\nuser_usec 33600921\nsystem_usec 4729978\ncore_sched.force_idle_usec 0\nnr_periods 836\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=47612\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47612",
+       "memory.current": "4618469376",
+       "memory.max": "8589934592",
+       "memory.peak": "4619300864",
+       "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=318\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=318"
+      },
+      "devfreq": "unavailable: no devfreq/gpu load sysfs path visible",
+      "loadavg": "0.54 0.47 0.61 7/1660 331",
+      "memory_stat": {
+       "anon": "461987840",
+       "file": "4000673792",
+       "pgfault": "226935",
+       "pgmajfault": "0",
+       "pgscan": "128448",
+       "pgsteal": "128448",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "128447"
+      },
+      "psi": {
+       "cpu": "some avg10=1.52 avg60=1.70 avg300=1.71 total=49673856439\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+       "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=170622270\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=161445220",
+       "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=3605085\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=3561176"
+      },
+      "threads": "21",
+      "torch_threads": 4
+     },
+     "before": {
+      "at": 1793261179.1489074,
+      "cgroup": {
+       "cpu.max": "400000 100000",
+       "cpu.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=23035\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=23035",
+       "cpu.stat": "usage_usec 37776425\nuser_usec 33051233\nsystem_usec 4725191\ncore_sched.force_idle_usec 0\nnr_periods 832\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+       "io.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=47612\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=47612",
+       "memory.current": "4618776576",
+       "memory.max": "8589934592",
+       "memory.peak": "4619124736",
+       "memory.pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=318\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=318"
+      },
+      "devfreq": "unavailable: no devfreq/gpu load sysfs path visible",
+      "loadavg": "0.54 0.47 0.61 1/1660 329",
+      "memory_stat": {
+       "anon": "461946880",
+       "file": "4000673792",
+       "pgfault": "226901",
+       "pgmajfault": "0",
+       "pgscan": "128448",
+       "pgsteal": "128448",
+       "workingset_refault_anon": "0",
+       "workingset_refault_file": "128447"
+      },
+      "psi": {
+       "cpu": "some avg10=1.52 avg60=1.70 avg300=1.71 total=49673855429\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+       "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=170622270\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=161445220",
+       "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=3605085\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=3561176"
+      },
+      "threads": "21",
+      "torch_threads": 4
+     }
+    },
+    "scope": "environment snapshots only; vendor MXQ model not instrumented"
+   },
+   "host": {
+    "cpu_s_generate": 0.512847561000001,
+    "cpu_s_preprocess": 0.03521594599999922,
+    "max_rss_kib": 553444,
+    "streamer_token_puts": 2
+   },
+   "image_grid_thw": [
+    [
+     1,
+     28,
+     28
+    ]
+   ],
+   "input_id": "cal-3355890",
+   "processor_sha256": "83faa8e28c2bca6c6e7367b48b41836b749ecc9a289b2489b6e9c9d95af44d81",
+   "prompt_tokens": 225,
+   "text": "pink",
+   "timing": {
+    "decode_text_ms": 0.2530121710151434,
+    "generate_ms": 342.51873497851193,
+    "preprocess_ms": 12.35375297255814,
+    "token_offsets_ms": [
+     279.90323794074357,
+     341.98700403794646
+    ],
+    "total_ms": 355.1255001220852,
+    "ttft_ms": 279.90323794074357
+   },
+   "token_ids": [
+    63249,
+    151645
+   ]
+  },
+  "output_evidence": {
+   "output_tensor_device": "cpu",
+   "output_tensor_note": "host tensor expected: generate returns token ids on the host; the vision/text MXQ computation runs on the NPU and is evidenced by the load-time backend components, not by this tensor"
+  }
+ }
+]

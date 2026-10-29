@@ -1,0 +1,32 @@
+{
+  "run_id": "gmv-diag-20261029t0749",
+  "started_utc": "2026-10-29T07:49:47.682993+00:00",
+  "argv": [
+    "rtk",
+    "proxy",
+    "timeout",
+    "-s",
+    "INT",
+    "1800",
+    "python3",
+    "-B",
+    "-u",
+    "experiments/gpu-mobilint-vlm/diag_live.py",
+    "--frozen",
+    ".scratch/gpu-mobilint-vlm-20261028/developer-frozen-r1",
+    "--prepared",
+    ".scratch/vlm-persistent-ready-20261028/prepared-r1",
+    "--cuda-cache-pvc",
+    ".scratch/vlm-persistent-ready-20261028/cuda-cache-pvc-sd.json",
+    "--io-profile",
+    "sd-adaptive-v1",
+    "--runs",
+    "artifacts/gpu-mobilint-vlm",
+    "--release",
+    ".scratch/gpu-mobilint-placement-20261029/live-diagnostic-release.json",
+    "--stage",
+    "qualification",
+    "--run-id",
+    "gmv-diag-20261029t0749"
+  ]
+}

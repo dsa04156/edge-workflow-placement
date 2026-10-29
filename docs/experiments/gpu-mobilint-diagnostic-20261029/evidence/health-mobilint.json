@@ -1,0 +1,189 @@
+{
+ "status": "ready",
+ "backend": "mobilint",
+ "node": "etri-ser0004-cgnms0",
+ "pod_uid": "d7a9f61a-dba2-46ca-a1a1-886a09cc4bce",
+ "stages": {
+  "vlm": {
+   "backend": "mobilint",
+   "device": "npu:aries-rb",
+   "model_sha256": {
+    "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+    "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+    "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+   },
+   "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+   "evidence": {
+    "device": "npu:aries-rb",
+    "runtime": "qbruntime",
+    "runtime_version": "v1.4.0",
+    "components": {
+     "vision": {
+      "target_device": "aries-rb",
+      "core_mode": "global8",
+      "mxq": "Qwen3-VL-2B-Instruct_vision-W4V8.mxq",
+      "slots": 1,
+      "dev_no": [
+       0
+      ],
+      "input_shapes": [
+       "(1, -1, 1536)",
+       "(1, -1, 1024)",
+       "(1, -1, 128)"
+      ],
+      "output_shapes": [
+       "(1, -1, 2048)",
+       "(1, -1, 2048)",
+       "(1, -1, 2048)",
+       "(1, -1, 2048)"
+      ]
+     },
+     "text": {
+      "target_device": "aries-rb",
+      "core_mode": "global8",
+      "mxq": "Qwen3-VL-2B-Instruct_text-W4V8.mxq",
+      "slots": 1,
+      "dev_no": [
+       0
+      ],
+      "input_shapes": [
+       "(1, -1, 2048)",
+       "(1, -1, 2048)",
+       "(1, -1, 2048)",
+       "(1, -1, 2048)",
+       "(1, -1, 256)"
+      ],
+      "output_shapes": [
+       "(1, 1, 151936)"
+      ]
+     }
+    },
+    "dev_nodes": [
+     "aries0"
+    ],
+    "host_parameters": {
+     "model.visual.pos_embed.weight": {
+      "device": "cpu",
+      "dtype": "torch.float32",
+      "numel": 2359296
+     },
+     "model.language_model.embed_tokens.weight": {
+      "device": "cpu",
+      "dtype": "torch.float32",
+      "numel": 311164928
+     }
+    },
+    "backend": "mobilint",
+    "model": "mobilint-qwen3vl-2b-f4be563",
+    "weights_sha256": {
+     "Qwen3-VL-2B-Instruct_text-W4V8.mxq": "56bea0e80aeb4c79441a203357987a063d37d625f1bde36a6a885fa2c01b36f8",
+     "Qwen3-VL-2B-Instruct_vision-W4V8.mxq": "3a2edc0439928689b047c14e20c48e6a58c605e403e1dc436b94ded001b40a23",
+     "model.safetensors": "5ba86da957b1803375b061061827db1af7d186e0418f4e6cd55ae607b0de9af7"
+    },
+    "host_threads": 4,
+    "hash_ms": 2273.4205138403922,
+    "load_ms": 3618.8248561229557,
+    "pid": 29,
+    "diagnostic": {
+     "hooked_modules": null,
+     "event_note": null
+    }
+   },
+   "process": {
+    "backend": "mobilint",
+    "model": "mobilint-qwen3vl-2b-f4be563",
+    "contract_sha256": "91e1650f0a38ea43eb3d0dc56555119ac74773abfcdd6128a14cec9a98281891",
+    "load_deadline_s": 900,
+    "call_deadline_s": 300,
+    "log": "/work/logs/vlm-mobilint-child.log",
+    "started_at": 1793260508.3062716,
+    "load_wall_ms": 6945.798065047711,
+    "state": "ready",
+    "child_pid": 29
+   }
+  }
+ },
+ "errors": {},
+ "queue": {
+  "waiting": 0,
+  "active": 0,
+  "completed": 0
+ },
+ "bootstrap": {
+  "phase": "loaded",
+  "started_utc": "2026-10-29T07:54:39Z",
+  "events": [
+   {
+    "kind": "fetched",
+    "ms": 4725.843247957528
+   },
+   {
+    "kind": "subprocess",
+    "name": "pip-install",
+    "command": [
+     "/usr/local/bin/python3",
+     "-m",
+     "pip",
+     "install",
+     "--no-index",
+     "--no-cache-dir",
+     "--disable-pip-version-check",
+     "--no-deps"
+    ],
+    "started_utc": "2026-10-29T07:54:44Z",
+    "finished_utc": "2026-10-29T07:55:08Z",
+    "seconds": 23.633340288884938,
+    "timeout_s": 1800.0,
+    "timed_out": false,
+    "returncode": 0,
+    "pgid": 15,
+    "stdout": "/work/logs/pip-install.stdout",
+    "stderr": "/work/logs/pip-install.stderr",
+    "stdout_bytes": 3674,
+    "stderr_bytes": 222,
+    "retention": {
+     "stdout": {
+      "total_bytes": 3674,
+      "retained_head_bytes": 3674,
+      "truncated_bytes": 0,
+      "retained_file_bytes": 3674,
+      "drained": true,
+      "write_error": null
+     },
+     "stderr": {
+      "total_bytes": 222,
+      "retained_head_bytes": 222,
+      "truncated_bytes": 0,
+      "retained_file_bytes": 222,
+      "drained": true,
+      "write_error": null
+     }
+    },
+    "log_write_errors": {},
+    "stdout_tail": "-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/urllib3-2.8.0-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/tqdm-4.70.1-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/typing_extensions-4.16.0-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/sympy-1.14.0-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/mpmath-1.3.0-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/networkx-3.6.1-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/jinja2-3.1.6-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/opencv_python_headless-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/transformers_mblt-0.6.1-py3-none-any.whl\nProcessing /work/wheels/mobilint-x86_64-cp311/mblt_npu_python-0.1.0-py3-none-any.whl\nInstalling collected packages: mpmath, urllib3, typing_extensions, transformers-mblt, transformers, tqdm, torchvision, torch, tokenizers, sympy, safetensors, requests, regex, pyyaml, pillow, packaging, opencv-python-headless, networkx, mblt-npu-python, markupsafe, jinja2, idna, huggingface_hub, hf_xet, fsspec, filelock, charset_normalizer, certifi\nSuccessfully installed certifi-2026.10.18 charset_normalizer-3.5.2 filelock-4.2.4 fsspec-2026.9.0 hf_xet-1.7.0 huggingface_hub-0.36.2 idna-3.20 jinja2-3.1.6 markupsafe-3.0.4 mblt-npu-python-0.1.0 mpmath-1.3.0 networkx-3.6.1 opencv-python-headless-4.11.0.86 packaging-26.3 pillow-11.3.0 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 sympy-1.14.0 tokenizers-0.22.2 torch-2.8.0+cpu torchvision-0.23.0+cpu tqdm-4.70.1 transformers-4.57.1 transformers-mblt-0.6.1 typing_extensions-4.16.0 urllib3-2.8.0\n",
+    "stderr_tail": "WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n"
+   }
+  ],
+  "discovery": {
+   "machine": "x86_64",
+   "python": "3.11.16",
+   "kernel": "6.8.0-138-generic",
+   "node": "etri-ser0004-cgnms0",
+   "/proc/device-tree/model": "unreadable: FileNotFoundError",
+   "/etc/nv_tegra_release": "unreadable: FileNotFoundError",
+   "dev": [
+    "aries0"
+   ],
+   "NVIDIA_VISIBLE_DEVICES": null,
+   "cuda_driver": {
+    "library": null,
+    "load_errors": [
+     "libcuda.so.1: libcuda.so.1: cannot open shared object file: No such file or directory",
+     "libcuda.so: libcuda.so: cannot open shared object file: No such file or directory"
+    ]
+   }
+  },
+  "recipe": "mobilint-x86_64-cp311",
+  "finished_utc": "2026-10-29T07:55:15Z"
+ }
+}
