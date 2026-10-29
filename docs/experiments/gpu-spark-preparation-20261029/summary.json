@@ -1,0 +1,57 @@
+{
+  "gpu_run": "gmv-spark-20261029t094514",
+  "network_run": "gmv-spark-net-20261029",
+  "request_count": 1,
+  "node": "etri-ser0003-cg0ms0",
+  "device": "NVIDIA GB10",
+  "model": "Qwen3-VL-2B-Instruct",
+  "precision": "BF16",
+  "input": "smoke-1713820",
+  "status": "ok",
+  "output_text": "skateboard",
+  "request_wall_ms": 3481.9969259988284,
+  "worker_wall_ms": 3471.3211241178215,
+  "timing": {
+    "decode_text_ms": 0.1282738521695137,
+    "generate_ms": 3436.07907416299,
+    "preprocess_ms": 23.613394936546683,
+    "token_offsets_ms": [
+      3355.802739970386,
+      3386.831128038466,
+      3411.4815411157906,
+      3435.8919360674918
+    ],
+    "total_ms": 3459.820742951706,
+    "ttft_ms": 3355.802739970386
+  },
+  "queue_wait_ms": 0.007279915735125542,
+  "model_load_ms": 28988.302258076146,
+  "artifact_fetch_ms": 218163.33899321035,
+  "gpu_run_wall_seconds": 473.969369,
+  "network": {
+    "rows": [
+      {
+        "status": "ok",
+        "ms": 4.8309010453522205,
+        "bytes": 64,
+        "sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"
+      },
+      {
+        "status": "ok",
+        "ms": 10.180143872275949,
+        "bytes": 818048,
+        "sha256": "3c89fb9060d7a0ef654dc2d5b4a2c9d499806ace485cc5225431098d1c8dd5ce"
+      },
+      {
+        "status": "ok",
+        "ms": 9.231958072632551,
+        "bytes": 593966,
+        "sha256": "035feced8509d2f14fcdc87ecfc401fdd615d04b4c99a250f5708490ad74a79e"
+      }
+    ],
+    "semantics": "Receiver-side HTTP GET elapsed time for zero-filled size-matched payloads; source->GPU host data direction. Includes HTTP/server overhead; not pure link RTT or inference E2E. No shaping or concurrent-load experiment."
+  },
+  "gpu_cleanup_verified": true,
+  "network_cleanup_verified": true,
+  "scope": "GPU smoke and native transfer preparation only; no policy comparison; no quality validation; no p95 or repeated samples; no Mobilint run; dev0009 excluded"
+}

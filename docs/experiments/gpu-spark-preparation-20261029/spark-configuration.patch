@@ -1,0 +1,22 @@
+--- a/experiments/gpu-mobilint-vlm/protocol.py
++++ b/experiments/gpu-mobilint-vlm/protocol.py
+@@ -17,2 +17,2 @@
+-SERVER = 'etri-ser0004-cgnms0'
+-JETSON = 'etri-dev0009-jetorn'
++SERVER = 'etri-ser0002-cgnmsb'
++JETSON = 'etri-ser0003-cg0ms0'
+@@ -58,2 +58,2 @@
+-    'cuda': dict(node=JETSON, edge=True, image=PY_IMAGE, recipe='cu130-aarch64-cp311', model='qwen3vl-2b-89644892',
+-                 device_resource={'nvidia.com/gpu.shared': 1}, cpu='4', memory='5Gi', memory_limit='6656Mi', storage='20Gi',
++    'cuda': dict(node=JETSON, edge=False, image=PY_IMAGE, recipe='cu130-aarch64-cp311', model='qwen3vl-2b-89644892',
++                 device_resource={'nvidia.com/gpu': 1}, cpu='4', memory='8Gi', memory_limit='12Gi', storage='20Gi',
+--- a/experiments/gpu-mobilint-vlm/live.py
++++ b/experiments/gpu-mobilint-vlm/live.py
+@@ -149,0 +150,2 @@
++    if arm == 'cuda':
++        spec['runtimeClassName'] = 'nvidia-spark'
+--- a/experiments/gpu-mobilint-vlm/vlm_bootstrap.py
++++ b/experiments/gpu-mobilint-vlm/vlm_bootstrap.py
+@@ -54 +54 @@
+-FETCH_RATE_BPS = 8 * 1024**2  # vlm_bootstrap: bounded fetch IO (see header)
++FETCH_RATE_BPS = 32 * 1024**2  # vlm_bootstrap: bounded fetch IO (see header)

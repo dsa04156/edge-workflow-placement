@@ -1,0 +1,167 @@
+{
+ "status": "ready",
+ "backend": "cuda",
+ "node": "etri-ser0003-cg0ms0",
+ "pod_uid": "0fdb9feb-b6cb-476c-81f1-04600e0fabfc",
+ "stages": {
+  "vlm": {
+   "backend": "cuda",
+   "device": "cuda:0",
+   "model_sha256": {
+    "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+   },
+   "contract_sha256": "4b902ef01fb0f95378d5db7fa142e47a7f253d962236256a7df6bd9dd21a97fb",
+   "evidence": {
+    "device": "cuda:0",
+    "runtime": "torch",
+    "runtime_version": "2.9.1+cu130",
+    "cuda": "13.0",
+    "device_name": "NVIDIA GB10",
+    "capability": [
+     12,
+     1
+    ],
+    "parameter_devices": [
+     "cuda:0"
+    ],
+    "buffer_devices": [
+     "cuda:0"
+    ],
+    "parameters": 2127532032,
+    "dtypes": [
+     "torch.bfloat16"
+    ],
+    "memory_allocated": 4256128000,
+    "backend": "cuda",
+    "model": "qwen3vl-2b-89644892",
+    "weights_sha256": {
+     "model.safetensors": "7de1838c87a5349b016c26a1c3f7d2bc400a3d485f95ef39a7059ffd734977a0"
+    },
+    "host_threads": 4,
+    "hash_ms": 6248.347130138427,
+    "load_ms": 28988.302258076146,
+    "pid": 177
+   },
+   "process": {
+    "backend": "cuda",
+    "model": "qwen3vl-2b-89644892",
+    "contract_sha256": "4b902ef01fb0f95378d5db7fa142e47a7f253d962236256a7df6bd9dd21a97fb",
+    "load_deadline_s": 1200,
+    "call_deadline_s": 300,
+    "log": "/work/logs/vlm-cuda-child.log",
+    "started_at": 1793267541.289905,
+    "load_wall_ms": 36752.73738801479,
+    "state": "ready",
+    "child_pid": 177
+   }
+  }
+ },
+ "errors": {},
+ "queue": {
+  "waiting": 0,
+  "active": 0,
+  "completed": 0
+ },
+ "bootstrap": {
+  "phase": "loaded",
+  "started_utc": "2026-10-29T09:48:19Z",
+  "events": [
+   {
+    "kind": "fetched",
+    "ms": 218163.33899321035
+   },
+   {
+    "kind": "subprocess",
+    "name": "pip-install",
+    "command": [
+     "/usr/local/bin/python3",
+     "-m",
+     "pip",
+     "install",
+     "--no-index",
+     "--no-cache-dir",
+     "--disable-pip-version-check",
+     "--find-links"
+    ],
+    "started_utc": "2026-10-29T09:51:58Z",
+    "finished_utc": "2026-10-29T09:52:21Z",
+    "seconds": 23.252306326990947,
+    "timeout_s": 1800.0,
+    "timed_out": false,
+    "returncode": 0,
+    "pgid": 161,
+    "stdout": "/work/logs/pip-install.stdout",
+    "stderr": "/work/logs/pip-install.stderr",
+    "stdout_bytes": 7201,
+    "stderr_bytes": 222,
+    "retention": {
+     "stdout": {
+      "total_bytes": 7201,
+      "retained_head_bytes": 7201,
+      "truncated_bytes": 0,
+      "retained_file_bytes": 7201,
+      "drained": true,
+      "write_error": null
+     },
+     "stderr": {
+      "total_bytes": 222,
+      "retained_head_bytes": 222,
+      "truncated_bytes": 0,
+      "retained_file_bytes": 222,
+      "drained": true,
+      "write_error": null
+     }
+    },
+    "log_write_errors": {},
+    "stdout_tail": "1+cu130)\nProcessing /work/wheels/cu130-aarch64-cp311/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cu130-aarch64-cp311/idna-3.20-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cu130-aarch64-cp311/urllib3-2.8.0-py3-none-any.whl (from requests->transformers==4.57.1)\nProcessing /work/wheels/cu130-aarch64-cp311/certifi-2026.10.19-py3-none-any.whl (from requests->transformers==4.57.1)\nInstalling collected packages: nvidia-cusparselt-cu13, mpmath, urllib3, typing-extensions, triton, tqdm, sympy, safetensors, regex, pyyaml, psutil, pillow, packaging, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, nvidia-cublas, numpy, networkx, MarkupSafe, idna, hf-xet, fsspec, filelock, charset_normalizer, certifi, requests, nvidia-cusparse, nvidia-cufft, nvidia-cudnn-cu13, jinja2, nvidia-cusolver, huggingface-hub, torch, tokenizers, transformers, torchvision, accelerate\nSuccessfully installed MarkupSafe-3.0.4 accelerate-1.10.1 certifi-2026.10.19 charset_normalizer-3.5.2 filelock-4.2.4 fsspec-2026.9.0 hf-xet-1.7.0 huggingface-hub-0.36.2 idna-3.20 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 numpy-1.26.4 nvidia-cublas-13.0.0.19 nvidia-cuda-cupti-13.0.48 nvidia-cuda-nvrtc-13.0.48 nvidia-cuda-runtime-13.0.48 nvidia-cudnn-cu13-9.13.0.50 nvidia-cufft-12.0.0.15 nvidia-cufile-1.15.0.42 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.3.29 nvidia-cusparse-12.6.2.49 nvidia-cusparselt-cu13-0.8.0 nvidia-nccl-cu13-2.27.7 nvidia-nvjitlink-13.0.39 nvidia-nvshmem-cu13-3.3.24 nvidia-nvtx-13.0.39 packaging-26.3 pillow-11.3.0 psutil-7.1.0 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 safetensors-0.8.0 sympy-1.14.0 tokenizers-0.22.2 torch-2.9.1+cu130 torchvision-0.24.1 tqdm-4.70.1 transformers-4.57.1 triton-3.5.1 typing-extensions-4.16.0 urllib3-2.8.0\n",
+    "stderr_tail": "WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n"
+   }
+  ],
+  "discovery": {
+   "machine": "aarch64",
+   "python": "3.11.16",
+   "kernel": "6.17.0-1032-nvidia",
+   "node": "etri-ser0003-cg0ms0",
+   "/proc/device-tree/model": "unreadable: FileNotFoundError",
+   "/etc/nv_tegra_release": "unreadable: FileNotFoundError",
+   "dev": [
+    "dri",
+    "nvidia-modeset",
+    "nvidia-uvm",
+    "nvidia-uvm-tools",
+    "nvidia0",
+    "nvidiactl"
+   ],
+   "NVIDIA_VISIBLE_DEVICES": "void",
+   "cuda_driver": {
+    "library": "libcuda.so.1",
+    "cuInit": 0,
+    "cuDriverGetVersion": 0,
+    "driver_version": 13000,
+    "cuDeviceGetCount": 0,
+    "device_count": 1,
+    "device_names": [
+     "NVIDIA GB10"
+    ]
+   }
+  },
+  "recipe": "cu130-aarch64-cp311",
+  "fetch_io": {
+   "rate_cap_bps": 33554432,
+   "sync_every_bytes": 16777216,
+   "fadvise_dontneed": true
+  },
+  "fetch_progress": {
+   "written": 293625,
+   "synced": 293625,
+   "syncs": 1,
+   "fadvise_calls": 1,
+   "bytes": 293625,
+   "path": "wheels/cu130-aarch64-cp311/psutil-7.1.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+   "files_done": 60,
+   "total_bytes": 7166263060,
+   "elapsed_s": 218.163
+  },
+  "finished_utc": "2026-10-29T09:52:58Z"
+ }
+}
